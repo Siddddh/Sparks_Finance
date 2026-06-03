@@ -1,0 +1,24 @@
+[debug] [2026-06-02T22:09:28.021Z] ----------------------------------------------------------------------
+[debug] [2026-06-02T22:09:28.023Z] Command:       /usr/bin/node /sessions/festive-modest-franklin/.npm-global/node_modules/.bin/firebase deploy --project claude-apps-a6fe1 --only hosting
+[debug] [2026-06-02T22:09:28.024Z] CLI Version:   15.19.0
+[debug] [2026-06-02T22:09:28.024Z] Platform:      linux
+[debug] [2026-06-02T22:09:28.024Z] Node Version:  v22.22.0
+[debug] [2026-06-02T22:09:28.024Z] Time:          Tue Jun 02 2026 22:09:28 GMT+0000 (Coordinated Universal Time)
+[debug] [2026-06-02T22:09:28.024Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-02T22:09:28.027Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-06-02T22:09:29.336Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-02T22:09:29.346Z] Error: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.
+    at GoogleAuth.getApplicationDefaultAsync (/sessions/festive-modest-franklin/.npm-global/node_modules/google-auth-library/build/src/auth/googleauth.js:287:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async GoogleAuth._GoogleAuth_determineClient (/sessions/festive-modest-franklin/.npm-global/node_modules/google-auth-library/build/src/auth/googleauth.js:834:32)
+    at async GoogleAuth.getClient (/sessions/festive-modest-franklin/.npm-global/node_modules/google-auth-library/build/src/auth/googleauth.js:698:20)
+    at async GoogleAuth.getAccessToken (/sessions/festive-modest-franklin/.npm-global/node_modules/google-auth-library/build/src/auth/googleauth.js:722:24)
+    at async autoAuth (/sessions/festive-modest-franklin/.npm-global/node_modules/firebase-tools/lib/requireAuth.js:28:19)
+    at async requireAuth (/sessions/festive-modest-franklin/.npm-global/node_modules/firebase-tools/lib/requireAuth.js:90:20)
+    at async requirePermissions (/sessions/festive-modest-franklin/.npm-global/node_modules/firebase-tools/lib/requirePermissions.js:17:5)
+    at async /sessions/festive-modest-franklin/.npm-global/node_modules/firebase-tools/lib/command.js:271:17
+[error] 
+[error] Error: Failed to authenticate, have you run firebase login?
+[debug] [2026-06-02T22:09:29.543Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2026-06-02T22:09:29.544Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}

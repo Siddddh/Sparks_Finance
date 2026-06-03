@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Scan data — public read, no public write (writes via Admin SDK only)
+    match /scans/{document} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Daily history summaries — public read, no public write
+    match /history/{document} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

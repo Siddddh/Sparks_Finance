@@ -1,0 +1,350 @@
+{
+  "fetched_at": "2026-05-04 21:01 ET",
+  "ticker_news": {
+    "AMD": {
+      "news_score_addon": 0.1,
+      "news_sentiment": "NEUTRAL",
+      "has_catalyst": false,
+      "has_breaking": true,
+      "top_news": [
+        {
+          "title": "Earnings live updates: Palantir to kick off busy week as S&P 500 earnings growth trend impresses",
+          "outlet": "Yahoo Finance",
+          "url": "https://finance.yahoo.com/markets/live/earnings-live-updates-sp-500-earnings-growth-trend-impresses-100000216.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 11.0
+        },
+        {
+          "title": "Jim Cramer Says He Would \u201cBuy Some AMD Ahead of the Quarter\u201d",
+          "outlet": "Insider Monkey",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-buy-amd-182116121.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": true,
+          "catalyst": false,
+          "age_hours": 2.7
+        },
+        {
+          "title": "Nvidia CEO Jensen Huang says company now has zero market share in China",
+          "outlet": "Yahoo Finance",
+          "url": "https://finance.yahoo.com/sectors/technology/article/nvidia-ceo-jensen-huang-says-company-now-has-zero-market-share-in-china-150805330.html",
+          "sentiment": "NEUTRAL",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 5.9
+        },
+        {
+          "title": "Jim Cramer Calls Arm Holdings a \u201cReal Good One\u201d",
+          "outlet": "Insider Monkey",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-calls-arm-holdings-182126281.html",
+          "sentiment": "NEUTRAL",
+          "breaking": true,
+          "catalyst": false,
+          "age_hours": 2.7
+        }
+      ]
+    },
+    "CAT": {
+      "news_score_addon": 0.8,
+      "news_sentiment": "SLIGHTLY BULLISH",
+      "has_catalyst": false,
+      "has_breaking": true,
+      "top_news": [
+        {
+          "title": "CAT Q1 Deep Dive: Data Center Demand and Capacity Expansion Drive Strong Results",
+          "outlet": "StockStory",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/cat-q1-deep-dive-data-125255039.html",
+          "sentiment": "BULLISH",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 56.1
+        },
+        {
+          "title": "BofA Highlights Energy Growth Driving Caterpillar (CAT) Upside",
+          "outlet": "Insider Monkey",
+          "url": "https://finance.yahoo.com/sectors/energy/articles/bofa-highlights-energy-growth-driving-075148214.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 37.2
+        },
+        {
+          "title": "Terex Q1 Earnings Call Highlights",
+          "outlet": "MarketBeat",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/terex-q1-earnings-call-highlights-142954609.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 54.5
+        },
+        {
+          "title": "Jim Cramer on Caterpillar: \u201cIt\u2019s Got a Ton of Business From the Data Center Build-Out\u201d",
+          "outlet": "Insider Monkey",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-caterpillar-got-ton-155113571.html",
+          "sentiment": "NEUTRAL",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 29.2
+        }
+      ]
+    },
+    "NVDA": {
+      "news_score_addon": 0.6,
+      "news_sentiment": "NEUTRAL",
+      "has_catalyst": false,
+      "has_breaking": true,
+      "top_news": [
+        {
+          "title": "Magna Stock Craters 10% as Strong Q1 Fails to Lift Full-Year Outlook",
+          "outlet": "24/7 Wall St.",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/magna-stock-craters-10-strong-194153565.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": true,
+          "catalyst": false,
+          "age_hours": 1.3
+        },
+        {
+          "title": "Meta's Revenue Growth Is Impressive, but This Remains a Big Problem",
+          "outlet": "Motley Fool",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/metas-revenue-growth-impressive-remains-195000653.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": true,
+          "catalyst": false,
+          "age_hours": 1.2
+        },
+        {
+          "title": "Nvidia CEO Jensen Huang says company now has zero market share in China",
+          "outlet": "Yahoo Finance",
+          "url": "https://finance.yahoo.com/sectors/technology/article/nvidia-ceo-jensen-huang-says-company-now-has-zero-market-share-in-china-150805330.html",
+          "sentiment": "NEUTRAL",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 5.9
+        },
+        {
+          "title": "The \"Magnificent Seven\" Have a Combined Market Cap of Just Under $23 Trillion. Is Now the Time to Diversify Outside of Tech?",
+          "outlet": "Motley Fool",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/magnificent-seven-combined-market-cap-195000390.html",
+          "sentiment": "NEUTRAL",
+          "breaking": true,
+          "catalyst": false,
+          "age_hours": 1.2
+        }
+      ]
+    },
+    "AVGO": {
+      "news_score_addon": 3.4,
+      "news_sentiment": "BULLISH",
+      "has_catalyst": false,
+      "has_breaking": true,
+      "top_news": [
+        {
+          "title": "Credo Technology Stock Up 28% YTD: Is There More Upside Ahead?",
+          "outlet": "Zacks",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/credo-technology-stock-28-ytd-152300025.html",
+          "sentiment": "BULLISH",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 5.6
+        },
+        {
+          "title": "Broadcom, Qualcomm, or TSMC: Why One AI Chip Stock Won Decisively in April",
+          "outlet": "24/7 Wall St.",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/broadcom-qualcomm-tsmc-why-one-193731255.html",
+          "sentiment": "BULLISH",
+          "breaking": true,
+          "catalyst": false,
+          "age_hours": 1.4
+        },
+        {
+          "title": "Texas Instruments Soars 62% YTD: Is TXN Stock Still Worth Buying?",
+          "outlet": "Zacks",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/texas-instruments-soars-62-ytd-132600331.html",
+          "sentiment": "BULLISH",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 7.6
+        },
+        {
+          "title": "Can Strong Data Center Revenues Boost AMD's Topline in Q1 Earnings?",
+          "outlet": "Zacks",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/strong-data-center-revenues-boost-180300113.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": true,
+          "catalyst": false,
+          "age_hours": 3.0
+        }
+      ]
+    },
+    "LRCX": {
+      "news_score_addon": 2.1,
+      "news_sentiment": "SLIGHTLY BULLISH",
+      "has_catalyst": false,
+      "has_breaking": true,
+      "top_news": [
+        {
+          "title": "Wolfe Raises Target for KLA Corp (KLAC) on Growth Forecast",
+          "outlet": "Insider Monkey",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/wolfe-raises-target-kla-corp-075155133.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 37.2
+        },
+        {
+          "title": "nLIGHT Gears Up to Report Q1 Earnings: What's in Store for the Stock?",
+          "outlet": "Zacks",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/nlight-gears-report-q1-earnings-152200137.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 5.7
+        },
+        {
+          "title": "China\u2019s Semiconductor Equipment Companies Gain Share Despite U.S. Sanctions",
+          "outlet": "24/7 Wall St.",
+          "url": "https://finance.yahoo.com/sectors/technology/articles/china-semiconductor-equipment-companies-gain-011310507.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": false,
+          "catalyst": false,
+          "age_hours": 67.8
+        },
+        {
+          "title": "KLA Is Gaining Share as AI Chip Complexity Drives Up Yield Costs",
+          "outlet": "24/7 Wall St.",
+          "url": "https://finance.yahoo.com/sectors/technology/articles/kla-gaining-share-ai-chip-195206327.html",
+          "sentiment": "SLIGHTLY BULLISH",
+          "breaking": true,
+          "catalyst": false,
+          "age_hours": 1.2
+        }
+      ]
+    }
+  },
+  "market_news": [
+    {
+      "title": "The Stock Market Is Doing Something for Only the 4th Time in 156 Years -- and History Is Very Clear About What Happens Next",
+      "summary": "Stock market indicators rarely get this extreme.",
+      "outlet": "Motley Fool",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-doing-something-only-202000921.html",
+      "pub_date": "2026-05-04T20:20:00Z",
+      "age_hours": 0.7,
+      "breaking": true,
+      "sentiment_score": 0,
+      "sentiment_label": "NEUTRAL",
+      "is_catalyst": false,
+      "trigger_keywords": []
+    },
+    {
+      "title": "Can Nancy Pelosi\u2019s Favorite AI Stock Hope to Regain Its Momentum?",
+      "summary": "Investors are watching Tempus AI (NASDAQ:TEM) ahead of first-quarter results due after the close tomorrow. The stock burst into investor consciousness in January 2025 after Nancy Pelosi disclosed a po\u2026",
+      "outlet": "24/7 Wall St.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/nancy-pelosi-favorite-ai-stock-185613748.html",
+      "pub_date": "2026-05-04T18:56:13Z",
+      "age_hours": 2.1,
+      "breaking": true,
+      "sentiment_score": 3,
+      "sentiment_label": "BULLISH",
+      "is_catalyst": false,
+      "trigger_keywords": [
+        "beat",
+        "gain",
+        "momentum"
+      ]
+    },
+    {
+      "title": "AI Trade Sends Asian Tech Shares Up 4.7% To Record",
+      "summary": "Asian equities rallied near all-time highs as chipmakers surged and investors weighed AI momentum against oil and geopolitical risks.",
+      "outlet": "GuruFocus.com",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/ai-trade-sends-asian-tech-181453202.html",
+      "pub_date": "2026-05-04T18:14:53Z",
+      "age_hours": 2.8,
+      "breaking": true,
+      "sentiment_score": 10,
+      "sentiment_label": "BULLISH",
+      "is_catalyst": false,
+      "trigger_keywords": [
+        "surged",
+        "rallied",
+        "all-time high",
+        "gain",
+        "momentum"
+      ]
+    },
+    {
+      "title": "Exchange-Traded Funds Lower as US Equities Drop After Midday",
+      "summary": "Broad Market Indicators Broad-market exchange-traded fund IWM and IVV fell. Actively traded In",
+      "outlet": "MT Newswires",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-lower-us-170923366.html",
+      "pub_date": "2026-05-04T17:09:23Z",
+      "age_hours": 3.9,
+      "breaking": true,
+      "sentiment_score": -1,
+      "sentiment_label": "SLIGHTLY BEARISH",
+      "is_catalyst": false,
+      "trigger_keywords": [
+        "lower"
+      ]
+    },
+    {
+      "title": "3 Leveraged ETF Areas of April That Are Up At least 150%",
+      "summary": "Leveraged ETFs tied to Intel, Bloom Energy and AAOI skyrocketed in April, riding AI demand, earnings strength and surging energy trends.",
+      "outlet": "Zacks",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/3-leveraged-etf-areas-april-160000712.html",
+      "pub_date": "2026-05-04T16:00:00Z",
+      "age_hours": 5.0,
+      "breaking": false,
+      "sentiment_score": 1,
+      "sentiment_label": "SLIGHTLY BULLISH",
+      "is_catalyst": false,
+      "trigger_keywords": [
+        "demand"
+      ]
+    },
+    {
+      "title": "\u201cIf a 2% Market Move Makes You Question Your Retirement Plan, You Don\u2019t Have One\u201d",
+      "summary": "The host of Retire SMART Podcast Episode 405 offered a line that should sit on every pre-retiree\u2019s refrigerator: \u201cIf the market moving 2% up or down in a single day makes you think you don\u2019t have a go\u2026",
+      "outlet": "24/7 Wall St.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/2-market-move-makes-retirement-153804643.html",
+      "pub_date": "2026-05-04T15:38:04Z",
+      "age_hours": 5.4,
+      "breaking": false,
+      "sentiment_score": 0,
+      "sentiment_label": "NEUTRAL",
+      "is_catalyst": false,
+      "trigger_keywords": []
+    },
+    {
+      "title": "Intel Stock Was Up 115% in April. How to Play It With Options Now.",
+      "summary": "Options strategies offer ways to participate in future upside for hot stocks\u2014and protect yourself from a potential selloff.",
+      "outlet": "Barron's",
+      "url": "https://www.barrons.com/articles/intel-stook-price-options-26e21458?siteid=yhoof2&yptr=yahoo",
+      "pub_date": "2026-05-04T15:15:00Z",
+      "age_hours": 5.8,
+      "breaking": false,
+      "sentiment_score": -2,
+      "sentiment_label": "SLIGHTLY BEARISH",
+      "is_catalyst": false,
+      "trigger_keywords": [
+        "upside",
+        "selloff"
+      ]
+    },
+    {
+      "title": "Market Greed Is Back: Oil and the Hormuz Strait Didn\u2019t Get the Memo.",
+      "summary": "The CBOE Volatility Index (CBOE:VIX) is up 2.2% today to hover just above 17, snapping back from Friday\u2019s close as renewed Middle East tensions and crude price spikes reintroduce risk premium into opt\u2026",
+      "outlet": "24/7 Wall St.",
+      "url": "https://finance.yahoo.com/sectors/energy/articles/market-greed-back-oil-hormuz-145459795.html",
+      "pub_date": "2026-05-04T14:54:59Z",
+      "age_hours": 6.1,
+      "breaking": false,
+      "sentiment_score": 3,
+      "sentiment_label": "BULLISH",
+      "is_catalyst": false,
+      "trigger_keywords": [
+        "all-time high"
+      ]
+    }
+  ]
+}

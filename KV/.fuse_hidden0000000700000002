@@ -1,0 +1,103 @@
+[debug] [2026-06-02T22:09:38.443Z] ----------------------------------------------------------------------
+[debug] [2026-06-02T22:09:38.445Z] Command:       /usr/bin/node /sessions/festive-modest-franklin/.npm-global/node_modules/.bin/firebase deploy --project claude-apps-a6fe1 --only hosting
+[debug] [2026-06-02T22:09:38.445Z] CLI Version:   15.19.0
+[debug] [2026-06-02T22:09:38.445Z] Platform:      linux
+[debug] [2026-06-02T22:09:38.445Z] Node Version:  v22.22.0
+[debug] [2026-06-02T22:09:38.446Z] Time:          Tue Jun 02 2026 22:09:38 GMT+0000 (Coordinated Universal Time)
+[debug] [2026-06-02T22:09:38.446Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-02T22:09:39.416Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-02T22:09:39.635Z] Running auto auth
+[debug] [2026-06-02T22:09:39.635Z] [iam] checking project claude-apps-a6fe1 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-06-02T22:09:39.636Z] No OAuth tokens found
+[debug] [2026-06-02T22:09:39.637Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/claude-apps-a6fe1:testIamPermissions [none]
+[debug] [2026-06-02T22:09:39.638Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/claude-apps-a6fe1:testIamPermissions  x-goog-user-project=claude-apps-a6fe1
+[debug] [2026-06-02T22:09:39.638Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/claude-apps-a6fe1:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-06-02T22:09:39.843Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/claude-apps-a6fe1:testIamPermissions 200
+[debug] [2026-06-02T22:09:39.843Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/claude-apps-a6fe1:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-06-02T22:09:39.844Z] No OAuth tokens found
+[debug] [2026-06-02T22:09:39.844Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/claude-apps-a6fe1 [none]
+[debug] [2026-06-02T22:09:40.178Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/claude-apps-a6fe1 200
+[debug] [2026-06-02T22:09:40.178Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/claude-apps-a6fe1 {"projectId":"claude-apps-a6fe1","projectNumber":"587653358402","displayName":"Claude Apps","name":"projects/claude-apps-a6fe1","resources":{"hostingSite":"claude-apps-a6fe1"},"state":"ACTIVE","etag":"1_fbe58b01-aeeb-414f-9f6f-18a152f84c12"}
+[info] 
+[info] === Deploying to 'claude-apps-a6fe1'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-06-02T22:09:40.184Z] No OAuth tokens found
+[debug] [2026-06-02T22:09:40.185Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/claude-apps-a6fe1/sites/claude-apps-a6fe1 [none]
+[debug] [2026-06-02T22:09:40.927Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/claude-apps-a6fe1/sites/claude-apps-a6fe1 200
+[debug] [2026-06-02T22:09:40.927Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/claude-apps-a6fe1/sites/claude-apps-a6fe1 {"name":"projects/claude-apps-a6fe1/sites/claude-apps-a6fe1","defaultUrl":"https://claude-apps-a6fe1.web.app","appId":"1:587653358402:web:6e1e468ab773f642d69edb","type":"DEFAULT_SITE"}
+[debug] [2026-06-02T22:09:40.928Z] No OAuth tokens found
+[debug] [2026-06-02T22:09:40.929Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/versions [none]
+[debug] [2026-06-02T22:09:40.929Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-06-02T22:09:41.801Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/versions 200
+[debug] [2026-06-02T22:09:41.801Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/versions {"name":"projects/587653358402/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[claude-apps-a6fe1]: beginning deploy... 
+[info] i  hosting[claude-apps-a6fe1]: found 1 files in firebase_hosting 
+[debug] [2026-06-02T22:09:41.821Z] [hosting] uploading with 200 concurrency
+[debug] [2026-06-02T22:09:41.831Z] No OAuth tokens found
+[debug] [2026-06-02T22:09:41.835Z] [hosting] hash cache [ZmlyZWJhc2VfaG9zdGluZw] stored for 1 files
+[debug] [2026-06-02T22:09:41.835Z] [hosting][hash queue][FINAL] {"max":6,"min":6,"avg":6,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":11}
+[debug] [2026-06-02T22:09:41.836Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/587653358402/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae:populateFiles [none]
+[debug] [2026-06-02T22:09:41.836Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/587653358402/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae:populateFiles {"files":{"/index.html":"7f1e89fc3c1abccffa5b25fb83fa901224f14aaf90ece57ab4358986d287a375"}}
+[debug] [2026-06-02T22:09:42.514Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/587653358402/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae:populateFiles 200
+[debug] [2026-06-02T22:09:42.514Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/587653358402/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae:populateFiles {"uploadRequiredHashes":["7f1e89fc3c1abccffa5b25fb83fa901224f14aaf90ece57ab4358986d287a375"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae/files"}
+[debug] [2026-06-02T22:09:42.515Z] No OAuth tokens found
+[debug] [2026-06-02T22:09:42.515Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae/files/7f1e89fc3c1abccffa5b25fb83fa901224f14aaf90ece57ab4358986d287a375 [none]
+[debug] [2026-06-02T22:09:42.515Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae/files/7f1e89fc3c1abccffa5b25fb83fa901224f14aaf90ece57ab4358986d287a375 [stream]
+[debug] [2026-06-02T22:09:42.518Z] [hosting][populate queue][FINAL] {"max":684,"min":684,"avg":684,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":687}
+[debug] [2026-06-02T22:09:42.518Z] [hosting] uploads queued: 1
+[debug] [2026-06-02T22:09:43.228Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae/files/7f1e89fc3c1abccffa5b25fb83fa901224f14aaf90ece57ab4358986d287a375 200
+[debug] [2026-06-02T22:09:43.228Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae/files/7f1e89fc3c1abccffa5b25fb83fa901224f14aaf90ece57ab4358986d287a375 [stream]
+[debug] [2026-06-02T22:09:43.228Z] [hosting][upload queue][FINAL] {"max":714,"min":714,"avg":714,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":714}
+[info] i  hosting: upload complete 
+[info] ✔  hosting[claude-apps-a6fe1]: file upload complete 
+[debug] [2026-06-02T22:09:43.230Z] [hosting] deploy completed after 1425ms
+[debug] [2026-06-02T22:09:43.230Z] [
+  {
+    "config": {
+      "public": "firebase_hosting",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "SAMEORIGIN"
+            }
+          ]
+        }
+      ],
+      "site": "claude-apps-a6fe1"
+    },
+    "version": "projects/587653358402/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae"
+  }
+]
+[info] i  hosting[claude-apps-a6fe1]: finalizing version... 
+[debug] [2026-06-02T22:09:43.233Z] No OAuth tokens found
+[debug] [2026-06-02T22:09:43.233Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae updateMask=status%2Cconfig
+[debug] [2026-06-02T22:09:43.233Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}],"headers":[{"glob":"**","headers":{"Cache-Control":"no-cache, no-store, must-revalidate","X-Frame-Options":"SAMEORIGIN"}}]}}
+[debug] [2026-06-02T22:09:43.946Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae 200
+[debug] [2026-06-02T22:09:43.947Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae {"name":"projects/587653358402/sites/claude-apps-a6fe1/versions/6082f0c1178f63ae","status":"FINALIZED","config":{"headers":[{"headers":{"Cache-Control":"no-cache, no-store, must-revalidate","X-Frame-Options":"SAMEORIGIN"},"glob":"**"}],"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-06-02T22:09:40.976969Z","createUser":{"email":"firebase-adminsdk-fbsvc@claude-apps-a6fe1.iam.gserviceaccount.com"},"finalizeTime":"2026-06-02T22:09:43.531069Z","finalizeUser":{"email":"firebase-adminsdk-fbsvc@claude-apps-a6fe1.iam.gserviceaccount.com"}}
+[debug] [2026-06-02T22:09:43.947Z] [hosting] finalized version for claude-apps-a6fe1:[object Object]
+[info] ✔  hosting[claude-apps-a6fe1]: version finalized 
+[info] i  hosting[claude-apps-a6fe1]: releasing new version... 
+[debug] [2026-06-02T22:09:43.948Z] No OAuth tokens found
+[debug] [2026-06-02T22:09:43.948Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/channels/live/releases versionName=projects%2F587653358402%2Fsites%2Fclaude-apps-a6fe1%2Fversions%2F6082f0c1178f63ae
+[debug] [2026-06-02T22:09:43.948Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/channels/live/releases {}
+[debug] [2026-06-02T22:09:44.647Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/claude-apps-a6fe1/channels/live/releases 200
