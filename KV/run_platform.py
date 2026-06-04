@@ -118,6 +118,82 @@ def run_agents_for_tickers(tickers: list[str]):
         print(f"  [warn] Agents: {e}")
 
 
+def run_queued_agents():
+    """Process tickers queued via the Research tab web UI."""
+    step("Checking agent analysis queue…")
+    try:
+        import portfolio as pf_mod
+        db = pf_mod.get_db()
+        pending = list(db.collection("agent_queue")
+                       .where("status", "==", "pending").stream())
+        if not pending:
+            print("  [skip] No tickers queued")
+            return
+        tickers = [doc.id for doc in pending]
+        print(f"  Queued tickers: {', '.join(tickers)}")
+        # Mark as processing so browser shows spinner
+        for doc in pending:
+            doc.reference.update({"status": "processing"})
+        # Run agents — results auto-push to agent_results/{ticker}/dates/{date}
+        run_agents_for_tickers(tickers)
+        # Mark done
+        for doc in pending:
+            doc.reference.update({"status": "done"})
+    except Exception as e:
+        print(f"  [warn] Queued agents: {e}")
+
+
+def get_all_holding_tickers(uid: str) -> list[str]:
+    """Return deduplicated list of all tickers held by this user across all portfolios."""
+    try:
+        import portfolio as pf_mod
+        db = pf_mod.get_db()
+        portfolios = pf_mod.list_portfolios(db, uid)
+        tickers = set()
+        for pf in portfolios:
+            for h in pf_mod.list_holdings(db, uid, pf["id"]):
+                t = (h.get("ticker") or "").upper()
+                if t:
+                    tickers.add(t)
+        return sorted(tickers)
+    except Exception as e:
+        print(f"  [warn] Could not fetch holding tickers: {e}")
+        return []
+
+
+def run_agents_for_holdings(uid: str):
+    """Auto-discover all holding tickers + top scan picks and run 8-agent analysis."""
+    step(f"Running 8-agent analysis for all holdings + top scan picks…")
+
+    # 1. All portfolio holding tickers
+    holding_tickers = get_all_holding_tickers(uid)
+
+    # 2. Top 5 STRONG BUY from today's scan (enriches Research tab for top picks)
+    scan_tickers = []
+    try:
+        import json
+        from pathlib import Path
+        scan_file = Path(__file__).parent / "combined_results.json"
+        if scan_file.exists():
+            data = json.loads(scan_file.read_text())
+            stocks = data.get("stocks", data) if isinstance(data, dict) else data
+            scan_tickers = [s["ticker"] for s in stocks if s.get("signal") == "STRONG BUY"][:5]
+    except Exception:
+        pass
+
+    # 3. Combine, deduplicate, run
+    all_tickers = sorted(set(holding_tickers + scan_tickers))
+    if not all_tickers:
+        print("  [skip] No tickers found — add holdings via the web app first")
+        return
+
+    holding_str = ', '.join(holding_tickers) if holding_tickers else 'none'
+    scan_str    = ', '.join(scan_tickers)    if scan_tickers    else 'none'
+    print(f"  Holdings : {holding_str}")
+    print(f"  Scan picks: {scan_str}")
+    run_agents_for_tickers(all_tickers)
+
+
 def run_firebase_push():
     step("Pushing to Firestore…")
     try:
@@ -143,11 +219,13 @@ def run_build_dashboard():
 # ── Mode orchestration ────────────────────────────────────────────────────────
 
 def morning_run(uid: str):
-    """Pre-market: Full scan + portfolio + AI summary + health check."""
+    """Pre-market: Full scan + portfolio + agent analysis + AI summary + health check."""
     print("\n⏰  MORNING RUN — Pre-Market Intelligence Report")
     run_scan(full=True)
     run_firebase_push()
     run_portfolio(uid)
+    run_queued_agents()            # process any tickers queued via the web Research tab
+    run_agents_for_holdings(uid)   # auto-runs for all holdings + top scan picks
     run_ai_summary(uid)
     run_health(uid)
     run_recommendations()
@@ -169,6 +247,8 @@ def close_run(uid: str):
     run_scan(full=True)
     run_firebase_push()
     run_portfolio(uid)
+    run_queued_agents()            # process any tickers queued via the web Research tab
+    run_agents_for_holdings(uid)   # auto-runs for all holdings + top scan picks
     run_ai_summary(uid)
     run_health(uid)
     run_watchlist(uid)

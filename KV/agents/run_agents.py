@@ -7,16 +7,22 @@ Usage:
     python agents/run_agents.py NVDA --dry-run     # print only, no Firestore
 """
 import sys
+import os
 import json
 import argparse
 from datetime import datetime, date
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# Import each agent
-from . import (
-    fundamentals_agent, technical_agent, earnings_agent,
-    insider_agent, analyst_agent, valuation_agent, risk_agent, catalyst_agent,
-)
+# Support running as script OR as module
+sys.path.insert(0, os.path.dirname(__file__))
+try:
+    from . import (
+        fundamentals_agent, technical_agent, earnings_agent,
+        insider_agent, analyst_agent, valuation_agent, risk_agent, catalyst_agent,
+    )
+except ImportError:
+    import fundamentals_agent, technical_agent, earnings_agent
+    import insider_agent, analyst_agent, valuation_agent, risk_agent, catalyst_agent
 
 try:
     import firebase_admin
@@ -26,25 +32,25 @@ except ImportError:
     FIREBASE_AVAILABLE = False
 
 AGENT_MAP = {
-    "fundamental": fundamentals_agent,
-    "technical":   technical_agent,
-    "earnings":    earnings_agent,
-    "insider":     insider_agent,
-    "analyst":     analyst_agent,
-    "valuation":   valuation_agent,
-    "risk":        risk_agent,
-    "catalyst":    catalyst_agent,
+    "fundamentals": fundamentals_agent,
+    "technical":    technical_agent,
+    "earnings":     earnings_agent,
+    "insider":      insider_agent,
+    "analyst":      analyst_agent,
+    "valuation":    valuation_agent,
+    "risk":         risk_agent,
+    "catalyst":     catalyst_agent,
 }
 
 SIGNAL_WEIGHTS = {
-    "fundamental": 0.20,
-    "technical":   0.20,
-    "earnings":    0.15,
-    "insider":     0.10,
-    "analyst":     0.15,
-    "valuation":   0.10,
-    "risk":        0.05,
-    "catalyst":    0.05,
+    "fundamentals": 0.20,
+    "technical":    0.20,
+    "earnings":     0.15,
+    "insider":      0.10,
+    "analyst":      0.15,
+    "valuation":    0.10,
+    "risk":         0.05,
+    "catalyst":     0.05,
 }
 
 def get_db():
@@ -107,12 +113,15 @@ def run_all_agents(ticker: str, verbose: bool = True) -> dict:
         "date": date.today().isoformat(),
     }
 
-    # Add per-agent scores and top signals
+    # Add per-agent data as nested objects — browser reads data['fundamentals'].score etc.
     for name in AGENT_MAP:
         r = results.get(name, {})
-        merged[f"{name}_score"] = r.get("score", 50)
-        merged[f"{name}_signals"] = (r.get("signals") or [])[:3]
-        merged[f"{name}_summary"] = r.get("summary", "")
+        merged[name] = {
+            "score":   r.get("score", 50),
+            "signals": (r.get("signals") or [])[:3],
+            "summary": r.get("summary", ""),
+            "sentiment": r.get("sentiment") or r.get("verdict", ""),
+        }
 
     return merged
 

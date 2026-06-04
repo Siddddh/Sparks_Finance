@@ -48,37 +48,9 @@ def gather_context(db, uid: str) -> dict:
     today = date.today().isoformat()
     ctx = {"uid": uid, "date": today, "portfolios": [], "market": {}, "top_picks": []}
 
-    # Portfolio holdings across all portfolios
-    pf_snap = db.collection("portfolios").document(uid).collection("list").stream()
-    for pf_doc in pf_snap:
-        pf = pf_doc.to_dict()
-        pfid = pf_doc.id
-        holdings_snap = db.collection("holdings").document(uid).collection(pfid).stream()
-        holdings = []
-        for h in holdings_snap:
-            hd = h.to_dict()
-            holdings.append({
-                "ticker": hd.get("ticker", ""),
-                "qty": hd.get("qty", 0),
-                "buy_price": hd.get("buy_price", 0),
-                "current_price": hd.get("current_price", hd.get("buy_price", 0)),
-                "gain_pct": hd.get("gain_pct", 0),
-                "notes": hd.get("notes", ""),
-            })
-        perf_ref = db.collection("holdings").document(uid).collection(f"{pfid}_performance").document(today).get()
-        perf = perf_ref.to_dict() if perf_ref.exists else {}
-        ctx["portfolios"].append({
-            "name": pf.get("name", pfid),
-            "total_value": perf.get("total_value"),
-            "total_gain_pct": perf.get("total_gain_pct"),
-            "total_gain_abs": perf.get("total_gain_abs"),
-            "top_gainers": perf.get("top_gainers", []),
-            "biggest_losers": perf.get("biggest_losers", []),
-            "holdings": holdings,
-        })
-
-    # Latest scan data
+    # ── Load scan data first so we can use live prices for holdings ──
     scan_doc = db.collection("scans").document("latest").get()
+    scan_prices = {}  # ticker -> live price from latest scan
     if scan_doc.exists:
         scan = scan_doc.to_dict()
         mh = scan.get("market_health", {})
@@ -92,16 +64,89 @@ def gather_context(db, uid: str) -> dict:
             "breadth_pct": mh.get("breadth_pct"),
         }
         picks = scan.get("stocks", [])
+        # Build price lookup from scan data
+        for s in picks:
+            if s.get("ticker") and s.get("price"):
+                scan_prices[s["ticker"]] = float(s["price"])
         strong_buys = [s for s in picks if s.get("signal") == "STRONG BUY"][:5]
         ctx["top_picks"] = [
             {"ticker": s["ticker"], "score": s.get("combined_score", 0),
-             "sector": s.get("sector", ""), "thesis": s.get("thesis_summary", "")}
+             "sector": s.get("sector", ""), "thesis": s.get("thesis_summary", s.get("thesis", "")[:120])}
             for s in strong_buys
         ]
 
+    # ── Portfolio holdings — compute performance on the fly ──
+    pf_snap = db.collection("portfolios").document(uid).collection("list").stream()
+    for pf_doc in pf_snap:
+        pf = pf_doc.to_dict()
+        pfid = pf_doc.id
+        holdings_snap = db.collection("holdings").document(uid).collection(pfid).stream()
+        holdings = []
+        for h in holdings_snap:
+            hd = h.to_dict()
+            ticker    = hd.get("ticker", "").upper()
+            qty       = float(hd.get("qty", 0))
+            buy_price = float(hd.get("buy_price", 0))
+            buy_date_raw = hd.get("buy_date") or hd.get("added_at", "")
+            buy_date  = buy_date_raw[:10] if buy_date_raw else ""
+            # Use scan live price if available, otherwise fall back to stored or buy_price
+            cur_price = (
+                scan_prices.get(ticker)
+                or float(hd.get("current_price", 0))
+                or buy_price
+            )
+            gain_pct = ((cur_price / buy_price) - 1) * 100 if buy_price > 0 else 0
+            # Days held
+            days_held = None
+            if buy_date:
+                try:
+                    from datetime import date as _date
+                    days_held = (_date.today() - _date.fromisoformat(buy_date)).days
+                except Exception:
+                    pass
+            # Annualised return
+            ann_ret = None
+            if days_held and days_held >= 7:
+                ann_ret = round(((1 + gain_pct / 100) ** (365 / days_held) - 1) * 100, 1)
+            holdings.append({
+                "ticker":        ticker,
+                "qty":           qty,
+                "buy_price":     buy_price,
+                "buy_date":      buy_date,
+                "days_held":     days_held,
+                "ann_ret":       ann_ret,
+                "current_price": cur_price,
+                "gain_pct":      round(gain_pct, 2),
+                "value":         round(qty * cur_price, 2),
+                "cost":          round(qty * buy_price, 2),
+                "notes":         hd.get("notes", ""),
+            })
+
+        # Compute portfolio-level stats directly from holdings
+        total_value    = sum(h["value"] for h in holdings)
+        total_cost     = sum(h["cost"]  for h in holdings)
+        total_gain_abs = total_value - total_cost
+        total_gain_pct = ((total_gain_abs / total_cost) * 100) if total_cost > 0 else 0
+        sorted_by_gain = sorted(holdings, key=lambda x: x["gain_pct"], reverse=True)
+        top_gainers    = [{"ticker": h["ticker"], "gain_pct": h["gain_pct"]} for h in sorted_by_gain[:3] if h["gain_pct"] > 0]
+        biggest_losers = [{"ticker": h["ticker"], "gain_pct": h["gain_pct"]} for h in sorted_by_gain[-3:] if h["gain_pct"] < 0]
+
+        ctx["portfolios"].append({
+            "name":           pf.get("name", pfid),
+            "total_value":    round(total_value, 2)    if total_value    else None,
+            "total_gain_pct": round(total_gain_pct, 2) if total_gain_pct else None,
+            "total_gain_abs": round(total_gain_abs, 2) if total_gain_abs else None,
+            "top_gainers":    top_gainers,
+            "biggest_losers": biggest_losers,
+            "holdings":       holdings,
+        })
+
     # Active personal alerts
-    alerts_snap = db.collection("alerts").document(uid).collection("list").where("status", "==", "active").stream()
-    ctx["active_alerts"] = [a.to_dict() for a in alerts_snap]
+    try:
+        alerts_snap = db.collection("alerts").document(uid).collection("list").where("status", "==", "active").stream()
+        ctx["active_alerts"] = [a.to_dict() for a in alerts_snap]
+    except Exception:
+        ctx["active_alerts"] = []
 
     return ctx
 
@@ -210,10 +255,13 @@ def template_summary(ctx: dict) -> tuple[dict, str]:
         losers  = [h for h in all_holdings if (h.get("gain_pct") or 0) < 0]
         if winners:
             best = max(winners, key=lambda x: x.get("gain_pct", 0))
-            perf_lines.append(f"Best performer: {best['ticker']} +{best['gain_pct']:.1f}% from entry.")
+            held_str = f" in {best['days_held']}d" if best.get("days_held") else ""
+            ann_str  = f" ({best['ann_ret']:+.0f}%/yr)" if best.get("ann_ret") else ""
+            perf_lines.append(f"Best performer: {best['ticker']} +{best['gain_pct']:.1f}%{ann_str} from entry{held_str}.")
         if losers:
             worst = min(losers, key=lambda x: x.get("gain_pct", 0))
-            perf_lines.append(f"Biggest drag: {worst['ticker']} {worst['gain_pct']:.1f}% from entry.")
+            held_str = f" in {worst['days_held']}d" if worst.get("days_held") else ""
+            perf_lines.append(f"Biggest drag: {worst['ticker']} {worst['gain_pct']:.1f}% from entry{held_str}.")
         big_winners = [h for h in all_holdings if (h.get("gain_pct") or 0) > 30]
         for h in big_winners[:2]:
             trail_stop = h.get("current_price", 0) * 0.88

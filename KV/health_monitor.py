@@ -13,7 +13,7 @@ Usage:
     python health_monitor.py <uid> --dry-run
 """
 import argparse
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 import yfinance as yf
 
@@ -151,6 +151,24 @@ def rule_based_analysis(data: dict, rating: str, flags: list) -> str:
     eps_g      = data.get("eps_growth") or 0
     rec        = (data.get("recommendation") or "").lower()
     ma50       = data.get("ma50", 0)
+    days_held  = data.get("days_held")
+
+    # Time context string
+    if days_held is not None:
+        if days_held < 30:
+            time_ctx = f"over {days_held} days"
+        elif days_held < 365:
+            time_ctx = f"over {days_held // 30} month(s)"
+        else:
+            time_ctx = f"over {days_held / 365:.1f} year(s)"
+    else:
+        time_ctx = "since entry"
+
+    # Annualised return (only meaningful if held > 7 days)
+    ann_str = ""
+    if days_held and days_held >= 7 and buy_price > 0:
+        ann_ret = ((1 + pct_gain / 100) ** (365 / days_held) - 1) * 100
+        ann_str = f" ({ann_ret:+.0f}%/yr annualised)"
 
     # Compute concrete price levels
     stop_8pct  = buy_price * 0.92           # standard 8% stop from entry
@@ -164,14 +182,13 @@ def rule_based_analysis(data: dict, rating: str, flags: list) -> str:
         pos_flags = [f for f in flags if "intact" in f or "above" in f or "growth" in f or "Up " in f]
         positive = pos_flags[0] if pos_flags else "Technical structure remains healthy."
         analysis = (
-            f"Original thesis intact -- {ticker} is {'+' if pct_gain >= 0 else ''}{pct_gain:.1f}% "
-            f"from your entry at ${buy_price:.2f}. "
+            f"Original thesis intact -- {ticker} is {'+' if pct_gain >= 0 else ''}{pct_gain:.1f}%{ann_str} "
+            f"from your entry at ${buy_price:.2f} ({time_ctx}). "
             f"{positive} "
             f"Hold with stop at ${stop_level:.2f}."
         )
 
     elif rating == "WATCH":
-        # Choose the most specific metric to monitor
         if eps_g < 0:
             key_metric = "next earnings report for signs of stabilisation"
         elif rec in ("sell", "underperform"):
@@ -183,14 +200,14 @@ def rule_based_analysis(data: dict, rating: str, flags: list) -> str:
 
         analysis = (
             f"Thesis showing early stress -- {main_flag}. "
-            f"{ticker} is {'+' if pct_gain >= 0 else ''}{pct_gain:.1f}% from entry. "
+            f"{ticker} is {'+' if pct_gain >= 0 else ''}{pct_gain:.1f}%{ann_str} from entry ({time_ctx}). "
             f"Tighten stop to ${stop_8pct:.2f} and monitor {key_metric} closely."
         )
 
     else:  # EXIT
         analysis = (
             f"Original investment thesis has broken down -- {main_flag}. "
-            f"{ticker} is down {abs(pct_gain):.1f}% from your entry at ${buy_price:.2f}. "
+            f"{ticker} is down {abs(pct_gain):.1f}%{ann_str} from your entry at ${buy_price:.2f} ({time_ctx}). "
             f"Set hard exit trigger at ${exit_hard:.2f}. Consider selling into any bounce rather than waiting."
         )
 
@@ -235,13 +252,25 @@ def evaluate_portfolio(db, uid: str, dry_run: bool = False) -> list:
 
         for hold_doc in hold_snap:
             h = hold_doc.to_dict()
-            ticker = (h.get("ticker") or "").upper()
+            ticker    = (h.get("ticker") or "").upper()
             buy_price = float(h.get("buy_price") or 0)
+            buy_date  = h.get("buy_date") or h.get("added_at", "")[:10]
             if not ticker or not buy_price:
                 continue
 
-            print(f"  Evaluating {ticker} ({pfname})...", end=" ", flush=True)
+            # Compute days held
+            days_held = None
+            if buy_date:
+                try:
+                    buy_dt = date.fromisoformat(buy_date[:10])
+                    days_held = (date.today() - buy_dt).days
+                except ValueError:
+                    pass
+
+            print(f"  Evaluating {ticker} ({pfname}, held {days_held}d)...", end=" ", flush=True)
             data = fetch_health_data(ticker, buy_price)
+            data["buy_date"]  = buy_date
+            data["days_held"] = days_held
             rating, flags = rule_based_rating(data)
 
             if USE_CLAUDE:
@@ -252,14 +281,16 @@ def evaluate_portfolio(db, uid: str, dry_run: bool = False) -> list:
             print(f"-> {rating}")
 
             holdings_data.append({
-                "ticker": ticker,
-                "portfolio": pfname,
-                "buy_price": buy_price,
+                "ticker":        ticker,
+                "portfolio":     pfname,
+                "buy_price":     buy_price,
+                "buy_date":      buy_date,
+                "days_held":     days_held,
                 "current_price": data.get("current_price", buy_price),
-                "pct_gain": data.get("pct_gain", 0),
-                "rating": rating,
-                "flags": flags,
-                "analysis": analysis,
+                "pct_gain":      data.get("pct_gain", 0),
+                "rating":        rating,
+                "flags":         flags,
+                "analysis":      analysis,
             })
 
     return holdings_data

@@ -184,6 +184,28 @@ def push_portfolio_report(db, uid: str, portfolio_id: str, portfolio_name: str, 
     db.collection("holdings").document(uid).collection(f"{portfolio_id}_performance").document(today).set(doc)
     print(f"  Pushed performance report for {portfolio_name} ({portfolio_id})")
 
+
+def push_holding_prices(db, uid: str, portfolio_id: str, enriched_holdings: list):
+    """
+    Write current_price + gain back to each individual holding document so the
+    browser can display live P&L without depending on scan data coverage.
+    """
+    updated_at = datetime.utcnow().isoformat()
+    batch = db.batch()
+    for h in enriched_holdings:
+        hold_id = h.get("id")
+        if not hold_id:
+            continue
+        ref = db.collection("holdings").document(uid).collection(portfolio_id).document(hold_id)
+        batch.update(ref, {
+            "current_price":  h["current_price"],
+            "gain_pct":       h["gain_pct"],
+            "gain_abs":       h["gain_abs"],
+            "price_updated":  updated_at,
+        })
+    batch.commit()
+    print(f"  Updated {len(enriched_holdings)} holding prices in Firestore")
+
 # ── Main ───────────────────────────────────────────────────────────────────────
 
 def run(uid: str, verbose: bool = True):
@@ -208,6 +230,7 @@ def run(uid: str, verbose: bool = True):
 
         perf = compute_performance(holdings, prices, w52)
         push_portfolio_report(db, uid, pfid, pfname, perf)
+        push_holding_prices(db, uid, pfid, perf["holdings"])
 
         if verbose:
             print(f"    Value: ${perf['total_value']:,.2f}  |  Gain: ${perf['total_gain_abs']:+,.2f} ({perf['total_gain_pct']:+.2f}%)")
