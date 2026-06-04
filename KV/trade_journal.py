@@ -6,13 +6,11 @@ import json, os, glob as _glob
 from datetime import datetime
 
 def _find_base():
-    for p in _glob.glob("/sessions/*/mnt/KV"):
-        if os.path.exists(p):
-            return p
-    return os.path.expanduser("~/Claude/KV")
+    # Always use the directory where this file lives
+    return os.path.dirname(os.path.abspath(__file__))
 
 BASE         = _find_base()
-JOURNAL_PATH = f"{BASE}/journal.json"
+JOURNAL_PATH = os.path.join(BASE, "journal.json")
 
 # ─────────────────────────────────────────
 #  PERSISTENCE

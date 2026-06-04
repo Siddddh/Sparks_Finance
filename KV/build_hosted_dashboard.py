@@ -6,15 +6,13 @@ The dashboard reads live data from Firestore (no embedded JSON).
 import json, os, glob as _glob
 
 def _find_base():
-    for p in _glob.glob("/sessions/*/mnt/KV"):
-        if os.path.exists(p):
-            return p
-    return os.path.expanduser("~/Claude/KV")
+    # Always resolve relative to this file's directory
+    return os.path.dirname(os.path.abspath(__file__))
 
 BASE = _find_base()
-CONFIG_PATH  = f"{BASE}/firebase_config.json"
-OUT_DIR      = f"{BASE}/firebase_hosting"
-OUT_FILE     = f"{OUT_DIR}/index.html"
+CONFIG_PATH  = os.path.join(BASE, "firebase_config.json")
+OUT_DIR      = os.path.join(BASE, "firebase_hosting")
+OUT_FILE     = os.path.join(OUT_DIR, "index.html")
 
 # Load Firebase web config
 try:
@@ -533,6 +531,6 @@ function sw(name){
 # Inject Firebase config
 html = HTML.replace('__FIREBASE_CONFIG__', fb_config_js)
 
-with open(OUT_FILE, 'w') as f:
+with open(OUT_FILE, 'w', encoding='utf-8') as f:
     f.write(html)
 print(f"Built {OUT_FILE} ({len(html):,} chars)")

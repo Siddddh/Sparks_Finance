@@ -14,15 +14,13 @@ import json, os, sys, glob as _glob
 from datetime import datetime
 
 def _find_base():
-    for p in _glob.glob("/sessions/*/mnt/KV"):
-        if os.path.exists(p):
-            return p
-    return os.path.expanduser("~/Claude/KV")
+    # Always use the directory where this file lives
+    return os.path.dirname(os.path.abspath(__file__))
 
 BASE        = _find_base()
-CREDS_PATH  = f"{BASE}/firebase_service_account.json"
-CONFIG_PATH = f"{BASE}/firebase_config.json"
-SCAN_FILE   = f"{BASE}/combined_results.json"
+CREDS_PATH  = os.path.join(BASE, "firebase_service_account.json")
+CONFIG_PATH = os.path.join(BASE, "firebase_config.json")
+SCAN_FILE   = os.path.join(BASE, "combined_results.json")
 MAX_HISTORY = 7
 
 

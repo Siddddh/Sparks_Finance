@@ -14,16 +14,12 @@ from datetime import datetime
 import re as _re
 # Detect active session path dynamically (works across Cowork session restarts)
 def _find_base():
-    import glob
-    kv_mounts = glob.glob("/sessions/*/mnt/KV")
-    for p in kv_mounts:
-        if os.path.exists(p):
-            return p
-    return "/sessions/friendly-kind-pascal/mnt/KV"  # fallback
+    # Always resolve relative to this file's directory
+    return os.path.dirname(os.path.abspath(__file__))
 
 BASE            = _find_base()
-OUT             = f"{BASE}/combined_results.json"
-HISTORY_PATH    = f"{BASE}/scan_history.json"
+OUT             = os.path.join(BASE, "combined_results.json")
+HISTORY_PATH    = os.path.join(BASE, "scan_history.json")
 HISTORY_MAX_DAYS = 7
 
 QUICK_LIST = [
