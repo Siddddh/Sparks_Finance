@@ -9,6 +9,8 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<script src="symbols.js"></script><!-- full US listings catalog (Nasdaq + NYSE/AMEX): window.US_SYMBOLS -->
+
 <style>
 /* ════════ Google Finance Beta design tokens ════════ */
 :root{
@@ -732,12 +734,21 @@ function _storeQuote(ticker, sym, price, prev) {
   const entry = { price, changePct };
   _liveCache[ticker] = entry; _liveCache[sym] = entry;
 }
+// fetch with a hard timeout so a slow CORS proxy never hangs the UI
+function _tfetch(url, ms) {
+  const c = new AbortController();
+  const t = setTimeout(() => c.abort(), ms || 4000);
+  return fetch(url, { signal: c.signal }).finally(() => clearTimeout(t));
+}
 async function _chartFetch(url) {
-  const r = await fetch(url);
+  const r = await _tfetch(url, 4500);
   if (!r.ok) throw new Error('HTTP ' + r.status);
   const d = await r.json();
-  const meta = d && d.chart && d.chart.result && d.chart.result[0] && d.chart.result[0].meta;
+  const res = d && d.chart && d.chart.result && d.chart.result[0];
+  const meta = res && res.meta;
   if (meta && meta.regularMarketPrice != null) {
+    // Sanity: the requested symbol must match what came back (proxies sometimes return a cached/other payload).
+    if (meta.symbol && url.indexOf(encodeURIComponent(meta.symbol)) === -1 && url.indexOf(meta.symbol) === -1) throw new Error('symbol mismatch');
     return { price: meta.regularMarketPrice, prev: meta.chartPreviousClose || meta.previousClose || meta.regularMarketPrice };
   }
   throw new Error('no price');
@@ -891,54 +902,100 @@ function buildIndexStrip() {
   });
 }
 
-// ════════ Autocomplete (with live price + change%) ════════
-let _acActive = -1, _acTarget = null;
-function acFilter(inp, listId, context) {
-  const q = inp.value.trim().toUpperCase();
-  const list = document.getElementById(listId);
-  if (!q || q.length < 1) { list.style.display = 'none'; return; }
-  // Include scanned tickers (with name) plus the static DB so search covers the full universe.
-  const fromScan = D ? (D.stocks || []).map(s => [s.ticker, s.name || s.ticker]) : [];
-  const merged = {};
-  fromScan.forEach(([sym, name]) => { merged[sym] = name; });
-  Object.entries(TICKER_DB).forEach(([sym, name]) => { const k = sym.replace('_', '.'); if (!merged[k]) merged[k] = name; });
-  Object.entries(INSTRUMENTS).forEach(([sym, name]) => { if (!merged[sym]) merged[sym] = name; });
-  const matches = Object.entries(merged).filter(([sym, name]) =>
-    sym.replace('_', '.').toUpperCase().startsWith(q) || (name || '').toUpperCase().includes(q)
-  ).slice(0, 8);
-  if (!matches.length) { list.style.display = 'none'; return; }
-  _acActive = -1; _acTarget = listId;
-  list.innerHTML = matches.map(([sym, name]) => {
-    const disp = sym.replace('_', '.');
-    const cellId = 'acp_' + listId + '_' + disp.replace(/[^A-Za-z0-9]/g, '');
-    const sd = scanStockFor(disp);
-    const pre = sd ? '<span class="ac-price">$' + sd.price + '</span>' : '<span class="ac-skel"></span>';
-    return '<div class="ac-item" data-sym="' + disp + '" onclick="acSelect(\'' + disp + '\',\'' + listId + '\',\'' + context + '\')">' +
-      '<span class="ac-item-l"><span class="ac-sym">' + disp + '</span><span class="ac-name">' + name + '</span></span>' +
-      '<span class="ac-item-r" id="' + cellId + '">' + pre + '</span></div>';
-  }).join('');
-  list.style.display = 'block';
-  // Fetch live prices for suggestions and fill in price + change%
-  const syms = matches.map(([sym]) => sym.replace('_', '.'));
+// ════════ Autocomplete (local lists + live Yahoo symbol search) ════════
+let _acActive = -1, _acTarget = null, _acReq = 0, _acRemoteTimer = null;
+// Crypto intentionally excluded from live results — the major coins live in INSTRUMENTS
+// (so they show instantly), and Yahoo returns noisy "<TICKER>-USD" crypto derivatives otherwise.
+const _AC_TYPES = { EQUITY: 1, ETF: 1, MUTUALFUND: 1, INDEX: 1, CURRENCY: 1, FUTURE: 1 };
+// Live symbol lookup — covers ANY US instrument (stocks, ETFs, funds, FX, futures,
+// indices, crypto) so search isn't limited to the curated local lists (e.g. SNDK).
+async function yahooSearch(q) {
+  const base = 'https://query2.finance.yahoo.com/v1/finance/search?q=' + encodeURIComponent(q) + '&quotesCount=10&newsCount=0&listsCount=0';
+  const urls = [
+    base,
+    'https://query1.finance.yahoo.com/v1/finance/search?q=' + encodeURIComponent(q) + '&quotesCount=10&newsCount=0&listsCount=0',
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent(base),
+    'https://corsproxy.io/?url=' + encodeURIComponent(base),
+  ];
+  for (const u of urls) {
+    try { const r = await _tfetch(u, 4500); if (!r.ok) throw 0; const d = await r.json(); if (d && d.quotes) return d.quotes; } catch (e) {}
+  }
+  return [];
+}
+function acRowHtml(disp, name, listId, context) {
+  const cellId = 'acp_' + listId + '_' + disp.replace(/[^A-Za-z0-9]/g, '');
+  const sd = scanStockFor(disp);
+  const pre = sd ? ('<span class="ac-price">$' + sd.price + '</span>') : '<span class="ac-skel"></span>';
+  return '<div class="ac-item" data-sym="' + disp + '" onclick="acSelect(\'' + disp + '\',\'' + listId + '\',\'' + context + '\')">' +
+    '<span class="ac-item-l"><span class="ac-sym">' + disp + '</span><span class="ac-name">' + (name || '') + '</span></span>' +
+    '<span class="ac-item-r" id="' + cellId + '">' + pre + '</span></div>';
+}
+function acFillPrices(listId, syms) {
   fetchLivePrices(syms).then(() => {
-    matches.forEach(([sym]) => {
-      const disp = sym.replace('_', '.');
-      const cellId = 'acp_' + listId + '_' + disp.replace(/[^A-Za-z0-9]/g, '');
-      const cell = document.getElementById(cellId);
+    syms.forEach(disp => {
+      const cell = document.getElementById('acp_' + listId + '_' + disp.replace(/[^A-Za-z0-9]/g, ''));
       if (!cell) return;
-      const entry = liveEntry(disp);
-      const sd = scanStockFor(disp);
+      const entry = liveEntry(disp), sd = scanStockFor(disp);
       if (entry && entry.price != null) {
-        const chg = entry.changePct || 0;
-        const cls = chg > 0 ? 'pos' : chg < 0 ? 'neg' : 'neu';
+        const chg = entry.changePct || 0, cls = chg > 0 ? 'pos' : chg < 0 ? 'neg' : 'neu';
         cell.innerHTML = '<span class="ac-price">$' + entry.price.toFixed(2) + '</span><span class="ac-chg ' + cls + '">' + (chg ? pctFmt(chg, 2) : '—') + '</span>';
-      } else if (sd) {
-        cell.innerHTML = '<span class="ac-price">$' + sd.price + '</span>';
-      } else {
-        cell.innerHTML = '<span class="ac-chg neu">—</span>';
-      }
+      } else if (sd) { cell.innerHTML = '<span class="ac-price">$' + sd.price + '</span>'; }
+      else { cell.innerHTML = '<span class="ac-chg neu">—</span>'; }
     });
   });
+}
+// Cached static search universe: full US listings (US_SYMBOLS) + instruments + curated DB.
+let _searchBase = null;
+function searchBase() {
+  if (_searchBase) return _searchBase;
+  const m = {};
+  const U = window.US_SYMBOLS;
+  if (U) for (const k in U) m[k] = U[k];
+  Object.entries(INSTRUMENTS).forEach(([s, n]) => { m[s] = n; });
+  Object.entries(TICKER_DB).forEach(([s, n]) => { const k = s.replace('_', '.'); if (!(k in m)) m[k] = n; });
+  if (U) _searchBase = m;  // only cache once the big catalog has loaded
+  return m;
+}
+function acFilter(inp, listId, context) {
+  const raw = inp.value.trim(), q = raw.toUpperCase();
+  const list = document.getElementById(listId);
+  if (!q) { list.style.display = 'none'; return; }
+  // Local instant matches — ticker-prefix matches first, then company-name matches.
+  const base = searchBase();
+  const seen = {}, starts = [], incl = [];
+  const consider = (sym, name) => {
+    const d = sym.replace('_', '.'); if (seen[d]) return; const U = d.toUpperCase();
+    if (U.startsWith(q)) { seen[d] = 1; starts.push([d, name]); }
+    else if (starts.length < 8 && incl.length < 16 && (name || '').toUpperCase().includes(q)) { seen[d] = 1; incl.push([d, name]); }
+  };
+  if (D) (D.stocks || []).forEach(s => consider(s.ticker, s.name || s.ticker));  // scanned names first (have prices)
+  for (const sym in base) { if (starts.length >= 8) break; consider(sym, base[sym]); }
+  const local = starts.concat(incl).slice(0, 8);
+  _acActive = -1; _acTarget = listId;
+  const reqId = ++_acReq;
+  const entries = local.slice();  // `seen` (from the local pass) already marks every shown symbol
+  const paint = () => {
+    list.innerHTML = entries.map(([d, n]) => acRowHtml(d, n, listId, context)).join('');
+    list.style.display = entries.length ? 'block' : 'none';
+    acFillPrices(listId, entries.map(e => e[0]));
+  };
+  if (entries.length) paint(); else list.style.display = 'none';
+  // Debounced live symbol search so any US instrument (SNDK, APP, DELL, funds, FX…) resolves.
+  if (_acRemoteTimer) clearTimeout(_acRemoteTimer);
+  if (raw.length >= 2) {
+    _acRemoteTimer = setTimeout(() => {
+      yahooSearch(raw).then(quotes => {
+        if (reqId !== _acReq) return; // a newer keystroke superseded this
+        let added = false;
+        quotes.forEach(x => {
+          const s = (x.symbol || '').toUpperCase();
+          if (!s || seen[s] || !_AC_TYPES[x.quoteType] || s.includes('.') || entries.length >= 10) return;
+          seen[s] = 1; entries.push([s, x.shortname || x.longname || s]); added = true;
+        });
+        if (added) paint();
+      });
+    }, 220);
+  }
 }
 function acSelect(sym, listId, context) {
   sym = sym.replace('_', '.');
