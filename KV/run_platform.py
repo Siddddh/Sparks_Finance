@@ -267,6 +267,17 @@ def full_run(uid: str):
     run_alerts(uid)
 
 
+def _all_portfolio_uids() -> list:
+    """Every user UID that owns at least one portfolio (so reports can be built for all)."""
+    try:
+        import portfolio as pf_mod
+        db = pf_mod.get_db()
+        return [d.id for d in db.collection("portfolios").list_documents()]
+    except Exception as e:
+        print(f"  [warn] Could not list users: {e}")
+        return []
+
+
 def publish_run(uid: str):
     """Lightweight refresh: push the latest scan to Firestore + regenerate the
     AI summary and health report. No re-scan, no agents, no dashboard rebuild.
@@ -287,7 +298,8 @@ def publish_run(uid: str):
 
 def main():
     parser = argparse.ArgumentParser(description="Sparks Finance — Platform Runner")
-    parser.add_argument("--uid", required=True, help="Firebase user UID")
+    parser.add_argument("--uid", required=True,
+                        help="Firebase user UID, or 'all' (with --mode publish) to build reports for every user")
     parser.add_argument("--mode", choices=["morning", "midday", "close", "full", "publish"],
                         default="full",
                         help="Run mode. 'publish' = push latest scan + AI summary + health only "
@@ -311,7 +323,14 @@ def main():
 
     # Main mode execution
     if args.mode == "publish":
-        publish_run(args.uid)
+        if args.uid.lower() == "all":
+            run_firebase_push()
+            uids = _all_portfolio_uids()
+            print(f"  Generating reports for {len(uids)} user(s): {', '.join(uids) or 'none'}")
+            for u in uids:
+                run_portfolio(u); run_ai_summary(u); run_health(u)
+        else:
+            publish_run(args.uid)
     elif args.mode == "morning":
         morning_run(args.uid)
     elif args.mode == "midday":
