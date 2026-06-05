@@ -25,26 +25,115 @@ HISTORY_MAX_DAYS = 7
 QUICK_LIST = [
     "NVDA","MSFT","AAPL","META","AVGO","AMD","PANW","NOW","CRWD","AXON",
     "LRCX","KLAC","AMAT","GE","CAT","ETN","FICO","DECK","CELH","SMCI",
-    # High-momentum spin-offs & recent additions
-    "SNDK","WDC",
-]
-FULL_LIST = [
-    "AAPL","MSFT","NVDA","AMZN","META","GOOGL","LLY","AVGO","JPM","TSLA",
-    "UNH","V","XOM","MA","PG","JNJ","COST","HD","MRK","ABBV","CVX","NFLX",
-    "CRM","BAC","AMD","PEP","KO","ACN","TMO","WMT","ORCL","MCD","ABT","CSCO",
-    "GE","DHR","NEE","TXN","PM","ISRG","CAT","AMGN","RTX","NOW","INTU","SPGI",
-    "HON","IBM","BKNG","GS","QCOM","T","LOW","AMAT","UNP","SYK","VRTX","BLK",
-    "PLD","ELV","MDT","GILD","DE","TJX","ADP","MMC","PANW","SCHW","ADI",
-    "LRCX","MO","CI","CB","ZTS","MDLZ","SO","CME","REGN","EOG","BSX","PGR",
-    "WM","NOC","KLAC","HUM","ITW","CSX","NSC","ETN","MCO","TGT","DUK",
-    "FICO","DECK","CRWD","SMCI","AXON","CELH",
-    # Spin-offs & high-momentum recent additions
     "SNDK","WDC",
 ]
 
+# ── Full universe: S&P 500 + NASDAQ 100 + high-interest growth stocks ─────────
+# ~600 unique tickers. Morning/close run takes ~20-25 min with parallel workers.
+
+_NASDAQ_100 = [
+    "AAPL","MSFT","NVDA","AMZN","META","GOOGL","GOOG","AVGO","TSLA","COST",
+    "NFLX","AMD","PEP","INTU","QCOM","AMAT","ADBE","CSCO","TXN","AMGN",
+    "HON","BKNG","CMCSA","ISRG","VRTX","REGN","PANW","MU","ADI","LRCX",
+    "KLAC","INTC","ABNB","MELI","MDLZ","SBUX","GILD","SNPS","CDNS","ADP",
+    "PYPL","CRWD","CEG","ORLY","CSX","KDP","MRVL","PCAR","MRNA","DXCM",
+    "PAYX","CTAS","NXPI","WDAY","FTNT","FAST","GEHC","TTD","ROST","ODFL",
+    "CTSH","MCHP","EA","BIIB","ZS","TEAM","IDXX","ANSS","DLTR","WBD",
+    "VRSK","ILMN","ON","EXC","KHC","DDOG","BKR","CCEP","FANG","CDW",
+    "CSGP","XEL","MNST","SIRI","CHTR","ALGN","PDD","JD","LULU",
+]
+
+_SP500_FINANCIALS = [
+    "JPM","BAC","WFC","GS","MS","SCHW","AXP","BLK","SPGI","CB","MMC","PGR",
+    "TRV","AFL","ALL","HIG","AON","MET","AIG","PRU","PFG","CINF","RJF",
+    "ICE","CME","MCO","COF","DFS","SYF","AMP","TROW","STT","BK","NTRS",
+    "FITB","KEY","RF","CFG","HBAN","MTB","USB","PNC","C","TFC","ALLY",
+    "BRO","NDAQ","FNF","LNC","RGA","GL","AIZ","UNM","WRB","ACGL","RE",
+]
+_SP500_HEALTHCARE = [
+    "UNH","LLY","JNJ","ABBV","MRK","TMO","DHR","ABT","ELV","HUM","CI",
+    "MDT","SYK","BSX","BDX","IQV","HCA","REGN","ZBH","ZTS","MCK","CVS",
+    "CAH","CNC","MOH","BAX","EW","PODD","HOLX","MTD","WAT","A","ALGN",
+    "RMD","GEHC","TECH","HSIC","COO","DVA","PGNY","VTRS","CTLT","SOLV",
+]
+_SP500_ENERGY = [
+    "XOM","CVX","COP","SLB","EOG","OXY","MPC","PSX","VLO","HES","DVN",
+    "FANG","HAL","BKR","APA","MRO","CTRA","OKE","WMB","KMI","LNG","EQT",
+    "TRGP","NRG","VST","AES",
+]
+_SP500_CONS_DISC = [
+    "HD","MCD","NKE","LOW","TJX","MAR","HLT","GM","F","AZO","TSCO","ROST",
+    "BBY","EBAY","ETSY","RCL","CCL","LVS","MGM","WYNN","DRI","YUM","CMG",
+    "DPZ","APTV","BWA","PHM","LEN","DHI","TOL","NVR","POOL","HAS","MAT",
+    "NCLH","VFC","PVH","RL","DECK","CROX","BOOT","COLM","SKX","LULU",
+]
+_SP500_CONS_STAPLES = [
+    "WMT","PG","KO","PEP","COST","PM","MO","MDLZ","CL","STZ","K","GIS",
+    "HRL","SJM","MKC","HSY","CAG","CPB","CLX","CHD","EL","KMB","TAP",
+    "TSN","KHC","SFM","ADM","CTVA","SYY","BG","MOS","CF","FMC","COTY",
+]
+_SP500_INDUSTRIALS = [
+    "GE","CAT","BA","HON","RTX","UNP","UPS","FDX","ETN","EMR","ITW","DE",
+    "CSX","NSC","LMT","NOC","GD","ROP","OTIS","CARR","CMI","PH","IR",
+    "AME","FAST","IEX","SNA","GWW","TDG","HWM","RSG","WM","ROK","JCI",
+    "MMM","DOV","XYL","GNRC","LDOS","LHX","TXT","AXON","CACI","SAIC",
+    "JBHT","CHRW","EXPD","XPO","ODFL","SAIA","WERN","HUBG",
+]
+_SP500_TECH = [
+    "ORCL","CRM","IBM","ACN","HPE","HPQ","KEYS","MPWR","AKAM","VRSN",
+    "TYL","FSLR","ENPH","SEDG","GLW","GRMN","FFIV","STX","WDC","NTAP",
+    "ANET","ZBRA","CDW","CTSH","MU","SNPS","CDNS","ADBE","FTNT","NXPI",
+    "ON","MRVL","NOW","CRWD","SMCI","PANW","FICO",
+]
+_SP500_UTILITIES = [
+    "NEE","DUK","SO","D","AEP","EXC","XEL","PEG","SRE","PCG","AWK","WEC",
+    "ES","DTE","CMS","ATO","NI","CNP","ETR","PPL","EIX","EVRG","AEE",
+    "IDA","AVA","POR","BKH","LNT","OGE","OTTR",
+]
+_SP500_REALESTATE = [
+    "PLD","EQIX","AMT","CCI","SPG","O","VICI","PSA","EXR","MAA","UDR",
+    "AVB","EQR","ESS","SUI","ELS","NNN","WPC","FR","REXR","DLR","IRM",
+    "SBAC","ARE","BXP","VNO","KIM","REG","FRT","EPRT","STAG","TRNO","IIPR",
+    "COR","MPW","SBA",
+]
+_SP500_MATERIALS = [
+    "LIN","APD","SHW","ECL","FCX","NEM","NUE","CF","MOS","EMN","PPG",
+    "CE","AVY","IP","PKG","BALL","SON","SEE","ALB","FMC","RPM","OLN",
+    "ASH","VMC","MLM","STLD","RS","CLF","CMC","NUE",
+]
+_SP500_COMMS = [
+    "META","GOOGL","GOOG","NFLX","CHTR","CMCSA","DIS","PARA","WBD","VZ",
+    "T","TMUS","EA","TTWO","OMC","IPG","NWSA","FOXA","FOX","IAC","MTCH",
+    "LYFT","UBER","SNAP","PINS","RBLX",
+]
+# High-interest growth stocks beyond S&P 500/NASDAQ 100
+_GROWTH_EXTRAS = [
+    "COIN","HOOD","SPOT","SHOP","SE","MELI","BIDU","JD",
+    "SNOW","OKTA","DOCU","RIVN","PLTR","ARM","TSM","ASML","NVO",
+    "SOUN","IONQ","RKLB","JOBY","ACHR","QBTS","RGTI","LUNR",
+    "CELH","DECK","FICO","SMCI","AXON","SNDK","WDC",
+]
+# Major ETFs (scanned for market breadth + user holdings)
+_MAJOR_ETFS = [
+    "SPY","QQQ","IWM","DIA","VTI","VOO","VEA","VWO",
+    "GLD","SLV","TLT","IEF","HYG","LQD",
+    "XLK","XLF","XLV","XLE","XLI","XLC","XLP","XLU","XLRE","XLY","XLB",
+    "SMH","IBB","XBI","XOP","ARKK","ARKG","ARKW",
+]
+
+# Deduplicated master list — ~620 unique symbols
+FULL_LIST = list(dict.fromkeys(
+    _NASDAQ_100
+    + _SP500_FINANCIALS + _SP500_HEALTHCARE + _SP500_ENERGY
+    + _SP500_CONS_DISC  + _SP500_CONS_STAPLES + _SP500_INDUSTRIALS
+    + _SP500_TECH       + _SP500_UTILITIES   + _SP500_REALESTATE
+    + _SP500_MATERIALS  + _SP500_COMMS
+    + _GROWTH_EXTRAS    + _MAJOR_ETFS
+))
+
 # Custom watchlist — add any ticker here to always include it in every scan
 CUSTOM_WATCHLIST = [
-    # "SNDK",  # already in lists above — add others here e.g. "ARM", "PLTR"
+    # Examples: "INTC", "PLTR", "ARM", "TSM"
 ]
 
 # ── History helpers ─────────────────────────────────────────
@@ -125,15 +214,34 @@ def run(mode="quick"):
         tickers_for_news = [s["ticker"] for s in stock_rows[:15]]
     else:
         tickers = all_tickers
-        print(f"[{datetime.now():%H:%M}] Scanning {len(tickers)} stocks…", flush=True)
+        n_workers = min(20, len(tickers))
+        print(f"[{datetime.now():%H:%M}] Scanning {len(tickers)} stocks with {n_workers} parallel workers…", flush=True)
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        import threading
+        _lock = threading.Lock()
         stock_rows = []
-        for i, t in enumerate(tickers):
-            r = score_stock(t)
-            if r:
-                stock_rows.append(r)
-                print(f"  [{i+1}/{len(tickers)}] {t}: {r['score']:.0f} {r['signal']} | "
-                      f"VCP:{r.get('is_vcp',False)} RS@High:{r.get('rs_at_high',False)} "
-                      f"VDU:{r.get('is_vdu',False)}", flush=True)
+        completed = [0]
+
+        def _scan_one(t):
+            try:
+                return score_stock(t)
+            except Exception:
+                return None
+
+        with ThreadPoolExecutor(max_workers=n_workers) as ex:
+            futures = {ex.submit(_scan_one, t): t for t in tickers}
+            for future in as_completed(futures):
+                t = futures[future]
+                r = future.result()
+                with _lock:
+                    completed[0] += 1
+                    if r:
+                        stock_rows.append(r)
+                        print(f"  [{completed[0]}/{len(tickers)}] {t}: {r['score']:.0f} {r['signal']} | "
+                              f"VCP:{r.get('is_vcp',False)} RS@High:{r.get('rs_at_high',False)}", flush=True)
+                    else:
+                        print(f"  [{completed[0]}/{len(tickers)}] {t}: skip (no data)", flush=True)
+
         stock_rows.sort(key=lambda x: x["score"], reverse=True)
         tickers_for_news = [s["ticker"] for s in stock_rows[:15]]
 

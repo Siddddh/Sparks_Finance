@@ -212,8 +212,11 @@ def run_firebase_push():
 
 
 def run_build_dashboard():
-    step("Building hosted dashboard…")
-    subprocess.run([sys.executable, "build_hosted_dashboard.py"], check=False)
+    # DISABLED: build_hosted_dashboard.py regenerates firebase_hosting/index.html and
+    # OVERWRITES the live Google-Finance-styled app (auth + live Firestore reads).
+    # The hosted page is now maintained by hand and reads Firestore directly, so it
+    # must NOT be regenerated. Left as a no-op on purpose — do not re-enable.
+    print("  [skip] Dashboard rebuild disabled (would overwrite the live app)")
 
 
 # ── Mode orchestration ────────────────────────────────────────────────────────
@@ -264,13 +267,31 @@ def full_run(uid: str):
     run_alerts(uid)
 
 
+def publish_run(uid: str):
+    """Lightweight refresh: push the latest scan to Firestore + regenerate the
+    AI summary and health report. No re-scan, no agents, no dashboard rebuild.
+
+    This is the single command that replaces:
+        python KV/firebase_push.py
+        python KV/ai_summary.py <uid>
+        python KV/health_monitor.py <uid>
+    """
+    print("\n⏰  PUBLISH RUN — Push latest scan + AI reports")
+    run_firebase_push()   # pushes existing combined_results.json (all stocks)
+    run_portfolio(uid)    # refresh stored holding prices/P&L
+    run_ai_summary(uid)
+    run_health(uid)
+
+
 # ── Main ───────────────────────────────────────────────────────────────────────
 
 def main():
     parser = argparse.ArgumentParser(description="Sparks Finance — Platform Runner")
     parser.add_argument("--uid", required=True, help="Firebase user UID")
-    parser.add_argument("--mode", choices=["morning", "midday", "close", "full"],
-                        default="full", help="Run mode")
+    parser.add_argument("--mode", choices=["morning", "midday", "close", "full", "publish"],
+                        default="full",
+                        help="Run mode. 'publish' = push latest scan + AI summary + health only "
+                             "(no re-scan/agents/dashboard).")
     parser.add_argument("--skip-scan", action="store_true",
                         help="Skip stock scan (use existing data)")
     parser.add_argument("--tickers", nargs="*", help="Run agent deep-dive on these tickers")
@@ -289,15 +310,16 @@ def main():
         run_agents_for_tickers(args.tickers)
 
     # Main mode execution
-    if not args.skip_scan or args.mode in ("morning", "close", "full"):
-        if args.mode == "morning":
-            morning_run(args.uid)
-        elif args.mode == "midday":
-            midday_run(args.uid)
-        elif args.mode == "close":
-            close_run(args.uid)
-        else:
-            full_run(args.uid)
+    if args.mode == "publish":
+        publish_run(args.uid)
+    elif args.mode == "morning":
+        morning_run(args.uid)
+    elif args.mode == "midday":
+        midday_run(args.uid)
+    elif args.mode == "close":
+        close_run(args.uid)
+    else:
+        full_run(args.uid)
 
     elapsed = (datetime.now() - start).total_seconds()
     print(f"\n{'═'*60}")

@@ -300,6 +300,7 @@ def push_health_report(db, uid: str, holdings: list):
     today = date.today().isoformat()
     doc = {
         "uid": uid,
+        "date": today,   # REQUIRED: the dashboard query orders reports by `date`
         "generated_at": datetime.utcnow().isoformat(),
         "holdings": holdings,
         "summary": {
