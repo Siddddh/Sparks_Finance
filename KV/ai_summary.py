@@ -417,9 +417,18 @@ def call_claude(prompt: str, model: str = MODEL_DEFAULT) -> tuple[dict, str]:
 
 def push_report(db, uid: str, sections: dict, raw: str):
     today = date.today().isoformat()
+    # The web UI renders `sections` (an ordered list of {title, body}); keep the flat
+    # keys too for backward compatibility.
+    _titles = [("performance", "Performance"), ("opportunities", "Opportunities"),
+               ("risks", "Risks"), ("actions", "Action Items")]
+    section_list = [{"title": title, "body": sections.get(key, "")}
+                    for key, title in _titles if (sections.get(key) or "").strip()]
     doc = {
         "uid": uid,
+        "date": today,
         "generated_at": datetime.utcnow().isoformat(),
+        "sections": section_list,
+        "summary": raw,
         "performance": sections.get("performance", ""),
         "opportunities": sections.get("opportunities", ""),
         "risks": sections.get("risks", ""),
