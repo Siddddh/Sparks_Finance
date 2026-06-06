@@ -106,6 +106,16 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .mkt-lbl{font-size:11px;color:var(--text-3);font-weight:500;}
 .mkt-val{font-size:13px;font-weight:600;color:var(--text);}
 .mkt-adv{font-size:11px;color:var(--text-3);padding:0 14px;white-space:nowrap;}
+/* Scrolling market ticker */
+.ticker{flex:1;min-width:0;overflow:hidden;position:relative;}
+.ticker-track{display:inline-flex;white-space:nowrap;will-change:transform;animation:tickerscroll 90s linear infinite;}
+.ticker:hover .ticker-track{animation-play-state:paused;}
+@keyframes tickerscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tk-item{display:inline-flex;align-items:baseline;gap:7px;padding:0 16px;border-right:1px solid var(--border-soft);}
+.tk-sym{font-weight:600;font-size:12px;color:var(--text);}
+.tk-px{font-size:12px;color:var(--text-2);white-space:nowrap;}
+.tk-px .tk-val{color:var(--text);font-weight:600;}
+.tk-px .pos{color:var(--green);}.tk-px .neg{color:var(--red);}.tk-px .neu{color:var(--text-3);}
 
 /* ════════ Layout ════════ */
 .layout{display:flex;align-items:flex-start;}
@@ -467,7 +477,7 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 
   <div class="mkt-bar" id="mktBar">
     <div class="mkt-state mkt-gray" id="mktState">Market</div>
-    <div id="indexStrip" style="display:flex;align-items:center;"></div>
+    <div id="indexStrip" class="ticker"></div>
     <div class="mkt-stat"><span class="mkt-lbl">Breadth</span><span class="mkt-val" id="mBreadth">—</span></div>
     <div class="mkt-stat"><span class="mkt-lbl">Dist Days</span><span class="mkt-val" id="mDist">—</span></div>
     <div class="mkt-adv" id="mktAdv">—</div>
@@ -740,49 +750,68 @@ function _tfetch(url, ms) {
   const t = setTimeout(() => c.abort(), ms || 4000);
   return fetch(url, { signal: c.signal }).finally(() => clearTimeout(t));
 }
-async function _chartFetch(url) {
-  const r = await _tfetch(url, 4500);
+async function _chartFetch(url, expectSym) {
+  const r = await _tfetch(url, 8000);
   if (!r.ok) throw new Error('HTTP ' + r.status);
   const d = await r.json();
   const res = d && d.chart && d.chart.result && d.chart.result[0];
   const meta = res && res.meta;
   if (meta && meta.regularMarketPrice != null) {
-    // Sanity: the requested symbol must match what came back (proxies sometimes return a cached/other payload).
-    if (meta.symbol && url.indexOf(encodeURIComponent(meta.symbol)) === -1 && url.indexOf(meta.symbol) === -1) throw new Error('symbol mismatch');
+    // Sanity: reject a payload for a different symbol (proxies sometimes return a cached/other response).
+    // Compare against the requested symbol directly — NOT the URL (special chars get double-encoded by the proxy).
+    if (expectSym && meta.symbol && meta.symbol.toUpperCase() !== expectSym.toUpperCase()) throw new Error('symbol mismatch');
     return { price: meta.regularMarketPrice, prev: meta.chartPreviousClose || meta.previousClose || meta.regularMarketPrice };
   }
   throw new Error('no price');
 }
-// Yahoo's browser endpoints intermittently CORS-block / rate-limit (HTTP 429).
-// Try the two Yahoo hosts directly, then fall back through public CORS proxies so
-// prices still resolve from the deployed origin.
-async function _fetchOne(ticker) {
-  if (!ticker) return;
+// Global throttled queue for ALL price fetches. The shared CORS proxy (corsproxy.io)
+// rejects concurrent bursts — firing 9 symbols at once made 6 fail. So every fetch
+// (index strip, search, holdings, research) flows through one queue: max 3 in flight,
+// ~90ms apart. This keeps prices reliable no matter how many callers fire at once.
+const _PX_CONC = 3, _PX_GAP = 90;
+let _pxActive = 0, _pxNextAt = 0;
+const _pxQueue = [];
+function _pxPump() {
+  while (_pxActive < _PX_CONC && _pxQueue.length) {
+    const job = _pxQueue.shift();
+    _pxActive++;
+    const now = Date.now();
+    const gap = Math.max(0, _pxNextAt - now);
+    _pxNextAt = now + gap + _PX_GAP;
+    setTimeout(() => {
+      Promise.resolve().then(job.fn).then(job.res, job.res).finally(() => { _pxActive--; _pxPump(); });
+    }, gap);
+  }
+}
+function _pxRun(fn) { return new Promise(res => { _pxQueue.push({ fn, res }); _pxPump(); }); }
+
+async function _fetchOneRaw(ticker) {
   if (_liveCache[ticker] && _liveCache[ticker].price != null) return;
   const sym = ticker.replace(/\./g, '-');
   const path = 'v8/finance/chart/' + encodeURIComponent(sym) + '?interval=1d&range=2d';
   const yq1 = 'https://query1.finance.yahoo.com/' + path;
   const yq2 = 'https://query2.finance.yahoo.com/' + path;
+  // Browser can't hit Yahoo directly (CORS). corsproxy.io is the fast/reliable path;
+  // allorigins is a slow last-ditch fallback; direct kept in case CORS ever opens.
   const candidates = [
-    yq1, yq2,
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent(yq1),
     'https://corsproxy.io/?url=' + encodeURIComponent(yq1),
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent(yq1),
+    yq1, yq2,
   ];
   for (const url of candidates) {
-    try {
-      const q = await _chartFetch(url);
-      _storeQuote(ticker, sym, q.price, q.prev);
-      return;
-    } catch (e) { /* try next source */ }
+    try { const q = await _chartFetch(url, sym); _storeQuote(ticker, sym, q.price, q.prev); return; }
+    catch (e) { /* try next source */ }
   }
+}
+function _fetchOne(ticker) {
+  if (!ticker) return Promise.resolve();
+  if (_liveCache[ticker] && _liveCache[ticker].price != null) return Promise.resolve();
+  return _pxRun(() => _fetchOneRaw(ticker));
 }
 async function fetchLivePrices(tickers) {
   if (!tickers || !tickers.length) return;
   const uniq = [...new Set(tickers.filter(Boolean))];
-  // Conservative concurrency to avoid Yahoo 429s.
-  for (let i = 0; i < uniq.length; i += 5) {
-    await Promise.all(uniq.slice(i, i + 5).map(_fetchOne));
-  }
+  await Promise.all(uniq.map(_fetchOne));  // queue enforces real concurrency
 }
 function liveEntry(ticker) {
   if (!ticker) return null;
@@ -878,29 +907,45 @@ const INDEX_BAR = [
   { sym: 'GC=F', label: 'Gold' }, { sym: 'CL=F', label: 'Crude' },
   { sym: 'BTC-USD', label: 'Bitcoin' }, { sym: 'EURUSD=X', label: 'EUR/USD' }
 ];
-function _idxId(sym) { return 'idx_' + sym.replace(/[^A-Za-z0-9]/g, ''); }
-function buildIndexStrip() {
-  const host = document.getElementById('indexStrip');
-  if (!host) return;
-  host.innerHTML = INDEX_BAR.map(x =>
-    '<div class="mkt-stat" id="' + _idxId(x.sym) + '"><span class="mkt-lbl">' + x.label + '</span>' +
-    '<span class="mkt-val"><span class="ac-skel" style="width:46px;height:12px"></span></span></div>'
-  ).join('');
-  fetchLivePrices(INDEX_BAR.map(x => x.sym)).then(() => {
-    INDEX_BAR.forEach(x => {
-      const cell = document.getElementById(_idxId(x.sym));
-      if (!cell) return;
-      const val = cell.querySelector('.mkt-val');
-      const e = liveEntry(x.sym);
-      if (!e || e.price == null) { val.textContent = '—'; return; }
-      const chg = e.changePct || 0;
-      const cls = chg > 0 ? 'pos' : chg < 0 ? 'neg' : 'neu';
-      const arrow = chg > 0 ? '▲' : chg < 0 ? '▼' : '';
-      const price = e.price >= 1000 ? e.price.toLocaleString(undefined, { maximumFractionDigits: 0 }) : e.price.toFixed(2);
-      val.innerHTML = price + ' <span class="' + cls + '" style="font-size:11px;font-weight:600">' + arrow + Math.abs(chg).toFixed(2) + '%</span>';
-    });
+// ── Live scrolling market ticker (indices + movers), auto-refreshing ──
+let _tickerSyms = [], _tickerTimer = null;
+function tickerItems() {
+  const items = INDEX_BAR.map(x => ({ sym: x.sym, label: x.label }));
+  const movers = D ? (D.stocks || []).slice(0, 12).map(s => s.ticker) : [];
+  const popular = ['AAPL', 'MSFT', 'NVDA', 'AMZN', 'GOOGL', 'META', 'TSLA'];
+  [...new Set([...movers, ...popular])].slice(0, 14).forEach(t => items.push({ sym: t, label: t }));
+  return items;
+}
+function _tkPx(e) {
+  if (!e || e.price == null) return '—';
+  const chg = e.changePct || 0, cls = chg > 0 ? 'pos' : chg < 0 ? 'neg' : 'neu', ar = chg > 0 ? '▲' : chg < 0 ? '▼' : '';
+  const p = e.price >= 1000 ? e.price.toLocaleString(undefined, { maximumFractionDigits: 0 }) : e.price.toFixed(2);
+  return '<span class="tk-val">' + p + '</span> <span class="' + cls + '">' + ar + Math.abs(chg).toFixed(2) + '%</span>';
+}
+function updateTicker() {
+  _tickerSyms.forEach(sym => {
+    const e = liveEntry(sym), sel = '.tk-item[data-sym="' + (window.CSS && CSS.escape ? CSS.escape(sym) : sym) + '"] .tk-px';
+    document.querySelectorAll(sel).forEach(px => { px.innerHTML = _tkPx(e); });
   });
 }
+function buildTicker() {
+  const host = document.getElementById('indexStrip');
+  if (!host) return;
+  const items = tickerItems();
+  _tickerSyms = items.map(i => i.sym);
+  const cell = i => '<span class="tk-item" data-sym="' + i.sym + '"><span class="tk-sym">' + i.label + '</span>' +
+    '<span class="tk-px"><span class="ac-skel" style="width:54px;height:11px"></span></span></span>';
+  const row = items.map(cell).join('');
+  host.innerHTML = '<div class="ticker-track">' + row + row + '</div>'; // duplicated for seamless loop
+  fetchLivePrices(_tickerSyms).then(updateTicker);
+  if (!_tickerTimer) _tickerTimer = setInterval(refreshTicker, 60000); // refresh prices every 60s
+}
+function refreshTicker() {
+  _tickerSyms.forEach(s => { delete _liveCache[s]; delete _liveCache[s.replace(/\./g, '-')]; });
+  fetchLivePrices(_tickerSyms).then(updateTicker);
+}
+// back-compat alias (callers may still reference buildIndexStrip)
+function buildIndexStrip() { buildTicker(); }
 
 // ════════ Autocomplete (local lists + live Yahoo symbol search) ════════
 let _acActive = -1, _acTarget = null, _acReq = 0, _acRemoteTimer = null;
@@ -912,13 +957,12 @@ const _AC_TYPES = { EQUITY: 1, ETF: 1, MUTUALFUND: 1, INDEX: 1, CURRENCY: 1, FUT
 async function yahooSearch(q) {
   const base = 'https://query2.finance.yahoo.com/v1/finance/search?q=' + encodeURIComponent(q) + '&quotesCount=10&newsCount=0&listsCount=0';
   const urls = [
-    base,
-    'https://query1.finance.yahoo.com/v1/finance/search?q=' + encodeURIComponent(q) + '&quotesCount=10&newsCount=0&listsCount=0',
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent(base),
     'https://corsproxy.io/?url=' + encodeURIComponent(base),
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent(base),
+    base,
   ];
   for (const u of urls) {
-    try { const r = await _tfetch(u, 4500); if (!r.ok) throw 0; const d = await r.json(); if (d && d.quotes) return d.quotes; } catch (e) {}
+    try { const r = await _tfetch(u, 8000); if (!r.ok) throw 0; const d = await r.json(); if (d && d.quotes) return d.quotes; } catch (e) {}
   }
   return [];
 }
