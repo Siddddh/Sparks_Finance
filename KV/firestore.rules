@@ -89,5 +89,17 @@ service cloud.firestore {
       allow read: if request.auth != null && request.auth.uid == uid;
       allow write: if false;
     }
+
+    // ── Pre-market notifications (Cloud Function writes via Admin SDK; browser reads) ──
+    match /notifications/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+    match /notifications/{uid}/list/{notificationId} {
+      // Browser may read its own digests and mark them read; only the
+      // Cloud Function (Admin SDK) creates or deletes them.
+      allow read, update: if request.auth != null && request.auth.uid == uid;
+      allow create, delete: if false;
+    }
   }
 }

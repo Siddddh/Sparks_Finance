@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 <title>Sparks Finance — Stock Intelligence</title>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<meta name="theme-color" content="#1a73e8"/>
+<link rel="icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"/>
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="Sparks"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <script src="symbols.js"></script><!-- full US listings catalog (Nasdaq + NYSE/AMEX): window.US_SYMBOLS -->
 
@@ -542,6 +552,16 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
         <div id="tab-earnings" class="tab-panel"><div class="page-title">Earnings</div><div id="earningsContent"></div></div>
         <div id="tab-health" class="tab-panel"><div class="page-title">Portfolio Health</div><div id="healthContent"></div></div>
         <div id="tab-catalysts" class="tab-panel"><div class="page-title">Catalysts</div><div id="catalystsContent"></div></div>
+        <div id="tab-premarket" class="tab-panel">
+          <div class="page-title">Pre-Market</div>
+          <div class="pf-toolbar">
+            <button class="pf-btn pf-btn-primary" id="enablePushBtn" onclick="registerForPush(true)"><span class="i-bell"></span> Enable notifications</button>
+            <button class="pf-btn pf-btn-outline" id="installBtn" style="display:none" onclick="promptInstall()"><span class="i-spark"></span> Add to Home</button>
+            <span id="pushStatus" style="font-size:12px;color:var(--text-3);align-self:center;"></span>
+          </div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 14px;">Daily market-moving events for your holdings &amp; watchlist, delivered at 8:00 AM ET — one hour before the open.</div>
+          <div id="premarketBody"></div>
+        </div>
         <div id="tab-market" class="tab-panel"><div class="page-title">Market News</div><div class="mnews-grid" id="marketGrid"></div></div>
         <div id="tab-table" class="tab-panel">
           <div class="page-title">Full Scan Table</div>
@@ -668,6 +688,8 @@ function injectStaticIcons() {
   const tb = document.getElementById('themeToggle');
   if (tb) tb.innerHTML = ic(document.documentElement.getAttribute('data-theme') === 'dark' ? 'sun' : 'moon', 20);
   document.querySelectorAll('.i-plus').forEach(el => el.innerHTML = ic('plus', 16));
+  document.querySelectorAll('.i-bell').forEach(el => el.innerHTML = ic('bell', 16));
+  document.querySelectorAll('.i-spark').forEach(el => el.innerHTML = ic('spark', 16));
 }
 
 // ════════ Sidebar nav ════════
@@ -683,6 +705,7 @@ const NAV = [
   { tab: 'useralerts', label: 'Alerts', icon: 'bell' },
   { tab: 'health', label: 'Health', icon: 'activity' },
   { sec: 'Markets' },
+  { tab: 'premarket', label: 'Pre-Market', icon: 'bell' },
   { tab: 'market', label: 'Market News', icon: 'newspaper' },
   { tab: 'earnings', label: 'Earnings', icon: 'calendar' },
   { tab: 'catalysts', label: 'Catalysts', icon: 'spark' },
@@ -710,11 +733,19 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
+// ── Cloud Messaging (web push) ──
+// VAPID public key: Firebase Console → Project Settings → Cloud Messaging →
+// Web Push certificates → "Key pair". Paste the PUBLIC key below.
+const VAPID_PUBLIC_KEY = 'BJoLEIEUmA3A9sg8Q4Z3NaS4VBHbIx8zzSRR6at8t4dS9oDSZLfR4kA-ediZoB2-X5tR7QDNbRSsL5Ikk8gRLKE';
+let messaging = null;
+try { if (firebase.messaging.isSupported()) messaging = firebase.messaging(); } catch (e) { messaging = null; }
+
 // ── State ──
 let D = null, UID = null;
 let portfolios = [], currentPfId = null, holdings = [];
 let watchlists = [], currentWLId = null;
 let userAlerts = [];
+let notifications = [];
 let healthData = null, summaryData = null;
 let chartsInited = false;
 let sortKey = 'combined_score', sortAsc = false;
@@ -1132,6 +1163,7 @@ auth.onAuthStateChanged(user => {
     setLoading('Loading scan data…');
     initScanListener();
     initUserListeners();
+    registerForPush(false);   // silently refresh token if permission already granted
   } else {
     UID = null;
     document.getElementById('loading').classList.add('hidden');
@@ -1165,6 +1197,7 @@ function initUserListeners() {
   loadPortfolioData();
   loadWatchlistData();
   loadUserAlerts();
+  loadNotifications();
 }
 
 // ── Render all ──
@@ -1818,6 +1851,103 @@ function deleteAlert(alertId) {
   db.collection('alerts').doc(UID).collection('list').doc(alertId).delete();
 }
 
+// ── Web push registration (FCM) ──
+let _onMsgBound = false;
+function pushStatusMsg(txt) { const el = document.getElementById('pushStatus'); if (el) el.textContent = txt; }
+
+async function registerForPush(interactive) {
+  if (!UID || !messaging) { if (interactive) pushStatusMsg('Push notifications are not supported in this browser.'); return; }
+  if (VAPID_PUBLIC_KEY === 'REPLACE_WITH_WEB_PUSH_PUBLIC_KEY') { if (interactive) pushStatusMsg('Push not configured yet — add the VAPID key.'); return; }
+  try {
+    // Only prompt when the user explicitly clicks Enable; otherwise just refresh
+    // the token if permission was already granted on a previous visit.
+    if (Notification.permission === 'default' && !interactive) return;
+    const perm = Notification.permission === 'granted' ? 'granted' : await Notification.requestPermission();
+    if (perm !== 'granted') { pushStatusMsg('Notifications blocked — enable them in your browser settings.'); return; }
+    const reg = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+    const token = await messaging.getToken({ vapidKey: VAPID_PUBLIC_KEY, serviceWorkerRegistration: reg });
+    if (token) {
+      await db.collection('users').doc(UID).set({ fcmTokens: firebase.firestore.FieldValue.arrayUnion(token) }, { merge: true });
+      pushStatusMsg('Notifications on ✓');
+      const btn = document.getElementById('enablePushBtn'); if (btn) { btn.disabled = true; btn.style.opacity = '.6'; }
+    }
+    bindForegroundMessages();
+  } catch (e) {
+    pushStatusMsg('Could not enable notifications: ' + (e && e.message ? e.message : e));
+  }
+}
+
+function bindForegroundMessages() {
+  if (_onMsgBound || !messaging) return;
+  _onMsgBound = true;
+  messaging.onMessage(payload => {
+    const n = (payload && payload.notification) || {};
+    pmToast((n.title || 'Pre-Market') + (n.body ? ' — ' + n.body : ''));
+    loadNotifications();
+  });
+}
+
+function pmToast(msg) {
+  let t = document.getElementById('pmToast');
+  if (!t) {
+    t = document.createElement('div'); t.id = 'pmToast';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:12px 18px;border-radius:10px;font-size:13px;max-width:90%;box-shadow:0 6px 24px rgba(0,0,0,.3);z-index:9999;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg; t.style.display = 'block';
+  clearTimeout(t._h); t._h = setTimeout(() => { t.style.display = 'none'; }, 6000);
+}
+
+// ── Pre-Market notification feed ──
+function loadNotifications() {
+  if (!UID) return;
+  db.collection('notifications').doc(UID).collection('list').orderBy('createdAt', 'desc').limit(60).onSnapshot(snap => {
+    notifications = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (document.getElementById('tab-premarket').classList.contains('active')) renderNotifications();
+    updateNotifBadge();
+  }, () => {});
+}
+
+function updateNotifBadge() {
+  const unread = notifications.filter(n => !n.read).length;
+  const item = document.querySelector('.navitem[data-nav="premarket"]');
+  if (!item) return;
+  let b = item.querySelector('.notif-badge');
+  if (unread) {
+    if (!b) { b = document.createElement('span'); b.className = 'notif-badge'; b.style.cssText = 'margin-left:auto;background:var(--blue,#1a73e8);color:#fff;border-radius:10px;font-size:10px;padding:1px 6px;'; item.appendChild(b); }
+    b.textContent = unread;
+  } else if (b) { b.remove(); }
+}
+
+function renderNotifications() {
+  const el = document.getElementById('premarketBody');
+  if (!el) return;
+  const btn = document.getElementById('enablePushBtn');
+  if (btn && messaging && typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+    btn.disabled = true; btn.style.opacity = '.6'; pushStatusMsg('Notifications on ✓');
+  }
+  if (!notifications.length) {
+    el.innerHTML = emptyState('bell', 'No pre-market alerts yet', 'Your 8:00 AM ET market digest will appear here on trading days.');
+    return;
+  }
+  el.innerHTML = notifications.map(n => {
+    const earn = (n.earnings || []).map(e => '<span class="sig sig-WATCH" style="font-size:10px">' + e.ticker + (e.hourLabel ? ' · ' + e.hourLabel : '') + '</span>').join(' ');
+    const macro = (n.macro || []).map(m => '<div style="font-size:12px;color:var(--text-2)">• ' + (m.event || '') + (m.time ? ' (' + m.time + ')' : '') + '</div>').join('');
+    return '<div class="alert-crd" style="display:block;cursor:pointer;' + (n.read ? 'opacity:.7;' : '') + '" onclick="markNotifRead(\'' + n.id + '\')">' +
+      '<div style="display:flex;justify-content:space-between;gap:10px;"><div class="alert-tkr">' + (n.title || 'Pre-Market') + '</div><div style="font-size:11px;color:var(--text-3)">' + (n.date || '') + (n.read ? '' : ' • new') + '</div></div>' +
+      '<div style="font-size:13px;color:var(--text-2);margin:4px 0 8px;">' + (n.body || '') + '</div>' +
+      (earn ? '<div style="margin-bottom:6px;">' + earn + '</div>' : '') + macro +
+      '</div>';
+  }).join('');
+}
+
+function markNotifRead(id) {
+  if (!UID) return;
+  const n = notifications.find(x => x.id === id);
+  if (n && n.read) return;
+  db.collection('notifications').doc(UID).collection('list').doc(id).update({ read: true }).catch(() => {});
+}
+
 // ── Research (Fix #4: analyse immediately, never block on a queue) ──
 function runResearch() {
   const ticker = document.getElementById('researchInput').value.trim().toUpperCase();
@@ -1999,6 +2129,7 @@ function sw(name) {
   if (name === 'portfolio') renderHoldingsTable();
   if (name === 'watchlist') renderWatchlistTab();
   if (name === 'useralerts') renderUserAlerts();
+  if (name === 'premarket') renderNotifications();
   if (name === 'summary') loadSummary();
   if (name === 'health') loadHealth();
   if (name === 'discovery') renderDiscovery();
@@ -2016,9 +2147,78 @@ document.addEventListener('click', e => {
   }
 });
 
+// ── PWA install ──
+let deferredInstall = null;
+function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+function isStandalone() { return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true; }
+function isIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream; }
+
+function initPWA() {
+  // Register the service worker on load → app is installable + offline-capable.
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/firebase-messaging-sw.js').catch(() => {});
+  }
+  if (isStandalone()) return;   // already installed — no prompts
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredInstall = e; revealInstallUI(); });
+  window.addEventListener('appinstalled', () => { deferredInstall = null; hideInstallUI(); try { pmToast('Installed ✓ — open Sparks from your home screen'); } catch (e) {} });
+  // iOS Safari never fires beforeinstallprompt — offer manual instructions.
+  if (isIOS() && !lsGet('sparks-install-dismissed')) revealInstallUI();
+}
+
+function revealInstallUI() {
+  const btn = document.getElementById('installBtn');
+  if (btn) btn.style.display = '';
+  showInstallBanner();
+}
+function hideInstallUI() {
+  const btn = document.getElementById('installBtn');
+  if (btn) btn.style.display = 'none';
+  const banner = document.getElementById('installBanner');
+  if (banner) banner.remove();
+}
+
+function showInstallBanner() {
+  if (document.getElementById('installBanner') || lsGet('sparks-install-dismissed')) return;
+  const bar = document.createElement('div');
+  bar.id = 'installBanner';
+  bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9998;background:var(--blue,#1a73e8);color:#fff;display:flex;align-items:center;gap:12px;padding:12px 16px;font-size:13px;box-shadow:0 -4px 20px rgba(0,0,0,.18);';
+  bar.innerHTML = '<span style="flex:1;">Install Sparks to get your 8 AM market alerts even when the app is closed.</span>' +
+    '<button id="bannerInstall" style="background:#fff;color:var(--blue,#1a73e8);border:none;border-radius:8px;padding:7px 14px;font-weight:600;cursor:pointer;">' + (isIOS() ? 'How' : 'Install') + '</button>' +
+    '<button id="bannerDismiss" style="background:transparent;color:#fff;border:none;cursor:pointer;font-size:18px;line-height:1;padding:4px;">×</button>';
+  document.body.appendChild(bar);
+  document.getElementById('bannerInstall').onclick = promptInstall;
+  document.getElementById('bannerDismiss').onclick = () => { lsSet('sparks-install-dismissed', '1'); bar.remove(); };
+}
+
+function promptInstall() {
+  if (isIOS()) { showIOSInstructions(); return; }
+  if (!deferredInstall) { try { pmToast('Open your browser menu → "Install app" / "Add to Home screen".'); } catch (e) {} return; }
+  deferredInstall.prompt();
+  deferredInstall.userChoice.finally(() => { deferredInstall = null; hideInstallUI(); });
+}
+
+function showIOSInstructions() {
+  if (document.getElementById('iosInstall')) return;
+  const m = document.createElement('div');
+  m.id = 'iosInstall';
+  m.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;';
+  m.innerHTML = '<div style="background:var(--surface,#fff);color:var(--text,#202124);max-width:420px;width:100%;border-radius:16px 16px 0 0;padding:22px;">' +
+    '<div style="font-weight:700;font-size:16px;margin-bottom:10px;">Add Sparks to your Home Screen</div>' +
+    '<ol style="margin:0 0 16px 18px;padding:0;font-size:14px;line-height:1.7;color:var(--text-2,#5f6368);">' +
+    '<li>Tap the <b>Share</b> icon in Safari’s toolbar.</li>' +
+    '<li>Scroll and tap <b>Add to Home Screen</b>.</li>' +
+    '<li>Tap <b>Add</b>, then open Sparks from your home screen and enable notifications.</li></ol>' +
+    '<button id="iosInstallClose" style="width:100%;background:var(--blue,#1a73e8);color:#fff;border:none;border-radius:10px;padding:11px;font-weight:600;cursor:pointer;">Got it</button></div>';
+  document.body.appendChild(m);
+  document.getElementById('iosInstallClose').onclick = () => m.remove();
+  m.onclick = e => { if (e.target === m) m.remove(); };
+}
+
 // ── Boot ──
 injectStaticIcons();
 buildSidebar();
+initPWA();
 </script>
 </body>
 </html>

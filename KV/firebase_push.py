@@ -76,11 +76,41 @@ def push_to_firestore(scan_data: dict, verbose: bool = True) -> bool:
         # ── 1. Push full scan to scans/latest ──────────────────────
         clean_data = _safe_dict(scan_data)
 
-        # Trim to keep Firestore doc under 1MB: store top 15 stocks, top 8 market news
-        clean_data["stocks"]      = clean_data.get("stocks", [])[:15]
+        # Keep ALL scanned stocks (WATCH/WEAK included) so the dashboard shows the
+        # full universe. To stay under Firestore's 1 MB doc limit, the top picks keep
+        # their full detail (thesis, news, strengths) while the rest are stored as
+        # compact records carrying everything the UI needs to render cards/table/search.
+        _COMPACT_KEYS = (
+            "ticker", "name", "sector", "market_cap_b", "price",
+            "signal", "score", "combined_score", "setup_quality",
+            "rsi", "vol_ratio", "momentum_3m", "eps_growth", "rev_growth",
+            "fwd_pe", "analyst_rating", "rr_ratio", "entry", "stop_loss", "target_1",
+            "pct_from_high", "days_to_earnings", "earnings_flag", "earnings_label",
+            "criteria", "is_vcp", "vcp_contractions", "rs_at_high", "is_vdu",
+            "is_pocket_pivot", "squeeze_potential", "short_pct_float",
+            "news_sentiment", "has_catalyst", "has_breaking_news",
+        )
+        FULL_DETAIL = 25  # how many top stocks keep thesis/news/strengths
+
+        all_stocks = sorted(
+            clean_data.get("stocks", []),
+            key=lambda s: s.get("combined_score", s.get("score", 0)) or 0,
+            reverse=True,
+        )
+        packed = []
+        for i, s in enumerate(all_stocks):
+            if i < FULL_DETAIL:
+                packed.append(s)
+            else:
+                packed.append({k: s[k] for k in _COMPACT_KEYS if k in s})
+        clean_data["stocks"]      = packed
         clean_data["top_picks"]   = clean_data.get("top_picks", [])[:10]
         clean_data["market_news"] = clean_data.get("market_news", [])[:8]
         clean_data["alerts"]      = clean_data.get("alerts", [])[:12]
+
+        # Safety: if the document is still too large, drop compact tail until it fits.
+        while len(json.dumps(clean_data, default=str).encode("utf-8")) > 1_000_000 and len(clean_data["stocks"]) > FULL_DETAIL:
+            clean_data["stocks"] = clean_data["stocks"][:-50]
 
         db.collection("scans").document("latest").set(clean_data)
         if verbose: print("  ✓  Pushed → Firestore: scans/latest")
