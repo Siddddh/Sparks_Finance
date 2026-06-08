@@ -342,3 +342,34 @@ exports.runPremarketNow = onRequest(
     }
   }
 );
+
+// ── Live quote proxy ────────────────────────────────────────────────────────
+// The browser can't call Yahoo Finance directly (no CORS headers). This function
+// fetches it server-side (no CORS restriction) and returns clean JSON with CORS
+// enabled, so the web app can read it without flaky public proxies.
+// GET /getQuote?symbols=NVDA,AAPL  ->  { quotes: { NVDA:{price,prev}, ... } }
+exports.getQuote = onRequest(
+  { region: 'us-central1', cors: true },
+  async (req, res) => {
+    const symbols = String(req.query.symbols || '')
+      .split(',').map(s => s.trim()).filter(Boolean).slice(0, 40);
+    const quotes = {};
+    await Promise.all(symbols.map(async (sym) => {
+      try {
+        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=2d`;
+        const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+        if (!r.ok) return;
+        const d = await r.json();
+        const meta = d && d.chart && d.chart.result && d.chart.result[0] && d.chart.result[0].meta;
+        if (meta && meta.regularMarketPrice != null) {
+          quotes[sym] = {
+            price: meta.regularMarketPrice,
+            prev: meta.chartPreviousClose || meta.previousClose || meta.regularMarketPrice
+          };
+        }
+      } catch (e) { /* skip this symbol */ }
+    }));
+    res.set('Cache-Control', 'public, max-age=30');
+    res.json({ quotes });
+  }
+);

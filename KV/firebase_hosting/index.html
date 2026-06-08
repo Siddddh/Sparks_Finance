@@ -785,6 +785,9 @@ const VAPID_PUBLIC_KEY = 'BJoLEIEUmA3A9sg8Q4Z3NaS4VBHbIx8zzSRR6at8t4dS9oDSZLfR4k
 let messaging = null;
 try { if (firebase.messaging.isSupported()) messaging = firebase.messaging(); } catch (e) { messaging = null; }
 
+// Live-quote proxy (our own Cloud Function — avoids Yahoo CORS / flaky public proxies).
+const QUOTE_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getQuote';
+
 // ── State ──
 let D = null, UID = null;
 let portfolios = [], currentPfId = null, holdings = [];
@@ -864,20 +867,14 @@ function _pxRun(fn) { return new Promise(res => { _pxQueue.push({ fn, res }); _p
 async function _fetchOneRaw(ticker) {
   if (_liveCache[ticker] && _liveCache[ticker].price != null) return;
   const sym = ticker.replace(/\./g, '-');
-  const path = 'v8/finance/chart/' + encodeURIComponent(sym) + '?interval=1d&range=2d';
-  const yq1 = 'https://query1.finance.yahoo.com/' + path;
-  const yq2 = 'https://query2.finance.yahoo.com/' + path;
-  // Browser can't hit Yahoo directly (CORS). corsproxy.io is the fast/reliable path;
-  // allorigins is a slow last-ditch fallback; direct kept in case CORS ever opens.
-  const candidates = [
-    'https://corsproxy.io/?url=' + encodeURIComponent(yq1),
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent(yq1),
-    yq1, yq2,
-  ];
-  for (const url of candidates) {
-    try { const q = await _chartFetch(url, sym); _storeQuote(ticker, sym, q.price, q.prev); return; }
-    catch (e) { /* try next source */ }
-  }
+  // Fetch via our own getQuote Cloud Function (server-side Yahoo fetch, CORS-enabled).
+  try {
+    const r = await _tfetch(QUOTE_API + '?symbols=' + encodeURIComponent(sym), 8000);
+    if (!r.ok) return;
+    const j = await r.json();
+    const q = j.quotes && (j.quotes[sym] || j.quotes[sym.toUpperCase()]);
+    if (q && q.price != null) _storeQuote(ticker, sym, q.price, q.prev);
+  } catch (e) { /* leave unpriced — UI falls back to scan price or em-dash */ }
 }
 function _fetchOne(ticker) {
   if (!ticker) return Promise.resolve();
