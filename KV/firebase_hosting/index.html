@@ -556,7 +556,7 @@ body.sidebar-open .nav-scrim{display:block;}
           <div class="grid" id="picksGrid"></div>
           <button class="show-more" id="showMoreBtn" style="display:none" onclick="showMorePicks()">Show more stocks</button>
         </div>
-        <div id="tab-summary" class="tab-panel"><div class="page-title">AI Summary</div><div id="summaryContent"></div></div>
+        <div id="tab-summary" class="tab-panel"><div class="page-title">AI Summary</div><div class="pf-toolbar"><select id="summaryPfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div><div id="summaryContent"></div></div>
         <div id="tab-portfolio" class="tab-panel">
           <div class="page-title">Portfolio</div>
           <div id="pfContent">
@@ -564,6 +564,16 @@ body.sidebar-open .nav-scrim{display:block;}
               <select id="pfSelect" class="pf-select" onchange="switchPf(this.value)"></select>
               <input id="newPfName" class="pf-select" style="flex:1 1 180px;min-width:140px;" placeholder="New portfolio name…" onkeydown="if(event.key==='Enter')addPortfolioInline()" autocomplete="off"/>
               <button class="pf-btn pf-btn-outline" onclick="addPortfolioInline()"><span class="i-plus"></span> Add Portfolio</button>
+            </div>
+            <div class="pf-toolbar" id="addHoldingRow">
+              <div class="ac-wrap" style="flex:2 1 150px;min-width:120px;position:relative;">
+                <input id="inlineHoldingTicker" class="pf-select" style="width:100%;" placeholder="Ticker e.g. AAPL" oninput="acFilter(this,'inlineHoldingAC','addHoldingInline')" onkeydown="acKey(event,'inlineHoldingAC','addHoldingInline')" onchange="autofillBuyPriceInline(this.value)" autocomplete="off"/>
+                <div id="inlineHoldingAC" class="ac-list" style="display:none"></div>
+              </div>
+              <input id="inlineHoldingQty" class="pf-select" type="number" placeholder="Qty" style="flex:1 1 70px;min-width:64px;"/>
+              <input id="inlineHoldingPrice" class="pf-select" type="number" step="0.01" placeholder="Buy $" style="flex:1 1 80px;min-width:72px;"/>
+              <input id="inlineHoldingDate" class="pf-select" type="date" style="flex:1 1 140px;min-width:120px;"/>
+              <button class="pf-btn pf-btn-primary" onclick="addHoldingInline()"><span class="i-plus"></span> Add holding</button>
             </div>
             <div id="pfBody"></div>
           </div>
@@ -596,7 +606,7 @@ body.sidebar-open .nav-scrim{display:block;}
         </div>
         <div id="tab-discovery" class="tab-panel"><div class="page-title">Discovery</div><div id="discoveryContent"></div></div>
         <div id="tab-earnings" class="tab-panel"><div class="page-title">Earnings</div><div id="earningsContent"></div></div>
-        <div id="tab-health" class="tab-panel"><div class="page-title">Portfolio Health</div><div id="healthContent"></div></div>
+        <div id="tab-health" class="tab-panel"><div class="page-title">Portfolio Health</div><div class="pf-toolbar"><select id="healthPfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div><div id="healthContent"></div></div>
         <div id="tab-catalysts" class="tab-panel"><div class="page-title">Catalysts</div><div id="catalystsContent"></div></div>
         <div id="tab-premarket" class="tab-panel">
           <div class="page-title">Pre-Market</div>
@@ -1119,6 +1129,7 @@ function acSelect(sym, listId, context) {
   if (context === 'research') { document.getElementById('researchInput').value = sym; runResearch(); }
   else if (context === 'global') { goResearch(sym); document.getElementById('globalSearch').value = ''; }
   else if (context === 'addHolding') { document.getElementById('holdingTicker').value = sym; autofillBuyPrice(sym); }
+  else if (context === 'addHoldingInline') { document.getElementById('inlineHoldingTicker').value = sym; autofillBuyPriceInline(sym); }
   else if (context === 'addWL') { document.getElementById('wlTickerInput').value = sym; }
 }
 function acClose(listId) { const el = document.getElementById(listId); if (el) el.style.display = 'none'; }
@@ -1536,13 +1547,33 @@ function emptyState(icon, title, sub) {
   return '<div class="empty-state"><div class="empty-icon">' + ic(icon, 44) + '</div><div class="empty-title">' + title + '</div>' + (sub ? '<div class="empty-sub">' + sub + '</div>' : '') + '</div>';
 }
 
-// ── Gather the logged-in user's holdings across ALL portfolios, enriched with
-//    live/scan price, gain%, days held. Used by both the AI summary and health report
-//    so they always reflect the CURRENT user's actual holdings (no per-UID batch). ──
-async function gatherUserHoldings() {
+// ── Per-portfolio report scope for AI Summary + Health ──
+let reportPfId = null;   // null = follow currentPfId; 'all' = combined; else a specific pfId
+function portfolioNameById(id) { const p = portfolios.find(x => x.id === id); return p ? (p.name || p.id) : ''; }
+function effectiveReportScope() { return reportPfId || currentPfId || 'all'; }
+function syncReportSelectors() {
+  const val = effectiveReportScope();
+  ['summaryPfSelect', 'healthPfSelect'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    sel.innerHTML = '<option value="all">All portfolios</option>' + portfolios.map(p => '<option value="' + p.id + '">' + (p.name || p.id) + '</option>').join('');
+    sel.value = val;
+  });
+}
+function setReportPf(val) {
+  reportPfId = val;
+  if (document.getElementById('tab-summary').classList.contains('active')) loadSummary();
+  if (document.getElementById('tab-health').classList.contains('active')) loadHealth();
+}
+
+// ── Gather the logged-in user's holdings, enriched with live/scan price, gain%, days held.
+//    `scope` = a portfolio id (single portfolio) or 'all'/undefined (every portfolio).
+//    Used by both the AI summary and health report. ──
+async function gatherUserHoldings(scope) {
   const out = [];
   if (!UID) return out;
-  for (const pf of portfolios) {
+  const pfs = (!scope || scope === 'all') ? portfolios : portfolios.filter(p => p.id === scope);
+  for (const pf of pfs) {
     let docs;
     if (holdingsByPortfolio[pf.id]) docs = holdingsByPortfolio[pf.id];   // live cache for any visited portfolio
     else {
@@ -1569,22 +1600,30 @@ async function gatherUserHoldings() {
 async function loadSummary() {
   const el = document.getElementById('summaryContent');
   if (!UID) { renderSummaryData(summaryData); return; }
+  syncReportSelectors();
+  const scope = effectiveReportScope();
   el.innerHTML = '<div style="text-align:center;padding:48px;color:var(--text-3)"><div class="load-spinner" style="margin:0 auto 12px"></div>Generating your summary…</div>';
   let hs = [];
-  try { hs = await gatherUserHoldings(); } catch (e) {}
-  const sections = buildSummarySections(hs);
-  const doc = { uid: UID, date: todayStr(), generated_at: new Date().toISOString(), sections, summary: sections.map(s => '[' + s.title + ']\n' + s.body).join('\n\n') };
+  try { hs = await gatherUserHoldings(scope); } catch (e) {}
+  const sections = buildSummarySections(hs, scope);
+  const doc = { uid: UID, date: todayStr(), generated_at: new Date().toISOString(), scope, sections, summary: sections.map(s => '[' + s.title + ']\n' + s.body).join('\n\n') };
   summaryData = doc;
   renderSummaryData(doc);
-  try { db.collection('ai_reports').doc(UID).collection('reports').doc(todayStr()).set(doc); } catch (e) {}
+  // Persist only the all-portfolios aggregate so a single-portfolio view doesn't clobber it.
+  if (scope === 'all') { try { db.collection('ai_reports').doc(UID).collection('reports').doc(todayStr()).set(doc); } catch (e) {} }
 }
-function buildSummarySections(hs) {
+function buildSummarySections(hs, scope) {
   const perf = [], opp = [], risk = [], action = [];
   const totalVal = hs.reduce((a, h) => a + h.value, 0);
   const totalCost = hs.reduce((a, h) => a + h.cost, 0);
   const gainAbs = totalVal - totalCost;
   const gainPct = totalCost > 0 ? gainAbs / totalCost * 100 : 0;
-  if (totalVal > 0) perf.push('Your ' + (new Set(hs.map(h => h.portfolio)).size || 1) + ' portfolio(s) total $' + totalVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' with an unrealised ' + (gainAbs >= 0 ? 'gain' : 'loss') + ' of $' + Math.abs(gainAbs).toLocaleString(undefined, { maximumFractionDigits: 2 }) + ' (' + (gainPct >= 0 ? '+' : '') + gainPct.toFixed(1) + '%).');
+  if (totalVal > 0) {
+    const scopeLabel = (scope && scope !== 'all')
+      ? ('Your "' + (portfolioNameById(scope) || 'portfolio') + '" portfolio totals $')
+      : ('Your ' + (new Set(hs.map(h => h.portfolio)).size || 1) + ' portfolio(s) total $');
+    perf.push(scopeLabel + totalVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' with an unrealised ' + (gainAbs >= 0 ? 'gain' : 'loss') + ' of $' + Math.abs(gainAbs).toLocaleString(undefined, { maximumFractionDigits: 2 }) + ' (' + (gainPct >= 0 ? '+' : '') + gainPct.toFixed(1) + '%).');
+  }
   else perf.push('No portfolio holdings found yet. Add holdings in the Portfolio tab to track performance.');
   if (hs.length) {
     const winners = hs.filter(h => h.gain_pct > 0), losers = hs.filter(h => h.gain_pct < 0);
@@ -1666,9 +1705,11 @@ function computeHealth(h) {
 async function loadHealth() {
   const el = document.getElementById('healthContent');
   if (!UID) { renderHealthData(healthData); return; }
+  syncReportSelectors();
+  const scope = effectiveReportScope();
   el.innerHTML = '<div style="text-align:center;padding:48px;color:var(--text-3)"><div class="load-spinner" style="margin:0 auto 12px"></div>Analysing your holdings…</div>';
   let hs = [];
-  try { hs = await gatherUserHoldings(); } catch (e) {}
+  try { hs = await gatherUserHoldings(scope); } catch (e) {}
   if (!hs.length) { el.innerHTML = emptyState('activity', 'No holdings to evaluate', 'Add holdings in the Portfolio tab, then revisit'); return; }
   const holdingsOut = hs.map(h => {
     const c = computeHealth(h);
@@ -1678,7 +1719,7 @@ async function loadHealth() {
   const doc = { uid: UID, date: todayStr(), generated_at: new Date().toISOString(), holdings: holdingsOut, summary };
   healthData = doc;
   renderHealthData(doc);
-  try { db.collection('health_reports').doc(UID).collection('reports').doc(todayStr()).set(doc); } catch (e) {}
+  if (scope === 'all') { try { db.collection('health_reports').doc(UID).collection('reports').doc(todayStr()).set(doc); } catch (e) {} }
 }
 function renderHealthData(data) {
   const el = document.getElementById('healthContent');
@@ -1719,6 +1760,8 @@ function loadPortfolioData() {
   if (!UID) return;
   db.collection('portfolios').doc(UID).collection('list').onSnapshot(snap => {
     portfolios = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    syncReportSelectors();
+    const _dEl = document.getElementById('inlineHoldingDate'); if (_dEl && !_dEl.value) _dEl.value = todayStr();
     const sel = document.getElementById('pfSelect');
     sel.innerHTML = portfolios.map(p => '<option value="' + p.id + '">' + (p.name || p.id) + '</option>').join('');
     if (!portfolios.length) {
@@ -1771,6 +1814,37 @@ function removeHolding(pfId, holdingId) {
   db.collection('holdings').doc(UID).collection(pfId).doc(holdingId).delete();
 }
 function renderPortfolioTab() { renderHoldingsTable(); }
+// ── Inline add-holding row (replaces the modal) ──
+async function addHoldingInline() {
+  if (!currentPfId) { try { pmToast('Create a portfolio first'); } catch (e) {} return; }
+  const t = document.getElementById('inlineHoldingTicker'), q = document.getElementById('inlineHoldingQty'),
+        p = document.getElementById('inlineHoldingPrice'), d = document.getElementById('inlineHoldingDate');
+  const ticker = ((t && t.value) || '').trim().toUpperCase();
+  const qty = parseFloat(q && q.value);
+  if (!ticker) { if (t) t.focus(); return; }
+  if (!(qty > 0)) { if (q) q.focus(); return; }
+  let price = parseFloat(p && p.value);
+  if (isNaN(price)) { const le = liveEntry(ticker), sd = scanStockFor(ticker); price = (le && le.price) || (sd && parseFloat(sd.price)) || 0; }
+  await addHolding(currentPfId, ticker, qty, price, (d && d.value) || todayStr());
+  if (t) t.value = '';
+  if (q) q.value = '';
+  if (p) p.value = '';
+  if (d) d.value = todayStr();
+  acClose('inlineHoldingAC');
+  if (t) t.focus();
+  try { pmToast(ticker + ' added to ' + (portfolioNameById(currentPfId) || 'portfolio')); } catch (e) {}
+}
+async function autofillBuyPriceInline(sym) {
+  if (!sym) return;
+  sym = sym.trim().toUpperCase();
+  const bp = document.getElementById('inlineHoldingPrice');
+  if (!bp || bp.value) return;
+  let px = null; const le = liveEntry(sym), sd = scanStockFor(sym);
+  if (le && le.price) px = le.price;
+  else if (sd && parseFloat(sd.price)) px = parseFloat(sd.price);
+  if (px == null) { try { await fetchLivePrices([sym]); const l2 = liveEntry(sym); if (l2 && l2.price) px = l2.price; } catch (e) {} }
+  if (px != null && !bp.value) bp.value = (+px).toFixed(2);
+}
 
 // Fix #1: always fetch live prices for every holding (not just those missing a scan
 // price) so P&L reflects the current market instead of the buy price.
@@ -1787,8 +1861,7 @@ async function renderHoldingsTable() {
 function _renderHoldingsUI() {
   const el = document.getElementById('pfBody');
   if (!holdings.length) {
-    el.innerHTML = emptyState('briefcase', 'No holdings yet', 'Add your first holding to get started') +
-      '<div style="text-align:center;margin-top:14px;"><button class="pf-btn pf-btn-primary" onclick="openModal(\'addHolding\')"><span>' + ic('plus', 16) + '</span> Add holding</button></div>';
+    el.innerHTML = emptyState('briefcase', 'No holdings yet', 'Use the row above to add your first holding');
     return;
   }
   let totalValue = 0, totalCost = 0;
@@ -1837,7 +1910,6 @@ function _renderHoldingsUI() {
     '<span class="pf-chip ' + chipClass + '">' + pctFmt(totalPnlPct) + ' Total return</span>' +
     '<span class="pf-chip neutral">' + holdings.length + ' holdings</span>' +
     '</div></div>' +
-    '<div style="display:flex;justify-content:flex-end;margin-bottom:12px;"><button class="pf-btn pf-btn-primary" onclick="openModal(\'addHolding\')"><span>' + ic('plus', 16) + '</span> Add holding</button></div>' +
     rows.join('');
 }
 
