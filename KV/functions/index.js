@@ -499,3 +499,127 @@ exports.getRange = onRequest(
     res.json({ ranges });
   }
 );
+
+// ── Intraday alert monitor (price moves, market moves, earnings) ──────────────
+// Runs hourly during market hours. Fires (deduped per user/day):
+//   • market_move   — S&P (SPY) moves ±1% on the day
+//   • price_move    — a holding moves ±5% on the day
+//   • earnings_alert— a holding reports earnings today
+const MARKET_MOVE_PCT = 1.0;
+const STOCK_MOVE_PCT = 5.0;
+
+async function getHoldingTickers(db, uid) {
+  const tickers = new Set();
+  try {
+    const cols = await db.collection('holdings').doc(uid).listCollections();
+    for (const col of cols) {
+      const snap = await col.get();
+      snap.forEach(d => { const t = (d.get('ticker') || '').toUpperCase(); if (t) tickers.add(t); });
+    }
+  } catch (e) { logger.warn('Holdings read failed (intraday)', { uid, error: String(e) }); }
+  return tickers;
+}
+
+async function runIntraday(key) {
+  const db = admin.firestore();
+  const messaging = admin.messaging();
+  const date = todayInET();
+
+  const usersSnap = await db.collection('users').get();
+  const recipients = [];
+  usersSnap.forEach(doc => { const tokens = doc.get('fcmTokens'); if (Array.isArray(tokens) && tokens.length) recipients.push({ uid: doc.id, tokens }); });
+
+  // Unique tickers across everyone's holdings + SPY (market proxy).
+  const allTickers = new Set(['SPY']);
+  const userTickers = {};
+  for (const { uid } of recipients) { const t = await getHoldingTickers(db, uid); userTickers[uid] = t; t.forEach(x => allTickers.add(x)); }
+
+  let earningsSet = new Set();
+  try { earningsSet = new Set((await getEarningsToday(date, key)).map(e => e.ticker)); } catch (e) {}
+
+  // Finnhub /quote: c=current, pc=prev close, dp=percent change.
+  const quotes = {};
+  for (const sym of allTickers) {
+    try { const q = await finnhubGet('/quote', { symbol: sym }, key); if (q && q.c) quotes[sym] = { price: q.c, prev: q.pc, dp: q.dp || 0 }; } catch (e) {}
+  }
+  const spy = quotes['SPY'];
+  const summary = { date, users: recipients.length, alerts: 0, sent: 0, skipped: 0 };
+
+  for (const { uid, tokens } of recipients) {
+    const stateRef = db.collection('alert_state').doc(uid);
+    let state = {};
+    try { const s = await stateRef.get(); state = s.exists ? s.data() : {}; } catch (e) {}
+    if (state.date !== date) state = { date, keys: [] };
+    const fired = new Set(state.keys || []);
+    const alerts = [];
+
+    if (spy && Math.abs(spy.dp) >= MARKET_MOVE_PCT) {
+      const dir = spy.dp >= 0 ? 'up' : 'down';
+      if (!fired.has('market:' + dir)) {
+        fired.add('market:' + dir);
+        alerts.push({ type: 'market_move', ticker: 'SPY', pct: spy.dp,
+          title: `S&P 500 ${dir} ${Math.abs(spy.dp).toFixed(1)}% today`,
+          body: `The S&P 500 (SPY) is ${dir} ${Math.abs(spy.dp).toFixed(1)}% at $${spy.price.toFixed(2)}. Review your positions.` });
+      }
+    }
+
+    for (const t of (userTickers[uid] || new Set())) {
+      const q = quotes[t];
+      if (q && Math.abs(q.dp) >= STOCK_MOVE_PCT) {
+        const dir = q.dp >= 0 ? 'up' : 'down';
+        if (!fired.has('move:' + t + ':' + dir)) {
+          fired.add('move:' + t + ':' + dir);
+          alerts.push({ type: 'price_move', ticker: t, pct: q.dp,
+            title: `${t} ${dir} ${Math.abs(q.dp).toFixed(1)}% today`,
+            body: `${t} is ${dir} ${Math.abs(q.dp).toFixed(1)}% at $${q.price.toFixed(2)}${earningsSet.has(t) ? ' — it reports earnings today' : ''}.` });
+        }
+      }
+      if (earningsSet.has(t) && !fired.has('earn:' + t)) {
+        fired.add('earn:' + t);
+        alerts.push({ type: 'earnings_alert', ticker: t, pct: null,
+          title: `${t} reports earnings today`,
+          body: `${t} is on today's earnings calendar — watch for a post-report move.` });
+      }
+    }
+
+    if (!alerts.length) { summary.skipped++; continue; }
+
+    for (const a of alerts) {
+      await db.collection('notifications').doc(uid).collection('list').add({
+        date, type: a.type, title: a.title, body: a.body,
+        ticker: a.ticker || null, pct: (a.pct != null ? a.pct : null),
+        read: false, status: 'sent', createdAt: admin.firestore.FieldValue.serverTimestamp()
+      });
+      summary.alerts++;
+      try {
+        const resp = await messaging.sendEachForMulticast({ tokens, notification: { title: a.title, body: a.body }, data: { type: a.type, date }, webpush: { fcmOptions: { link: '/' } } });
+        summary.sent += resp.successCount;
+        const dead = [];
+        resp.responses.forEach((r, i) => { if (!r.success) { const c = r.error && r.error.code; if (c === 'messaging/registration-token-not-registered' || c === 'messaging/invalid-registration-token' || c === 'messaging/invalid-argument') dead.push(tokens[i]); } });
+        if (dead.length) await db.collection('users').doc(uid).set({ fcmTokens: admin.firestore.FieldValue.arrayRemove(...dead) }, { merge: true });
+      } catch (e) { logger.error('intraday FCM send failed', { uid, error: String(e) }); }
+    }
+
+    try { await stateRef.set({ date, keys: [...fired] }); } catch (e) {}
+  }
+
+  logger.info('Intraday run complete', summary);
+  return summary;
+}
+
+// Scheduled: hourly during US market hours (10:00–16:00 ET), Mon–Fri.
+exports.intradayMonitor = onSchedule(
+  { schedule: '0 10-16 * * 1-5', timeZone: 'America/New_York', secrets: [FINNHUB_API_KEY], region: 'us-central1' },
+  async () => { await runIntraday(FINNHUB_API_KEY.value()); }
+);
+
+// On-demand test for the intraday monitor. Guarded by ?token=<FINNHUB_API_KEY>.
+exports.runIntradayNow = onRequest(
+  { secrets: [FINNHUB_API_KEY], region: 'us-central1' },
+  async (req, res) => {
+    const key = FINNHUB_API_KEY.value();
+    if (req.query.token !== key) { res.status(403).send('Forbidden'); return; }
+    try { res.status(200).json({ ok: true, summary: await runIntraday(key) }); }
+    catch (e) { res.status(500).json({ ok: false, error: String(e) }); }
+  }
+);

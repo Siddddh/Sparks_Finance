@@ -646,13 +646,14 @@ body.sidebar-open .nav-scrim{display:block;}
         <div id="tab-health" class="tab-panel"><div class="page-title">Portfolio Health</div><div class="pf-toolbar"><select id="healthPfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div><div id="healthContent"></div></div>
         <div id="tab-catalysts" class="tab-panel"><div class="page-title">Catalysts</div><div id="catalystsContent"></div></div>
         <div id="tab-premarket" class="tab-panel">
-          <div class="page-title">Pre-Market</div>
+          <div class="page-title">Notifications</div>
           <div class="pf-toolbar">
             <button class="pf-btn pf-btn-primary" id="enablePushBtn" onclick="registerForPush(true)"><span class="i-bell"></span> Enable notifications</button>
             <button class="pf-btn pf-btn-outline" id="installBtn" style="display:none" onclick="promptInstall()"><span class="i-spark"></span> Add to Home</button>
             <span id="pushStatus" style="font-size:12px;color:var(--text-3);align-self:center;"></span>
           </div>
-          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 14px;">Daily market-moving events for your holdings &amp; watchlist, delivered at 8:00 AM ET — one hour before the open.</div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Your 8 AM market digest plus intraday alerts — portfolio price moves (±5%), S&amp;P swings (±1%), earnings &amp; macro events.</div>
+          <div class="screen-bar" id="notifFilters" style="margin-bottom:12px;"></div>
           <div id="premarketBody"></div>
         </div>
         <div id="tab-market" class="tab-panel"><div class="page-title">Market News</div><div class="mnews-grid" id="marketGrid"></div></div>
@@ -799,7 +800,7 @@ const NAV = [
   { tab: 'useralerts', label: 'Alerts', icon: 'bell' },
   { tab: 'health', label: 'Health', icon: 'activity' },
   { sec: 'Markets' },
-  { tab: 'premarket', label: 'Pre-Market', icon: 'bell' },
+  { tab: 'premarket', label: 'Notifications', icon: 'bell' },
   { tab: 'market', label: 'Market News', icon: 'newspaper' },
   { tab: 'earnings', label: 'Earnings', icon: 'calendar' },
   { tab: 'catalysts', label: 'Catalysts', icon: 'spark' },
@@ -847,6 +848,7 @@ let portfolios = [], currentPfId = null, holdings = [], holdingsByPortfolio = {}
 let watchlists = [], currentWLId = null;
 let userAlerts = [];
 let notifications = [];
+let notifFilter = 'all';
 let healthData = null, summaryData = null;
 let chartsInited = false;
 let sortKey = 'combined_score', sortAsc = false;
@@ -2215,6 +2217,26 @@ function updateNotifBadge() {
   } else if (b) { b.remove(); }
 }
 
+const NOTIF_CATS = [
+  { key: 'all', label: 'All' },
+  { key: 'price', label: 'Price moves' },
+  { key: 'market', label: 'Market' },
+  { key: 'earnings', label: 'Earnings' },
+  { key: 'macro', label: 'Macro & digest' }
+];
+function notifCategory(n) {
+  const t = n.type || '';
+  if (t === 'price_move') return 'price';
+  if (t === 'market_move') return 'market';
+  if (t === 'earnings_alert') return 'earnings';
+  return 'macro';   // premarket_digest + anything else
+}
+function notifBadge(cat) {
+  const map = { price: ['Price', 'badge-blue'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], macro: ['Digest', 'badge-gray'] };
+  const m = map[cat] || ['Alert', 'badge-gray'];
+  return '<span class="badge ' + m[1] + '">' + m[0] + '</span>';
+}
+function setNotifFilter(k) { notifFilter = k; renderNotifications(); }
 function renderNotifications() {
   const el = document.getElementById('premarketBody');
   if (!el) return;
@@ -2222,16 +2244,25 @@ function renderNotifications() {
   if (btn && messaging && typeof Notification !== 'undefined' && Notification.permission === 'granted') {
     btn.disabled = true; btn.style.opacity = '.6'; pushStatusMsg('Notifications on ✓');
   }
+  const fbar = document.getElementById('notifFilters');
+  if (fbar) fbar.innerHTML = NOTIF_CATS.map(c => {
+    const cnt = c.key === 'all' ? notifications.length : notifications.filter(n => notifCategory(n) === c.key).length;
+    return '<button class="scr-chip' + (notifFilter === c.key ? ' active' : '') + '" onclick="setNotifFilter(\'' + c.key + '\')">' + c.label + (cnt ? ' (' + cnt + ')' : '') + '</button>';
+  }).join('');
   if (!notifications.length) {
-    el.innerHTML = emptyState('bell', 'No pre-market alerts yet', 'Your 8:00 AM ET market digest will appear here on trading days.');
+    el.innerHTML = emptyState('bell', 'No notifications yet', 'Enable notifications to get your 8 AM digest plus intraday price, market & earnings alerts.');
     return;
   }
-  el.innerHTML = notifications.map(n => {
+  const list = notifFilter === 'all' ? notifications : notifications.filter(n => notifCategory(n) === notifFilter);
+  if (!list.length) { el.innerHTML = emptyState('bell', 'Nothing here yet', 'No notifications in this category. Try another filter.'); return; }
+  el.innerHTML = list.map(n => {
+    const cat = notifCategory(n);
     const earn = (n.earnings || []).map(e => '<span class="sig sig-WATCH" style="font-size:10px">' + e.ticker + (e.hourLabel ? ' · ' + e.hourLabel : '') + '</span>').join(' ');
-    const macro = (n.macro || []).map(m => '<div style="font-size:12px;color:var(--text-2)">• ' + (m.event || '') + (m.time ? ' (' + m.time + ')' : '') + '</div>').join('');
+    const macro = (n.macro || []).map(m => '<div style="font-size:12px;color:var(--text-2)">• ' + escHtml(m.event || '') + (m.time ? ' (' + escHtml(m.time) + ')' : '') + '</div>').join('');
+    const pctTxt = (n.pct != null && !isNaN(n.pct)) ? '<span class="' + (n.pct >= 0 ? 'pos' : 'neg') + '" style="font-weight:700;font-size:12px;margin-left:6px;">' + pctFmt(n.pct) + '</span>' : '';
     return '<div class="alert-crd" style="display:block;cursor:pointer;' + (n.read ? 'opacity:.7;' : '') + '" onclick="markNotifRead(\'' + n.id + '\')">' +
-      '<div style="display:flex;justify-content:space-between;gap:10px;"><div class="alert-tkr">' + (n.title || 'Pre-Market') + '</div><div style="font-size:11px;color:var(--text-3)">' + (n.date || '') + (n.read ? '' : ' • new') + '</div></div>' +
-      '<div style="font-size:13px;color:var(--text-2);margin:4px 0 8px;">' + (n.body || '') + '</div>' +
+      '<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;"><div class="alert-tkr" style="font-size:14px;line-height:1.4;">' + notifBadge(cat) + ' ' + escHtml(n.title || 'Notification') + pctTxt + '</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;">' + (n.date || '') + (n.read ? '' : ' • new') + '</div></div>' +
+      '<div style="font-size:13px;color:var(--text-2);margin:4px 0 8px;">' + escHtml(n.body || '') + '</div>' +
       (earn ? '<div style="margin-bottom:6px;">' + earn + '</div>' : '') + macro +
       '</div>';
   }).join('');
