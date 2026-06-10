@@ -1803,12 +1803,25 @@ function renderHealthData(data) {
 function scardHtml(num, label, cls, color) {
   return '<div class="scard ' + (cls || '') + '"><div class="snum"' + (color ? ' style="color:' + color + '"' : '') + '>' + num + '</div><div class="slbl">' + label + '</div></div>';
 }
+function timeAgo(epoch) {
+  if (!epoch) return '';
+  const s = Math.floor(Date.now() / 1000) - epoch;
+  if (s < 3600) return Math.max(1, Math.floor(s / 60)) + 'm ago';
+  if (s < 86400) return Math.floor(s / 3600) + 'h ago';
+  return Math.floor(s / 86400) + 'd ago';
+}
 function newsListHtml(items) {
   if (!items || !items.length) return '';
-  return items.slice(0, 18).map(n =>
-    '<div class="nitem"><div class="ntitle"><a href="' + escHtml(n.url || '#') + '" target="_blank" rel="noopener">' + escHtml(n.title) + '</a></div>' +
-    '<div class="nmeta"><span class="otag">' + escHtml(n.source || '—') + '</span>' + ((n.tickers && n.tickers.length) ? '<span class="bage">' + escHtml(n.tickers.join(', ')) + '</span>' : '') + '</div></div>'
-  ).join('');
+  return items.slice(0, 20).map(n => {
+    const t = n.datetime ? timeAgo(n.datetime) : '';
+    return '<div class="nitem">' +
+      '<div class="ntitle"><a href="' + escHtml(n.url || '#') + '" target="_blank" rel="noopener">' + escHtml(n.title) + '</a></div>' +
+      (n.summary ? '<div class="mnsumm">' + escHtml(n.summary) + '</div>' : '') +
+      '<div class="nmeta"><span class="otag">' + escHtml(n.source || '—') + '</span>' +
+        (t ? '<span class="bage">' + t + '</span>' : '') +
+        ((n.tickers && n.tickers.length) ? '<span class="bage">' + escHtml(n.tickers.join(', ')) + '</span>' : '') +
+      '</div></div>';
+  }).join('');
 }
 async function loadHomeDashboard() {
   const el = document.getElementById('homeDashboard');
@@ -2262,7 +2275,7 @@ function renderNotifications() {
     const pctTxt = (n.pct != null && !isNaN(n.pct)) ? '<span class="' + (n.pct >= 0 ? 'pos' : 'neg') + '" style="font-weight:700;font-size:12px;margin-left:6px;">' + pctFmt(n.pct) + '</span>' : '';
     return '<div class="alert-crd" style="display:block;cursor:pointer;' + (n.read ? 'opacity:.7;' : '') + '" onclick="markNotifRead(\'' + n.id + '\')">' +
       '<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;"><div class="alert-tkr" style="font-size:14px;line-height:1.4;">' + notifBadge(cat) + ' ' + escHtml(n.title || 'Notification') + pctTxt + '</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;">' + (n.date || '') + (n.read ? '' : ' • new') + '</div></div>' +
-      '<div style="font-size:13px;color:var(--text-2);margin:4px 0 8px;">' + escHtml(n.body || '') + '</div>' +
+      '<div style="font-size:13px;color:var(--text-2);margin:4px 0 8px;line-height:1.55;white-space:pre-line;">' + escHtml(n.body || '') + '</div>' +
       (earn ? '<div style="margin-bottom:6px;">' + earn + '</div>' : '') + macro +
       '</div>';
   }).join('');

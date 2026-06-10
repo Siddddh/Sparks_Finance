@@ -171,39 +171,46 @@ async function getUserTickers(db, uid) {
 
 const HOUR_LABEL = { bmo: 'before open', amc: 'after close', dmh: 'during market hours', dmt: 'during market hours' };
 
+// Trim a long, detailed body down to a single-line teaser for the OS push banner.
+// The full detailed body is still stored on the notification doc for the in-app view.
+function pushBody(s) {
+  const one = String(s || '').replace(/\s+/g, ' ').trim();
+  return one.length > 180 ? one.slice(0, 177) + '…' : one;
+}
+
 function composeDigest({ date, userEarnings, macro, holiday }) {
   if (holiday && holiday.closed) {
     return {
       title: `Markets closed today — ${holiday.name}`,
-      body: 'US markets are closed. No pre-market action needed today.'
+      body: `US markets are closed today for ${holiday.name}, so there's no trading and no pre-market action needed. Use the day to review your holdings, check your stop-loss levels, and line up entries on your watchlist for the next session.`
     };
   }
 
-  const parts = [];
+  const lines = [];
   let title;
 
   if (userEarnings.length) {
-    const list = userEarnings.map(e => e.ticker).join(', ');
-    title = `Pre-market: ${userEarnings.length} of your stock${userEarnings.length > 1 ? 's' : ''} report today`;
-    parts.push(`${list} report${userEarnings.length > 1 ? '' : 's'} earnings today`);
+    const list = userEarnings.map(e => `${e.ticker}${e.hour ? ' (' + (HOUR_LABEL[e.hour] || e.hour) + ')' : ''}`).join(', ');
+    title = `${userEarnings.length} of your holding${userEarnings.length > 1 ? 's report' : ' reports'} earnings today`;
+    lines.push(`📊 Earnings in your portfolio today: ${list}. Earnings reports frequently cause large overnight price gaps in either direction. Decide in advance whether to hold through the report (higher risk and reward), trim your position to reduce exposure, or set a protective stop — and avoid opening a brand-new full position right before the announcement.`);
   } else {
-    title = 'Pre-market market brief';
+    title = 'Your pre-market market brief';
   }
 
   if (macro.length) {
-    const macroLine = macro.slice(0, 3).map(m => (m.time ? `${m.event} (${m.time})` : m.event)).join(' · ');
-    parts.push(macroLine);
+    const macroList = macro.slice(0, 4).map(m => `${m.event}${m.time ? ' at ' + m.time : ''}`).join('; ');
+    lines.push(`🏛️ Major economic events today: ${macroList}. Releases like Fed rate decisions, inflation (CPI) and the jobs report move the whole market at once. Expect a spike in volatility around the release time, and be cautious about opening new positions in the minutes just before it.`);
   }
 
   if (holiday && !holiday.closed) {
-    parts.push(`Shortened session today (${holiday.name})`);
+    lines.push(`🕑 Shortened trading session today (${holiday.name}) — the market closes early, so volume and liquidity thin out in the afternoon. Place orders earlier in the day if you can.`);
   }
 
-  const body = parts.length
-    ? parts.join(' — ')
-    : 'No earnings for your stocks today and no major economic releases.';
+  if (!lines.length) {
+    lines.push('No earnings for your holdings and no major economic releases are scheduled today. A quiet calendar is a good time to review each position against its original thesis, confirm your stop levels, and watch your watchlist for fresh setups.');
+  }
 
-  return { title, body };
+  return { title, body: lines.join('\n\n') };
 }
 
 // ── Core run (shared by the scheduled fn and the test endpoint) ────────────────
@@ -272,7 +279,7 @@ async function runPremarket(key) {
     try {
       const resp = await messaging.sendEachForMulticast({
         tokens,
-        notification: { title, body },
+        notification: { title, body: pushBody(body) },
         data: { type: 'premarket_digest', date },
         webpush: { fcmOptions: { link: '/' } }
       });
@@ -423,7 +430,7 @@ function mapNewsRows(rows, max) {
     seen[title] = 1;
     out.push({
       title,
-      summary: (a.summary || '').slice(0, 220),
+      summary: (a.summary || '').slice(0, 300),
       source: a.source || '',
       url: a.url || '',
       datetime: a.datetime || 0,
@@ -449,7 +456,7 @@ exports.getNews = onRequest(
       for (const sym of symbols) {
         try {
           const rows = await finnhubGet('/company-news', { symbol: sym, from: fromDate, to: today }, key);
-          (rows || []).slice(0, 6).forEach(a => portfolioRaw.push(a));
+          (rows || []).slice(0, 8).forEach(a => portfolioRaw.push(a));
         } catch (e) { /* skip symbol */ }
       }
       portfolioRaw.sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
@@ -468,9 +475,9 @@ exports.getNews = onRequest(
 
       res.set('Cache-Control', 'public, max-age=600');
       res.json({
-        portfolio: mapNewsRows(portfolioRaw, 30),
-        influencer: mapNewsRows(influencerRaw, 20),
-        market: mapNewsRows(generalRaw, 20)
+        portfolio: mapNewsRows(portfolioRaw, 35),
+        influencer: mapNewsRows(influencerRaw, 25),
+        market: mapNewsRows(generalRaw, 25)
       });
     } catch (e) {
       res.status(200).json({ portfolio: [], influencer: [], market: [], error: String(e) });
@@ -557,9 +564,11 @@ async function runIntraday(key) {
       const dir = spy.dp >= 0 ? 'up' : 'down';
       if (!fired.has('market:' + dir)) {
         fired.add('market:' + dir);
-        alerts.push({ type: 'market_move', ticker: 'SPY', pct: spy.dp,
-          title: `S&P 500 ${dir} ${Math.abs(spy.dp).toFixed(1)}% today`,
-          body: `The S&P 500 (SPY) is ${dir} ${Math.abs(spy.dp).toFixed(1)}% at $${spy.price.toFixed(2)}. Review your positions.` });
+        const mv = Math.abs(spy.dp).toFixed(1);
+        const body = dir === 'up'
+          ? `The S&P 500 (SPY) is up ${mv}% today, around $${spy.price.toFixed(2)} — broad market strength that's lifting most stocks. Good time to review your winners and consider trimming anything that has run far above its trend, but avoid chasing sharp spikes at these levels.`
+          : `The S&P 500 (SPY) is down ${mv}% today, around $${spy.price.toFixed(2)} — broad market weakness pressuring most stocks. Don't panic-sell quality holdings on a red day; make sure your stop-losses are set, and keep some cash ready in case the selloff opens up better entry prices.`;
+        alerts.push({ type: 'market_move', ticker: 'SPY', pct: spy.dp, title: `S&P 500 ${dir} ${mv}% today`, body });
       }
     }
 
@@ -569,16 +578,19 @@ async function runIntraday(key) {
         const dir = q.dp >= 0 ? 'up' : 'down';
         if (!fired.has('move:' + t + ':' + dir)) {
           fired.add('move:' + t + ':' + dir);
-          alerts.push({ type: 'price_move', ticker: t, pct: q.dp,
-            title: `${t} ${dir} ${Math.abs(q.dp).toFixed(1)}% today`,
-            body: `${t} is ${dir} ${Math.abs(q.dp).toFixed(1)}% at $${q.price.toFixed(2)}${earningsSet.has(t) ? ' — it reports earnings today' : ''}.` });
+          const mv = Math.abs(q.dp).toFixed(1);
+          const earnNote = earningsSet.has(t) ? ' It also reports earnings today, so expect continued swings.' : '';
+          const body = dir === 'up'
+            ? `${t} is up ${mv}% today, trading around $${q.price.toFixed(2)} — a strong move higher. If it's a holding, consider taking partial profits or raising your stop to lock in the gain rather than chasing it while it's extended.${earnNote}`
+            : `${t} is down ${mv}% today, trading around $${q.price.toFixed(2)} — a sharp drop. Check the news driving it: if your original thesis still holds this may just be noise, but if it breaks your planned stop level, follow your exit rule instead of hoping for a bounce.${earnNote}`;
+          alerts.push({ type: 'price_move', ticker: t, pct: q.dp, title: `${t} ${dir} ${mv}% today`, body });
         }
       }
       if (earningsSet.has(t) && !fired.has('earn:' + t)) {
         fired.add('earn:' + t);
         alerts.push({ type: 'earnings_alert', ticker: t, pct: null,
           title: `${t} reports earnings today`,
-          body: `${t} is on today's earnings calendar — watch for a post-report move.` });
+          body: `${t} reports earnings today. Earnings can cause a large overnight gap up or down, so decide your plan in advance: hold through the report (higher risk and reward), trim your position to cut exposure, or set a protective stop. Avoid opening a fresh full position right before the announcement.` });
       }
     }
 
@@ -592,7 +604,7 @@ async function runIntraday(key) {
       });
       summary.alerts++;
       try {
-        const resp = await messaging.sendEachForMulticast({ tokens, notification: { title: a.title, body: a.body }, data: { type: a.type, date }, webpush: { fcmOptions: { link: '/' } } });
+        const resp = await messaging.sendEachForMulticast({ tokens, notification: { title: a.title, body: pushBody(a.body) }, data: { type: a.type, date }, webpush: { fcmOptions: { link: '/' } } });
         summary.sent += resp.successCount;
         const dead = [];
         resp.responses.forEach((r, i) => { if (!r.success) { const c = r.error && r.error.code; if (c === 'messaging/registration-token-not-registered' || c === 'messaging/invalid-registration-token' || c === 'messaging/invalid-argument') dead.push(tokens[i]); } });
