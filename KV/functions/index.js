@@ -396,3 +396,106 @@ exports.searchSymbols = onRequest(
     }
   }
 );
+
+// ── Portfolio + influencer news proxy ────────────────────────────────────────
+// Powers the Home dashboard. Returns three buckets of news:
+//   portfolio  — company news for each of the user's holdings
+//   influencer — market news mentioning a market-moving figure/institution OR a held stock
+//   market     — top general market headlines
+// GET /getNews?symbols=NVDA,AAPL  ->  { portfolio:[], influencer:[], market:[] }
+const INFLUENCER_KEYWORDS = [
+  // policy / politicians
+  'trump', 'biden', 'white house', 'jerome powell', 'powell', 'federal reserve', 'the fed', 'fed ',
+  'rate cut', 'rate hike', 'interest rate', 'tariff', 'treasury', 'yellen', 'sec ',
+  // CEOs / founders
+  'elon musk', 'musk', 'jensen huang', 'tim cook', 'sundar pichai', 'satya nadella',
+  'mark zuckerberg', 'sam altman', 'warren buffett',
+  // institutions / ratings
+  'berkshire', 'blackrock', 'jpmorgan', 'goldman sachs', 'morgan stanley', 'moody', 'fitch',
+  's&p global', 'downgrade', 'upgrade', 'analyst'
+];
+
+function mapNewsRows(rows, max) {
+  const out = [], seen = {};
+  for (const a of (rows || [])) {
+    const title = a.headline || '';
+    if (!title || seen[title]) continue;
+    seen[title] = 1;
+    out.push({
+      title,
+      summary: (a.summary || '').slice(0, 220),
+      source: a.source || '',
+      url: a.url || '',
+      datetime: a.datetime || 0,
+      image: a.image || '',
+      tickers: a.related ? String(a.related).split(',').filter(Boolean).slice(0, 3) : []
+    });
+    if (out.length >= max) break;
+  }
+  return out;
+}
+
+exports.getNews = onRequest(
+  { region: 'us-central1', cors: true, secrets: [FINNHUB_API_KEY] },
+  async (req, res) => {
+    const key = FINNHUB_API_KEY.value();
+    const symbols = String(req.query.symbols || '')
+      .split(',').map(s => s.trim().toUpperCase()).filter(Boolean).slice(0, 25);
+    const today = todayInET();
+    const fromDate = (function () { const d = new Date(today.replace(/-/g, '/')); d.setDate(d.getDate() - 14); return d.toISOString().slice(0, 10); })();
+    try {
+      // Per-holding company news
+      const portfolioRaw = [];
+      for (const sym of symbols) {
+        try {
+          const rows = await finnhubGet('/company-news', { symbol: sym, from: fromDate, to: today }, key);
+          (rows || []).slice(0, 6).forEach(a => portfolioRaw.push(a));
+        } catch (e) { /* skip symbol */ }
+      }
+      portfolioRaw.sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
+
+      // General market news
+      let generalRaw = [];
+      try { generalRaw = (await finnhubGet('/news', { category: 'general' }, key)) || []; } catch (e) {}
+      generalRaw.sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
+
+      // Influencer feed: general items mentioning an influencer keyword OR a held ticker
+      const symLower = symbols.map(s => s.toLowerCase());
+      const influencerRaw = generalRaw.filter(a => {
+        const t = ((a.headline || '') + ' ' + (a.summary || '') + ' ' + (a.related || '')).toLowerCase();
+        return INFLUENCER_KEYWORDS.some(k => t.includes(k)) || symLower.some(s => t.includes(s));
+      });
+
+      res.set('Cache-Control', 'public, max-age=600');
+      res.json({
+        portfolio: mapNewsRows(portfolioRaw, 30),
+        influencer: mapNewsRows(influencerRaw, 20),
+        market: mapNewsRows(generalRaw, 20)
+      });
+    } catch (e) {
+      res.status(200).json({ portfolio: [], influencer: [], market: [], error: String(e) });
+    }
+  }
+);
+
+// ── 52-week range proxy (FULL coverage — any ticker, via Finnhub metrics) ─────
+// GET /getRange?symbols=NVDA,AAPL  ->  { ranges: { NVDA:{high52,low52}, ... } }
+exports.getRange = onRequest(
+  { region: 'us-central1', cors: true, secrets: [FINNHUB_API_KEY] },
+  async (req, res) => {
+    const key = FINNHUB_API_KEY.value();
+    const symbols = String(req.query.symbols || '')
+      .split(',').map(s => s.trim().toUpperCase()).filter(Boolean).slice(0, 30);
+    const ranges = {};
+    for (const sym of symbols) {
+      try {
+        const d = await finnhubGet('/stock/metric', { symbol: sym, metric: 'all' }, key);
+        const m = (d && d.metric) || {};
+        const hi = m['52WeekHigh'], lo = m['52WeekLow'];
+        if (hi != null && lo != null) ranges[sym] = { high52: hi, low52: lo };
+      } catch (e) { /* skip symbol */ }
+    }
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.json({ ranges });
+  }
+);
