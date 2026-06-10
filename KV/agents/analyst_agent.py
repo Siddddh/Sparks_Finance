@@ -1,5 +1,7 @@
 """Analyst Agent — Analyst ratings, price targets, upgrades/downgrades."""
-import yfinance as yf
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+import finnhub_data as fd
 
 def analyze(ticker: str) -> dict:
     score = 50
@@ -7,8 +9,7 @@ def analyze(ticker: str) -> dict:
     raw = {}
 
     try:
-        t = yf.Ticker(ticker)
-        info = t.info or {}
+        info = fd.get_info(ticker)
 
         rec_key = (info.get("recommendationKey") or "").lower()
         mean_rating = info.get("recommendationMean")  # 1=Strong Buy, 5=Sell
@@ -71,9 +72,9 @@ def analyze(ticker: str) -> dict:
             if bull_upside >= 50:
                 score += 5; signals.append(f"Bull case target ${target_high:.0f} ({bull_upside:.0f}% upside)")
 
-        # Recent upgrades/downgrades
+        # Recent upgrades/downgrades (Finnhub free has no equivalent — skipped)
         try:
-            upgrades = t.upgrades_downgrades
+            upgrades = None
             if upgrades is not None and not upgrades.empty:
                 recent = upgrades.head(5)
                 u_count = sum(1 for _, r in recent.iterrows() if str(r.get("Action","")).lower() in ("up","initiated","reiterated") and str(r.get("ToGrade","")).lower() in ("buy","strong buy","outperform","overweight"))

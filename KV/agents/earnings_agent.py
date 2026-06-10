@@ -13,7 +13,10 @@ Usage:
 """
 import sys
 import json
-import yfinance as yf
+import os as _os
+_sys = sys
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+import finnhub_data as fd
 
 # ── V1/V2 toggle ───────────────────────────────────────────────────────────────
 USE_CLAUDE = False   # Set True in V2 to activate Claude API
@@ -22,26 +25,11 @@ MODEL = "claude-sonnet-4-6"
 
 
 def fetch_earnings_context(ticker: str) -> dict:
-    """Gather earnings data available from yfinance."""
+    """Gather earnings data from Finnhub (via finnhub_data)."""
     try:
-        t = yf.Ticker(ticker)
-        info = t.info or {}
-        cal = t.calendar or {}
-
-        earnings_hist = []
-        try:
-            eh = t.earnings_history
-            if eh is not None and not eh.empty:
-                for _, row in eh.tail(4).iterrows():
-                    earnings_hist.append({
-                        "date": str(row.name.date()) if hasattr(row.name, "date") else str(row.name),
-                        "eps_estimate": row.get("epsEstimate"),
-                        "eps_actual": row.get("epsActual"),
-                        "surprise_pct": row.get("epsSurprisePct"),
-                    })
-        except Exception:
-            pass
-
+        info = fd.get_info(ticker)
+        earnings_hist = fd.get_earnings_history(ticker)
+        days = fd.get_next_earnings_days(ticker)
         return {
             "ticker": ticker,
             "company": info.get("longName", ticker),
@@ -55,7 +43,7 @@ def fetch_earnings_context(ticker: str) -> dict:
             "analyst_count": info.get("numberOfAnalystOpinions"),
             "recommendation": info.get("recommendationKey"),
             "earnings_history": earnings_hist,
-            "next_earnings": str(cal.get("Earnings Date", [""])[0]) if cal else "",
+            "next_earnings": (f"in {days} days" if days is not None else ""),
         }
     except Exception as e:
         return {"ticker": ticker, "error": str(e)}

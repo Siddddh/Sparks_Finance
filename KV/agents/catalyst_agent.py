@@ -8,9 +8,11 @@ Pushes results to Firestore catalysts/{ticker}.
 import re
 import sys
 import json
+import os as _os
 from datetime import datetime, date
 
-import yfinance as yf
+sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+import finnhub_data as fd
 
 # Catalyst keyword patterns
 CATALYST_PATTERNS = {
@@ -65,31 +67,17 @@ def analyze(ticker: str) -> dict:
     raw = {}
 
     try:
-        t = yf.Ticker(ticker)
-        info = t.info or {}
+        info = fd.get_info(ticker)
         long_biz = info.get("longBusinessSummary", "")
         sector = info.get("sector", "")
-        days_to_earnings = None
+        days_to_earnings = fd.get_next_earnings_days(ticker)
 
-        # Calendar — upcoming earnings
-        try:
-            cal = t.calendar
-            if cal is not None:
-                earn_dates = cal.get("Earnings Date", [])
-                if earn_dates:
-                    next_earn = earn_dates[0]
-                    if hasattr(next_earn, 'date'):
-                        delta = (next_earn.date() - date.today()).days
-                    else:
-                        from dateutil.parser import parse
-                        delta = (parse(str(next_earn)).date() - date.today()).days
-                    days_to_earnings = delta
-                    if 7 <= delta <= 21:
-                        score += 15; catalysts.append({"type": "Earnings Catalyst", "description": f"Earnings report in {delta} days — catalyst window", "event_date": str(next_earn)})
-                    elif 21 < delta <= 45:
-                        score += 5; catalysts.append({"type": "Upcoming Earnings", "description": f"Earnings in {delta} days", "event_date": str(next_earn)})
-        except Exception:
-            pass
+        # Upcoming earnings
+        if days_to_earnings is not None:
+            if 7 <= days_to_earnings <= 21:
+                score += 15; catalysts.append({"type": "Earnings Catalyst", "description": f"Earnings report in {days_to_earnings} days — catalyst window", "event_date": ""})
+            elif 21 < days_to_earnings <= 45:
+                score += 5; catalysts.append({"type": "Upcoming Earnings", "description": f"Earnings in {days_to_earnings} days", "event_date": ""})
 
         # Scan business description for catalyst keywords
         biz_catalysts = scan_text_for_catalysts(long_biz)
@@ -97,18 +85,17 @@ def analyze(ticker: str) -> dict:
             catalysts.append({"type": cat_type, "description": snippet, "event_date": ""})
             score += 8
 
-        # Recent news
+        # Recent company news (Finnhub)
         try:
-            news = t.news or []
-            for article in news[:10]:
-                title = article.get("title", "") + " " + article.get("summary", "")
-                news_cats = scan_text_for_catalysts(title)
+            for article in fd.get_company_news(ticker, days=14, max_items=12):
+                text = (article.get("title", "") or "") + " " + (article.get("summary", "") or "")
+                news_cats = scan_text_for_catalysts(text)
                 for cat_type, snippet in news_cats[:2]:
                     catalysts.append({
                         "type": cat_type,
                         "description": article.get("title", snippet),
                         "event_date": str(date.today()),
-                        "url": article.get("link", ""),
+                        "url": article.get("url", ""),
                     })
                     score += 10
         except Exception:

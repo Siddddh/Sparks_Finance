@@ -1,5 +1,7 @@
-"""Insider Agent — Insider buying/selling transactions (Form 4 via yfinance)."""
-import yfinance as yf
+"""Insider Agent — Insider buying/selling transactions (Form 4)."""
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+import finnhub_data as fd
 
 def analyze(ticker: str) -> dict:
     score = 50  # neutral baseline
@@ -7,33 +9,11 @@ def analyze(ticker: str) -> dict:
     raw = {}
 
     try:
-        t = yf.Ticker(ticker)
-        info = t.info or {}
+        info = fd.get_info(ticker)
 
-        # yfinance insider data
         insider_pct = info.get("heldPercentInsiders") or 0
         inst_pct = info.get("heldPercentInstitutions") or 0
-        insider_transactions = []
-
-        try:
-            insiders = t.insider_transactions
-            if insiders is not None and not insiders.empty:
-                recent = insiders.head(10)
-                for _, row in recent.iterrows():
-                    shares = row.get("Shares", 0) or 0
-                    value = row.get("Value", 0) or 0
-                    text = str(row.get("Text", "")).lower()
-                    is_buy = "purchase" in text or "buy" in text or "acquired" in text
-                    is_sell = "sale" in text or "sell" in text or "disposed" in text
-                    insider_transactions.append({
-                        "date": str(row.get("Start Date", "")),
-                        "insider": str(row.get("Insider", "")),
-                        "shares": int(shares),
-                        "value": float(value),
-                        "type": "buy" if is_buy else "sell" if is_sell else "other",
-                    })
-        except Exception:
-            pass
+        insider_transactions = fd.get_insider(ticker)
 
         raw = {
             "insider_pct": round(insider_pct * 100, 1),

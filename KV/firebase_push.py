@@ -105,7 +105,7 @@ def push_to_firestore(scan_data: dict, verbose: bool = True) -> bool:
                 packed.append({k: s[k] for k in _COMPACT_KEYS if k in s})
         clean_data["stocks"]      = packed
         clean_data["top_picks"]   = clean_data.get("top_picks", [])[:10]
-        clean_data["market_news"] = clean_data.get("market_news", [])[:8]
+        clean_data["market_news"] = clean_data.get("market_news", [])[:30]
         clean_data["alerts"]      = clean_data.get("alerts", [])[:12]
 
         # Safety: if the document is still too large, drop compact tail until it fits.

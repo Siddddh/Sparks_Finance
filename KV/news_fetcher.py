@@ -151,17 +151,57 @@ def fetch_ticker_news(ticker: str, max_items: int = 8) -> list[dict]:
     articles.sort(key=lambda x: (x["is_catalyst"], -x["sentiment_score"], -x["age_hours"]))
     return articles
 
-def fetch_market_news() -> list[dict]:
-    """General S&P 500 / macro news using SPY and QQQ as proxies."""
+def fetch_market_news(max_items: int = 30) -> list[dict]:
+    """Market/macro headlines.
+
+    Primary source: Finnhub general news (reliable + plentiful). Falls back to /
+    supplements with Yahoo SPY/QQQ/VIX proxies when Finnhub has no key or is thin.
+    """
     articles = []
     seen = set()
-    for proxy in ["SPY", "QQQ", "VIX"]:
-        for art in fetch_ticker_news(proxy, max_items=5):
-            if art["title"] not in seen:
-                seen.add(art["title"])
-                articles.append(art)
+
+    # 1) Finnhub general market news (lots, fast, reliable)
+    try:
+        import finnhub_data as fd
+        if fd.has_key():
+            for a in fd.get_general_news(max_items=max_items * 2):
+                title = a.get("title", "")
+                if not title or title in seen:
+                    continue
+                age_h = hours_ago(a.get("pub_epoch", 0))
+                if age_h > FRESH_HOURS * 2:      # within ~2 days
+                    continue
+                summ = a.get("summary", "") or ""
+                text = f"{title} {summ}"
+                sent_score, triggers, sent_label = sentiment_score(text)
+                src = a.get("source", "")
+                seen.add(title)
+                articles.append({
+                    "title":     title,
+                    "summary":   summ[:200] + ("…" if len(summ) > 200 else ""),
+                    "outlet":    classify_outlet(src, src),
+                    "url":       a.get("url", ""),
+                    "pub_date":  a.get("pub_date", ""),
+                    "age_hours": round(age_h, 1),
+                    "breaking":  age_h <= BREAKING_HOURS,
+                    "sentiment_score":  sent_score,
+                    "sentiment_label":  sent_label,
+                    "is_catalyst":      is_catalyst(text),
+                    "trigger_keywords": triggers,
+                })
+    except Exception:
+        pass
+
+    # 2) Supplement with Yahoo proxies (also the full fallback if Finnhub gave nothing)
+    if len(articles) < max(8, max_items // 2):
+        for proxy in ["SPY", "QQQ", "VIX"]:
+            for art in fetch_ticker_news(proxy, max_items=6):
+                if art["title"] not in seen:
+                    seen.add(art["title"])
+                    articles.append(art)
+
     articles.sort(key=lambda x: x["age_hours"])
-    return articles[:8]
+    return articles[:max_items]
 
 def compute_news_addon(articles: list[dict]) -> dict:
     """Aggregate news signals for a single ticker → score addon + top headlines."""

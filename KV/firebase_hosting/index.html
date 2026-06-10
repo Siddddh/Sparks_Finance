@@ -82,18 +82,18 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .auth-err{font-size:12px;color:var(--red);margin-top:10px;min-height:16px;}
 
 /* ════════ Navbar ════════ */
-.navbar{height:var(--nav-h);background:var(--surface-2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;padding:0 20px;position:sticky;top:0;z-index:1000;}
+.navbar{min-height:var(--nav-h);background:var(--surface-2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;padding:0 20px;position:sticky;top:0;z-index:1000;}
 .nav-brand{display:flex;align-items:center;gap:9px;font-size:19px;font-weight:700;color:var(--text);letter-spacing:-.3px;white-space:nowrap;}
 .nav-brand .spark{color:var(--blue);display:flex;}
 .nav-hamburger{display:none;background:none;border:none;color:var(--text-2);cursor:pointer;padding:6px;border-radius:50%;}
 .nav-hamburger:hover{background:var(--surface-hover);}
-.nav-search{flex:1;max-width:680px;margin:0 auto;position:relative;}
-.nav-search-box{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid transparent;border-radius:24px;padding:0 16px;height:40px;transition:all .15s;}
+.nav-search{flex:1;min-width:0;max-width:680px;margin:0 auto;position:relative;}
+.nav-search-box{display:flex;align-items:center;gap:10px;min-width:0;background:var(--surface);border:1px solid transparent;border-radius:24px;padding:0 16px;height:40px;transition:all .15s;}
 .nav-search-box:focus-within{background:var(--surface-2);border-color:var(--border);box-shadow:var(--shadow);}
 .nav-search-box .ic{color:var(--text-2);}
 .nav-search-box input{flex:1;border:none;background:none;outline:none;font-size:14px;color:var(--text);font-family:inherit;}
 .nav-search-box input::placeholder{color:var(--text-3);}
-.nav-right{display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.nav-right{display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;}
 .live-badge{display:flex;align-items:center;font-size:12px;color:var(--green);font-weight:500;gap:5px;margin-right:6px;}
 .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse-live 2s infinite;}
 @keyframes pulse-live{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(15,157,88,.4)}50%{opacity:.7;box-shadow:0 0 0 5px rgba(15,157,88,0)}}
@@ -105,7 +105,7 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .scan-t{font-size:11px;color:var(--text-3);}.scan-t strong{color:var(--text-2);font-weight:500;}
 
 /* ════════ Index strip ════════ */
-.mkt-bar{min-height:var(--strip-h);background:var(--surface-2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:4px;padding:0 20px;overflow-x:auto;scrollbar-width:none;}
+.mkt-bar{min-height:var(--strip-h);background:var(--surface-2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:4px;padding:0 max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));overflow-x:auto;scrollbar-width:none;}
 .mkt-bar::-webkit-scrollbar{display:none;}
 .mkt-state{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;white-space:nowrap;margin-right:8px;}
 .mkt-green{background:var(--green-soft);color:var(--green);}
@@ -305,7 +305,7 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 
 /* ════════ Alerts ════════ */
 .alert-crd{background:var(--surface-2);border-radius:12px;border:1px solid var(--border);padding:14px 18px;border-left:3px solid var(--blue);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
-.alert-body{flex:1;}
+.alert-body{flex:1;min-width:0;}
 .alert-tkr{font-size:16px;font-weight:700;margin-bottom:2px;color:var(--text);}
 .alert-cond{font-size:12px;color:var(--text-2);}
 .alert-del{background:none;color:var(--red);border:1px solid var(--border);border-radius:24px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:500;font-family:inherit;}
@@ -324,7 +324,7 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 /* ════════ Discovery ════════ */
 .disc-card{background:var(--surface-2);border-radius:12px;border:1px solid var(--border);padding:16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:box-shadow .15s;}
 .disc-card:hover{box-shadow:var(--shadow);}
-.disc-info{flex:1;}
+.disc-info{flex:1;min-width:0;}
 .disc-ticker{font-size:16px;font-weight:700;margin-bottom:2px;color:var(--text);}
 .disc-reason{font-size:12px;color:var(--text-2);line-height:1.4;}
 .disc-score{font-size:24px;font-weight:700;color:var(--blue);}
@@ -409,9 +409,9 @@ img,canvas,svg{max-width:100%;}
 .content{margin:0 auto;}            /* center within the main column on wide screens */
 #authPanel{padding:16px;}           /* keep the auth card off the screen edges */
 /* safe-area (notched phones / installed PWA) */
-.navbar{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right));}
+.navbar{padding-top:env(safe-area-inset-top);padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right));}
 /* mobile drawer backdrop */
-.nav-scrim{display:none;position:fixed;inset:var(--nav-h) 0 0 0;background:rgba(0,0,0,.45);z-index:899;}
+.nav-scrim{display:none;position:fixed;inset:calc(var(--nav-h) + env(safe-area-inset-top)) 0 0 0;background:rgba(0,0,0,.45);z-index:899;}
 body.sidebar-open .nav-scrim{display:block;}
 
 @media(min-width:901px){
@@ -420,7 +420,7 @@ body.sidebar-open .nav-scrim{display:block;}
 }
 @media(max-width:900px){
   .nav-search{max-width:none;}
-  .sidebar{position:fixed;top:var(--nav-h);left:0;bottom:0;height:auto;z-index:900;transform:translateX(-100%);transition:transform .2s;box-shadow:var(--shadow-lg);width:min(82vw,300px);}
+  .sidebar{position:fixed;top:calc(var(--nav-h) + env(safe-area-inset-top));left:0;bottom:0;height:auto;z-index:900;transform:translateX(-100%);transition:transform .2s;box-shadow:var(--shadow-lg);width:min(82vw,300px);}
   body.sidebar-open .sidebar{transform:none;}
   .nav-hamburger{display:flex;}
   .scan-t,.user-badge{display:none;}
@@ -562,7 +562,8 @@ body.sidebar-open .nav-scrim{display:block;}
           <div id="pfContent">
             <div class="pf-toolbar">
               <select id="pfSelect" class="pf-select" onchange="switchPf(this.value)"></select>
-              <button class="pf-btn pf-btn-outline" onclick="openModal('newPf')"><span class="i-plus"></span> New Portfolio</button>
+              <input id="newPfName" class="pf-select" style="flex:1 1 180px;min-width:140px;" placeholder="New portfolio name…" onkeydown="if(event.key==='Enter')addPortfolioInline()" autocomplete="off"/>
+              <button class="pf-btn pf-btn-outline" onclick="addPortfolioInline()"><span class="i-plus"></span> Add Portfolio</button>
             </div>
             <div id="pfBody"></div>
           </div>
@@ -785,12 +786,13 @@ const VAPID_PUBLIC_KEY = 'BJoLEIEUmA3A9sg8Q4Z3NaS4VBHbIx8zzSRR6at8t4dS9oDSZLfR4k
 let messaging = null;
 try { if (firebase.messaging.isSupported()) messaging = firebase.messaging(); } catch (e) { messaging = null; }
 
-// Live-quote proxy (our own Cloud Function — avoids Yahoo CORS / flaky public proxies).
+// Live-quote + symbol-search proxies (our own Cloud Functions — avoid Yahoo CORS / flaky public proxies).
 const QUOTE_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getQuote';
+const SEARCH_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/searchSymbols';
 
 // ── State ──
 let D = null, UID = null;
-let portfolios = [], currentPfId = null, holdings = [];
+let portfolios = [], currentPfId = null, holdings = [], holdingsByPortfolio = {}, holdingsUnsub = null;
 let watchlists = [], currentWLId = null;
 let userAlerts = [];
 let notifications = [];
@@ -1028,16 +1030,13 @@ const _AC_TYPES = { EQUITY: 1, ETF: 1, MUTUALFUND: 1, INDEX: 1, CURRENCY: 1, FUT
 // Live symbol lookup — covers ANY US instrument (stocks, ETFs, funds, FX, futures,
 // indices, crypto) so search isn't limited to the curated local lists (e.g. SNDK).
 async function yahooSearch(q) {
-  const base = 'https://query2.finance.yahoo.com/v1/finance/search?q=' + encodeURIComponent(q) + '&quotesCount=10&newsCount=0&listsCount=0';
-  const urls = [
-    'https://corsproxy.io/?url=' + encodeURIComponent(base),
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent(base),
-    base,
-  ];
-  for (const u of urls) {
-    try { const r = await _tfetch(u, 8000); if (!r.ok) throw 0; const d = await r.json(); if (d && d.quotes) return d.quotes; } catch (e) {}
-  }
-  return [];
+  // Server-side symbol search via our own Cloud Function (CORS-enabled, fast, no dead proxies).
+  try {
+    const r = await _tfetch(SEARCH_API + '?q=' + encodeURIComponent(q), 6000);
+    if (!r.ok) return [];
+    const d = await r.json();
+    return (d && d.quotes) || [];
+  } catch (e) { return []; }
 }
 function acRowHtml(disp, name, listId, context) {
   const cellId = 'acp_' + listId + '_' + disp.replace(/[^A-Za-z0-9]/g, '');
@@ -1264,7 +1263,14 @@ function renderAll() {
   document.getElementById('mktAdv').textContent = mh.state_advice || '—';
   const brk = alerts.filter(a => a.age_hours <= 4);
   const brkBar = document.getElementById('brkBar');
-  if (brk.length) { document.getElementById('brkTxt').textContent = brk.map(a => '[' + a.ticker + '] ' + a.news_title + ' (' + a.outlet + ')').join('   •   '); brkBar.classList.remove('hidden'); }
+  if (brk.length) {
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    document.getElementById('brkTxt').innerHTML = brk.map(a => {
+      const label = '[' + esc(a.ticker) + '] ' + esc(a.news_title || a.title) + (a.outlet ? ' (' + esc(a.outlet) + ')' : '');
+      return a.url ? '<a href="' + esc(a.url) + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">' + label + '</a>' : label;
+    }).join('   •   ');
+    brkBar.classList.remove('hidden');
+  }
   else { brkBar.classList.add('hidden'); }
   picksShown = 24;
   renderCards(picks);
@@ -1538,7 +1544,7 @@ async function gatherUserHoldings() {
   if (!UID) return out;
   for (const pf of portfolios) {
     let docs;
-    if (pf.id === currentPfId && holdings.length) docs = holdings;
+    if (holdingsByPortfolio[pf.id]) docs = holdingsByPortfolio[pf.id];   // live cache for any visited portfolio
     else {
       try { const snap = await db.collection('holdings').doc(UID).collection(pf.id).get(); docs = snap.docs.map(d => ({ id: d.id, ...d.data() })); }
       catch (e) { docs = []; }
@@ -1578,7 +1584,7 @@ function buildSummarySections(hs) {
   const totalCost = hs.reduce((a, h) => a + h.cost, 0);
   const gainAbs = totalVal - totalCost;
   const gainPct = totalCost > 0 ? gainAbs / totalCost * 100 : 0;
-  if (totalVal > 0) perf.push('Your ' + portfolios.length + ' portfolio(s) total $' + totalVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' with an unrealised ' + (gainAbs >= 0 ? 'gain' : 'loss') + ' of $' + Math.abs(gainAbs).toLocaleString(undefined, { maximumFractionDigits: 2 }) + ' (' + (gainPct >= 0 ? '+' : '') + gainPct.toFixed(1) + '%).');
+  if (totalVal > 0) perf.push('Your ' + (new Set(hs.map(h => h.portfolio)).size || 1) + ' portfolio(s) total $' + totalVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' with an unrealised ' + (gainAbs >= 0 ? 'gain' : 'loss') + ' of $' + Math.abs(gainAbs).toLocaleString(undefined, { maximumFractionDigits: 2 }) + ' (' + (gainPct >= 0 ? '+' : '') + gainPct.toFixed(1) + '%).');
   else perf.push('No portfolio holdings found yet. Add holdings in the Portfolio tab to track performance.');
   if (hs.length) {
     const winners = hs.filter(h => h.gain_pct > 0), losers = hs.filter(h => h.gain_pct < 0);
@@ -1724,16 +1730,36 @@ function loadPortfolioData() {
     loadHoldings(currentPfId);
   });
 }
-function switchPf(pfId) { currentPfId = pfId; loadHoldings(pfId); }
+function switchPf(pfId) {
+  currentPfId = pfId;
+  holdings = holdingsByPortfolio[pfId] || [];   // instant render from cache; listener refreshes
+  loadHoldings(pfId);
+  // Summary & Health aggregate ALL portfolios — refresh them if the user is viewing them.
+  if (document.getElementById('tab-summary').classList.contains('active')) loadSummary();
+  if (document.getElementById('tab-health').classList.contains('active')) loadHealth();
+}
 function createPortfolio(name) {
-  if (!UID || !name) return;
-  db.collection('portfolios').doc(UID).collection('list').add({ name, created: new Date().toISOString() });
+  if (!UID || !name) return Promise.resolve(null);
+  return db.collection('portfolios').doc(UID).collection('list').add({ name, created: new Date().toISOString() });
+}
+// Inline "add portfolio" row (replaces the old modal). Auto-selects the new portfolio so
+// the user immediately lands on it ready to add holdings.
+async function addPortfolioInline() {
+  const inp = document.getElementById('newPfName');
+  const name = ((inp && inp.value) || '').trim();
+  if (!name) { if (inp) inp.focus(); return; }
+  if (inp) inp.value = '';
+  try { const ref = await createPortfolio(name); if (ref && ref.id) currentPfId = ref.id; } catch (e) {}
+  try { pmToast('Portfolio "' + name + '" added'); } catch (e) {}
 }
 function loadHoldings(pfId) {
   if (!UID || !pfId) return;
-  db.collection('holdings').doc(UID).collection(pfId).onSnapshot(snap => {
-    holdings = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderHoldingsTable();
+  // Tear down the previous portfolio's listener so listeners don't accumulate/race.
+  if (holdingsUnsub) { holdingsUnsub(); holdingsUnsub = null; }
+  holdingsUnsub = db.collection('holdings').doc(UID).collection(pfId).onSnapshot(snap => {
+    const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    holdingsByPortfolio[pfId] = docs;           // per-portfolio cache (never overwritten across portfolios)
+    if (pfId === currentPfId) { holdings = docs; renderHoldingsTable(); }
   });
 }
 function addHolding(pfId, ticker, qty, buyPrice, buyDate) {

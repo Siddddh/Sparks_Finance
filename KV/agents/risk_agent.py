@@ -1,5 +1,7 @@
 """Risk Agent — Debt, dilution, short interest, regulatory, earnings risk."""
-import yfinance as yf
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+import finnhub_data as fd
 
 def analyze(ticker: str) -> dict:
     score = 70  # start positive, subtract risk
@@ -8,8 +10,7 @@ def analyze(ticker: str) -> dict:
     risk_flags = []
 
     try:
-        t = yf.Ticker(ticker)
-        info = t.info or {}
+        info = fd.get_info(ticker)
 
         short_pct = info.get("shortPercentOfFloat") or 0
         short_ratio = info.get("shortRatio") or 0  # days to cover

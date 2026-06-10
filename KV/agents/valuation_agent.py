@@ -1,5 +1,7 @@
 """Valuation Agent — P/E, P/S, PEG, EV/EBITDA, relative valuation."""
-import yfinance as yf
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+import finnhub_data as fd
 
 # Sector-average benchmarks for relative valuation
 SECTOR_PE = {
@@ -15,8 +17,7 @@ def analyze(ticker: str) -> dict:
     raw = {}
 
     try:
-        t = yf.Ticker(ticker)
-        info = t.info or {}
+        info = fd.get_info(ticker)
 
         fwd_pe = info.get("forwardPE")
         trail_pe = info.get("trailingPE")

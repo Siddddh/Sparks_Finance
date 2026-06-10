@@ -1,5 +1,7 @@
 """Fundamentals Agent — Revenue growth, EPS growth, margins, balance sheet."""
-import yfinance as yf
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+import finnhub_data as fd
 
 def analyze(ticker: str) -> dict:
     score = 0
@@ -7,8 +9,7 @@ def analyze(ticker: str) -> dict:
     raw = {}
 
     try:
-        t = yf.Ticker(ticker)
-        info = t.info or {}
+        info = fd.get_info(ticker)
         raw = {
             "eps_growth": info.get("earningsGrowth"),
             "rev_growth": info.get("revenueGrowth"),

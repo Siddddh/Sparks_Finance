@@ -373,3 +373,26 @@ exports.getQuote = onRequest(
     res.json({ quotes });
   }
 );
+
+// ── Symbol search proxy ──────────────────────────────────────────────────────
+// Server-side Yahoo symbol/name search (CORS-enabled) so the app's top search box
+// can find ANY instrument — even ones not in the bundled symbols.js catalog —
+// without hitting the browser CORS wall or flaky public proxies.
+// GET /searchSymbols?q=nvidia  ->  { quotes: [ { symbol, shortname, ... }, ... ] }
+exports.searchSymbols = onRequest(
+  { region: 'us-central1', cors: true },
+  async (req, res) => {
+    const q = String(req.query.q || '').trim().slice(0, 64);
+    if (!q) { res.json({ quotes: [] }); return; }
+    try {
+      const url = `https://query2.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&quotesCount=10&newsCount=0&listsCount=0`;
+      const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+      if (!r.ok) { res.json({ quotes: [] }); return; }
+      const d = await r.json();
+      res.set('Cache-Control', 'public, max-age=300');
+      res.json({ quotes: (d && d.quotes) || [] });
+    } catch (e) {
+      res.json({ quotes: [] });
+    }
+  }
+);
