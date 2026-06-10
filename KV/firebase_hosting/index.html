@@ -1621,13 +1621,22 @@ async function gatherUserHoldings(scope) {
     let docs;
     if (holdingsByPortfolio[pf.id]) docs = holdingsByPortfolio[pf.id];   // live cache for any visited portfolio
     else {
-      try { const snap = await db.collection('holdings').doc(UID).collection(pf.id).get(); docs = snap.docs.map(d => ({ id: d.id, ...d.data() })); }
-      catch (e) { docs = []; }
+      // One-time fetch for portfolios not yet visited. Time-boxed so a slow/blocked read
+      // (e.g. an ad-blocker interfering with Firestore) can never hang the whole report.
+      try {
+        const snap = await Promise.race([
+          db.collection('holdings').doc(UID).collection(pf.id).get(),
+          new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000))
+        ]);
+        docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch (e) { docs = []; }
     }
     docs.forEach(h => out.push({ ...h, _pf: pf.name || pf.id }));
   }
   const need = out.map(h => h.ticker).filter(t => t && !scanStockFor(t) && !liveEntry(t));
-  if (need.length) await fetchLivePrices(need);
+  // Never block the report for more than ~4.5s on quotes (esp. for 'all' with many
+  // holdings) — render with whatever prices are available; the cache fills in after.
+  if (need.length) await Promise.race([fetchLivePrices(need), new Promise(r => setTimeout(r, 4500))]);
   return out.map(h => {
     const scan = scanStockFor(h.ticker);
     const live = liveEntry(h.ticker);
@@ -1653,8 +1662,8 @@ async function loadSummary() {
   const doc = { uid: UID, date: todayStr(), generated_at: new Date().toISOString(), scope, sections, summary: sections.map(s => '[' + s.title + ']\n' + s.body).join('\n\n') };
   summaryData = doc;
   renderSummaryData(doc);
-  // Persist only the all-portfolios aggregate so a single-portfolio view doesn't clobber it.
-  if (scope === 'all') { try { db.collection('ai_reports').doc(UID).collection('reports').doc(todayStr()).set(doc); } catch (e) {} }
+  // NB: the browser does NOT write to ai_reports — Firestore rules forbid client writes there
+  // (only the Python pipeline writes it). The summary is generated live on each view instead.
 }
 function buildSummarySections(hs, scope) {
   const perf = [], opp = [], risk = [], action = [];
@@ -1763,7 +1772,7 @@ async function loadHealth() {
   const doc = { uid: UID, date: todayStr(), generated_at: new Date().toISOString(), holdings: holdingsOut, summary };
   healthData = doc;
   renderHealthData(doc);
-  if (scope === 'all') { try { db.collection('health_reports').doc(UID).collection('reports').doc(todayStr()).set(doc); } catch (e) {} }
+  // NB: no client write to health_reports — rules forbid it (Python writes it). Rendered live.
 }
 function renderHealthData(data) {
   const el = document.getElementById('healthContent');
