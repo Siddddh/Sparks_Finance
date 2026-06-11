@@ -250,10 +250,8 @@ async function runPremarket(key) {
         .map(t => earningsByTicker.get(t));
     }
 
-    // Nothing relevant for this user today → don't add noise.
-    const hasContent = userEarnings.length || macro.length || (holiday && holiday.closed);
-    if (!hasContent) { summary.skipped++; continue; }
-
+    // Always send a daily morning brief — even on a quiet day the digest gives a
+    // "no earnings / no major events" summary with a review nudge.
     const { title, body } = composeDigest({ date, userEarnings, macro, holiday });
 
     // 1. Persist the digest (the web app's Pre-Market tab reads this live).
@@ -419,7 +417,11 @@ const INFLUENCER_KEYWORDS = [
   'mark zuckerberg', 'sam altman', 'warren buffett',
   // institutions / ratings
   'berkshire', 'blackrock', 'jpmorgan', 'goldman sachs', 'morgan stanley', 'moody', 'fitch',
-  's&p global', 'downgrade', 'upgrade', 'analyst'
+  's&p global', 'downgrade', 'upgrade', 'analyst',
+  // geopolitics / macro shocks — market-moving even with no named figure
+  'iran', 'israel', 'gaza', 'ukraine', 'russia', 'china', 'middle east', 'opec',
+  'sanction', 'embargo', 'ceasefire', 'geopolit', 'nuclear', 'military', 'trade war',
+  'crude', 'oil price', 'recession', 'inflation', 'jobs report', 'gdp', 'shutdown'
 ];
 
 function mapNewsRows(rows, max) {
@@ -632,6 +634,94 @@ exports.runIntradayNow = onRequest(
     const key = FINNHUB_API_KEY.value();
     if (req.query.token !== key) { res.status(403).send('Forbidden'); return; }
     try { res.status(200).json({ ok: true, summary: await runIntraday(key) }); }
+    catch (e) { res.status(500).json({ ok: false, error: String(e) }); }
+  }
+);
+
+// ── Breaking-news monitor (geopolitical / macro market-movers) ────────────────
+// Scans general market news for high-impact headlines (war, ceasefire, sanctions,
+// Fed/rate, tariffs, oil/OPEC, crash/selloff…) and pushes a `breaking_news` alert
+// to all users. Globally deduped by article id so each headline is sent once.
+const HIGH_IMPACT_KEYWORDS = [
+  'ceasefire', 'war', 'invasion', 'airstrike', 'missile', 'sanction', 'embargo',
+  'tariff', 'trade war', 'rate cut', 'rate hike', 'jerome powell', 'federal reserve',
+  'iran', 'israel', 'gaza', 'ukraine', 'russia', 'opec', 'crude oil', 'oil price',
+  'recession', 'selloff', 'plunge', 'market crash', 'default', 'credit downgrade',
+  'government shutdown', 'nuclear', 'emergency'
+];
+
+async function runBreaking(key) {
+  const db = admin.firestore();
+  const messaging = admin.messaging();
+  const date = todayInET();
+
+  const usersSnap = await db.collection('users').get();
+  const recipients = [];
+  usersSnap.forEach(doc => { const tokens = doc.get('fcmTokens'); if (Array.isArray(tokens) && tokens.length) recipients.push({ uid: doc.id, tokens }); });
+  const summary = { recipients: recipients.length, candidates: 0, pushed: 0 };
+  if (!recipients.length) return summary;
+
+  let rows = [];
+  try { rows = (await finnhubGet('/news', { category: 'general' }, key)) || []; } catch (e) {}
+  const nowSec = Math.floor(Date.now() / 1000);
+  const fresh = rows
+    .filter(a => {
+      if (!a || a.id == null) return false;
+      if (nowSec - (a.datetime || 0) > 3600) return false;            // published within the last hour
+      const t = ((a.headline || '') + ' ' + (a.summary || '')).toLowerCase();
+      return HIGH_IMPACT_KEYWORDS.some(k => t.includes(k));
+    })
+    .sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
+  summary.candidates = fresh.length;
+
+  // Global dedup by article id.
+  const stateRef = db.collection('alert_state').doc('_breaking');
+  let seen = [];
+  try { const s = await stateRef.get(); seen = (s.exists && s.data().ids) || []; } catch (e) {}
+  const seenSet = new Set(seen);
+  const toSend = fresh.filter(a => !seenSet.has(a.id)).slice(0, 3);    // cap 3 per run to avoid spam
+
+  for (const a of toSend) {
+    const headline = (a.headline || '').slice(0, 120);
+    const body = `${(a.summary || '').slice(0, 240) || headline} — Market-moving news like this can swing the broad market and your holdings. Review your exposure and make sure your stops are set.`;
+    for (const { uid, tokens } of recipients) {
+      try {
+        await db.collection('notifications').doc(uid).collection('list').add({
+          date, type: 'breaking_news', title: headline, body,
+          url: a.url || null, source: a.source || null,
+          read: false, status: 'sent', createdAt: admin.firestore.FieldValue.serverTimestamp()
+        });
+        const resp = await messaging.sendEachForMulticast({
+          tokens, notification: { title: pushBody(headline), body: pushBody(body) },
+          data: { type: 'breaking_news', url: a.url || '' }, webpush: { fcmOptions: { link: '/' } }
+        });
+        const dead = [];
+        resp.responses.forEach((r, i) => { if (!r.success) { const c = r.error && r.error.code; if (c === 'messaging/registration-token-not-registered' || c === 'messaging/invalid-registration-token' || c === 'messaging/invalid-argument') dead.push(tokens[i]); } });
+        if (dead.length) await db.collection('users').doc(uid).set({ fcmTokens: admin.firestore.FieldValue.arrayRemove(...dead) }, { merge: true });
+      } catch (e) { logger.error('breaking send failed', { uid, error: String(e) }); }
+    }
+    seenSet.add(a.id);
+    summary.pushed++;
+  }
+
+  try { await stateRef.set({ ids: [...seenSet].slice(-200), updated: date }); } catch (e) {}
+  logger.info('Breaking news run complete', summary);
+  return summary;
+}
+
+// Scheduled: every 30 min, 6 AM–9 PM ET, every day (news breaks outside market hours too).
+exports.breakingNewsMonitor = onSchedule(
+  { schedule: '*/30 6-21 * * *', timeZone: 'America/New_York', secrets: [FINNHUB_API_KEY], region: 'us-central1' },
+  async () => { await runBreaking(FINNHUB_API_KEY.value()); }
+);
+
+// On-demand test. Guarded by ?token=<FINNHUB_API_KEY>.
+exports.runBreakingNow = onRequest(
+  { secrets: [FINNHUB_API_KEY], region: 'us-central1' },
+  async (req, res) => {
+    const key = FINNHUB_API_KEY.value();
+    if (req.query.token !== key) { res.status(403).send('Forbidden'); return; }
+    try { res.status(200).json({ ok: true, summary: await runBreaking(key) }); }
     catch (e) { res.status(500).json({ ok: false, error: String(e) }); }
   }
 );

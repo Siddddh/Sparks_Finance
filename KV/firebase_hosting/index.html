@@ -2241,6 +2241,7 @@ function updateNotifBadge() {
 
 const NOTIF_CATS = [
   { key: 'all', label: 'All' },
+  { key: 'breaking', label: 'Breaking' },
   { key: 'price', label: 'Price moves' },
   { key: 'market', label: 'Market' },
   { key: 'earnings', label: 'Earnings' },
@@ -2251,10 +2252,11 @@ function notifCategory(n) {
   if (t === 'price_move') return 'price';
   if (t === 'market_move') return 'market';
   if (t === 'earnings_alert') return 'earnings';
+  if (t === 'breaking_news') return 'breaking';
   return 'macro';   // premarket_digest + anything else
 }
 function notifBadge(cat) {
-  const map = { price: ['Price', 'badge-blue'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], macro: ['Digest', 'badge-gray'] };
+  const map = { breaking: ['Breaking', 'badge-red'], price: ['Price', 'badge-blue'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], macro: ['Digest', 'badge-gray'] };
   const m = map[cat] || ['Alert', 'badge-gray'];
   return '<span class="badge ' + m[1] + '">' + m[0] + '</span>';
 }
@@ -2286,6 +2288,7 @@ function renderNotifications() {
       '<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;"><div class="alert-tkr" style="font-size:14px;line-height:1.4;">' + notifBadge(cat) + ' ' + escHtml(n.title || 'Notification') + pctTxt + '</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;">' + (n.date || '') + (n.read ? '' : ' • new') + '</div></div>' +
       '<div style="font-size:13px;color:var(--text-2);margin:4px 0 8px;line-height:1.55;white-space:pre-line;">' + escHtml(n.body || '') + '</div>' +
       (earn ? '<div style="margin-bottom:6px;">' + earn + '</div>' : '') + macro +
+      (n.url ? '<a href="' + escHtml(n.url) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-size:12px;font-weight:600;">Read full story →</a>' : '') +
       '</div>';
   }).join('');
 }
