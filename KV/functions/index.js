@@ -30,6 +30,7 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 const FINNHUB_API_KEY = defineSecret('FINNHUB_API_KEY');
+const OPENROUTER_API_KEY = defineSecret('OPENROUTER_API_KEY');
 
 const FINNHUB_BASE = 'https://finnhub.io/api/v1';
 
@@ -723,5 +724,323 @@ exports.runBreakingNow = onRequest(
     if (req.query.token !== key) { res.status(403).send('Forbidden'); return; }
     try { res.status(200).json({ ok: true, summary: await runBreaking(key) }); }
     catch (e) { res.status(500).json({ ok: false, error: String(e) }); }
+  }
+);
+
+// ════════════════════════════════════════════════════════════════════════════
+//  AI Finance Assistant — OpenRouter, tool-calling agent
+//  A Google-Finance-style chat assistant. The model fetches live data on demand
+//  via tools (quotes, fundamentals, news, portfolio, comparisons, market). Free
+//  model by default — swap OPENROUTER_MODEL for a paid one for max reliability.
+// ════════════════════════════════════════════════════════════════════════════
+// Free models tried IN ORDER — if one is retired/unavailable/over its free limit, the
+// assistant falls through to the next. (Prepend a paid slug like 'anthropic/claude-sonnet-latest'
+// only if you ever want guaranteed reliability + tool support.)
+const OPENROUTER_MODELS = [
+  'nvidia/nemotron-3-ultra-550b-a55b:free',
+  'nex-agi/nex-n2-pro:free',
+  'google/gemma-4-31b-it:free',
+  'meta-llama/llama-3.3-70b-instruct:free'
+];
+const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const SECTOR_ETF = {
+  technology: 'XLK', tech: 'XLK', financials: 'XLF', financial: 'XLF', energy: 'XLE',
+  healthcare: 'XLV', health: 'XLV', 'consumer discretionary': 'XLY', 'consumer cyclical': 'XLY',
+  'consumer staples': 'XLP', 'consumer defensive': 'XLP', industrials: 'XLI', materials: 'XLB',
+  utilities: 'XLU', 'real estate': 'XLRE', communication: 'XLC', 'communication services': 'XLC'
+};
+
+function normPeriod(p) {
+  const s = String(p || '').toLowerCase().replace(/[\s-]/g, '');
+  if (/ytd|yeartodate/.test(s)) return 'ytd';
+  if (/5y|5year/.test(s)) return '5y';
+  if (/6m|6mo|6month|halfyear/.test(s)) return '6mo';
+  if (/3m|3mo|3month|quarter/.test(s)) return '3mo';
+  if (/(^|[^0-9])(1mo|1month|month)/.test(s)) return '1mo';
+  if (/5d|week/.test(s)) return '5d';
+  if (/1d|today|day/.test(s)) return '1d';
+  return '1y';   // default & "1y/year"
+}
+
+async function yahooQuote(sym) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=1d`;
+  const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+  if (!r.ok) return null;
+  const d = await r.json();
+  const meta = d && d.chart && d.chart.result && d.chart.result[0] && d.chart.result[0].meta;
+  if (!meta || meta.regularMarketPrice == null) return null;
+  const price = meta.regularMarketPrice, prev = meta.chartPreviousClose || meta.previousClose || price;
+  return { price, prevClose: prev, changePct: prev ? (price / prev - 1) * 100 : 0 };
+}
+
+async function yahooReturn(sym, period) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=${period}`;
+  const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+  if (!r.ok) return null;
+  const d = await r.json();
+  const res = d && d.chart && d.chart.result && d.chart.result[0];
+  const closes = res && res.indicators && res.indicators.quote && res.indicators.quote[0] && res.indicators.quote[0].close;
+  if (!closes || !closes.length) return null;
+  const valid = closes.filter(c => c != null);
+  if (valid.length < 2) return null;
+  const first = valid[0], last = valid[valid.length - 1];
+  return { startPrice: +first.toFixed(2), endPrice: +last.toFixed(2), returnPct: +((last / first - 1) * 100).toFixed(2) };
+}
+
+// ── Tool implementations (server-side; reuse finnhubGet / Yahoo / Firestore) ──
+async function toolQuote(symbols, key) {
+  const out = {};
+  for (const s of (symbols || []).slice(0, 12)) {
+    const sym = String(s).toUpperCase();
+    try { const q = await finnhubGet('/quote', { symbol: sym }, key); if (q && q.c) out[sym] = { price: q.c, prevClose: q.pc, changePct: q.dp, dayHigh: q.h, dayLow: q.l, open: q.o }; }
+    catch (e) { out[sym] = { error: 'quote unavailable' }; }
+  }
+  return out;
+}
+async function toolFundamentals(symbol, key) {
+  const sym = String(symbol || '').toUpperCase();
+  const d = await finnhubGet('/stock/metric', { symbol: sym, metric: 'all' }, key);
+  const m = (d && d.metric) || {};
+  return {
+    symbol: sym, peTTM: m.peTTM, forwardPE: m.peExclExtraTTM, priceToSales: m.psTTM,
+    priceToBook: m.pbAnnual || m.pbQuarterly, peg: m.pegTTM,
+    revenueGrowthYoYPct: m.revenueGrowthTTMYoy, epsGrowthYoYPct: m.epsGrowthTTMYoy,
+    netProfitMarginPct: m.netProfitMarginTTM, grossMarginPct: m.grossMarginTTM,
+    operatingMarginPct: m.operatingMarginTTM, roePct: m.roeTTM, beta: m.beta,
+    marketCapMillions: m.marketCapitalization, week52High: m['52WeekHigh'], week52Low: m['52WeekLow'],
+    dividendYieldPct: m.dividendYieldIndicatedAnnual
+  };
+}
+async function toolProfile(symbol, key) {
+  const sym = String(symbol || '').toUpperCase();
+  const p = await finnhubGet('/stock/profile2', { symbol: sym }, key) || {};
+  return { symbol: sym, name: p.name, industry: p.finnhubIndustry, exchange: p.exchange, country: p.country, marketCapMillions: p.marketCapitalization, sharesOutstandingM: p.shareOutstanding, ipo: p.ipo, website: p.weburl };
+}
+async function toolNews(symbols, key) {
+  const today = todayInET();
+  const from = (function () { const d = new Date(today.replace(/-/g, '/')); d.setDate(d.getDate() - 14); return d.toISOString().slice(0, 10); })();
+  const raw = [];
+  for (const s of (symbols || []).slice(0, 6)) {
+    try { const rows = await finnhubGet('/company-news', { symbol: String(s).toUpperCase(), from, to: today }, key); (rows || []).slice(0, 4).forEach(a => raw.push(a)); } catch (e) {}
+  }
+  if (!raw.length) { try { const g = (await finnhubGet('/news', { category: 'general' }, key)) || []; g.slice(0, 8).forEach(a => raw.push(a)); } catch (e) {} }
+  raw.sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
+  return mapNewsRows(raw, 10).map(n => ({ title: n.title, summary: n.summary, source: n.source, tickers: n.tickers, url: n.url }));
+}
+async function toolRange(symbols, key) {
+  const out = {};
+  for (const s of (symbols || []).slice(0, 12)) {
+    const sym = String(s).toUpperCase();
+    try { const d = await finnhubGet('/stock/metric', { symbol: sym, metric: 'all' }, key); const m = (d && d.metric) || {}; if (m['52WeekHigh'] != null) out[sym] = { week52High: m['52WeekHigh'], week52Low: m['52WeekLow'] }; } catch (e) {}
+  }
+  return out;
+}
+async function toolEarnings(symbol, key) {
+  const sym = String(symbol || '').toUpperCase();
+  let history = [];
+  try { const e = (await finnhubGet('/stock/earnings', { symbol: sym, limit: 4 }, key)) || []; history = e.slice(0, 4).map(x => ({ period: x.period, actualEps: x.actual, estimateEps: x.estimate, surprisePct: x.surprisePercent })); } catch (e) {}
+  let next = null;
+  try { const today = todayInET(); const to = (function () { const d = new Date(today.replace(/-/g, '/')); d.setDate(d.getDate() + 90); return d.toISOString().slice(0, 10); })(); const cal = await finnhubGet('/calendar/earnings', { symbol: sym, from: today, to }, key); const arr = (cal && cal.earningsCalendar) || []; if (arr.length) next = arr[0].date; } catch (e) {}
+  return { symbol: sym, recentEarnings: history, nextEarningsDate: next };
+}
+async function toolCompare(symbols, period, key) {
+  const per = normPeriod(period);
+  const out = { period: per, results: {} };
+  for (const raw of (symbols || []).slice(0, 8)) {
+    const k = String(raw).toLowerCase().trim();
+    const sym = (SECTOR_ETF[k] || String(raw)).toUpperCase();
+    const label = SECTOR_ETF[k] ? `${raw} (${sym})` : sym;
+    try { const r = await yahooReturn(sym, per); out.results[label] = r || { error: 'no data' }; } catch (e) { out.results[label] = { error: 'no data' }; }
+  }
+  return out;
+}
+async function toolMarket() {
+  const idx = { 'S&P 500': '^GSPC', 'Nasdaq': '^IXIC', 'Dow Jones': '^DJI', 'VIX (volatility)': '^VIX' };
+  const out = {};
+  for (const [name, sym] of Object.entries(idx)) {
+    try { const q = await yahooQuote(sym); if (q) out[name] = { price: +q.price.toFixed(2), changePct: +q.changePct.toFixed(2) }; } catch (e) {}
+  }
+  return out;
+}
+async function toolSearch(query) {
+  try {
+    const url = `https://query2.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(query)}&quotesCount=8&newsCount=0`;
+    const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    if (!r.ok) return { matches: [] };
+    const d = await r.json();
+    return { matches: ((d && d.quotes) || []).map(q => ({ symbol: q.symbol, name: q.shortname || q.longname, type: q.quoteType, exchange: q.exchange })).filter(m => m.symbol).slice(0, 8) };
+  } catch (e) { return { matches: [] }; }
+}
+async function toolPortfolio(uid, key) {
+  if (!uid) return { error: 'User is not signed in, so their portfolio is unavailable. Ask them to sign in.' };
+  const db = admin.firestore();
+  const holdings = [];
+  try {
+    const cols = await db.collection('holdings').doc(uid).listCollections();
+    for (const col of cols) {
+      const snap = await col.get();
+      snap.forEach(doc => {
+        const h = doc.data() || {};
+        const t = (h.ticker || '').toUpperCase();
+        if (t) holdings.push({ ticker: t, qty: +h.qty || 0, buyPrice: +h.buy_price || 0, buyDate: h.buy_date || null });
+      });
+    }
+  } catch (e) { return { error: 'Could not read portfolio.' }; }
+  if (!holdings.length) return { holdings: [], note: 'The user has no holdings yet.' };
+  let totalValue = 0, totalCost = 0;
+  for (const h of holdings) {
+    try { const q = await finnhubGet('/quote', { symbol: h.ticker }, key); if (q && q.c) { h.price = q.c; h.changePctToday = q.dp; } } catch (e) {}
+    const px = h.price || h.buyPrice;
+    h.value = +(px * h.qty).toFixed(2);
+    h.cost = +(h.buyPrice * h.qty).toFixed(2);
+    h.gainPct = h.buyPrice > 0 ? +((px / h.buyPrice - 1) * 100).toFixed(2) : 0;
+    totalValue += h.value; totalCost += h.cost;
+  }
+  return {
+    holdingsCount: holdings.length,
+    totalValue: +totalValue.toFixed(2),
+    totalCost: +totalCost.toFixed(2),
+    totalGain: +(totalValue - totalCost).toFixed(2),
+    totalGainPct: totalCost > 0 ? +(((totalValue - totalCost) / totalCost) * 100).toFixed(2) : 0,
+    holdings
+  };
+}
+
+async function runTool(name, args, ctx) {
+  const key = ctx.key;
+  try {
+    switch (name) {
+      case 'get_portfolio': return await toolPortfolio(ctx.uid, key);
+      case 'get_quote': return await toolQuote(args.symbols, key);
+      case 'get_fundamentals': return await toolFundamentals(args.symbol, key);
+      case 'get_company_profile': return await toolProfile(args.symbol, key);
+      case 'get_news': return await toolNews(args.symbols, key);
+      case 'get_range_52w': return await toolRange(args.symbols, key);
+      case 'get_earnings': return await toolEarnings(args.symbol, key);
+      case 'compare_performance': return await toolCompare(args.symbols, args.period, key);
+      case 'get_market_overview': return await toolMarket();
+      case 'search_symbol': return await toolSearch(args.query);
+      default: return { error: 'unknown tool' };
+    }
+  } catch (e) { return { error: String(e) }; }
+}
+
+const ASSISTANT_TOOLS = [
+  { type: 'function', function: { name: 'get_portfolio', description: "Get the signed-in user's portfolio holdings with live prices, current value, cost basis and gain/loss. Use for any question about 'my portfolio/holdings/positions/how am I doing'.", parameters: { type: 'object', properties: {} } } },
+  { type: 'function', function: { name: 'get_quote', description: 'Get current price, today\'s % change, day high/low for one or more stock/ETF/index symbols.', parameters: { type: 'object', properties: { symbols: { type: 'array', items: { type: 'string' }, description: 'Ticker symbols, e.g. ["NVDA","AAPL"]' } }, required: ['symbols'] } } },
+  { type: 'function', function: { name: 'get_fundamentals', description: 'Get fundamental metrics for a company: P/E, P/S, P/B, PEG, revenue growth %, EPS growth %, profit/gross/operating margins, ROE, beta, market cap, 52-week high/low, dividend yield.', parameters: { type: 'object', properties: { symbol: { type: 'string' } }, required: ['symbol'] } } },
+  { type: 'function', function: { name: 'get_company_profile', description: 'Get a company overview: name, industry, exchange, country, market cap, shares outstanding, IPO date, website.', parameters: { type: 'object', properties: { symbol: { type: 'string' } }, required: ['symbol'] } } },
+  { type: 'function', function: { name: 'get_news', description: 'Get recent news headlines + summaries for given tickers (or general market news if none given).', parameters: { type: 'object', properties: { symbols: { type: 'array', items: { type: 'string' } } } } } },
+  { type: 'function', function: { name: 'get_range_52w', description: 'Get 52-week high and low for one or more symbols.', parameters: { type: 'object', properties: { symbols: { type: 'array', items: { type: 'string' } } }, required: ['symbols'] } } },
+  { type: 'function', function: { name: 'get_earnings', description: 'Get recent quarterly earnings (actual vs estimate, surprise %) and the next earnings date for a company.', parameters: { type: 'object', properties: { symbol: { type: 'string' } }, required: ['symbol'] } } },
+  { type: 'function', function: { name: 'compare_performance', description: 'Compare total % return of stocks and/or sectors over a period. Sectors accepted by name (Technology, Financials, Energy, Healthcare, etc.). Period one of: 1d,5d,1mo,3mo,6mo,ytd,1y,5y.', parameters: { type: 'object', properties: { symbols: { type: 'array', items: { type: 'string' }, description: 'Tickers and/or sector names' }, period: { type: 'string' } }, required: ['symbols'] } } },
+  { type: 'function', function: { name: 'get_market_overview', description: "Get today's level and % change for the major US indices (S&P 500, Nasdaq, Dow) and the VIX volatility index.", parameters: { type: 'object', properties: {} } } },
+  { type: 'function', function: { name: 'search_symbol', description: 'Resolve a company or fund name to its ticker symbol(s).', parameters: { type: 'object', properties: { query: { type: 'string' } }, required: ['query'] } } }
+];
+
+async function orChat(messages, key, model, tools) {
+  const body = { model, messages, temperature: 0.3, max_tokens: 1300 };
+  if (tools) body.tools = tools;
+  const r = await fetch(OPENROUTER_URL, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + key,
+      'Content-Type': 'application/json',
+      'HTTP-Referer': 'https://claude-apps-a6fe1.web.app',
+      'X-Title': 'Sparks Finance'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!r.ok) { const t = await r.text().catch(() => ''); const err = new Error('OpenRouter ' + r.status); err.status = r.status; err.detail = t.slice(0, 300); throw err; }
+  return r.json();
+}
+
+const ASSISTANT_SYSTEM = `You are "Sparks AI", an expert financial analyst assistant inside the Sparks Finance app.
+You help the user discover, compare and analyze stocks, ETFs, indices, currencies, sectors and market trends, review THEIR OWN portfolio and its performance, run financial analysis (P/E, revenue growth, margins, etc.), monitor markets, and understand companies they care about.
+
+Rules:
+- ALWAYS use the provided tools to get live data before answering anything factual (prices, fundamentals, news, portfolio, comparisons). Never invent numbers — if a tool fails or data is missing, say so plainly.
+- For "my portfolio / my holdings / how am I doing", call get_portfolio.
+- Be concrete and detailed: cite the actual metrics, % changes and price levels you retrieved, and briefly explain what they mean for the user.
+- Format answers in short paragraphs and bullet points. Use **bold** for key figures. Keep it focused.
+- You may resolve company names to tickers with search_symbol when unsure.
+- End every answer with: "_Educational information, not financial advice._"`;
+
+exports.assistant = onRequest(
+  { region: 'us-central1', cors: true, secrets: [OPENROUTER_API_KEY, FINNHUB_API_KEY], timeoutSeconds: 120 },
+  async (req, res) => {
+    if (req.method !== 'POST') { res.status(405).json({ error: 'POST only' }); return; }
+    const orKey = OPENROUTER_API_KEY.value();
+    const fhKey = FINNHUB_API_KEY.value();
+
+    // Optional auth — verify Firebase ID token to unlock the user's private portfolio.
+    let uid = null;
+    const authz = req.get('Authorization') || '';
+    const m = /^Bearer (.+)$/.exec(authz);
+    if (m) { try { uid = (await admin.auth().verifyIdToken(m[1])).uid; } catch (e) { uid = null; } }
+
+    // Sanitize incoming history to plain user/assistant text turns.
+    const incoming = Array.isArray(req.body && req.body.messages) ? req.body.messages : [];
+    const history = incoming
+      .filter(x => x && (x.role === 'user' || x.role === 'assistant') && typeof x.content === 'string')
+      .slice(-16)
+      .map(x => ({ role: x.role, content: x.content.slice(0, 4000) }));
+    if (!history.length) { res.status(400).json({ error: 'No message provided.' }); return; }
+
+    const messages = [{ role: 'system', content: ASSISTANT_SYSTEM }];
+    // Pre-fetch a compact portfolio snapshot so portfolio questions work even if the
+    // model doesn't call tools (helps weaker free models).
+    if (uid) {
+      try {
+        const p = await toolPortfolio(uid, fhKey);
+        if (p && p.holdings) messages.push({ role: 'system', content: 'Signed-in user portfolio snapshot (use get_portfolio for the freshest detail): ' + JSON.stringify(p).slice(0, 3000) });
+      } catch (e) {}
+    } else {
+      messages.push({ role: 'system', content: 'The user is NOT signed in, so portfolio tools are unavailable. Answer general market/company questions and, if they ask about their portfolio, tell them to sign in.' });
+    }
+    messages.push(...history);
+
+    const toolsUsed = [];
+    let modelIdx = 0, withTools = true, usedModel = OPENROUTER_MODELS[0];
+    try {
+      for (let iter = 0; iter < 8; iter++) {
+        usedModel = OPENROUTER_MODELS[modelIdx];
+        let data;
+        try {
+          data = await orChat(messages, orKey, usedModel, withTools ? ASSISTANT_TOOLS : null);
+        } catch (err) {
+          const det = String(err.detail || '').toLowerCase();
+          // Model doesn't support function calling → retry the SAME model without tools.
+          if (withTools && det.includes('tool')) { withTools = false; logger.warn('assistant: model lacks tool support, retrying plain', { model: usedModel }); continue; }
+          // Model retired / unavailable-for-free / invalid / over free limit → try the NEXT free model.
+          if ((err.status === 404 || err.status === 400 || err.status === 429) && modelIdx < OPENROUTER_MODELS.length - 1) {
+            modelIdx++; withTools = true; logger.warn('assistant: model unavailable, trying next', { model: usedModel, status: err.status, detail: det }); continue;
+          }
+          throw err;
+        }
+        const msg = data && data.choices && data.choices[0] && data.choices[0].message;
+        if (!msg) { res.status(200).json({ reply: "I couldn't generate a response just now. Please try again.", toolsUsed }); return; }
+        messages.push(msg);
+        if (withTools && msg.tool_calls && msg.tool_calls.length) {
+          for (const tc of msg.tool_calls) {
+            let args = {};
+            try { args = JSON.parse(tc.function.arguments || '{}'); } catch (e) {}
+            const result = await runTool(tc.function.name, args, { uid, key: fhKey });
+            toolsUsed.push(tc.function.name);
+            messages.push({ role: 'tool', tool_call_id: tc.id, name: tc.function.name, content: JSON.stringify(result).slice(0, 5000) });
+          }
+          continue;   // let the model read the tool results
+        }
+        res.status(200).json({ reply: msg.content || '(no answer)', model: usedModel, toolsUsed });
+        return;
+      }
+      res.status(200).json({ reply: 'That took too many steps — please ask a more specific question.', toolsUsed });
+    } catch (e) {
+      logger.error('assistant failed', { status: e.status, error: String(e), detail: e.detail });
+      const msg = e.status === 429
+        ? "The free AI model is rate-limited right now — please wait a minute and try again."
+        : "The assistant is temporarily unavailable. Please try again shortly.";
+      res.status(200).json({ reply: msg, error: String(e), toolsUsed });
+    }
   }
 );
