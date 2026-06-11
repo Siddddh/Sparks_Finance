@@ -737,10 +737,10 @@ exports.runBreakingNow = onRequest(
 // assistant falls through to the next. (Prepend a paid slug like 'anthropic/claude-sonnet-latest'
 // only if you ever want guaranteed reliability + tool support.)
 const OPENROUTER_MODELS = [
-  'nvidia/nemotron-3-ultra-550b-a55b:free',
-  'nex-agi/nex-n2-pro:free',
+  'meta-llama/llama-3.3-70b-instruct:free',   // fast, reliable, supports tools
   'google/gemma-4-31b-it:free',
-  'meta-llama/llama-3.3-70b-instruct:free'
+  'nex-agi/nex-n2-pro:free',
+  'nvidia/nemotron-3-ultra-550b-a55b:free'    // huge/slow → last resort
 ];
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const SECTOR_ETF = {
@@ -941,18 +941,23 @@ const ASSISTANT_TOOLS = [
 async function orChat(messages, key, model, tools) {
   const body = { model, messages, temperature: 0.3, max_tokens: 1300 };
   if (tools) body.tools = tools;
-  const r = await fetch(OPENROUTER_URL, {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + key,
-      'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://claude-apps-a6fe1.web.app',
-      'X-Title': 'Sparks Finance'
-    },
-    body: JSON.stringify(body)
-  });
-  if (!r.ok) { const t = await r.text().catch(() => ''); const err = new Error('OpenRouter ' + r.status); err.status = r.status; err.detail = t.slice(0, 300); throw err; }
-  return r.json();
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 40000);   // 40s cap → slow free model fails fast, we rotate
+  try {
+    const r = await fetch(OPENROUTER_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + key,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://claude-apps-a6fe1.web.app',
+        'X-Title': 'Sparks Finance'
+      },
+      body: JSON.stringify(body),
+      signal: ctrl.signal
+    });
+    if (!r.ok) { const t = await r.text().catch(() => ''); const err = new Error('OpenRouter ' + r.status); err.status = r.status; err.detail = t.slice(0, 300); throw err; }
+    return await r.json();
+  } finally { clearTimeout(timer); }
 }
 
 const ASSISTANT_SYSTEM = `You are "Sparks AI", an expert financial analyst assistant inside the Sparks Finance app.
@@ -1012,9 +1017,11 @@ exports.assistant = onRequest(
           const det = String(err.detail || '').toLowerCase();
           // Model doesn't support function calling → retry the SAME model without tools.
           if (withTools && det.includes('tool')) { withTools = false; logger.warn('assistant: model lacks tool support, retrying plain', { model: usedModel }); continue; }
-          // Model retired / unavailable-for-free / invalid / over free limit → try the NEXT free model.
-          if ((err.status === 404 || err.status === 400 || err.status === 429) && modelIdx < OPENROUTER_MODELS.length - 1) {
-            modelIdx++; withTools = true; logger.warn('assistant: model unavailable, trying next', { model: usedModel, status: err.status, detail: det }); continue;
+          // Model retired / unavailable / over free limit / slow (timeout/terminated) / 5xx →
+          // try the NEXT free model.
+          const networkish = !err.status;   // AbortError, "terminated", DNS, etc.
+          if ((networkish || [400, 404, 408, 429, 500, 502, 503].includes(err.status)) && modelIdx < OPENROUTER_MODELS.length - 1) {
+            modelIdx++; withTools = true; logger.warn('assistant: model failed, trying next', { model: usedModel, status: err.status || 'network', detail: det || String(err) }); continue;
           }
           throw err;
         }
