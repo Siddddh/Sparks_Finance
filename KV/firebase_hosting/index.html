@@ -400,6 +400,38 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 .ch-note code{background:var(--surface);padding:1px 5px;border-radius:4px;font-size:12px;}
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 @media(max-width:760px){.chart-grid{grid-template-columns:1fr;}.cbox-lg{height:300px;}.ch-px{margin-left:0;text-align:left;}}
+/* ════════ Tasteful motion ════════ */
+@keyframes kfFadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes kfFade{from{opacity:0}to{opacity:1}}
+@keyframes kfModalIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+@keyframes kfToastIn{from{opacity:0;transform:translateX(-50%) translateY(14px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes kfFlashUp{0%{box-shadow:inset 0 0 0 999px var(--green-soft)}100%{box-shadow:inset 0 0 0 999px rgba(0,0,0,0)}}
+@keyframes kfFlashDown{0%{box-shadow:inset 0 0 0 999px var(--red-soft)}100%{box-shadow:inset 0 0 0 999px rgba(0,0,0,0)}}
+.flash-up{animation:kfFlashUp .95s ease;}
+.flash-down{animation:kfFlashDown .95s ease;}
+html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border-color .25s ease, color .2s ease, fill .2s ease !important;}
+.rng-fill{transition:width .85s cubic-bezier(.22,1,.36,1);}
+.rng-dot{transition:left .85s cubic-bezier(.22,1,.36,1);}
+@media (prefers-reduced-motion: no-preference){
+  .card,.mncrd{transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
+  .card:hover,.mncrd:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+  .scard{transition:transform .15s ease, box-shadow .15s ease;}
+  .scard:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+  .pf-btn,.cc-go,.show-more,.sign-out-btn,.icon-btn,.navitem,.cc-seg button,.cc-inds button,.cc-chip,.asst-tbtn{transition:background-color .15s ease, color .15s ease, border-color .15s ease, transform .12s ease, box-shadow .15s ease;}
+  .pf-btn:active,.cc-go:active,.show-more:active,.icon-btn:active,.cc-seg button:active,.cc-inds button:active,.asst-suggest:active{transform:translateY(1px) scale(.985);}
+  #scanTable tbody tr{transition:background-color .12s ease;}
+  .stagger-in > *{animation:kfFadeUp .4s cubic-bezier(.22,1,.36,1) both;}
+  .stagger-in > *:nth-child(2){animation-delay:.04s}
+  .stagger-in > *:nth-child(3){animation-delay:.08s}
+  .stagger-in > *:nth-child(4){animation-delay:.12s}
+  .stagger-in > *:nth-child(5){animation-delay:.16s}
+  .stagger-in > *:nth-child(6){animation-delay:.20s}
+  .stagger-in > *:nth-child(7){animation-delay:.24s}
+  .stagger-in > *:nth-child(8){animation-delay:.28s}
+  .modal-overlay:not(.hidden){animation:kfFade .18s ease;}
+  .modal-overlay:not(.hidden) .modal-box{animation:kfModalIn .24s cubic-bezier(.22,1,.36,1);}
+}
+@media (prefers-reduced-motion: reduce){.rng-fill,.rng-dot{transition:none;}}
 
 /* ════════ Summary card ════════ */
 .summary-card{background:var(--surface-2);border-radius:12px;border:1px solid var(--border);padding:18px;margin-bottom:12px;}
@@ -712,7 +744,7 @@ body.sidebar-open .nav-scrim{display:block;}
             <div class="scard st"><div class="snum" id="cT">—</div><div class="slbl">Scanned</div></div>
             <div class="scard sa"><div class="snum" id="cA">—</div><div class="slbl">Alerts</div></div>
           </div>
-          <div class="grid" id="picksGrid"></div>
+          <div class="grid stagger-in" id="picksGrid"></div>
           <button class="show-more" id="showMoreBtn" style="display:none" onclick="showMorePicks()">Show more stocks</button>
         </div>
         <div id="tab-assistant" class="tab-panel">
@@ -880,7 +912,7 @@ body.sidebar-open .nav-scrim{display:block;}
           </div>
           <div class="cwrap chart-sub" id="wrapRSI" style="display:none"><div class="ctitle">RSI (14)</div><div class="cbox cbox-sm"><canvas id="cRSI"></canvas></div></div>
           <div class="cwrap chart-sub" id="wrapMACD" style="display:none"><div class="ctitle">MACD (12, 26, 9)</div><div class="cbox cbox-sm"><canvas id="cMACD"></canvas></div></div>
-          <div class="chart-grid">
+          <div class="chart-grid stagger-in">
             <div class="cwrap"><div class="ctitle" id="ttlAlloc">Portfolio Allocation</div><div class="cbox"><canvas id="cAlloc"></canvas></div></div>
             <div class="cwrap"><div class="ctitle">Holdings Performance <span class="ct-sub">(all-time %)</span></div><div class="cbox"><canvas id="cPerf"></canvas></div></div>
             <div class="cwrap"><div class="ctitle">Sector Exposure</div><div class="cbox"><canvas id="cSector"></canvas></div></div>
@@ -942,6 +974,7 @@ function applyTheme(t) {
 }
 function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme');
+  if (!_reduceMotion) { const r = document.documentElement; r.classList.add('theme-anim'); clearTimeout(window._themeAnimT); window._themeAnimT = setTimeout(() => r.classList.remove('theme-anim'), 320); }
   applyTheme(cur === 'dark' ? 'light' : 'dark');
 }
 (function () {
@@ -1138,6 +1171,22 @@ function daysHeldStr(buyDate) { const d = daysHeld(buyDate); if (d < 30) return 
 function annualizedReturn(pct, buyDate) { const d = daysHeld(buyDate); if (!d || d < 7) return null; const years = d / 365; return (Math.pow(1 + pct / 100, 1 / years) - 1) * 100; }
 function logoColor(ticker) { const colors = ['#1a73e8','#0f9d58','#9334e6','#f29900','#d93025','#0891b2','#be123c','#7c3aed']; let h = 0; for (let i = 0; i < ticker.length; i++) h = (h * 31 + ticker.charCodeAt(i)) & 0xFFFFFF; return colors[Math.abs(h) % colors.length]; }
 function scanStockFor(ticker) { return D && (D.stocks || []).find(s => s.ticker === ticker); }
+// ── Tasteful animation helpers (all respect prefers-reduced-motion) ──
+const _reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+let _homePrev = null;
+function _fmtCount(v, dec, pre) { return (pre || '') + (+v).toLocaleString(undefined, { minimumFractionDigits: dec, maximumFractionDigits: dec }); }
+function animateCountEl(el) {
+  const to = parseFloat(el.dataset.to || '0'), dec = parseInt(el.dataset.dec || '0', 10), pre = el.dataset.pre || '';
+  if (_reduceMotion) { el.textContent = _fmtCount(to, dec, pre); return; }
+  const dur = 650; let t0 = null;
+  function step(now) { if (t0 == null) t0 = now; const p = Math.min(1, (now - t0) / dur); const e = 1 - Math.pow(1 - p, 3); el.textContent = _fmtCount(to * e, dec, pre); if (p < 1) requestAnimationFrame(step); else clearTimeout(el._cntFb); }
+  requestAnimationFrame(step);
+  clearTimeout(el._cntFb); el._cntFb = setTimeout(() => { el.textContent = _fmtCount(to, dec, pre); }, dur + 160);  // safety net if rAF is throttled (backgrounded tab)
+}
+function runCounts(root) { (root || document).querySelectorAll('.cnt:not(.cnt-done)').forEach(el => { el.classList.add('cnt-done'); animateCountEl(el); }); }
+function setCount(el, val) { el = (typeof el === 'string') ? document.getElementById(el) : el; if (!el) return; const to = +val || 0; if (_reduceMotion) { el.textContent = to; return; } const dur = 650; let t0 = null; function step(now) { if (t0 == null) t0 = now; const p = Math.min(1, (now - t0) / dur); const e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e); if (p < 1) requestAnimationFrame(step); else clearTimeout(el._cntFb); } requestAnimationFrame(step); clearTimeout(el._cntFb); el._cntFb = setTimeout(() => { el.textContent = to; }, dur + 160); }
+function growBars(root) { const r = root || document; const apply = () => { r.querySelectorAll('.rng-fill[data-w]').forEach(f => { f.style.width = f.dataset.w + '%'; }); r.querySelectorAll('.rng-dot[data-l]').forEach(d => { d.style.left = d.dataset.l + '%'; }); }; if (_reduceMotion) { apply(); return; } requestAnimationFrame(() => requestAnimationFrame(apply)); setTimeout(apply, 160); }
+function flashEl(el, dir) { if (!el || _reduceMotion) return; el.classList.remove('flash-up', 'flash-down'); void el.offsetWidth; el.classList.add(dir >= 0 ? 'flash-up' : 'flash-down'); setTimeout(() => el.classList.remove('flash-up', 'flash-down'), 950); }
 
 // ── TICKER_DB ──
 const TICKER_DB = {
@@ -1484,11 +1533,11 @@ function renderAll() {
   const mktNews = D.market_news || [];
   const mh = D.market_health || {};
   document.getElementById('scanT').textContent = (D.scan_date || '') + ' ' + (D.scan_time_et || '');
-  document.getElementById('cSB').textContent = picks.filter(s => s.signal === 'STRONG BUY').length;
-  document.getElementById('cW').textContent = picks.filter(s => s.signal === 'WATCH').length;
-  document.getElementById('cK').textContent = picks.filter(s => s.signal === 'WEAK').length;
-  document.getElementById('cT').textContent = D.universe || picks.length;
-  document.getElementById('cA').textContent = alerts.length;
+  setCount('cSB', picks.filter(s => s.signal === 'STRONG BUY').length);
+  setCount('cW', picks.filter(s => s.signal === 'WATCH').length);
+  setCount('cK', picks.filter(s => s.signal === 'WEAK').length);
+  setCount('cT', D.universe || picks.length);
+  setCount('cA', alerts.length);
   const stateColors = { green: 'mkt-green', amber: 'mkt-amber', red: 'mkt-red', gray: 'mkt-gray' };
   const stEl = document.getElementById('mktState');
   stEl.textContent = (mh.market_state || 'Market');
@@ -2178,7 +2227,7 @@ function renderHomeDashboard(hs, scope, ranges) {
   const el = document.getElementById('homeDashboard');
   if (!el) return;
   const scopeName = (scope && scope !== 'all') ? (portfolioNameById(scope) || 'this portfolio') : 'all portfolios';
-  const newsPanels = '<div class="dash-news-grid">' +
+  const newsPanels = '<div class="dash-news-grid stagger-in">' +
     '<div class="dash-news-card"><div class="dnhdr">' + ic('newspaper', 16) + ' Your Portfolio News</div><div id="homeNewsPortfolio"></div></div>' +
     '<div class="dash-news-card"><div class="dnhdr">' + ic('newspaper', 16) + ' Markets &amp; Influencers</div><div id="homeNewsInfluencer"></div></div>' +
     '</div>';
@@ -2211,14 +2260,14 @@ function renderHomeDashboard(hs, scope, ranges) {
   const hero = '<div class="dash-hero">' +
     '<div class="dash-card dash-hero-main">' +
       '<div class="dlabel">Total value · ' + escHtml(scopeName) + '</div>' +
-      '<div class="dval">' + full(totalVal) + '</div>' +
-      '<div class="dtoday">' + tArrow + ' ' + (todayPnl >= 0 ? '+' : '-') + full(todayPnl) + ' (' + pctFmt(todayPct) + ') today</div>' +
-      '<div class="dsub">All-time ' + (totalPnl >= 0 ? 'gain' : 'loss') + ': ' + (totalPnl >= 0 ? '+' : '-') + full(totalPnl) + ' (' + pctFmt(totalPct) + ')</div>' +
+      '<div class="dval"><span class="cnt" data-to="' + totalVal.toFixed(2) + '" data-dec="2" data-pre="$"></span></div>' +
+      '<div class="dtoday">' + tArrow + ' ' + (todayPnl >= 0 ? '+' : '-') + '<span class="cnt" data-to="' + Math.abs(todayPnl).toFixed(2) + '" data-dec="2" data-pre="$"></span> (' + pctFmt(todayPct) + ') today</div>' +
+      '<div class="dsub">All-time ' + (totalPnl >= 0 ? 'gain' : 'loss') + ': ' + (totalPnl >= 0 ? '+' : '-') + '<span class="cnt" data-to="' + Math.abs(totalPnl).toFixed(2) + '" data-dec="2" data-pre="$"></span> (' + pctFmt(totalPct) + ')</div>' +
     '</div>' +
     '<div class="dash-mini-grid">' +
       '<div class="dash-mini gain"><div class="dash-mini-label">Top gainer</div>' + (topG ? '<div class="dash-mini-tkr">' + topG.ticker + '</div><div class="dash-mini-val pos">' + pctFmt(topG.gp) + '</div>' : '<div class="dash-mini-tkr">—</div>') + '</div>' +
       '<div class="dash-mini loss"><div class="dash-mini-label">Top loser</div>' + (topL ? '<div class="dash-mini-tkr">' + topL.ticker + '</div><div class="dash-mini-val neg">' + pctFmt(topL.gp) + '</div>' : '<div class="dash-mini-tkr">—</div>') + '</div>' +
-      '<div class="dash-mini"><div class="dash-mini-label">Today P&amp;L</div><div class="dash-mini-val ' + tCls + '">' + (todayPnl >= 0 ? '+' : '-') + full(todayPnl) + '</div></div>' +
+      '<div class="dash-mini dm-today"><div class="dash-mini-label">Today P&amp;L</div><div class="dash-mini-val ' + tCls + '">' + (todayPnl >= 0 ? '+' : '-') + '<span class="cnt" data-to="' + Math.abs(todayPnl).toFixed(2) + '" data-dec="2" data-pre="$"></span></div></div>' +
       '<div class="dash-mini"><div class="dash-mini-label">Holdings</div><div class="dash-mini-val">' + en.length + '</div></div>' +
     '</div>' +
   '</div>';
@@ -2236,7 +2285,7 @@ function renderHomeDashboard(hs, scope, ranges) {
       fz.map(f => {
         const pos = Math.max(0, Math.min(100, (f.px - f.lo) / (f.hi - f.lo) * 100));
         return '<div class="rng-row"><div class="rng-top"><span class="rng-tkr" onclick="goResearch(\'' + f.t + '\')">' + f.t + '</span><span class="rng-meta">$' + f.lo.toFixed(0) + ' – $' + f.hi.toFixed(0) + ' · ' + (f.fromHigh >= 0 ? '+' : '') + f.fromHigh.toFixed(0) + '% vs high</span></div>' +
-          '<div class="rng-track"><div class="rng-fill" style="width:' + pos.toFixed(0) + '%"></div><div class="rng-dot" style="left:' + pos.toFixed(0) + '%"></div></div></div>';
+          '<div class="rng-track"><div class="rng-fill" data-w="' + pos.toFixed(0) + '" style="width:0%"></div><div class="rng-dot" data-l="' + pos.toFixed(0) + '" style="left:0%"></div></div></div>';
       }).join('') + '</div>';
   }
   el.innerHTML = '<div class="home-grid">' +
@@ -2246,6 +2295,9 @@ function renderHomeDashboard(hs, scope, ranges) {
   '</div>';
   syncReportSelectors();
   renderAllAssistant();
+  runCounts(el); growBars(el);
+  if (_homePrev && _homePrev.scope === scope) { const tEl = el.querySelector('.dm-today'); if (tEl && Math.abs(todayPnl - _homePrev.today) > 0.005) flashEl(tEl, todayPnl - _homePrev.today); }
+  _homePrev = { scope: scope, total: totalVal, today: todayPnl };
 }
 async function loadHomeNews(syms) {
   const pEl = document.getElementById('homeNewsPortfolio'), iEl = document.getElementById('homeNewsInfluencer');
@@ -2550,6 +2602,7 @@ function pmToast(msg) {
     document.body.appendChild(t);
   }
   t.textContent = msg; t.style.display = 'block';
+  if (!_reduceMotion) { t.style.animation = 'none'; void t.offsetWidth; t.style.animation = 'kfToastIn .28s cubic-bezier(.22,1,.36,1)'; }
   clearTimeout(t._h); t._h = setTimeout(() => { t.style.display = 'none'; }, 6000);
 }
 
