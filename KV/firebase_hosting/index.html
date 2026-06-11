@@ -2306,7 +2306,7 @@ async function loadHomeNews(syms) {
   if (pEl) pEl.innerHTML = loading;
   if (iEl) iEl.innerHTML = loading;
   try {
-    const r = await fetch(GETNEWS_API + '?symbols=' + encodeURIComponent((syms || []).join(',')));
+    const r = await fetch(GETNEWS_API + '?symbols=' + encodeURIComponent((syms || []).slice(0, 8).join(',')));
     const d = await r.json();
     if (pEl) pEl.innerHTML = newsListHtml(d.portfolio) || '<div class="empty-sub" style="padding:10px">No recent news on your holdings.</div>';
     const infTitles = new Set((d.influencer || []).map(x => x.title));

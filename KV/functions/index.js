@@ -454,6 +454,13 @@ exports.getNews = onRequest(
     const today = todayInET();
     const fromDate = (function () { const d = new Date(today.replace(/-/g, '/')); d.setDate(d.getDate() - 14); return d.toISOString().slice(0, 10); })();
     try {
+      // General market news FIRST — fetched before the per-holding loop so it is never starved by
+      // rate limits when many holdings are requested ("All portfolios"). This feeds the always-on
+      // "Markets & Influencers" panel, which must not depend on how many holdings the user has.
+      let generalRaw = [];
+      try { generalRaw = (await finnhubGet('/news', { category: 'general' }, key)) || []; } catch (e) {}
+      generalRaw.sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
+
       // Per-holding company news
       const portfolioRaw = [];
       for (const sym of symbols) {
@@ -463,11 +470,6 @@ exports.getNews = onRequest(
         } catch (e) { /* skip symbol */ }
       }
       portfolioRaw.sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
-
-      // General market news
-      let generalRaw = [];
-      try { generalRaw = (await finnhubGet('/news', { category: 'general' }, key)) || []; } catch (e) {}
-      generalRaw.sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
 
       // Influencer feed: general items mentioning an influencer keyword OR a held ticker
       const symLower = symbols.map(s => s.toLowerCase());
