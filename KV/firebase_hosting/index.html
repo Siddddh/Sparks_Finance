@@ -355,6 +355,49 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 .cwrap{background:var(--surface-2);border-radius:12px;border:1px solid var(--border);padding:18px;margin-bottom:14px;}
 .ctitle{font-size:14px;font-weight:600;margin-bottom:14px;color:var(--text);}
 .cbox{height:280px;position:relative;}
+.ct-sub{font-weight:400;font-size:11px;color:var(--text-3);}
+.cbox-lg{height:380px;}
+.cbox-sm{height:150px;}
+.chart-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--text-3);font-size:13px;padding:18px;}
+/* Charts tab — control bar */
+.chart-controls{display:flex;flex-direction:column;gap:10px;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px;}
+.cc-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+.cc-ticker{display:flex;gap:6px;flex:0 0 auto;}
+.cc-input{width:150px;max-width:46vw;padding:8px 12px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font-size:13px;font-weight:700;text-transform:uppercase;outline:none;letter-spacing:.3px;}
+.cc-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
+.cc-go{padding:8px 14px;border:none;border-radius:9px;background:var(--blue);color:#fff;font-weight:600;font-size:13px;cursor:pointer;}
+.cc-chips{display:flex;gap:6px;flex-wrap:wrap;overflow-x:auto;scrollbar-width:none;}
+.cc-chips::-webkit-scrollbar{display:none;}
+.cc-chip{padding:6px 11px;border:1px solid var(--border);border-radius:18px;background:var(--bg);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.cc-chip:hover{border-color:var(--blue);color:var(--blue);}
+.cc-chip.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+.cc-seg{display:inline-flex;background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:2px;gap:2px;}
+.cc-seg button{border:none;background:none;color:var(--text-2);font-size:12px;font-weight:600;padding:6px 12px;border-radius:7px;cursor:pointer;}
+.cc-seg button.active{background:var(--blue);color:#fff;}
+.cc-inds{display:inline-flex;gap:6px;flex-wrap:wrap;}
+.cc-inds button{border:1px solid var(--border);background:var(--bg);color:var(--text-2);font-size:12px;font-weight:600;padding:6px 11px;border-radius:8px;cursor:pointer;}
+.cc-inds button.active{background:var(--blue-soft);border-color:var(--blue);color:var(--blue);}
+/* Charts tab — hero price card */
+.chart-hero{padding:18px 20px;}
+.ch-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:14px;}
+.ch-id{display:flex;align-items:center;gap:11px;}
+.ch-logo{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;letter-spacing:.3px;flex-shrink:0;}
+.ch-sym{font-size:20px;font-weight:700;color:var(--text);letter-spacing:-.3px;}
+.ch-name{font-size:12px;color:var(--text-3);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ch-px{margin-left:auto;text-align:right;}
+.ch-last{font-size:24px;font-weight:700;color:var(--text);letter-spacing:-.5px;}
+.ch-chg{font-size:13px;font-weight:600;}
+.ch-chg.pos{color:var(--green);}
+.ch-chg.neg{color:var(--red);}
+.ch-stats{display:flex;gap:22px;flex-wrap:wrap;width:100%;border-top:1px solid var(--border);padding-top:12px;}
+.ch-stat{display:flex;flex-direction:column;gap:2px;}
+.chs-l{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-3);font-weight:600;}
+.chs-v{font-size:14px;font-weight:700;color:var(--text);}
+.ch-note{padding:16px;background:var(--blue-soft);border-radius:10px;color:var(--text);font-size:14px;line-height:1.55;}
+.ch-note-sub{font-size:12px;color:var(--text-3);}
+.ch-note code{background:var(--surface);padding:1px 5px;border-radius:4px;font-size:12px;}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:760px){.chart-grid{grid-template-columns:1fr;}.cbox-lg{height:300px;}.ch-px{margin-left:0;text-align:left;}}
 
 /* ════════ Summary card ════════ */
 .summary-card{background:var(--surface-2);border-radius:12px;border:1px solid var(--border);padding:18px;margin-bottom:12px;}
@@ -770,10 +813,58 @@ body.sidebar-open .nav-scrim{display:block;}
           </tr></thead><tbody id="tblBody"></tbody></table></div>
         </div>
         <div id="tab-chart" class="tab-panel">
-          <div class="page-title">Charts</div>
-          <div class="cwrap"><div class="ctitle">Combined Score by Stock</div><div class="cbox"><canvas id="sc1"></canvas></div></div>
-          <div class="cwrap"><div class="ctitle">Signal Breakdown — VCP / RS / VDU</div><div class="cbox"><canvas id="sc2"></canvas></div></div>
-          <div class="cwrap"><div class="ctitle">News Score Contribution</div><div class="cbox"><canvas id="sc3"></canvas></div></div>
+          <div class="page-title">Charts &amp; Analysis</div>
+          <div class="chart-controls">
+            <div class="cc-row">
+              <div class="cc-ticker">
+                <input id="chartSymInput" class="cc-input" placeholder="Symbol…" autocomplete="off" onkeydown="if(event.key==='Enter')setChartSym(this.value)"/>
+                <button class="cc-go" onclick="setChartSym(document.getElementById('chartSymInput').value)">Load</button>
+              </div>
+              <div id="chartChips" class="cc-chips"></div>
+            </div>
+            <div class="cc-row">
+              <div class="cc-seg" id="chartRangeSeg">
+                <button data-r="1mo" onclick="setChartRange('1mo')">1M</button>
+                <button data-r="3mo" onclick="setChartRange('3mo')">3M</button>
+                <button data-r="6mo" onclick="setChartRange('6mo')">6M</button>
+                <button data-r="1y" class="active" onclick="setChartRange('1y')">1Y</button>
+                <button data-r="5y" onclick="setChartRange('5y')">5Y</button>
+              </div>
+              <div class="cc-seg" id="chartTypeSeg">
+                <button data-t="area" class="active" onclick="setChartType('area')">Area</button>
+                <button data-t="line" onclick="setChartType('line')">Line</button>
+                <button data-t="baseline" onclick="setChartType('baseline')">Baseline</button>
+              </div>
+              <div class="cc-inds" id="chartIndSeg">
+                <button data-i="sma" class="active" onclick="toggleInd('sma')">SMA</button>
+                <button data-i="boll" onclick="toggleInd('boll')">Bollinger</button>
+                <button data-i="vol" class="active" onclick="toggleInd('vol')">Volume</button>
+                <button data-i="rsi" onclick="toggleInd('rsi')">RSI</button>
+                <button data-i="macd" onclick="toggleInd('macd')">MACD</button>
+              </div>
+            </div>
+          </div>
+          <div class="cwrap chart-hero">
+            <div class="ch-head">
+              <div class="ch-id"><span class="ch-logo" id="chLogo"></span><div><div class="ch-sym" id="chSym">—</div><div class="ch-name" id="chName"></div></div></div>
+              <div class="ch-px"><div class="ch-last" id="chLast">—</div><div class="ch-chg" id="chChg"></div></div>
+              <div class="ch-stats" id="chStats"></div>
+            </div>
+            <div class="cbox cbox-lg" id="priceBox"><canvas id="cPrice"></canvas></div>
+            <div class="ch-note" id="chNote" style="display:none"></div>
+          </div>
+          <div class="cwrap chart-sub" id="wrapRSI" style="display:none"><div class="ctitle">RSI (14)</div><div class="cbox cbox-sm"><canvas id="cRSI"></canvas></div></div>
+          <div class="cwrap chart-sub" id="wrapMACD" style="display:none"><div class="ctitle">MACD (12, 26, 9)</div><div class="cbox cbox-sm"><canvas id="cMACD"></canvas></div></div>
+          <div class="chart-grid">
+            <div class="cwrap"><div class="ctitle" id="ttlAlloc">Portfolio Allocation</div><div class="cbox"><canvas id="cAlloc"></canvas></div></div>
+            <div class="cwrap"><div class="ctitle">Holdings Performance <span class="ct-sub">(all-time %)</span></div><div class="cbox"><canvas id="cPerf"></canvas></div></div>
+            <div class="cwrap"><div class="ctitle">Sector Exposure</div><div class="cbox"><canvas id="cSector"></canvas></div></div>
+            <div class="cwrap"><div class="ctitle">Valuation vs Growth <span class="ct-sub">(bubble = mkt cap)</span></div><div class="cbox"><canvas id="cValGrow"></canvas></div></div>
+            <div class="cwrap"><div class="ctitle">Risk / Reward vs Score</div><div class="cbox"><canvas id="cRR"></canvas></div></div>
+            <div class="cwrap"><div class="ctitle" id="ttlRadar">Factor Profile</div><div class="cbox"><canvas id="cRadar"></canvas></div></div>
+            <div class="cwrap"><div class="ctitle">Sector Strength <span class="ct-sub">(avg score)</span></div><div class="cbox"><canvas id="cSecStr"></canvas></div></div>
+            <div class="cwrap"><div class="ctitle">Top Signals <span class="ct-sub">(score)</span></div><div class="cbox"><canvas id="cScore"></canvas></div></div>
+          </div>
         </div>
       </div>
     </main>
@@ -901,6 +992,7 @@ const QUOTE_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getQ
 const SEARCH_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/searchSymbols';
 const GETNEWS_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getNews';
 const GETRANGE_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getRange';
+const SERIES_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getSeries';
 const ASSISTANT_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/assistant';
 function escHtml(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
@@ -1397,6 +1489,7 @@ function renderAll() {
   renderEarnings();
   renderCatalysts();
   chartsInited = false;
+  const ct = document.getElementById('tab-chart'); if (ct && ct.classList.contains('active')) renderCharts();
 }
 
 // ── Cards ──
@@ -1586,19 +1679,155 @@ function renderTable(picks) {
   syncSortHeaders();
 }
 
-// ── Charts ──
-function renderCharts() {
-  if (chartsInited || !D) return; chartsInited = true;
-  const picks = D.stocks || [];
-  const top = picks.slice(0, 12);
-  const colors = top.map(s => s.signal === 'STRONG BUY' ? 'rgba(15,157,88,.85)' : s.signal === 'WATCH' ? 'rgba(242,153,0,.85)' : 'rgba(217,48,37,.85)');
-  const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--border-soft').trim();
-  const tickColor = getComputedStyle(document.documentElement).getPropertyValue('--text-2').trim();
-  const axOpts = { ticks: { color: tickColor }, grid: { color: gridColor } };
-  new Chart(document.getElementById('sc1'), { type: 'bar', data: { labels: top.map(s => s.ticker), datasets: [{ data: top.map(s => s.combined_score || s.score), backgroundColor: colors, borderRadius: 5, label: 'Score' }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { min: 0, max: 100, ...axOpts }, x: { grid: { display: false }, ticks: { color: tickColor, font: { weight: '700' } } } } } });
-  new Chart(document.getElementById('sc2'), { type: 'bar', data: { labels: top.map(s => s.ticker), datasets: [{ label: 'VCP', data: top.map(s => s.is_vcp ? s.vcp_score || 20 : 0), backgroundColor: 'rgba(26,115,232,.75)', borderRadius: 3 }, { label: 'RS', data: top.map(s => s.rs_score || 0), backgroundColor: 'rgba(242,153,0,.75)', borderRadius: 3 }, { label: 'VDU', data: top.map(s => s.vdu_score || 0), backgroundColor: 'rgba(15,157,88,.75)', borderRadius: 3 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: tickColor } } }, scales: { x: { stacked: true, ...axOpts }, y: { stacked: true, ...axOpts } } } });
-  const addons = top.map(s => s.news_score_addon || 0);
-  new Chart(document.getElementById('sc3'), { type: 'bar', data: { labels: top.map(s => s.ticker), datasets: [{ label: 'News Addon', data: addons, backgroundColor: addons.map(v => v > 0 ? 'rgba(15,157,88,.75)' : v < 0 ? 'rgba(217,48,37,.75)' : 'rgba(154,160,166,.5)'), borderRadius: 5 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: axOpts, x: { grid: { display: false }, ticks: { color: tickColor } } } } });
+// ── Charts & Analysis ──
+let chartObjs = {};
+let chartSym = null, chartRange = '1y', chartType = 'area';
+let chartInd = { sma: true, boll: false, vol: true, rsi: false, macd: false };
+let chartSeriesCache = {};
+
+function cvar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function chartAxis() { return { ticks: { color: cvar('--text-2'), font: { size: 11 } }, grid: { color: cvar('--border-soft') } }; }
+function killChart(id) { if (chartObjs[id]) { try { chartObjs[id].destroy(); } catch (e) {} delete chartObjs[id]; } }
+function mkChart(id, cfg) { const el = document.getElementById(id); if (!el) return null; killChart(id); chartObjs[id] = new Chart(el, cfg); return chartObjs[id]; }
+function hexA(hex, a) { hex = (hex || '').trim(); if (hex.indexOf('rgb') === 0) return hex.replace(/rgba?\(([^)]+)\)/, (m, p) => 'rgba(' + p.split(',').slice(0, 3).map(x => x.trim()).join(',') + ',' + a + ')'); const h = hex.replace('#', ''); const f = h.length === 3 ? h.split('').map(c => c + c).join('') : h; return 'rgba(' + parseInt(f.slice(0, 2), 16) + ',' + parseInt(f.slice(2, 4), 16) + ',' + parseInt(f.slice(4, 6), 16) + ',' + a + ')'; }
+function gradFill(chart, color) { const { ctx, chartArea } = chart; if (!chartArea) return hexA(color, 0); const g = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom); g.addColorStop(0, hexA(color, .34)); g.addColorStop(1, hexA(color, 0)); return g; }
+function abbrNum(v) { v = +v || 0; if (v >= 1e9) return (v / 1e9).toFixed(2) + 'B'; if (v >= 1e6) return (v / 1e6).toFixed(1) + 'M'; if (v >= 1e3) return (v / 1e3).toFixed(0) + 'K'; return '' + v; }
+function statCell(l, v) { return '<div class="ch-stat"><div class="chs-l">' + l + '</div><div class="chs-v">' + v + '</div></div>'; }
+function palette(i) { return ['#1a73e8', '#0f9d58', '#9334e6', '#f29900', '#d93025', '#0891b2', '#be123c', '#7c3aed', '#16a34a', '#ea580c'][i % 10]; }
+function setCardMsg(id, msg) { const el = document.getElementById(id); if (!el) return; const box = el.closest('.cbox'); if (!box) return; let m = box.querySelector('.chart-empty'); if (msg) { if (!m) { m = document.createElement('div'); m.className = 'chart-empty'; box.appendChild(m); } m.textContent = msg; el.style.visibility = 'hidden'; } else { if (m) m.remove(); el.style.visibility = ''; } }
+// indicators
+function smaArr(a, p) { const o = a.map(() => null); let s = 0; for (let i = 0; i < a.length; i++) { s += a[i]; if (i >= p) s -= a[i - p]; if (i >= p - 1) o[i] = s / p; } return o; }
+function emaOf(vals, p) { const o = vals.map(() => null); const k = 2 / (p + 1); let prev = null, ss = 0, sc = 0; for (let i = 0; i < vals.length; i++) { if (vals[i] == null) continue; if (prev == null) { ss += vals[i]; sc++; if (sc === p) { prev = ss / p; o[i] = prev; } } else { prev = vals[i] * k + prev * (1 - k); o[i] = prev; } } return o; }
+function rsiArr(a, p) { const o = a.map(() => null); if (a.length <= p) return o; let g = 0, l = 0; for (let i = 1; i <= p; i++) { const ch = a[i] - a[i - 1]; if (ch >= 0) g += ch; else l -= ch; } g /= p; l /= p; o[p] = 100 - 100 / (1 + (l === 0 ? 100 : g / l)); for (let i = p + 1; i < a.length; i++) { const ch = a[i] - a[i - 1]; g = (g * (p - 1) + (ch > 0 ? ch : 0)) / p; l = (l * (p - 1) + (ch < 0 ? -ch : 0)) / p; o[i] = 100 - 100 / (1 + (l === 0 ? 100 : g / l)); } return o; }
+function macdArr(a) { const e12 = emaOf(a, 12), e26 = emaOf(a, 26); const macd = a.map((_, i) => (e12[i] != null && e26[i] != null) ? e12[i] - e26[i] : null); const signal = emaOf(macd, 9); const hist = macd.map((m, i) => (m != null && signal[i] != null) ? m - signal[i] : null); return { macd, signal, hist }; }
+function bollArr(a, p, k) { const mid = smaArr(a, p); const up = a.map(() => null), lo = a.map(() => null); for (let i = p - 1; i < a.length; i++) { let s = 0; for (let j = i - p + 1; j <= i; j++) s += Math.pow(a[j] - mid[i], 2); const sd = Math.sqrt(s / p); up[i] = mid[i] + k * sd; lo[i] = mid[i] - k * sd; } return { mid, up, lo }; }
+function fmtDates(ts, range) { const opt = range === '5y' ? { month: 'short', year: '2-digit' } : { month: 'short', day: 'numeric' }; return ts.map(s => new Date(s * 1000).toLocaleDateString(undefined, opt)); }
+function maLine(label, data, color) { return { type: 'line', label: label, data: data, borderColor: color, borderWidth: 1.3, pointRadius: 0, fill: false, tension: .25, order: 2 }; }
+
+async function renderCharts() {
+  if (!document.getElementById('cPrice')) return;
+  if (!chartSym) chartSym = (D && D.stocks && D.stocks[0] && D.stocks[0].ticker) || 'SPY';
+  syncChartControls();
+  buildChartChips();
+  loadAndRenderPrice();
+  renderMarketCharts();
+  renderPortfolioCharts();
+}
+function syncChartControls() {
+  const i = document.getElementById('chartSymInput'); if (i && document.activeElement !== i) i.value = chartSym;
+  document.querySelectorAll('#chartRangeSeg button').forEach(b => b.classList.toggle('active', b.dataset.r === chartRange));
+  document.querySelectorAll('#chartTypeSeg button').forEach(b => b.classList.toggle('active', b.dataset.t === chartType));
+  document.querySelectorAll('#chartIndSeg button').forEach(b => b.classList.toggle('active', !!chartInd[b.dataset.i]));
+  const wr = document.getElementById('wrapRSI'), wm = document.getElementById('wrapMACD');
+  if (wr) wr.style.display = chartInd.rsi ? '' : 'none';
+  if (wm) wm.style.display = chartInd.macd ? '' : 'none';
+}
+function setChartSym(s) { s = (s || '').trim().toUpperCase(); if (!s) return; chartSym = s; syncChartControls(); buildChartChips(); loadAndRenderPrice(); renderRadar(); }
+function setChartRange(r) { chartRange = r; syncChartControls(); loadAndRenderPrice(); }
+function setChartType(t) { chartType = t; syncChartControls(); const s = chartSeriesCache[chartSym + '|' + chartRange]; if (s) renderPrice(s); }
+function toggleInd(k) { chartInd[k] = !chartInd[k]; syncChartControls(); const s = chartSeriesCache[chartSym + '|' + chartRange]; if (s) { renderPrice(s); renderRSI(s); renderMACD(s); } }
+async function buildChartChips() {
+  const host = document.getElementById('chartChips'); if (!host) return;
+  let tks = ['SPY', 'QQQ', 'DIA'];
+  try { if (UID) { const hs = await gatherUserHoldings('all'); const ht = [...new Set(hs.map(h => h.ticker))]; if (ht.length) tks = [...new Set(ht.concat(['SPY', 'QQQ']))]; } } catch (e) {}
+  host.innerHTML = tks.slice(0, 14).map(t => '<button class="cc-chip' + (t === chartSym ? ' active' : '') + '" onclick="setChartSym(\'' + t + '\')">' + escHtml(t) + '</button>').join('');
+}
+async function loadAndRenderPrice() {
+  const note = document.getElementById('chNote'), pbox = document.getElementById('priceBox');
+  const key = chartSym + '|' + chartRange;
+  document.getElementById('chSym').textContent = chartSym;
+  const sd = scanStockFor(chartSym); document.getElementById('chName').textContent = (sd && sd.name) || '';
+  const logo = document.getElementById('chLogo'); logo.style.background = logoColor(chartSym); logo.textContent = chartSym.slice(0, 2);
+  if (chartSeriesCache[key]) { renderPrice(chartSeriesCache[key]); renderRSI(chartSeriesCache[key]); renderMACD(chartSeriesCache[key]); return; }
+  try {
+    const r = await fetch(SERIES_API + '?symbol=' + encodeURIComponent(chartSym) + '&range=' + encodeURIComponent(chartRange));
+    if (!r.ok) throw new Error('http ' + r.status);
+    const d = await r.json();
+    if (!d || !d.c || !d.c.length) throw new Error('no data');
+    chartSeriesCache[key] = d;
+    renderPrice(d); renderRSI(d); renderMACD(d);
+  } catch (e) {
+    killChart('cPrice'); killChart('cRSI'); killChart('cMACD');
+    if (pbox) pbox.style.display = 'none';
+    note.style.display = 'block';
+    note.innerHTML = '📈 Live price history for <b>' + escHtml(chartSym) + '</b> is not available yet.<br><span class="ch-note-sub">Deploy the latest functions (<code>firebase deploy --only functions</code>) to enable interactive price charts. The portfolio &amp; market analytics below work without it.</span>';
+    document.getElementById('chLast').textContent = '—'; document.getElementById('chChg').textContent = ''; document.getElementById('chStats').innerHTML = '';
+  }
+}
+function renderPrice(d) {
+  const note = document.getElementById('chNote'), pbox = document.getElementById('priceBox');
+  if (note) note.style.display = 'none'; if (pbox) pbox.style.display = '';
+  const closes = d.c, ts = d.t, vols = d.v || [];
+  const labels = fmtDates(ts, d.range || chartRange);
+  const first = closes[0], last = closes[closes.length - 1];
+  const green = cvar('--green') || '#0f9d58', red = cvar('--red') || '#d93025';
+  const periodPct = (last / first - 1) * 100;
+  const accent = periodPct >= 0 ? green : red;
+  document.getElementById('chLast').textContent = '$' + last.toFixed(2);
+  const chgEl = document.getElementById('chChg'); chgEl.className = 'ch-chg ' + (periodPct >= 0 ? 'pos' : 'neg'); chgEl.textContent = (periodPct >= 0 ? '▲ +' : '▼ ') + periodPct.toFixed(2) + '% · ' + (d.range || chartRange).toUpperCase();
+  const hi = Math.max.apply(null, closes), lo = Math.min.apply(null, closes);
+  const m = d.meta || {}; const h52 = m.high52 || (sd_('high_52w')), l52 = m.low52 || (sd_('low_52w'));
+  document.getElementById('chStats').innerHTML = statCell('Period High', '$' + hi.toFixed(2)) + statCell('Period Low', '$' + lo.toFixed(2)) + (h52 ? statCell('52W High', '$' + (+h52).toFixed(2)) : '') + (l52 ? statCell('52W Low', '$' + (+l52).toFixed(2)) : '');
+  const ds = [];
+  if (chartInd.vol && vols.length) ds.push({ type: 'bar', label: 'Volume', yAxisID: 'yVol', data: vols.map(v => v || 0), backgroundColor: hexA(cvar('--text-3') || '#888', .18), borderWidth: 0, order: 6, barPercentage: 1, categoryPercentage: 1 });
+  if (chartInd.boll && closes.length > 20) { const b = bollArr(closes, 20, 2); ds.push({ type: 'line', label: 'BB', data: b.up, borderColor: hexA('#888', .55), borderWidth: 1, pointRadius: 0, fill: false, order: 4, borderDash: [4, 3] }); ds.push({ type: 'line', label: 'BBl', data: b.lo, borderColor: hexA('#888', .55), borderWidth: 1, pointRadius: 0, fill: '-1', backgroundColor: hexA('#888', .07), order: 4, borderDash: [4, 3] }); }
+  if (chartInd.sma) { if (closes.length > 20) ds.push(maLine('SMA 20', smaArr(closes, 20), '#f29900')); if (closes.length > 50) ds.push(maLine('SMA 50', smaArr(closes, 50), '#9334e6')); if (closes.length > 200) ds.push(maLine('SMA 200', smaArr(closes, 200), hexA('#888', .9))); }
+  const priceDs = { type: 'line', label: chartSym, data: closes, borderColor: accent, borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, tension: .25, order: 1 };
+  if (chartType === 'area') { priceDs.fill = true; priceDs.backgroundColor = (c) => gradFill(c.chart, accent); }
+  else if (chartType === 'baseline') { priceDs.fill = { target: { value: first }, above: hexA(green, .12), below: hexA(red, .12) }; priceDs.segment = { borderColor: (ctx) => ctx.p1.parsed.y >= first ? green : red }; }
+  else { priceDs.fill = false; }
+  ds.push(priceDs);
+  mkChart('cPrice', {
+    data: { labels: labels, datasets: ds },
+    options: {
+      responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, animation: { duration: 400 },
+      plugins: { legend: { display: chartInd.sma || chartInd.boll, labels: { color: cvar('--text-2'), boxWidth: 12, filter: (i) => i.text !== 'BBl' && i.text !== 'Volume' } }, tooltip: { callbacks: { label: (c) => c.dataset.label + ': ' + (c.dataset.yAxisID === 'yVol' ? abbrNum(c.parsed.y) : '$' + (+c.parsed.y).toFixed(2)) } } },
+      scales: { x: { ticks: { color: cvar('--text-2'), maxTicksLimit: 8, font: { size: 10 } }, grid: { display: false } }, y: { position: 'left', ...chartAxis() }, yVol: { position: 'right', display: false, max: (Math.max.apply(null, vols.map(v => v || 0)) || 1) * 4, grid: { display: false } } }
+    }
+  });
+}
+function sd_(f) { const x = scanStockFor(chartSym); return x && x[f]; }
+function renderRSI(d) { if (!chartInd.rsi) { killChart('cRSI'); return; } const closes = d.c; const labels = fmtDates(d.t, d.range || chartRange); const rsi = rsiArr(closes, 14); const purple = '#9334e6'; mkChart('cRSI', { type: 'line', data: { labels: labels, datasets: [{ label: 'RSI', data: rsi, borderColor: purple, borderWidth: 1.6, pointRadius: 0, tension: .2, fill: true, backgroundColor: (c) => gradFill(c.chart, purple), order: 1 }, { label: '70', data: closes.map(() => 70), borderColor: hexA(cvar('--red') || '#d93025', .5), borderWidth: 1, pointRadius: 0, borderDash: [5, 4] }, { label: '30', data: closes.map(() => 30), borderColor: hexA(cvar('--green') || '#0f9d58', .5), borderWidth: 1, pointRadius: 0, borderDash: [5, 4] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => c.dataset.label === 'RSI' ? 'RSI ' + (+c.parsed.y).toFixed(1) : '' } } }, scales: { x: { ticks: { color: cvar('--text-2'), maxTicksLimit: 8, font: { size: 10 } }, grid: { display: false } }, y: { min: 0, max: 100, ticks: { color: cvar('--text-2'), stepSize: 25 }, grid: { color: cvar('--border-soft') } } } } }); }
+function renderMACD(d) { if (!chartInd.macd) { killChart('cMACD'); return; } const closes = d.c; const labels = fmtDates(d.t, d.range || chartRange); const m = macdArr(closes); const g = cvar('--green') || '#0f9d58', r = cvar('--red') || '#d93025', blue = cvar('--blue') || '#1a73e8'; mkChart('cMACD', { data: { labels: labels, datasets: [{ type: 'bar', label: 'Hist', data: m.hist, backgroundColor: m.hist.map(v => v == null ? 'transparent' : v >= 0 ? hexA(g, .6) : hexA(r, .6)), borderWidth: 0, order: 3 }, { type: 'line', label: 'MACD', data: m.macd, borderColor: blue, borderWidth: 1.5, pointRadius: 0, tension: .2, order: 1 }, { type: 'line', label: 'Signal', data: m.signal, borderColor: '#f29900', borderWidth: 1.3, pointRadius: 0, tension: .2, order: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: cvar('--text-2'), boxWidth: 12 } } }, scales: { x: { ticks: { color: cvar('--text-2'), maxTicksLimit: 8, font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: cvar('--text-2') }, grid: { color: cvar('--border-soft') } } } } }); }
+async function renderPortfolioCharts() {
+  let hs = []; try { if (UID) hs = await gatherUserHoldings('all'); } catch (e) {}
+  if (!hs.length) { ['cAlloc', 'cPerf', 'cSector'].forEach(id => { killChart(id); setCardMsg(id, 'Sign in and add holdings to see portfolio analytics'); }); return; }
+  const rows = hs.map(h => { const le = liveEntry(h.ticker); const px = (le && le.price) || h.current_price || h.buy_price || 0; const val = px * (h.qty || 0); const gp = h.buy_price > 0 ? (px / h.buy_price - 1) * 100 : 0; const sec = (scanStockFor(h.ticker) || {}).sector || 'Other'; return { t: h.ticker, val: val, gp: gp, sec: sec }; });
+  const total = rows.reduce((a, b) => a + b.val, 0) || 1;
+  setCardMsg('cAlloc', null);
+  mkChart('cAlloc', { type: 'doughnut', data: { labels: rows.map(r => r.t), datasets: [{ data: rows.map(r => +r.val.toFixed(2)), backgroundColor: rows.map(r => logoColor(r.t)), borderColor: cvar('--surface-2'), borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'right', labels: { color: cvar('--text-2'), boxWidth: 12, font: { size: 11 } } }, tooltip: { callbacks: { label: (c) => c.label + ': $' + (+c.parsed).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' (' + (c.parsed / total * 100).toFixed(1) + '%)' } } } } });
+  const perf = [...rows].sort((a, b) => b.gp - a.gp);
+  setCardMsg('cPerf', null);
+  mkChart('cPerf', { type: 'bar', data: { labels: perf.map(r => r.t), datasets: [{ data: perf.map(r => +r.gp.toFixed(2)), backgroundColor: perf.map(r => r.gp >= 0 ? hexA(cvar('--green'), .8) : hexA(cvar('--red'), .8)), borderRadius: 5 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => (c.parsed.x >= 0 ? '+' : '') + c.parsed.x + '%' } } }, scales: { x: { ...chartAxis(), ticks: { color: cvar('--text-2'), callback: v => v + '%' } }, y: { ...chartAxis(), grid: { display: false } } } } });
+  const secMap = {}; rows.forEach(r => { secMap[r.sec] = (secMap[r.sec] || 0) + r.val; }); const sl = Object.keys(secMap), sv = sl.map(k => +secMap[k].toFixed(2));
+  setCardMsg('cSector', null);
+  mkChart('cSector', { type: 'doughnut', data: { labels: sl, datasets: [{ data: sv, backgroundColor: sl.map((s, i) => palette(i)), borderColor: cvar('--surface-2'), borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '55%', plugins: { legend: { position: 'right', labels: { color: cvar('--text-2'), boxWidth: 12, font: { size: 11 } } } } } });
+}
+function renderMarketCharts() {
+  const stocks = (D && D.stocks) || [];
+  if (!stocks.length) { ['cValGrow', 'cRR', 'cRadar', 'cSecStr', 'cScore'].forEach(id => { killChart(id); setCardMsg(id, 'Market analytics load with the scan data'); }); return; }
+  ['cValGrow', 'cRR', 'cRadar', 'cSecStr', 'cScore'].forEach(id => setCardMsg(id, null));
+  const sigColor = s => s === 'STRONG BUY' ? hexA(cvar('--green'), .8) : s === 'WATCH' ? hexA('#f29900', .85) : hexA(cvar('--red'), .75);
+  const vg = stocks.filter(s => +s.fwd_pe > 0 && s.rev_growth != null).slice(0, 40).map(s => ({ x: +s.fwd_pe, y: +s.rev_growth, r: Math.max(4, Math.min(22, Math.sqrt((+s.market_cap_b || 1)) * 1.4)), t: s.ticker, c: sigColor(s.signal) }));
+  mkChart('cValGrow', { type: 'bubble', data: { datasets: [{ data: vg, backgroundColor: vg.map(p => p.c), borderColor: vg.map(p => p.c) }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => { const p = c.raw; return p.t + '  P/E ' + p.x.toFixed(1) + ' · Rev ' + p.y.toFixed(0) + '%'; } } } }, scales: { x: { title: { display: true, text: 'Forward P/E', color: cvar('--text-3') }, ...chartAxis() }, y: { title: { display: true, text: 'Revenue growth %', color: cvar('--text-3') }, ...chartAxis() } } } });
+  const rr = stocks.filter(s => +s.rr_ratio > 0).slice(0, 40).map(s => ({ x: +s.rr_ratio, y: +(s.combined_score || s.score || 0), t: s.ticker, c: sigColor(s.signal) }));
+  mkChart('cRR', { type: 'scatter', data: { datasets: [{ data: rr, backgroundColor: rr.map(p => p.c), pointRadius: 6, pointHoverRadius: 8 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => { const p = c.raw; return p.t + '  R:R ' + p.x.toFixed(2) + ' · Score ' + p.y.toFixed(0); } } } }, scales: { x: { title: { display: true, text: 'Risk : Reward', color: cvar('--text-3') }, ...chartAxis() }, y: { title: { display: true, text: 'Score', color: cvar('--text-3') }, min: 0, max: 100, ...chartAxis() } } } });
+  const secAgg = {}; stocks.forEach(s => { const k = s.sector || 'Other'; (secAgg[k] = secAgg[k] || []).push(+(s.combined_score || s.score || 0)); });
+  const secRows = Object.keys(secAgg).map(k => ({ k: k, v: secAgg[k].reduce((a, b) => a + b, 0) / secAgg[k].length })).sort((a, b) => b.v - a.v).slice(0, 10);
+  mkChart('cSecStr', { type: 'bar', data: { labels: secRows.map(r => r.k), datasets: [{ data: secRows.map(r => +r.v.toFixed(1)), backgroundColor: secRows.map((r, i) => palette(i)), borderRadius: 5 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { min: 0, max: 100, ...chartAxis() }, y: { ...chartAxis(), grid: { display: false } } } } });
+  const top = stocks.slice(0, 12);
+  mkChart('cScore', { type: 'bar', data: { labels: top.map(s => s.ticker), datasets: [{ data: top.map(s => +(s.combined_score || s.score || 0)), backgroundColor: top.map(s => sigColor(s.signal)), borderRadius: 5 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { min: 0, max: 100, ...chartAxis() }, x: { ...chartAxis(), grid: { display: false }, ticks: { color: cvar('--text-2'), font: { weight: '700', size: 10 } } } } } });
+  renderRadar();
+}
+function renderRadar() {
+  const stocks = (D && D.stocks) || []; if (!stocks.length) return;
+  const s = scanStockFor(chartSym) || stocks[0]; if (!s) { killChart('cRadar'); return; }
+  setCardMsg('cRadar', null);
+  const ttl = document.getElementById('ttlRadar'); if (ttl) ttl.textContent = 'Factor Profile — ' + s.ticker;
+  const clamp = v => Math.max(0, Math.min(100, v));
+  const vals = [clamp(((+s.momentum_3m || 0) + 30) / 60 * 100), clamp(+s.fwd_pe > 0 ? 100 - Math.min(100, (+s.fwd_pe) / 60 * 100) : 50), clamp((+s.rev_growth || 0) / 50 * 100), clamp(+s.rs_score || 0), clamp(+s.rsi || 50), clamp(((+s.news_score_addon || 0) + 10) / 20 * 100)];
+  const blue = cvar('--blue') || '#1a73e8';
+  mkChart('cRadar', { type: 'radar', data: { labels: ['Momentum', 'Value', 'Growth', 'Rel. Strength', 'RSI', 'Sentiment'], datasets: [{ label: s.ticker, data: vals, borderColor: blue, backgroundColor: hexA(blue, .18), pointBackgroundColor: blue, borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { min: 0, max: 100, angleLines: { color: cvar('--border-soft') }, grid: { color: cvar('--border-soft') }, pointLabels: { color: cvar('--text-2'), font: { size: 11 } }, ticks: { display: false, stepSize: 25 } } } } });
 }
 
 // ── Discovery ──

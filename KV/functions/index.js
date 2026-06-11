@@ -510,6 +510,61 @@ exports.getRange = onRequest(
   }
 );
 
+// ── Price time-series for the Charts tab (Yahoo chart proxy; the browser can't call Yahoo directly due to CORS) ──
+function seriesRangeInterval(range) {
+  switch (range) {
+    case '1mo': return { range: '1mo', interval: '1d' };
+    case '3mo': return { range: '3mo', interval: '1d' };
+    case '6mo': return { range: '6mo', interval: '1d' };
+    case '5y': return { range: '5y', interval: '1wk' };
+    case '1y':
+    default: return { range: '1y', interval: '1d' };
+  }
+}
+exports.getSeries = onRequest(
+  { region: 'us-central1', cors: true },
+  async (req, res) => {
+    const sym = String(req.query.symbol || '').trim().toUpperCase();
+    if (!sym) { res.status(400).json({ error: 'symbol required' }); return; }
+    const { range, interval } = seriesRangeInterval(String(req.query.range || '1y'));
+    try {
+      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=${interval}&range=${range}`;
+      const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+      if (!r.ok) { res.status(502).json({ error: 'upstream ' + r.status }); return; }
+      const d = await r.json();
+      const result = d && d.chart && d.chart.result && d.chart.result[0];
+      if (!result || !result.timestamp) { res.status(404).json({ error: 'no data' }); return; }
+      const ts = result.timestamp;
+      const q = (result.indicators && result.indicators.quote && result.indicators.quote[0]) || {};
+      const meta = result.meta || {};
+      const t = [], o = [], h = [], l = [], c = [], v = [];
+      for (let i = 0; i < ts.length; i++) {
+        if (q.close && q.close[i] != null) {
+          t.push(ts[i]);
+          o.push(q.open ? q.open[i] : null);
+          h.push(q.high ? q.high[i] : null);
+          l.push(q.low ? q.low[i] : null);
+          c.push(+(+q.close[i]).toFixed(4));
+          v.push(q.volume ? q.volume[i] : null);
+        }
+      }
+      res.set('Cache-Control', 'public, max-age=600');
+      res.json({
+        symbol: sym, range, interval, currency: meta.currency || 'USD',
+        t, o, h, l, c, v,
+        meta: {
+          price: meta.regularMarketPrice, prevClose: meta.chartPreviousClose || meta.previousClose,
+          high52: meta.fiftyTwoWeekHigh, low52: meta.fiftyTwoWeekLow,
+          exchange: meta.exchangeName, name: meta.longName || meta.shortName || sym
+        }
+      });
+    } catch (e) {
+      logger.error('getSeries failed', { sym, error: String(e) });
+      res.status(500).json({ error: 'series unavailable' });
+    }
+  }
+);
+
 // ── Intraday alert monitor (price moves, market moves, earnings) ──────────────
 // Runs hourly during market hours. Fires (deduped per user/day):
 //   • market_move   — S&P (SPY) moves ±1% on the day
