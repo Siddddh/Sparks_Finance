@@ -363,7 +363,9 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 .chart-controls{display:flex;flex-direction:column;gap:10px;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px;}
 .cc-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
 .cc-ticker{display:flex;gap:6px;flex:0 0 auto;}
-.cc-input{width:150px;max-width:46vw;padding:8px 12px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font-size:13px;font-weight:700;text-transform:uppercase;outline:none;letter-spacing:.3px;}
+.cc-ac{position:relative;flex:0 0 auto;}
+#chartAC{min-width:250px;max-width:90vw;}
+.cc-input{width:180px;max-width:52vw;padding:8px 12px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font-size:13px;font-weight:600;outline:none;}
 .cc-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
 .cc-go{padding:8px 14px;border:none;border-radius:9px;background:var(--blue);color:#fff;font-weight:600;font-size:13px;cursor:pointer;}
 .cc-chips{display:flex;gap:6px;flex-wrap:wrap;overflow-x:auto;scrollbar-width:none;}
@@ -840,7 +842,7 @@ body.sidebar-open .nav-scrim{display:block;}
           <div class="chart-controls">
             <div class="cc-row">
               <div class="cc-ticker">
-                <input id="chartSymInput" class="cc-input" placeholder="Symbol…" autocomplete="off" onkeydown="if(event.key==='Enter')setChartSym(this.value)"/>
+                <div class="ac-wrap cc-ac"><input id="chartSymInput" class="cc-input" placeholder="Search symbol or company…" autocomplete="off" oninput="acFilter(this,'chartAC','chart')" onkeydown="acKey(event,'chartAC','chart')"/><div id="chartAC" class="ac-list" style="display:none"></div></div>
                 <button class="cc-go" onclick="setChartSym(document.getElementById('chartSymInput').value)">Load</button>
               </div>
               <div id="chartChips" class="cc-chips"></div>
@@ -1351,6 +1353,7 @@ function acSelect(sym, listId, context) {
   else if (context === 'addHolding') { document.getElementById('holdingTicker').value = sym; autofillBuyPrice(sym); }
   else if (context === 'addHoldingInline') { document.getElementById('inlineHoldingTicker').value = sym; autofillBuyPriceInline(sym); }
   else if (context === 'addWL') { document.getElementById('wlTickerInput').value = sym; }
+  else if (context === 'chart') { setChartSym(sym); }
 }
 function acClose(listId) { const el = document.getElementById(listId); if (el) el.style.display = 'none'; }
 function acKey(e, listId, context) {
@@ -1362,6 +1365,7 @@ function acKey(e, listId, context) {
     if (_acActive >= 0 && items[_acActive]) { items[_acActive].click(); e.preventDefault(); }
     else if (context === 'global') { const v = document.getElementById('globalSearch').value.trim().toUpperCase(); if (v) { acClose(listId); goResearch(v); document.getElementById('globalSearch').value = ''; } }
     else if (context === 'research') { acClose(listId); runResearch(); }
+    else if (context === 'chart') { acClose(listId); setChartSym(document.getElementById('chartSymInput').value); }
   }
   else if (e.key === 'Escape') { acClose(listId); }
 }
