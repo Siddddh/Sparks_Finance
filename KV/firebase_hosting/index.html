@@ -446,6 +446,44 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 .asst-prompts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
 .asst-chip{font-size:12px;padding:7px 12px;border-radius:18px;border:1px solid var(--border);background:var(--surface-2);color:var(--text-2);cursor:pointer;}
 .asst-chip:hover{background:var(--blue-soft);color:var(--blue);border-color:var(--blue);}
+/* threaded host (inline on Home + dedicated tab) */
+.asst-host{display:flex;flex-direction:column;height:440px;}
+.asst-host[data-place="home"]{height:calc(100vh - var(--nav-h) - var(--strip-h) - 80px);min-height:420px;max-height:760px;}
+.asst-host[data-place="tab"]{height:calc(100vh - var(--nav-h) - var(--strip-h) - 150px);min-height:420px;}
+/* scoped expand: fills the content area only — top just below the market/breaking strip, left flush to the sidebar (never covers nav, strip or sidebar) */
+.asst-host.asst-expanded{position:fixed;top:var(--asst-exp-top,calc(var(--nav-h) + var(--strip-h)));left:var(--asst-exp-left,var(--sidebar-w));right:0;bottom:0;height:auto;max-height:none;z-index:1500;background:var(--bg);padding:16px 22px 18px;border-left:1px solid var(--border);box-shadow:-8px 0 30px rgba(0,0,0,.12);}
+body.asst-expanded-open{overflow:hidden;}
+/* the .tab-panel fade animation animates transform, which would make the panel a containing block
+   for the fixed expanded assistant — neutralize it while expanded so position:fixed tracks the viewport */
+body.asst-expanded-open .tab-panel.active{animation:none;transform:none;}
+.asst-head{display:flex;align-items:center;gap:10px;position:relative;margin-bottom:8px;}
+.asst-thread-title{font-size:13px;font-weight:600;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.asst-tools{display:flex;gap:4px;flex-shrink:0;}
+.asst-tbtn{background:none;border:none;color:var(--text-2);cursor:pointer;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.asst-tbtn:hover{background:var(--surface-hover);color:var(--text);}
+.asst-history{position:absolute;right:0;top:34px;width:250px;max-height:300px;overflow-y:auto;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-lg);z-index:20;padding:6px;}
+.asst-hist-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:8px;font-size:13px;color:var(--text);cursor:pointer;}
+.asst-hist-item:hover{background:var(--surface-hover);}
+.asst-hist-item.active{background:var(--blue-soft);color:var(--blue);}
+.asst-hist-del{color:var(--text-3);font-size:15px;line-height:1;padding:2px 5px;border-radius:6px;flex-shrink:0;}
+.asst-hist-del:hover{color:var(--red);background:var(--red-soft);}
+.asst-hist-empty{padding:10px;color:var(--text-3);font-size:12px;text-align:center;}
+/* Home layout: stats (top-left) + AI assistant (top-right, static, same height as the stats block) + full-width news below */
+.home-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(340px,46%,540px);grid-template-areas:"stats assistant" "news news";gap:16px 18px;align-items:stretch;}
+.home-stats{grid-area:stats;min-width:0;}
+.home-aside{grid-area:assistant;min-width:0;display:flex;flex-direction:column;}
+.home-news{grid-area:news;min-width:0;}
+.home-aside .asst-card{margin-bottom:0;flex:1;min-height:0;display:flex;flex-direction:column;}
+.home-aside .asst-host[data-place="home"]:not(.asst-expanded){flex:1;height:auto;min-height:420px;max-height:none;}
+@media(max-width:1024px){
+  .home-grid{grid-template-columns:1fr;grid-template-areas:"stats" "assistant" "news";}
+  .home-aside{display:block;}
+  .home-aside .asst-card{flex:none;}
+  .home-aside .asst-host[data-place="home"]:not(.asst-expanded){flex:none;height:480px;min-height:0;}
+}
+@media(max-width:900px){
+  .asst-host.asst-expanded{left:var(--asst-exp-left,0);}
+}
 
 /* ════════ Responsive ════════ */
 html{-webkit-text-size-adjust:100%;}
@@ -592,8 +630,6 @@ body.sidebar-open .nav-scrim{display:block;}
     <main class="main">
       <div class="content">
         <div id="tab-home" class="tab-panel active">
-          <div class="page-title">Home</div>
-          <div class="pf-toolbar"><select id="homePfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div>
           <div id="homeDashboard"></div>
         </div>
         <div id="tab-cards" class="tab-panel">
@@ -610,14 +646,7 @@ body.sidebar-open .nav-scrim{display:block;}
         </div>
         <div id="tab-assistant" class="tab-panel">
           <div class="page-title">AI Assistant</div>
-          <div class="asst-wrap">
-            <div id="asstMsgs" class="asst-msgs"></div>
-            <div id="asstPrompts" class="asst-prompts"></div>
-            <div class="asst-input-row">
-              <input id="asstInput" class="asst-input" placeholder="Ask about a stock, your portfolio, or the market…" onkeydown="if(event.key==='Enter')sendAssistant()" autocomplete="off"/>
-              <button class="pf-btn pf-btn-primary" onclick="sendAssistant()"><span class="i-spark"></span> Ask</button>
-            </div>
-          </div>
+          <div id="asstTabHost"></div>
         </div>
         <div id="tab-summary" class="tab-panel"><div class="page-title">AI Summary</div><div class="pf-toolbar"><select id="summaryPfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div><div id="summaryContent"></div></div>
         <div id="tab-portfolio" class="tab-panel">
@@ -752,6 +781,8 @@ body.sidebar-open .nav-scrim{display:block;}
 // ════════ Icons (lucide-style inline SVG, currentColor) ════════
 const ICON_PATHS = {
   spark:'<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/>',
+  expand:'<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>',
   home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
   briefcase:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
   eye:'<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
@@ -1860,13 +1891,18 @@ function newsListHtml(items) {
       '</div></div>';
   }).join('');
 }
+function homeHeaderHtml() {
+  return '<div class="page-title">Home</div>' +
+    '<div class="pf-toolbar"><select id="homePfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div>';
+}
 async function loadHomeDashboard() {
   const el = document.getElementById('homeDashboard');
   if (!el) return;
-  if (!UID) { el.innerHTML = emptyState('home', 'Sign in to see your dashboard', ''); return; }
+  if (!UID) { el.innerHTML = '<div class="page-title">Home</div>' + emptyState('home', 'Sign in to see your dashboard', ''); return; }
   syncReportSelectors();
   const scope = effectiveReportScope();
-  el.innerHTML = '<div style="text-align:center;padding:48px;color:var(--text-3)"><div class="load-spinner" style="margin:0 auto 12px"></div>Loading your dashboard…</div>';
+  el.innerHTML = '<div style="padding-bottom:8px">' + homeHeaderHtml() + '</div><div style="text-align:center;padding:48px;color:var(--text-3)"><div class="load-spinner" style="margin:0 auto 12px"></div>Loading your dashboard…</div>';
+  syncReportSelectors();
   let hs = [];
   try { hs = await gatherUserHoldings(scope); } catch (e) {}
   const syms = [...new Set(hs.map(h => h.ticker))];
@@ -1888,7 +1924,13 @@ function renderHomeDashboard(hs, scope, ranges) {
     '<div class="dash-news-card"><div class="dnhdr">' + ic('newspaper', 16) + ' Markets &amp; Influencers</div><div id="homeNewsInfluencer"></div></div>' +
     '</div>';
   if (!hs.length) {
-    el.innerHTML = asstCardHtml() + emptyState('briefcase', 'No holdings in ' + escHtml(scopeName), 'Add holdings in the Portfolio tab to see your dashboard') + newsPanels;
+    el.innerHTML = '<div class="home-grid">' +
+      '<div class="home-stats">' + homeHeaderHtml() + emptyState('briefcase', 'No holdings in ' + escHtml(scopeName), 'Add holdings in the Portfolio tab to see your dashboard') + '</div>' +
+      '<div class="home-aside">' + asstCardHtml() + '</div>' +
+      '<div class="home-news">' + newsPanels + '</div>' +
+    '</div>';
+    syncReportSelectors();
+    renderAllAssistant();
     return;
   }
   // Recompute from live prices so totals + Today's P&L are accurate.
@@ -1938,7 +1980,13 @@ function renderHomeDashboard(hs, scope, ranges) {
           '<div class="rng-track"><div class="rng-fill" style="width:' + pos.toFixed(0) + '%"></div><div class="rng-dot" style="left:' + pos.toFixed(0) + '%"></div></div></div>';
       }).join('') + '</div>';
   }
-  el.innerHTML = asstCardHtml() + hero + fzHtml + newsPanels;
+  el.innerHTML = '<div class="home-grid">' +
+    '<div class="home-stats">' + homeHeaderHtml() + hero + fzHtml + '</div>' +
+    '<div class="home-aside">' + asstCardHtml() + '</div>' +
+    '<div class="home-news">' + newsPanels + '</div>' +
+  '</div>';
+  syncReportSelectors();
+  renderAllAssistant();
 }
 async function loadHomeNews(syms) {
   const pEl = document.getElementById('homeNewsPortfolio'), iEl = document.getElementById('homeNewsInfluencer');
@@ -2506,7 +2554,7 @@ function sw(name) {
   if (panel) panel.classList.add('active');
   document.body.classList.remove('sidebar-open');
   if (name === 'home') loadHomeDashboard();
-  if (name === 'assistant') { renderAsst(); setTimeout(() => { const i = document.getElementById('asstInput'); if (i) i.focus(); }, 60); }
+  if (name === 'assistant') { const h = document.getElementById('asstTabHost'); if (h && !h.querySelector('.asst-host')) h.innerHTML = assistantHostHtml('tab'); renderAllAssistant(); asstFocus(); }
   if (name === 'chart') renderCharts();
   if (name === 'portfolio') renderHoldingsTable();
   if (name === 'watchlist') renderWatchlistTab();
@@ -2597,60 +2645,181 @@ function showIOSInstructions() {
   m.onclick = e => { if (e.target === m) m.remove(); };
 }
 
-// ── AI Assistant (OpenRouter-backed chat) ──
+// ── AI Assistant — threaded chat, rendered inline on Home AND the dedicated tab ──
 const ASSISTANT_SUGGESTED = [
   'How is my portfolio doing?',
   'Compare NVDA vs AMD year-to-date',
   "What's AAPL's P/E, revenue growth and profit margin?",
   'What are the markets doing today?'
 ];
-let assistantHistory = [];
-let assistantBusy = false;
+let asstThreads = [];        // [{ id, title, messages:[{role,content}], ts }]
+let asstCurrentId = null;
+let asstBusy = false;
+let asstHistoryOpen = false;
+let asstLoadedKey = null;
+let asstScrollY = 0;
+const asstSummarizing = {};
+
 function mdLite(s) {
   let h = escHtml(s);
   h = h.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/_([^_]+)_/g, '<i>$1</i>').replace(/\n/g, '<br>');
   return h;
 }
-function asstPromptsHtml() {
-  return ASSISTANT_SUGGESTED.map(p => '<span class="asst-chip" data-q="' + escHtml(p) + '" onclick="sendAssistant(this.dataset.q)">' + escHtml(p) + '</span>').join('');
+function asstStoreKey() { return 'sparksAsst:' + ((typeof UID !== 'undefined' && UID) ? UID : 'anon'); }
+function asstSave() { try { lsSet(asstStoreKey(), JSON.stringify({ threads: asstThreads.slice(0, 40), current: asstCurrentId })); } catch (e) {} }
+function asstLoad() {
+  let d = null;
+  try { const raw = lsGet(asstStoreKey()); d = raw ? JSON.parse(raw) : null; } catch (e) {}
+  asstThreads = (d && Array.isArray(d.threads)) ? d.threads : [];
+  asstCurrentId = (d && d.current) || null;
+  if (!asstThreads.length) asstNewThread(false);
+  else if (!asstThreads.find(t => t.id === asstCurrentId)) asstCurrentId = asstThreads[0].id;
+  asstLoadedKey = asstStoreKey();
 }
-function renderAsst() {
-  const pr = document.getElementById('asstPrompts');
-  if (pr) { pr.style.display = assistantHistory.length ? 'none' : 'flex'; if (!pr.innerHTML) pr.innerHTML = asstPromptsHtml(); }
-  const box = document.getElementById('asstMsgs');
-  if (!box) return;
-  box.innerHTML = assistantHistory.map(m => '<div class="asst-msg ' + (m.role === 'user' ? 'user' : 'bot') + '">' + mdLite(m.content) + '</div>').join('') +
-    (assistantBusy ? '<div class="asst-msg thinking">Sparks AI is thinking…</div>' : '');
-  box.scrollTop = box.scrollHeight;
+function asstEnsureLoaded() { if (asstLoadedKey !== asstStoreKey()) asstLoad(); }
+function asstCurrent() { return asstThreads.find(t => t.id === asstCurrentId) || null; }
+function asstFocus() { setTimeout(() => { const a = document.querySelector('.tab-panel.active .asst-host .asst-input') || document.querySelector('.asst-host .asst-input'); if (a) a.focus(); }, 40); }
+function asstNewThread(doRender) {
+  const id = 't' + Date.now().toString(36) + Math.floor(Math.random() * 1e6).toString(36);
+  asstThreads.unshift({ id, title: 'New chat', messages: [], ts: Date.now() });
+  asstThreads = asstThreads.slice(0, 40);
+  asstCurrentId = id; asstHistoryOpen = false; asstSave();
+  if (doRender !== false) { renderAllAssistant(); asstFocus(); }
 }
-async function sendAssistant(preset) {
-  const input = document.getElementById('asstInput');
-  const text = (preset || (input && input.value) || '').trim();
-  if (!text || assistantBusy) return;
+function asstSwitch(id) { asstCurrentId = id; asstHistoryOpen = false; asstSave(); renderAllAssistant(); asstFocus(); }
+function asstDelete(id, ev) {
+  if (ev) ev.stopPropagation();
+  asstThreads = asstThreads.filter(t => t.id !== id);
+  if (!asstThreads.length) asstNewThread(false);
+  else if (asstCurrentId === id) asstCurrentId = asstThreads[0].id;
+  asstSave(); renderAllAssistant();
+}
+function asstToggleHistory() {
+  asstHistoryOpen = !asstHistoryOpen;
+  renderAllAssistant();
+  if (asstHistoryOpen) asstThreads.forEach(t => { if (!t.summary && t.messages && t.messages.length >= 2) asstSummarize(t); });
+}
+function asstExpand(btn) {
+  const host = btn.closest('.asst-host'); if (!host) return;
+  const willExpand = !host.classList.contains('asst-expanded');
+  if (willExpand) {
+    // Anchor the panel to the content area: top = just below the market/breaking strip
+    // (the .layout's top edge, which already accounts for the breaking bar being shown),
+    // left = the main column's left edge (right of the sidebar; 0 when the sidebar is off-canvas).
+    asstScrollY = window.scrollY || window.pageYOffset || 0;
+    try { window.scrollTo(0, 0); } catch (e) {}
+    const layout = document.querySelector('.layout');
+    const main = document.querySelector('.main');
+    const top = layout ? Math.max(0, Math.round(layout.getBoundingClientRect().top)) : 100;
+    const left = main ? Math.max(0, Math.round(main.getBoundingClientRect().left)) : 0;
+    host.style.setProperty('--asst-exp-top', top + 'px');
+    host.style.setProperty('--asst-exp-left', left + 'px');
+  } else {
+    host.style.removeProperty('--asst-exp-top');
+    host.style.removeProperty('--asst-exp-left');
+  }
+  const on = host.classList.toggle('asst-expanded');
+  document.body.classList.toggle('asst-expanded-open', on);
+  if (btn) btn.title = on ? 'Collapse' : 'Expand';
+  if (!on) { try { window.scrollTo(0, asstScrollY); } catch (e) {} }
+  renderAllAssistant();
+  const i = host.querySelector('.asst-input'); if (i) i.focus();
+}
+function assistantHostHtml(place) {
+  return '<div class="asst-host" data-place="' + place + '">' +
+    '<div class="asst-head">' +
+      '<div class="asst-thread-title">New chat</div>' +
+      '<div class="asst-tools">' +
+        '<button class="asst-tbtn" title="New chat" onclick="asstNewThread()">' + ic('plus', 16) + '</button>' +
+        '<button class="asst-tbtn" title="History" onclick="asstToggleHistory()">' + ic('clock', 16) + '</button>' +
+        (place === 'home' ? '<button class="asst-tbtn" title="Expand" onclick="asstExpand(this)">' + ic('expand', 16) + '</button>' : '') +
+      '</div>' +
+      '<div class="asst-history" style="display:none"></div>' +
+    '</div>' +
+    '<div class="asst-msgs"></div>' +
+    '<div class="asst-prompts"></div>' +
+    '<div class="asst-input-row"><input class="asst-input" placeholder="Ask a follow-up question…" onkeydown="if(event.key===\'Enter\')asstSendFrom(this)" autocomplete="off"/>' +
+    '<button class="pf-btn pf-btn-primary" onclick="asstSendFrom(this)"><span>' + ic('spark', 16) + '</span> Ask</button></div>' +
+    '</div>';
+}
+function renderAllAssistant() {
+  asstEnsureLoaded();
+  const th = asstCurrent();
+  document.querySelectorAll('.asst-host').forEach(host => {
+    const title = host.querySelector('.asst-thread-title');
+    if (title) title.textContent = th ? (th.summary || th.title || 'New chat') : 'New chat';
+    const pr = host.querySelector('.asst-prompts');
+    if (pr) { const empty = !th || !th.messages.length; pr.style.display = empty ? 'flex' : 'none'; if (empty && !pr.innerHTML) pr.innerHTML = ASSISTANT_SUGGESTED.map(p => '<span class="asst-chip" data-q="' + escHtml(p) + '" onclick="asstSendPrompt(this.dataset.q)">' + escHtml(p) + '</span>').join(''); }
+    const box = host.querySelector('.asst-msgs');
+    if (box) {
+      box.innerHTML = (th ? th.messages : []).map(m => '<div class="asst-msg ' + (m.role === 'user' ? 'user' : 'bot') + '">' + mdLite(m.content) + '</div>').join('') +
+        (asstBusy ? '<div class="asst-msg thinking">Sparks AI is thinking…</div>' : '');
+      box.scrollTop = box.scrollHeight;
+    }
+    const hist = host.querySelector('.asst-history');
+    if (hist) {
+      hist.style.display = asstHistoryOpen ? 'block' : 'none';
+      if (asstHistoryOpen) {
+        hist.innerHTML = asstThreads.length
+          ? asstThreads.map(t => '<div class="asst-hist-item' + (t.id === asstCurrentId ? ' active' : '') + '" onclick="asstSwitch(\'' + t.id + '\')">' + escHtml((t.summary || t.title || 'New chat').slice(0, 44)) + '<span class="asst-hist-del" title="Delete" onclick="asstDelete(\'' + t.id + '\',event)">×</span></div>').join('')
+          : '<div class="asst-hist-empty">No conversations yet</div>';
+      }
+    }
+  });
+}
+function asstSendFrom(el) {
+  const host = el.closest('.asst-host');
+  const input = host ? host.querySelector('.asst-input') : null;
+  const text = (input && input.value || '').trim();
+  if (!text) { if (input) input.focus(); return; }
   if (input) input.value = '';
-  assistantHistory.push({ role: 'user', content: text });
-  assistantBusy = true; renderAsst();
+  asstSend(text);
+}
+function asstSendPrompt(q) { asstSend((q || '').trim()); }
+async function asstSend(text) {
+  if (!text || asstBusy) return;
+  asstEnsureLoaded();
+  let th = asstCurrent(); if (!th) { asstNewThread(false); th = asstCurrent(); }
+  th.messages.push({ role: 'user', content: text });
+  if (th.title === 'New chat') th.title = text.slice(0, 44);
+  th.ts = Date.now();
+  asstBusy = true; renderAllAssistant(); asstSave();
   try {
     let token = '';
     try { if (auth.currentUser) token = await auth.currentUser.getIdToken(); } catch (e) {}
     const headers = { 'Content-Type': 'application/json' };
     if (token) headers['Authorization'] = 'Bearer ' + token;
-    const r = await fetch(ASSISTANT_API, { method: 'POST', headers, body: JSON.stringify({ messages: assistantHistory }) });
+    const r = await fetch(ASSISTANT_API, { method: 'POST', headers, body: JSON.stringify({ messages: th.messages }) });
     const d = await r.json().catch(() => ({}));
-    assistantHistory.push({ role: 'assistant', content: d.reply || 'Sorry — I had trouble answering. Please try again.' });
+    th.messages.push({ role: 'assistant', content: d.reply || 'Sorry — I had trouble answering. Please try again.' });
   } catch (e) {
-    assistantHistory.push({ role: 'assistant', content: 'Sorry — I could not reach the assistant. Check your connection and try again.' });
+    th.messages.push({ role: 'assistant', content: 'Sorry — I could not reach the assistant. Please try again.' });
   }
-  assistantBusy = false; renderAsst();
+  asstBusy = false; renderAllAssistant(); asstSave();
+  asstSummarize(th);
 }
-function askHome(q) { const t = (q || '').trim(); if (!t) return; sw('assistant'); sendAssistant(t); }
-function askFromHome() { const i = document.getElementById('homeAsk'); const t = (i && i.value || '').trim(); if (!t) { if (i) i.focus(); return; } if (i) i.value = ''; askHome(t); }
+// Background: ask the model for a short topic title so "recent chats" summarize the conversation
+// instead of just echoing the first prompt. Cached per thread; refreshed as the thread grows.
+async function asstSummarize(th) {
+  if (!th || asstSummarizing[th.id] || !th.messages || th.messages.length < 2) return;
+  if (th.summary && (th.messages.length - (th.summarizedLen || 0)) < 4) return;
+  asstSummarizing[th.id] = true;
+  try {
+    const ctx = th.messages.slice(-8).map(m => ({ role: m.role, content: m.content }));
+    ctx.push({ role: 'user', content: 'Summarize the TOPIC of this whole conversation as a concise 3-6 word title (e.g. "NVDA valuation and margins" or "Portfolio performance review"). Reply with ONLY the title — no quotes, no trailing punctuation.' });
+    let token = '';
+    try { if (auth.currentUser) token = await auth.currentUser.getIdToken(); } catch (e) {}
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+    const r = await fetch(ASSISTANT_API, { method: 'POST', headers, body: JSON.stringify({ messages: ctx }) });
+    const d = await r.json().catch(() => ({}));
+    let s = ((d && d.reply) || '').trim().split('\n')[0].replace(/^["'\s]+/, '').replace(/["'\s.]+$/, '');
+    if (s && s.length >= 2) { th.summary = s.slice(0, 60); th.summarizedLen = th.messages.length; asstSave(); renderAllAssistant(); }
+  } catch (e) {}
+  asstSummarizing[th.id] = false;
+}
 function asstCardHtml() {
-  return '<div class="dash-card" style="margin-bottom:14px;">' +
-    '<div class="dash-section-title">' + ic('sparkles', 16) + ' Ask Sparks AI</div>' +
-    '<div class="asst-input-row"><input id="homeAsk" class="asst-input" placeholder="Ask about your portfolio, a stock, or the market…" onkeydown="if(event.key===\'Enter\')askFromHome()" autocomplete="off"/><button class="pf-btn pf-btn-primary" onclick="askFromHome()">Ask</button></div>' +
-    '<div class="asst-prompts">' + ASSISTANT_SUGGESTED.map(p => '<span class="asst-chip" data-q="' + escHtml(p) + '" onclick="askHome(this.dataset.q)">' + escHtml(p) + '</span>').join('') + '</div>' +
-    '</div>';
+  return '<div class="dash-card asst-card" style="margin-bottom:14px;padding:14px 16px;">' + assistantHostHtml('home') + '</div>';
 }
 
 // ── Boot ──
