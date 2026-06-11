@@ -489,6 +489,29 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 .asst-prompts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
 .asst-chip{font-size:12px;padding:7px 12px;border-radius:18px;border:1px solid var(--border);background:var(--surface-2);color:var(--text-2);cursor:pointer;}
 .asst-chip:hover{background:var(--blue-soft);color:var(--blue);border-color:var(--blue);}
+/* New-chat welcome — fills the empty space attractively */
+.asst-msgs.asst-msgs-empty{align-items:center;}
+.asst-welcome{margin:auto;max-width:440px;width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px;padding:6px 4px;animation:asstFadeUp .45s ease;}
+.asst-orb{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:conic-gradient(from 0deg,var(--blue),#9334e6,#0f9d58,#f29900,var(--blue));box-shadow:0 8px 24px var(--blue-soft);animation:asstOrbPulse 3.2s ease-in-out infinite, asstHue 9s linear infinite;}
+.asst-welcome-title{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-.3px;margin-top:2px;}
+.asst-welcome-sub{font-size:12.5px;color:var(--text-3);max-width:320px;line-height:1.45;}
+.asst-suggests{display:flex;flex-direction:column;gap:7px;width:100%;margin-top:6px;}
+.asst-suggest{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 13px;border:1px solid var(--border);border-radius:11px;background:var(--surface-2);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:border-color .15s,background .15s,transform .15s,box-shadow .15s;font-family:inherit;}
+.asst-suggest:hover{border-color:var(--blue);background:var(--blue-soft);transform:translateY(-1px);box-shadow:var(--shadow);}
+.asst-suggest .as-txt{flex:1;min-width:0;}
+.asst-suggest .as-ic{color:var(--blue);flex-shrink:0;display:flex;align-items:center;}
+/* Animated gradient border around the Ask box */
+.asst-input-row{align-items:center;}
+.asst-input-wrap{position:relative;flex:1;min-width:0;border-radius:24px;padding:2px;overflow:hidden;background:var(--border);}
+.asst-input-wrap::before{content:'';position:absolute;left:50%;top:50%;width:300%;height:300%;transform:translate(-50%,-50%);background:conic-gradient(from 0deg,transparent 0deg,var(--blue) 55deg,#9334e6 130deg,transparent 200deg,#0f9d58 290deg,transparent 360deg);animation:asstBorderSpin 4.5s linear infinite;z-index:0;}
+.asst-input-wrap::after{content:'';position:absolute;inset:2px;border-radius:22px;background:var(--bg);z-index:1;}
+.asst-input-wrap .asst-input{position:relative;z-index:2;width:100%;border:none;background:transparent;border-radius:22px;}
+.asst-input-wrap .asst-input:focus{box-shadow:none;}
+@keyframes asstBorderSpin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+@keyframes asstOrbPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
+@keyframes asstHue{to{filter:hue-rotate(360deg);}}
+@keyframes asstFadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+@media(prefers-reduced-motion:reduce){.asst-input-wrap::before,.asst-orb{animation:none;}}
 /* threaded host (inline on Home + dedicated tab) */
 .asst-host{display:flex;flex-direction:column;height:440px;}
 .asst-host[data-place="home"]{height:calc(100vh - var(--nav-h) - var(--strip-h) - 80px);min-height:420px;max-height:760px;}
@@ -2970,10 +2993,21 @@ function assistantHostHtml(place) {
       '<div class="asst-history" style="display:none"></div>' +
     '</div>' +
     '<div class="asst-msgs"></div>' +
-    '<div class="asst-prompts"></div>' +
-    '<div class="asst-input-row"><input class="asst-input" placeholder="Ask a follow-up question…" onkeydown="if(event.key===\'Enter\')asstSendFrom(this)" autocomplete="off"/>' +
-    '<button class="pf-btn pf-btn-primary" onclick="asstSendFrom(this)"><span>' + ic('spark', 16) + '</span> Ask</button></div>' +
+    '<div class="asst-input-row">' +
+      '<div class="asst-input-wrap"><input class="asst-input" placeholder="Ask anything — stocks, your portfolio, the markets…" onkeydown="if(event.key===\'Enter\')asstSendFrom(this)" autocomplete="off"/></div>' +
+      '<button class="pf-btn pf-btn-primary" onclick="asstSendFrom(this)"><span>' + ic('spark', 16) + '</span> Ask</button>' +
+    '</div>' +
     '</div>';
+}
+function asstWelcomeHtml() {
+  return '<div class="asst-welcome">' +
+    '<div class="asst-orb">' + ic('spark', 24) + '</div>' +
+    '<div class="asst-welcome-title">What\'s on your mind?</div>' +
+    '<div class="asst-welcome-sub">Portfolio check-ins, stock deep-dives, or live market context — just ask.</div>' +
+    '<div class="asst-suggests">' +
+      ASSISTANT_SUGGESTED.slice(0, 3).map(p => '<button class="asst-suggest" data-q="' + escHtml(p) + '" onclick="asstSendPrompt(this.dataset.q)"><span class="as-txt">' + escHtml(p) + '</span><span class="as-ic">' + ic('sparkles', 15) + '</span></button>').join('') +
+    '</div>' +
+  '</div>';
 }
 function renderAllAssistant() {
   asstEnsureLoaded();
@@ -2981,13 +3015,18 @@ function renderAllAssistant() {
   document.querySelectorAll('.asst-host').forEach(host => {
     const title = host.querySelector('.asst-thread-title');
     if (title) title.textContent = th ? (th.summary || th.title || 'New chat') : 'New chat';
-    const pr = host.querySelector('.asst-prompts');
-    if (pr) { const empty = !th || !th.messages.length; pr.style.display = empty ? 'flex' : 'none'; if (empty && !pr.innerHTML) pr.innerHTML = ASSISTANT_SUGGESTED.map(p => '<span class="asst-chip" data-q="' + escHtml(p) + '" onclick="asstSendPrompt(this.dataset.q)">' + escHtml(p) + '</span>').join(''); }
     const box = host.querySelector('.asst-msgs');
     if (box) {
-      box.innerHTML = (th ? th.messages : []).map(m => '<div class="asst-msg ' + (m.role === 'user' ? 'user' : 'bot') + '">' + mdLite(m.content) + '</div>').join('') +
-        (asstBusy ? '<div class="asst-msg thinking">Sparks AI is thinking…</div>' : '');
-      box.scrollTop = box.scrollHeight;
+      const msgs = th ? th.messages : [];
+      if (!msgs.length) {
+        box.classList.add('asst-msgs-empty');
+        box.innerHTML = asstWelcomeHtml();
+      } else {
+        box.classList.remove('asst-msgs-empty');
+        box.innerHTML = msgs.map(m => '<div class="asst-msg ' + (m.role === 'user' ? 'user' : 'bot') + '">' + mdLite(m.content) + '</div>').join('') +
+          (asstBusy ? '<div class="asst-msg thinking">Sparks AI is thinking…</div>' : '');
+        box.scrollTop = box.scrollHeight;
+      }
     }
     const hist = host.querySelector('.asst-history');
     if (hist) {
