@@ -471,14 +471,17 @@ body.asst-expanded-open .tab-panel.active{animation:none;transform:none;}
 /* Home layout: stats (top-left) + AI assistant (top-right, static, same height as the stats block) + full-width news below */
 .home-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(340px,46%,540px);grid-template-areas:"stats assistant" "news news";gap:16px 18px;align-items:stretch;}
 .home-stats{grid-area:stats;min-width:0;}
-.home-aside{grid-area:assistant;min-width:0;display:flex;flex-direction:column;}
+.home-stats > :last-child{margin-bottom:0;}   /* end flush at the 52-week card so the assistant aligns exactly */
+.home-aside{grid-area:assistant;min-width:0;position:relative;}
 .home-news{grid-area:news;min-width:0;}
-.home-aside .asst-card{margin-bottom:0;flex:1;min-height:0;display:flex;flex-direction:column;}
-.home-aside .asst-host[data-place="home"]:not(.asst-expanded){flex:1;height:auto;min-height:420px;max-height:none;}
+/* absolutely fill the column so the assistant matches the stats height exactly — its bottom never
+   exceeds the 52-week section (symmetry); the chat scrolls internally instead of growing the row */
+.home-aside .asst-card{position:absolute;inset:0;margin-bottom:0;display:flex;flex-direction:column;}
+.home-aside .asst-host[data-place="home"]:not(.asst-expanded){flex:1;height:auto;min-height:0;max-height:none;}
 @media(max-width:1024px){
   .home-grid{grid-template-columns:1fr;grid-template-areas:"stats" "assistant" "news";}
-  .home-aside{display:block;}
-  .home-aside .asst-card{flex:none;}
+  .home-aside{position:static;}
+  .home-aside .asst-card{position:static;flex:none;}
   .home-aside .asst-host[data-place="home"]:not(.asst-expanded){flex:none;height:480px;min-height:0;}
 }
 @media(max-width:900px){
@@ -2696,8 +2699,9 @@ function asstDelete(id, ev) {
 }
 function asstToggleHistory() {
   asstHistoryOpen = !asstHistoryOpen;
+  if (asstHistoryOpen) asstThreads.forEach(t => { if (t.messages && t.messages.length >= 2 && !t.summary) { const h = asstDeriveSummary(t); if (h) t.summary = h; } });
   renderAllAssistant();
-  if (asstHistoryOpen) asstThreads.forEach(t => { if (!t.summary && t.messages && t.messages.length >= 2) asstSummarize(t); });
+  if (asstHistoryOpen) { asstSave(); asstThreads.forEach(t => { if (t.messages && t.messages.length >= 2) asstSummarize(t); }); }
 }
 function asstExpand(btn) {
   const host = btn.closest('.asst-host'); if (!host) return;
@@ -2795,14 +2799,35 @@ async function asstSend(text) {
   } catch (e) {
     th.messages.push({ role: 'assistant', content: 'Sorry — I could not reach the assistant. Please try again.' });
   }
-  asstBusy = false; renderAllAssistant(); asstSave();
-  asstSummarize(th);
+  asstBusy = false;
+  const heur = asstDeriveSummary(th); if (heur && !th.summaryLLMLen) th.summary = heur;  // instant local summary (never just the prompt)
+  renderAllAssistant(); asstSave();
+  asstSummarize(th);                                                                      // best-effort: refine with the model
 }
-// Background: ask the model for a short topic title so "recent chats" summarize the conversation
-// instead of just echoing the first prompt. Cached per thread; refreshed as the thread grows.
+// Derive a concise topic label from the conversation's questions — runs locally so "recent chats"
+// always reflect what was discussed (companies/tickers + topic), never the raw prompt or an error.
+function asstDeriveSummary(th) {
+  const msgs = (th && th.messages) || [];
+  const userText = msgs.filter(m => m.role === 'user').map(m => m.content).join('  ');
+  if (!userText.trim()) return '';
+  const low = ' ' + userText.toLowerCase() + ' ';
+  const NAMES = { apple: 'Apple', nvidia: 'Nvidia', microsoft: 'Microsoft', amazon: 'Amazon', alphabet: 'Google', google: 'Google', meta: 'Meta', facebook: 'Meta', tesla: 'Tesla', netflix: 'Netflix', broadcom: 'Broadcom', palantir: 'Palantir' };
+  const ents = [];
+  Object.keys(NAMES).forEach(n => { if (low.indexOf(' ' + n) >= 0 && ents.indexOf(NAMES[n]) < 0) ents.push(NAMES[n]); });
+  const STOP = new Set(['A','I','AI','AN','THE','MY','IS','IT','TO','OF','IN','ON','VS','OR','AND','PE','P','E','EPS','USD','US','Q1','Q2','Q3','Q4','CEO','CPI','GDP','FED','ETF','YTD','OK','EV','ROI','ROE','PM','AM','SP','DOW','NYSE','IPO']);
+  (userText.match(/\b[A-Z]{2,5}\b/g) || []).forEach(t => { if (!STOP.has(t) && ents.indexOf(t) < 0) ents.push(t); });
+  const TOPICS = [['compar', 'comparison'], ['p/e', 'valuation'], ['valuation', 'valuation'], ['margin', 'margins'], ['revenue', 'revenue'], ['earnings', 'earnings'], ['dividend', 'dividends'], ['news', 'news'], ['forecast', 'outlook'], ['outlook', 'outlook'], ['should i buy', 'buy/sell'], ['should i sell', 'buy/sell'], ['portfolio', 'portfolio'], ['holding', 'holdings'], ['market', 'markets'], ['perform', 'performance'], ['doing', 'performance'], ['down', 'price move'], ['drop', 'price move'], ['fall', 'price move'], ['rally', 'price move'], ['growth', 'growth'], ['risk', 'risk'], ['52', '52-week range']];
+  const topics = [];
+  TOPICS.forEach(p => { if (low.indexOf(p[0]) >= 0 && topics.indexOf(p[1]) < 0) topics.push(p[1]); });
+  const head = ents.slice(0, 3).join(', ');
+  const tail = topics.slice(0, 2).join(' & ');
+  const label = head && tail ? head + ' — ' + tail : (head || (tail ? tail.charAt(0).toUpperCase() + tail.slice(1) : ''));
+  return label.slice(0, 60);
+}
+// Best-effort: refine the title with the model. If it is rate-limited/unavailable, the local summary stays.
 async function asstSummarize(th) {
   if (!th || asstSummarizing[th.id] || !th.messages || th.messages.length < 2) return;
-  if (th.summary && (th.messages.length - (th.summarizedLen || 0)) < 4) return;
+  if (th.summaryLLMLen && (th.messages.length - th.summaryLLMLen) < 4) return;
   asstSummarizing[th.id] = true;
   try {
     const ctx = th.messages.slice(-8).map(m => ({ role: m.role, content: m.content }));
@@ -2814,7 +2839,8 @@ async function asstSummarize(th) {
     const r = await fetch(ASSISTANT_API, { method: 'POST', headers, body: JSON.stringify({ messages: ctx }) });
     const d = await r.json().catch(() => ({}));
     let s = ((d && d.reply) || '').trim().split('\n')[0].replace(/^["'\s]+/, '').replace(/["'\s.]+$/, '');
-    if (s && s.length >= 2) { th.summary = s.slice(0, 60); th.summarizedLen = th.messages.length; asstSave(); renderAllAssistant(); }
+    // reject error-ish / over-long replies — keep the local heuristic in those cases
+    if (s && s.length >= 2 && s.length <= 60 && !/^(sorry|i\b|the assistant)/i.test(s)) { th.summary = s; th.summaryLLMLen = th.messages.length; asstSave(); renderAllAssistant(); }
   } catch (e) {}
   asstSummarizing[th.id] = false;
 }
