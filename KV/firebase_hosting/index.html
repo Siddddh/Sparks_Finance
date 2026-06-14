@@ -64,9 +64,9 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ════════ Auth ════════ */
-#authPanel{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:8000;}
+#authPanel{position:fixed;inset:0;background:var(--bg);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 16px;z-index:8000;}
 #authPanel.hidden{display:none;}
-.auth-box{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:36px 32px;width:100%;max-width:380px;box-shadow:var(--shadow-lg);}
+.auth-box{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:32px 30px;width:100%;max-width:380px;box-shadow:var(--shadow-lg);margin:auto;}
 .auth-logo{font-size:22px;font-weight:700;color:var(--text);text-align:center;margin-bottom:4px;display:flex;align-items:center;justify-content:center;gap:8px;}.auth-logo .spark{color:var(--blue);display:flex;}
 .auth-sub{font-size:12px;color:var(--text-3);text-align:center;margin-bottom:26px;}
 .auth-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:20px;}
@@ -96,6 +96,10 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .auth-secure{font-size:11px;color:var(--text-3);text-align:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--border-soft);line-height:1.5;}
 .auth-btn:disabled,.btn-busy{opacity:.7;cursor:default;}
 .btn-spin{display:inline-block;width:13px;height:13px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-2px;margin-right:4px;opacity:.75;}
+.otp-box{display:flex;gap:8px;justify-content:center;margin:14px 0 6px;}
+.otp-inp{width:42px;height:50px;text-align:center;font-size:22px;font-weight:700;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);outline:none;font-family:inherit;}
+.otp-inp:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
+@media(max-width:380px){.otp-inp{width:38px;height:46px;font-size:20px;}.otp-box{gap:6px;}}
 .legal-meta{font-size:11px;color:var(--text-3);margin:-6px 0 12px;}
 .legal-body{max-height:50vh;overflow-y:auto;font-size:13px;line-height:1.6;color:var(--text-2);}
 .legal-body p{margin:0 0 10px;}
@@ -754,12 +758,31 @@ body.sidebar-open .nav-scrim{display:block;}
       <div class="auth-err" id="suErr"></div>
     </div>
     <div id="authFormReset" class="auth-form">
-      <div class="auth-reset-info">Enter your account email and we’ll send a secure link to reset your password. The link expires in about an hour.</div>
-      <label>Email</label>
-      <input type="email" id="rstEmail" placeholder="you@example.com" onkeydown="if(event.key==='Enter')doReset()"/>
-      <button type="button" class="auth-btn" id="rstBtn" onclick="doReset()">Send Reset Link</button>
-      <div class="auth-row"><a class="auth-link" onclick="showPanel('signin')">← Back to Sign In</a></div>
-      <div class="auth-err" id="rstErr"></div>
+      <div id="resetStep1">
+        <div class="auth-reset-info">Enter your account email and we’ll send a 6-digit code to reset your password.</div>
+        <label>Email</label>
+        <input type="email" id="rstEmail" placeholder="you@example.com" autocomplete="email" onkeydown="if(event.key==='Enter')sendResetCode()"/>
+        <button type="button" class="auth-btn" id="rstBtn" onclick="sendResetCode()">Send Code</button>
+        <div class="auth-row"><a class="auth-link" onclick="sendResetLink()">Email me a reset link instead</a></div>
+        <div class="auth-row"><a class="auth-link" onclick="showPanel('signin')">← Back to Sign In</a></div>
+        <div class="auth-err" id="rstErr"></div>
+      </div>
+      <div id="resetStep2" style="display:none">
+        <div class="auth-reset-info">Enter the 6-digit code sent to <b id="rstEmailEcho"></b> and choose a new password.</div>
+        <div class="otp-box" id="otpBox">
+          <input class="otp-inp" inputmode="numeric" maxlength="1" aria-label="Digit 1" oninput="otpAdvance(this)" onkeydown="otpBack(event,this)" onpaste="otpPaste(event)"/>
+          <input class="otp-inp" inputmode="numeric" maxlength="1" aria-label="Digit 2" oninput="otpAdvance(this)" onkeydown="otpBack(event,this)" onpaste="otpPaste(event)"/>
+          <input class="otp-inp" inputmode="numeric" maxlength="1" aria-label="Digit 3" oninput="otpAdvance(this)" onkeydown="otpBack(event,this)" onpaste="otpPaste(event)"/>
+          <input class="otp-inp" inputmode="numeric" maxlength="1" aria-label="Digit 4" oninput="otpAdvance(this)" onkeydown="otpBack(event,this)" onpaste="otpPaste(event)"/>
+          <input class="otp-inp" inputmode="numeric" maxlength="1" aria-label="Digit 5" oninput="otpAdvance(this)" onkeydown="otpBack(event,this)" onpaste="otpPaste(event)"/>
+          <input class="otp-inp" inputmode="numeric" maxlength="1" aria-label="Digit 6" oninput="otpAdvance(this)" onkeydown="otpBack(event,this)" onpaste="otpPaste(event)"/>
+        </div>
+        <label>New password</label>
+        <div class="pw-wrap"><input type="password" id="rstNewPass" placeholder="At least 6 characters" autocomplete="new-password" onkeydown="if(event.key==='Enter')verifyResetCode()"/><button type="button" class="pw-toggle" onclick="togglePw('rstNewPass',this)" aria-label="Show password">Show</button></div>
+        <button type="button" class="auth-btn" id="rstVerifyBtn" onclick="verifyResetCode()">Reset Password</button>
+        <div class="auth-row"><a class="auth-link" onclick="resendResetCode()">Resend code</a> · <a class="auth-link" onclick="resetBackToEmail()">change email</a></div>
+        <div class="auth-err" id="rst2Err"></div>
+      </div>
     </div>
     <div class="auth-secure">🔒 Protected by Google Firebase Authentication · We never sell your data.</div>
   </div>
@@ -1128,6 +1151,8 @@ const GETNEWS_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/ge
 const GETRANGE_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getRange';
 const SERIES_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getSeries';
 const ASSISTANT_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/assistant';
+const SENDOTP_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/sendOtp';
+const VERIFYOTP_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/verifyOtp';
 function escHtml(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 // ── State ──
@@ -1534,7 +1559,8 @@ function showPanel(panel) {
     ['signin','signup','reset'].forEach(p => { const f = document.getElementById('authForm' + p.charAt(0).toUpperCase() + p.slice(1)); if (f) f.classList.toggle('active', p === panel); });
     document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.panel === panel));
     const g = document.getElementById('googleAuthBlock'); if (g) g.style.display = panel === 'reset' ? 'none' : '';
-    ['siErr','suErr','rstErr'].forEach(id => { const e = document.getElementById(id); if (e) { e.textContent = ''; e.style.color = ''; } });
+    const s1 = document.getElementById('resetStep1'), s2 = document.getElementById('resetStep2'); if (s1 && s2) { s1.style.display = ''; s2.style.display = 'none'; }
+    ['siErr','suErr','rstErr','rst2Err'].forEach(id => { const e = document.getElementById(id); if (e) { e.textContent = ''; e.style.color = ''; } });
   } catch (e) {}
 }
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1571,18 +1597,23 @@ async function applyPersistence(remember) { try { await auth.setPersistence(reme
 async function signInWithGoogle() {
   const ae = document.querySelector('.auth-form.active .auth-err'); if (ae) { ae.style.color = ''; ae.textContent = ''; }
   const btn = document.querySelector('.google-btn'); authBusy(btn, true, 'Connecting…');
+  const provider = new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: 'select_account' });
   try {
     await applyPersistence(true);
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: 'select_account' });
     await auth.signInWithPopup(provider);
   } catch (e) {
     const c = (e && e.code) || '';
     if (c === 'auth/popup-closed-by-user' || c === 'auth/cancelled-popup-request' || c === 'auth/user-cancelled') { authBusy(btn, false); return; }
-    if (c === 'auth/popup-blocked') { try { await auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()); return; } catch (e2) {} }
-    if (ae) ae.textContent = c === 'auth/operation-not-allowed' ? 'Google sign-in isn’t enabled yet — turn it on in Firebase Console → Authentication.' : authErrMsg(e);
+    if (c === 'auth/popup-blocked') { try { await auth.signInWithRedirect(provider); return; } catch (e2) {} }
+    const msg = c === 'auth/operation-not-allowed' ? 'Google sign-in isn’t enabled. In Firebase Console → Authentication → Sign-in method, enable Google and save.'
+      : c === 'auth/unauthorized-domain' ? 'This domain isn’t authorized. Add it in Firebase Console → Authentication → Settings → Authorized domains.'
+      : c === 'auth/account-exists-with-different-credential' ? 'An account already exists with this email using a different sign-in method.'
+      : ('Google sign-in failed: ' + (c || (e && e.message) || 'unknown error') + '.');
+    if (ae) ae.textContent = msg;
+    try { pmToast(msg); } catch (e3) {}
+    authBusy(btn, false);
   }
-  authBusy(btn, false);
 }
 async function doSignIn() {
   const email = document.getElementById('siEmail').value.trim();
@@ -1613,14 +1644,64 @@ async function doSignUp() {
   } catch (e) { err.textContent = authErrMsg(e); authBusy(btn, false); }
 }
 async function doSignOut() { await auth.signOut(); }
-async function doReset() {
+// Fallback: Firebase's built-in reset link (works even if the OTP email provider isn't configured).
+async function sendResetLink() {
   const email = document.getElementById('rstEmail').value.trim();
   const err = document.getElementById('rstErr'); err.style.color = ''; err.textContent = '';
   if (!email || !EMAIL_RE.test(email)) { err.textContent = 'Please enter a valid email address.'; return; }
-  const btn = document.getElementById('rstBtn'); authBusy(btn, true, 'Sending…');
-  try { await auth.sendPasswordResetEmail(email); err.style.color = 'var(--green)'; err.textContent = 'Reset link sent — check your inbox (and spam). The link expires in ~1 hour.'; }
+  try { await auth.sendPasswordResetEmail(email); err.style.color = 'var(--green)'; err.textContent = 'Reset link sent — check your inbox (and spam).'; }
   catch (e) { err.textContent = authErrMsg(e); }
+}
+// 6-digit OTP reset flow
+let _resetEmail = '';
+function otpInputs() { return Array.from(document.querySelectorAll('#otpBox .otp-inp')); }
+function otpValue() { return otpInputs().map(i => i.value).join(''); }
+function otpAdvance(el) { el.value = (el.value || '').replace(/\D/g, '').slice(0, 1); if (el.value) { const n = el.nextElementSibling; if (n && n.classList && n.classList.contains('otp-inp')) n.focus(); } }
+function otpBack(e, el) { if (e.key === 'Backspace' && !el.value) { const p = el.previousElementSibling; if (p && p.classList && p.classList.contains('otp-inp')) p.focus(); } else if (e.key === 'Enter') { verifyResetCode(); } }
+function otpPaste(e) { e.preventDefault(); const t = (((e.clipboardData || window.clipboardData).getData('text')) || '').replace(/\D/g, '').slice(0, 6); const ins = otpInputs(); for (let i = 0; i < ins.length; i++) ins[i].value = t[i] || ''; (ins[Math.min(t.length, ins.length - 1)] || ins[0]).focus(); }
+async function sendResetCode() {
+  const email = document.getElementById('rstEmail').value.trim();
+  const err = document.getElementById('rstErr'); err.style.color = ''; err.textContent = '';
+  if (!email || !EMAIL_RE.test(email)) { err.textContent = 'Please enter a valid email address.'; return; }
+  const btn = document.getElementById('rstBtn'); authBusy(btn, true, 'Sending code…');
+  try {
+    const r = await fetch(SENDOTP_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email }) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(d.error || 'send_failed');
+    _resetEmail = email;
+    document.getElementById('rstEmailEcho').textContent = email;
+    otpInputs().forEach(i => i.value = ''); document.getElementById('rstNewPass').value = '';
+    document.getElementById('resetStep1').style.display = 'none';
+    document.getElementById('resetStep2').style.display = '';
+    setTimeout(() => { const f = otpInputs()[0]; if (f) f.focus(); }, 60);
+  } catch (e) {
+    err.textContent = (String(e.message) === 'email_not_configured') ? 'Email codes aren’t set up yet — use “reset link” instead.' : 'Could not send the code. Try again, or use the reset link.';
+  }
   authBusy(btn, false);
+}
+async function resendResetCode() {
+  const err = document.getElementById('rst2Err'); err.style.color = ''; err.textContent = '';
+  try { const r = await fetch(SENDOTP_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: _resetEmail }) }); if (!r.ok) throw 0; err.style.color = 'var(--green)'; err.textContent = 'A new code is on its way.'; }
+  catch (e) { err.textContent = 'Could not resend — try again in a moment.'; }
+}
+function resetBackToEmail() { document.getElementById('resetStep2').style.display = 'none'; document.getElementById('resetStep1').style.display = ''; }
+async function verifyResetCode() {
+  const code = otpValue(); const np = document.getElementById('rstNewPass').value;
+  const err = document.getElementById('rst2Err'); err.style.color = ''; err.textContent = '';
+  if (code.length !== 6) { err.textContent = 'Enter the 6-digit code.'; return; }
+  if (np.length < 6) { err.textContent = 'New password must be at least 6 characters.'; return; }
+  const btn = document.getElementById('rstVerifyBtn'); authBusy(btn, true, 'Resetting…');
+  try {
+    const r = await fetch(VERIFYOTP_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: _resetEmail, code: code, newPassword: np }) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok || !d.ok) {
+      const m = { expired: 'That code expired — tap “Resend code”.', invalid_code: 'Incorrect code — check it and try again.', too_many_attempts: 'Too many attempts — resend a new code.', no_code: 'No active code — resend one.', weak_password: 'Password must be at least 6 characters.' };
+      throw new Error(m[d.error] || 'Could not reset your password. Please try again.');
+    }
+    await applyPersistence(true);
+    try { await auth.signInWithEmailAndPassword(_resetEmail, np); } catch (e) {}
+    try { pmToast('Password reset — you’re signed in.'); } catch (e) {}
+  } catch (e) { err.textContent = e.message; authBusy(btn, false); }
 }
 function showLegal(kind) {
   const box = document.getElementById('modalBox');
@@ -1656,6 +1737,7 @@ function hideLoading() {
   buildIndexStrip();
 }
 
+auth.getRedirectResult().catch(e => { const c = (e && e.code) || ''; if (c && c !== 'auth/no-auth-event') { try { pmToast(authErrMsg(e)); } catch (_) {} } });
 auth.onAuthStateChanged(user => {
   if (user) {
     UID = user.uid;

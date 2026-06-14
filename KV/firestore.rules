@@ -101,5 +101,10 @@ service cloud.firestore {
       allow read, update: if request.auth != null && request.auth.uid == uid;
       allow create, delete: if false;
     }
+
+    // ── OTP reset codes (Cloud Functions only via Admin SDK; never client-accessible) ──
+    match /otp/{id} {
+      allow read, write: if false;
+    }
   }
 }

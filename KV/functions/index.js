@@ -31,6 +31,8 @@ admin.initializeApp();
 
 const FINNHUB_API_KEY = defineSecret('FINNHUB_API_KEY');
 const OPENROUTER_API_KEY = defineSecret('OPENROUTER_API_KEY');
+const RESEND_API_KEY = defineSecret('RESEND_API_KEY');
+const crypto = require('crypto');
 
 const FINNHUB_BASE = 'https://finnhub.io/api/v1';
 
@@ -1105,6 +1107,88 @@ exports.assistant = onRequest(
         ? "The free AI model is rate-limited right now — please wait a minute and try again."
         : "The assistant is temporarily unavailable. Please try again shortly.";
       res.status(200).json({ reply: msg, error: String(e), toolsUsed });
+    }
+  }
+);
+
+// ── 6-digit OTP password reset (sendOtp / verifyOtp) ─────────────────────────
+// sendOtp generates a code, stores a salted SHA-256 hash + expiry in Firestore (otp/{id},
+// Admin-only) and emails it via Resend. verifyOtp checks the code and, on success, resets
+// the password via the Admin SDK. Requires the RESEND_API_KEY secret and a sender address
+// (onboarding@resend.dev works for testing; use no-reply@sparksfinance.ai after verifying
+// the domain in Resend).
+const OTP_FROM = 'Sparks Finance <onboarding@resend.dev>';
+const OTP_TTL_MS = 10 * 60 * 1000;   // codes valid 10 minutes
+const OTP_RESEND_MS = 60 * 1000;     // min 60s between sends
+const OTP_MAX_ATTEMPTS = 5;
+function otpKey(email) { return crypto.createHash('sha256').update(email.toLowerCase()).digest('hex'); }
+function otpHash(code, email) { return crypto.createHash('sha256').update(code + '|' + email.toLowerCase() + '|sparks-otp-v1').digest('hex'); }
+async function sendEmailResend(to, subject, html, key) {
+  const r = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: OTP_FROM, to: [to], subject, html })
+  });
+  if (!r.ok) { const t = await r.text().catch(() => ''); throw new Error('resend ' + r.status + ': ' + t.slice(0, 180)); }
+  return true;
+}
+function otpEmailHtml(code) {
+  return '<div style="font-family:Inter,Arial,sans-serif;max-width:480px;margin:auto;padding:24px;color:#202124">' +
+    '<div style="font-size:20px;font-weight:700;color:#1a73e8;margin-bottom:6px">Sparks Finance</div>' +
+    '<p style="font-size:15px">Your password reset code is:</p>' +
+    '<div style="font-size:34px;font-weight:800;letter-spacing:8px;background:#f1f3f4;border-radius:10px;padding:16px;text-align:center;margin:14px 0">' + code + '</div>' +
+    '<p style="font-size:13px;color:#5f6368">This code expires in 10 minutes. If you didn’t request it, you can safely ignore this email.</p></div>';
+}
+exports.sendOtp = onRequest(
+  { region: 'us-central1', cors: true, secrets: [RESEND_API_KEY] },
+  async (req, res) => {
+    try {
+      const email = String((req.body && req.body.email) || '').trim().toLowerCase();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { res.status(400).json({ error: 'invalid_email' }); return; }
+      const key = RESEND_API_KEY.value();
+      if (!key) { res.status(500).json({ error: 'email_not_configured' }); return; }
+      const db = admin.firestore();
+      let exists = true;
+      try { await admin.auth().getUserByEmail(email); } catch (e) { exists = false; }
+      const ref = db.collection('otp').doc(otpKey(email));
+      const snap = await ref.get();
+      if (snap.exists) { const d = snap.data(); if (d.sentAt && (Date.now() - d.sentAt) < OTP_RESEND_MS) { res.json({ ok: true, throttled: true }); return; } }
+      if (exists) {
+        const code = '' + crypto.randomInt(100000, 1000000);
+        await ref.set({ hash: otpHash(code, email), expires: Date.now() + OTP_TTL_MS, attempts: 0, sentAt: Date.now(), purpose: 'reset' });
+        await sendEmailResend(email, 'Your Sparks Finance reset code', otpEmailHtml(code), key);
+      }
+      res.json({ ok: true });   // same response whether or not the email is registered (no enumeration)
+    } catch (e) {
+      logger.error('sendOtp failed', { error: String(e) });
+      res.status(500).json({ error: 'send_failed', detail: String(e).slice(0, 180) });
+    }
+  }
+);
+exports.verifyOtp = onRequest(
+  { region: 'us-central1', cors: true },
+  async (req, res) => {
+    try {
+      const email = String((req.body && req.body.email) || '').trim().toLowerCase();
+      const code = String((req.body && req.body.code) || '').trim();
+      const newPassword = String((req.body && req.body.newPassword) || '');
+      if (!email || !/^\d{6}$/.test(code)) { res.status(400).json({ error: 'bad_request' }); return; }
+      if (newPassword.length < 6) { res.status(400).json({ error: 'weak_password' }); return; }
+      const db = admin.firestore();
+      const ref = db.collection('otp').doc(otpKey(email));
+      const snap = await ref.get();
+      if (!snap.exists) { res.status(400).json({ error: 'no_code' }); return; }
+      const d = snap.data();
+      if (Date.now() > d.expires) { await ref.delete().catch(() => {}); res.status(400).json({ error: 'expired' }); return; }
+      if ((d.attempts || 0) >= OTP_MAX_ATTEMPTS) { await ref.delete().catch(() => {}); res.status(429).json({ error: 'too_many_attempts' }); return; }
+      if (d.hash !== otpHash(code, email)) { await ref.update({ attempts: (d.attempts || 0) + 1 }).catch(() => {}); res.status(400).json({ error: 'invalid_code' }); return; }
+      const user = await admin.auth().getUserByEmail(email);
+      await admin.auth().updateUser(user.uid, { password: newPassword, emailVerified: true });
+      await ref.delete().catch(() => {});
+      res.json({ ok: true });
+    } catch (e) {
+      logger.error('verifyOtp failed', { error: String(e) });
+      res.status(500).json({ error: 'verify_failed' });
     }
   }
 );
