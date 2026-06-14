@@ -19,7 +19,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
-<script src="symbols.js"></script><!-- full US listings catalog (Nasdaq + NYSE/AMEX): window.US_SYMBOLS -->
+<script src="/symbols.js"></script><!-- full US listings catalog (Nasdaq + NYSE/AMEX): window.US_SYMBOLS -->
 
 <style>
 /* ════════ Google Finance Beta design tokens ════════ */
@@ -70,8 +70,63 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .auth-logo{font-size:22px;font-weight:700;color:var(--text);text-align:center;margin-bottom:4px;display:flex;align-items:center;justify-content:center;gap:8px;}.auth-logo .spark{color:var(--blue);display:flex;}
 .auth-sub{font-size:12px;color:var(--text-3);text-align:center;margin-bottom:26px;}
 .auth-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:20px;}
-.auth-tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:500;cursor:pointer;color:var(--text-3);border-bottom:2px solid transparent;transition:all .15s;}
+.auth-tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-3);background:none;border:none;border-bottom:2px solid transparent;transition:all .15s;font-family:inherit;}
 .auth-tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.auth-feat{display:flex;flex-direction:column;gap:6px;margin:-16px 0 22px;}
+.auth-feat-row{font-size:12px;color:var(--text-2);}
+.auth-row{margin-top:10px;text-align:center;}
+.auth-link{color:var(--blue);font-size:12px;cursor:pointer;text-decoration:none;}
+.auth-link:hover{text-decoration:underline;}
+.auth-hint{font-size:11px;color:var(--text-3);margin-top:5px;}
+.auth-strength{height:4px;border-radius:3px;background:var(--border-soft);margin-top:8px;overflow:hidden;}
+.auth-strength-bar{height:100%;width:0;border-radius:3px;background:var(--red);transition:width .2s,background .2s;}
+.auth-consent{font-size:11px;color:var(--text-3);margin-top:12px;text-align:center;line-height:1.5;}
+.google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px;border:1px solid var(--border);border-radius:24px;background:var(--bg);color:var(--text);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s,box-shadow .15s,border-color .15s;}
+.google-btn:hover{background:var(--surface-hover);box-shadow:var(--shadow);}
+.google-btn .g-ico{display:inline-flex;}
+.auth-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--text-3);font-size:11px;}
+.auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border);}
+.pw-wrap{position:relative;}
+.pw-wrap input{padding-right:60px;}
+.pw-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-3);font-size:12px;font-weight:600;cursor:pointer;padding:4px 8px;font-family:inherit;}
+.pw-toggle:hover{color:var(--blue);}
+.auth-check{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-2);margin-top:12px;cursor:pointer;}
+.auth-check input{width:auto;margin:0;}
+.auth-reset-info{font-size:12px;color:var(--text-2);line-height:1.5;margin-bottom:8px;}
+.auth-secure{font-size:11px;color:var(--text-3);text-align:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--border-soft);line-height:1.5;}
+.auth-btn:disabled,.btn-busy{opacity:.7;cursor:default;}
+.btn-spin{display:inline-block;width:13px;height:13px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-2px;margin-right:4px;opacity:.75;}
+.legal-meta{font-size:11px;color:var(--text-3);margin:-6px 0 12px;}
+.legal-body{max-height:50vh;overflow-y:auto;font-size:13px;line-height:1.6;color:var(--text-2);}
+.legal-body p{margin:0 0 10px;}
+.legal-body b{color:var(--text);}
+@keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(3px)}30%,50%,70%{transform:translateX(-5px)}40%,60%{transform:translateX(5px)}}
+.shake{animation:shake .5s;border-color:var(--red)!important;}
+.research-hint{font-size:12px;color:var(--text-3);margin-bottom:18px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.ic-info{cursor:help;color:var(--text-3);font-size:13px;}
+.ex-chip{cursor:pointer;color:var(--blue);font-weight:600;padding:2px 8px;border:1px solid var(--border);border-radius:14px;font-size:11px;}
+.ex-chip:hover{background:var(--blue-soft);}
+.gradecol{display:none;}
+.tname{display:inline-block;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom;}
+.sig-legend{font-size:11px;color:var(--text-3);margin:-2px 0 10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.sig-legend .dot{display:inline-block;}
+.brk-x{flex-shrink:0;background:none;border:none;color:var(--red);font-size:18px;line-height:1;cursor:pointer;padding:0 2px 0 8px;opacity:.65;}
+.brk-x:hover{opacity:1;}
+.brk-bar:hover .brk-scrl span{animation-play-state:paused;}
+.pf-toolbar-lbl{font-size:13px;color:var(--text-2);font-weight:600;align-self:center;margin-right:2px;}
+.tour-overlay{position:fixed;inset:0;z-index:9000;}
+.tour-hole{position:fixed;border-radius:10px;box-shadow:0 0 0 9999px rgba(15,23,42,.55);transition:top .25s ease,left .25s ease,width .25s ease,height .25s ease;pointer-events:none;}
+.tour-card{position:fixed;width:320px;max-width:calc(100vw - 28px);background:var(--surface-2);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-lg);padding:16px 18px;z-index:9002;}
+.tour-step{font-size:11px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+.tour-title{font-size:16px;font-weight:700;color:var(--text);margin:4px 0 6px;}
+.tour-body{font-size:13px;color:var(--text-2);line-height:1.5;}
+.tour-actions{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:10px;}
+.tour-skip{background:none;border:none;color:var(--text-3);font-size:12px;cursor:pointer;font-family:inherit;}
+.tour-nav{display:flex;gap:8px;}
+.tour-btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+.tour-btn:hover{border-color:var(--blue);}
+.tour-primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+@media(prefers-reduced-motion:reduce){.tour-hole{transition:none;}}
 .auth-form{display:none;}.auth-form.active{display:block;}
 .auth-form label{display:block;font-size:12px;font-weight:500;color:var(--text-2);margin-bottom:5px;margin-top:14px;}
 .auth-form input{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:8px;font-size:14px;outline:none;background:var(--bg);color:var(--text);transition:border-color .15s,box-shadow .15s;font-family:inherit;}
@@ -121,7 +176,7 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .ticker-track{display:inline-flex;white-space:nowrap;will-change:transform;animation:tickerscroll 90s linear infinite;}
 .ticker:hover .ticker-track{animation-play-state:paused;}
 @keyframes tickerscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.tk-item{display:inline-flex;align-items:baseline;gap:7px;padding:0 16px;border-right:1px solid var(--border-soft);}
+.tk-item{display:inline-flex;align-items:baseline;gap:7px;padding:0 16px;border-right:1px solid var(--border-soft);cursor:default;}
 .tk-sym{font-weight:600;font-size:12px;color:var(--text);}
 .tk-px{font-size:12px;color:var(--text-2);white-space:nowrap;}
 .tk-px .tk-val{color:var(--text);font-weight:600;}
@@ -660,34 +715,53 @@ body.sidebar-open .nav-scrim{display:block;}
 <div id="authPanel" class="hidden">
   <div class="auth-box">
     <div class="auth-logo"><span class="spark" id="authSpark"></span> Sparks Finance</div>
-    <div class="auth-sub">Stock Intelligence Platform</div>
+    <div class="auth-sub">AI-powered stock intelligence &amp; portfolio tracking</div>
+    <div class="auth-feat">
+      <div class="auth-feat-row">📊 Track portfolios, P&amp;L and 52-week ranges</div>
+      <div class="auth-feat-row">🔔 Pre-market &amp; price-move alerts</div>
+      <div class="auth-feat-row">🤖 Ask the built-in AI analyst about any stock</div>
+    </div>
     <div class="auth-tabs">
-      <div class="auth-tab active" onclick="showPanel('signin')">Sign In</div>
-      <div class="auth-tab" onclick="showPanel('signup')">Sign Up</div>
-      <div class="auth-tab" onclick="showPanel('reset')">Reset</div>
+      <button type="button" class="auth-tab active" data-panel="signin" onclick="showPanel('signin')">Sign In</button>
+      <button type="button" class="auth-tab" data-panel="signup" onclick="showPanel('signup')">Sign Up</button>
+      <button type="button" class="auth-tab" data-panel="reset" onclick="showPanel('reset')">Reset Password</button>
+    </div>
+    <div id="googleAuthBlock">
+      <button type="button" class="google-btn" onclick="signInWithGoogle()"><span class="g-ico"><svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span> Continue with Google</button>
+      <div class="auth-divider"><span>or use your email</span></div>
     </div>
     <div id="authFormSignin" class="auth-form active">
       <label>Email</label>
       <input type="email" id="siEmail" placeholder="you@example.com" autocomplete="email"/>
       <label>Password</label>
-      <input type="password" id="siPass" placeholder="Password" autocomplete="current-password"/>
-      <button class="auth-btn" onclick="doSignIn()">Sign In</button>
+      <div class="pw-wrap"><input type="password" id="siPass" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doSignIn()"/><button type="button" class="pw-toggle" onclick="togglePw('siPass',this)" aria-label="Show password">Show</button></div>
+      <label class="auth-check"><input type="checkbox" id="siRemember" checked/> <span>Keep me signed in</span></label>
+      <button type="button" class="auth-btn" id="siBtn" onclick="doSignIn()">Sign In</button>
+      <div class="auth-row"><a class="auth-link" onclick="showPanel('reset')">Forgot password?</a></div>
       <div class="auth-err" id="siErr"></div>
     </div>
     <div id="authFormSignup" class="auth-form">
       <label>Email</label>
       <input type="email" id="suEmail" placeholder="you@example.com" autocomplete="email"/>
       <label>Password</label>
-      <input type="password" id="suPass" placeholder="Min 6 characters" autocomplete="new-password"/>
-      <button class="auth-btn" onclick="doSignUp()">Create Account</button>
+      <div class="pw-wrap"><input type="password" id="suPass" placeholder="At least 6 characters" autocomplete="new-password" oninput="authStrength()"/><button type="button" class="pw-toggle" onclick="togglePw('suPass',this)" aria-label="Show password">Show</button></div>
+      <div class="auth-strength"><div class="auth-strength-bar" id="suStrengthBar"></div></div>
+      <div class="auth-hint" id="suHint">Use at least 6 characters.</div>
+      <label>Confirm password</label>
+      <div class="pw-wrap"><input type="password" id="suPass2" placeholder="Re-enter password" autocomplete="new-password" onkeydown="if(event.key==='Enter')doSignUp()"/><button type="button" class="pw-toggle" onclick="togglePw('suPass2',this)" aria-label="Show password">Show</button></div>
+      <button type="button" class="auth-btn" id="suBtn" onclick="doSignUp()">Create Account</button>
+      <div class="auth-consent">By creating an account you agree to our <a class="auth-link" onclick="showLegal('terms')">Terms</a> &amp; <a class="auth-link" onclick="showLegal('privacy')">Privacy Policy</a>.</div>
       <div class="auth-err" id="suErr"></div>
     </div>
     <div id="authFormReset" class="auth-form">
+      <div class="auth-reset-info">Enter your account email and we’ll send a secure link to reset your password. The link expires in about an hour.</div>
       <label>Email</label>
-      <input type="email" id="rstEmail" placeholder="you@example.com"/>
-      <button class="auth-btn" onclick="doReset()">Send Reset Email</button>
+      <input type="email" id="rstEmail" placeholder="you@example.com" onkeydown="if(event.key==='Enter')doReset()"/>
+      <button type="button" class="auth-btn" id="rstBtn" onclick="doReset()">Send Reset Link</button>
+      <div class="auth-row"><a class="auth-link" onclick="showPanel('signin')">← Back to Sign In</a></div>
       <div class="auth-err" id="rstErr"></div>
     </div>
+    <div class="auth-secure">🔒 Protected by Google Firebase Authentication · We never sell your data.</div>
   </div>
 </div>
 
@@ -711,6 +785,7 @@ body.sidebar-open .nav-scrim{display:block;}
     <div class="nav-right">
       <div class="live-badge"><span class="live-dot"></span> Live</div>
       <div class="scan-t">Updated <strong id="scanT">—</strong></div>
+      <button class="icon-btn" onclick="startTour(true)" title="Take a tour" aria-label="Take a tour" style="font-weight:700;font-size:15px;">?</button>
       <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle theme"></button>
       <span class="user-badge" id="userBadge"></span>
       <button class="sign-out-btn" onclick="doSignOut()">Sign out</button>
@@ -718,14 +793,14 @@ body.sidebar-open .nav-scrim{display:block;}
   </nav>
 
   <div class="mkt-bar" id="mktBar">
-    <div class="mkt-state mkt-gray" id="mktState">Market</div>
+    <div class="mkt-state mkt-gray" id="mktState" title="Overall market trend signal (e.g. Uptrend / Under Pressure / Correction), based on index action and breadth.">Market</div>
     <div id="indexStrip" class="ticker"></div>
-    <div class="mkt-stat"><span class="mkt-lbl">Breadth</span><span class="mkt-val" id="mBreadth">—</span></div>
-    <div class="mkt-stat"><span class="mkt-lbl">Dist Days</span><span class="mkt-val" id="mDist">—</span></div>
+    <div class="mkt-stat" title="Market breadth — the share of stocks advancing. Higher = broader participation and a healthier rally."><span class="mkt-lbl">Breadth</span><span class="mkt-val" id="mBreadth">—</span></div>
+    <div class="mkt-stat" title="Distribution days — recent higher-volume down sessions in the major indexes. More days = heavier institutional selling pressure."><span class="mkt-lbl">Dist Days</span><span class="mkt-val" id="mDist">—</span></div>
     <div class="mkt-adv" id="mktAdv">—</div>
   </div>
 
-  <div class="brk-bar hidden" id="brkBar"><div class="brk-lbl">BREAKING</div><div class="brk-scrl"><span id="brkTxt">—</span></div></div>
+  <div class="brk-bar hidden" id="brkBar"><div class="brk-lbl">BREAKING</div><div class="brk-scrl"><span id="brkTxt">—</span></div><button class="brk-x" onclick="dismissBreaking()" title="Dismiss" aria-label="Dismiss breaking news">×</button></div>
 
   <div class="layout">
     <div class="nav-scrim" id="navScrim" onclick="document.body.classList.remove('sidebar-open')"></div>
@@ -790,13 +865,14 @@ body.sidebar-open .nav-scrim{display:block;}
         </div>
         <div id="tab-research" class="tab-panel">
           <div class="page-title">Research</div>
-          <div style="display:flex;gap:10px;margin-bottom:18px;align-items:center;">
+          <div style="display:flex;gap:10px;margin-bottom:8px;align-items:center;">
             <div class="ac-wrap" style="flex:1;max-width:340px;">
-              <input type="text" id="researchInput" class="modal-input" placeholder="Enter a ticker symbol to research" oninput="acFilter(this,'researchAC','research')" onkeydown="acKey(event,'researchAC','research')" autocomplete="off"/>
+              <input type="text" id="researchInput" class="modal-input" placeholder="Search a ticker or company (e.g. AAPL, NVDA)…" oninput="acFilter(this,'researchAC','research')" onkeydown="acKey(event,'researchAC','research')" autocomplete="off"/>
               <div id="researchAC" class="ac-list" style="display:none"></div>
             </div>
             <button class="pf-btn pf-btn-primary" onclick="runResearch()">Research</button>
           </div>
+          <div class="research-hint"><span class="ic-info" title="8 specialist AI agents — fundamentals, technicals, earnings, analyst ratings, valuation, insider activity, risk and catalysts — analyze the stock. Full deep results take roughly 20–40s.">ⓘ</span> 8-Agent Analysis · try <span class="ex-chip" onclick="goResearch('AAPL')">AAPL</span> <span class="ex-chip" onclick="goResearch('NVDA')">NVDA</span> <span class="ex-chip" onclick="goResearch('TSLA')">TSLA</span></div>
           <div id="researchContent"></div>
         </div>
         <div id="tab-discovery" class="tab-panel"><div class="page-title">Discovery</div><div id="discoveryContent"></div></div>
@@ -822,23 +898,22 @@ body.sidebar-open .nav-scrim{display:block;}
             <select id="scrSignal" onchange="applyFilter('signal', this.value)"><option value="">All signals</option><option value="STRONG BUY">Strong Buy</option><option value="WATCH">Watch</option><option value="WEAK">Weak</option></select>
             <select id="scrSector" onchange="applyFilter('sector', this.value)"><option value="">All sectors</option></select>
             <select id="scrMcap" onchange="applyFilter('mcapBucket', this.value)"><option value="">Any cap</option><option value="small">Small (&lt;$2B)</option><option value="mid">Mid ($2–10B)</option><option value="large">Large ($10–200B)</option><option value="mega">Mega (&gt;$200B)</option></select>
-            <input id="scrRsiMin" type="number" placeholder="RSI≥" oninput="applyFilter('rsiMin', this.value===''?null:+this.value)"/>
-            <input id="scrRsiMax" type="number" placeholder="RSI≤" oninput="applyFilter('rsiMax', this.value===''?null:+this.value)"/>
-            <input id="scrEps" type="number" placeholder="EPS%≥" oninput="applyFilter('epsMin', this.value===''?null:+this.value)"/>
-            <input id="scrRev" type="number" placeholder="Rev%≥" oninput="applyFilter('revMin', this.value===''?null:+this.value)"/>
-            <input id="scrPe" type="number" placeholder="P/E≤" oninput="applyFilter('peMax', this.value===''?null:+this.value)"/>
-            <button id="chipNearHigh" class="scr-chip" onclick="toggleChip(this,'nearHigh')">Near 52w High</button>
-            <button id="chipCatalyst" class="scr-chip" onclick="toggleChip(this,'hasCatalyst')">Catalyst</button>
-            <button id="chipSqueeze" class="scr-chip" onclick="toggleChip(this,'squeeze')">Squeeze</button>
-            <button id="chipAi" class="scr-chip" onclick="toggleChip(this,'aiExposure')">AI Exposure</button>
+            <input id="scrRsiMin" type="number" placeholder="RSI≥" title="Minimum RSI (0–100). Typical momentum range: 50–70." oninput="applyFilter('rsiMin', this.value===''?null:+this.value)"/>
+            <input id="scrRsiMax" type="number" placeholder="RSI≤" title="Maximum RSI (0–100). Use ~70–80 to avoid overbought names." oninput="applyFilter('rsiMax', this.value===''?null:+this.value)"/>
+            <input id="scrEps" type="number" placeholder="EPS%≥" title="Minimum year-over-year EPS growth %." oninput="applyFilter('epsMin', this.value===''?null:+this.value)"/>
+            <input id="scrRev" type="number" placeholder="Rev%≥" title="Minimum year-over-year revenue growth %." oninput="applyFilter('revMin', this.value===''?null:+this.value)"/>
+            <input id="scrPe" type="number" placeholder="P/E≤" title="Maximum forward P/E (lower = cheaper valuation)." oninput="applyFilter('peMax', this.value===''?null:+this.value)"/>
+            <button id="chipNearHigh" class="scr-chip" title="Stocks trading within ~10% of their 52-week high" onclick="toggleChip(this,'nearHigh')">Near 52w High</button>
+            <button id="chipCatalyst" class="scr-chip" title="Stocks with a recent news catalyst or breaking story" onclick="toggleChip(this,'hasCatalyst')">Catalyst</button>
+            <button id="chipSqueeze" class="scr-chip" title="Volatility-squeeze setups (a tight range that may expand soon)" onclick="toggleChip(this,'squeeze')">Squeeze</button>
+            <button id="chipAi" class="scr-chip" title="Companies with meaningful AI exposure" onclick="toggleChip(this,'aiExposure')">AI Exposure</button>
             <span class="scr-divider"></span>
             <div class="scr-presets">
-              <button class="pf-btn pf-btn-outline" onclick="applyPreset('growth')">Growth</button>
-              <button class="pf-btn pf-btn-outline" onclick="applyPreset('value')">Value</button>
-              <button class="pf-btn pf-btn-outline" onclick="applyPreset('momentum')">Momentum</button>
-              <button class="pf-btn pf-btn-outline" onclick="applyPreset('smallcap')">Small-cap</button>
-              <button class="pf-btn pf-btn-outline" onclick="applyPreset('ai')">AI</button>
-              <button class="pf-btn pf-btn-outline" onclick="applyPreset('squeeze')">Squeeze</button>
+              <button class="pf-btn pf-btn-outline" title="High EPS &amp; revenue growth" onclick="applyPreset('growth')">Growth</button>
+              <button class="pf-btn pf-btn-outline" title="Low forward P/E with reasonable fundamentals" onclick="applyPreset('value')">Value</button>
+              <button class="pf-btn pf-btn-outline" title="Strong 3-month price momentum &amp; RSI" onclick="applyPreset('momentum')">Momentum</button>
+              <button class="pf-btn pf-btn-outline" title="Smaller-cap names (under $2B)" onclick="applyPreset('smallcap')">Small-cap</button>
+              <button class="pf-btn pf-btn-outline" title="Companies with meaningful AI exposure" onclick="applyPreset('ai')">AI</button>
               <button class="pf-btn pf-btn-outline" onclick="clearScreen()">Clear</button>
             </div>
             <div class="col-menu">
@@ -853,20 +928,21 @@ body.sidebar-open .nav-scrim{display:block;}
             </div>
             <span class="scr-count" id="scrCount"></span>
           </div>
+          <div class="sig-legend">Signals checklist: <span class="dot p"></span> criterion met · <span class="dot f"></span> not met — hover any dot for its name.</div>
           <div class="twrap"><table id="scanTable"><thead><tr>
-            <th onclick="st('ticker')">Ticker</th><th onclick="st('signal')">Signal</th>
-            <th onclick="st('combined_score')">Score</th><th onclick="st('setup_quality')">Grade</th>
-            <th onclick="st('price')">Price</th><th onclick="st('rsi')">RSI</th>
-            <th onclick="st('vol_ratio')">Vol×</th><th onclick="st('momentum_3m')">3M%</th>
-            <th onclick="st('eps_growth')">EPS%</th>
-            <th class="xcol xcol-rev" onclick="st('rev_growth')">Rev%</th>
-            <th class="xcol xcol-pe" onclick="st('fwd_pe')">P/E</th>
-            <th class="xcol xcol-analyst" onclick="st('analyst_rating')">Analyst</th>
-            <th class="xcol xcol-mcap" onclick="st('market_cap_b')">Mkt Cap</th>
+            <th onclick="st('ticker')">Ticker</th><th onclick="st('signal')" title="Overall call: Strong Buy / Watch / Weak">Signal</th>
+            <th onclick="st('combined_score')" title="Combined 0–100 score across all factors">Score</th><th class="gradecol" onclick="st('setup_quality')">Grade</th>
+            <th onclick="st('price')">Price</th><th onclick="st('rsi')" title="Relative Strength Index (14): above 70 overbought, below 30 oversold">RSI</th>
+            <th onclick="st('vol_ratio')" title="Volume ratio — today's volume vs its average (1.5× = 50% above normal)">Vol×</th><th onclick="st('momentum_3m')" title="Price change over the last 3 months">3M%</th>
+            <th onclick="st('eps_growth')" title="Year-over-year earnings-per-share growth">EPS%</th>
+            <th class="xcol xcol-rev" onclick="st('rev_growth')" title="Year-over-year revenue growth">Rev%</th>
+            <th class="xcol xcol-pe" onclick="st('fwd_pe')" title="Forward price-to-earnings ratio">P/E</th>
+            <th class="xcol xcol-analyst" onclick="st('analyst_rating')" title="Wall Street analyst consensus rating">Analyst</th>
+            <th class="xcol xcol-mcap" onclick="st('market_cap_b')" title="Market capitalization">Mkt Cap</th>
             <th class="xcol xcol-sector" onclick="st('sector')">Sector</th>
-            <th onclick="st('days_to_earnings')">Earn</th>
-            <th onclick="st('pct_from_high')">vsHi%</th><th onclick="st('rr_ratio')">R:R</th>
-            <th>Signals</th>
+            <th onclick="st('days_to_earnings')" title="Days until the next earnings report">Earn</th>
+            <th onclick="st('pct_from_high')" title="Percent below the 52-week high (closer to 0 = nearer its high)">vsHi%</th><th onclick="st('rr_ratio')" title="Risk-to-reward ratio of the setup (2.5:1 = 2.5× upside vs downside)">R:R</th>
+            <th title="Setup checklist — each dot is one criterion (green = pass, grey = fail). Hover a dot for its name.">Signals</th>
           </tr></thead><tbody id="tblBody"></tbody></table></div>
         </div>
         <div id="tab-chart" class="tab-panel">
@@ -914,7 +990,7 @@ body.sidebar-open .nav-scrim{display:block;}
           <div class="cwrap chart-sub" id="wrapMACD" style="display:none"><div class="ctitle">MACD (12, 26, 9)</div><div class="cbox cbox-sm"><canvas id="cMACD"></canvas></div></div>
           <div class="chart-grid stagger-in">
             <div class="cwrap"><div class="ctitle" id="ttlAlloc">Portfolio Allocation</div><div class="cbox"><canvas id="cAlloc"></canvas></div></div>
-            <div class="cwrap"><div class="ctitle">Holdings Performance <span class="ct-sub">(all-time %)</span></div><div class="cbox"><canvas id="cPerf"></canvas></div></div>
+            <div class="cwrap"><div class="ctitle">Holdings Performance <span class="ct-sub">(all-time % · capped for scale, hover for exact)</span></div><div class="cbox"><canvas id="cPerf"></canvas></div></div>
             <div class="cwrap"><div class="ctitle">Sector Exposure</div><div class="cbox"><canvas id="cSector"></canvas></div></div>
             <div class="cwrap"><div class="ctitle">Valuation vs Growth <span class="ct-sub">(bubble = mkt cap)</span></div><div class="cbox"><canvas id="cValGrow"></canvas></div></div>
             <div class="cwrap"><div class="ctitle">Risk / Reward vs Score</div><div class="cbox"><canvas id="cRR"></canvas></div></div>
@@ -1068,6 +1144,7 @@ let currentResearchTicker = null;
 let picksShown = 24; // how many home cards to render (Fix #5 — show WATCH/WEAK too)
 const TAB_NAMES = ['cards','summary','portfolio','watchlist','useralerts','research','discovery','earnings','health','catalysts','market','table','chart'];
 const critLabels = {trend_ok:'Stage 2',near_high:'Near High',rsi_ok:'RSI',volume_ok:'Volume',eps_ok:'EPS 20%+',rev_ok:'Rev 10%+',vcp_ok:'VCP',rs_ok:'RS High',vdu_ok:'Vol DU',insider_ok:'Insider'};
+const CRIT_TIP = {trend_ok:'Stage 2 uptrend — price above key moving averages',near_high:'Trading near its 52-week high',rsi_ok:'RSI in a healthy momentum range',volume_ok:'Above-average volume confirmation',eps_ok:'Strong earnings-per-share growth (20%+)',rev_ok:'Solid revenue growth (10%+)',vcp_ok:'VCP — Volatility Contraction Pattern (tightening price ahead of a potential breakout)',rs_ok:'RS — high Relative Strength vs the market',vdu_ok:'Volume Dry-Up — a low-volume pullback (bullish)',insider_ok:'Recent insider buying'};
 
 // ── Full Table screening state (#12) — display/filter only, never touches scoring ──
 const tableFilters = { signal:'', sector:'', mcapBucket:'', rsiMin:null, rsiMax:null, nearHigh:false, hasCatalyst:false, epsMin:null, revMin:null, peMax:null, squeeze:false, aiExposure:false, search:'' };
@@ -1319,10 +1396,20 @@ async function yahooSearch(q) {
     return (d && d.quotes) || [];
   } catch (e) { return []; }
 }
+// Single source of truth for a ticker's displayed price: prefer the live quote, fall back to the
+// (possibly stale) scan snapshot — keeps the Research panel, autocomplete and ticker bar consistent.
+function displayPrice(t) {
+  const le = liveEntry(t); if (le && le.price != null) return le.price;
+  const sd = scanStockFor(t); if (sd && sd.price != null) { const p = parseFloat(sd.price); if (!isNaN(p)) return p; }
+  return null;
+}
+let _brkDismissed = false;
+function dismissBreaking() { _brkDismissed = true; const b = document.getElementById('brkBar'); if (b) b.classList.add('hidden'); }
+function plural(n, w) { return n + ' ' + w + (Math.abs(n) === 1 ? '' : 's'); }
 function acRowHtml(disp, name, listId, context) {
   const cellId = 'acp_' + listId + '_' + disp.replace(/[^A-Za-z0-9]/g, '');
-  const sd = scanStockFor(disp);
-  const pre = sd ? ('<span class="ac-price">$' + sd.price + '</span>') : '<span class="ac-skel"></span>';
+  const dp = displayPrice(disp);
+  const pre = (dp != null) ? ('<span class="ac-price">$' + dp.toFixed(2) + '</span>') : '<span class="ac-skel"></span>';
   return '<div class="ac-item" data-sym="' + disp + '" onclick="acSelect(\'' + disp + '\',\'' + listId + '\',\'' + context + '\')">' +
     '<span class="ac-item-l"><span class="ac-sym">' + disp + '</span><span class="ac-name">' + (name || '') + '</span></span>' +
     '<span class="ac-item-r" id="' + cellId + '">' + pre + '</span></div>';
@@ -1443,31 +1530,120 @@ async function autofillBuyPrice(sym) {
 
 // ── Auth ──
 function showPanel(panel) {
-  ['signin','signup','reset'].forEach(p => {
-    document.getElementById('authForm' + p.charAt(0).toUpperCase() + p.slice(1)).classList.toggle('active', p === panel);
-    document.querySelectorAll('.auth-tab').forEach((t, i) => t.classList.toggle('active', ['signin','signup','reset'][i] === panel));
-  });
+  try {
+    ['signin','signup','reset'].forEach(p => { const f = document.getElementById('authForm' + p.charAt(0).toUpperCase() + p.slice(1)); if (f) f.classList.toggle('active', p === panel); });
+    document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.panel === panel));
+    const g = document.getElementById('googleAuthBlock'); if (g) g.style.display = panel === 'reset' ? 'none' : '';
+    ['siErr','suErr','rstErr'].forEach(id => { const e = document.getElementById(id); if (e) { e.textContent = ''; e.style.color = ''; } });
+  } catch (e) {}
+}
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+function authErrMsg(e) {
+  const map = {
+    'auth/invalid-email': 'Please enter a valid email address.',
+    'auth/missing-email': 'Please enter your email address.',
+    'auth/user-not-found': 'No account found with that email.',
+    'auth/wrong-password': 'Incorrect password. Try again or reset it.',
+    'auth/invalid-credential': 'Email or password is incorrect.',
+    'auth/invalid-login-credentials': 'Email or password is incorrect.',
+    'auth/email-already-in-use': 'An account with that email already exists — try signing in.',
+    'auth/weak-password': 'Password is too weak — use at least 6 characters.',
+    'auth/too-many-requests': 'Too many attempts. Please wait a moment and try again.',
+    'auth/network-request-failed': 'Network error — check your connection and try again.',
+    'auth/user-disabled': 'This account has been disabled.'
+  };
+  return map[(e && e.code) || ''] || 'Something went wrong. Please try again.';
+}
+function authStrength() {
+  const v = document.getElementById('suPass').value || '';
+  const bar = document.getElementById('suStrengthBar'); if (!bar) return;
+  let s = 0; if (v.length >= 6) s++; if (v.length >= 10) s++; if (/[A-Z]/.test(v) && /[a-z]/.test(v)) s++; if (/[0-9]/.test(v)) s++; if (/[^A-Za-z0-9]/.test(v)) s++;
+  bar.style.width = (v ? Math.max(12, Math.min(100, s * 22)) : 0) + '%';
+  bar.style.background = s <= 1 ? 'var(--red)' : s <= 3 ? 'var(--amber)' : 'var(--green)';
+}
+function authBusy(btn, on, busyText) {
+  if (!btn) return;
+  if (on) { if (btn.dataset.label == null) btn.dataset.label = btn.innerHTML; btn.disabled = true; btn.classList.add('btn-busy'); btn.innerHTML = '<span class="btn-spin"></span> ' + (busyText || 'Please wait…'); }
+  else { btn.disabled = false; btn.classList.remove('btn-busy'); if (btn.dataset.label != null) { btn.innerHTML = btn.dataset.label; delete btn.dataset.label; } }
+}
+function togglePw(id, btn) { const i = document.getElementById(id); if (!i) return; const show = i.type === 'password'; i.type = show ? 'text' : 'password'; if (btn) { btn.textContent = show ? 'Hide' : 'Show'; btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password'); } }
+async function applyPersistence(remember) { try { await auth.setPersistence(remember ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION); } catch (e) {} }
+async function signInWithGoogle() {
+  const ae = document.querySelector('.auth-form.active .auth-err'); if (ae) { ae.style.color = ''; ae.textContent = ''; }
+  const btn = document.querySelector('.google-btn'); authBusy(btn, true, 'Connecting…');
+  try {
+    await applyPersistence(true);
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    await auth.signInWithPopup(provider);
+  } catch (e) {
+    const c = (e && e.code) || '';
+    if (c === 'auth/popup-closed-by-user' || c === 'auth/cancelled-popup-request' || c === 'auth/user-cancelled') { authBusy(btn, false); return; }
+    if (c === 'auth/popup-blocked') { try { await auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()); return; } catch (e2) {} }
+    if (ae) ae.textContent = c === 'auth/operation-not-allowed' ? 'Google sign-in isn’t enabled yet — turn it on in Firebase Console → Authentication.' : authErrMsg(e);
+  }
+  authBusy(btn, false);
 }
 async function doSignIn() {
   const email = document.getElementById('siEmail').value.trim();
   const pass = document.getElementById('siPass').value;
-  document.getElementById('siErr').textContent = '';
-  try { await auth.signInWithEmailAndPassword(email, pass); }
-  catch (e) { document.getElementById('siErr').textContent = e.message; }
+  const err = document.getElementById('siErr'); err.style.color = ''; err.textContent = '';
+  if (!email || !pass) { err.textContent = 'Please enter your email and password.'; return; }
+  if (!EMAIL_RE.test(email)) { err.textContent = 'Please enter a valid email address.'; return; }
+  const btn = document.getElementById('siBtn'); authBusy(btn, true, 'Signing in…');
+  try { await applyPersistence(document.getElementById('siRemember').checked); await auth.signInWithEmailAndPassword(email, pass); }
+  catch (e) { err.textContent = authErrMsg(e); }
+  authBusy(btn, false);
 }
 async function doSignUp() {
   const email = document.getElementById('suEmail').value.trim();
   const pass = document.getElementById('suPass').value;
-  document.getElementById('suErr').textContent = '';
-  try { await auth.createUserWithEmailAndPassword(email, pass); }
-  catch (e) { document.getElementById('suErr').textContent = e.message; }
+  const pass2 = document.getElementById('suPass2').value;
+  const err = document.getElementById('suErr'); err.style.color = ''; err.textContent = '';
+  if (!email || !pass) { err.textContent = 'Please enter your email and a password.'; return; }
+  if (!EMAIL_RE.test(email)) { err.textContent = 'Please enter a valid email address.'; return; }
+  if (pass.length < 6) { err.textContent = 'Password must be at least 6 characters.'; return; }
+  if (pass !== pass2) { err.textContent = 'Passwords do not match.'; return; }
+  const btn = document.getElementById('suBtn'); authBusy(btn, true, 'Creating account…');
+  try {
+    await applyPersistence(true);
+    const cred = await auth.createUserWithEmailAndPassword(email, pass);
+    try { if (cred && cred.user && cred.user.sendEmailVerification) await cred.user.sendEmailVerification(); } catch (e) {}
+    try { pmToast('Account created — we’ve emailed you a verification link.'); } catch (e) {}
+  } catch (e) { err.textContent = authErrMsg(e); authBusy(btn, false); }
 }
 async function doSignOut() { await auth.signOut(); }
 async function doReset() {
   const email = document.getElementById('rstEmail').value.trim();
-  document.getElementById('rstErr').textContent = '';
-  try { await auth.sendPasswordResetEmail(email); document.getElementById('rstErr').style.color = '#0f9d58'; document.getElementById('rstErr').textContent = 'Reset email sent!'; }
-  catch (e) { document.getElementById('rstErr').textContent = e.message; }
+  const err = document.getElementById('rstErr'); err.style.color = ''; err.textContent = '';
+  if (!email || !EMAIL_RE.test(email)) { err.textContent = 'Please enter a valid email address.'; return; }
+  const btn = document.getElementById('rstBtn'); authBusy(btn, true, 'Sending…');
+  try { await auth.sendPasswordResetEmail(email); err.style.color = 'var(--green)'; err.textContent = 'Reset link sent — check your inbox (and spam). The link expires in ~1 hour.'; }
+  catch (e) { err.textContent = authErrMsg(e); }
+  authBusy(btn, false);
+}
+function showLegal(kind) {
+  const box = document.getElementById('modalBox');
+  document.getElementById('modalOverlay').classList.remove('hidden');
+  const title = kind === 'privacy' ? 'Privacy Policy' : 'Terms of Service';
+  const terms = '<p>Welcome to Sparks Finance ("the Service"). By creating an account or using the Service you agree to these Terms.</p>' +
+    '<p><b>1. Not financial advice.</b> Sparks Finance provides market data, analytics and AI-generated commentary for informational and educational purposes only. Nothing here is investment, financial, legal or tax advice, and no content is a recommendation to buy or sell any security. You alone are responsible for your investment decisions.</p>' +
+    '<p><b>2. No warranty on data.</b> Prices, scores, and news may be delayed, incomplete or inaccurate and are provided "as is" without warranty. Do not rely on the Service for real-time trading decisions.</p>' +
+    '<p><b>3. Your account.</b> You are responsible for keeping your credentials secure and for all activity under your account.</p>' +
+    '<p><b>4. Acceptable use.</b> Do not misuse, disrupt, or scrape the Service at scale.</p>' +
+    '<p><b>5. Limitation of liability.</b> To the maximum extent permitted by law, Sparks Finance is not liable for any trading losses or other damages arising from use of the Service.</p>' +
+    '<p><b>6. Changes.</b> We may update these Terms; continued use constitutes acceptance.</p>';
+  const privacy = '<p>This Privacy Policy explains what Sparks Finance collects and how it is used.</p>' +
+    '<p><b>1. What we collect.</b> Your email (for authentication) and the portfolios, holdings, watchlists and alerts you create — stored in Google Firebase.</p>' +
+    '<p><b>2. How we use it.</b> To provide the Service: authenticate you, save your data, and send the notifications you enable. We do not sell your personal data.</p>' +
+    '<p><b>3. Third parties.</b> We use Google Firebase (auth, database, hosting, messaging) and market-data providers (e.g. Finnhub, Yahoo Finance) to deliver quotes and news.</p>' +
+    '<p><b>4. Notifications.</b> If you enable push, we store a device token to deliver alerts; you can disable this anytime.</p>' +
+    '<p><b>5. Data deletion.</b> You may request deletion of your account and associated data at any time.</p>' +
+    '<p><b>6. Contact.</b> Questions? Reach us through the app.</p>';
+  box.innerHTML = '<div class="modal-title">' + title + '</div>' +
+    '<div class="legal-meta">Last updated June 2026 · Template text — please have it reviewed by counsel before relying on it.</div>' +
+    '<div class="legal-body">' + (kind === 'privacy' ? privacy : terms) + '</div>' +
+    '<div class="modal-footer"><button class="modal-btn modal-btn-primary" onclick="closeModal()">Close</button></div>';
 }
 
 // ── App init ──
@@ -1489,6 +1665,7 @@ auth.onAuthStateChanged(user => {
     initScanListener();
     initUserListeners();
     registerForPush(false);   // silently refresh token if permission already granted
+    setTimeout(() => startTour(false), 1800);  // first-visit guided tour (once; replay via the ? button)
   } else {
     UID = null;
     document.getElementById('loading').classList.add('hidden');
@@ -1547,7 +1724,7 @@ function renderAll() {
   document.getElementById('mktAdv').textContent = mh.state_advice || '—';
   const brk = alerts.filter(a => a.age_hours <= 4);
   const brkBar = document.getElementById('brkBar');
-  if (brk.length) {
+  if (brk.length && !_brkDismissed) {
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     document.getElementById('brkTxt').innerHTML = brk.map(a => {
       const label = '[' + esc(a.ticker) + '] ' + esc(a.news_title || a.title) + (a.outlet ? ' (' + esc(a.outlet) + ')' : '');
@@ -1579,7 +1756,7 @@ function renderCards(picks) {
     const sig = (s.signal || '').replace(' ', '-');
     const score = s.combined_score || s.score || 0;
     const fc = sig === 'STRONG-BUY' ? 'sbar-s' : sig === 'WATCH' ? 'sbar-w2' : 'sbar-k';
-    const crit = Object.entries(s.criteria || {}).map(([k, v]) => '<span class="ss-pill ' + (v ? 'ss-pass' : 'ss-fail') + '">' + (v ? '✓' : '✗') + ' ' + (critLabels[k] || k) + '</span>').join('');
+    const crit = Object.entries(s.criteria || {}).map(([k, v]) => '<span class="ss-pill ' + (v ? 'ss-pass' : 'ss-fail') + '" title="' + (CRIT_TIP[k] || critLabels[k] || k) + '">' + (v ? '✓' : '✗') + ' ' + (critLabels[k] || k) + '</span>').join('');
     let ptags = '';
     if (s.is_vcp) ptags += '<span class="ptag ptag-vcp">VCP ' + (s.vcp_contractions || '') + '×</span>';
     if (s.rs_at_high) ptags += '<span class="ptag ptag-rs">RS New High</span>';
@@ -1732,7 +1909,11 @@ function mcapStr(b) { b = parseFloat(b); if (!b) return '—'; return b >= 1000 
 function renderTable(picks) {
   const all = picks || [];
   const filtered = applyTableFilters(all);
-  const sorted = [...filtered].sort((a, b) => { const av = a[sortKey] ?? -Infinity, bv = b[sortKey] ?? -Infinity; return sortAsc ? (av > bv ? 1 : -1) : (av < bv ? 1 : -1); });
+  const sorted = [...filtered].sort((a, b) => {
+    const av = a[sortKey] ?? -Infinity, bv = b[sortKey] ?? -Infinity;
+    if (av === bv) { const at = a.rs_score ?? a.momentum_3m ?? 0, bt = b.rs_score ?? b.momentum_3m ?? 0; if (at !== bt) return bt - at; }  // tiebreak ties (e.g. many Score 100) by relative strength
+    return sortAsc ? (av > bv ? 1 : -1) : (av < bv ? 1 : -1);
+  });
   const cnt = document.getElementById('scrCount');
   if (cnt) cnt.textContent = 'Showing ' + sorted.length + ' of ' + all.length;
   if (!sorted.length) {
@@ -1742,9 +1923,9 @@ function renderTable(picks) {
   document.getElementById('tblBody').innerHTML = sorted.map(s => {
     const sig = (s.signal || '').replace(' ', '-');
     const scc = signalCls(s.signal);
-    const dots = Object.values(s.criteria || {}).map(v => '<div class="dot ' + (v ? 'p' : 'f') + '"></div>').join('');
+    const dots = Object.entries(s.criteria || {}).map(([k, v]) => '<div class="dot ' + (v ? 'p' : 'f') + '" title="' + (CRIT_TIP[k] || critLabels[k] || k) + ' — ' + (v ? 'pass' : 'fail') + '"></div>').join('');
     const range52 = (s.low_52w != null && s.high_52w != null) ? '<div class="t52">$' + s.low_52w + '–$' + s.high_52w + '</div>' : '';
-    return '<tr><td><b style="color:var(--blue);cursor:pointer" onclick="goResearch(\'' + s.ticker + '\')">' + s.ticker + '</b><br><span style="font-size:10px;color:var(--text-3)">' + (s.name || '').substring(0, 16) + '</span></td><td><span class="sig sig-' + sig + '">' + s.signal + '</span></td><td><span class="sc-circle ' + scc + '">' + (s.combined_score || 0) + '</span></td><td style="font-weight:700;color:var(--blue)">' + (s.setup_quality || '—') + '</td><td>$' + s.price + '</td><td style="color:' + (s.rsi >= 50 && s.rsi <= 75 ? 'var(--green)' : 'var(--text-3)') + ';font-weight:600">' + s.rsi + '</td><td>' + s.vol_ratio + '×</td><td style="color:' + (s.momentum_3m >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (s.momentum_3m >= 0 ? '+' : '') + s.momentum_3m + '%</td><td style="color:' + (s.eps_growth >= 20 ? 'var(--green)' : s.eps_growth > 0 ? 'var(--text-2)' : 'var(--red)') + '">' + (s.eps_growth != null ? (s.eps_growth >= 0 ? '+' : '') + s.eps_growth + '%' : '—') + '</td>' +
+    return '<tr><td><b style="color:var(--blue);cursor:pointer" onclick="goResearch(\'' + s.ticker + '\')">' + s.ticker + '</b><br><span class="tname" style="font-size:10px;color:var(--text-3)" title="' + escHtml(s.name || '') + '">' + escHtml(s.name || '') + '</span></td><td><span class="sig sig-' + sig + '">' + s.signal + '</span></td><td><span class="sc-circle ' + scc + '">' + (s.combined_score || 0) + '</span></td><td class="gradecol" style="font-weight:700;color:var(--blue)">' + (s.setup_quality || '—') + '</td><td>$' + s.price + '</td><td style="color:' + (s.rsi >= 50 && s.rsi <= 75 ? 'var(--green)' : 'var(--text-3)') + ';font-weight:600">' + s.rsi + '</td><td>' + s.vol_ratio + '×</td><td style="color:' + (s.momentum_3m >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (s.momentum_3m >= 0 ? '+' : '') + s.momentum_3m + '%</td><td style="color:' + (s.eps_growth >= 20 ? 'var(--green)' : s.eps_growth > 0 ? 'var(--text-2)' : 'var(--red)') + '">' + (s.eps_growth != null ? (s.eps_growth >= 0 ? '+' : '') + s.eps_growth + '%' : '—') + '</td>' +
       '<td class="xcol xcol-rev" style="color:' + (s.rev_growth >= 10 ? 'var(--green)' : s.rev_growth < 0 ? 'var(--red)' : 'var(--text-2)') + '">' + (s.rev_growth != null ? (s.rev_growth >= 0 ? '+' : '') + s.rev_growth + '%' : '—') + '</td>' +
       '<td class="xcol xcol-pe">' + (s.fwd_pe != null && s.fwd_pe > 0 ? s.fwd_pe : '—') + '</td>' +
       '<td class="xcol xcol-analyst">' + analystLabel(s.analyst_rating) + '</td>' +
@@ -1865,16 +2046,33 @@ function renderPrice(d) {
 function sd_(f) { const x = scanStockFor(chartSym); return x && x[f]; }
 function renderRSI(d) { if (!chartInd.rsi) { killChart('cRSI'); return; } const closes = d.c; const labels = fmtDates(d.t, d.range || chartRange); const rsi = rsiArr(closes, 14); const purple = '#9334e6'; mkChart('cRSI', { type: 'line', data: { labels: labels, datasets: [{ label: 'RSI', data: rsi, borderColor: purple, borderWidth: 1.6, pointRadius: 0, tension: .2, fill: true, backgroundColor: (c) => gradFill(c.chart, purple), order: 1 }, { label: '70', data: closes.map(() => 70), borderColor: hexA(cvar('--red') || '#d93025', .5), borderWidth: 1, pointRadius: 0, borderDash: [5, 4] }, { label: '30', data: closes.map(() => 30), borderColor: hexA(cvar('--green') || '#0f9d58', .5), borderWidth: 1, pointRadius: 0, borderDash: [5, 4] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => c.dataset.label === 'RSI' ? 'RSI ' + (+c.parsed.y).toFixed(1) : '' } } }, scales: { x: { ticks: { color: cvar('--text-2'), maxTicksLimit: 8, font: { size: 10 } }, grid: { display: false } }, y: { min: 0, max: 100, ticks: { color: cvar('--text-2'), stepSize: 25 }, grid: { color: cvar('--border-soft') } } } } }); }
 function renderMACD(d) { if (!chartInd.macd) { killChart('cMACD'); return; } const closes = d.c; const labels = fmtDates(d.t, d.range || chartRange); const m = macdArr(closes); const g = cvar('--green') || '#0f9d58', r = cvar('--red') || '#d93025', blue = cvar('--blue') || '#1a73e8'; mkChart('cMACD', { data: { labels: labels, datasets: [{ type: 'bar', label: 'Hist', data: m.hist, backgroundColor: m.hist.map(v => v == null ? 'transparent' : v >= 0 ? hexA(g, .6) : hexA(r, .6)), borderWidth: 0, order: 3 }, { type: 'line', label: 'MACD', data: m.macd, borderColor: blue, borderWidth: 1.5, pointRadius: 0, tension: .2, order: 1 }, { type: 'line', label: 'Signal', data: m.signal, borderColor: '#f29900', borderWidth: 1.3, pointRadius: 0, tension: .2, order: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: cvar('--text-2'), boxWidth: 12 } } }, scales: { x: { ticks: { color: cvar('--text-2'), maxTicksLimit: 8, font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: cvar('--text-2') }, grid: { color: cvar('--border-soft') } } } } }); }
+// Merge duplicate tickers (e.g. the same stock held across multiple portfolios under "all" scope, or
+// a duplicate doc) into one row so totals/donuts/charts never double-count or show duplicate legends.
+function mergeHoldingsByTicker(list, key) {
+  key = key || 'ticker';
+  const m = {};
+  list.forEach(h => {
+    const t = h[key]; if (!t) return;
+    if (!m[t]) m[t] = Object.assign({}, h);
+    else { const a = m[t]; a.qty = (a.qty || 0) + (h.qty || 0); a.val = (a.val || 0) + (h.val || 0); a.cost = (a.cost || 0) + (h.cost || 0); a.today = (a.today || 0) + (h.today || 0); }
+  });
+  return Object.values(m).map(a => { a.gp = a.cost > 0 ? (a.val - a.cost) / a.cost * 100 : (a.gp || 0); return a; });
+}
 async function renderPortfolioCharts() {
   let hs = []; try { if (UID) hs = await gatherUserHoldings('all'); } catch (e) {}
   if (!hs.length) { ['cAlloc', 'cPerf', 'cSector'].forEach(id => { killChart(id); setCardMsg(id, 'Sign in and add holdings to see portfolio analytics'); }); return; }
-  const rows = hs.map(h => { const le = liveEntry(h.ticker); const px = (le && le.price) || h.current_price || h.buy_price || 0; const val = px * (h.qty || 0); const gp = h.buy_price > 0 ? (px / h.buy_price - 1) * 100 : 0; const sec = (scanStockFor(h.ticker) || {}).sector || 'Other'; return { t: h.ticker, val: val, gp: gp, sec: sec }; });
+  const rows = mergeHoldingsByTicker(hs.map(h => { const le = liveEntry(h.ticker); const px = (le && le.price) || h.current_price || h.buy_price || 0; const qty = h.qty || 0; const val = px * qty; const cost = (h.buy_price > 0 ? h.buy_price : 0) * qty; const sec = (scanStockFor(h.ticker) || {}).sector || 'Other'; return { t: h.ticker, val: val, cost: cost, gp: cost > 0 ? (val - cost) / cost * 100 : 0, sec: sec }; }), 't');
   const total = rows.reduce((a, b) => a + b.val, 0) || 1;
   setCardMsg('cAlloc', null);
   mkChart('cAlloc', { type: 'doughnut', data: { labels: rows.map(r => r.t), datasets: [{ data: rows.map(r => +r.val.toFixed(2)), backgroundColor: rows.map(r => logoColor(r.t)), borderColor: cvar('--surface-2'), borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'right', labels: { color: cvar('--text-2'), boxWidth: 12, font: { size: 11 } } }, tooltip: { callbacks: { label: (c) => c.label + ': $' + (+c.parsed).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' (' + (c.parsed / total * 100).toFixed(1) + '%)' } } } } });
   const perf = [...rows].sort((a, b) => b.gp - a.gp);
+  // Clamp bar length to a sane window so a single extreme gainer can't compress every other bar to
+  // invisibility (true % stays in the tooltip). Cap from the 90th-percentile magnitude; never sci-notation.
+  const mags = perf.map(r => Math.abs(r.gp)).sort((a, b) => a - b);
+  const cap = Math.max(25, Math.min(500, (mags[Math.floor(mags.length * 0.9)] || mags[mags.length - 1] || 100) * 1.2));
+  const clampPct = v => Math.max(-cap, Math.min(cap, v));
   setCardMsg('cPerf', null);
-  mkChart('cPerf', { type: 'bar', data: { labels: perf.map(r => r.t), datasets: [{ data: perf.map(r => +r.gp.toFixed(2)), backgroundColor: perf.map(r => r.gp >= 0 ? hexA(cvar('--green'), .8) : hexA(cvar('--red'), .8)), borderRadius: 5 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => (c.parsed.x >= 0 ? '+' : '') + c.parsed.x + '%' } } }, scales: { x: { ...chartAxis(), ticks: { color: cvar('--text-2'), callback: v => v + '%' } }, y: { ...chartAxis(), grid: { display: false } } } } });
+  mkChart('cPerf', { type: 'bar', data: { labels: perf.map(r => r.t), datasets: [{ data: perf.map(r => +clampPct(r.gp).toFixed(2)), backgroundColor: perf.map(r => r.gp >= 0 ? hexA(cvar('--green'), .8) : hexA(cvar('--red'), .8)), borderRadius: 5 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => { const g = perf[c.dataIndex].gp; return (g >= 0 ? '+' : '') + g.toLocaleString(undefined, { maximumFractionDigits: 1 }) + '%'; } } } }, scales: { x: { ...chartAxis(), ticks: { color: cvar('--text-2'), callback: v => Math.round(v).toLocaleString() + '%' } }, y: { ...chartAxis(), grid: { display: false } } } } });
   const secMap = {}; rows.forEach(r => { secMap[r.sec] = (secMap[r.sec] || 0) + r.val; }); const sl = Object.keys(secMap), sv = sl.map(k => +secMap[k].toFixed(2));
   setCardMsg('cSector', null);
   mkChart('cSector', { type: 'doughnut', data: { labels: sl, datasets: [{ data: sv, backgroundColor: sl.map((s, i) => palette(i)), borderColor: cvar('--surface-2'), borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '55%', plugins: { legend: { position: 'right', labels: { color: cvar('--text-2'), boxWidth: 12, font: { size: 11 } } } } } });
@@ -2042,7 +2240,7 @@ function buildSummarySections(hs, scope) {
     const scopeLabel = (scope && scope !== 'all')
       ? ('Your "' + (portfolioNameById(scope) || 'portfolio') + '" portfolio totals $')
       : ('Your ' + (new Set(hs.map(h => h.portfolio)).size || 1) + ' portfolio(s) total $');
-    perf.push(scopeLabel + totalVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' with an unrealised ' + (gainAbs >= 0 ? 'gain' : 'loss') + ' of $' + Math.abs(gainAbs).toLocaleString(undefined, { maximumFractionDigits: 2 }) + ' (' + (gainPct >= 0 ? '+' : '') + gainPct.toFixed(1) + '%).');
+    perf.push(scopeLabel + totalVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' with an unrealized ' + (gainAbs >= 0 ? 'gain' : 'loss') + ' of $' + Math.abs(gainAbs).toLocaleString(undefined, { maximumFractionDigits: 2 }) + ' (' + (gainPct >= 0 ? '+' : '') + gainPct.toFixed(1) + '%).');
   }
   else perf.push('No portfolio holdings found yet. Add holdings in the Portfolio tab to track performance.');
   if (hs.length) {
@@ -2106,8 +2304,8 @@ function computeHealth(h) {
   const rating = score >= 2 ? 'HOLD' : score >= 0 ? 'WATCH' : 'EXIT';
   // Analysis sentence with concrete price levels
   const buy = h.buy_price || 0, dh = h.days_held;
-  const time_ctx = dh != null ? (dh < 30 ? 'over ' + dh + ' days' : dh < 365 ? 'over ' + Math.floor(dh / 30) + ' month(s)' : 'over ' + (dh / 365).toFixed(1) + ' year(s)') : 'since entry';
-  const ann_str = h.ann_ret != null ? ' (' + (h.ann_ret >= 0 ? '+' : '') + h.ann_ret.toFixed(0) + '%/yr annualised)' : '';
+  const time_ctx = dh != null ? (dh < 30 ? 'over ' + plural(dh, 'day') : dh < 365 ? 'over ' + plural(Math.floor(dh / 30), 'month') : 'over ' + plural(+(dh / 365).toFixed(1), 'year')) : 'since entry';
+  const ann_str = h.ann_ret != null ? ' (' + (h.ann_ret >= 0 ? '+' : '') + h.ann_ret.toFixed(0) + '%/yr annualized)' : '';
   const stop8 = buy * 0.92, stopTrail = cur * 0.88, stopLvl = pct > 15 ? Math.max(stop8, stopTrail) : stop8, exitHard = buy * 0.85;
   const mainFlag = flags[0] || 'No major signals';
   let analysis;
@@ -2201,7 +2399,7 @@ function newsListHtml(items) {
 }
 function homeHeaderHtml() {
   return '<div class="page-title">Home</div>' +
-    '<div class="pf-toolbar"><select id="homePfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div>';
+    '<div class="pf-toolbar"><span class="pf-toolbar-lbl">Portfolio:</span><select id="homePfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div>';
 }
 async function loadHomeDashboard() {
   const el = document.getElementById('homeDashboard');
@@ -2242,13 +2440,14 @@ function renderHomeDashboard(hs, scope, ranges) {
     return;
   }
   // Recompute from live prices so totals + Today's P&L are accurate.
-  const en = hs.map(h => {
+  let en = hs.map(h => {
     const le = liveEntry(h.ticker);
     const px = (le && le.price) || h.current_price || h.buy_price || 0;
     const qty = h.qty || 0, buy = h.buy_price || 0;
     const val = px * qty, cost = buy * qty;
     return { ticker: h.ticker, px, qty, val, cost, gp: cost > 0 ? (val - cost) / cost * 100 : 0, today: (le && le.prev) ? qty * (le.price - le.prev) : 0 };
   });
+  en = mergeHoldingsByTicker(en);
   let totalVal = 0, totalCost = 0, todayPnl = 0;
   en.forEach(e => { totalVal += e.val; totalCost += e.cost; todayPnl += e.today; });
   const totalPnl = totalVal - totalCost, totalPct = totalCost > 0 ? totalPnl / totalCost * 100 : 0;
@@ -2261,8 +2460,8 @@ function renderHomeDashboard(hs, scope, ranges) {
     '<div class="dash-card dash-hero-main">' +
       '<div class="dlabel">Total value · ' + escHtml(scopeName) + '</div>' +
       '<div class="dval"><span class="cnt" data-to="' + totalVal.toFixed(2) + '" data-dec="2" data-pre="$"></span></div>' +
-      '<div class="dtoday">' + tArrow + ' ' + (todayPnl >= 0 ? '+' : '-') + '<span class="cnt" data-to="' + Math.abs(todayPnl).toFixed(2) + '" data-dec="2" data-pre="$"></span> (' + pctFmt(todayPct) + ') today</div>' +
-      '<div class="dsub">All-time ' + (totalPnl >= 0 ? 'gain' : 'loss') + ': ' + (totalPnl >= 0 ? '+' : '-') + '<span class="cnt" data-to="' + Math.abs(totalPnl).toFixed(2) + '" data-dec="2" data-pre="$"></span> (' + pctFmt(totalPct) + ')</div>' +
+      '<div class="dtoday" title="Change in your portfolio value so far in the current trading session.">' + tArrow + ' ' + (todayPnl >= 0 ? '+' : '-') + '<span class="cnt" data-to="' + Math.abs(todayPnl).toFixed(2) + '" data-dec="2" data-pre="$"></span> (' + pctFmt(todayPct) + ') today</div>' +
+      '<div class="dsub" title="Total gain or loss since purchase across all holdings (current value minus cost basis).">All-time ' + (totalPnl >= 0 ? 'gain' : 'loss') + ': ' + (totalPnl >= 0 ? '+' : '-') + '<span class="cnt" data-to="' + Math.abs(totalPnl).toFixed(2) + '" data-dec="2" data-pre="$"></span> (' + pctFmt(totalPct) + ')</div>' +
     '</div>' +
     '<div class="dash-mini-grid">' +
       '<div class="dash-mini gain"><div class="dash-mini-label">Top gainer</div>' + (topG ? '<div class="dash-mini-tkr">' + topG.ticker + '</div><div class="dash-mini-val pos">' + pctFmt(topG.gp) + '</div>' : '<div class="dash-mini-tkr">—</div>') + '</div>' +
@@ -2284,7 +2483,7 @@ function renderHomeDashboard(hs, scope, ranges) {
     fzHtml = '<div class="dash-section"><div class="dash-section-title">' + ic('activity', 16) + ' 52-week range</div>' +
       fz.map(f => {
         const pos = Math.max(0, Math.min(100, (f.px - f.lo) / (f.hi - f.lo) * 100));
-        return '<div class="rng-row"><div class="rng-top"><span class="rng-tkr" onclick="goResearch(\'' + f.t + '\')">' + f.t + '</span><span class="rng-meta">$' + f.lo.toFixed(0) + ' – $' + f.hi.toFixed(0) + ' · ' + (f.fromHigh >= 0 ? '+' : '') + f.fromHigh.toFixed(0) + '% vs high</span></div>' +
+        return '<div class="rng-row" title="The dot marks where the current price sits within its 52-week low–high range."><div class="rng-top"><span class="rng-tkr" onclick="goResearch(\'' + f.t + '\')">' + f.t + '</span><span class="rng-meta">$' + f.lo.toFixed(0) + ' – $' + f.hi.toFixed(0) + ' · ' + (f.fromHigh >= 0 ? '+' : '') + f.fromHigh.toFixed(0) + '% vs high</span></div>' +
           '<div class="rng-track"><div class="rng-fill" data-w="' + pos.toFixed(0) + '" style="width:0%"></div><div class="rng-dot" data-l="' + pos.toFixed(0) + '" style="left:0%"></div></div></div>';
       }).join('') + '</div>';
   }
@@ -2689,25 +2888,42 @@ function markNotifRead(id) {
 }
 
 // ── Research (Fix #4: analyse immediately, never block on a queue) ──
+function researchShake(el) {
+  if (!el) return;
+  if (_reduceMotion) { el.focus(); return; }
+  el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); el.focus();
+  setTimeout(() => el.classList.remove('shake'), 520);
+}
+function renderResearchMsg(ticker, kind) {
+  const el = document.getElementById('researchContent'); if (!el) return;
+  const noquote = kind === 'noquote';
+  const head = noquote ? 'Live quote unavailable for “' + escHtml(ticker) + '”' : 'Couldn\'t find “' + escHtml(ticker) + '”';
+  const sub = noquote ? 'We could not fetch a live price right now — please try again in a moment.'
+    : 'No live quote for that symbol — check the spelling, or browse the <a class="auth-link" onclick="sw(\'table\')">Full Scan table</a> to discover tickers.';
+  el.innerHTML = '<div class="research-box" style="text-align:center;padding:42px 20px;"><div style="font-size:30px;margin-bottom:8px;">' + (noquote ? '⏳' : '🔍') + '</div><div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px;">' + head + '</div><div class="empty-sub">' + sub + '</div></div>';
+}
 function runResearch() {
-  const ticker = document.getElementById('researchInput').value.trim().toUpperCase();
-  if (!ticker) return;
+  const input = document.getElementById('researchInput');
+  const ticker = (input && input.value || '').trim().toUpperCase();
+  if (!ticker) { researchShake(input); return; }
   acClose('researchAC');
   currentResearchTicker = ticker;
   const scanData = scanStockFor(ticker);
-  // Render whatever we already have right away — no waiting, no "queued" gate.
-  renderAgentResearch(ticker, null, scanData);
-  // Pull any pre-computed deep-agent results in the background and merge them in.
+  renderAgentResearch(ticker, null, scanData);   // instant paint with whatever we have
   const today = todayStr();
   db.collection('agent_results').doc(ticker).collection('dates').doc(today).get()
     .then(doc => { if (doc.exists && currentResearchTicker === ticker) renderAgentResearch(ticker, doc.data(), scanStockFor(ticker)); })
     .catch(() => {});
-  // If the ticker isn't in the scan universe, fetch a live quote so we can still
-  // show an immediate read, and silently request a deep analysis for later.
-  if (!scanData) {
-    fetchLivePrices([ticker]).then(() => { if (currentResearchTicker === ticker) renderAgentResearch(ticker, null, scanStockFor(ticker)); });
-    queueTickerAnalysis(ticker);
-  }
+  // Refresh the live quote (parity with the ticker bar) with an 8s timeout so it can never hang.
+  Promise.race([fetchLivePrices([ticker]), new Promise(r => setTimeout(r, 8000))]).then(() => {
+    if (currentResearchTicker !== ticker) return;
+    const le = liveEntry(ticker);
+    const hasQuote = !!(le && le.price != null);
+    const inCatalog = !!(scanData || searchBase()[ticker] || searchBase()[ticker.replace(/\./g, '-')]);
+    if (!hasQuote) { renderResearchMsg(ticker, inCatalog ? 'noquote' : 'unknown'); if (inCatalog && !scanData) queueTickerAnalysis(ticker); return; }
+    renderAgentResearch(ticker, null, scanStockFor(ticker));
+    if (!scanData) queueTickerAnalysis(ticker);   // only queue the deep pipeline for a resolvable ticker
+  });
 }
 function queueTickerAnalysis(ticker) {
   if (!ticker) return;
@@ -2815,7 +3031,7 @@ function scanDataSection(ticker, s) {
     '<div class="mgrid" style="grid-template-columns:1fr 1fr;">' +
     '<div class="met"><div class="mlbl">Signal</div><div class="mval"><span class="sig sig-' + sig + '">' + s.signal + '</span></div></div>' +
     '<div class="met"><div class="mlbl">Score</div><div class="mval">' + (s.combined_score || s.score || '—') + (s.setup_quality ? ' · ' + s.setup_quality : '') + '</div></div>' +
-    '<div class="met"><div class="mlbl">Price</div><div class="mval">$' + s.price + '</div></div>' +
+    '<div class="met"><div class="mlbl">Price</div><div class="mval">$' + (displayPrice(ticker) != null ? displayPrice(ticker).toFixed(2) : s.price) + '</div></div>' +
     '<div class="met"><div class="mlbl">RSI</div><div class="mval">' + (s.rsi || '—') + '</div></div>' +
     '<div class="met"><div class="mlbl">Vol×</div><div class="mval">' + (s.vol_ratio || '—') + '</div></div>' +
     '<div class="met"><div class="mlbl">3M%</div><div class="mval">' + (s.momentum_3m != null ? (s.momentum_3m >= 0 ? '+' : '') + s.momentum_3m + '%' : '—') + '</div></div>' +
@@ -3172,6 +3388,60 @@ async function asstSummarize(th) {
 function asstCardHtml() {
   return '<div class="dash-card asst-card" style="margin-bottom:14px;padding:14px 16px;">' + assistantHostHtml('home') + '</div>';
 }
+
+// ── Guided coachmark tour (first-visit onboarding; replayable via the ? button) ──
+const TOUR_STEPS = [
+  { sel: '#homePfSelect', title: 'Your portfolios', body: 'Pick a single portfolio, or “All portfolios” to see everything combined.' },
+  { sel: '.dash-hero-main', title: 'Value & performance', body: 'Your total value, today’s P&L and all-time gain — recomputed from live prices.' },
+  { sel: '.home-aside .asst-host', title: 'AI analyst', body: 'Ask about any stock, your portfolio, or the markets and get instant answers backed by live data.' },
+  { sel: '#mktBar', title: 'Market pulse', body: 'Live indexes plus market breadth and the overall trend signal run across the top.' },
+  { sel: '#sidebar', mobileSel: '#hamburgerBtn', title: 'Explore more', body: 'Top Picks, Charts, Research, Watchlist, Alerts and Notifications all live in the sidebar.' }
+];
+let _tourStep = 0;
+function startTour(force) {
+  try { if (!force && lsGet('sparksTourDone')) return; } catch (e) {}
+  if (!UID) return;
+  const ht = document.getElementById('tab-home');
+  if (typeof sw === 'function' && ht && !ht.classList.contains('active')) sw('home');
+  tourEnd(false);
+  const ov = document.createElement('div'); ov.id = 'tourOverlay'; ov.className = 'tour-overlay';
+  ov.innerHTML = '<div id="tourHole" class="tour-hole"></div><div id="tourCard" class="tour-card"></div>';
+  document.body.appendChild(ov);
+  window.addEventListener('resize', _tourReposition);
+  setTimeout(() => tourShow(0), 450);
+}
+function _tourTarget(step) { return document.querySelector((window.innerWidth <= 900 && step.mobileSel) ? step.mobileSel : step.sel); }
+function _tourVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 4 && r.height > 4; }
+function tourShow(i) {
+  while (i < TOUR_STEPS.length && !_tourVisible(_tourTarget(TOUR_STEPS[i]))) i++;
+  if (i >= TOUR_STEPS.length) { tourEnd(true); return; }
+  _tourStep = i;
+  const el = _tourTarget(TOUR_STEPS[i]);
+  try { el.scrollIntoView({ block: 'center', behavior: _reduceMotion ? 'auto' : 'smooth' }); } catch (e) {}
+  setTimeout(_tourReposition, _reduceMotion ? 0 : 280);
+}
+function _tourReposition() {
+  const ov = document.getElementById('tourOverlay'); if (!ov) return;
+  const step = TOUR_STEPS[_tourStep], el = _tourTarget(step); if (!el) return;
+  const r = el.getBoundingClientRect(), pad = 8;
+  const hole = document.getElementById('tourHole');
+  hole.style.top = Math.max(4, r.top - pad) + 'px'; hole.style.left = Math.max(4, r.left - pad) + 'px';
+  hole.style.width = (r.width + pad * 2) + 'px'; hole.style.height = (r.height + pad * 2) + 'px';
+  const card = document.getElementById('tourCard');
+  const last = _tourStep === TOUR_STEPS.length - 1, first = _tourStep === 0;
+  card.innerHTML = '<div class="tour-step">Step ' + (_tourStep + 1) + ' of ' + TOUR_STEPS.length + '</div>' +
+    '<div class="tour-title">' + step.title + '</div><div class="tour-body">' + step.body + '</div>' +
+    '<div class="tour-actions"><button class="tour-skip" onclick="tourEnd(true)">Skip tour</button><div class="tour-nav">' +
+    (first ? '' : '<button class="tour-btn" onclick="tourPrev()">Back</button>') +
+    '<button class="tour-btn tour-primary" onclick="tourNext()">' + (last ? 'Done' : 'Next') + '</button></div></div>';
+  const cardW = Math.min(320, window.innerWidth - 28), cardH = card.offsetHeight || 160;
+  let top = r.bottom + 14; if (top + cardH > window.innerHeight - 8) top = Math.max(8, r.top - cardH - 14);
+  const left = Math.min(Math.max(14, r.left), window.innerWidth - cardW - 14);
+  card.style.top = top + 'px'; card.style.left = left + 'px';
+}
+function tourNext() { tourShow(_tourStep + 1); }
+function tourPrev() { let i = _tourStep - 1; while (i >= 0 && !_tourVisible(_tourTarget(TOUR_STEPS[i]))) i--; if (i < 0) i = 0; _tourStep = i; const el = _tourTarget(TOUR_STEPS[i]); try { el.scrollIntoView({ block: 'center', behavior: _reduceMotion ? 'auto' : 'smooth' }); } catch (e) {} setTimeout(_tourReposition, _reduceMotion ? 0 : 280); }
+function tourEnd(done) { const ov = document.getElementById('tourOverlay'); if (ov) ov.remove(); window.removeEventListener('resize', _tourReposition); if (done) { try { lsSet('sparksTourDone', '1'); } catch (e) {} } }
 
 // ── Boot ──
 injectStaticIcons();
