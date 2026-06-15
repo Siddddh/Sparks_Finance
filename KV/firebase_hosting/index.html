@@ -100,6 +100,10 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .otp-inp{width:42px;height:50px;text-align:center;font-size:22px;font-weight:700;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);outline:none;font-family:inherit;}
 .otp-inp:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
 @media(max-width:380px){.otp-inp{width:38px;height:46px;font-size:20px;}.otp-box{gap:6px;}}
+.cap-row{display:flex;align-items:center;gap:8px;margin-top:6px;}
+.cap-canvas{border:1px solid var(--border);border-radius:8px;background:#eceff1;flex-shrink:0;}
+.cap-refresh{background:none;border:1px solid var(--border);border-radius:8px;width:40px;height:46px;font-size:18px;line-height:1;cursor:pointer;color:var(--text-2);font-family:inherit;flex-shrink:0;}
+.cap-refresh:hover{color:var(--blue);border-color:var(--blue);}
 .legal-meta{font-size:11px;color:var(--text-3);margin:-6px 0 12px;}
 .legal-body{max-height:50vh;overflow-y:auto;font-size:13px;line-height:1.6;color:var(--text-2);}
 .legal-body p{margin:0 0 10px;}
@@ -720,11 +724,6 @@ body.sidebar-open .nav-scrim{display:block;}
   <div class="auth-box">
     <div class="auth-logo"><span class="spark" id="authSpark"></span> Sparks Finance</div>
     <div class="auth-sub">AI-powered stock intelligence &amp; portfolio tracking</div>
-    <div class="auth-feat">
-      <div class="auth-feat-row">📊 Track portfolios, P&amp;L and 52-week ranges</div>
-      <div class="auth-feat-row">🔔 Pre-market &amp; price-move alerts</div>
-      <div class="auth-feat-row">🤖 Ask the built-in AI analyst about any stock</div>
-    </div>
     <div class="auth-tabs">
       <button type="button" class="auth-tab active" data-panel="signin" onclick="showPanel('signin')">Sign In</button>
       <button type="button" class="auth-tab" data-panel="signup" onclick="showPanel('signup')">Sign Up</button>
@@ -762,6 +761,9 @@ body.sidebar-open .nav-scrim{display:block;}
         <div class="auth-reset-info">Enter your account email and we’ll send a 6-digit code to reset your password.</div>
         <label>Email</label>
         <input type="email" id="rstEmail" placeholder="you@example.com" autocomplete="email" onkeydown="if(event.key==='Enter')sendResetCode()"/>
+        <label>Verification</label>
+        <div class="cap-row"><canvas id="capCanvas" class="cap-canvas" width="150" height="46" aria-hidden="true"></canvas><button type="button" class="cap-refresh" onclick="drawCaptcha()" title="New characters" aria-label="New characters">↻</button></div>
+        <input id="capInput" placeholder="Type the characters above" autocomplete="off" autocapitalize="characters" spellcheck="false" onkeydown="if(event.key==='Enter')sendResetCode()"/>
         <button type="button" class="auth-btn" id="rstBtn" onclick="sendResetCode()">Send Code</button>
         <div class="auth-row"><a class="auth-link" onclick="sendResetLink()">Email me a reset link instead</a></div>
         <div class="auth-row"><a class="auth-link" onclick="showPanel('signin')">← Back to Sign In</a></div>
@@ -1560,6 +1562,7 @@ function showPanel(panel) {
     document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.panel === panel));
     const g = document.getElementById('googleAuthBlock'); if (g) g.style.display = panel === 'reset' ? 'none' : '';
     const s1 = document.getElementById('resetStep1'), s2 = document.getElementById('resetStep2'); if (s1 && s2) { s1.style.display = ''; s2.style.display = 'none'; }
+    if (panel === 'reset') { try { drawCaptcha(); } catch (e) {} const _ci = document.getElementById('capInput'); if (_ci) _ci.value = ''; }
     ['siErr','suErr','rstErr','rst2Err'].forEach(id => { const e = document.getElementById(id); if (e) { e.textContent = ''; e.style.color = ''; } });
   } catch (e) {}
 }
@@ -1659,10 +1662,34 @@ function otpValue() { return otpInputs().map(i => i.value).join(''); }
 function otpAdvance(el) { el.value = (el.value || '').replace(/\D/g, '').slice(0, 1); if (el.value) { const n = el.nextElementSibling; if (n && n.classList && n.classList.contains('otp-inp')) n.focus(); } }
 function otpBack(e, el) { if (e.key === 'Backspace' && !el.value) { const p = el.previousElementSibling; if (p && p.classList && p.classList.contains('otp-inp')) p.focus(); } else if (e.key === 'Enter') { verifyResetCode(); } }
 function otpPaste(e) { e.preventDefault(); const t = (((e.clipboardData || window.clipboardData).getData('text')) || '').replace(/\D/g, '').slice(0, 6); const ins = otpInputs(); for (let i = 0; i < ins.length; i++) ins[i].value = t[i] || ''; (ins[Math.min(t.length, ins.length - 1)] || ins[0]).focus(); }
+// Lightweight self-contained CAPTCHA (deters form bots; the OTP endpoint also rate-limits server-side).
+let _captchaCode = '';
+function _capRnd(a, b) { return Math.floor(a + Math.random() * (b - a + 1)); }
+function drawCaptcha() {
+  const c = document.getElementById('capCanvas'); if (!c || !c.getContext) return;
+  const ctx = c.getContext('2d'), W = c.width, H = c.height;
+  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  let code = ''; for (let i = 0; i < 5; i++) code += chars[_capRnd(0, chars.length - 1)];
+  _captchaCode = code;
+  ctx.clearRect(0, 0, W, H); ctx.fillStyle = '#eceff1'; ctx.fillRect(0, 0, W, H);
+  for (let i = 0; i < 5; i++) { ctx.strokeStyle = 'rgba(' + _capRnd(120, 200) + ',' + _capRnd(120, 200) + ',' + _capRnd(120, 200) + ',.5)'; ctx.beginPath(); ctx.moveTo(_capRnd(0, W), _capRnd(0, H)); ctx.lineTo(_capRnd(0, W), _capRnd(0, H)); ctx.stroke(); }
+  const cols = ['#1a73e8', '#0f9d58', '#d93025', '#9334e6', '#5f6368'];
+  for (let i = 0; i < code.length; i++) {
+    ctx.save();
+    ctx.translate(18 + i * 26, H / 2); ctx.rotate((Math.random() - 0.5) * 0.55);
+    ctx.font = 'bold ' + _capRnd(22, 28) + 'px Inter, Arial, sans-serif';
+    ctx.fillStyle = cols[_capRnd(0, cols.length - 1)]; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(code[i], 0, _capRnd(-3, 3));
+    ctx.restore();
+  }
+  for (let i = 0; i < 24; i++) { ctx.fillStyle = 'rgba(' + _capRnd(90, 170) + ',' + _capRnd(90, 170) + ',' + _capRnd(90, 170) + ',.5)'; ctx.beginPath(); ctx.arc(_capRnd(0, W), _capRnd(0, H), 1, 0, 7); ctx.fill(); }
+}
+function captchaOk() { const inp = document.getElementById('capInput'); return !!inp && (inp.value || '').trim().toUpperCase() === (_captchaCode || '').toUpperCase(); }
 async function sendResetCode() {
   const email = document.getElementById('rstEmail').value.trim();
   const err = document.getElementById('rstErr'); err.style.color = ''; err.textContent = '';
   if (!email || !EMAIL_RE.test(email)) { err.textContent = 'Please enter a valid email address.'; return; }
+  if (!captchaOk()) { err.textContent = 'The characters don’t match — please try again.'; drawCaptcha(); const ci = document.getElementById('capInput'); if (ci) { ci.value = ''; ci.focus(); } return; }
   const btn = document.getElementById('rstBtn'); authBusy(btn, true, 'Sending code…');
   try {
     const r = await fetch(SENDOTP_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email }) });
@@ -1684,7 +1711,7 @@ async function resendResetCode() {
   try { const r = await fetch(SENDOTP_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: _resetEmail }) }); if (!r.ok) throw 0; err.style.color = 'var(--green)'; err.textContent = 'A new code is on its way.'; }
   catch (e) { err.textContent = 'Could not resend — try again in a moment.'; }
 }
-function resetBackToEmail() { document.getElementById('resetStep2').style.display = 'none'; document.getElementById('resetStep1').style.display = ''; }
+function resetBackToEmail() { document.getElementById('resetStep2').style.display = 'none'; document.getElementById('resetStep1').style.display = ''; try { drawCaptcha(); } catch (e) {} }
 async function verifyResetCode() {
   const code = otpValue(); const np = document.getElementById('rstNewPass').value;
   const err = document.getElementById('rst2Err'); err.style.color = ''; err.textContent = '';
@@ -1747,6 +1774,7 @@ auth.onAuthStateChanged(user => {
     initScanListener();
     initUserListeners();
     registerForPush(false);   // silently refresh token if permission already granted
+    asstSyncFromCloud();      // load this account's saved AI chats from Firestore (cross-login/device)
     setTimeout(() => startTour(false), 1800);  // first-visit guided tour (once; replay via the ? button)
   } else {
     UID = null;
@@ -3276,7 +3304,25 @@ function mdLite(s) {
   return h;
 }
 function asstStoreKey() { return 'sparksAsst:' + ((typeof UID !== 'undefined' && UID) ? UID : 'anon'); }
-function asstSave() { try { lsSet(asstStoreKey(), JSON.stringify({ threads: asstThreads.slice(0, 40), current: asstCurrentId })); } catch (e) {} }
+function _asstPayload() {
+  return {
+    threads: asstThreads.slice(0, 30).map(t => ({ id: t.id, title: t.title, summary: t.summary, ts: t.ts, summaryLLMLen: t.summaryLLMLen, messages: (t.messages || []).slice(-40).map(m => ({ role: m.role, content: (m.content || '').slice(0, 6000) })) })),
+    current: asstCurrentId
+  };
+}
+let _asstCloudTimer = null;
+function asstCloudSave() {
+  if (typeof UID === 'undefined' || !UID || typeof db === 'undefined') return;
+  clearTimeout(_asstCloudTimer);
+  _asstCloudTimer = setTimeout(() => {
+    try {
+      const p = _asstPayload();
+      while (p.threads.length > 1 && JSON.stringify(p).length > 850000) p.threads.pop();  // stay under Firestore's ~1MB doc limit (drop oldest)
+      db.collection('assistant_chats').doc(UID).set(Object.assign(p, { updated: firebase.firestore.FieldValue.serverTimestamp() })).catch(() => {});
+    } catch (e) {}
+  }, 1500);
+}
+function asstSave() { try { lsSet(asstStoreKey(), JSON.stringify(_asstPayload())); } catch (e) {} asstCloudSave(); }
 function asstLoad() {
   let d = null;
   try { const raw = lsGet(asstStoreKey()); d = raw ? JSON.parse(raw) : null; } catch (e) {}
@@ -3286,7 +3332,47 @@ function asstLoad() {
   else if (!asstThreads.find(t => t.id === asstCurrentId)) asstCurrentId = asstThreads[0].id;
   asstLoadedKey = asstStoreKey();
 }
+// Pull this account's chat history from Firestore so it follows the user across logins & devices.
+async function asstSyncFromCloud() {
+  if (typeof UID === 'undefined' || !UID || typeof db === 'undefined') return;
+  try {
+    const doc = await db.collection('assistant_chats').doc(UID).get();
+    if (!doc.exists) return;
+    const d = doc.data() || {};
+    if (Array.isArray(d.threads) && d.threads.length) {
+      asstThreads = d.threads;
+      asstCurrentId = (d.current && asstThreads.find(t => t.id === d.current)) ? d.current : asstThreads[0].id;
+      asstLoadedKey = asstStoreKey();
+      try { lsSet(asstStoreKey(), JSON.stringify(_asstPayload())); } catch (e) {}
+      renderAllAssistant();
+    }
+  } catch (e) {}
+}
 function asstEnsureLoaded() { if (asstLoadedKey !== asstStoreKey()) asstLoad(); }
+// Authoritative portfolio snapshot for the AI assistant — mirrors the dashboard's exact figures
+// (same dedup, live prices and P&L) so the assistant never drifts from what the user sees.
+async function assistantPortfolioSnapshot() {
+  if (typeof UID === 'undefined' || !UID) return null;
+  let hs = [];
+  try { hs = await gatherUserHoldings('all'); } catch (e) { return null; }
+  if (!hs.length) return { asOf: new Date().toISOString(), currency: 'USD', holdingsCount: 0, totalValue: 0, totalCost: 0, totalGain: 0, totalGainPct: 0, todayPnl: 0, holdings: [] };
+  const m = {};
+  hs.forEach(h => {
+    const le = liveEntry(h.ticker);
+    const price = (le && le.price) || h.current_price || h.buy_price || 0;
+    const prev = (le && le.prev != null) ? le.prev : null;
+    const qty = h.qty || 0;
+    if (!m[h.ticker]) m[h.ticker] = { ticker: h.ticker, qty: 0, cost: 0, price: price, prev: prev };
+    const a = m[h.ticker]; a.qty += qty; a.cost += (h.buy_price || 0) * qty; a.price = price; a.prev = prev;
+  });
+  let totalValue = 0, totalCost = 0, todayPnl = 0;
+  const holdings = Object.values(m).map(a => {
+    const value = a.price * a.qty, gain = value - a.cost, today = (a.prev != null) ? a.qty * (a.price - a.prev) : 0;
+    totalValue += value; totalCost += a.cost; todayPnl += today;
+    return { ticker: a.ticker, qty: +a.qty, avgCost: a.qty > 0 ? +(a.cost / a.qty).toFixed(2) : 0, price: +(+a.price).toFixed(2), value: +value.toFixed(2), gain: +gain.toFixed(2), gainPct: a.cost > 0 ? +((gain / a.cost) * 100).toFixed(2) : 0, todayChange: +today.toFixed(2) };
+  });
+  return { asOf: new Date().toISOString(), currency: 'USD', holdingsCount: holdings.length, totalValue: +totalValue.toFixed(2), totalCost: +totalCost.toFixed(2), totalGain: +(totalValue - totalCost).toFixed(2), totalGainPct: totalCost > 0 ? +(((totalValue - totalCost) / totalCost) * 100).toFixed(2) : 0, todayPnl: +todayPnl.toFixed(2), holdings: holdings };
+}
 function asstCurrent() { return asstThreads.find(t => t.id === asstCurrentId) || null; }
 function asstFocus() { setTimeout(() => { const a = document.querySelector('.tab-panel.active .asst-host .asst-input') || document.querySelector('.asst-host .asst-input'); if (a) a.focus(); }, 40); }
 function asstNewThread(doRender) {
@@ -3416,7 +3502,8 @@ async function asstSend(text) {
     try { if (auth.currentUser) token = await auth.currentUser.getIdToken(); } catch (e) {}
     const headers = { 'Content-Type': 'application/json' };
     if (token) headers['Authorization'] = 'Bearer ' + token;
-    const r = await fetch(ASSISTANT_API, { method: 'POST', headers, body: JSON.stringify({ messages: th.messages }) });
+    let pf = null; try { if (token) pf = await assistantPortfolioSnapshot(); } catch (e) {}
+    const r = await fetch(ASSISTANT_API, { method: 'POST', headers, body: JSON.stringify({ messages: th.messages, portfolio: pf }) });
     const d = await r.json().catch(() => ({}));
     th.messages.push({ role: 'assistant', content: d.reply || 'Sorry — I had trouble answering. Please try again.' });
   } catch (e) {
@@ -3473,11 +3560,13 @@ function asstCardHtml() {
 
 // ── Guided coachmark tour (first-visit onboarding; replayable via the ? button) ──
 const TOUR_STEPS = [
-  { sel: '#homePfSelect', title: 'Your portfolios', body: 'Pick a single portfolio, or “All portfolios” to see everything combined.' },
-  { sel: '.dash-hero-main', title: 'Value & performance', body: 'Your total value, today’s P&L and all-time gain — recomputed from live prices.' },
-  { sel: '.home-aside .asst-host', title: 'AI analyst', body: 'Ask about any stock, your portfolio, or the markets and get instant answers backed by live data.' },
-  { sel: '#mktBar', title: 'Market pulse', body: 'Live indexes plus market breadth and the overall trend signal run across the top.' },
-  { sel: '#sidebar', mobileSel: '#hamburgerBtn', title: 'Explore more', body: 'Top Picks, Charts, Research, Watchlist, Alerts and Notifications all live in the sidebar.' }
+  { tab: 'home', sel: '#homePfSelect', title: 'Your portfolios', body: 'Pick a single portfolio, or “All portfolios” to see everything combined.' },
+  { tab: 'home', sel: '.dash-hero-main', title: 'Value & performance', body: 'Your total value, today’s P&L and all-time gain — recomputed from live prices.' },
+  { tab: 'home', sel: '.home-aside .asst-host', title: 'AI analyst', body: 'Ask about any stock, your portfolio, or the markets and get instant answers backed by live data.' },
+  { tab: 'home', sel: '#mktBar', title: 'Market pulse', body: 'Live indexes plus market breadth and the overall trend signal run across the top.' },
+  { tab: 'home', sel: '#sidebar', mobileSel: '#hamburgerBtn', title: 'Explore more', body: 'Top Picks, Charts, Research, Watchlist, Alerts and Notifications all live in the sidebar — let’s set up your portfolio next.' },
+  { tab: 'portfolio', sel: '#newPfName', title: 'Create a portfolio', body: 'Here on the Portfolio tab, type a name and click “Add Portfolio”. You can keep several (e.g. Long-term, Trading).' },
+  { tab: 'portfolio', sel: '#addHoldingRow', title: 'Add your first holding', body: 'Then enter a ticker, quantity, buy price and date and click “Add holding” — Sparks tracks its live value, P&L and alerts for you.' }
 ];
 let _tourStep = 0;
 function startTour(force) {
@@ -3495,10 +3584,13 @@ function startTour(force) {
 function _tourTarget(step) { return document.querySelector((window.innerWidth <= 900 && step.mobileSel) ? step.mobileSel : step.sel); }
 function _tourVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 4 && r.height > 4; }
 function tourShow(i) {
-  while (i < TOUR_STEPS.length && !_tourVisible(_tourTarget(TOUR_STEPS[i]))) i++;
   if (i >= TOUR_STEPS.length) { tourEnd(true); return; }
+  const step = TOUR_STEPS[i];
+  // switch to the step's tab first (then wait for it to render), so steps can span tabs
+  if (step.tab && typeof sw === 'function') { const tp = document.getElementById('tab-' + step.tab); if (tp && !tp.classList.contains('active')) { _tourStep = i; sw(step.tab); setTimeout(() => tourShow(i), 420); return; } }
+  if (!_tourVisible(_tourTarget(step))) { tourShow(i + 1); return; }   // skip a step whose target isn't present
   _tourStep = i;
-  const el = _tourTarget(TOUR_STEPS[i]);
+  const el = _tourTarget(step);
   try { el.scrollIntoView({ block: 'center', behavior: _reduceMotion ? 'auto' : 'smooth' }); } catch (e) {}
   setTimeout(_tourReposition, _reduceMotion ? 0 : 280);
 }
@@ -3522,7 +3614,7 @@ function _tourReposition() {
   card.style.top = top + 'px'; card.style.left = left + 'px';
 }
 function tourNext() { tourShow(_tourStep + 1); }
-function tourPrev() { let i = _tourStep - 1; while (i >= 0 && !_tourVisible(_tourTarget(TOUR_STEPS[i]))) i--; if (i < 0) i = 0; _tourStep = i; const el = _tourTarget(TOUR_STEPS[i]); try { el.scrollIntoView({ block: 'center', behavior: _reduceMotion ? 'auto' : 'smooth' }); } catch (e) {} setTimeout(_tourReposition, _reduceMotion ? 0 : 280); }
+function tourPrev() { tourShow(Math.max(0, _tourStep - 1)); }
 function tourEnd(done) { const ov = document.getElementById('tourOverlay'); if (ov) ov.remove(); window.removeEventListener('resize', _tourReposition); if (done) { try { lsSet('sparksTourDone', '1'); } catch (e) {} } }
 
 // ── Boot ──

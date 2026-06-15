@@ -102,6 +102,11 @@ service cloud.firestore {
       allow create, delete: if false;
     }
 
+    // ── AI assistant chat history (per-user; synced across the user's devices) ──
+    match /assistant_chats/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
     // ── OTP reset codes (Cloud Functions only via Admin SDK; never client-accessible) ──
     match /otp/{id} {
       allow read, write: if false;
