@@ -946,22 +946,32 @@ async function toolPortfolio(uid, key) {
     }
   } catch (e) { return { error: 'Could not read portfolio.' }; }
   if (!holdings.length) return { holdings: [], note: 'The user has no holdings yet.' };
-  let totalValue = 0, totalCost = 0;
-  for (const h of holdings) {
-    try { const q = await finnhubGet('/quote', { symbol: h.ticker }, key); if (q && q.c) { h.price = q.c; h.changePctToday = q.dp; } } catch (e) {}
-    const px = h.price || h.buyPrice;
-    h.value = +(px * h.qty).toFixed(2);
-    h.cost = +(h.buyPrice * h.qty).toFixed(2);
-    h.gainPct = h.buyPrice > 0 ? +((px / h.buyPrice - 1) * 100).toFixed(2) : 0;
+  // Merge duplicate tickers (same stock held across multiple portfolios) into one position.
+  const byT = {};
+  for (const h of holdings) { if (!byT[h.ticker]) byT[h.ticker] = { ticker: h.ticker, qty: 0, cost: 0 }; byT[h.ticker].qty += h.qty; byT[h.ticker].cost += h.buyPrice * h.qty; }
+  const merged = Object.values(byT);
+  let totalValue = 0, totalCost = 0, todayPnl = 0;
+  for (const h of merged) {
+    let price = h.qty > 0 ? h.cost / h.qty : 0, prev = null;
+    try { const q = await finnhubGet('/quote', { symbol: h.ticker }, key); if (q && q.c) { price = q.c; prev = q.pc; } } catch (e) {}
+    h.avgCost = h.qty > 0 ? +(h.cost / h.qty).toFixed(2) : 0;
+    h.price = +(+price).toFixed(2);
+    h.value = +(price * h.qty).toFixed(2);
+    h.cost = +h.cost.toFixed(2);
+    h.gain = +(h.value - h.cost).toFixed(2);
+    h.gainPct = h.cost > 0 ? +((h.gain / h.cost) * 100).toFixed(2) : 0;
+    if (prev != null) { h.todayChange = +(h.qty * (price - prev)).toFixed(2); todayPnl += h.qty * (price - prev); }
     totalValue += h.value; totalCost += h.cost;
   }
   return {
-    holdingsCount: holdings.length,
+    asOf: new Date().toISOString(),
+    holdingsCount: merged.length,
     totalValue: +totalValue.toFixed(2),
     totalCost: +totalCost.toFixed(2),
     totalGain: +(totalValue - totalCost).toFixed(2),
     totalGainPct: totalCost > 0 ? +(((totalValue - totalCost) / totalCost) * 100).toFixed(2) : 0,
-    holdings
+    todayPnl: +todayPnl.toFixed(2),
+    holdings: merged
   };
 }
 
@@ -969,7 +979,7 @@ async function runTool(name, args, ctx) {
   const key = ctx.key;
   try {
     switch (name) {
-      case 'get_portfolio': return await toolPortfolio(ctx.uid, key);
+      case 'get_portfolio': return ctx.portfolio ? ctx.portfolio : await toolPortfolio(ctx.uid, key);
       case 'get_quote': return await toolQuote(args.symbols, key);
       case 'get_fundamentals': return await toolFundamentals(args.symbol, key);
       case 'get_company_profile': return await toolProfile(args.symbol, key);
@@ -1024,7 +1034,7 @@ You help the user discover, compare and analyze stocks, ETFs, indices, currencie
 
 Rules:
 - ALWAYS use the provided tools to get live data before answering anything factual (prices, fundamentals, news, portfolio, comparisons). Never invent numbers — if a tool fails or data is missing, say so plainly.
-- For "my portfolio / my holdings / how am I doing", call get_portfolio.
+- For "my portfolio / my holdings / how am I doing", use the AUTHORITATIVE PORTFOLIO DATA given to you in context (or call get_portfolio). Those are the exact figures the user sees in the app — quote them verbatim (total value, total/today gain or loss, per-holding). NEVER recompute, re-estimate, round differently, or invent portfolio figures. If a requested number isn't in that data, say you don't have it rather than guessing.
 - Be concrete and detailed: cite the actual metrics, % changes and price levels you retrieved, and briefly explain what they mean for the user.
 - Format answers in short paragraphs and bullet points. Use **bold** for key figures. Keep it focused.
 - You may resolve company names to tickers with search_symbol when unsure.
@@ -1052,13 +1062,16 @@ exports.assistant = onRequest(
     if (!history.length) { res.status(400).json({ error: 'No message provided.' }); return; }
 
     const messages = [{ role: 'system', content: ASSISTANT_SYSTEM }];
-    // Pre-fetch a compact portfolio snapshot so portfolio questions work even if the
-    // model doesn't call tools (helps weaker free models).
+    // Authoritative portfolio: prefer the snapshot the CLIENT sends (the exact figures shown in the
+    // user's dashboard); fall back to a server-side read only if the client didn't provide one.
+    let clientPf = null;
+    if (uid && req.body && req.body.portfolio && typeof req.body.portfolio === 'object') {
+      try { clientPf = JSON.parse(JSON.stringify(req.body.portfolio)); } catch (e) { clientPf = null; }
+    }
     if (uid) {
-      try {
-        const p = await toolPortfolio(uid, fhKey);
-        if (p && p.holdings) messages.push({ role: 'system', content: 'Signed-in user portfolio snapshot (use get_portfolio for the freshest detail): ' + JSON.stringify(p).slice(0, 3000) });
-      } catch (e) {}
+      let pf = clientPf;
+      if (!pf) { try { pf = await toolPortfolio(uid, fhKey); } catch (e) {} }
+      if (pf) messages.push({ role: 'system', content: 'AUTHORITATIVE PORTFOLIO DATA (the exact figures shown in the user\'s Sparks dashboard right now — quote these verbatim for any portfolio/P&L/holdings question; never recompute or invent). JSON: ' + JSON.stringify(pf).slice(0, 4000) });
     } else {
       messages.push({ role: 'system', content: 'The user is NOT signed in, so portfolio tools are unavailable. Answer general market/company questions and, if they ask about their portfolio, tell them to sign in.' });
     }
@@ -1091,7 +1104,7 @@ exports.assistant = onRequest(
           for (const tc of msg.tool_calls) {
             let args = {};
             try { args = JSON.parse(tc.function.arguments || '{}'); } catch (e) {}
-            const result = await runTool(tc.function.name, args, { uid, key: fhKey });
+            const result = await runTool(tc.function.name, args, { uid, key: fhKey, portfolio: clientPf });
             toolsUsed.push(tc.function.name);
             messages.push({ role: 'tool', tool_call_id: tc.id, name: tc.function.name, content: JSON.stringify(result).slice(0, 5000) });
           }
