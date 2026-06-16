@@ -21,6 +21,12 @@ Run:  python apply_claude_holdings.py [--dry-run] [--file claude_holdings.json]
 import json, os, sys
 from datetime import datetime, date as _date
 
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 CREDS_PATH = os.path.join(BASE, "firebase_service_account.json")
 HOLDINGS_FILE = os.path.join(BASE, "claude_holdings.json")
@@ -92,6 +98,13 @@ def main():
         for uid, d in docs.items():
             db.collection("claude_holdings").document(uid).set(d)
             print(f"  ok  claude_holdings/{uid}")
+        try:  # local dated archive so past per-holding calls are browsable
+            import shutil
+            dd = os.path.join(BASE, "claude_history", day); os.makedirs(dd, exist_ok=True)
+            shutil.copy(path, os.path.join(dd, "claude_holdings.json"))
+            print(f"  ok  local copy -> claude_history/{day}/claude_holdings.json")
+        except Exception as e:
+            print(f"  !  local archive failed: {e}")
         print("  done. Each user's Home 52-week section now shows Claude's per-position call.")
     except Exception as e:
         print(f"  x  publish failed: {e}")
