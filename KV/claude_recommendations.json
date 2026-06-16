@@ -1,0 +1,65 @@
+{
+  "scan_date": "2026-06-11",
+  "scan_time_et": "11:38 PM ET",
+  "market": {
+    "state": "UPTREND",
+    "advice": "Confirmed uptrend, normal position sizing. Leadership is broad across sectors — buy strength on pullbacks, don't chase extended names at the highs."
+  },
+  "picks": [
+    {
+      "ticker": "CSX",
+      "signal": "STRONG BUY",
+      "score": 96,
+      "grade": "A",
+      "thesis": "My top call today. Rails breaking out just 0.3% off its 52-week high with the calmest RSI in the group (58.9) — that combination means a clean entry that isn't extended, backed by 26% EPS growth. This is the one I'd buy at market rather than waiting.",
+      "strengths": ["Breaking out with RSI in the sweet spot (not overbought)", "26% EPS growth confirms the move fundamentally", "Industrial leadership broadening beyond tech"],
+      "risks": ["Rails are economically sensitive — watch for any macro/freight-volume softness", "R:R ~2.5:1, below my 3:1 ideal — size accordingly"],
+      "watch": ["A close back below the breakout pivot would void the setup"]
+    },
+    {
+      "ticker": "AMAT",
+      "signal": "WATCH",
+      "score": 90,
+      "grade": "A-",
+      "thesis": "Best fundamentals in the group (33% EPS growth) and a textbook semi-cap leader at new highs — but RSI 74.7 is hot. I'm tagging this WATCH rather than BUY: wait for a pullback toward the breakout pivot before adding, don't chase it here.",
+      "strengths": ["33% EPS growth — strongest in today's leaders", "Semi-cap equipment is a primary AI-capex beneficiary"],
+      "risks": ["RSI ~75 — overextended, prone to a shakeout if you chase the high"],
+      "watch": ["A tight 2-4% pullback that holds the pivot is the entry trigger"]
+    },
+    {
+      "ticker": "BIIB",
+      "signal": "WATCH",
+      "score": 88,
+      "grade": "B+",
+      "thesis": "The only top name still building a base — 2.5% below its high with RSI 61, so it has room to run without being extended. Constructive, but it hasn't triggered yet. I want to see a volume breakout to a new high before committing.",
+      "strengths": ["31% EPS growth", "Not extended — RSI 61 leaves upside room", "Healthcare adds sector diversification"],
+      "risks": ["Biotech headline/binary risk", "Hasn't broken out yet — could stall in the base"],
+      "watch": ["New 52-week high on above-average volume = the buy signal"]
+    },
+    {
+      "ticker": "ROST",
+      "signal": "WATCH",
+      "score": 86,
+      "grade": "B+",
+      "thesis": "Strongest earnings growth of the five (+37%) and at new highs, but RSI 67 sits near the top of the healthy band. Off-price retail is a solid defensive-growth angle — I'd add only on a tight pause, not at the current high.",
+      "strengths": ["+37% EPS growth — best of the group", "Off-price model is resilient in a softer consumer"],
+      "risks": ["RSI 67 — getting extended", "Consumer-discretionary exposure if spending weakens"],
+      "watch": ["A few quiet days near the high before the next push"]
+    },
+    {
+      "ticker": "MNST",
+      "signal": "WATCH",
+      "score": 84,
+      "grade": "B",
+      "thesis": "Defensive-growth beverage leader at new highs with 29% EPS growth — a good portfolio stabilizer. But like AMAT it's extended at RSI 72. Buy the pullback, keep the 8% stop tight given how far it's run.",
+      "strengths": ["29% EPS growth in a defensive name", "Lower beta — steadies a momentum-heavy book"],
+      "risks": ["RSI 72 — extended", "Lower R:R relative to entry up here"],
+      "watch": ["Pullback toward the breakout pivot for a lower-risk entry"]
+    }
+  ],
+  "market_news": [
+    { "title": "Semiconductor capex outlook lifts equipment names as AI buildout continues", "url": "#", "outlet": "Reuters", "summary": "Analysts raised 2026 capex estimates, supporting semi-cap leaders like AMAT.", "sentiment": "BULLISH", "age_hours": 3, "breaking": false },
+    { "title": "Rails post strong volume data; industrials broaden market leadership", "url": "#", "outlet": "Bloomberg", "summary": "Freight volumes firm, underpinning CSX's breakout and a broadening rally.", "sentiment": "BULLISH", "age_hours": 5, "breaking": false },
+    { "title": "VIX stays contained as SPY holds above key averages", "url": "#", "outlet": "MarketWatch", "summary": "Low volatility keeps the uptrend intact; conditions favor normal position sizing.", "sentiment": "NEUTRAL", "age_hours": 8, "breaking": false }
+  ]
+}

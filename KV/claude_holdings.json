@@ -1,0 +1,13 @@
+{
+  "date": "2026-06-11",
+  "_note": "Replace the example uid below with the real uid(s) from holdings_dump.json. One entry per user; one call per ticker they hold.",
+  "users": {
+    "EXAMPLE_UID_FROM_holdings_dump_json": {
+      "holdings": [
+        { "ticker": "AAPL", "action": "HOLD", "why": "Up modestly from your cost and holding above its key averages — thesis intact. No reason to add up here; keep an 8% trailing stop." },
+        { "ticker": "CSX", "action": "BUY MORE", "why": "My top setup today — clean breakout, RSI not extended, 26% EPS growth. Adding on a pullback toward the pivot is well-supported." },
+        { "ticker": "INTC", "action": "TRIM / DEFEND", "why": "Down from your entry and lagging the group. Tighten the stop and trim into any bounce — the thesis hasn't worked." }
+      ]
+    }
+  }
+}
