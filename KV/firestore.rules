@@ -80,6 +80,12 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // ── Claude per-holding analysis (Cowork admin SDK writes; owner reads) ──
+    match /claude_holdings/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
     // ── Portfolio health reports (Python writes; browser reads) ──
     match /health_reports/{uid} {
       allow read: if request.auth != null && request.auth.uid == uid;
