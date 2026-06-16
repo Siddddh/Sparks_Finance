@@ -9,6 +9,11 @@ Modes:
 """
 import json, sys, os, warnings
 warnings.filterwarnings("ignore")
+try:  # Windows cp1252 consoles crash on non-ASCII prints — force UTF-8
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
 from datetime import datetime
 
 import re as _re
