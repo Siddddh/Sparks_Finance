@@ -15,6 +15,7 @@ import json, os, sys
 BASE = os.path.dirname(os.path.abspath(__file__))
 CREDS_PATH = os.path.join(BASE, "firebase_service_account.json")
 OUT = os.path.join(BASE, "holdings_dump.json")
+INCLUDE = os.path.join(BASE, "scan_include.json")  # held tickers → run_full_scan.py merges these in
 
 
 def main():
@@ -61,11 +62,19 @@ def main():
 
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=2)
+
+    # Deduped list of every held ticker → run_full_scan.py merges these in so each
+    # holding gets real metrics regardless of scan mode / universe membership.
+    held = sorted({h["ticker"] for v in out.values() for h in v["holdings"]})
+    with open(INCLUDE, "w", encoding="utf-8") as f:
+        json.dump({"tickers": held, "updated_at": __import__("datetime").datetime.utcnow().isoformat() + "Z"}, f, indent=2)
+
     n_users = len(out)
     n_pos = sum(len(v["holdings"]) for v in out.values())
     print(f"  ok  wrote {OUT}: {n_users} user(s), {n_pos} position(s).")
-    print("  Next: Claude reads holdings_dump.json + combined_results.json, writes claude_holdings.json,")
-    print("        then run: python apply_claude_holdings.py")
+    print(f"  ok  wrote {INCLUDE}: {len(held)} held ticker(s) → will be force-included in the next scan.")
+    print("  Next: run `python run_full_scan.py --full` (held tickers are now auto-included),")
+    print("        then Claude writes claude_holdings.json, then `python apply_claude_holdings.py`.")
 
 
 if __name__ == "__main__":
