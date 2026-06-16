@@ -355,6 +355,50 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 .holding-col{display:flex;flex-direction:column;align-items:flex-end;}
 .holding-val{font-size:14px;font-weight:600;color:var(--text);}
 .holding-sub{font-size:11px;color:var(--text-3);margin-top:1px;}
+/* ── Portfolio holdings table (sortable) ── */
+.hold-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--surface-2);-webkit-overflow-scrolling:touch;}
+.hold-table{width:100%;border-collapse:collapse;font-size:13px;min-width:720px;}
+.hold-table thead th{position:sticky;top:0;background:var(--surface);color:var(--text-3);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;text-align:right;padding:11px 14px;border-bottom:1px solid var(--border);white-space:nowrap;z-index:2;}
+.hold-table thead th.ht-sortable{cursor:pointer;user-select:none;}
+.hold-table thead th.ht-sortable:hover{color:var(--text);}
+.hold-table thead th.ht-sym,.hold-table tbody td.ht-sym{text-align:left;}
+.hold-table thead th.ht-active{color:var(--blue);}
+.hold-table tbody td{padding:12px 14px;border-bottom:1px solid var(--border);text-align:right;vertical-align:middle;white-space:nowrap;color:var(--text);}
+.hold-table tbody tr:last-child td{border-bottom:none;}
+.hold-table tbody tr:hover td{background:var(--surface-hover);}
+.hold-table tbody tr.ht-hl td{background:var(--blue-soft);}
+.hold-table thead th.ht-sym,.hold-table tbody td.ht-sym{position:sticky;left:0;background:var(--surface-2);z-index:1;}
+.hold-table thead th.ht-sym{background:var(--surface);}
+.hold-table tbody tr:hover td.ht-sym{background:var(--surface-hover);}
+.ht-symcell{display:flex;align-items:center;gap:10px;}
+.ht-symcell .holding-logo{width:32px;height:32px;border-radius:8px;font-size:12px;}
+.ht-num-strong{font-weight:600;}
+.ht-sub{font-size:11px;color:var(--text-3);margin-top:1px;}
+td.pos,.ht-pos{color:var(--green);}td.neg,.ht-neg{color:var(--red);}
+.ht-52{min-width:184px;}
+.ht-52 .rng-track{margin:5px 0 3px;}
+.ht-52meta{font-size:10px;color:var(--text-3);text-align:left;}
+/* ── Buy/Sell analysis call badges ── */
+.call-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.3px;padding:2px 8px;border-radius:20px;white-space:nowrap;cursor:help;}
+.call-green{background:var(--green-soft);color:var(--green);}
+.call-amber{background:var(--amber-soft);color:var(--amber);}
+.call-red{background:var(--red-soft);color:var(--red);}
+.call-blue{background:var(--blue-soft);color:var(--blue);}
+.call-why{display:block;font-size:11px;color:var(--text-2);margin-top:4px;line-height:1.45;}
+.rng-analysis{margin-top:6px;display:flex;flex-direction:column;gap:2px;}
+.rng-advice-note{font-size:10px;color:var(--text-3);margin-top:10px;font-style:italic;}
+/* ── Portfolio search + lookup card ── */
+.pf-search-row{margin-bottom:12px;}
+.pf-filter-note{font-size:12px;color:var(--text-2);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.pf-clearx{border:1px solid var(--border);background:var(--surface-2);color:var(--text-2);border-radius:16px;padding:3px 10px;font-size:11px;cursor:pointer;font-family:inherit;}
+.pf-clearx:hover{background:var(--surface-hover);}
+.pf-lookup{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+.pf-lookup-empty{color:var(--text-3);font-size:13px;}
+.pf-lookup-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.pf-lookup-tkr{font-size:18px;font-weight:700;color:var(--text);}
+.pf-lookup-name{font-size:12px;color:var(--text-3);}
+.pf-lookup-price{font-size:20px;font-weight:700;color:var(--text);}
+.pf-picks-sub{font-size:12px;color:var(--text-3);margin:-6px 0 16px;}
 .pnl-pos{color:var(--green);font-weight:600;}
 .pnl-neg{color:var(--red);font-weight:600;}
 .empty-state{text-align:center;padding:64px 20px;background:var(--surface-2);border-radius:12px;border:1px solid var(--border);}
@@ -660,7 +704,7 @@ img,canvas,svg{max-width:100%;}
 /* safe-area (notched phones / installed PWA) */
 .navbar{padding-top:env(safe-area-inset-top);padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right));}
 /* mobile drawer backdrop */
-.nav-scrim{display:none;position:fixed;inset:calc(var(--nav-h) + env(safe-area-inset-top)) 0 0 0;background:rgba(0,0,0,.45);z-index:899;}
+.nav-scrim{display:none;position:fixed;inset:var(--nav-h-real, calc(var(--nav-h) + env(safe-area-inset-top))) 0 0 0;background:rgba(0,0,0,.45);z-index:899;}
 body.sidebar-open .nav-scrim{display:block;}
 
 @media(min-width:901px){
@@ -669,7 +713,7 @@ body.sidebar-open .nav-scrim{display:block;}
 }
 @media(max-width:900px){
   .nav-search{max-width:none;}
-  .sidebar{position:fixed;top:calc(var(--nav-h) + env(safe-area-inset-top));left:0;bottom:0;height:auto;z-index:900;transform:translateX(-100%);transition:transform .2s;box-shadow:var(--shadow-lg);width:min(82vw,300px);}
+  .sidebar{position:fixed;top:var(--nav-h-real, calc(var(--nav-h) + env(safe-area-inset-top)));left:0;bottom:0;height:auto;z-index:900;transform:translateX(-100%);transition:transform .2s;box-shadow:var(--shadow-lg);width:min(82vw,300px);}
   body.sidebar-open .sidebar{transform:none;}
   .nav-hamburger{display:flex;}
   .scan-t,.user-badge{display:none;}
@@ -685,10 +729,13 @@ body.sidebar-open .nav-scrim{display:block;}
 @media(max-width:600px){
   .grid{grid-template-columns:1fr;}
   .content{padding:16px 14px 56px;}
-  .navbar{gap:8px;padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));}
-  .nav-brand{display:none;}            /* free space: hamburger + search remain */
+  .navbar{flex-wrap:wrap;min-height:0;column-gap:8px;row-gap:8px;padding:calc(8px + env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) 8px max(12px,env(safe-area-inset-left));}
+  .nav-brand{display:none;}
   .live-badge{display:none;}
   .sign-out-btn{padding:7px 12px;}
+  .nav-right{margin-left:auto;}                                /* actions pinned right on the top row */
+  .nav-search{order:3;flex:1 0 100%;max-width:none;margin:0;}  /* search drops to its own full-width row */
+  .nav-search-box input{font-size:16px;}                       /* readable + avoids iOS zoom-on-focus */
   .mkt-bar{padding:0 12px;}
   .modal-overlay{padding:14px;}
   .modal-box{padding:20px;max-height:92vh;overflow-y:auto;}
@@ -698,6 +745,7 @@ body.sidebar-open .nav-scrim{display:block;}
   .scard{min-width:96px;padding:10px 14px;}
   .scard .snum{font-size:20px;}
   .holding-name,.coname{max-width:120px;}
+  .pf-select{font-size:16px;}                                  /* avoids iOS zoom-on-focus for portfolio inputs */
 }
 @media(max-width:420px){
   .content{padding:12px 12px 52px;}
@@ -837,6 +885,7 @@ body.sidebar-open .nav-scrim{display:block;}
         </div>
         <div id="tab-cards" class="tab-panel">
           <div class="page-title">Top Picks</div>
+          <div class="pf-picks-sub" id="picksSub" title="Top Picks are generated by the scan engine and refresh automatically whenever a new scan is published.">Refreshes automatically with each new scan.</div>
           <div class="sum-bar">
             <div class="scard sg"><div class="snum" id="cSB">—</div><div class="slbl">Strong Buy</div></div>
             <div class="scard sw"><div class="snum" id="cW">—</div><div class="slbl">Watch</div></div>
@@ -870,6 +919,13 @@ body.sidebar-open .nav-scrim{display:block;}
               <input id="inlineHoldingDate" class="pf-select" type="date" style="flex:1 1 140px;min-width:120px;"/>
               <button class="pf-btn pf-btn-primary" onclick="addHoldingInline()"><span class="i-plus"></span> Add holding</button>
             </div>
+            <div class="pf-toolbar pf-search-row">
+              <div class="ac-wrap" style="flex:1 1 260px;min-width:160px;position:relative;">
+                <input id="pfSearchInput" class="pf-select" style="width:100%;" placeholder="Search your holdings or look up any ticker…" oninput="acFilter(this,'pfSearchAC','portfolio')" onkeydown="acKey(event,'pfSearchAC','portfolio')" autocomplete="off"/>
+                <div id="pfSearchAC" class="ac-list" style="display:none"></div>
+              </div>
+            </div>
+            <div id="pfLookupCard"></div>
             <div id="pfBody"></div>
           </div>
         </div>
@@ -1169,6 +1225,8 @@ let chartsInited = false;
 let sortKey = 'combined_score', sortAsc = false;
 let currentResearchTicker = null;
 let picksShown = 24; // how many home cards to render (Fix #5 — show WATCH/WEAK too)
+// Portfolio holdings table: sort + search state, and a 52-week range cache for held tickers.
+let pfSortKey = 'value', pfSortAsc = false, pfSearchFilter = null, _pfRanges = {};
 const TAB_NAMES = ['cards','summary','portfolio','watchlist','useralerts','research','discovery','earnings','health','catalysts','market','table','chart'];
 const critLabels = {trend_ok:'Stage 2',near_high:'Near High',rsi_ok:'RSI',volume_ok:'Volume',eps_ok:'EPS 20%+',rev_ok:'Rev 10%+',vcp_ok:'VCP',rs_ok:'RS High',vdu_ok:'Vol DU',insider_ok:'Insider'};
 const CRIT_TIP = {trend_ok:'Stage 2 uptrend — price above key moving averages',near_high:'Trading near its 52-week high',rsi_ok:'RSI in a healthy momentum range',volume_ok:'Above-average volume confirmation',eps_ok:'Strong earnings-per-share growth (20%+)',rev_ok:'Solid revenue growth (10%+)',vcp_ok:'VCP — Volatility Contraction Pattern (tightening price ahead of a potential breakout)',rs_ok:'RS — high Relative Strength vs the market',vdu_ok:'Volume Dry-Up — a low-volume pullback (bullish)',insider_ok:'Recent insider buying'};
@@ -1517,6 +1575,7 @@ function acSelect(sym, listId, context) {
   else if (context === 'addHoldingInline') { document.getElementById('inlineHoldingTicker').value = sym; autofillBuyPriceInline(sym); }
   else if (context === 'addWL') { document.getElementById('wlTickerInput').value = sym; }
   else if (context === 'chart') { setChartSym(sym); }
+  else if (context === 'portfolio') { pfSearch(sym); }
 }
 function acClose(listId) { const el = document.getElementById(listId); if (el) el.style.display = 'none'; }
 function acKey(e, listId, context) {
@@ -1529,6 +1588,7 @@ function acKey(e, listId, context) {
     else if (context === 'global') { const v = document.getElementById('globalSearch').value.trim().toUpperCase(); if (v) { acClose(listId); goResearch(v); document.getElementById('globalSearch').value = ''; } }
     else if (context === 'research') { acClose(listId); runResearch(); }
     else if (context === 'chart') { acClose(listId); setChartSym(document.getElementById('chartSymInput').value); }
+    else if (context === 'portfolio') { const v = document.getElementById('pfSearchInput').value.trim().toUpperCase(); if (v) { acClose(listId); pfSearch(v); } }
   }
   else if (e.key === 'Escape') { acClose(listId); }
 }
@@ -1760,7 +1820,14 @@ function hideLoading() {
   const el = document.getElementById('loading');
   el.classList.add('hidden');
   document.getElementById('app').style.display = 'block';
-  setTimeout(() => el.style.display = 'none', 500);
+  // The navbar lives inside #app, so it had 0 height while hidden. Now that it's
+  // visible, measure its real (possibly 2-row, on mobile) height so the drawer/scrim
+  // align to --nav-h-real even on browsers without ResizeObserver. rAF + setTimeout
+  // fallback because some renderers throttle rAF.
+  const _syncNavH = () => { const nb = document.querySelector('.navbar'); if (nb && nb.offsetHeight > 0) document.documentElement.style.setProperty('--nav-h-real', nb.offsetHeight + 'px'); };
+  requestAnimationFrame(_syncNavH);
+  setTimeout(_syncNavH, 80);
+  setTimeout(el => el.style.display = 'none', 500, el);
   buildIndexStrip();
 }
 
@@ -1772,6 +1839,7 @@ auth.onAuthStateChanged(user => {
     document.getElementById('userBadge').textContent = user.email;
     setLoading('Loading scan data…');
     initScanListener();
+    initClaudeHoldingsListener();   // per-holding calls from Claude (claude_holdings/{uid})
     initUserListeners();
     registerForPush(false);   // silently refresh token if permission already granted
     asstSyncFromCloud();      // load this account's saved AI chats from Firestore (cross-login/device)
@@ -1816,13 +1884,17 @@ function initUserListeners() {
 function renderAll() {
   if (!D) return;
   const picks = D.stocks || [];
+  // Top Picks cards show Claude's recommendations when present (Cowork-published), else the scan universe.
+  const cardPicks = (D.claude_picks && D.claude_picks.length) ? D.claude_picks : picks;
   const alerts = D.alerts || [];
   const mktNews = D.market_news || [];
   const mh = D.market_health || {};
   document.getElementById('scanT').textContent = (D.scan_date || '') + ' ' + (D.scan_time_et || '');
-  setCount('cSB', picks.filter(s => s.signal === 'STRONG BUY').length);
-  setCount('cW', picks.filter(s => s.signal === 'WATCH').length);
-  setCount('cK', picks.filter(s => s.signal === 'WEAK').length);
+  const _psub = document.getElementById('picksSub');
+  if (_psub) { const stamp = ((D.scan_date || '') + ' ' + (D.scan_time_et || '')).trim(); const byClaude = !!(D.claude_picks && D.claude_picks.length); _psub.textContent = (byClaude ? 'Suggested by Claude' : 'Top setups') + (stamp ? ' · updated ' + stamp : '') + ' · refreshes each scan.'; }
+  setCount('cSB', cardPicks.filter(s => s.signal === 'STRONG BUY').length);
+  setCount('cW', cardPicks.filter(s => s.signal === 'WATCH').length);
+  setCount('cK', cardPicks.filter(s => s.signal === 'WEAK').length);
   setCount('cT', D.universe || picks.length);
   setCount('cA', alerts.length);
   const stateColors = { green: 'mkt-green', amber: 'mkt-amber', red: 'mkt-red', gray: 'mkt-gray' };
@@ -1844,7 +1916,7 @@ function renderAll() {
   }
   else { brkBar.classList.add('hidden'); }
   picksShown = 24;
-  renderCards(picks);
+  renderCards(cardPicks);
   renderMarket(mktNews);
   initScreenBar();
   renderTable(picks);
@@ -1856,7 +1928,7 @@ function renderAll() {
 }
 
 // ── Cards ──
-function showMorePicks() { picksShown += 24; renderCards(D && D.stocks || []); }
+function showMorePicks() { picksShown += 24; renderCards((D && ((D.claude_picks && D.claude_picks.length) ? D.claude_picks : D.stocks)) || []); }
 function renderCards(picks) {
   picks = picks || [];
   // Sort by combined score so the strongest setups lead, but WATCH/WEAK still show.
@@ -2580,22 +2652,26 @@ function renderHomeDashboard(hs, scope, ranges) {
       '<div class="dash-mini"><div class="dash-mini-label">Holdings</div><div class="dash-mini-val">' + en.length + '</div></div>' +
     '</div>' +
   '</div>';
-  // 52-week range — full coverage from getRange, fallback to scan data.
+  // 52-week range + buy/sell outlook — full coverage from getRange, fallback to scan data.
   const fz = en.map(e => {
     let hi, lo; const r = ranges[e.ticker];
     if (r) { hi = +r.high52; lo = +r.low52; }
     else { const s = scanStockFor(e.ticker); if (s && s.high_52w != null && s.low_52w != null) { hi = +s.high_52w; lo = +s.low_52w; } }
     if (hi == null || lo == null || !(hi > lo)) return null;
-    return { t: e.ticker, hi, lo, px: e.px, fromHigh: (e.px / hi - 1) * 100 };
+    const fromHigh = (e.px / hi - 1) * 100;
+    const pos = Math.max(0, Math.min(100, (e.px - lo) / (hi - lo) * 100));
+    const buyAvg = e.qty > 0 ? e.cost / e.qty : 0;
+    const call = holdingCallFor(e.ticker, { ticker: e.ticker, scan: scanStockFor(e.ticker), price: e.px, buyAvg: buyAvg, pnlPct: e.gp, fromHigh: fromHigh, pos52: pos });
+    return { t: e.ticker, hi, lo, px: e.px, fromHigh: fromHigh, pos: pos, call: call };
   }).filter(Boolean);
   let fzHtml = '';
   if (fz.length) {
-    fzHtml = '<div class="dash-section"><div class="dash-section-title">' + ic('activity', 16) + ' 52-week range</div>' +
+    fzHtml = '<div class="dash-section"><div class="dash-section-title">' + ic('activity', 16) + ' 52-week range &amp; outlook</div>' +
       fz.map(f => {
-        const pos = Math.max(0, Math.min(100, (f.px - f.lo) / (f.hi - f.lo) * 100));
         return '<div class="rng-row" title="The dot marks where the current price sits within its 52-week low–high range."><div class="rng-top"><span class="rng-tkr" onclick="goResearch(\'' + f.t + '\')">' + f.t + '</span><span class="rng-meta">$' + f.lo.toFixed(0) + ' – $' + f.hi.toFixed(0) + ' · ' + (f.fromHigh >= 0 ? '+' : '') + f.fromHigh.toFixed(0) + '% vs high</span></div>' +
-          '<div class="rng-track"><div class="rng-fill" data-w="' + pos.toFixed(0) + '" style="width:0%"></div><div class="rng-dot" data-l="' + pos.toFixed(0) + '" style="left:0%"></div></div></div>';
-      }).join('') + '</div>';
+          '<div class="rng-track"><div class="rng-fill" data-w="' + f.pos.toFixed(0) + '" style="width:0%"></div><div class="rng-dot" data-l="' + f.pos.toFixed(0) + '" style="left:0%"></div></div>' +
+          '<div class="rng-analysis">' + callBadge(f.call, true) + '</div></div>';
+      }).join('') + '<div class="rng-advice-note">Guidance is generated from scan signals and your cost basis — informational only, not financial advice.</div></div>';
   }
   el.innerHTML = '<div class="home-grid">' +
     '<div class="home-stats">' + homeHeaderHtml() + hero + fzHtml + '</div>' +
@@ -2701,6 +2777,8 @@ async function addHoldingInline() {
   if (!(qty > 0)) { if (q) q.focus(); return; }
   let price = parseFloat(p && p.value);
   if (isNaN(price)) { const le = liveEntry(ticker), sd = scanStockFor(ticker); price = (le && le.price) || (sd && parseFloat(sd.price)) || 0; }
+  // Capture any existing lots of this ticker BEFORE the write so we can confirm the blend.
+  const existing = (holdings || []).filter(h => h.ticker === ticker);
   await addHolding(currentPfId, ticker, qty, price, (d && d.value) || todayStr());
   if (t) t.value = '';
   if (q) q.value = '';
@@ -2708,7 +2786,17 @@ async function addHoldingInline() {
   if (d) d.value = todayStr();
   acClose('inlineHoldingAC');
   if (t) t.focus();
-  try { pmToast(ticker + ' added to ' + (portfolioNameById(currentPfId) || 'portfolio')); } catch (e) {}
+  try {
+    if (existing.length) {
+      // Lots stay separate in Firestore but display/average as one position.
+      let totQ = qty, totC = qty * price;
+      existing.forEach(h => { const eq = parseFloat(h.qty) || 0, ep = parseFloat(h.buy_price) || 0; totQ += eq; totC += eq * ep; });
+      const avg = totQ > 0 ? totC / totQ : price;
+      pmToast('Averaged into ' + ticker + ' — now ' + (Math.round(totQ * 1e4) / 1e4) + ' sh @ $' + avg.toFixed(2) + ' avg cost');
+    } else {
+      pmToast(ticker + ' added to ' + (portfolioNameById(currentPfId) || 'portfolio'));
+    }
+  } catch (e) {}
 }
 async function autofillBuyPriceInline(sym) {
   if (!sym) return;
@@ -2722,71 +2810,268 @@ async function autofillBuyPriceInline(sym) {
   if (px != null && !bp.value) bp.value = (+px).toFixed(2);
 }
 
-// Fix #1: always fetch live prices for every holding (not just those missing a scan
-// price) so P&L reflects the current market instead of the buy price.
+// Always fetch live prices AND full-coverage 52-week ranges for every holding so P&L,
+// today's change, and the 52-week column reflect the current market — not the buy price.
 async function renderHoldingsTable() {
   _renderHoldingsUI();
-  const need = holdings.map(h => h.ticker).filter(t => !liveEntry(t));
-  if (need.length) {
-    need.forEach(t => { const el = document.getElementById('price_' + t); if (el) el.innerHTML = '<span class="ac-skel" style="width:50px;height:13px"></span>'; });
-    await fetchLivePrices(need);
-    _renderHoldingsUI();
-  }
+  const syms = [...new Set((holdings || []).map(h => h.ticker).filter(Boolean))];
+  const needP = syms.filter(t => !liveEntry(t));
+  const needR = syms.filter(t => !_pfRanges[t]);
+  const jobs = [];
+  if (needP.length) jobs.push(fetchLivePrices(needP).catch(() => {}));
+  if (needR.length) jobs.push(Promise.race([
+    fetch(GETRANGE_API + '?symbols=' + encodeURIComponent(needR.join(','))).then(r => r.json()).then(d => { if (d && d.ranges) Object.assign(_pfRanges, d.ranges); }),
+    new Promise(res => setTimeout(res, 5000))
+  ]).catch(() => {}));
+  if (jobs.length) { await Promise.all(jobs); _renderHoldingsUI(); }
 }
 
+// Rule-based buy/sell guidance for a single position — driven by the scan signal, the
+// holding's own P&L, and where price sits in its 52-week range (no LLM call). Returns
+// { label, cls, why }. Mirrors the level math in computeHealth().
+function holdingCall(e) {
+  const pct = e.pnlPct || 0, fh = e.fromHigh, scan = e.scan || {};
+  const sig = (scan.signal || '').toUpperCase();
+  const rsi = scan.rsi != null ? parseFloat(scan.rsi) : null;
+  const ma200 = parseFloat(scan.ma200) || 0;
+  const eps = scan.eps_growth != null ? scan.eps_growth : null;
+  const score = scan.combined_score != null ? scan.combined_score : (scan.score != null ? scan.score : null);
+  const trail = e.price * 0.88, exitHard = e.buyAvg * 0.85, stop = e.buyAvg * 0.92;
+  if (pct <= -15 || (ma200 > 0 && e.price > 0 && e.price < ma200)) {
+    const reason = pct <= -15 ? 'Down ' + Math.abs(pct).toFixed(0) + '% from your average cost' : 'Trading below its 200-day average';
+    return { label: 'TRIM / DEFEND', cls: 'red', why: reason + (rsi != null && rsi < 40 ? ' with weak momentum (RSI ' + rsi.toFixed(0) + ')' : '') + ' — tighten risk; consider a hard stop near $' + exitHard.toFixed(2) + '.' };
+  }
+  if (pct >= 30) {
+    return { label: 'TRIM / LOCK GAINS', cls: 'amber', why: "You're up " + pct.toFixed(0) + '% — protect the gain with a trailing stop near $' + trail.toFixed(2) + ' and let the rest run.' };
+  }
+  if ((sig === 'STRONG BUY' || (score != null && score >= 70)) && fh != null && fh >= -8 && (rsi == null || rsi < 75)) {
+    return { label: 'BUY MORE / ADD', cls: 'green', why: 'Strong setup ' + (score != null ? '(score ' + score + ') ' : '') + (fh >= -3 ? 'pressing new highs' : Math.abs(fh).toFixed(0) + '% off its 52-week high') + ' — add on pullbacks toward support.' };
+  }
+  if (fh != null && fh <= -40) {
+    return { label: 'WATCH', cls: 'blue', why: 'Near the low end of its 52-week range (' + fh.toFixed(0) + '% vs high) — wait for a base or reversal before adding.' };
+  }
+  let why = 'Thesis intact';
+  if (fh != null) why += fh >= 0 ? ' · at its 52-week high' : ' · ' + Math.abs(fh).toFixed(0) + '% below the 52-week high';
+  if (eps != null && eps >= 20) why += ' · EPS +' + eps.toFixed(0) + '%';
+  why += pct >= 0 ? " · you're +" + pct.toFixed(0) + '%' : " · you're " + pct.toFixed(0) + '%';
+  why += '. Hold; protective stop near $' + stop.toFixed(2) + '.';
+  return { label: 'HOLD', cls: 'blue', why };
+}
+function callBadge(c, withText) {
+  if (!c) return '';
+  return '<span class="call-badge call-' + (c.cls || 'blue') + '" title="' + escHtml(c.why) + '">' + c.label + '</span>' + (withText ? '<span class="call-why">' + escHtml(c.why) + '</span>' : '');
+}
+// Per-holding buy/sell call: use Claude's (Cowork-published, claude_holdings/{uid}) when present, else the rule-based one.
+let _claudeHoldings = {}, _claudeHoldingsUnsub = null;
+function callClsFor(action) { const a = (action || '').toUpperCase(); if (/SELL|AVOID|EXIT/.test(a)) return 'red'; if (/TRIM|REDUCE/.test(a)) return 'amber'; if (/WATCH|HOLD/.test(a)) return 'blue'; return 'green'; }
+function holdingCallFor(ticker, e) {
+  const cc = _claudeHoldings[(ticker || '').toUpperCase()];
+  if (cc && (cc.action || cc.why)) return { label: cc.action || 'HOLD', cls: callClsFor(cc.action), why: cc.why || '', byClaude: true };
+  return holdingCall(e);
+}
+function initClaudeHoldingsListener() {
+  if (typeof db === 'undefined' || !db || !UID) return;
+  if (_claudeHoldingsUnsub) { try { _claudeHoldingsUnsub(); } catch (e) {} _claudeHoldingsUnsub = null; }
+  try {
+    _claudeHoldingsUnsub = db.collection('claude_holdings').doc(UID).onSnapshot(doc => {
+      _claudeHoldings = (doc.exists && doc.data() && doc.data().by_ticker) ? doc.data().by_ticker : {};
+      try { if (document.getElementById('tab-home').classList.contains('active')) loadHomeDashboard(); } catch (e) {}
+      try { if (document.getElementById('tab-portfolio').classList.contains('active')) renderHoldingsTable(); } catch (e) {}
+    }, err => {});
+  } catch (e) {}
+}
+
+// Merge the current portfolio's lots into one row per ticker (display only — Firestore
+// keeps separate lot docs). Weighted-average cost, summed qty, earliest buy date.
+function pfMergedRows() {
+  const m = {};
+  (holdings || []).forEach(h => {
+    const t = h.ticker; if (!t) return;
+    const qty = parseFloat(h.qty) || 0, buy = parseFloat(h.buy_price) || 0;
+    if (!m[t]) m[t] = { ticker: t, qty: 0, cost: 0, lotIds: [], buy_date: h.buy_date || null, stored: 0 };
+    const a = m[t];
+    a.qty += qty; a.cost += buy * qty; a.lotIds.push(h.id);
+    if (h.buy_date && (!a.buy_date || h.buy_date < a.buy_date)) a.buy_date = h.buy_date;
+    const sp = parseFloat(h.current_price) || 0; if (sp && !a.stored) a.stored = sp;
+  });
+  return Object.values(m).map(a => {
+    const scan = scanStockFor(a.ticker), live = liveEntry(a.ticker);
+    const scanPrice = scan ? parseFloat(scan.price) || 0 : 0;
+    const buyAvg = a.qty > 0 ? a.cost / a.qty : 0;
+    let price;
+    if (live && live.price) price = live.price;
+    else if (scanPrice > 0) price = scanPrice;
+    else if (a.stored > 0) price = a.stored;
+    else price = buyAvg;
+    const changePct = (live && live.price) ? (live.changePct || 0) : 0;
+    const prev = (live && live.prev != null) ? live.prev : null;
+    const value = price * a.qty, cost = a.cost, pnl = value - cost, pnlPct = cost > 0 ? pnl / cost * 100 : 0;
+    const today = (prev != null) ? a.qty * (price - prev) : 0;
+    const todayPct = (prev != null && prev > 0) ? (price - prev) / prev * 100 : 0;
+    let hi = null, lo = null; const r = _pfRanges[a.ticker];
+    if (r) { hi = +r.high52; lo = +r.low52; }
+    else if (scan && scan.high_52w != null && scan.low_52w != null) { hi = +scan.high_52w; lo = +scan.low_52w; }
+    const has52 = (hi != null && lo != null && hi > lo);
+    const fromHigh = has52 ? (price / hi - 1) * 100 : null;
+    const pos52 = has52 ? Math.max(0, Math.min(100, (price - lo) / (hi - lo) * 100)) : null;
+    const row = { ticker: a.ticker, qty: a.qty, cost, lotIds: a.lotIds, buy_date: a.buy_date, scan, price, changePct, prev, buyAvg, value, pnl, pnlPct, today, todayPct, hi, lo, has52, fromHigh, pos52 };
+    row.call = holdingCallFor(row.ticker, row);
+    return row;
+  });
+}
+function pfSortRows(rows) {
+  const k = pfSortKey, dir = pfSortAsc ? 1 : -1;
+  const v = e => k === 'symbol' ? e.ticker : k === 'today' ? e.today : k === 'pct_total' ? e.pnlPct : e.value;
+  return rows.slice().sort((a, b) => { const x = v(a), y = v(b); if (k === 'symbol') return x < y ? -dir : x > y ? dir : 0; return (x - y) * dir; });
+}
+function pfSort(k) {
+  if (pfSortKey === k) pfSortAsc = !pfSortAsc;
+  else { pfSortKey = k; pfSortAsc = (k === 'symbol'); }
+  _renderHoldingsUI();
+}
 function _renderHoldingsUI() {
   const el = document.getElementById('pfBody');
-  if (!holdings.length) {
-    el.innerHTML = emptyState('briefcase', 'No holdings yet', 'Use the row above to add your first holding');
-    return;
-  }
-  let totalValue = 0, totalCost = 0;
-  const rows = holdings.map(h => {
-    const scanStock = scanStockFor(h.ticker);
-    const scanPrice = scanStock ? parseFloat(scanStock.price) || 0 : 0;
-    const storedPrice = parseFloat(h.current_price) || 0;
-    const live = liveEntry(h.ticker);
-    // Price priority: live market → scan price → stored → buy price (last resort).
-    let price, changePct = 0;
-    if (live && live.price) { price = live.price; changePct = live.changePct || 0; }
-    else if (scanPrice > 0) { price = scanPrice; }
-    else if (storedPrice > 0) { price = storedPrice; }
-    else { price = parseFloat(h.buy_price) || 0; }
-    const qty = parseFloat(h.qty) || 0;
-    const buyPrice = parseFloat(h.buy_price) || 0;
-    const value = price * qty;
-    const cost = buyPrice * qty;
-    const pnl = value - cost;
-    const pnlPct = cost > 0 ? ((value - cost) / cost) * 100 : 0;
-    const annRet = annualizedReturn(pnlPct, h.buy_date);
-    totalValue += value; totalCost += cost;
-    const color = logoColor(h.ticker);
-    const initials = h.ticker.slice(0, 2);
-    const pnlClass = pnl >= 0 ? 'pnl-pos' : 'pnl-neg';
-    return '<div class="holding-row">' +
-      '<div class="holding-logo" style="background:' + color + '">' + initials + '</div>' +
-      '<div style="flex:1;min-width:0;"><div><a class="holding-ticker" onclick="goResearch(\'' + h.ticker + '\')" style="cursor:pointer">' + h.ticker + '</a></div>' +
-      '<div class="holding-name">' + (TICKER_DB[h.ticker] || (scanStock && scanStock.name) || h.ticker) + '</div>' +
-      '<div style="font-size:11px;color:var(--text-3);margin-top:2px;">' + qty + ' shares · Avg $' + buyPrice.toFixed(2) + ' · ' + daysHeldStr(h.buy_date) + '</div></div>' +
-      '<div class="holding-col" style="min-width:70px;"><div class="holding-val" id="price_' + h.ticker + '">$' + price.toFixed(2) + (changePct ? '<span style="font-size:11px;color:' + (changePct >= 0 ? 'var(--green)' : 'var(--red)') + '"> ' + pctFmt(changePct) + '</span>' : '') + '</div>' +
-      '<div class="holding-sub">' + dollarFmt(value) + '</div></div>' +
-      '<div class="holding-col" style="min-width:80px;"><div class="holding-val ' + pnlClass + '">' + dollarFmt(pnl) + '</div>' +
-      '<div class="holding-sub ' + pnlClass + '">' + pctFmt(pnlPct) + (annRet != null ? ' · ' + pctFmt(annRet) + '/yr' : '') + '</div></div>' +
-      '<button class="pf-btn pf-btn-danger" title="Remove" onclick="removeHolding(\'' + currentPfId + '\',\'' + h.id + '\')">' + ic('x', 16) + '</button>' +
-      '</div>';
-  });
-  const totalPnl = totalValue - totalCost;
-  const totalPnlPct = totalCost > 0 ? (totalPnl / totalCost) * 100 : 0;
-  const chipClass = totalPnl >= 0 ? 'green' : 'red';
-  el.innerHTML = '<div class="pf-header">' +
+  if (!el) return;
+  if (!holdings.length) { el.innerHTML = emptyState('briefcase', 'No holdings yet', 'Use the row above to add your first holding'); return; }
+  const all = pfMergedRows();
+  let totalValue = 0, totalCost = 0, totalToday = 0;
+  all.forEach(e => { totalValue += e.value; totalCost += e.cost; totalToday += e.today; });
+  const totalPnl = totalValue - totalCost, totalPnlPct = totalCost > 0 ? totalPnl / totalCost * 100 : 0;
+  const prevTotal = totalValue - totalToday, todayPct = prevTotal > 0 ? totalToday / prevTotal * 100 : 0;
+  const chipClass = totalPnl >= 0 ? 'green' : 'red', tdClass = totalToday >= 0 ? 'green' : 'red';
+  const filt = pfSearchFilter;
+  const view = pfSortRows(filt ? all.filter(e => e.ticker === filt) : all);
+  const ind = k => pfSortKey === k ? (pfSortAsc ? ' ▲' : ' ▼') : '';
+  const act = k => pfSortKey === k ? ' ht-active' : '';
+  const header = '<div class="pf-header">' +
     '<div class="pf-total-label">Total portfolio value</div>' +
     '<div class="pf-total-val">' + dollarFmt(totalValue) + '</div>' +
     '<div class="pf-chips">' +
-    '<span class="pf-chip ' + chipClass + '">' + (totalPnl >= 0 ? '▲ +' : '▼ ') + dollarFmt(Math.abs(totalPnl)) + ' Unrealised</span>' +
-    '<span class="pf-chip ' + chipClass + '">' + pctFmt(totalPnlPct) + ' Total return</span>' +
-    '<span class="pf-chip neutral">' + holdings.length + ' holdings</span>' +
-    '</div></div>' +
-    rows.join('');
+    '<span class="pf-chip ' + chipClass + '">' + (totalPnl >= 0 ? '▲ +' : '▼ ') + dollarFmt(Math.abs(totalPnl)) + ' (' + pctFmt(totalPnlPct) + ') Total return</span>' +
+    '<span class="pf-chip ' + tdClass + '" title="Change so far in the current trading session.">' + (totalToday >= 0 ? '▲ +' : '▼ ') + dollarFmt(Math.abs(totalToday)) + ' (' + pctFmt(todayPct) + ') Today</span>' +
+    '<span class="pf-chip neutral">' + all.length + (all.length === 1 ? ' position' : ' positions') + '</span>' +
+    '</div></div>';
+  if (filt && !view.length) {
+    el.innerHTML = header + '<div class="pf-filter-note">You don\'t hold <strong>' + escHtml(filt) + '</strong> in this portfolio. <button class="pf-clearx" onclick="pfSearchClear()">clear ✕</button></div>';
+    return;
+  }
+  const filterNote = filt ? '<div class="pf-filter-note">Showing <strong>' + escHtml(filt) + '</strong> only <button class="pf-clearx" onclick="pfSearchClear()">clear ✕</button></div>' : '';
+  const rowsHtml = view.map(e => {
+    const tdC = e.today >= 0 ? 'pos' : 'neg', tpC = e.pnl >= 0 ? 'pos' : 'neg';
+    const name = TICKER_DB[e.ticker] || (e.scan && e.scan.name) || e.ticker;
+    const sub = [e.lotIds.length > 1 ? e.lotIds.length + ' lots' : '', e.buy_date ? daysHeldStr(e.buy_date) + ' held' : ''].filter(Boolean).join(' · ');
+    let cell52;
+    if (e.has52) {
+      cell52 = '<div class="rng-track"><div class="rng-fill" data-w="' + e.pos52.toFixed(0) + '" style="width:0%"></div><div class="rng-dot" data-l="' + e.pos52.toFixed(0) + '" style="left:0%"></div></div>' +
+        '<div class="ht-52meta">$' + e.lo.toFixed(0) + ' – $' + e.hi.toFixed(0) + ' · ' + (e.fromHigh >= 0 ? '+' : '') + e.fromHigh.toFixed(0) + '% vs high</div>' +
+        '<div style="margin-top:5px">' + callBadge(e.call) + '</div>';
+    } else { cell52 = '<div class="ht-52meta">—</div><div style="margin-top:5px">' + callBadge(e.call) + '</div>'; }
+    return '<tr data-tkr="' + e.ticker + '">' +
+      '<td class="ht-sym"><div class="ht-symcell"><div class="holding-logo" style="background:' + logoColor(e.ticker) + '">' + e.ticker.slice(0, 2) + '</div>' +
+      '<div><a class="holding-ticker" style="cursor:pointer" onclick="goResearch(\'' + e.ticker + '\')">' + e.ticker + '</a><div class="holding-name" title="' + escHtml(name) + '">' + escHtml(name) + '</div>' +
+      (sub ? '<div class="ht-sub">' + sub + '</div>' : '') + '</div></div></td>' +
+      '<td>$' + e.buyAvg.toFixed(2) + '</td>' +
+      '<td>' + (Math.round(e.qty * 1e4) / 1e4) + '</td>' +
+      '<td class="' + tdC + '">' + (e.prev != null ? (e.today >= 0 ? '+' : '-') + dollarFmt(Math.abs(e.today)) + '<div class="ht-sub ' + tdC + '">' + pctFmt(e.todayPct) + '</div>' : '<span class="ht-sub">—</span>') + '</td>' +
+      '<td class="' + tpC + '">' + (e.pnl >= 0 ? '+' : '-') + dollarFmt(Math.abs(e.pnl)) + '<div class="ht-sub ' + tpC + '">' + pctFmt(e.pnlPct) + '</div></td>' +
+      '<td class="ht-52">' + cell52 + '</td>' +
+      '<td><span class="ht-num-strong">' + dollarFmt(e.value) + '</span><div class="ht-sub">@ $' + e.price.toFixed(2) + (e.changePct ? ' ' + pctFmt(e.changePct) : '') + '</div></td>' +
+      '<td><button class="pf-btn pf-btn-danger" title="Remove ' + e.ticker + (e.lotIds.length > 1 ? ' (' + e.lotIds.length + ' lots)' : '') + '" onclick="removeHoldingTicker(\'' + currentPfId + '\',\'' + e.ticker + '\')">' + ic('x', 16) + '</button></td>' +
+      '</tr>';
+  }).join('');
+  const table = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
+    '<th class="ht-sym ht-sortable' + act('symbol') + '" onclick="pfSort(\'symbol\')">Symbol' + ind('symbol') + '</th>' +
+    '<th title="Your weighted-average purchase price across all lots">Buy avg</th>' +
+    '<th>Qty</th>' +
+    '<th class="ht-sortable' + act('today') + '" onclick="pfSort(\'today\')" title="Gain/loss so far in today\'s session">Today' + ind('today') + '</th>' +
+    '<th class="ht-sortable' + act('pct_total') + '" onclick="pfSort(\'pct_total\')" title="Total gain/loss since purchase (% of cost basis)">Total gain' + ind('pct_total') + '</th>' +
+    '<th title="Where price sits in its 52-week range, with buy/sell guidance">52-week range</th>' +
+    '<th class="ht-sortable' + act('value') + '" onclick="pfSort(\'value\')" title="Current market value of the position">Value' + ind('value') + '</th>' +
+    '<th></th>' +
+    '</tr></thead><tbody>' + rowsHtml + '</tbody></table></div>' +
+    '<div class="rng-advice-note">Buy/Sell guidance is generated from scan signals and your cost basis — informational only, not financial advice.</div>';
+  el.innerHTML = header + filterNote + table;
+  growBars(el);
+}
+// Remove an entire merged position (all lots of a ticker) from a portfolio.
+function removeHoldingTicker(pfId, ticker) {
+  if (!UID || !pfId || !ticker) return;
+  const lots = (holdings || []).filter(h => h.ticker === ticker);
+  if (!lots.length) return;
+  if (lots.length > 1 && !confirm('Remove all ' + lots.length + ' lots of ' + ticker + ' from this portfolio?')) return;
+  const batch = db.batch();
+  lots.forEach(l => batch.delete(db.collection('holdings').doc(UID).collection(pfId).doc(l.id)));
+  batch.commit().catch(() => {});
+  if (pfSearchFilter === ticker) pfSearchClear();
+}
+// Portfolio search: filter the table if owned, else show a quick look-up card.
+function pfSearch(sym) {
+  sym = (sym || '').trim().toUpperCase().replace('_', '.');
+  const inp = document.getElementById('pfSearchInput'); if (inp) inp.value = sym;
+  acClose('pfSearchAC');
+  const card = document.getElementById('pfLookupCard');
+  if (!sym) { pfSearchClear(); return; }
+  const owned = (holdings || []).some(h => h.ticker === sym);
+  if (owned) {
+    pfSearchFilter = sym;
+    if (card) card.innerHTML = '';
+    _renderHoldingsUI();
+    const row = document.querySelector('#pfBody tr[data-tkr="' + sym + '"]');
+    if (row) { row.classList.add('ht-hl'); try { row.scrollIntoView({ behavior: _reduceMotion ? 'auto' : 'smooth', block: 'center' }); } catch (e) {} }
+  } else {
+    pfSearchFilter = null;
+    _renderHoldingsUI();
+    renderLookupCard(sym);
+  }
+}
+function pfSearchClear() {
+  pfSearchFilter = null;
+  const inp = document.getElementById('pfSearchInput'); if (inp) inp.value = '';
+  const card = document.getElementById('pfLookupCard'); if (card) card.innerHTML = '';
+  acClose('pfSearchAC');
+  _renderHoldingsUI();
+}
+async function renderLookupCard(sym) {
+  const card = document.getElementById('pfLookupCard'); if (!card) return;
+  card.innerHTML = '<div class="pf-lookup"><span class="load-spinner" style="width:16px;height:16px;display:inline-block;vertical-align:middle"></span> Looking up ' + escHtml(sym) + '…</div>';
+  if (!liveEntry(sym)) { try { await fetchLivePrices([sym]); } catch (e) {} }
+  if (!_pfRanges[sym]) {
+    try {
+      const res = await Promise.race([fetch(GETRANGE_API + '?symbols=' + encodeURIComponent(sym)).then(r => r.json()), new Promise(r => setTimeout(() => r(null), 5000))]);
+      if (res && res.ranges) Object.assign(_pfRanges, res.ranges);
+    } catch (e) {}
+  }
+  const inp = document.getElementById('pfSearchInput');
+  if (inp && inp.value.trim().toUpperCase().replace('_', '.') !== sym) return;  // superseded by a newer search
+  const price = displayPrice(sym), scan = scanStockFor(sym), r = _pfRanges[sym];
+  const name = TICKER_DB[sym] || (scan && scan.name) || sym;
+  if (price == null && !scan && !r) {
+    card.innerHTML = '<div class="pf-lookup pf-lookup-empty">No data found for <strong>' + escHtml(sym) + '</strong> — double-check the symbol, or add it anyway using the row above.</div>';
+    return;
+  }
+  let bar = '';
+  if (r && +r.high52 > +r.low52 && price != null) {
+    const hi = +r.high52, lo = +r.low52, pos = Math.max(0, Math.min(100, (price - lo) / (hi - lo) * 100)), fh = (price / hi - 1) * 100;
+    bar = '<div class="rng-row" style="margin:6px 0 2px"><div class="rng-track"><div class="rng-fill" data-w="' + pos.toFixed(0) + '" style="width:0%"></div><div class="rng-dot" data-l="' + pos.toFixed(0) + '" style="left:0%"></div></div></div>' +
+      '<div class="ht-52meta">52-wk $' + lo.toFixed(0) + ' – $' + hi.toFixed(0) + ' · ' + (fh >= 0 ? '+' : '') + fh.toFixed(0) + '% vs high</div>';
+  }
+  const sig = scan && scan.signal ? '<span class="call-badge call-' + (scan.signal === 'STRONG BUY' ? 'green' : scan.signal === 'WATCH' ? 'amber' : 'blue') + '">' + scan.signal + '</span>' : '<span class="ht-52meta">Not in today\'s scan</span>';
+  card.innerHTML = '<div class="pf-lookup">' +
+    '<div class="pf-lookup-top"><div><div class="pf-lookup-tkr">' + escHtml(sym) + '</div><div class="pf-lookup-name">' + escHtml(name) + '</div></div>' +
+    '<div style="text-align:right"><div class="pf-lookup-price">' + (price != null ? '$' + price.toFixed(2) : '—') + '</div>' + sig + '</div></div>' +
+    bar +
+    '<div style="margin-top:12px;font-size:12px;color:var(--text-3)">You don\'t hold ' + escHtml(sym) + ' yet.</div>' +
+    '<button class="pf-btn pf-btn-primary" style="margin-top:10px" onclick="pfQuickAdd(\'' + sym + '\')"><span class="i-plus"></span> Add to portfolio</button>' +
+    '</div>';
+  growBars(card);
+}
+function pfQuickAdd(sym) {
+  const t = document.getElementById('inlineHoldingTicker'); if (t) { t.value = sym; autofillBuyPriceInline(sym); }
+  const q = document.getElementById('inlineHoldingQty');
+  const card = document.getElementById('pfLookupCard'); if (card) card.innerHTML = '';
+  const inp = document.getElementById('pfSearchInput'); if (inp) inp.value = '';
+  try { document.getElementById('addHoldingRow').scrollIntoView({ behavior: _reduceMotion ? 'auto' : 'smooth', block: 'center' }); } catch (e) {}
+  if (q) setTimeout(() => q.focus(), 200);
 }
 
 // ── Watchlist ──
@@ -3617,10 +3902,21 @@ function tourNext() { tourShow(_tourStep + 1); }
 function tourPrev() { tourShow(Math.max(0, _tourStep - 1)); }
 function tourEnd(done) { const ov = document.getElementById('tourOverlay'); if (ov) ov.remove(); window.removeEventListener('resize', _tourReposition); if (done) { try { lsSet('sparksTourDone', '1'); } catch (e) {} } }
 
+// Keep the mobile drawer/scrim aligned to the navbar's real height (it grows to 2 rows on phones).
+function initNavHeightSync() {
+  const nb = document.querySelector('.navbar'); if (!nb) return;
+  const sync = () => { if (nb.offsetHeight > 0) document.documentElement.style.setProperty('--nav-h-real', nb.offsetHeight + 'px'); };
+  if (window.ResizeObserver) { try { new ResizeObserver(sync).observe(nb); } catch (e) {} }
+  window.addEventListener('resize', sync);
+  window.addEventListener('orientationchange', () => setTimeout(sync, 120));
+  sync();
+}
+
 // ── Boot ──
 injectStaticIcons();
 buildSidebar();
 initPWA();
+initNavHeightSync();
 </script>
 </body>
 </html>
