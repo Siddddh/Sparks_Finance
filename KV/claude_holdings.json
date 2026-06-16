@@ -1,12 +1,77 @@
 {
-  "date": "2026-06-11",
-  "_note": "Replace the example uid below with the real uid(s) from holdings_dump.json. One entry per user; one call per ticker they hold.",
+  "date": "2026-06-16",
   "users": {
-    "EXAMPLE_UID_FROM_holdings_dump_json": {
+    "9U3EMCIBlyYATLhh9YLnfYwKgpC2": {
       "holdings": [
-        { "ticker": "AAPL", "action": "HOLD", "why": "Up modestly from your cost and holding above its key averages — thesis intact. No reason to add up here; keep an 8% trailing stop." },
-        { "ticker": "CSX", "action": "BUY MORE", "why": "My top setup today — clean breakout, RSI not extended, 26% EPS growth. Adding on a pullback toward the pivot is well-supported." },
-        { "ticker": "INTC", "action": "TRIM / DEFEND", "why": "Down from your entry and lagging the group. Tighten the stop and trim into any bounce — the thesis hasn't worked." }
+        { "ticker": "AAPL", "action": "HOLD", "why": "Consolidating ~5% below its high (RSI 41.9). Thesis intact but no momentum — hold, don't add up here." },
+        { "ticker": "ALAB", "action": "BUY MORE", "why": "STRONG BUY at a new high (score 75) — leadership; add on strength." },
+        { "ticker": "AMD", "action": "BUY MORE", "why": "STRONG BUY (86), only 4% off its high with RSI 52.9 — room to run." },
+        { "ticker": "APLD", "action": "BUY MORE", "why": "STRONG BUY (90), 5% off its high — strong setup, add on pullbacks." },
+        { "ticker": "APP", "action": "TRIM / DEFEND", "why": "WEAK (35) and 32% below its high — thesis has broken; tighten the stop and trim into bounces." },
+        { "ticker": "DRAM", "action": "BUY MORE", "why": "STRONG BUY (79) near its high — note it's a newer listing, so size a bit smaller." },
+        { "ticker": "GOOGL", "action": "HOLD / add on pullback", "why": "STRONG BUY (93) but 7% off its high with RSI 40 — constructive pullback; add as it reclaims, not here." },
+        { "ticker": "GS", "action": "BUY MORE", "why": "STRONG BUY (95) at a new high — money-center quality leading the financials move." },
+        { "ticker": "HOOD", "action": "TRIM / DEFEND", "why": "WEAK (40), 38% below its high — broken; reduce risk and set a hard stop." },
+        { "ticker": "INTC", "action": "HOLD", "why": "WATCH (55), 8% off its high — neutral; hold with a stop, no add." },
+        { "ticker": "IREN", "action": "TRIM", "why": "WEAK (40), 21% below its high — fading; trim and tighten." },
+        { "ticker": "LRCX", "action": "BUY MORE", "why": "STRONG BUY (96) at a new high with RS at a high — semis leadership; add on pullbacks." },
+        { "ticker": "LUNR", "action": "TRIM / DEFEND", "why": "WEAK (21), 48% below its high — deep damage; cut risk hard, speculative." },
+        { "ticker": "MSFT", "action": "HOLD / watch", "why": "WATCH (55) but 27% below its high — lagging badly; hold core, watch for a base/reclaim before adding." },
+        { "ticker": "MU", "action": "BUY MORE", "why": "STRONG BUY (100), 4% off its high, semis standout — add, but size for its high price/volatility." },
+        { "ticker": "NVDA", "action": "HOLD", "why": "WATCH (68), 11% off its high — pausing; hold, add only on a reclaim." },
+        { "ticker": "ORCL", "action": "TRIM / DEFEND", "why": "WEAK (39), 42% below its high — broken; defend with a hard stop." },
+        { "ticker": "PLTR", "action": "TRIM / DEFEND", "why": "WEAK (33), 37% below its high — momentum gone; reduce and protect." },
+        { "ticker": "QBTS", "action": "TRIM / DEFEND", "why": "WEAK (33), 45% below its high — speculative quantum name in a deep drawdown; cut risk." },
+        { "ticker": "QLD", "action": "HOLD", "why": "Leveraged Nasdaq ETF near its high (WATCH 67) — fine to hold while the uptrend holds; leverage cuts both ways." },
+        { "ticker": "RBRK", "action": "HOLD / TRIM", "why": "WATCH (56) but 29% below its high — lagging; trim if it can't reclaim." },
+        { "ticker": "RGTI", "action": "SELL / DEFEND", "why": "WEAK (41) and 63% below its high — the deepest drawdown in the book; speculative, cut risk." },
+        { "ticker": "RKLB", "action": "TRIM", "why": "WEAK (53), 29% below its high (RSI 27) — oversold but broken; trim, wait for a base." },
+        { "ticker": "SMCI", "action": "TRIM / DEFEND", "why": "WEAK (29), 51% below its high — thesis broken; defend hard." },
+        { "ticker": "SNDK", "action": "HOLD", "why": "STRONG BUY (93) at a new high but RSI 70.2 (extended) — hold; add only on a pullback." },
+        { "ticker": "SNOW", "action": "HOLD", "why": "WATCH (64), 14% off its high — neutral; hold with a stop." },
+        { "ticker": "SSO", "action": "HOLD", "why": "Leveraged S&P ETF near its high (STRONG BUY 84) — ride the uptrend; mind the leverage if breadth weakens." },
+        { "ticker": "TSLA", "action": "TRIM", "why": "WEAK (45), 17% below its high — fading; trim and tighten the stop." },
+        { "ticker": "TSM", "action": "BUY MORE", "why": "STRONG BUY (89), 3.5% off its high — semis leadership; add on strength." },
+        { "ticker": "VRT", "action": "TRIM", "why": "WEAK (38), 18% below its high — losing momentum; trim." }
+      ]
+    },
+    "9XYERwojDqZYyeKV2ajvWQig8Bh2": {
+      "holdings": [
+        { "ticker": "AAPL", "action": "HOLD", "why": "Consolidating ~5% below its high (RSI 41.9) — thesis intact, no momentum; hold with a stop." }
+      ]
+    },
+    "RWaiB5nNl5TjiWamTOEMb8tgVgQ2": {
+      "holdings": [
+        { "ticker": "AAPL", "action": "HOLD", "why": "~5% off its high, RSI 41.9 — hold, don't add up here." },
+        { "ticker": "GS", "action": "BUY MORE", "why": "STRONG BUY (95) at a new high — leading the financials breakout; add on strength." },
+        { "ticker": "MNST", "action": "BUY MORE", "why": "STRONG BUY (100) with RS at a new high, 0.5% off its high — defensive-growth leader; add on a tight pause." },
+        { "ticker": "SPCX", "action": "WATCH — new listing", "why": "SpaceX is ~2 days public — no technical read yet and a ~$2T valuation. High-conviction story but high volatility; size small and don't use a tight stop on a brand-new stock." },
+        { "ticker": "TSLA", "action": "TRIM", "why": "WEAK (45), 17% below its high — fading; trim and tighten." }
+      ]
+    },
+    "WwfbUgQdviVtfrB3BBzR25joqbv2": {
+      "holdings": [
+        { "ticker": "AAPL", "action": "HOLD", "why": "~5% off its high, RSI 41.9 — hold with a stop." },
+        { "ticker": "AMAT", "action": "HOLD", "why": "STRONG BUY (92) at a new high but RSI 75.5 (overbought) — hold; add only on a pullback to the pivot." },
+        { "ticker": "AMZN", "action": "TRIM", "why": "WEAK (38), 10% below its high (RSI 38) — no momentum; trim or keep on a tight leash." },
+        { "ticker": "COIN", "action": "TRIM / DEFEND", "why": "WEAK (20), 60% below its high — deep damage; cut risk and defend." },
+        { "ticker": "DTE", "action": "BUY MORE", "why": "STRONG BUY (100), 1.5% off its high — a utility at a new high; steady leadership, add on strength." },
+        { "ticker": "EOG", "action": "TRIM", "why": "WEAK (51), 12% below its high — energy lagging; trim." },
+        { "ticker": "FICO", "action": "HOLD / watch", "why": "WATCH (61) but 39% below its high — broken trend; hold core only, watch for a base before adding." },
+        { "ticker": "GS", "action": "BUY MORE", "why": "STRONG BUY (95) at a new high — financials leadership; add on strength." },
+        { "ticker": "INTC", "action": "HOLD", "why": "WATCH (55), 8% off its high — neutral; hold with a stop." },
+        { "ticker": "NVDA", "action": "HOLD", "why": "WATCH (68), 11% off its high — pausing; hold, add on a reclaim." },
+        { "ticker": "NXPI", "action": "HOLD", "why": "WATCH (72), 7% off its high — constructive but not a breakout; hold." },
+        { "ticker": "SIRI", "action": "HOLD", "why": "WATCH (71), 8% off its high (RSI low) — hold; needs momentum to add." },
+        { "ticker": "SNDK", "action": "HOLD", "why": "STRONG BUY (93) at a new high but RSI 70.2 (extended) — hold; add on a pullback." },
+        { "ticker": "TSLA", "action": "TRIM", "why": "WEAK (45), 17% below its high — fading; trim." },
+        { "ticker": "WDC", "action": "HOLD", "why": "STRONG BUY (100) at a new high but RSI 69.6 (getting extended) — hold; add on a pullback rather than the high." }
+      ]
+    },
+    "XywlmmAEAhN9JBDkYQnagsBIkCf1": {
+      "holdings": [
+        { "ticker": "BTC-USD", "action": "TRIM / DEFEND", "why": "WEAK (41), 47% below its high — deep drawdown; size down and defend, this is your highest-volatility holding." },
+        { "ticker": "GS", "action": "BUY MORE", "why": "STRONG BUY (95) at a new high — quality financial leading the move; add on strength." }
       ]
     }
   }
