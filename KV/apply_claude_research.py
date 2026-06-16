@@ -21,6 +21,12 @@ Run:  python apply_claude_research.py [--dry-run] [--file claude_research.json]
 import json, os, sys
 from datetime import datetime, date as _date
 
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 CREDS_PATH = os.path.join(BASE, "firebase_service_account.json")
 RESEARCH_FILE = os.path.join(BASE, "claude_research.json")
@@ -108,6 +114,13 @@ def main():
                 db.collection("agent_queue").document(d["ticker"]).set({"status": "done", "done_at": datetime.utcnow().isoformat()}, merge=True)
             except Exception:
                 pass
+        try:  # local dated archive so past research is browsable
+            import shutil
+            dd = os.path.join(BASE, "claude_history", day); os.makedirs(dd, exist_ok=True)
+            shutil.copy(path, os.path.join(dd, "claude_research.json"))
+            print(f"  ok  local copy -> claude_history/{day}/claude_research.json")
+        except Exception as e:
+            print(f"  !  local archive failed: {e}")
         print("  done. Open the Research tab and search any of these tickers — Claude's analysis shows under '8-Agent Analysis'.")
     except Exception as e:
         print(f"  x  publish failed: {e}")
