@@ -7,6 +7,11 @@ service cloud.firestore {
       allow read: if true;
       allow write: if false;
     }
+    // ── Per-day Claude recommendations archive (browsable history; admin writes) ──
+    match /recommendations/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
     match /history/{document=**} {
       allow read: if true;
       allow write: if false;
