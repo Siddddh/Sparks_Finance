@@ -23,6 +23,14 @@ Pipeline:  run_full_scan.py  ->  (Claude writes claude_recommendations.json)  ->
 import json, os, sys
 from datetime import datetime
 
+# Force UTF-8 stdout so non-ASCII prints (—, ·) never crash on a cp1252 Windows console
+# before the Firestore publish runs.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 SCAN_FILE = os.path.join(BASE, "combined_results.json")
 RECS_FILE = os.path.join(BASE, "claude_recommendations.json")
@@ -103,6 +111,18 @@ def build_merged(scan: dict, recs: dict) -> dict:
             missing.append(t)  # Claude picked a ticker not in the scanned universe
         cards.append(_card_from(row, p))
 
+    # Attach TradingView's independent technical rating (from tradingview_ratings.py) to each pick.
+    try:
+        tvp = os.path.join(BASE, "tv_ratings.json")
+        if os.path.exists(tvp):
+            tvr = json.load(open(tvp, encoding="utf-8"))
+            for c in cards:
+                rr = tvr.get(c["ticker"])
+                if rr and rr.get("recommendation"):
+                    c["tv_rating"] = {k: rr.get(k) for k in ("recommendation", "buy", "sell", "neutral")}
+    except Exception:
+        pass
+
     out["claude_picks"] = cards
     out["top_picks"] = [c["ticker"] for c in cards][:10]
 
@@ -142,6 +162,37 @@ def build_merged(scan: dict, recs: dict) -> dict:
     out["claude_published_at"] = datetime.utcnow().isoformat() + "Z"
     out["recommended_by"] = "claude-cowork"
     return out, missing
+
+
+def _archive(merged, recs_path):
+    """Durable per-day history so you can browse exactly what Claude recommended on any
+    past day: a Firestore recommendations/{date} doc + a local dated copy of the file.
+    (scans/latest is overwritten each run; this is the permanent record.)"""
+    date = merged.get("scan_date") or datetime.now().strftime("%Y-%m-%d")
+    try:
+        import firebase_admin
+        from firebase_admin import firestore as fs
+        db = fs.client()  # app already initialized by firebase_push.push_to_firestore
+        db.collection("recommendations").document(date).set({
+            "date": date,
+            "scan_time_et": merged.get("scan_time_et"),
+            "recommended_by": "claude-cowork",
+            "published_at": merged.get("claude_published_at"),
+            "market_state": (merged.get("market_health") or {}).get("market_state"),
+            "market_advice": (merged.get("market_health") or {}).get("state_advice"),
+            "picks": merged.get("claude_picks") or [],
+        })
+        print(f"  ok  archived -> recommendations/{date}")
+    except Exception as e:
+        print(f"  !  recommendations/{date} archive failed: {e}")
+    try:
+        import shutil
+        d = os.path.join(BASE, "claude_history", date)
+        os.makedirs(d, exist_ok=True)
+        shutil.copy(recs_path, os.path.join(d, "claude_recommendations.json"))
+        print(f"  ok  local copy -> claude_history/{date}/claude_recommendations.json")
+    except Exception as e:
+        print(f"  !  local archive failed: {e}")
 
 
 def main():
@@ -193,6 +244,7 @@ def main():
         print(f"  x  could not import firebase_push: {e}"); sys.exit(1)
     ok = firebase_push.push_to_firestore(merged, verbose=True)
     if ok:
+        _archive(merged, recs_path)
         print("  done. The live Top Picks cards + Market News now show Claude's recommendations.")
     sys.exit(0 if ok else 1)
 
