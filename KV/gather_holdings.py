@@ -12,6 +12,14 @@ Output: holdings_dump.json  { "<uid>": { "holdings": [ { ticker, qty, avg_cost }
 
 import json, os, sys
 
+# Windows consoles default to cp1252 and crash on non-ASCII prints (→, ✓, —). Force UTF-8
+# so prints never raise (which, in the publish scripts, could otherwise abort before a write).
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 CREDS_PATH = os.path.join(BASE, "firebase_service_account.json")
 OUT = os.path.join(BASE, "holdings_dump.json")
