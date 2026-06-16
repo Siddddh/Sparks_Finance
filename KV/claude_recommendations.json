@@ -1,65 +1,38 @@
 {
-  "scan_date": "2026-06-11",
-  "scan_time_et": "11:38 PM ET",
+  "scan_date": "2026-06-16",
+  "scan_time_et": "09:25 PM ET",
   "market": {
     "state": "UPTREND",
-    "advice": "Confirmed uptrend, normal position sizing. Leadership is broad across sectors — buy strength on pullbacks, don't chase extended names at the highs."
+    "advice": "Broad, healthy uptrend — VIX 15.9, breadth 68%, only 2 distribution days, 180 names at STRONG BUY. Leadership is unusually wide: regional + money-center banks are breaking out almost as a group, industrials/transports are at new highs, and semis (MU, LRCX) lead tech. With this many breakouts, be selective — favor the un-extended names (RSI < ~68) over the overbought ones, buy strength on pullbacks, and keep 8% stops. Normal position sizing."
   },
   "picks": [
-    {
-      "ticker": "CSX",
-      "signal": "STRONG BUY",
-      "score": 96,
-      "grade": "A",
-      "thesis": "My top call today. Rails breaking out just 0.3% off its 52-week high with the calmest RSI in the group (58.9) — that combination means a clean entry that isn't extended, backed by 26% EPS growth. This is the one I'd buy at market rather than waiting.",
-      "strengths": ["Breaking out with RSI in the sweet spot (not overbought)", "26% EPS growth confirms the move fundamentally", "Industrial leadership broadening beyond tech"],
-      "risks": ["Rails are economically sensitive — watch for any macro/freight-volume softness", "R:R ~2.5:1, below my 3:1 ideal — size accordingly"],
-      "watch": ["A close back below the breakout pivot would void the setup"]
-    },
-    {
-      "ticker": "AMAT",
-      "signal": "WATCH",
-      "score": 90,
-      "grade": "A-",
-      "thesis": "Best fundamentals in the group (33% EPS growth) and a textbook semi-cap leader at new highs — but RSI 74.7 is hot. I'm tagging this WATCH rather than BUY: wait for a pullback toward the breakout pivot before adding, don't chase it here.",
-      "strengths": ["33% EPS growth — strongest in today's leaders", "Semi-cap equipment is a primary AI-capex beneficiary"],
-      "risks": ["RSI ~75 — overextended, prone to a shakeout if you chase the high"],
-      "watch": ["A tight 2-4% pullback that holds the pivot is the entry trigger"]
-    },
-    {
-      "ticker": "BIIB",
-      "signal": "WATCH",
-      "score": 88,
-      "grade": "B+",
-      "thesis": "The only top name still building a base — 2.5% below its high with RSI 61, so it has room to run without being extended. Constructive, but it hasn't triggered yet. I want to see a volume breakout to a new high before committing.",
-      "strengths": ["31% EPS growth", "Not extended — RSI 61 leaves upside room", "Healthcare adds sector diversification"],
-      "risks": ["Biotech headline/binary risk", "Hasn't broken out yet — could stall in the base"],
-      "watch": ["New 52-week high on above-average volume = the buy signal"]
-    },
-    {
-      "ticker": "ROST",
-      "signal": "WATCH",
-      "score": 86,
-      "grade": "B+",
-      "thesis": "Strongest earnings growth of the five (+37%) and at new highs, but RSI 67 sits near the top of the healthy band. Off-price retail is a solid defensive-growth angle — I'd add only on a tight pause, not at the current high.",
-      "strengths": ["+37% EPS growth — best of the group", "Off-price model is resilient in a softer consumer"],
-      "risks": ["RSI 67 — getting extended", "Consumer-discretionary exposure if spending weakens"],
-      "watch": ["A few quiet days near the high before the next push"]
-    },
-    {
-      "ticker": "MNST",
-      "signal": "WATCH",
-      "score": 84,
-      "grade": "B",
-      "thesis": "Defensive-growth beverage leader at new highs with 29% EPS growth — a good portfolio stabilizer. But like AMAT it's extended at RSI 72. Buy the pullback, keep the 8% stop tight given how far it's run.",
-      "strengths": ["29% EPS growth in a defensive name", "Lower beta — steadies a momentum-heavy book"],
-      "risks": ["RSI 72 — extended", "Lower R:R relative to entry up here"],
-      "watch": ["Pullback toward the breakout pivot for a lower-risk entry"]
-    }
-  ],
-  "market_news": [
-    { "title": "Semiconductor capex outlook lifts equipment names as AI buildout continues", "url": "#", "outlet": "Reuters", "summary": "Analysts raised 2026 capex estimates, supporting semi-cap leaders like AMAT.", "sentiment": "BULLISH", "age_hours": 3, "breaking": false },
-    { "title": "Rails post strong volume data; industrials broaden market leadership", "url": "#", "outlet": "Bloomberg", "summary": "Freight volumes firm, underpinning CSX's breakout and a broadening rally.", "sentiment": "BULLISH", "age_hours": 5, "breaking": false },
-    { "title": "VIX stays contained as SPY holds above key averages", "url": "#", "outlet": "MarketWatch", "summary": "Low volatility keeps the uptrend intact; conditions favor normal position sizing.", "sentiment": "NEUTRAL", "age_hours": 8, "breaking": false }
+    { "ticker": "CSX", "signal": "STRONG BUY", "score": 97, "grade": "A", "thesis": "Cleanest setup on the board — rails 0.4% off a new high with RSI only 56.7 (confirmed, not extended), backed by 26% EPS growth. Buyable here.", "strengths": ["At new high, RSI in the sweet spot", "26% EPS growth, VCP base"], "risks": ["Freight-volume sensitivity"] },
+    { "ticker": "MU", "signal": "STRONG BUY", "score": 95, "grade": "A", "thesis": "The semis standout — memory upcycle driving explosive growth, RSI 59.9, 3.7% off its high. Size for volatility given the ~$1,039 price.", "strengths": ["Explosive EPS/revenue (AI memory)", "Strong but not overbought"], "risks": ["High price/high beta — sharp drawdowns possible"] },
+    { "ticker": "NTRS", "signal": "STRONG BUY", "score": 92, "grade": "A-", "thesis": "My pick to represent the day's strongest theme — regional banks breaking out together (BK, CFG, KEY, RF, ALLY, PNC all at 100). At a new high, RSI 59.6, 43% EPS.", "strengths": ["Sector-wide bank breakout (confirmation)", "43% EPS, at new high"], "risks": ["Rate-sensitive; crowded theme"] },
+    { "ticker": "ROST", "signal": "STRONG BUY", "score": 90, "grade": "A-", "thesis": "Best entry profile of the consumer names — RSI just 50.6 (lots of room), 2% off its high, +37% EPS / +21% revenue.", "strengths": ["RSI 50.6 — room to run", "Off-price model resilient"], "risks": ["Consumer-discretionary exposure"] },
+    { "ticker": "MNST", "signal": "STRONG BUY", "score": 90, "grade": "A-", "thesis": "Defensive-growth beverage leader making a Relative-Strength new high, 0.5% off its high — low-beta stabilizer with 29% EPS.", "strengths": ["RS line at a new high", "Durable growth, lower beta"], "risks": ["RSI 64.8 nearing the upper band"] },
+    { "ticker": "CAT", "signal": "STRONG BUY", "score": 90, "grade": "A-", "thesis": "Industrial bellwether at a new high with RS at a high and RSI 57.3 — broad-economy leadership with 30% EPS growth.", "strengths": ["RS at new high, not extended", "30% EPS growth"], "risks": ["Cyclical / macro-sensitive"] },
+    { "ticker": "GS", "signal": "STRONG BUY", "score": 90, "grade": "A-", "thesis": "Money-center quality at a fresh high (RSI 64.8) — the large-cap complement to the regional-bank move, and widely held here.", "strengths": ["At new high, best-in-class franchise"], "risks": ["RSI 64.8 — watch for exhaustion"] },
+    { "ticker": "BK", "signal": "STRONG BUY", "score": 89, "grade": "A-", "thesis": "Custody-bank leader with the RS line at a new high, right at its 52-week high — clean confirmation of the financials theme.", "strengths": ["RS at new high", "At 52-week high"], "risks": ["Rate-sensitive"] },
+    { "ticker": "FDX", "signal": "STRONG BUY", "score": 88, "grade": "B+", "thesis": "Logistics bellwether at a new high with RS at a high — transports confirming the industrial leadership.", "strengths": ["RS at new high", "Transports leading"], "risks": ["Freight/economic sensitivity"] },
+    { "ticker": "AFL", "signal": "STRONG BUY", "score": 88, "grade": "B+", "thesis": "Insurer at a new high with a calm RSI 53.2 — one of the lowest-RSI breakouts in the financials group, so plenty of room.", "strengths": ["RSI 53.2 — room to run", "At new high"], "risks": ["Slower-growth insurer; rate-sensitive"] },
+    { "ticker": "CFG", "signal": "STRONG BUY", "score": 87, "grade": "B+", "thesis": "Regional bank in the group breakout, 1% off its high with 47% EPS growth.", "strengths": ["Part of the bank breakout", "+47% EPS"], "risks": ["Rate / credit sensitivity"] },
+    { "ticker": "HLT", "signal": "STRONG BUY", "score": 87, "grade": "B+", "thesis": "Hotels at a new high, RSI 63, with 35% EPS growth — travel/leisure strength.", "strengths": ["At new high, 35% EPS"], "risks": ["Consumer/travel cyclicality"] },
+    { "ticker": "LRCX", "signal": "STRONG BUY", "score": 88, "grade": "B+", "thesis": "Semi-cap equipment at a new high with RS at a high — confirms semis leadership alongside MU.", "strengths": ["At new high, RS at high", "AI-capex tailwind"], "risks": ["Semi cyclicality"] },
+    { "ticker": "MAR", "signal": "STRONG BUY", "score": 86, "grade": "B+", "thesis": "Marriott at/near a new high with RS at a high — the second travel name confirming consumer-services strength.", "strengths": ["RS at new high"], "risks": ["Travel demand sensitivity"] },
+    { "ticker": "HWM", "signal": "STRONG BUY", "score": 88, "grade": "B+", "thesis": "Aerospace components at a new high with 71% EPS growth — a standout grower in the industrial complex.", "strengths": ["At new high, +71% EPS"], "risks": ["Aerospace supply-chain risk"] },
+    { "ticker": "DTE", "signal": "STRONG BUY", "score": 86, "grade": "B+", "thesis": "Utility at a new high (held by a user) — steady, defensive leadership that balances a momentum-heavy book.", "strengths": ["At new high, low-beta defensive"], "risks": ["Rate-sensitive utility"] },
+    { "ticker": "EMR", "signal": "STRONG BUY", "score": 84, "grade": "B", "thesis": "Industrial automation, ~6% off its high with 28% EPS — slightly extended-off but a quality breakout.", "strengths": ["28% EPS, automation tailwind"], "risks": ["6% off high — let it reclaim"] },
+    { "ticker": "ROK", "signal": "STRONG BUY", "score": 84, "grade": "B", "thesis": "Rockwell automation at a new high with RS at a high — automation/reshoring theme.", "strengths": ["RS at new high"], "risks": ["Capex cyclicality"] },
+    { "ticker": "PNC", "signal": "STRONG BUY", "score": 84, "grade": "B", "thesis": "Super-regional bank, 2% off its high (RSI 69) — part of the group breakout, slightly extended.", "strengths": ["Bank-group breakout"], "risks": ["RSI 69 — getting extended"] },
+    { "ticker": "GOOGL", "signal": "STRONG BUY", "score": 86, "grade": "B+", "thesis": "Mega-cap quality, 7% off its high with RSI 40 — a constructive pullback in a strong name; add as it reclaims.", "strengths": ["Strong franchise, scan score 93"], "risks": ["7% off high — wait for the reclaim"] },
+    { "ticker": "AMD", "signal": "STRONG BUY", "score": 85, "grade": "B", "thesis": "Semis, 4% off its high with RSI 52.9 — room to run; add on strength alongside the MU/LRCX leadership.", "strengths": ["RSI 52.9 — room", "Semis leadership"], "risks": ["Semi cyclicality / high beta"] },
+    { "ticker": "TSM", "signal": "STRONG BUY", "score": 86, "grade": "B+", "thesis": "Foundry leader, 3.5% off its high — the picks-and-shovels of the AI buildout; held by users here.", "strengths": ["Dominant foundry, AI demand"], "risks": ["Geopolitical (Taiwan) risk"] },
+    { "ticker": "CCEP", "signal": "WATCH", "score": 80, "grade": "B", "thesis": "Coca-Cola Europacific — strong (68% EPS) but 9% off its high with RSI 68; constructive, not a clean breakout yet.", "strengths": ["68% EPS growth, defensive"], "risks": ["9% off high, RSI 68 — wait for the reclaim"] },
+    { "ticker": "WDC", "signal": "WATCH", "score": 82, "grade": "B", "thesis": "Storage at a new high but RSI 69.6 (extended) — strong momentum; prefer a pullback entry over chasing the high.", "strengths": ["At new high, memory/storage upcycle"], "risks": ["RSI 69.6 — extended"] },
+    { "ticker": "AMAT", "signal": "WATCH", "score": 84, "grade": "B+", "thesis": "Excellent fundamentals and at a new high, but RSI 75.5 is overbought — add only on a pullback to the pivot.", "strengths": ["AI-capex beneficiary, at new high"], "risks": ["RSI 75.5 — overbought"] },
+    { "ticker": "C", "signal": "WATCH", "score": 82, "grade": "B", "thesis": "Citi at a new high with RS at a high — strong, but RSI 75.2 is overbought; wait for a pause before adding.", "strengths": ["RS at new high, turnaround traction"], "risks": ["RSI 75.2 — overbought"] },
+    { "ticker": "ALGN", "signal": "WATCH", "score": 78, "grade": "B", "thesis": "Perfect scan score but ~13% below its high — a base in progress, not a confirmed breakout. Watch for the reclaim.", "strengths": ["Improving momentum (RSI 63)"], "risks": ["13% off high — hasn't broken out yet"] },
+    { "ticker": "SPCX", "signal": "WATCH", "score": 60, "grade": "C", "thesis": "SpaceX — days-old IPO (Nasdaq, June 12), ~$2T. Too new for any technical read; this is a thesis call on Starlink's recurring revenue + launch dominance. High conviction, high volatility — size small.", "strengths": ["Starlink recurring revenue scaling", "Launch-market dominance"], "risks": ["No trading history; extreme valuation; lock-up overhang"] }
   ]
 }
