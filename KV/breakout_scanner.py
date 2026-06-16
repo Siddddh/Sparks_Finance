@@ -338,13 +338,48 @@ def compute_earnings_proximity(ticker_obj):
 # ─────────────────────────────────────────
 #  MAIN SCORER
 # ─────────────────────────────────────────
-def score_stock(ticker_symbol):
+def _new_listing_row(ticker, name, sector, market_cap, price, ma50, high_52w, low_52w,
+                     pct_from_high, hist_days, rsi, momentum_3m, eps_growth, rev_growth, fwd_pe, analyst_up):
+    """Minimal, crash-safe record for a stock with too little history for breakout signals
+    (e.g. a days-old IPO like SPCX). Shows price + basics + is_new_listing; technical signals
+    are neutral/None so the UI flags it as a new listing rather than misreading zeros."""
+    finite = lambda v: round(v, 1) if isinstance(v, float) and v == v else None
+    return {
+        "ticker": ticker, "name": name, "sector": sector,
+        "market_cap_b": round(market_cap / 1e9, 1) if market_cap else None,
+        "is_new_listing": True, "history_days": int(hist_days),
+        "price": round(price, 2), "ma50": round(ma50, 2), "ma150": None, "ma200": None,
+        "high_52w": round(high_52w, 2), "low_52w": round(low_52w, 2), "pct_from_high": pct_from_high,
+        "momentum_3m": finite(momentum_3m), "rsi": finite(rsi), "vol_ratio": 1.0,
+        "vcp_score": 0, "is_vcp": False, "vcp_contractions": 0, "vcp_label": "",
+        "rs_score": 0, "rs_at_high": False, "rs_label": "", "rs_4w_change": None, "rs_pct_from_high": None,
+        "vdu_score": 0, "is_vdu": False, "is_pocket_pivot": False, "vdu_label": "", "vdu_ratio": None,
+        "squeeze_score": 0, "squeeze_potential": "NONE", "short_pct_float": None, "days_to_cover": None,
+        "insider_score": 0, "insider_buying": False, "insider_label": "", "insider_cluster": False,
+        "insider_buys_30d": 0, "insider_buy_value": 0,
+        "earnings_score": 0, "earnings_flag": "UNKNOWN", "earnings_label": "", "days_to_earnings": None, "earnings_date_str": "",
+        "eps_growth": round(eps_growth * 100, 1) if eps_growth is not None else None,
+        "rev_growth": round(rev_growth * 100, 1) if rev_growth is not None else None,
+        "fwd_pe": round(fwd_pe, 1) if fwd_pe else None,
+        "analyst_rating": round(analyst_up, 2) if analyst_up else None,
+        "score": 50, "signal": "WATCH",
+        "entry": round(price, 2), "stop_loss": round(price * 0.92, 2), "target_1": round(price * 1.20, 2), "rr_ratio": 2.5,
+        "criteria": {"trend_ok": False, "near_high": False, "rsi_ok": False, "volume_ok": False,
+                     "eps_ok": bool(eps_growth is not None and eps_growth >= 0.20),
+                     "rev_ok": bool(rev_growth is not None and rev_growth >= 0.10),
+                     "vcp_ok": False, "rs_ok": False, "vdu_ok": False, "insider_ok": False},
+    }
+
+
+def score_stock(ticker_symbol, min_history=50):
     try:
         tk   = yf.Ticker(ticker_symbol)
         hist = tk.history(period="1y", interval="1d", auto_adjust=True)
 
-        # Minimum 50 days — allow spin-offs & recent IPOs with graceful degradation
-        if hist.empty or len(hist) < 50:
+        # Minimum history. Callers pass a lower bound for curated/held names so brand-new
+        # IPOs still surface (the broad universe keeps the default 50). Below ~30 days we
+        # return a minimal new-listing row instead of computing unreliable breakout signals.
+        if hist.empty or len(hist) < min_history:
             return None
 
         # Flag as new listing if < 150 days (spin-off / recent IPO)
@@ -381,6 +416,13 @@ def score_stock(ticker_symbol):
         sector     = info.get("sector", "Unknown")
         short_name = info.get("shortName", ticker_symbol)
         market_cap = info.get("marketCap", 0)
+
+        # Days-old listing (e.g. a fresh IPO like SPCX): too little history for VCP/RS/etc.
+        # Return a minimal row now (price + new-listing flag); breakout signals build over time.
+        if len(hist) < 30:
+            return _new_listing_row(ticker_symbol, short_name, sector, market_cap, price,
+                                    ma50, high_52w, low_52w, pct_from_high, len(hist),
+                                    rsi, momentum_3m, eps_growth, rev_growth, fwd_pe, analyst_up)
 
         # ── Enhanced signals ──
         vcp_data     = compute_vcp(hist)
