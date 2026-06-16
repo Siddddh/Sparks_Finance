@@ -133,8 +133,25 @@ FULL_LIST = list(dict.fromkeys(
 
 # Custom watchlist — add any ticker here to always include it in every scan
 CUSTOM_WATCHLIST = [
-    # Examples: "INTC", "PLTR", "ARM", "TSM"
+    # ── Recent IPOs (force-scanned even with thin history; flagged is_new_listing) ──
+    "SPCX",     # SpaceX — IPO 2026-06-12, Nasdaq (largest IPO ever)
+    # add new IPOs here as they list, e.g. "ARM", "RDDT", "CART"
 ]
+
+# Held tickers across ALL user portfolios — written by gather_holdings.py as scan_include.json.
+# Always merged into the scan so every holding gets real metrics (for Claude's per-position
+# calls), even in quick mode and even if the ticker isn't in the S&P/NASDAQ universe.
+def _held_tickers():
+    try:
+        p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scan_include.json")
+        if os.path.exists(p):
+            with open(p) as f:
+                data = json.load(f)
+            arr = data.get("tickers") if isinstance(data, dict) else data
+            return [str(t).strip().upper() for t in (arr or []) if str(t).strip()]
+    except Exception:
+        pass
+    return []
 
 # ── History helpers ─────────────────────────────────────────
 def load_history() -> dict:
@@ -205,8 +222,8 @@ def run(mode="quick"):
     # ── 2. Stock scan ──
     tickers = QUICK_LIST if mode in ("quick","news") else FULL_LIST
 
-    # Always include custom watchlist (deduplicated)
-    all_tickers = list(dict.fromkeys(tickers + CUSTOM_WATCHLIST))
+    # Always include custom watchlist + every user-held ticker (deduplicated)
+    all_tickers = list(dict.fromkeys(tickers + CUSTOM_WATCHLIST + _held_tickers()))
 
     if mode == "news":
         prev = load_prev()
@@ -214,6 +231,9 @@ def run(mode="quick"):
         tickers_for_news = [s["ticker"] for s in stock_rows[:15]]
     else:
         tickers = all_tickers
+        # Curated watchlist + held tickers are "forced" — score them even with little history
+        # (so fresh IPOs like SPCX appear); the broad universe keeps the default 50-day minimum.
+        forced = {t.upper() for t in (CUSTOM_WATCHLIST + _held_tickers())}
         n_workers = min(20, len(tickers))
         print(f"[{datetime.now():%H:%M}] Scanning {len(tickers)} stocks with {n_workers} parallel workers…", flush=True)
         from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -224,7 +244,7 @@ def run(mode="quick"):
 
         def _scan_one(t):
             try:
-                return score_stock(t)
+                return score_stock(t, min_history=(2 if t.upper() in forced else 50))
             except Exception:
                 return None
 
