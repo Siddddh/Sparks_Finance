@@ -20,6 +20,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <script src="/symbols.js"></script><!-- full US listings catalog (Nasdaq + NYSE/AMEX): window.US_SYMBOLS -->
+<script src="https://s3.tradingview.com/tv.js"></script><!-- TradingView Advanced Chart widget library -->
 
 <style>
 /* ════════ Google Finance Beta design tokens ════════ */
@@ -259,6 +260,21 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .newflag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.4px;padding:2px 6px;border-radius:6px;background:var(--amber-soft);color:var(--amber);vertical-align:middle;}
 .tbl-new{font-size:8px;font-weight:700;color:var(--amber);background:var(--amber-soft);border-radius:4px;padding:1px 4px;margin-left:5px;letter-spacing:.3px;}
 .new-note{font-size:11px;color:var(--amber);background:var(--amber-soft);border-radius:8px;padding:8px 10px;margin-top:8px;line-height:1.5;}
+/* ── TradingView widgets ── */
+.tv-research{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-top:16px;}
+.tv-col{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:12px 14px;}
+.tv-ctitle{font-size:12px;font-weight:700;color:var(--text-2);display:flex;align-items:center;gap:7px;margin-bottom:10px;}
+.tv-chart-box{width:100%;}
+.tv-ta-box{width:100%;min-height:400px;}
+.tv-attr{font-size:10px;color:var(--text-3);margin-top:8px;text-align:right;}
+.tv-attr a{color:var(--blue);}
+#chartEngineSeg button.active{background:var(--blue);color:#fff;}
+[data-theme="dark"] #chartEngineSeg button.active{color:#202124;}
+.tv-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;letter-spacing:.2px;}
+.tv-badge.tv-green{background:var(--green-soft);color:var(--green);}
+.tv-badge.tv-red{background:var(--red-soft);color:var(--red);}
+.tv-badge.tv-blue{background:var(--blue-soft);color:var(--blue);}
+@media(max-width:900px){.tv-research{grid-template-columns:1fr;}}
 .mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px;}
 .met{background:var(--surface);border-radius:6px;padding:7px 9px;}
 .mlbl{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-3);font-weight:500;}
@@ -411,7 +427,7 @@ td.pos,.ht-pos{color:var(--green);}td.neg,.ht-neg{color:var(--red);}
 
 /* ════════ Watchlist ════════ */
 .wl-ticker-chip{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:7px 14px;font-size:13px;font-weight:500;margin:4px;}
-.wl-ticker-chip .rm{cursor:pointer;color:var(--text-3);display:flex;}.wl-ticker-chip .rm:hover{color:var(--red);}
+.wl-ticker-chip .rm{cursor:pointer;color:var(--text-3);display:flex;align-items:center;justify-content:center;padding:6px;margin:-6px -4px -6px 0;border-radius:50%;}.wl-ticker-chip .rm:hover{color:var(--red);background:var(--surface-hover);}
 
 /* ════════ Alerts ════════ */
 .alert-crd{background:var(--surface-2);border-radius:12px;border:1px solid var(--border);padding:14px 18px;border-left:3px solid var(--blue);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
@@ -556,7 +572,7 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 /* ════════ Modal ════════ */
 .modal-overlay{position:fixed;inset:0;background:rgba(32,33,36,.6);z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.hidden{display:none;}
-.modal-box{background:var(--surface-2);border-radius:16px;padding:26px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);}
+.modal-box{background:var(--surface-2);border-radius:16px;padding:26px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);max-height:calc(100dvh - 40px);overflow-y:auto;}
 .modal-title{font-size:18px;font-weight:600;margin-bottom:18px;color:var(--text);}
 .modal-label{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;font-weight:500;color:var(--text-2);margin-bottom:5px;margin-top:14px;}
 .modal-price-hint{font-size:11px;color:var(--text-3);font-weight:500;}
@@ -620,7 +636,7 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .dash-news-card .dnhdr{font-size:13px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:7px;color:var(--text);}
 
 /* ════════ AI Assistant chat ════════ */
-.asst-wrap{display:flex;flex-direction:column;height:calc(100vh - var(--nav-h) - var(--strip-h) - 130px);min-height:380px;}
+.asst-wrap{display:flex;flex-direction:column;height:calc(100vh - var(--nav-h) - var(--strip-h) - 130px);height:calc(100dvh - var(--nav-h) - var(--strip-h) - 130px);min-height:380px;}
 .asst-msgs{flex:1;overflow-y:auto;padding:4px 2px;display:flex;flex-direction:column;gap:10px;}
 .asst-msg{max-width:86%;padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.55;word-wrap:break-word;}
 .asst-msg.user{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:4px;}
@@ -658,8 +674,8 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 @media(prefers-reduced-motion:reduce){.asst-input-wrap::before,.asst-orb{animation:none;}}
 /* threaded host (inline on Home + dedicated tab) */
 .asst-host{display:flex;flex-direction:column;height:440px;}
-.asst-host[data-place="home"]{height:calc(100vh - var(--nav-h) - var(--strip-h) - 80px);min-height:420px;max-height:760px;}
-.asst-host[data-place="tab"]{height:calc(100vh - var(--nav-h) - var(--strip-h) - 150px);min-height:420px;}
+.asst-host[data-place="home"]{height:calc(100vh - var(--nav-h) - var(--strip-h) - 80px);height:calc(100dvh - var(--nav-h) - var(--strip-h) - 80px);min-height:420px;max-height:760px;}
+.asst-host[data-place="tab"]{height:calc(100vh - var(--nav-h) - var(--strip-h) - 150px);height:calc(100dvh - var(--nav-h) - var(--strip-h) - 150px);min-height:420px;}
 /* scoped expand: fills the content area only — top just below the market/breaking strip, left flush to the sidebar (never covers nav, strip or sidebar) */
 .asst-host.asst-expanded{position:fixed;top:var(--asst-exp-top,calc(var(--nav-h) + var(--strip-h)));left:var(--asst-exp-left,var(--sidebar-w));right:0;bottom:0;height:auto;max-height:none;z-index:1500;background:var(--bg);padding:16px 22px 18px;border-left:1px solid var(--border);box-shadow:-8px 0 30px rgba(0,0,0,.12);}
 body.asst-expanded-open{overflow:hidden;}
@@ -688,11 +704,29 @@ body.asst-expanded-open .tab-panel.active{animation:none;transform:none;}
    exceeds the 52-week section (symmetry); the chat scrolls internally instead of growing the row */
 .home-aside .asst-card{position:absolute;inset:0;margin-bottom:0;display:flex;flex-direction:column;}
 .home-aside .asst-host[data-place="home"]:not(.asst-expanded){flex:1;height:auto;min-height:0;max-height:none;}
-@media(max-width:1024px){
+@media(max-width:1180px){
   .home-grid{grid-template-columns:1fr;grid-template-areas:"stats" "assistant" "news";}
   .home-aside{position:static;}
   .home-aside .asst-card{position:static;flex:none;}
-  .home-aside .asst-host[data-place="home"]:not(.asst-expanded){flex:none;height:480px;min-height:0;}
+  .home-aside .asst-host[data-place="home"]:not(.asst-expanded){flex:none;height:480px;height:min(480px,calc(100dvh - var(--nav-h) - var(--strip-h) - 24px));min-height:0;}
+}
+/* Tablet band (901-1024): the 240px sidebar is still in-flow, so collapse the 2-col content grids
+   that would otherwise be squeezed into ~610-735px of content width. */
+@media(min-width:901px) and (max-width:1024px){
+  .tv-research,.chart-grid,.research-wrap,.dash-hero{grid-template-columns:1fr;}
+}
+/* Touch tablets showing the desktop layout (>=901px, coarse pointer): enlarge small toggles to ~44px. */
+@media(pointer:coarse) and (min-width:901px){
+  .cc-seg button,.cc-inds button,.cc-chip,.scr-chip{min-height:40px;display:inline-flex;align-items:center;justify-content:center;padding-top:9px;padding-bottom:9px;}
+  #scanTable th,.hold-table thead th.ht-sortable{padding-top:14px;padding-bottom:14px;}
+}
+/* Short viewports (landscape phones): keep the assistant, modals and charts within the visible height. */
+@media(max-height:520px){
+  .home-aside .asst-host[data-place="home"]:not(.asst-expanded){height:calc(100dvh - var(--nav-h) - var(--strip-h) - 24px);}
+  .asst-host[data-place="tab"]{min-height:0;height:calc(100dvh - var(--nav-h) - var(--strip-h) - 24px);}
+  .modal-overlay{align-items:flex-start;}
+  .modal-box{max-height:calc(100dvh - 28px);}
+  .cbox{height:200px;}.cbox-lg{height:240px;}.cbox-sm{height:110px;}
 }
 @media(max-width:900px){
   .asst-host.asst-expanded{left:var(--asst-exp-left,0);}
@@ -702,7 +736,7 @@ body.asst-expanded-open .tab-panel.active{animation:none;transform:none;}
 html{-webkit-text-size-adjust:100%;}
 button,a,.navitem,.icon-btn,input,select{-webkit-tap-highlight-color:transparent;}
 img,canvas,svg{max-width:100%;}
-.content{margin:0 auto;}            /* center within the main column on wide screens */
+.content{margin:0 auto 0 0;}        /* cap width but stay flush against the sidebar; auto-right absorbs ultrawide space */
 #authPanel{padding:16px;}           /* keep the auth card off the screen edges */
 /* safe-area (notched phones / installed PWA) */
 .navbar{padding-top:env(safe-area-inset-top);padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right));}
@@ -722,6 +756,7 @@ body.sidebar-open .nav-scrim{display:block;}
   .scan-t,.user-badge{display:none;}
 }
 @media(max-width:680px){
+  .content{padding:16px 18px 56px;}   /* recover horizontal room while research/news grids are still 2-col in the 601-679 band */
   .page-title{font-size:19px;}
   .pf-header{padding:18px;}
   .pf-total-val{font-size:30px;}
@@ -749,6 +784,17 @@ body.sidebar-open .nav-scrim{display:block;}
   .scard .snum{font-size:20px;}
   .holding-name,.coname{max-width:120px;}
   .pf-select{font-size:16px;}                                  /* avoids iOS zoom-on-focus for portfolio inputs */
+  /* iOS zooms on focus of any input < 16px — bump every remaining field on phones */
+  .asst-input,.modal-input,.cc-input{font-size:16px;}
+  .auth-form input,#capInput{font-size:16px;}
+  .screen-bar input,.screen-bar select{font-size:16px;}
+  .screen-bar input[type=number]{width:auto;flex:1 1 90px;}
+  #scanTable .xcol-sm{display:none;}                           /* drop low-priority scan columns (RSI/Vol×/Earn) on phones */
+  .hold-table .pf-btn-danger{min-width:44px;min-height:44px;padding:14px;}   /* 44px destructive touch target */
+  .wl-ticker-chip .rm{padding:11px;margin:-11px -7px -11px 0;} /* ~36px tap target for watchlist remove */
+  /* data tables become bounded scrollers with pinned headers so columns/headers stay usable on phones */
+  .twrap,.hold-table-wrap{max-height:72vh;overflow:auto;-webkit-overflow-scrolling:touch;}
+  #scanTable thead th{position:sticky;top:0;z-index:3;background:var(--bg);}
 }
 @media(max-width:420px){
   .content{padding:12px 12px 52px;}
@@ -1016,15 +1062,15 @@ body.sidebar-open .nav-scrim{display:block;}
           <div class="twrap"><table id="scanTable"><thead><tr>
             <th onclick="st('ticker')">Ticker</th><th onclick="st('signal')" title="Overall call: Strong Buy / Watch / Weak">Signal</th>
             <th onclick="st('combined_score')" title="Combined 0–100 score across all factors">Score</th><th class="gradecol" onclick="st('setup_quality')">Grade</th>
-            <th onclick="st('price')">Price</th><th onclick="st('rsi')" title="Relative Strength Index (14): above 70 overbought, below 30 oversold">RSI</th>
-            <th onclick="st('vol_ratio')" title="Volume ratio — today's volume vs its average (1.5× = 50% above normal)">Vol×</th><th onclick="st('momentum_3m')" title="Price change over the last 3 months">3M%</th>
+            <th onclick="st('price')">Price</th><th class="xcol-sm" onclick="st('rsi')" title="Relative Strength Index (14): above 70 overbought, below 30 oversold">RSI</th>
+            <th class="xcol-sm" onclick="st('vol_ratio')" title="Volume ratio — today's volume vs its average (1.5× = 50% above normal)">Vol×</th><th onclick="st('momentum_3m')" title="Price change over the last 3 months">3M%</th>
             <th onclick="st('eps_growth')" title="Year-over-year earnings-per-share growth">EPS%</th>
             <th class="xcol xcol-rev" onclick="st('rev_growth')" title="Year-over-year revenue growth">Rev%</th>
             <th class="xcol xcol-pe" onclick="st('fwd_pe')" title="Forward price-to-earnings ratio">P/E</th>
             <th class="xcol xcol-analyst" onclick="st('analyst_rating')" title="Wall Street analyst consensus rating">Analyst</th>
             <th class="xcol xcol-mcap" onclick="st('market_cap_b')" title="Market capitalization">Mkt Cap</th>
             <th class="xcol xcol-sector" onclick="st('sector')">Sector</th>
-            <th onclick="st('days_to_earnings')" title="Days until the next earnings report">Earn</th>
+            <th class="xcol-sm" onclick="st('days_to_earnings')" title="Days until the next earnings report">Earn</th>
             <th onclick="st('pct_from_high')" title="Percent below the 52-week high (closer to 0 = nearer its high)">vsHi%</th><th onclick="st('rr_ratio')" title="Risk-to-reward ratio of the setup (2.5:1 = 2.5× upside vs downside)">R:R</th>
             <th title="Setup checklist — each dot is one criterion (green = pass, grey = fail). Hover a dot for its name.">Signals</th>
           </tr></thead><tbody id="tblBody"></tbody></table></div>
@@ -1040,6 +1086,7 @@ body.sidebar-open .nav-scrim{display:block;}
               <div id="chartChips" class="cc-chips"></div>
             </div>
             <div class="cc-row">
+              <div class="cc-seg" id="chartEngineSeg"><button data-eng="chartjs" class="active" onclick="setChartEngine('chartjs')">Built-in</button><button data-eng="tv" onclick="setChartEngine('tv')">TradingView</button></div>
               <div class="cc-seg" id="chartRangeSeg">
                 <button data-r="1mo" onclick="setChartRange('1mo')">1M</button>
                 <button data-r="3mo" onclick="setChartRange('3mo')">3M</button>
@@ -1070,6 +1117,7 @@ body.sidebar-open .nav-scrim{display:block;}
             <div class="cbox cbox-lg" id="priceBox"><canvas id="cPrice"></canvas></div>
             <div class="ch-note" id="chNote" style="display:none"></div>
           </div>
+          <div class="cwrap" id="tvChartWrap" style="display:none"><div id="tvChartBox" class="tv-chart-box" style="height:520px"></div><div class="tv-attr">Charts by <a href="https://www.tradingview.com" target="_blank" rel="noopener">TradingView</a></div></div>
           <div class="cwrap chart-sub" id="wrapRSI" style="display:none"><div class="ctitle">RSI (14)</div><div class="cbox cbox-sm"><canvas id="cRSI"></canvas></div></div>
           <div class="cwrap chart-sub" id="wrapMACD" style="display:none"><div class="ctitle">MACD (12, 26, 9)</div><div class="cbox cbox-sm"><canvas id="cMACD"></canvas></div></div>
           <div class="chart-grid stagger-in">
@@ -1131,6 +1179,7 @@ function applyTheme(t) {
   const btn = document.getElementById('themeToggle');
   if (btn) btn.innerHTML = ic(t === 'dark' ? 'sun' : 'moon', 20);
   try { localStorage.setItem('sparks-theme', t); } catch (e) {}
+  if (typeof _remountTvForTheme === 'function') _remountTvForTheme();   // TradingView widgets don't auto-theme
 }
 function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme');
@@ -1930,6 +1979,13 @@ function renderAll() {
   const ct = document.getElementById('tab-chart'); if (ct && ct.classList.contains('active')) renderCharts();
 }
 
+// TradingView's independent technical rating badge (from tradingview_ratings.py).
+function tvBadge(r) {
+  if (!r || !r.recommendation) return '';
+  const rec = (r.recommendation || '').toUpperCase();
+  const cls = /STRONG_BUY|BUY/.test(rec) ? 'green' : /SELL/.test(rec) ? 'red' : 'blue';
+  return '<span class="tv-badge tv-' + cls + '" title="TradingView technical rating: ' + rec.replace(/_/g, ' ') + ' (' + (r.buy || 0) + ' buy / ' + (r.sell || 0) + ' sell / ' + (r.neutral || 0) + ' neutral)">TV: ' + rec.replace(/_/g, ' ') + '</span>';
+}
 // ── Cards ──
 function showMorePicks() { picksShown += 24; renderCards((D && ((D.claude_picks && D.claude_picks.length) ? D.claude_picks : D.stocks)) || []); }
 function renderCards(picks) {
@@ -1960,7 +2016,7 @@ function renderCards(picks) {
     const newsHtml = (s.top_news || []).slice(0, 3).map(n => '<div class="nitem"><div class="ntitle"><a href="' + (n.url || '#') + '" target="_blank">' + n.title + '</a></div><div class="nmeta"><span class="otag">' + n.outlet + '</span><span class="bage">' + age2str(n.age_hours) + '</span><span class="bsent ' + sc(n.sentiment || 'NEUTRAL') + '">' + n.sentiment + '</span></div></div>').join('');
     return '<div class="card ' + sig + '"><div class="accent"></div>' +
       '<div class="ctop"><div><div class="tkr" style="cursor:pointer" onclick="goResearch(\'' + s.ticker + '\')">' + s.ticker + '</div><div class="coname" title="' + s.name + '">' + s.name + '</div><span class="sectag">' + (s.sector || '—') + '</span></div>' +
-      '<div class="badges"><span class="sig sig-' + sig + '">' + s.signal + '</span>' + (s.setup_quality ? '<span class="qual">' + s.setup_quality + '</span>' : '') + (s.is_new_listing ? '<span class="newflag" title="New listing — limited price history; breakout signals (VCP, RS, 52-week) build over ~2–3 months.">NEW</span>' : '') + newsBadge + brkF + earnB + '</div></div>' +
+      '<div class="badges"><span class="sig sig-' + sig + '">' + s.signal + '</span>' + (s.setup_quality ? '<span class="qual">' + s.setup_quality + '</span>' : '') + (s.is_new_listing ? '<span class="newflag" title="New listing — limited price history; breakout signals (VCP, RS, 52-week) build over ~2–3 months.">NEW</span>' : '') + (s.tv_rating ? tvBadge(s.tv_rating) : '') + newsBadge + brkF + earnB + '</div></div>' +
       '<div class="srow"><span style="font-size:10px;color:var(--text-3);font-weight:600;min-width:40px">SCORE</span><div class="sbar-w"><div class="sbar ' + fc + '" style="width:' + score + '%"></div></div><span class="snum2">' + score + '</span></div>' +
       why +
       (ptags ? '<div class="pattern-strip">' + ptags + '</div>' : '') +
@@ -2110,13 +2166,13 @@ function renderTable(picks) {
     const scc = signalCls(s.signal);
     const dots = Object.entries(s.criteria || {}).map(([k, v]) => '<div class="dot ' + (v ? 'p' : 'f') + '" title="' + (CRIT_TIP[k] || critLabels[k] || k) + ' — ' + (v ? 'pass' : 'fail') + '"></div>').join('');
     const range52 = (s.low_52w != null && s.high_52w != null) ? '<div class="t52">$' + s.low_52w + '–$' + s.high_52w + '</div>' : '';
-    return '<tr><td><b style="color:var(--blue);cursor:pointer" onclick="goResearch(\'' + s.ticker + '\')">' + s.ticker + '</b>' + (s.is_new_listing ? '<span class="tbl-new" title="New listing — limited history">NEW</span>' : '') + '<br><span class="tname" style="font-size:10px;color:var(--text-3)" title="' + escHtml(s.name || '') + '">' + escHtml(s.name || '') + '</span></td><td><span class="sig sig-' + sig + '">' + s.signal + '</span></td><td><span class="sc-circle ' + scc + '">' + (s.combined_score || 0) + '</span></td><td class="gradecol" style="font-weight:700;color:var(--blue)">' + (s.setup_quality || '—') + '</td><td>$' + s.price + '</td><td style="color:' + (s.rsi >= 50 && s.rsi <= 75 ? 'var(--green)' : 'var(--text-3)') + ';font-weight:600">' + s.rsi + '</td><td>' + s.vol_ratio + '×</td><td style="color:' + (s.momentum_3m >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (s.momentum_3m >= 0 ? '+' : '') + s.momentum_3m + '%</td><td style="color:' + (s.eps_growth >= 20 ? 'var(--green)' : s.eps_growth > 0 ? 'var(--text-2)' : 'var(--red)') + '">' + (s.eps_growth != null ? (s.eps_growth >= 0 ? '+' : '') + s.eps_growth + '%' : '—') + '</td>' +
+    return '<tr><td><b style="color:var(--blue);cursor:pointer" onclick="goResearch(\'' + s.ticker + '\')">' + s.ticker + '</b>' + (s.is_new_listing ? '<span class="tbl-new" title="New listing — limited history">NEW</span>' : '') + '<br><span class="tname" style="font-size:10px;color:var(--text-3)" title="' + escHtml(s.name || '') + '">' + escHtml(s.name || '') + '</span></td><td><span class="sig sig-' + sig + '">' + s.signal + '</span></td><td><span class="sc-circle ' + scc + '">' + (s.combined_score || 0) + '</span></td><td class="gradecol" style="font-weight:700;color:var(--blue)">' + (s.setup_quality || '—') + '</td><td>$' + s.price + '</td><td class="xcol-sm" style="color:' + (s.rsi >= 50 && s.rsi <= 75 ? 'var(--green)' : 'var(--text-3)') + ';font-weight:600">' + s.rsi + '</td><td class="xcol-sm">' + s.vol_ratio + '×</td><td style="color:' + (s.momentum_3m >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (s.momentum_3m >= 0 ? '+' : '') + s.momentum_3m + '%</td><td style="color:' + (s.eps_growth >= 20 ? 'var(--green)' : s.eps_growth > 0 ? 'var(--text-2)' : 'var(--red)') + '">' + (s.eps_growth != null ? (s.eps_growth >= 0 ? '+' : '') + s.eps_growth + '%' : '—') + '</td>' +
       '<td class="xcol xcol-rev" style="color:' + (s.rev_growth >= 10 ? 'var(--green)' : s.rev_growth < 0 ? 'var(--red)' : 'var(--text-2)') + '">' + (s.rev_growth != null ? (s.rev_growth >= 0 ? '+' : '') + s.rev_growth + '%' : '—') + '</td>' +
       '<td class="xcol xcol-pe">' + (s.fwd_pe != null && s.fwd_pe > 0 ? s.fwd_pe : '—') + '</td>' +
       '<td class="xcol xcol-analyst">' + analystLabel(s.analyst_rating) + '</td>' +
       '<td class="xcol xcol-mcap">' + mcapStr(s.market_cap_b) + '</td>' +
       '<td class="xcol xcol-sector" style="color:var(--text-2)">' + (s.sector || '—') + '</td>' +
-      '<td>' + (s.days_to_earnings != null ? s.days_to_earnings + 'd' : '—') + '</td><td style="color:' + (s.pct_from_high >= -10 ? 'var(--green)' : s.pct_from_high >= -25 ? 'var(--amber)' : 'var(--red)') + '">' + s.pct_from_high + '%' + range52 + '</td><td style="color:var(--blue);font-weight:700">' + s.rr_ratio + ':1</td><td><div class="dot-row">' + dots + '</div></td></tr>';
+      '<td class="xcol-sm">' + (s.days_to_earnings != null ? s.days_to_earnings + 'd' : '—') + '</td><td style="color:' + (s.pct_from_high >= -10 ? 'var(--green)' : s.pct_from_high >= -25 ? 'var(--amber)' : 'var(--red)') + '">' + s.pct_from_high + '%' + range52 + '</td><td style="color:var(--blue);font-weight:700">' + s.rr_ratio + ':1</td><td><div class="dot-row">' + dots + '</div></td></tr>';
   }).join('');
   syncSortHeaders();
 }
@@ -2164,7 +2220,61 @@ function syncChartControls() {
   if (wr) wr.style.display = chartInd.rsi ? '' : 'none';
   if (wm) wm.style.display = chartInd.macd ? '' : 'none';
 }
-function setChartSym(s) { s = (s || '').trim().toUpperCase(); if (!s) return; chartSym = s; syncChartControls(); buildChartChips(); loadAndRenderPrice(); renderRadar(); }
+function setChartSym(s) { s = (s || '').trim().toUpperCase(); if (!s) return; chartSym = s; syncChartControls(); buildChartChips(); if (_chartEngine === 'tv') mountTvChart('tvChartBox', chartSym); else { loadAndRenderPrice(); } renderRadar(); }
+
+// ── TradingView widgets (free embeds; no API key) ──
+let _chartEngine = 'chartjs';   // 'chartjs' | 'tv'
+function tvTheme() { return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'; }
+function tvSymbol(t) {
+  t = (t || '').toUpperCase().trim();
+  if (!t) return 'SPY';
+  if (/-USD$/.test(t)) return 'COINBASE:' + t.replace('-USD', 'USD');   // crypto: BTC-USD -> COINBASE:BTCUSD
+  return t.replace(/[.\-]/g, '');   // bare ticker resolves to its primary listing on TradingView
+}
+function mountTvChart(containerId, ticker) {
+  const el = document.getElementById(containerId); if (!el) return;
+  if (!window.TradingView || !TradingView.widget) { setTimeout(() => mountTvChart(containerId, ticker), 500); return; }
+  el.innerHTML = '';
+  try {
+    new TradingView.widget({
+      container_id: containerId, symbol: tvSymbol(ticker), interval: 'D', autosize: true,
+      theme: tvTheme(), style: '1', timezone: 'Etc/UTC', locale: 'en',
+      allow_symbol_change: true, hide_side_toolbar: false, withdateranges: true
+    });
+  } catch (e) {}
+}
+function mountTvTA(containerId, ticker) {
+  const el = document.getElementById(containerId); if (!el) return;
+  el.innerHTML = '<div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>';
+  const sc = document.createElement('script');
+  sc.type = 'text/javascript'; sc.async = true;
+  sc.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
+  sc.innerHTML = JSON.stringify({ symbol: tvSymbol(ticker), interval: '1D', width: '100%', height: 400, isTransparent: true, showIntervalTabs: true, displayMode: 'single', colorTheme: tvTheme(), locale: 'en' });
+  el.querySelector('.tradingview-widget-container').appendChild(sc);
+}
+function setChartEngine(eng) {
+  _chartEngine = eng;
+  document.querySelectorAll('#chartEngineSeg button').forEach(b => b.classList.toggle('active', b.dataset.eng === eng));
+  const tv = eng === 'tv';
+  ['chartTypeSeg', 'chartIndSeg'].forEach(id => { const e = document.getElementById(id); if (e) e.style.display = tv ? 'none' : ''; });
+  const hero = document.querySelector('#tab-chart .chart-hero'); if (hero) hero.style.display = tv ? 'none' : '';
+  const w = document.getElementById('tvChartWrap'); if (w) w.style.display = tv ? '' : 'none';
+  if (tv) {
+    ['wrapRSI', 'wrapMACD'].forEach(id => { const e = document.getElementById(id); if (e) e.style.display = 'none'; });
+    mountTvChart('tvChartBox', chartSym || 'SPY');
+  } else {
+    const rsi = document.getElementById('wrapRSI'), macd = document.getElementById('wrapMACD');
+    if (rsi) rsi.style.display = (chartInd && chartInd.rsi) ? '' : 'none';
+    if (macd) macd.style.display = (chartInd && chartInd.macd) ? '' : 'none';
+    loadAndRenderPrice();
+  }
+}
+function _remountTvForTheme() {
+  try {
+    if (_chartEngine === 'tv' && document.getElementById('tab-chart').classList.contains('active')) mountTvChart('tvChartBox', chartSym);
+    if (document.getElementById('tvResChart') && document.getElementById('tab-research').classList.contains('active') && typeof currentResearchTicker !== 'undefined' && currentResearchTicker) { mountTvChart('tvResChart', currentResearchTicker); mountTvTA('tvResTA', currentResearchTicker); }
+  } catch (e) {}
+}
 function setChartRange(r) { chartRange = r; syncChartControls(); loadAndRenderPrice(); }
 function setChartType(t) { chartType = t; syncChartControls(); const s = chartSeriesCache[chartSym + '|' + chartRange]; if (s) renderPrice(s); }
 function toggleInd(k) { chartInd[k] = !chartInd[k]; syncChartControls(); const s = chartSeriesCache[chartSym + '|' + chartRange]; if (s) { renderPrice(s); renderRSI(s); renderMACD(s); } }
@@ -2967,8 +3077,8 @@ function _renderHoldingsUI() {
     if (e.has52) {
       cell52 = '<div class="rng-track"><div class="rng-fill" data-w="' + e.pos52.toFixed(0) + '" style="width:0%"></div><div class="rng-dot" data-l="' + e.pos52.toFixed(0) + '" style="left:0%"></div></div>' +
         '<div class="ht-52meta">$' + e.lo.toFixed(0) + ' – $' + e.hi.toFixed(0) + ' · ' + (e.fromHigh >= 0 ? '+' : '') + e.fromHigh.toFixed(0) + '% vs high</div>' +
-        '<div style="margin-top:5px">' + callBadge(e.call) + '</div>';
-    } else { cell52 = '<div class="ht-52meta">—</div><div style="margin-top:5px">' + callBadge(e.call) + '</div>'; }
+        '<div style="margin-top:5px">' + callBadge(e.call, true) + '</div>';
+    } else { cell52 = '<div class="ht-52meta">—</div><div style="margin-top:5px">' + callBadge(e.call, true) + '</div>'; }
     return '<tr data-tkr="' + e.ticker + '">' +
       '<td class="ht-sym"><div class="ht-symcell"><div class="holding-logo" style="background:' + logoColor(e.ticker) + '">' + e.ticker.slice(0, 2) + '</div>' +
       '<div><a class="holding-ticker" style="cursor:pointer" onclick="goResearch(\'' + e.ticker + '\')">' + e.ticker + '</a><div class="holding-name" title="' + escHtml(name) + '">' + escHtml(name) + '</div>' +
@@ -3394,7 +3504,12 @@ function renderAgentResearch(ticker, agentData, scanData) {
   // Right: instant analysis (scan data if available, else a live quote read)
   html += '<div>' + (scanData ? scanDataSection(ticker, scanData) : quickResearchSection(ticker)) + '</div>';
   html += '</div>';
+  html += '<div class="tv-research">' +
+    '<div class="tv-col"><div class="tv-ctitle">' + ic('data', 16) + ' TradingView Chart — ' + ticker + '</div><div id="tvResChart" class="tv-chart-box" style="height:clamp(300px,58vh,440px)"></div></div>' +
+    '<div class="tv-col"><div class="tv-ctitle">' + ic('activity', 16) + ' TradingView Technicals</div><div id="tvResTA" class="tv-ta-box"></div></div>' +
+    '</div><div class="tv-attr">Chart &amp; technicals by <a href="https://www.tradingview.com" target="_blank" rel="noopener">TradingView</a> · cross-check against Claude’s read above</div>';
   el.innerHTML = html;
+  try { mountTvChart('tvResChart', ticker); mountTvTA('tvResTA', ticker); } catch (e) {}
 }
 // Instant read for tickers outside the scan universe — uses the same scoring lens
 // as the top picks (signal + score derived from live momentum vs 52w range).
