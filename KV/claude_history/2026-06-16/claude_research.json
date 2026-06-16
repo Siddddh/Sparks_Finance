@@ -1,0 +1,53 @@
+{
+  "date": "2026-06-16",
+  "analyses": [
+    {
+      "ticker": "CSX", "signal": "STRONG BUY", "composite_score": 96,
+      "summary": "Cleanest breakout on the board — a rail leader at new highs without being overbought, backed by real earnings growth.",
+      "fundamentals": { "score": 88, "sentiment": "BULLISH", "summary": "26% EPS growth with steady margins; rails are quality, cash-generative compounders.", "signals": ["EPS +26% YoY", "Consistent free cash flow"] },
+      "technical": { "score": 95, "sentiment": "BULLISH", "summary": "Breaking out 0.4% from the 52-week high with RSI 56.7 — confirmed but not extended, on a VCP base. Textbook entry.", "signals": ["At 52-week high", "RSI 56.7 — room to run", "VCP base"] },
+      "earnings": { "score": 82, "sentiment": "BULLISH", "summary": "Recent beats; no report inside the entry window, so low binary risk now.", "signals": ["Recent beat", "No imminent earnings"] },
+      "analyst": { "score": 78, "sentiment": "BULLISH", "summary": "Buy-tilted consensus into a firming freight cycle.", "signals": ["Buy-tilted consensus"] },
+      "valuation": { "score": 70, "sentiment": "NEUTRAL", "summary": "Fair for a rail at this growth — not cheap, not stretched.", "signals": ["In line with rail peers"] },
+      "insider": { "score": 60, "sentiment": "NEUTRAL", "summary": "No notable recent insider activity either way.", "signals": ["No material signal"] },
+      "risk": { "score": 70, "sentiment": "NEUTRAL", "summary": "Economically sensitive to freight volumes; R:R ~2.5:1 — keep the 8% stop near $43.60.", "signals": ["Freight-volume sensitivity", "Honor the stop"] },
+      "catalyst": { "score": 78, "sentiment": "BULLISH", "summary": "Broadening industrial leadership and firm freight data support continuation.", "signals": ["Industrials broadening"] }
+    },
+    {
+      "ticker": "MU", "signal": "STRONG BUY", "composite_score": 95,
+      "summary": "The semis standout this cycle — memory upturn driving explosive growth — but a high-priced, high-beta name to size carefully.",
+      "fundamentals": { "score": 96, "sentiment": "BULLISH", "summary": "Memory upcycle producing huge EPS and revenue growth; demand backdrop (AI/HBM) is strong.", "signals": ["Explosive EPS/revenue growth", "HBM/AI memory demand"] },
+      "technical": { "score": 90, "sentiment": "BULLISH", "summary": "RSI 59.9, 3.7% off its high, VCP base — strong and not yet overbought despite a big run.", "signals": ["Near 52-week high", "RSI 59.9", "VCP base"] },
+      "earnings": { "score": 85, "sentiment": "BULLISH", "summary": "Beat-and-raise trajectory through the upcycle.", "signals": ["Beat + raise"] },
+      "analyst": { "score": 85, "sentiment": "BULLISH", "summary": "Broadly bullish; estimates rising.", "signals": ["Rising targets"] },
+      "valuation": { "score": 60, "sentiment": "NEUTRAL", "summary": "Cyclical — looks cheap on peak earnings, expensive on trough. Mind the cycle.", "signals": ["Peak-cycle valuation risk"] },
+      "insider": { "score": 55, "sentiment": "NEUTRAL", "summary": "No standout insider signal.", "signals": ["No material signal"] },
+      "risk": { "score": 58, "sentiment": "NEUTRAL", "summary": "High absolute price (~$1,039) + high beta = sharp drawdowns possible. Position-size down; stop near $956.", "signals": ["High beta / high price", "Cyclical sentiment swings"] },
+      "catalyst": { "score": 80, "sentiment": "BULLISH", "summary": "AI/datacenter memory demand and pricing remain the upside driver.", "signals": ["AI memory demand"] }
+    },
+    {
+      "ticker": "MNST", "signal": "STRONG BUY", "composite_score": 90,
+      "summary": "Defensive-growth beverage leader making a Relative-Strength new high — a rare combination of low beta and genuine momentum.",
+      "fundamentals": { "score": 88, "sentiment": "BULLISH", "summary": "29% EPS and 27% revenue growth — strong for a consumer-staples name.", "signals": ["EPS +29%", "Revenue +27%"] },
+      "technical": { "score": 90, "sentiment": "BULLISH", "summary": "0.5% off its high, RS line at a new high, RSI 64.8 — leadership confirmed.", "signals": ["RS at new high", "At 52-week high"] },
+      "earnings": { "score": 80, "sentiment": "BULLISH", "summary": "Consistent execution; durable category growth.", "signals": ["Steady beats"] },
+      "analyst": { "score": 78, "sentiment": "BULLISH", "summary": "Constructive coverage.", "signals": ["Buy-tilted"] },
+      "valuation": { "score": 62, "sentiment": "NEUTRAL", "summary": "Premium staples multiple — quality you pay up for.", "signals": ["Premium multiple"] },
+      "insider": { "score": 60, "sentiment": "NEUTRAL", "summary": "No material insider signal.", "signals": ["No material signal"] },
+      "risk": { "score": 72, "sentiment": "NEUTRAL", "summary": "Lower beta limits downside; RSI ~65 means don't chase the exact high.", "signals": ["RSI nearing upper band"] },
+      "catalyst": { "score": 70, "sentiment": "NEUTRAL", "summary": "Category momentum and international expansion.", "signals": ["International growth"] }
+    },
+    {
+      "ticker": "SPCX", "signal": "WATCH", "composite_score": 60,
+      "summary": "SpaceX — days-old IPO (Nasdaq, June 12). Too new for any technical read; this is a thesis call, not a quant one. Treat as a high-conviction story with high-volatility, size small.",
+      "fundamentals": { "score": 70, "sentiment": "BULLISH", "summary": "Dominant launch cadence (Falcon/Starship) plus a fast-scaling, high-margin Starlink subscription business — the growth engine the market is paying ~$2T for. Public financials are brand-new, so treat numbers as preliminary.", "signals": ["Starlink recurring revenue scaling", "Launch-market dominance", "~$2T debut valuation — priced for huge growth"] },
+      "technical": { "score": 50, "sentiment": "NEUTRAL", "summary": "Only ~2 trading days of history — no MA50/52-week/VCP/RS signals exist yet. Nothing to read technically; expect wide swings.", "signals": ["~2 days of history", "No valid breakout signals yet"] },
+      "earnings": { "score": 50, "sentiment": "NEUTRAL", "summary": "No public earnings history as a listed company yet.", "signals": ["First report pending"] },
+      "analyst": { "score": 55, "sentiment": "NEUTRAL", "summary": "Coverage is just initiating post-IPO; expect a wide range of targets.", "signals": ["Coverage initiating"] },
+      "valuation": { "score": 40, "sentiment": "BEARISH", "summary": "~$2T at debut prices in extraordinary growth — the main risk is paying up at the top of post-IPO enthusiasm.", "signals": ["Extreme valuation", "Post-IPO froth risk"] },
+      "insider": { "score": 50, "sentiment": "NEUTRAL", "summary": "Lock-up dynamics matter — watch for the post-IPO insider lock-up expiry, which can pressure the price.", "signals": ["Lock-up expiry to watch"] },
+      "risk": { "score": 35, "sentiment": "BEARISH", "summary": "Highest-risk name here: no trading history, huge valuation, IPO volatility, lock-up overhang. If you own it, size small and use a wide mental stop — standard 8% stops are noise on a 2-day-old stock.", "signals": ["No history", "IPO volatility", "Lock-up overhang"] },
+      "catalyst": { "score": 65, "sentiment": "BULLISH", "summary": "Starship milestones and Starlink subscriber growth are the catalysts that justify the valuation over time.", "signals": ["Starship progress", "Starlink subscriber adds"] }
+    }
+  ]
+}
