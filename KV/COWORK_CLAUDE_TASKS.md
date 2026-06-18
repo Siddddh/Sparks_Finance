@@ -41,9 +41,11 @@ Run the Sparks Finance pre-market update. Steps:
 4. Read combined_results.json AND tv_ratings.json. Choose YOUR top setups and write claude_recommendations.json
    (signal/score/grade/thesis/levels per pick + a market read + curated market_news). Cross-check each pick against
    TradingView's rating: when TV agrees it's confirmation; when TV disagrees (e.g. you like it but TV says Sell, or
-   it's overbought), say so in the thesis/risks. Then write claude_research.json with an 8-dimension deep dive for
-   your top picks (and any tickers in agent_queue). Then read holdings_dump.json and write claude_holdings.json with
-   a per-position call (action + why) for each user's holdings.
+   it's overbought), say so in the thesis/risks. Then write claude_research.json — a per-ticker BRIEF for your top
+   picks (and any tickers in agent_queue): financials {period, summary, highlights[]} for the last fiscal year (public
+   info; live numbers render from a TradingView widget, so write the narrative + standout highlights), accomplishments[],
+   journey_52w {summary, milestones[]}, and critical {risks[], catalysts[], watch[], valuation}. (No 8-agent scores.)
+   Then read holdings_dump.json and write claude_holdings.json with a per-position call (action + why) for each user's holdings.
    (All three schemas are at the top of the matching apply_*.py.)
 5. python apply_claude_recommendations.py   # also merges tv_ratings.json onto each pick card
 6. python apply_claude_research.py
