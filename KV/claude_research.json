@@ -1,53 +1,149 @@
 {
-  "date": "2026-06-16",
+  "date": "2026-06-18",
   "analyses": [
     {
-      "ticker": "CSX", "signal": "STRONG BUY", "composite_score": 96,
-      "summary": "Cleanest breakout on the board — a rail leader at new highs without being overbought, backed by real earnings growth.",
-      "fundamentals": { "score": 88, "sentiment": "BULLISH", "summary": "26% EPS growth with steady margins; rails are quality, cash-generative compounders.", "signals": ["EPS +26% YoY", "Consistent free cash flow"] },
-      "technical": { "score": 95, "sentiment": "BULLISH", "summary": "Breaking out 0.4% from the 52-week high with RSI 56.7 — confirmed but not extended, on a VCP base. Textbook entry.", "signals": ["At 52-week high", "RSI 56.7 — room to run", "VCP base"] },
-      "earnings": { "score": 82, "sentiment": "BULLISH", "summary": "Recent beats; no report inside the entry window, so low binary risk now.", "signals": ["Recent beat", "No imminent earnings"] },
-      "analyst": { "score": 78, "sentiment": "BULLISH", "summary": "Buy-tilted consensus into a firming freight cycle.", "signals": ["Buy-tilted consensus"] },
-      "valuation": { "score": 70, "sentiment": "NEUTRAL", "summary": "Fair for a rail at this growth — not cheap, not stretched.", "signals": ["In line with rail peers"] },
-      "insider": { "score": 60, "sentiment": "NEUTRAL", "summary": "No notable recent insider activity either way.", "signals": ["No material signal"] },
-      "risk": { "score": 70, "sentiment": "NEUTRAL", "summary": "Economically sensitive to freight volumes; R:R ~2.5:1 — keep the 8% stop near $43.60.", "signals": ["Freight-volume sensitivity", "Honor the stop"] },
-      "catalyst": { "score": 78, "sentiment": "BULLISH", "summary": "Broadening industrial leadership and firm freight data support continuation.", "signals": ["Industrials broadening"] }
+      "ticker": "NVDA",
+      "name": "NVIDIA Corporation",
+      "signal": "STRONG BUY",
+      "verdict": "The infrastructure layer of the AI buildout — still growing into a rich multiple rather than out of it.",
+      "financials": {
+        "period": "FY2025 (ended Jan 2025)",
+        "summary": "A second straight year of step-change growth as Data Center became the overwhelming majority of revenue. Margins expanded to best-in-class levels on Hopper/Blackwell mix and pricing power, and the balance sheet turned into a cash machine — free cash flow more than covered record buybacks with room to spare.",
+        "highlights": [
+          "Revenue ~$130B, roughly +110% YoY",
+          "Data Center ~88% of revenue",
+          "GAAP gross margin ~75%",
+          "Diluted EPS roughly +130% YoY",
+          "Operating cash flow > $60B; net cash positive"
+        ]
+      },
+      "accomplishments": [
+        "Blackwell (B200/GB200) ramped to volume — the fastest product ramp in company history",
+        "Closed the year as one of the largest companies in the world by market cap",
+        "CUDA + networking (NVLink, Spectrum-X) deepened the full-stack moat beyond the GPU",
+        "Major cloud and sovereign-AI commitments booked into the forward pipeline"
+      ],
+      "journey_52w": {
+        "summary": "A powerful uptrend punctuated by two sharp drawdowns — a sentiment shock early in the year on fears of cheaper training methods, and a mid-year consolidation — both of which were bought. The stock made a series of higher highs as each earnings report re-rated forward estimates upward.",
+        "milestones": [
+          {"label": "Q1", "note": "Sharp drawdown on 'efficient training' fears, then recovery as hyperscaler capex guidance rose"},
+          {"label": "Mid-year", "note": "Blackwell volume shipments confirmed; estimates revised higher"},
+          {"label": "Recent", "note": "Reclaimed highs on continued data-center demand visibility"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "Customer concentration — a handful of hyperscalers drive most Data Center revenue",
+          "Any sign of an AI-capex digestion phase would compress the multiple fast",
+          "Export-control / China policy is an ongoing overhang"
+        ],
+        "catalysts": [
+          "Blackwell Ultra / next-gen ramp",
+          "Sovereign-AI and enterprise demand broadening the customer base",
+          "Quarterly hyperscaler capex guidance"
+        ],
+        "watch": [
+          "Data-center gross-margin trajectory",
+          "Backlog/booking commentary vs. shipment cadence",
+          "Hyperscaler capex revisions each earnings season"
+        ],
+        "valuation": "Premium forward multiple, but supported so far by earnings revisions outrunning the price — the risk is multiple compression if growth normalizes."
+      }
     },
     {
-      "ticker": "MU", "signal": "STRONG BUY", "composite_score": 95,
-      "summary": "The semis standout this cycle — memory upturn driving explosive growth — but a high-priced, high-beta name to size carefully.",
-      "fundamentals": { "score": 96, "sentiment": "BULLISH", "summary": "Memory upcycle producing huge EPS and revenue growth; demand backdrop (AI/HBM) is strong.", "signals": ["Explosive EPS/revenue growth", "HBM/AI memory demand"] },
-      "technical": { "score": 90, "sentiment": "BULLISH", "summary": "RSI 59.9, 3.7% off its high, VCP base — strong and not yet overbought despite a big run.", "signals": ["Near 52-week high", "RSI 59.9", "VCP base"] },
-      "earnings": { "score": 85, "sentiment": "BULLISH", "summary": "Beat-and-raise trajectory through the upcycle.", "signals": ["Beat + raise"] },
-      "analyst": { "score": 85, "sentiment": "BULLISH", "summary": "Broadly bullish; estimates rising.", "signals": ["Rising targets"] },
-      "valuation": { "score": 60, "sentiment": "NEUTRAL", "summary": "Cyclical — looks cheap on peak earnings, expensive on trough. Mind the cycle.", "signals": ["Peak-cycle valuation risk"] },
-      "insider": { "score": 55, "sentiment": "NEUTRAL", "summary": "No standout insider signal.", "signals": ["No material signal"] },
-      "risk": { "score": 58, "sentiment": "NEUTRAL", "summary": "High absolute price (~$1,039) + high beta = sharp drawdowns possible. Position-size down; stop near $956.", "signals": ["High beta / high price", "Cyclical sentiment swings"] },
-      "catalyst": { "score": 80, "sentiment": "BULLISH", "summary": "AI/datacenter memory demand and pricing remain the upside driver.", "signals": ["AI memory demand"] }
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "signal": "WATCH",
+      "verdict": "A cash-generative compounder leaning on Services growth while the market waits for the next hardware cycle and a credible AI story.",
+      "financials": {
+        "period": "FY2025 (ended Sep 2025)",
+        "summary": "Roughly flat-to-modest revenue growth with the mix continuing to shift toward high-margin Services, which lifted overall gross margin. Enormous free cash flow funded one of the largest buyback-plus-dividend programs in the market; the company again returned more cash than it generated, shrinking the share count.",
+        "highlights": [
+          "Revenue ~$400B, low-single-digit % YoY",
+          "Services at a record, ~25%+ of revenue and the main margin driver",
+          "Gross margin ~46%",
+          "Diluted EPS up on margin mix + buybacks",
+          "Operating cash flow > $110B"
+        ]
+      },
+      "accomplishments": [
+        "Services reached a new all-time revenue record",
+        "Installed base hit fresh highs, widening the recurring-revenue base",
+        "Continued silicon leadership across the product line",
+        "Maintained sector-leading capital return"
+      ],
+      "journey_52w": {
+        "summary": "A choppier year than the mega-cap peers — periods of underperformance on soft hardware growth and questions about its AI roadmap, offset by the steady Services narrative and relentless buybacks supporting the floor.",
+        "milestones": [
+          {"label": "H1", "note": "Range-bound as iPhone unit growth stayed muted"},
+          {"label": "H2", "note": "Services strength and capital return kept it resilient into year-end"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "Hardware growth is mature — the story increasingly rests on Services",
+          "AI roadmap perceived as behind peers; execution here is the swing factor",
+          "Regulatory pressure on the App Store / Services economics"
+        ],
+        "catalysts": [
+          "A credible on-device AI feature cycle driving an upgrade super-cycle",
+          "Continued Services acceleration",
+          "New product category"
+        ],
+        "watch": [
+          "Services growth rate each quarter",
+          "iPhone unit trajectory and China demand",
+          "Gross-margin direction"
+        ],
+        "valuation": "Trades at a premium to its growth rate — justified by quality and buybacks, but it leaves little room for disappointment."
+      }
     },
     {
-      "ticker": "MNST", "signal": "STRONG BUY", "composite_score": 90,
-      "summary": "Defensive-growth beverage leader making a Relative-Strength new high — a rare combination of low beta and genuine momentum.",
-      "fundamentals": { "score": 88, "sentiment": "BULLISH", "summary": "29% EPS and 27% revenue growth — strong for a consumer-staples name.", "signals": ["EPS +29%", "Revenue +27%"] },
-      "technical": { "score": 90, "sentiment": "BULLISH", "summary": "0.5% off its high, RS line at a new high, RSI 64.8 — leadership confirmed.", "signals": ["RS at new high", "At 52-week high"] },
-      "earnings": { "score": 80, "sentiment": "BULLISH", "summary": "Consistent execution; durable category growth.", "signals": ["Steady beats"] },
-      "analyst": { "score": 78, "sentiment": "BULLISH", "summary": "Constructive coverage.", "signals": ["Buy-tilted"] },
-      "valuation": { "score": 62, "sentiment": "NEUTRAL", "summary": "Premium staples multiple — quality you pay up for.", "signals": ["Premium multiple"] },
-      "insider": { "score": 60, "sentiment": "NEUTRAL", "summary": "No material insider signal.", "signals": ["No material signal"] },
-      "risk": { "score": 72, "sentiment": "NEUTRAL", "summary": "Lower beta limits downside; RSI ~65 means don't chase the exact high.", "signals": ["RSI nearing upper band"] },
-      "catalyst": { "score": 70, "sentiment": "NEUTRAL", "summary": "Category momentum and international expansion.", "signals": ["International growth"] }
-    },
-    {
-      "ticker": "SPCX", "signal": "WATCH", "composite_score": 60,
-      "summary": "SpaceX — days-old IPO (Nasdaq, June 12). Too new for any technical read; this is a thesis call, not a quant one. Treat as a high-conviction story with high-volatility, size small.",
-      "fundamentals": { "score": 70, "sentiment": "BULLISH", "summary": "Dominant launch cadence (Falcon/Starship) plus a fast-scaling, high-margin Starlink subscription business — the growth engine the market is paying ~$2T for. Public financials are brand-new, so treat numbers as preliminary.", "signals": ["Starlink recurring revenue scaling", "Launch-market dominance", "~$2T debut valuation — priced for huge growth"] },
-      "technical": { "score": 50, "sentiment": "NEUTRAL", "summary": "Only ~2 trading days of history — no MA50/52-week/VCP/RS signals exist yet. Nothing to read technically; expect wide swings.", "signals": ["~2 days of history", "No valid breakout signals yet"] },
-      "earnings": { "score": 50, "sentiment": "NEUTRAL", "summary": "No public earnings history as a listed company yet.", "signals": ["First report pending"] },
-      "analyst": { "score": 55, "sentiment": "NEUTRAL", "summary": "Coverage is just initiating post-IPO; expect a wide range of targets.", "signals": ["Coverage initiating"] },
-      "valuation": { "score": 40, "sentiment": "BEARISH", "summary": "~$2T at debut prices in extraordinary growth — the main risk is paying up at the top of post-IPO enthusiasm.", "signals": ["Extreme valuation", "Post-IPO froth risk"] },
-      "insider": { "score": 50, "sentiment": "NEUTRAL", "summary": "Lock-up dynamics matter — watch for the post-IPO insider lock-up expiry, which can pressure the price.", "signals": ["Lock-up expiry to watch"] },
-      "risk": { "score": 35, "sentiment": "BEARISH", "summary": "Highest-risk name here: no trading history, huge valuation, IPO volatility, lock-up overhang. If you own it, size small and use a wide mental stop — standard 8% stops are noise on a 2-day-old stock.", "signals": ["No history", "IPO volatility", "Lock-up overhang"] },
-      "catalyst": { "score": 65, "sentiment": "BULLISH", "summary": "Starship milestones and Starlink subscriber growth are the catalysts that justify the valuation over time.", "signals": ["Starship progress", "Starlink subscriber adds"] }
+      "ticker": "ASML",
+      "name": "ASML Holding N.V.",
+      "signal": "STRONG BUY",
+      "verdict": "A genuine monopoly on EUV lithography — the single most essential supplier to the entire advanced-chip industry.",
+      "financials": {
+        "period": "FY2024 (ended Dec 2024)",
+        "summary": "Revenue grew on a richer EUV mix and rising system ASPs, with net margins holding above 25%. The order book is the headline asset — a multi-year backlog that gives unusual visibility for a capital-equipment company, funded by customers who have no alternative supplier.",
+        "highlights": [
+          "Revenue up YoY on EUV mix and ASP gains",
+          "Net margin > 25%",
+          "Record multi-year backlog",
+          "Strong free cash flow funding dividend + buybacks",
+          "Sole global supplier of EUV lithography systems"
+        ]
+      },
+      "accomplishments": [
+        "Continued High-NA EUV shipments to leading-edge foundries",
+        "Backlog extended on AI-driven leading-edge capacity expansion",
+        "Maintained an effective 100% share of EUV"
+      ],
+      "journey_52w": {
+        "summary": "Volatile but upward — swung on order-intake prints and China-export headlines, then trended to new highs as AI capex reaffirmed multi-year demand for leading-edge capacity.",
+        "milestones": [
+          {"label": "Early", "note": "Pulled back on a soft order-intake quarter and China-policy headlines"},
+          {"label": "Later", "note": "Rallied to highs as AI-capex commentary lifted forward bookings"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "China export-control policy (China has been a meaningful share of sales)",
+          "Order intake is lumpy — a single soft quarter can spook the stock",
+          "EUR/USD FX translation"
+        ],
+        "catalysts": [
+          "High-NA EUV adoption at 2nm and below",
+          "Leading-edge fab build-outs (foundry capacity expansion)",
+          "Quarterly bookings re-acceleration"
+        ],
+        "watch": [
+          "Net bookings each quarter (the key tell)",
+          "China revenue mix and any new export restrictions",
+          "Gross-margin path as High-NA scales"
+        ],
+        "valuation": "Always trades at a premium to the equipment group; the monopoly justifies it, but bookings volatility makes the entry point matter."
+      }
     }
   ]
 }
