@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 <title>Sparks Finance — Stock Intelligence</title>
 <link rel="manifest" href="/manifest.webmanifest"/>
-<meta name="theme-color" content="#1a73e8"/>
+<meta name="theme-color" content="#445BFB"/>
 <link rel="icon" href="/favicon.ico"/>
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png"/>
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"/>
@@ -275,6 +275,31 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .tv-badge.tv-red{background:var(--red-soft);color:var(--red);}
 .tv-badge.tv-blue{background:var(--blue-soft);color:var(--blue);}
 @media(max-width:900px){.tv-research{grid-template-columns:1fr;}}
+/* ── Research tab: Claude brief + TradingView sections ── */
+.rtop > .research-box{border-radius:16px;}
+.rsec{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;margin-top:14px;overflow:hidden;box-shadow:var(--shadow);}
+.rsec-h{font-size:12.5px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:9px;padding:12px 15px;border-bottom:1px solid var(--border-soft);background:var(--surface);}
+.rsec-h .ic{color:var(--blue);flex-shrink:0;}
+.rgrid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;align-items:stretch;}
+.rgrid2 .rsec{margin-top:0;height:100%;display:flex;flex-direction:column;}
+.rgrid2 .rsec > div:last-child{flex:1;}
+.tv-chart-box{width:100%;display:block;background:var(--surface-2);}
+.tv-fin-box{width:100%;min-height:600px;display:block;background:var(--surface-2);}
+.tv-prof-box{width:100%;min-height:440px;display:block;background:var(--surface-2);}
+.rgrid2 .tv-ta-box{min-height:440px;}
+.rbrief{border-radius:16px;}
+.rbrief .research-hdr{flex-wrap:wrap;}
+.rb-verdict{flex-basis:100%;font-size:12.5px;font-weight:500;color:var(--text-2);font-style:italic;line-height:1.5;margin-top:2px;}
+.rb-card{border-top:1px solid var(--border-soft);padding-top:12px;margin-top:12px;}
+.rb-card.first{border-top:none;padding-top:0;margin-top:2px;}
+.rb-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-3);display:flex;align-items:center;gap:6px;margin-bottom:8px;}
+.rb-txt{font-size:13px;color:var(--text-2);line-height:1.65;}
+.rb-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.rb-chip{font-size:11.5px;font-weight:600;background:var(--surface);border:1px solid var(--border-soft);color:var(--text);border-radius:8px;padding:5px 10px;}
+.rb-mile{margin-top:8px;}
+.crit-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.rb-foot{font-size:10px;color:var(--text-3);margin-top:12px;text-align:right;}
+@media(max-width:760px){.crit-grid{grid-template-columns:1fr;gap:10px;}.rgrid2{grid-template-columns:1fr;}}
 .mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px;}
 .met{background:var(--surface);border-radius:6px;padding:7px 9px;}
 .mlbl{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-3);font-weight:500;}
@@ -1002,7 +1027,7 @@ body.sidebar-open .nav-scrim{display:block;}
             </div>
             <button class="pf-btn pf-btn-primary" onclick="runResearch()">Research</button>
           </div>
-          <div class="research-hint"><span class="ic-info" title="8 specialist AI agents — fundamentals, technicals, earnings, analyst ratings, valuation, insider activity, risk and catalysts — analyze the stock. Full deep results take roughly 20–40s.">ⓘ</span> 8-Agent Analysis · try <span class="ex-chip" onclick="goResearch('AAPL')">AAPL</span> <span class="ex-chip" onclick="goResearch('NVDA')">NVDA</span> <span class="ex-chip" onclick="goResearch('TSLA')">TSLA</span></div>
+          <div class="research-hint"><span class="ic-info" title="Claude's brief — last-year financial highlights, accomplishments, the 52-week journey and critical info — plus live TradingView data (chart, financials, technical rating, company profile).">ⓘ</span> Claude's brief + live TradingView data · try <span class="ex-chip" onclick="goResearch('AAPL')">AAPL</span> <span class="ex-chip" onclick="goResearch('NVDA')">NVDA</span> <span class="ex-chip" onclick="goResearch('TSLA')">TSLA</span></div>
           <div id="researchContent"></div>
         </div>
         <div id="tab-discovery" class="tab-panel"><div class="page-title">Discovery</div><div id="discoveryContent"></div></div>
@@ -1194,7 +1219,8 @@ function toggleTheme() {
 
 // ════════ Static icon injection ════════
 function injectStaticIcons() {
-  ['loadSpark', 'authSpark', 'brandSpark'].forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = ic('spark', id === 'brandSpark' ? 22 : 24); });
+  const brandMark = (sz) => '<svg width="' + sz + '" height="' + sz + '" viewBox="0 0 48 48" fill="none" aria-hidden="true"><polyline points="5,36 15,27 24,30 34,16" fill="none" stroke="#445BFB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M39 2C39.78 7.08 42.92 10.22 48 11C42.92 11.78 39.78 14.92 39 20C38.22 14.92 35.08 11.78 30 11C35.08 10.22 38.22 7.08 39 2Z" fill="#F59E0B"/></svg>';
+  ['loadSpark', 'authSpark', 'brandSpark'].forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = brandMark(id === 'brandSpark' ? 22 : 24); });
   const sIcon = document.getElementById('searchIcon'); if (sIcon) sIcon.innerHTML = ic('search', 18);
   const ham = document.getElementById('hamburgerBtn'); if (ham) ham.innerHTML = ic('menu', 22);
   const tb = document.getElementById('themeToggle');
@@ -2231,26 +2257,42 @@ function tvSymbol(t) {
   if (/-USD$/.test(t)) return 'COINBASE:' + t.replace('-USD', 'USD');   // crypto: BTC-USD -> COINBASE:BTCUSD
   return t.replace(/[.\-]/g, '');   // bare ticker resolves to its primary listing on TradingView
 }
-function mountTvChart(containerId, ticker) {
+function mountTvChart(containerId, ticker, opts) {
   const el = document.getElementById(containerId); if (!el) return;
-  if (!window.TradingView || !TradingView.widget) { setTimeout(() => mountTvChart(containerId, ticker), 500); return; }
+  if (!window.TradingView || !TradingView.widget) { setTimeout(() => mountTvChart(containerId, ticker, opts), 500); return; }
   el.innerHTML = '';
   try {
-    new TradingView.widget({
+    const cfg = {
       container_id: containerId, symbol: tvSymbol(ticker), interval: 'D', autosize: true,
       theme: tvTheme(), style: '1', timezone: 'Etc/UTC', locale: 'en',
       allow_symbol_change: true, hide_side_toolbar: false, withdateranges: true
-    });
+    };
+    if (opts && opts.range) cfg.range = opts.range;   // e.g. '12M' to default to the 52-week journey
+    new TradingView.widget(cfg);
   } catch (e) {}
 }
-function mountTvTA(containerId, ticker) {
+// Generic external-embedding widget mount (TA, financials, company profile all share this pattern).
+function _tvEmbed(containerId, src, cfg) {
   const el = document.getElementById(containerId); if (!el) return;
-  el.innerHTML = '<div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>';
+  el.innerHTML = '<div class="tradingview-widget-container" style="width:100%"><div class="tradingview-widget-container__widget"></div></div>';
   const sc = document.createElement('script');
-  sc.type = 'text/javascript'; sc.async = true;
-  sc.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
-  sc.innerHTML = JSON.stringify({ symbol: tvSymbol(ticker), interval: '1D', width: '100%', height: 400, isTransparent: true, showIntervalTabs: true, displayMode: 'single', colorTheme: tvTheme(), locale: 'en' });
+  sc.type = 'text/javascript'; sc.async = true; sc.src = src;
+  sc.innerHTML = JSON.stringify(cfg);
   el.querySelector('.tradingview-widget-container').appendChild(sc);
+}
+// isTransparent:false -> the widget paints a SOLID panel that matches colorTheme (dark in dark
+// mode, white in light mode) with full-contrast text — no washed-out transparent rendering.
+function mountTvTA(containerId, ticker) {
+  _tvEmbed(containerId, 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js',
+    { symbol: tvSymbol(ticker), interval: '1D', width: '100%', height: 440, isTransparent: false, showIntervalTabs: true, displayMode: 'single', colorTheme: tvTheme(), locale: 'en' });
+}
+function mountTvFinancials(containerId, ticker) {
+  _tvEmbed(containerId, 'https://s3.tradingview.com/external-embedding/embed-widget-financials.js',
+    { symbol: tvSymbol(ticker), colorTheme: tvTheme(), displayMode: 'regular', isTransparent: false, largeChartUrl: '', width: '100%', height: 600, locale: 'en' });
+}
+function mountTvProfile(containerId, ticker) {
+  _tvEmbed(containerId, 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js',
+    { symbol: tvSymbol(ticker), colorTheme: tvTheme(), isTransparent: false, width: '100%', height: 440, locale: 'en' });
 }
 function setChartEngine(eng) {
   _chartEngine = eng;
@@ -2272,7 +2314,12 @@ function setChartEngine(eng) {
 function _remountTvForTheme() {
   try {
     if (_chartEngine === 'tv' && document.getElementById('tab-chart').classList.contains('active')) mountTvChart('tvChartBox', chartSym);
-    if (document.getElementById('tvResChart') && document.getElementById('tab-research').classList.contains('active') && typeof currentResearchTicker !== 'undefined' && currentResearchTicker) { mountTvChart('tvResChart', currentResearchTicker); mountTvTA('tvResTA', currentResearchTicker); }
+    if (document.getElementById('tvResChart') && document.getElementById('tab-research').classList.contains('active') && typeof currentResearchTicker !== 'undefined' && currentResearchTicker) {
+      mountTvChart('tvResChart', currentResearchTicker, { range: '12M' });
+      if (document.getElementById('tvResFin')) mountTvFinancials('tvResFin', currentResearchTicker);
+      mountTvTA('tvResTA', currentResearchTicker);
+      if (document.getElementById('tvResProfile')) mountTvProfile('tvResProfile', currentResearchTicker);
+    }
   } catch (e) {}
 }
 function setChartRange(r) { chartRange = r; syncChartControls(); loadAndRenderPrice(); }
@@ -3410,106 +3457,135 @@ function renderResearchMsg(ticker, kind) {
     : 'No live quote for that symbol — check the spelling, or browse the <a class="auth-link" onclick="sw(\'table\')">Full Scan table</a> to discover tickers.';
   el.innerHTML = '<div class="research-box" style="text-align:center;padding:42px 20px;"><div style="font-size:30px;margin-bottom:8px;">' + (noquote ? '⏳' : '🔍') + '</div><div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px;">' + head + '</div><div class="empty-sub">' + sub + '</div></div>';
 }
+let _researchDoc = { ticker: null, data: null };   // last-loaded Claude brief, so a later live-price pass never wipes it
 function runResearch() {
   const input = document.getElementById('researchInput');
   const ticker = (input && input.value || '').trim().toUpperCase();
   if (!ticker) { researchShake(input); return; }
   acClose('researchAC');
   currentResearchTicker = ticker;
+  _researchDoc = { ticker: ticker, data: null };
   const scanData = scanStockFor(ticker);
   renderAgentResearch(ticker, null, scanData);   // instant paint with whatever we have
   const today = todayStr();
+  // Claude's brief (today's, else the most recent prior day) — dated history.
   db.collection('agent_results').doc(ticker).collection('dates').doc(today).get()
-    .then(doc => { if (doc.exists && currentResearchTicker === ticker) renderAgentResearch(ticker, doc.data(), scanStockFor(ticker)); })
+    .then(doc => {
+      if (currentResearchTicker !== ticker) return;
+      if (doc.exists) { _researchDoc = { ticker: ticker, data: doc.data() }; renderAgentResearch(ticker, doc.data(), scanStockFor(ticker)); return; }
+      // fall back to the latest prior brief if today's isn't published yet
+      db.collection('agent_results').doc(ticker).collection('dates').orderBy('date', 'desc').limit(1).get()
+        .then(snap => { if (currentResearchTicker === ticker && !snap.empty) { const d = snap.docs[0].data(); _researchDoc = { ticker: ticker, data: d }; renderAgentResearch(ticker, d, scanStockFor(ticker)); } })
+        .catch(() => {});
+    })
     .catch(() => {});
   // Refresh the live quote (parity with the ticker bar) with an 8s timeout so it can never hang.
   Promise.race([fetchLivePrices([ticker]), new Promise(r => setTimeout(r, 8000))]).then(() => {
     if (currentResearchTicker !== ticker) return;
+    const agentData = (_researchDoc.ticker === ticker) ? _researchDoc.data : null;
+    // If we already have a scan row or a Claude brief, the page is fully painted — don't re-render
+    // (avoids reloading the TradingView iframes). Only the bare live-quote case needs a refresh.
+    if (scanData || agentData) return;
     const le = liveEntry(ticker);
     const hasQuote = !!(le && le.price != null);
-    const inCatalog = !!(scanData || searchBase()[ticker] || searchBase()[ticker.replace(/\./g, '-')]);
-    if (!hasQuote) { renderResearchMsg(ticker, inCatalog ? 'noquote' : 'unknown'); if (inCatalog && !scanData) queueTickerAnalysis(ticker); return; }
+    const inCatalog = !!(searchBase()[ticker] || searchBase()[ticker.replace(/\./g, '-')]);
+    if (!hasQuote) { renderResearchMsg(ticker, inCatalog ? 'noquote' : 'unknown'); if (inCatalog) queueTickerAnalysis(ticker); return; }
     renderAgentResearch(ticker, null, scanStockFor(ticker));
-    if (!scanData) queueTickerAnalysis(ticker);   // only queue the deep pipeline for a resolvable ticker
+    queueTickerAnalysis(ticker);   // queue the pipeline for a resolvable, not-yet-scanned ticker
   });
 }
 function queueTickerAnalysis(ticker) {
   if (!ticker) return;
   db.collection('agent_queue').doc(ticker).set({ ticker, queued: new Date().toISOString(), uid: UID || 'anonymous' }, { merge: true }).catch(() => {});
 }
-// 8 deep-agent modules, in display order, keyed as written by agents/run_agents.py.
-const AGENT_META = [
-  ['fundamentals', 'Fundamentals'], ['technical', 'Technical'], ['earnings', 'Earnings'],
-  ['analyst', 'Analyst Ratings'], ['valuation', 'Valuation'], ['insider', 'Insider Activity'],
-  ['risk', 'Risk'], ['catalyst', 'Catalysts']
-];
-function _sentClass(s) {
-  s = (s || '').toUpperCase();
-  if (s.includes('BULL') || s.includes('POSITIVE') || s.includes('BUY')) return 'bsent BULLISH';
-  if (s.includes('BEAR') || s.includes('NEGATIVE') || s.includes('SELL') || s.includes('EXIT')) return 'bsent BEARISH';
-  return 'bsent NEUTRAL';
-}
-function agentCardsFrom(agentData) {
-  // Preferred: per-agent objects ({score, signals, summary, sentiment}). Fallback: agents/results array.
-  const cards = [];
-  if (Array.isArray(agentData.agents || agentData.results)) {
-    (agentData.agents || agentData.results).forEach(a => cards.push({
-      name: a.name || a.agent || 'Agent', score: a.score,
-      sentiment: a.sentiment || a.verdict || a.signal, summary: a.summary || a.reasoning, signals: a.signals || []
-    }));
-    return cards;
-  }
-  const seen = {};
-  AGENT_META.forEach(([k, label]) => {
-    const v = agentData[k];
-    if (v && typeof v === 'object') { cards.push({ name: label, score: v.score, sentiment: v.sentiment, summary: v.summary, signals: v.signals || [] }); seen[k] = 1; }
-  });
-  // Any extra agent-like objects not in AGENT_META.
-  Object.keys(agentData).forEach(k => {
-    if (seen[k]) return;
-    const v = agentData[k];
-    if (v && typeof v === 'object' && !Array.isArray(v) && ('score' in v || 'signals' in v)) {
-      cards.push({ name: k.charAt(0).toUpperCase() + k.slice(1), score: v.score, sentiment: v.sentiment, summary: v.summary, signals: v.signals || [] });
-    }
-  });
-  return cards;
-}
 function renderAgentResearch(ticker, agentData, scanData) {
-  const el = document.getElementById('researchContent');
-  let html = '<div class="research-wrap">';
-  // Left: deep 8-agent analysis
-  html += '<div><div class="research-box"><div class="research-hdr">' + ic('bot', 18) + ' 8-Agent Analysis — ' + ticker + '</div>';
-  const cards = agentData ? agentCardsFrom(agentData) : [];
-  if (cards.length) {
-    if (agentData.composite_score != null) {
-      const sigc = (agentData.signal || '').replace(' ', '-');
-      const cs = Math.round(agentData.composite_score);
-      const fc = cs >= 72 ? 'sbar-s' : cs >= 55 ? 'sbar-w2' : 'sbar-k';
-      html += '<div class="agent-card" style="background:var(--bg);">' +
-        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span style="font-size:12px;font-weight:600;color:var(--text-2);">Composite Score</span>' +
-        (agentData.signal ? '<span class="sig sig-' + sigc + '">' + agentData.signal + '</span>' : '') + '</div>' +
-        '<div class="srow"><div class="sbar-w"><div class="sbar ' + fc + '" style="width:' + cs + '%"></div></div><span class="snum2">' + cs + '</span></div></div>';
-    }
-    html += cards.map(c => {
-      const sig = c.sentiment ? '<span class="' + _sentClass(c.sentiment) + '" style="font-size:9px">' + c.sentiment + '</span>' : '';
-      const sc2 = c.score != null ? '<span style="font-size:11px;color:var(--text-3);font-weight:600">' + c.score + '/100</span>' : '';
-      const sigList = (c.signals && c.signals.length) ? '<div class="agent-conf">' + c.signals.map(s => '• ' + s).join('<br>') + '</div>' : '';
-      return '<div class="agent-card"><div class="agent-name" style="display:flex;justify-content:space-between;align-items:center;">' + c.name + ' <span style="display:flex;gap:6px;align-items:center;">' + sc2 + ' ' + sig + '</span></div>' +
-        (c.summary ? '<div class="agent-verdict">' + c.summary + '</div>' : '') + sigList + '</div>';
-    }).join('');
-  } else {
-    html += '<div class="queue-card"><div style="font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:4px;display:flex;align-items:center;gap:6px;"><span class="ac-skel" style="width:14px;height:14px;border-radius:50%"></span> Deep analysis running</div><div style="font-size:11px;color:var(--text-3);">The instant read on the right is ready now. The full 8-agent deep dive runs in the background and appears here automatically when complete.</div></div>';
-  }
-  html += '</div></div>';
-  // Right: instant analysis (scan data if available, else a live quote read)
-  html += '<div>' + (scanData ? scanDataSection(ticker, scanData) : quickResearchSection(ticker)) + '</div>';
-  html += '</div>';
-  html += '<div class="tv-research">' +
-    '<div class="tv-col"><div class="tv-ctitle">' + ic('data', 16) + ' TradingView Chart — ' + ticker + '</div><div id="tvResChart" class="tv-chart-box" style="height:clamp(300px,58vh,440px)"></div></div>' +
-    '<div class="tv-col"><div class="tv-ctitle">' + ic('activity', 16) + ' TradingView Technicals</div><div id="tvResTA" class="tv-ta-box"></div></div>' +
-    '</div><div class="tv-attr">Chart &amp; technicals by <a href="https://www.tradingview.com" target="_blank" rel="noopener">TradingView</a> · cross-check against Claude’s read above</div>';
+  const el = document.getElementById('researchContent'); if (!el) return;
+  let html = '';
+  // 1) Live snapshot — the at-a-glance "critical info" (scan read if in universe, else a live-quote read)
+  html += '<div class="rtop">' + (scanData ? scanDataSection(ticker, scanData) : quickResearchSection(ticker)) + '</div>';
+  // 2) Claude's authored brief — financial highlights, accomplishments, the 52-week journey, critical info
+  html += claudeBriefSection(ticker, agentData);
+  // 3) Live TradingView widgets (public data): chart (the journey), financials, technical rating, company profile
+  html += tvWidgetsSection(ticker);
   el.innerHTML = html;
-  try { mountTvChart('tvResChart', ticker); mountTvTA('tvResTA', ticker); } catch (e) {}
+  try {
+    mountTvChart('tvResChart', ticker, { range: '12M' });
+    mountTvFinancials('tvResFin', ticker);
+    mountTvTA('tvResTA', ticker);
+    mountTvProfile('tvResProfile', ticker);
+  } catch (e) {}
+}
+function defaultResearchTicker() {
+  try {
+    if (D && D.claude_picks && D.claude_picks.length && D.claude_picks[0].ticker) return D.claude_picks[0].ticker;
+    if (D && D.top_picks && D.top_picks.length) return D.top_picks[0];
+    if (D && D.stocks && D.stocks.length && D.stocks[0].ticker) return D.stocks[0].ticker;
+  } catch (e) {}
+  return 'AAPL';
+}
+// Auto-load a sensible default when the user first hops to Research; otherwise re-mount the
+// TradingView widgets (they can lose their size while the tab is display:none).
+function enterResearch() {
+  if (!currentResearchTicker) {
+    const t = defaultResearchTicker();
+    const inp = document.getElementById('researchInput'); if (inp) inp.value = t;
+    runResearch();
+  } else if (document.getElementById('tvResChart')) {
+    try {
+      mountTvChart('tvResChart', currentResearchTicker, { range: '12M' });
+      mountTvFinancials('tvResFin', currentResearchTicker);
+      mountTvTA('tvResTA', currentResearchTicker);
+      mountTvProfile('tvResProfile', currentResearchTicker);
+    } catch (e) {}
+  }
+}
+function _briefList(arr) { return (arr || []).map(x => '<div class="th-item">• ' + escHtml(x) + '</div>').join(''); }
+function claudeBriefSection(ticker, a) {
+  if (!a) {
+    return '<div class="research-box rbrief" style="margin-top:14px;"><div class="research-hdr">' + ic('sparkles', 18) + ' Claude’s brief — ' + ticker + '</div><div class="empty-sub" style="padding:4px 0;">Claude’s research brief — last-year financial highlights, accomplishments, the 52-week journey and critical info — publishes with each scan. The live TradingView data below is ready now.</div></div>';
+  }
+  const fin = a.financials || {}, j = a.journey_52w || {}, c = a.critical || {};
+  const hasBrief = (fin.summary || (fin.highlights && fin.highlights.length) || (a.accomplishments && a.accomplishments.length) || j.summary || (j.milestones && j.milestones.length) || (c.risks && c.risks.length) || (c.catalysts && c.catalysts.length) || (c.watch && c.watch.length) || c.valuation);
+  if (!hasBrief) return '';   // a doc with no brief fields — snapshot + live widgets still render
+  let first = true;
+  const cardOpen = (icon, label) => { const cls = 'rb-card' + (first ? ' first' : ''); first = false; return '<div class="' + cls + '"><div class="rb-h">' + ic(icon, 14) + ' ' + label + '</div>'; };
+  let h = '<div class="research-box rbrief" style="margin-top:14px;"><div class="research-hdr">' + ic('sparkles', 18) + ' Claude’s brief — ' + ticker + (a.verdict ? '<span class="rb-verdict">' + escHtml(a.verdict) + '</span>' : '') + '</div>';
+  if (fin.summary || (fin.highlights && fin.highlights.length)) {
+    h += cardOpen('barchart', 'Financial highlights' + (fin.period ? ' · ' + escHtml(fin.period) : ''));
+    if (fin.summary) h += '<div class="rb-txt">' + escHtml(fin.summary) + '</div>';
+    if (fin.highlights && fin.highlights.length) h += '<div class="rb-chips">' + fin.highlights.map(x => '<span class="rb-chip">' + escHtml(x) + '</span>').join('') + '</div>';
+    h += '</div>';
+  }
+  if (a.accomplishments && a.accomplishments.length) {
+    h += cardOpen('check', 'Accomplishments') + _briefList(a.accomplishments) + '</div>';
+  }
+  if (j.summary || (j.milestones && j.milestones.length)) {
+    h += cardOpen('calendar', '52-week journey');
+    if (j.summary) h += '<div class="rb-txt">' + escHtml(j.summary) + '</div>';
+    if (j.milestones && j.milestones.length) h += '<div class="rb-mile">' + j.milestones.map(m => '<div class="th-item">• ' + (m.label ? '<b>' + escHtml(m.label) + '</b> — ' : '') + escHtml(m.note || '') + '</div>').join('') + '</div>';
+    h += '</div>';
+  }
+  if ((c.risks && c.risks.length) || (c.catalysts && c.catalysts.length) || (c.watch && c.watch.length) || c.valuation) {
+    h += cardOpen('alert', 'Critical info') + '<div class="crit-grid">';
+    if (c.catalysts && c.catalysts.length) h += '<div><div class="th-lbl g">Catalysts</div>' + _briefList(c.catalysts) + '</div>';
+    if (c.risks && c.risks.length) h += '<div><div class="th-lbl r">Risks</div>' + _briefList(c.risks) + '</div>';
+    if (c.watch && c.watch.length) h += '<div><div class="th-lbl b">What to watch</div>' + _briefList(c.watch) + '</div>';
+    h += '</div>';
+    if (c.valuation) h += '<div class="rb-txt" style="margin-top:10px;"><b>Valuation:</b> ' + escHtml(c.valuation) + '</div>';
+    h += '</div>';
+  }
+  h += '<div class="rb-foot">Authored by Claude · educational, not financial advice</div></div>';
+  return h;
+}
+function tvWidgetsSection(ticker) {
+  const card = (icon, title, inner) => '<div class="rsec"><div class="rsec-h">' + ic(icon, 15) + ' ' + title + '</div>' + inner + '</div>';
+  return card('data', 'Price &amp; 52-week journey', '<div id="tvResChart" class="tv-chart-box" style="height:clamp(320px,56vh,460px)"></div>') +
+    card('barchart', 'Financial statements — income · balance sheet · cash flow', '<div id="tvResFin" class="tv-fin-box"></div>') +
+    '<div class="rgrid2">' +
+      card('activity', 'Technical rating', '<div id="tvResTA" class="tv-ta-box"></div>') +
+      card('briefcase', 'Company profile', '<div id="tvResProfile" class="tv-prof-box"></div>') +
+    '</div>' +
+    '<div class="tv-attr" style="margin-top:10px;">Live chart, financials, technicals &amp; profile by <a href="https://www.tradingview.com" target="_blank" rel="noopener">TradingView</a> (public data) · brief by Claude</div>';
 }
 // Instant read for tickers outside the scan universe — uses the same scoring lens
 // as the top picks (signal + score derived from live momentum vs 52w range).
@@ -3598,6 +3674,7 @@ function sw(name) {
   if (name === 'home') loadHomeDashboard();
   if (name === 'assistant') { const h = document.getElementById('asstTabHost'); if (h && !h.querySelector('.asst-host')) h.innerHTML = assistantHostHtml('tab'); renderAllAssistant(); asstFocus(); }
   if (name === 'chart') renderCharts();
+  if (name === 'research') enterResearch();
   if (name === 'portfolio') renderHoldingsTable();
   if (name === 'watchlist') renderWatchlistTab();
   if (name === 'useralerts') renderUserAlerts();
