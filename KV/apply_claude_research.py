@@ -1,19 +1,37 @@
 """
-apply_claude_research.py — publishes Claude's per-ticker deep analysis to the Research tab.
+apply_claude_research.py — publishes Claude's per-ticker research brief to the Research tab.
 
-The Research tab reads agent_results/{ticker}/dates/{YYYY-MM-DD} and renders an
-"8-Agent Analysis" panel from these per-dimension objects:
-  fundamentals / technical / earnings / analyst / valuation / insider / risk / catalyst
-  each: { "score": 0-100, "sentiment": "BULLISH|NEUTRAL|BEARISH", "summary": "...", "signals": ["..."] }
-plus top-level: composite_score, signal, summary.
+The Research tab reads agent_results/{ticker}/dates/{YYYY-MM-DD} and now renders a
+Claude-authored BRIEF (no 8-agent panel) alongside live TradingView widgets (chart,
+financials, company profile, technical gauge). Claude supplies the qualitative read that
+the widgets can't; TradingView supplies the live public numbers.
 
-Instead of the rule-based 8 agents, CLAUDE (in Cowork) authors that analysis from the
-scan data (combined_results.json) + its own reasoning, and this script writes it to the
-SAME doc the Research tab already reads. Dated path => browsable history of what was
-researched. No Anthropic API key.
+Per-ticker doc shape (all fields optional except ticker — the UI degrades gracefully):
+  {
+    "ticker": "AAPL", "name": "Apple Inc.",
+    "signal": "STRONG BUY|WATCH|WEAK",        # optional one-word call for the snapshot chip
+    "verdict": "one-line takeaway",            # optional
+    "financials": {                            # last full fiscal year, public info
+        "period": "FY2025 (ended Sep 2025)",
+        "summary": "what the income statement / balance sheet / cash flow say",
+        "highlights": ["Revenue $X, +Y% YoY", "Net income $Z", "Gross margin %", "EPS $..", ...]
+    },
+    "accomplishments": ["product launch / record / milestone", ...],
+    "journey_52w": {                           # the past year's arc
+        "summary": "narrative of the 52-week journey",
+        "milestones": [ {"label": "Oct 2025", "note": "what happened"}, ... ]
+    },
+    "critical": {                              # the things that actually move the stock
+        "risks": ["..."], "catalysts": ["..."], "watch": ["..."], "valuation": "context"
+    }
+  }
+
+CLAUDE (in Cowork) authors claude_research.json from the scan data + public knowledge; this
+script writes it to the SAME dated doc the Research tab reads. No Anthropic API key.
 
 Claude authors claude_research.json:
-  { "date": "YYYY-MM-DD", "analyses": [ { ticker, signal, composite_score, summary, fundamentals:{...}, ... } ] }
+  { "date": "YYYY-MM-DD", "analyses": [ { ticker, name, signal, verdict, financials:{...},
+    accomplishments:[...], journey_52w:{...}, critical:{...} }, ... ] }
 
 Run:  python apply_claude_research.py [--dry-run] [--file claude_research.json]
 """
@@ -31,34 +49,66 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 CREDS_PATH = os.path.join(BASE, "firebase_service_account.json")
 RESEARCH_FILE = os.path.join(BASE, "claude_research.json")
 
-DIMENSIONS = ["fundamentals", "technical", "earnings", "analyst", "valuation", "insider", "risk", "catalyst"]
+
+def _strlist(v):
+    """Coerce to a clean list of non-empty strings."""
+    if not isinstance(v, list):
+        return []
+    return [str(x).strip() for x in v if str(x).strip()]
 
 
 def _norm(a: dict, day: str) -> dict:
     t = (a.get("ticker") or "").strip().upper()
+    fin = a.get("financials") or {}
+    jr = a.get("journey_52w") or a.get("journey") or {}
+    cr = a.get("critical") or a.get("critical_info") or {}
+
+    milestones = []
+    for m in (jr.get("milestones") or []):
+        if isinstance(m, dict):
+            label = str(m.get("label") or m.get("date") or "").strip()
+            note = str(m.get("note") or m.get("text") or "").strip()
+            if note:
+                milestones.append({"label": label, "note": note})
+        elif str(m).strip():
+            milestones.append({"label": "", "note": str(m).strip()})
+
     doc = {
         "ticker": t,
+        "name": (a.get("name") or "").strip(),
         "signal": (a.get("signal") or "WATCH").upper(),
-        "composite_score": a.get("composite_score") if a.get("composite_score") is not None else a.get("score", 50),
-        "summary": a.get("summary") or "",
-        "full_analysis": a.get("full_analysis") or "",
+        "verdict": (a.get("verdict") or a.get("one_liner") or a.get("summary") or "").strip(),
+        "financials": {
+            "period": str(fin.get("period") or "").strip(),
+            "summary": str(fin.get("summary") or "").strip(),
+            "highlights": _strlist(fin.get("highlights")),
+        },
+        "accomplishments": _strlist(a.get("accomplishments")),
+        "journey_52w": {
+            "summary": str(jr.get("summary") or "").strip(),
+            "milestones": milestones,
+        },
+        "critical": {
+            "risks": _strlist(cr.get("risks")),
+            "catalysts": _strlist(cr.get("catalysts")),
+            "watch": _strlist(cr.get("watch")),
+            "valuation": str(cr.get("valuation") or "").strip(),
+        },
+        "schema": "brief-v2",
         "analyzed_at": datetime.utcnow().isoformat(),
         "date": day,
         "recommended_by": "claude-cowork",
     }
-    for k in DIMENSIONS:
-        v = a.get(k)
-        if isinstance(v, dict):
-            doc[k] = {
-                "score": v.get("score", 50),
-                "sentiment": (v.get("sentiment") or v.get("verdict") or "NEUTRAL"),
-                "summary": v.get("summary") or "",
-                "signals": v.get("signals") or [],
-            }
-    # allow a free-form 'agents' array as an alternative the UI also understands
-    if isinstance(a.get("agents"), list):
-        doc["agents"] = a["agents"]
     return doc
+
+
+def _counts(d: dict) -> str:
+    f = d["financials"]
+    c = d["critical"]
+    return (f"fin:{'Y' if (f['summary'] or f['highlights']) else '-'} "
+            f"hl:{len(f['highlights'])} acc:{len(d['accomplishments'])} "
+            f"journey:{'Y' if d['journey_52w']['summary'] else '-'} "
+            f"risk:{len(c['risks'])} cat:{len(c['catalysts'])} watch:{len(c['watch'])}")
 
 
 def main():
@@ -85,14 +135,13 @@ def main():
         print("  x  no 'analyses' with a ticker found."); sys.exit(1)
 
     docs = [_norm(a, day) for a in analyses]
-    print(f"  Research analyses: {len(docs)}  ({', '.join(d['ticker'] for d in docs)})  date={day}")
+    print(f"  Research briefs: {len(docs)}  ({', '.join(d['ticker'] for d in docs)})  date={day}")
     for d in docs:
-        dims = [k for k in DIMENSIONS if k in d]
-        print(f"    {d['ticker']}: {d['signal']} {d['composite_score']} · {len(dims)} dimensions")
+        print(f"    {d['ticker']}: {d['signal']} · {_counts(d)}")
 
     if dry:
-        print("  (dry run) not writing. First analysis:")
-        print(json.dumps(docs[0], indent=2)[:1500])
+        print("  (dry run) not writing. First brief:")
+        print(json.dumps(docs[0], indent=2)[:1800])
         return
 
     if not os.path.exists(CREDS_PATH):
@@ -109,8 +158,7 @@ def main():
         for d in docs:
             db.collection("agent_results").document(d["ticker"]).collection("dates").document(day).set(d)
             print(f"  ok  agent_results/{d['ticker']}/dates/{day}")
-            # clear the research queue so the Research-tab spinner resolves for requested tickers
-            try:
+            try:  # resolve the research-tab queue for requested tickers
                 db.collection("agent_queue").document(d["ticker"]).set({"status": "done", "done_at": datetime.utcnow().isoformat()}, merge=True)
             except Exception:
                 pass
@@ -121,7 +169,7 @@ def main():
             print(f"  ok  local copy -> claude_history/{day}/claude_research.json")
         except Exception as e:
             print(f"  !  local archive failed: {e}")
-        print("  done. Open the Research tab and search any of these tickers — Claude's analysis shows under '8-Agent Analysis'.")
+        print("  done. Open the Research tab and search any of these tickers — Claude's brief shows above the live TradingView widgets.")
     except Exception as e:
         print(f"  x  publish failed: {e}")
         import traceback; traceback.print_exc(); sys.exit(1)
