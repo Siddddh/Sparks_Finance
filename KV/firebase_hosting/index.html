@@ -534,23 +534,50 @@ td.pos,.ht-pos{color:var(--green);}td.neg,.ht-neg{color:var(--red);}
 .exp-chip .exp-logo{width:20px;height:20px;font-size:8px;border-radius:6px;}
 .exp-chip-chg{font-size:11px;font-weight:600;margin-left:1px;}
 
-/* ════════ News tab + cards ════════ */
+/* ── Shared: real-logo box (initials + layered <img>) + mini sparkline ── */
+.stk-logo{position:relative;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;overflow:hidden;flex-shrink:0;letter-spacing:.2px;}
+.stk-logo-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;border-radius:inherit;}
+.spark-svg{width:100%;height:100%;display:block;}
+
+/* ════════ Stock-news cards (logo for company news; no banner) ════════ */
 .news-top{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
-.news-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}
-.ncard{display:flex;flex-direction:column;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow .15s,border-color .15s;}
+.news-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px;}
+.ncard{display:flex;gap:12px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;transition:box-shadow .15s,border-color .15s;}
 .ncard:hover{box-shadow:var(--shadow);}
 .ncard.brk{border-left:3px solid var(--red);}
-.ncard-img{width:100%;height:150px;object-fit:cover;background:var(--surface);display:block;}
-.ncard-body{padding:14px 16px;display:flex;flex-direction:column;flex:1;}
+.ncard-logo{flex-shrink:0;}
+.ncard-logo-box{width:44px;height:44px;border-radius:11px;font-size:14px;}
+.ncard-body{display:flex;flex-direction:column;flex:1;min-width:0;}
 .ncard-t{font-size:14px;font-weight:600;line-height:1.4;color:var(--text);}
 .ncard-t a{color:inherit;}
-.ncard-sum{font-size:12.5px;color:var(--text-2);line-height:1.55;margin-top:7px;}
-.ncard-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:11px;font-size:11px;}
+.ncard-sum{font-size:12.5px;color:var(--text-2);line-height:1.5;margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.ncard-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:9px;font-size:11px;}
 .ncard-src{font-weight:700;color:var(--text-2);}
 .ncard-time{color:var(--text-3);}
 .ncard-tk{background:var(--blue-soft);color:var(--blue);border-radius:5px;padding:1px 7px;font-weight:700;cursor:pointer;}
-@media(max-width:760px){.exp-movers{grid-template-columns:1fr;}}
-@media(max-width:600px){.exp-colls,.news-cards{grid-template-columns:1fr;}}
+
+/* ════════ Explore — horizontal rails of stock cards (INDmoney-style) ════════ */
+.exp-rail{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x proximity;scrollbar-width:thin;}
+.exp-rail::-webkit-scrollbar{height:6px;}
+.exp-rail::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+.exp-card{flex:0 0 170px;scroll-snap-align:start;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:12px 13px;cursor:pointer;transition:box-shadow .15s,border-color .15s,transform .12s;}
+.exp-card:hover{box-shadow:var(--shadow-lg);border-color:var(--blue);transform:translateY(-2px);}
+.exp-card-top{display:flex;align-items:center;gap:9px;}
+.exp-card-logo{width:34px;height:34px;border-radius:9px;font-size:12px;}
+.exp-card-id{min-width:0;flex:1;}
+.exp-card-tkr{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:5px;}
+.exp-mc{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--text-3);background:var(--surface);border:1px solid var(--border-soft);border-radius:4px;padding:1px 4px;}
+.exp-card-nm{font-size:10px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.exp-card-spark{display:block;height:32px;margin:10px 0 8px;}
+.exp-card-bot{display:flex;align-items:baseline;justify-content:space-between;gap:6px;}
+.exp-card-px{font-size:14px;font-weight:700;color:var(--text);}
+.exp-card-chg{font-size:12px;font-weight:600;}
+.exp-mcaps{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+.exp-mcap{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .15s;}
+.exp-mcap:hover{border-color:var(--blue);}
+.exp-mcap-t{font-size:14px;font-weight:700;color:var(--text);}
+.exp-mcap-s{font-size:11px;color:var(--text-3);margin-top:2px;}
+@media(max-width:600px){.news-cards{grid-template-columns:1fr;}}
 
 /* ════════ Charts ════════ */
 .cwrap{background:var(--surface-2);border-radius:12px;border:1px solid var(--border);padding:18px;margin-bottom:14px;}
@@ -755,12 +782,13 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .asst-host.asst-expanded{position:fixed;top:var(--asst-exp-top,calc(var(--nav-h) + var(--strip-h)));left:var(--asst-exp-left,var(--sidebar-w));right:0;bottom:0;height:auto;max-height:none;z-index:1500;background:var(--bg);padding:16px 22px 18px;border-left:1px solid var(--border);box-shadow:-8px 0 30px rgba(0,0,0,.12);}
 body.asst-expanded-open{overflow:hidden;}
 /* ── AI assistant pop-up: floating bubble → panel → fullscreen ── */
-.asst-fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:1400;width:56px;height:56px;border:none;border-radius:50%;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;background:conic-gradient(from 0deg,var(--blue),#9334e6,#0f9d58,#f29900,var(--blue));box-shadow:0 8px 28px rgba(26,115,232,.45);transition:transform .15s ease,box-shadow .15s ease;}
+.asst-fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:1400;width:56px;height:56px;border:none;border-radius:50%;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;background:#445BFB;box-shadow:0 8px 24px rgba(68,91,251,.42);transition:transform .15s ease,box-shadow .15s ease;}
 .asst-fab:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 12px 34px rgba(26,115,232,.55);}
 .asst-fab.hidden{display:none;}
 .asst-pop{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:1450;width:min(400px,calc(100vw - 28px));height:min(620px,calc(100dvh - 110px));background:var(--surface-2);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden;animation:asstPopIn .18s ease;}
 .asst-pop.hidden{display:none;}
-.asst-pop.asst-pop-full{inset:0;right:0;bottom:0;width:100vw;height:100dvh;max-width:none;border-radius:0;animation:none;}
+.asst-pop.asst-pop-full{top:calc(var(--nav-h-real,var(--nav-h)) + var(--strip-h));left:var(--sidebar-w);right:0;bottom:0;width:auto;height:auto;max-width:none;border-radius:0;animation:none;}   /* fill the content area only — keep nav + sidebar tabs visible */
+@media(max-width:900px){.asst-pop.asst-pop-full{left:0;}}   /* sidebar is off-canvas here */
 .asst-pop #asstPopHost{padding:12px 14px;flex:1;min-height:0;}
 .asst-pop .asst-host{height:100%;flex:1;min-height:0;}
 body.asst-pop-full-open{overflow:hidden;}
@@ -1493,6 +1521,72 @@ function daysHeld(buyDate) { if (!buyDate) return 0; const d = new Date(buyDate)
 function daysHeldStr(buyDate) { const d = daysHeld(buyDate); if (d < 30) return d + 'd'; if (d < 365) return Math.round(d / 30) + 'mo'; return (d / 365).toFixed(1) + 'yr'; }
 function annualizedReturn(pct, buyDate) { const d = daysHeld(buyDate); if (!d || d < 7) return null; const years = d / 365; return (Math.pow(1 + pct / 100, 1 / years) - 1) * 100; }
 function logoColor(ticker) { const colors = ['#1a73e8','#0f9d58','#9334e6','#f29900','#d93025','#0891b2','#be123c','#7c3aed']; let h = 0; for (let i = 0; i < ticker.length; i++) h = (h * 31 + ticker.charCodeAt(i)) & 0xFFFFFF; return colors[Math.abs(h) % colors.length]; }
+
+// ── Lazy real logos + mini sparklines (shared by Explore cards and Stock-news cards) ──
+const GETPROFILES_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getProfiles';
+const _logoCache = {}, _logoReq = {}, _sparkCache = {}, _sparkReq = {};
+let _lazyActive = 0; const _lazyQ = [];
+function _lazyRun(fn) { return new Promise(res => { _lazyQ.push({ fn, res }); _lazyPump(); }); }
+function _lazyPump() { while (_lazyActive < 4 && _lazyQ.length) { const j = _lazyQ.shift(); _lazyActive++; Promise.resolve().then(j.fn).then(j.res, j.res).finally(() => { _lazyActive--; _lazyPump(); }); } }
+function _cssEsc(s) { return (window.CSS && CSS.escape) ? CSS.escape(s) : s; }
+// Colored-initials box; a real company logo <img> is layered on top once loaded.
+function stockLogoHtml(ticker, cls) {
+  const t = (ticker || '').toUpperCase();
+  return '<span class="stk-logo ' + (cls || '') + '" data-logo="' + escHtml(t) + '" style="background:' + logoColor(t) + '">' + escHtml(t.slice(0, 2)) +
+    (_logoCache[t] ? '<img class="stk-logo-img" src="' + escHtml(_logoCache[t]) + '" alt="" onerror="this.remove()"/>' : '') + '</span>';
+}
+function _applyLogo(t) {
+  if (!_logoCache[t]) return;
+  document.querySelectorAll('.stk-logo[data-logo="' + _cssEsc(t) + '"]').forEach(el => {
+    if (el.querySelector('.stk-logo-img')) return;
+    const img = document.createElement('img'); img.className = 'stk-logo-img'; img.alt = ''; img.src = _logoCache[t]; img.onerror = function () { this.remove(); };
+    el.appendChild(img);
+  });
+}
+function loadLogos(tickers) {
+  (tickers || []).forEach(t => { if (_logoCache[t]) _applyLogo(t); });
+  const need = [...new Set((tickers || []).filter(t => t && _logoCache[t] == null && !_logoReq[t]))];
+  if (!need.length) return;
+  need.forEach(t => _logoReq[t] = 1);
+  for (let i = 0; i < need.length; i += 25) {
+    const batch = need.slice(i, i + 25);
+    _lazyRun(() => fetch(GETPROFILES_API + '?symbols=' + encodeURIComponent(batch.join(','))).then(r => r.json()).then(d => {
+      const p = (d && d.profiles) || {};
+      batch.forEach(t => { _logoCache[t] = (p[t] && p[t].logo) || ''; _applyLogo(t); });
+    }).catch(() => { batch.forEach(t => { _logoCache[t] = ''; }); }));
+  }
+}
+function _sparkSvg(closes) {
+  closes = (closes || []).filter(x => x != null);
+  if (closes.length < 2) return '';
+  const lo = Math.min(...closes), hi = Math.max(...closes), rng = (hi - lo) || 1, W = 120, H = 32;
+  const pts = closes.map((c, i) => ((i / (closes.length - 1)) * W).toFixed(1) + ',' + (H - ((c - lo) / rng) * H).toFixed(1)).join(' ');
+  const col = closes[closes.length - 1] >= closes[0] ? 'var(--green)' : 'var(--red)';
+  return '<svg class="spark-svg" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true"><polyline points="' + pts + '" fill="none" stroke="' + col + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+function loadSparkline(t) {
+  const apply = svg => { if (svg == null) return; document.querySelectorAll('.stk-spark[data-spark="' + _cssEsc(t) + '"]').forEach(el => { el.innerHTML = svg; }); };
+  if (_sparkCache[t] != null) { apply(_sparkCache[t]); return; }
+  if (_sparkReq[t]) return; _sparkReq[t] = 1;
+  _lazyRun(() => fetch(SERIES_API + '?symbol=' + encodeURIComponent(t.replace(/\./g, '-')) + '&range=1mo').then(r => r.json()).then(d => {
+    _sparkCache[t] = _sparkSvg(d && d.c) || ''; apply(_sparkCache[t]);
+  }).catch(() => { _sparkCache[t] = ''; }));
+}
+// IntersectionObserver: load each card's logo + sparkline only when it scrolls into view.
+let _lazyIO = null;
+function observeLazyCards(scope) {
+  const els = (scope || document).querySelectorAll('[data-lazycard]');
+  if (typeof IntersectionObserver === 'undefined') {
+    els.forEach(el => { const t = el.getAttribute('data-lazycard'); loadLogos([t]); if (el.querySelector('.stk-spark')) loadSparkline(t); });
+    return;
+  }
+  if (!_lazyIO) _lazyIO = new IntersectionObserver(ents => {
+    const tks = [];
+    ents.forEach(e => { if (e.isIntersecting) { const t = e.target.getAttribute('data-lazycard'); _lazyIO.unobserve(e.target); if (t) { tks.push(t); if (e.target.querySelector('.stk-spark')) loadSparkline(t); } } });
+    if (tks.length) loadLogos(tks);
+  }, { rootMargin: '300px' });
+  els.forEach(el => _lazyIO.observe(el));
+}
 function scanStockFor(ticker) { return D && (D.stocks || []).find(s => s.ticker === ticker); }
 // ── Tasteful animation helpers (all respect prefers-reduced-motion) ──
 const _reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -2218,6 +2312,22 @@ function expChip(s) {
   return '<span class="exp-chip" onclick="goResearch(\'' + t + '\')"><span class="exp-logo" style="background:' + logoColor(t) + '">' + escHtml(t.slice(0, 2)) + '</span>' + escHtml(t) + c + '</span>';
 }
 let _expFetched = false;
+// INDmoney-style stock card: real logo (lazy) + ticker + mcap tag + mini sparkline + price + 1D %.
+function exploreCard(s) {
+  const t = s.ticker, chg = _expChange(t), px = _expPrice(t, s);
+  const mcLabel = { mega: 'Mega', large: 'Large', mid: 'Mid', small: 'Small' }[mcapBucketOf(s.market_cap_b)] || '';
+  const chgHtml = chg != null ? '<span class="exp-card-chg ' + (chg >= 0 ? 'pos' : 'neg') + '">' + (chg >= 0 ? '+' : '') + chg.toFixed(2) + '%</span>'
+    : (s.momentum_3m != null ? '<span class="exp-card-chg ' + (s.momentum_3m >= 0 ? 'pos' : 'neg') + '">' + (s.momentum_3m >= 0 ? '+' : '') + s.momentum_3m + '% 3M</span>' : '');
+  return '<div class="exp-card" data-lazycard="' + escHtml(t) + '" onclick="goResearch(\'' + t + '\')">' +
+    '<div class="exp-card-top">' + stockLogoHtml(t, 'exp-card-logo') + '<div class="exp-card-id"><div class="exp-card-tkr">' + escHtml(t) + (mcLabel ? '<span class="exp-mc">' + mcLabel + '</span>' : '') + '</div><div class="exp-card-nm" title="' + escHtml(s.name || '') + '">' + escHtml(s.name || '') + '</div></div></div>' +
+    '<div class="stk-spark exp-card-spark" data-spark="' + escHtml(t) + '"></div>' +
+    '<div class="exp-card-bot"><span class="exp-card-px">' + _pxStr(px) + '</span>' + chgHtml + '</div></div>';
+}
+function expRail(icon, title, stocks, seeAll, emptyMsg) {
+  if ((!stocks || !stocks.length) && !emptyMsg) return '';
+  const body = (stocks && stocks.length) ? '<div class="exp-rail">' + stocks.map(exploreCard).join('') + '</div>' : '<div class="empty-sub" style="padding:4px 2px 10px">' + emptyMsg + '</div>';
+  return '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic(icon, 18) + ' ' + title + '</div>' + (seeAll ? '<span class="exp-seeall" onclick="' + seeAll + '">see all →</span>' : '') + '</div>' + body + '</div>';
+}
 function renderExplore() {
   const el = document.getElementById('exploreContent'); if (!el) return;
   if (!D || !(D.stocks || []).length) { el.innerHTML = emptyState('compass', 'Explore is loading', 'Market data appears here once the scan loads.'); return; }
@@ -2229,56 +2339,54 @@ function renderExplore() {
     fetchLivePrices(cand).then(() => { const tp = document.getElementById('tab-explore'); if (tp && tp.classList.contains('active')) renderExplore(); });
   }
   const withChg = stocks.map(s => ({ s: s, chg: _expChange(s.ticker) })).filter(x => x.chg != null);
-  const gainers = withChg.slice().sort((a, b) => b.chg - a.chg).slice(0, 7).map(x => x.s);
-  const losers = withChg.slice().sort((a, b) => a.chg - b.chg).slice(0, 7).map(x => x.s);
-  const active = stocks.filter(s => +s.vol_ratio > 0).sort((a, b) => (+b.vol_ratio) - (+a.vol_ratio)).slice(0, 7);
-  const loadingNote = '<div class="empty-sub" style="padding:6px 12px 10px">Fetching live moves…</div>';
-  let html = '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('activity', 18) + ' Market movers</div><span class="exp-seeall" onclick="sw(\'table\')">Open Screener →</span></div>' +
-    '<div class="exp-movers">' +
-      '<div class="exp-mcol"><div class="exp-mcol-h up">' + ic('chevup', 14) + ' Top gainers</div>' + (gainers.map(expStockRow).join('') || loadingNote) + '</div>' +
-      '<div class="exp-mcol"><div class="exp-mcol-h down">' + ic('chevdown', 14) + ' Top losers</div>' + (losers.map(expStockRow).join('') || loadingNote) + '</div>' +
-      '<div class="exp-mcol"><div class="exp-mcol-h vol">' + ic('barchart', 14) + ' Most active</div>' + (active.map(expStockRow).join('') || loadingNote) + '</div>' +
-    '</div></div>';
+  const gainers = withChg.slice().sort((a, b) => b.chg - a.chg).slice(0, 14).map(x => x.s);
+  const losers = withChg.slice().sort((a, b) => a.chg - b.chg).slice(0, 14).map(x => x.s);
+  const active = stocks.filter(s => +s.vol_ratio > 0).sort((a, b) => (+b.vol_ratio) - (+a.vol_ratio)).slice(0, 14);
   const claudeDriven = !!(D.claude_picks && D.claude_picks.length);
-  const picks = (claudeDriven ? D.claude_picks : stocks.slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0))).slice(0, 14);
-  if (picks.length) {
-    html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('spark', 18) + ' Trending — ' + (claudeDriven ? 'Claude’s picks' : 'top setups') + '</div><span class="exp-seeall" onclick="sw(\'cards\')">All picks →</span></div><div class="exp-chip-row">' + picks.map(expChip).join('') + '</div></div>';
-  }
-  const themeCards = EXP_THEMES.map(th => {
-    const matched = th.tickers.map(t => stocks.find(s => s.ticker === t)).filter(Boolean);
-    if (!matched.length) return '';
-    const top = matched.slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 8);
-    return '<div class="exp-coll"><div class="exp-coll-h"><div class="exp-coll-t">' + ic(th.icon, 15) + ' ' + th.name + '</div><span class="exp-coll-sub">' + matched.length + ' in scan</span></div><div class="exp-chip-row">' + top.map(expChip).join('') + '</div></div>';
-  }).filter(Boolean).join('');
-  if (themeCards) html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('box', 18) + ' Collections &amp; themes</div></div><div class="exp-colls">' + themeCards + '</div></div>';
+  const trending = (claudeDriven ? D.claude_picks : stocks.slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0))).slice(0, 16);
+  let html = '';
+  html += expRail('chevup', 'Top gainers', gainers, "sw('table')", 'Fetching live moves…');
+  html += expRail('chevdown', 'Top losers', losers, "sw('table')", 'Fetching live moves…');
+  html += expRail('barchart', 'Most active', active, "sw('table')");
+  html += expRail('spark', 'Trending — ' + (claudeDriven ? 'Claude’s picks' : 'top setups'), trending, "sw('cards')");
+  EXP_THEMES.forEach(th => {
+    const matched = th.tickers.map(t => stocks.find(s => s.ticker === t)).filter(Boolean).sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0));
+    html += expRail(th.icon, th.name, matched.slice(0, 16));
+  });
   const bySec = {};
   stocks.forEach(s => { const k = s.sector || 'Other'; (bySec[k] = bySec[k] || []).push(s); });
-  const secs = Object.keys(bySec).filter(k => k && k !== '—' && k !== 'Other').sort((a, b) => bySec[b].length - bySec[a].length);
-  const secCards = secs.map(k => {
-    const top = bySec[k].slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 8);
-    const avg = Math.round(bySec[k].reduce((sum, x) => sum + (+x.combined_score || 0), 0) / bySec[k].length);
-    return '<div class="exp-coll"><div class="exp-coll-h"><div class="exp-coll-t">' + escHtml(k) + '</div><span class="exp-coll-sub">' + bySec[k].length + ' · avg ' + avg + '</span></div><div class="exp-chip-row">' + top.map(expChip).join('') + '</div></div>';
-  }).join('');
-  if (secCards) html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('table', 18) + ' Browse by sector</div><span class="exp-seeall" onclick="sw(\'table\')">Full screener →</span></div><div class="exp-colls">' + secCards + '</div></div>';
-  html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('newspaper', 18) + ' Latest market news</div><span class="exp-seeall" onclick="sw(\'market\')">See all news →</span></div><div id="exploreNews" class="news-cards"></div></div>';
+  Object.keys(bySec).filter(k => k && k !== 'Other' && k !== '—').sort((a, b) => bySec[b].length - bySec[a].length).forEach(k => {
+    html += expRail('table', k, bySec[k].slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 16), "sw('table')");
+  });
+  html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('box', 18) + ' Browse by market cap</div></div><div class="exp-mcaps">' +
+    [['mega', 'Mega cap', '$200B+'], ['large', 'Large cap', '$10–200B'], ['mid', 'Mid cap', '$2–10B'], ['small', 'Small cap', '< $2B']].map(m => {
+      const n = stocks.filter(s => mcapBucketOf(s.market_cap_b) === m[0]).length;
+      return '<div class="exp-mcap" onclick="sw(\'table\')"><div class="exp-mcap-t">' + m[1] + '</div><div class="exp-mcap-s">' + m[2] + ' · ' + n + ' stocks</div></div>';
+    }).join('') + '</div></div>';
+  html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('newspaper', 18) + ' Stock news</div><span class="exp-seeall" onclick="sw(\'market\')">see all →</span></div><div id="exploreNews" class="news-cards"></div></div>';
   el.innerHTML = html;
-  _loadExploreNews();
+  observeLazyCards(el);
+  _loadExploreNews(trending.map(s => s.ticker));
 }
-function _loadExploreNews() {
+function _loadExploreNews(tickers) {
   const host = document.getElementById('exploreNews'); if (!host) return;
-  host.innerHTML = '<div class="empty-sub" style="padding:6px">Loading news…</div>';
-  fetch(GETNEWS_API).then(r => r.json()).then(d => {
-    const m = (d.market || []).slice(0, 6);
-    host.innerHTML = m.length ? m.map(newsCardHtml).join('') : ((D.market_news || []).slice(0, 6).map(scanNewsCard).join('') || '<div class="empty-sub" style="padding:6px">No market news right now.</div>');
-  }).catch(() => { host.innerHTML = (D.market_news || []).slice(0, 6).map(scanNewsCard).join('') || '<div class="empty-sub" style="padding:6px">News unavailable.</div>'; });
+  host.innerHTML = '<div class="empty-sub" style="padding:6px">Loading stock news…</div>';
+  const syms = (tickers || []).slice(0, 8).join(',');
+  fetch(GETNEWS_API + (syms ? '?symbols=' + encodeURIComponent(syms) : '')).then(r => r.json()).then(d => {
+    const items = (d.portfolio && d.portfolio.length) ? d.portfolio : (d.market || []);
+    host.innerHTML = items.length ? items.slice(0, 6).map(newsCardHtml).join('') : '<div class="empty-sub" style="padding:6px">No stock news right now.</div>';
+    observeLazyCards(host);
+  }).catch(() => { host.innerHTML = '<div class="empty-sub" style="padding:6px">News unavailable.</div>'; });
 }
 
 // ── News tab (detailed cards + per-stock search) ──
 function newsCardHtml(n) {
   const t = n.datetime ? timeAgo(n.datetime) : '';
-  const img = n.image ? '<img class="ncard-img" src="' + escHtml(n.image) + '" loading="lazy" alt="" onerror="this.style.display=\'none\'"/>' : '';
+  const tk = (n.tickers || [])[0];
+  // Company news → the stock's logo as preview; general/macro news → no preview image.
+  const logo = tk ? '<div class="ncard-logo" data-lazycard="' + escHtml(tk) + '">' + stockLogoHtml(tk, 'ncard-logo-box') + '</div>' : '';
   const tks = (n.tickers || []).slice(0, 3).map(x => '<span class="ncard-tk" onclick="event.stopPropagation();goResearch(\'' + escHtml(x) + '\')">' + escHtml(x) + '</span>').join('');
-  return '<div class="ncard' + (n.breaking ? ' brk' : '') + '">' + img + '<div class="ncard-body"><div class="ncard-t"><a href="' + escHtml(n.url || '#') + '" target="_blank" rel="noopener">' + escHtml(n.title || '') + '</a></div>' + (n.summary ? '<div class="ncard-sum">' + escHtml(n.summary) + '</div>' : '') + '<div class="ncard-meta"><span class="ncard-src">' + escHtml(n.source || n.outlet || '—') + '</span>' + (t ? '<span class="ncard-time">' + t + '</span>' : '') + tks + '</div></div></div>';
+  return '<div class="ncard' + (n.breaking ? ' brk' : '') + '">' + logo + '<div class="ncard-body"><div class="ncard-t"><a href="' + escHtml(n.url || '#') + '" target="_blank" rel="noopener">' + escHtml(n.title || '') + '</a></div>' + (n.summary ? '<div class="ncard-sum">' + escHtml(n.summary) + '</div>' : '') + '<div class="ncard-meta"><span class="ncard-src">' + escHtml(n.source || n.outlet || '—') + '</span>' + (t ? '<span class="ncard-time">' + t + '</span>' : '') + tks + '</div></div></div>';
 }
 function scanNewsCard(n) { return newsCardHtml({ title: n.title, summary: n.summary, source: n.outlet, url: n.url, datetime: 0, tickers: [], breaking: n.breaking }); }
 function renderNewsTab() {
@@ -2290,6 +2398,7 @@ function renderNewsTab() {
     (d.market || []).concat((D && D.market_news || []).map(n => ({ title: n.title, summary: n.summary, source: n.outlet, url: n.url, datetime: 0, tickers: [], breaking: n.breaking })))
       .forEach(n => { if (n.title && !seen[n.title]) { seen[n.title] = 1; all.push(n); } });
     el.innerHTML = all.length ? '<div class="news-cards">' + all.slice(0, 40).map(newsCardHtml).join('') + '</div>' : emptyState('newspaper', 'No market news', 'Headlines will appear here shortly');
+    observeLazyCards(el);
   }).catch(() => {
     const scan = (D && D.market_news || []);
     el.innerHTML = scan.length ? '<div class="news-cards">' + scan.map(scanNewsCard).join('') + '</div>' : emptyState('newspaper', 'News unavailable', 'Please try again shortly');
@@ -2306,6 +2415,7 @@ function newsSearch() {
     const items = (d.portfolio || []);
     el.innerHTML = '<div class="exp-h" style="margin-bottom:12px"><div class="exp-h-l">' + ic('newspaper', 18) + ' ' + escHtml(t) + ' news</div><span class="exp-seeall" onclick="goResearch(\'' + escHtml(t) + '\')">Open research →</span></div>' +
       (items.length ? '<div class="news-cards">' + items.slice(0, 30).map(newsCardHtml).join('') + '</div>' : '<div class="empty-sub" style="padding:14px">No recent news for ' + escHtml(t) + '.</div>');
+    observeLazyCards(el);
   }).catch(() => { el.innerHTML = '<div class="empty-sub" style="padding:14px">News unavailable right now.</div>'; });
 }
 
@@ -3011,7 +3121,7 @@ function renderHomeDashboard(hs, scope, ranges) {
     '<div class="dash-news-card"><div class="dnhdr">' + ic('newspaper', 16) + ' Your Portfolio News</div><div id="homeNewsPortfolio"></div></div>' +
     '<div class="dash-news-card"><div class="dnhdr">' + ic('newspaper', 16) + ' Markets &amp; Influencers</div><div id="homeNewsInfluencer"></div></div>' +
     '</div>' +
-    '<div class="dash-section" style="margin-top:14px"><div class="dash-section-title" style="justify-content:space-between"><span style="display:inline-flex;align-items:center;gap:7px">' + ic('newspaper', 16) + ' Latest market news</span><span class="news-seeall" onclick="sw(\'market\')">See all news →</span></div><div id="homeLatestNews" class="news-cards"></div></div>';
+    '<div class="dash-section" style="margin-top:14px"><div class="dash-section-title" style="justify-content:space-between"><span style="display:inline-flex;align-items:center;gap:7px">' + ic('newspaper', 16) + ' Stock news</span><span class="news-seeall" onclick="sw(\'market\')">See all news →</span></div><div id="homeLatestNews" class="news-cards"></div></div>';
   if (!hs.length) {
     el.innerHTML = '<div class="home-grid">' +
       '<div class="home-stats">' + homeHeaderHtml() + emptyState('briefcase', 'No holdings in ' + escHtml(scopeName), 'Add holdings in the Portfolio tab to see your dashboard') + '</div>' +
@@ -3097,7 +3207,7 @@ async function loadHomeNews(syms) {
     const mix = (d.influencer || []).concat((d.market || []).filter(m => !infTitles.has(m.title)));
     if (iEl) iEl.innerHTML = newsListHtml(mix) || '<div class="empty-sub" style="padding:10px">No market news right now.</div>';
     const lEl = document.getElementById('homeLatestNews');
-    if (lEl) lEl.innerHTML = (d.market || []).slice(0, 4).map(newsCardHtml).join('') || '<div class="empty-sub" style="padding:10px">No market news right now.</div>';
+    if (lEl) { const sn = (d.portfolio && d.portfolio.length) ? d.portfolio : (d.market || []); lEl.innerHTML = sn.slice(0, 6).map(newsCardHtml).join('') || '<div class="empty-sub" style="padding:10px">No stock news right now.</div>'; observeLazyCards(lEl); }
   } catch (e) {
     const err = '<div class="empty-sub" style="padding:10px">News unavailable right now.</div>';
     if (pEl) pEl.innerHTML = err;
@@ -4233,7 +4343,7 @@ function assistantHostHtml(place) {
         '<button class="asst-tbtn" title="New chat" onclick="asstNewThread()">' + ic('plus', 16) + '</button>' +
         '<button class="asst-tbtn" title="History" onclick="asstToggleHistory()">' + ic('clock', 16) + '</button>' +
         (place === 'home' ? '<button class="asst-tbtn" title="Expand" onclick="asstExpand(this)">' + ic('expand', 16) + '</button>' : '') +
-        (place === 'pop' ? '<button class="asst-tbtn" title="Fullscreen" onclick="asstPopFull(this)">' + ic('expand', 16) + '</button><button class="asst-tbtn" title="Close" onclick="asstPopClose()">' + ic('x', 16) + '</button>' : '') +
+        (place === 'pop' ? '<button class="asst-tbtn" title="Minimize" onclick="asstPopClose()">' + ic('chevdown', 16) + '</button><button class="asst-tbtn" title="Fullscreen" onclick="asstPopFull(this)">' + ic('expand', 16) + '</button><button class="asst-tbtn" title="Close" onclick="asstPopClose()">' + ic('x', 16) + '</button>' : '') +
       '</div>' +
       '<div class="asst-history" style="display:none"></div>' +
     '</div>' +
@@ -4366,13 +4476,13 @@ function asstCardHtml() {
 const TOUR_STEPS = [
   { tab: 'home', sel: '#homePfSelect', title: 'Your portfolios', body: 'Pick a single portfolio, or “All portfolios” to see everything combined.' },
   { tab: 'home', sel: '.dash-hero-main', title: 'Value & performance', body: 'Your total value, today’s P&L and all-time gain — recomputed from live prices.' },
-  { tab: 'home', sel: '.home-aside .asst-host', title: 'AI analyst', body: 'Ask about any stock, your portfolio, or the markets and get instant answers backed by live data.' },
-  { tab: 'home', sel: '#mktBar', title: 'Market pulse', body: 'Live indexes plus market breadth and the overall trend signal run across the top.' },
-  { tab: 'home', sel: '#sidebar', mobileSel: '#hamburgerBtn', title: 'Explore more', body: 'Top Picks, Charts, Research, Watchlist, Alerts and Notifications all live in the sidebar — let’s set up your portfolio next.' },
-  { tab: 'portfolio', sel: '#newPfName', title: 'Create a portfolio', body: 'Here on the Portfolio tab, type a name and click “Add Portfolio”. You can keep several (e.g. Long-term, Trading).' },
-  { tab: 'portfolio', sel: '#addHoldingRow', title: 'Add your first holding', body: 'Then enter a ticker, quantity, buy price and date and click “Add holding” — Sparks tracks its live value, P&L and alerts for you.' }
+  { tab: 'home', sel: '#asstNavBtn', title: 'Your AI analyst', body: 'Ask about any stock, your portfolio or the markets — answers are backed by live data. Open it here, or from the floating button, anytime.' },
+  { tab: 'home', sel: '#mktBar', title: 'Market pulse', body: 'Live index values, market breadth and the overall trend signal run across the top.' },
+  { tab: 'home', sel: '#sidebar', mobileSel: '#hamburgerBtn', title: 'Explore the tabs', body: 'Top Picks, Explore, Screener, Research, Watchlist, Alerts and News all live here. Let’s set up your portfolio next.' },
+  { tab: 'portfolio', sel: '#tab-portfolio #newPfName', title: 'Create a portfolio', body: 'On the Portfolio tab, type a name and click “Add Portfolio”. You can keep several (e.g. Long-term, Trading).' },
+  { tab: 'portfolio', sel: '#tab-portfolio #addHoldingRow', title: 'Add your first holding', body: 'Then enter a ticker, quantity, buy price and date and click “Add holding” — Sparks tracks its live value, P&L and alerts for you.' }
 ];
-let _tourStep = 0;
+let _tourStep = 0, _tourDir = 1;
 function startTour(force) {
   try { if (!force && lsGet('sparksTourDone')) return; } catch (e) {}
   if (!UID) return;
@@ -4386,17 +4496,38 @@ function startTour(force) {
   setTimeout(() => tourShow(0), 450);
 }
 function _tourTarget(step) { return document.querySelector((window.innerWidth <= 900 && step.mobileSel) ? step.mobileSel : step.sel); }
-function _tourVisible(el) { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 4 && r.height > 4; }
+function _tourVisible(el) {
+  if (!el) return false;
+  const r = el.getBoundingClientRect();
+  if (r.width <= 4 || r.height <= 4) return false;
+  if (r.right <= 0 || r.left >= window.innerWidth) return false;   // off-screen (e.g. an off-canvas sidebar)
+  return true;
+}
 function tourShow(i) {
+  if (!document.getElementById('tourOverlay')) return;   // tour was closed
+  if (i < 0) i = 0;
   if (i >= TOUR_STEPS.length) { tourEnd(true); return; }
-  const step = TOUR_STEPS[i];
-  // switch to the step's tab first (then wait for it to render), so steps can span tabs
-  if (step.tab && typeof sw === 'function') { const tp = document.getElementById('tab-' + step.tab); if (tp && !tp.classList.contains('active')) { _tourStep = i; sw(step.tab); setTimeout(() => tourShow(i), 420); return; } }
-  if (!_tourVisible(_tourTarget(step))) { tourShow(i + 1); return; }   // skip a step whose target isn't present
   _tourStep = i;
-  const el = _tourTarget(step);
-  try { el.scrollIntoView({ block: 'center', behavior: _reduceMotion ? 'auto' : 'smooth' }); } catch (e) {}
-  setTimeout(_tourReposition, _reduceMotion ? 0 : 280);
+  const step = TOUR_STEPS[i];
+  // switch to the step's tab first so cross-tab steps work
+  if (step.tab && typeof sw === 'function') { const tp = document.getElementById('tab-' + step.tab); if (tp && !tp.classList.contains('active')) sw(step.tab); }
+  _tourAwait(i, 18);   // poll for the (possibly async-rendered) target, then show — or skip if it never appears
+}
+function _tourAwait(i, tries) {
+  if (!document.getElementById('tourOverlay') || _tourStep !== i) return;
+  const el = _tourTarget(TOUR_STEPS[i]);
+  if (_tourVisible(el)) {
+    try { el.scrollIntoView({ block: 'center', behavior: _reduceMotion ? 'auto' : 'smooth' }); } catch (e) {}
+    setTimeout(_tourReposition, _reduceMotion ? 0 : 280);
+    return;
+  }
+  if (tries <= 0) {                          // target never showed → skip in the current direction
+    const next = i + (_tourDir || 1);
+    if (next < 0 || next >= TOUR_STEPS.length) { tourEnd(true); return; }
+    tourShow(next);
+    return;
+  }
+  setTimeout(() => _tourAwait(i, tries - 1), 80);
 }
 function _tourReposition() {
   const ov = document.getElementById('tourOverlay'); if (!ov) return;
@@ -4417,8 +4548,8 @@ function _tourReposition() {
   const left = Math.min(Math.max(14, r.left), window.innerWidth - cardW - 14);
   card.style.top = top + 'px'; card.style.left = left + 'px';
 }
-function tourNext() { tourShow(_tourStep + 1); }
-function tourPrev() { tourShow(Math.max(0, _tourStep - 1)); }
+function tourNext() { _tourDir = 1; tourShow(_tourStep + 1); }
+function tourPrev() { _tourDir = -1; tourShow(Math.max(0, _tourStep - 1)); }
 function tourEnd(done) { const ov = document.getElementById('tourOverlay'); if (ov) ov.remove(); window.removeEventListener('resize', _tourReposition); if (done) { try { lsSet('sparksTourDone', '1'); } catch (e) {} } }
 
 // Keep the mobile drawer/scrim aligned to the navbar's real height (it grows to 2 rows on phones).

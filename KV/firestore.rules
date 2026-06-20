@@ -20,6 +20,11 @@ service cloud.firestore {
       allow read: if true;
       allow write: if false;
     }
+    // ── Company logo/profile cache (getProfiles Cloud Function writes; public-read) ──
+    match /logos/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
     match /earnings/{document=**} {
       allow read: if true;
       allow write: if false;

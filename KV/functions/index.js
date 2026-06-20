@@ -514,6 +514,37 @@ exports.getRange = onRequest(
   }
 );
 
+// ── Company profiles / logos (cached forever in Firestore — logos are static) ──
+// GET /getProfiles?symbols=NVDA,AAPL  ->  { profiles: { NVDA:{logo,name,marketCap,industry}, ... } }
+exports.getProfiles = onRequest(
+  { region: 'us-central1', cors: true, secrets: [FINNHUB_API_KEY] },
+  async (req, res) => {
+    const key = FINNHUB_API_KEY.value();
+    const db = admin.firestore();
+    const symbols = String(req.query.symbols || '')
+      .split(',').map(s => s.trim().toUpperCase()).filter(Boolean).slice(0, 40);
+    const out = {};
+    for (const sym of symbols) {
+      const ref = db.collection('logos').doc(sym);
+      try { const snap = await ref.get(); if (snap.exists) { out[sym] = snap.data(); continue; } } catch (e) {}
+      try {
+        const p = await finnhubGet('/stock/profile2', { symbol: sym }, key);
+        const rec = {
+          logo: (p && p.logo) || '',
+          name: (p && p.name) || '',
+          marketCap: (p && p.marketCapitalization != null) ? p.marketCapitalization : null,
+          industry: (p && p.finnhubIndustry) || '',
+          exchange: (p && p.exchange) || ''
+        };
+        out[sym] = rec;
+        try { await ref.set(rec); } catch (e) {}   // cache the successful lookup (even if no logo) so we don't refetch
+      } catch (e) { out[sym] = { logo: '', name: '', marketCap: null, industry: '' }; }  // transient fail — not cached, retried next time
+    }
+    res.set('Cache-Control', 'public, max-age=86400');
+    res.json({ profiles: out });
+  }
+);
+
 // ── Price time-series for the Charts tab (Yahoo chart proxy; the browser can't call Yahoo directly due to CORS) ──
 function seriesRangeInterval(range) {
   switch (range) {
