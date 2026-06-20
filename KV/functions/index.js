@@ -698,6 +698,156 @@ exports.runIntradayNow = onRequest(
   }
 );
 
+// ── User alerts (the Alerts tab) ──────────────────────────────────────────────
+// Evaluates each user's custom alerts (alerts/{uid}/list) against live quotes and
+// fires an in-app notification (+ FCM push) when a condition is met. Deduped per
+// day via alert_state/ua_{uid} so a crossed threshold notifies once, not every run.
+function _alertNum(v) {
+  const n = parseFloat(String(v == null ? '' : v).replace(/[^0-9.\-]/g, ''));
+  return isFinite(n) ? n : null;
+}
+function _alertTriggered(cond, value, q) {
+  if (cond === 'news') return false;            // handled separately
+  const v = _alertNum(value);
+  if (v == null || q.price == null) return false;
+  const dp = q.dp == null ? 0 : q.dp;
+  switch (cond) {
+    case 'price_above': return q.price >= v;
+    case 'price_below': return q.price <= v;
+    case 'pct_above':   return dp >= Math.abs(v);          // up by at least v%
+    case 'pct_below':   return dp <= -Math.abs(v);         // down by at least v%
+    case 'pct_change':  return Math.abs(dp) >= Math.abs(v); // legacy: moved either way
+    default: return false;
+  }
+}
+function _alertText(cond, v, ticker, q) {
+  const px = q.price != null ? `$${q.price.toFixed(2)}` : 'n/a';
+  const dp = (q.dp >= 0 ? '+' : '') + (q.dp != null ? q.dp.toFixed(2) : '0') + '%';
+  switch (cond) {
+    case 'price_above': return { title: `${ticker} crossed above $${v}`, body: `${ticker} is trading at ${px}, at or above your $${v} alert. Decide whether this is a take-profit level or a breakout to add into, and reset your stop to protect the move.` };
+    case 'price_below': return { title: `${ticker} dropped below $${v}`, body: `${ticker} is trading at ${px}, at or below your $${v} alert. If this breaks your planned stop, follow your exit rule rather than hoping for a bounce; if your thesis is intact it may be an add level.` };
+    case 'pct_above':   return { title: `${ticker} up ${dp} today`, body: `${ticker} is up ${dp} today (${px}), past your +${v}% alert. Strong momentum — consider trimming or raising your stop rather than chasing an extended move.` };
+    case 'pct_below':   return { title: `${ticker} down ${dp} today`, body: `${ticker} is down ${dp} today (${px}), past your -${v}% alert. Check the news behind the drop and stick to your exit plan if it breaks your stop.` };
+    case 'pct_change':  return { title: `${ticker} moved ${dp} today`, body: `${ticker} has moved ${dp} today (${px}), past your ${v}% alert.` };
+    default:            return { title: `${ticker} alert`, body: `${ticker} is at ${px} (${dp} today).` };
+  }
+}
+
+async function runUserAlerts(key) {
+  const db = admin.firestore();
+  const messaging = admin.messaging();
+  const date = todayInET();
+
+  // Discover owners from the alerts collection itself, NOT the users collection: a user who
+  // sets an alert may not have a users/{uid} doc yet (that's only created when push is enabled),
+  // and their in-app alerts must still fire. listDocuments() returns a ref for every uid that
+  // has an alerts/{uid}/list subcollection, even if the parent doc has no fields.
+  const alertOwners = await db.collection('alerts').listDocuments();
+  const summary = { date, usersWithAlerts: 0, checked: 0, fired: 0, sent: 0 };
+
+  const quoteCache = {};
+  async function getQuote(sym) {
+    if (sym in quoteCache) return quoteCache[sym];
+    let q = null;
+    try { const r = await finnhubGet('/quote', { symbol: sym }, key); if (r && r.c) q = { price: r.c, prev: r.pc, dp: r.dp || 0 }; } catch (e) {}
+    quoteCache[sym] = q; return q;
+  }
+
+  for (const ownerRef of alertOwners) {
+    const uid = ownerRef.id;
+    let alertsSnap;
+    try { alertsSnap = await ownerRef.collection('list').get(); } catch (e) { continue; }
+    if (alertsSnap.empty) continue;
+    summary.usersWithAlerts++;
+
+    let tokens = [];
+    try { const udoc = await db.collection('users').doc(uid).get(); tokens = Array.isArray(udoc.get('fcmTokens')) ? udoc.get('fcmTokens') : []; } catch (e) {}
+    const stateRef = db.collection('alert_state').doc('ua_' + uid);
+    let state = {};
+    try { const s = await stateRef.get(); state = s.exists ? s.data() : {}; } catch (e) {}
+    if (state.date !== date) state = { date, keys: [] };
+    const fired = new Set(state.keys || []);
+    const toNotify = [];
+
+    for (const adoc of alertsSnap.docs) {
+      const a = adoc.data(); summary.checked++;
+      const ticker = (a.ticker || '').toUpperCase().trim();
+      const cond = a.condition || a.type;
+      if (!ticker || !cond) continue;
+
+      if (cond === 'news') {
+        let rows = [];
+        try { rows = (await finnhubGet('/company-news', { symbol: ticker, from: date, to: date }, key)) || []; } catch (e) {}
+        rows.sort((x, y) => (y.datetime || 0) - (x.datetime || 0));
+        const top = rows[0];
+        if (top && top.id != null) {
+          const k = 'uanews:' + adoc.id + ':' + top.id;
+          if (!fired.has(k)) {
+            fired.add(k);
+            toNotify.push({ ticker, pct: null, url: top.url || '',
+              title: `News: ${ticker} — ${String(top.headline || 'new headline').slice(0, 80)}`,
+              body: `${String(top.summary || top.headline || '').slice(0, 220)} (${top.source || 'news'})` + (a.note ? ' — Note: ' + a.note : '') });
+          }
+        }
+        continue;
+      }
+
+      const k = 'ua:' + adoc.id;          // one notification per price/percent alert per day
+      if (fired.has(k)) continue;
+      const q = await getQuote(ticker);
+      if (!q) continue;
+      if (_alertTriggered(cond, a.value, q)) {
+        fired.add(k);
+        const t = _alertText(cond, _alertNum(a.value), ticker, q);
+        toNotify.push({ ticker, pct: q.dp != null ? q.dp : null, url: '', title: t.title, body: a.note ? t.body + ' — Note: ' + a.note : t.body });
+      }
+    }
+
+    for (const n of toNotify) {
+      try {
+        await db.collection('notifications').doc(uid).collection('list').add({
+          date, type: 'user_alert', title: n.title, body: n.body, ticker: n.ticker || null,
+          pct: n.pct, url: n.url || null, read: false, status: 'sent',
+          data: { type: 'user_alert', url: n.url || '' },
+          createdAt: admin.firestore.FieldValue.serverTimestamp()
+        });
+        summary.fired++;
+      } catch (e) { logger.error('user-alert notif write failed', { uid, error: String(e) }); }
+      if (tokens.length) {
+        try {
+          const resp = await messaging.sendEachForMulticast({ tokens, notification: { title: n.title, body: pushBody(n.body) }, data: { type: 'user_alert', url: String(n.url || '') }, webpush: { fcmOptions: { link: '/' } } });
+          summary.sent += resp.successCount;
+          const dead = [];
+          resp.responses.forEach((r, i) => { if (!r.success) { const c = r.error && r.error.code; if (c === 'messaging/registration-token-not-registered' || c === 'messaging/invalid-registration-token' || c === 'messaging/invalid-argument') dead.push(tokens[i]); } });
+          if (dead.length) await db.collection('users').doc(uid).set({ fcmTokens: admin.firestore.FieldValue.arrayRemove(...dead) }, { merge: true });
+        } catch (e) { logger.error('user-alert FCM failed', { uid, error: String(e) }); }
+      }
+    }
+
+    try { await stateRef.set({ date, keys: [...fired] }); } catch (e) {}
+  }
+
+  logger.info('User-alerts run complete', summary);
+  return summary;
+}
+
+// Scheduled: every 15 min during US market hours, Mon–Fri.
+exports.userAlertsMonitor = onSchedule(
+  { schedule: '*/15 9-16 * * 1-5', timeZone: 'America/New_York', secrets: [FINNHUB_API_KEY], region: 'us-central1' },
+  async () => { await runUserAlerts(FINNHUB_API_KEY.value()); }
+);
+
+// On-demand test for the user-alerts monitor. Guarded by ?token=<FINNHUB_API_KEY>.
+exports.runUserAlertsNow = onRequest(
+  { secrets: [FINNHUB_API_KEY], region: 'us-central1' },
+  async (req, res) => {
+    const key = FINNHUB_API_KEY.value();
+    if (req.query.token !== key) { res.status(403).send('Forbidden'); return; }
+    try { res.status(200).json({ ok: true, summary: await runUserAlerts(key) }); }
+    catch (e) { res.status(500).json({ ok: false, error: String(e) }); }
+  }
+);
+
 // ── Breaking-news monitor (geopolitical / macro market-movers) ────────────────
 // Scans general market news for high-impact headlines (war, ceasefire, sanctions,
 // Fed/rate, tariffs, oil/OPEC, crash/selloff…) and pushes a `breaking_news` alert
