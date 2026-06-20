@@ -211,7 +211,7 @@ def score_label(s):
 
 def run(mode="quick"):
     sys.path.insert(0, BASE)
-    from breakout_scanner  import score_stock
+    from breakout_scanner  import score_stock, curve_score
     from news_fetcher      import run_news_scan
     from market_health     import get_market_health
     from thesis_generator  import generate_thesis
@@ -284,8 +284,11 @@ def run(mode="quick"):
         s["has_catalyst"]      = n.get("has_catalyst", False)
         s["has_breaking_news"] = n.get("has_breaking", False)
         s["top_news"]          = n.get("top_news", [])
-        s["combined_score"]    = round(min(100, max(0, s["score"] + addon)), 1)
-        s["signal"]            = score_label(s["combined_score"])
+        # Re-curve the raw points total (plus the news addon) so combined_score stays on the
+        # de-saturated 0-100 scale instead of clipping a flat 100. Signal is from the raw total.
+        raw = s.get("score_raw", s["score"]) + addon
+        s["combined_score"]    = curve_score(max(0, raw))
+        s["signal"]            = score_label(max(0, raw))
 
     stock_rows.sort(key=lambda x: x["combined_score"], reverse=True)
 
