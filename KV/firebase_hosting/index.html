@@ -502,6 +502,56 @@ td.pos,.ht-pos{color:var(--green);}td.neg,.ht-neg{color:var(--red);}
 .mnmeta{display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap;}
 .mnsumm{font-size:12px;color:var(--text-2);margin-top:5px;line-height:1.5;}
 
+/* ════════ Explore hub ════════ */
+.exp-sec{margin-bottom:26px;}
+.exp-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;}
+.exp-h-l{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--text);}
+.exp-h-l .ic{color:var(--blue);}
+.exp-seeall,.news-seeall{font-size:12px;font-weight:600;color:var(--blue);cursor:pointer;white-space:nowrap;}
+.exp-seeall:hover,.news-seeall:hover{text-decoration:underline;}
+.exp-movers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.exp-mcol{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:6px 4px 6px;}
+.exp-mcol-h{font-size:12px;font-weight:700;padding:7px 12px;display:flex;align-items:center;gap:7px;}
+.exp-mcol-h.up{color:var(--green);}.exp-mcol-h.down{color:var(--red);}.exp-mcol-h.vol{color:var(--blue);}
+.exp-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;cursor:pointer;}
+.exp-row:hover{background:var(--surface-hover);}
+.exp-logo{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px;flex-shrink:0;}
+.exp-row-id{flex:1;min-width:0;}
+.exp-row-tkr{font-size:13px;font-weight:700;color:var(--text);}
+.exp-row-nm{font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;}
+.exp-row-r{text-align:right;flex-shrink:0;}
+.exp-row-px{font-size:13px;font-weight:600;color:var(--text);}
+.exp-row-chg{font-size:11px;font-weight:600;}
+.exp-colls{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;}
+.exp-coll{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;}
+.exp-coll-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px;}
+.exp-coll-t{font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;}
+.exp-coll-t .ic{color:var(--blue);}
+.exp-coll-sub{font-size:11px;color:var(--text-3);white-space:nowrap;}
+.exp-chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.exp-chip{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border-soft);border-radius:20px;padding:4px 10px 4px 5px;font-size:12px;font-weight:700;color:var(--text);cursor:pointer;}
+.exp-chip:hover{border-color:var(--blue);}
+.exp-chip .exp-logo{width:20px;height:20px;font-size:8px;border-radius:6px;}
+.exp-chip-chg{font-size:11px;font-weight:600;margin-left:1px;}
+
+/* ════════ News tab + cards ════════ */
+.news-top{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
+.news-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}
+.ncard{display:flex;flex-direction:column;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow .15s,border-color .15s;}
+.ncard:hover{box-shadow:var(--shadow);}
+.ncard.brk{border-left:3px solid var(--red);}
+.ncard-img{width:100%;height:150px;object-fit:cover;background:var(--surface);display:block;}
+.ncard-body{padding:14px 16px;display:flex;flex-direction:column;flex:1;}
+.ncard-t{font-size:14px;font-weight:600;line-height:1.4;color:var(--text);}
+.ncard-t a{color:inherit;}
+.ncard-sum{font-size:12.5px;color:var(--text-2);line-height:1.55;margin-top:7px;}
+.ncard-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:11px;font-size:11px;}
+.ncard-src{font-weight:700;color:var(--text-2);}
+.ncard-time{color:var(--text-3);}
+.ncard-tk{background:var(--blue-soft);color:var(--blue);border-radius:5px;padding:1px 7px;font-weight:700;cursor:pointer;}
+@media(max-width:760px){.exp-movers{grid-template-columns:1fr;}}
+@media(max-width:600px){.exp-colls,.news-cards{grid-template-columns:1fr;}}
+
 /* ════════ Charts ════════ */
 .cwrap{background:var(--surface-2);border-radius:12px;border:1px solid var(--border);padding:18px;margin-bottom:14px;}
 .ctitle{font-size:14px;font-weight:600;margin-bottom:14px;color:var(--text);}
@@ -1045,6 +1095,10 @@ body.sidebar-open .nav-scrim{display:block;}
           <div class="research-hint"><span class="ic-info" title="Claude's brief — last-year financial highlights, accomplishments, the 52-week journey and critical info — plus live TradingView data (chart, financials, technical rating, company profile).">ⓘ</span> Claude's brief + live TradingView data · try <span class="ex-chip" onclick="goResearch('AAPL')">AAPL</span> <span class="ex-chip" onclick="goResearch('NVDA')">NVDA</span> <span class="ex-chip" onclick="goResearch('TSLA')">TSLA</span></div>
           <div id="researchContent"></div>
         </div>
+        <div id="tab-explore" class="tab-panel">
+          <div class="page-title">Explore <span style="font-size:13px;font-weight:500;color:var(--text-3)">· movers, collections &amp; themes across the US market</span></div>
+          <div id="exploreContent"></div>
+        </div>
         <div id="tab-discovery" class="tab-panel"><div class="page-title">Discovery</div><div id="discoveryContent"></div></div>
         <div id="tab-earnings" class="tab-panel"><div class="page-title">Earnings</div><div id="earningsContent"></div></div>
         <div id="tab-health" class="tab-panel"><div class="page-title">Portfolio Health</div><div class="pf-toolbar"><select id="healthPfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div><div id="healthContent"></div></div>
@@ -1060,9 +1114,17 @@ body.sidebar-open .nav-scrim{display:block;}
           <div class="screen-bar" id="notifFilters" style="margin-bottom:12px;"></div>
           <div id="premarketBody"></div>
         </div>
-        <div id="tab-market" class="tab-panel"><div class="page-title">Market News</div><div class="mnews-grid" id="marketGrid"></div></div>
+        <div id="tab-market" class="tab-panel">
+          <div class="page-title">News</div>
+          <div class="news-top">
+            <div class="ac-wrap" style="flex:1;max-width:340px;"><input type="text" id="newsSearchInput" class="modal-input" placeholder="News for a ticker — e.g. AAPL, NVDA" oninput="acFilter(this,'newsAC','news')" onkeydown="acKey(event,'newsAC','news')" autocomplete="off"/><div id="newsAC" class="ac-list" style="display:none"></div></div>
+            <button class="pf-btn pf-btn-primary" onclick="newsSearch()">Get news</button>
+            <button class="pf-btn pf-btn-outline" id="newsBackBtn" style="display:none" onclick="document.getElementById('newsSearchInput').value='';renderNewsTab()">← Market news</button>
+          </div>
+          <div id="newsContent"><div class="mnews-grid" id="marketGrid"></div></div>
+        </div>
         <div id="tab-table" class="tab-panel">
-          <div class="page-title">Explore US Stocks</div>
+          <div class="page-title">Screener <span style="font-size:13px;font-weight:500;color:var(--text-3)">· filter the full US scan universe</span></div>
           <div class="screen-bar">
             <input id="scrSearch" class="scr-search" type="text" placeholder="Search ticker or company…" oninput="applyFilter('search', this.value)" autocomplete="off"/>
             <select id="scrSignal" onchange="applyFilter('signal', this.value)"><option value="">All signals</option><option value="STRONG BUY">Strong Buy</option><option value="WATCH">Watch</option><option value="WEAK">Weak</option></select>
@@ -1256,6 +1318,7 @@ const NAV = [
   { tab: 'home', label: 'Home', icon: 'home' },
   { tab: 'assistant', label: 'AI Assistant', icon: 'sparkles' },
   { tab: 'cards', label: 'Top Picks', icon: 'spark' },
+  { tab: 'explore', label: 'Explore', icon: 'compass' },
   { tab: 'summary', label: 'AI Summary', icon: 'sparkles' },
   { tab: 'research', label: 'Research', icon: 'flask' },
   { tab: 'discovery', label: 'Discovery', icon: 'compass' },
@@ -1270,7 +1333,7 @@ const NAV = [
   { tab: 'earnings', label: 'Earnings', icon: 'calendar' },
   { tab: 'catalysts', label: 'Catalysts', icon: 'spark' },
   { tab: 'chart', label: 'Charts', icon: 'barchart' },
-  { tab: 'table', label: 'Explore US Stocks', icon: 'table' }
+  { tab: 'table', label: 'Screener', icon: 'table' }
 ];
 function buildSidebar() {
   document.getElementById('sidebar').innerHTML = NAV.map(n => {
@@ -1325,7 +1388,7 @@ let currentResearchTicker = null;
 let picksShown = 24; // how many home cards to render (Fix #5 — show WATCH/WEAK too)
 // Portfolio holdings table: sort + search state, and a 52-week range cache for held tickers.
 let pfSortKey = 'value', pfSortAsc = false, pfSearchFilter = null, _pfRanges = {};
-const TAB_NAMES = ['cards','summary','portfolio','watchlist','useralerts','research','discovery','earnings','health','catalysts','market','table','chart'];
+const TAB_NAMES = ['cards','explore','summary','portfolio','watchlist','useralerts','research','discovery','earnings','health','catalysts','market','table','chart'];
 const critLabels = {trend_ok:'Stage 2',near_high:'Near High',rsi_ok:'RSI',volume_ok:'Volume',eps_ok:'EPS 20%+',rev_ok:'Rev 10%+',vcp_ok:'VCP',rs_ok:'RS High',vdu_ok:'Vol DU',insider_ok:'Insider'};
 const CRIT_TIP = {trend_ok:'Stage 2 uptrend — price above key moving averages',near_high:'Trading near its 52-week high',rsi_ok:'RSI in a healthy momentum range',volume_ok:'Above-average volume confirmation',eps_ok:'Strong earnings-per-share growth (20%+)',rev_ok:'Solid revenue growth (10%+)',vcp_ok:'VCP — Volatility Contraction Pattern (tightening price ahead of a potential breakout)',rs_ok:'RS — high Relative Strength vs the market',vdu_ok:'Volume Dry-Up — a low-volume pullback (bullish)',insider_ok:'Recent insider buying'};
 
@@ -1678,6 +1741,7 @@ function acSelect(sym, listId, context) {
   else if (context === 'addHoldingInline') { document.getElementById('inlineHoldingTicker').value = sym; autofillBuyPriceInline(sym); }
   else if (context === 'addWL') { document.getElementById('wlTickerInput').value = sym; }
   else if (context === 'alert') { document.getElementById('alertTicker').value = sym; }
+  else if (context === 'news') { document.getElementById('newsSearchInput').value = sym; newsSearch(); }
   else if (context === 'chart') { setChartSym(sym); }
   else if (context === 'portfolio') { pfSearch(sym); }
 }
@@ -1691,6 +1755,7 @@ function acKey(e, listId, context) {
     if (_acActive >= 0 && items[_acActive]) { items[_acActive].click(); e.preventDefault(); }
     else if (context === 'global') { const v = document.getElementById('globalSearch').value.trim().toUpperCase(); if (v) { acClose(listId); goResearch(v); document.getElementById('globalSearch').value = ''; } }
     else if (context === 'research') { acClose(listId); runResearch(); }
+    else if (context === 'news') { acClose(listId); newsSearch(); }
     else if (context === 'chart') { acClose(listId); setChartSym(document.getElementById('chartSymInput').value); }
     else if (context === 'portfolio') { const v = document.getElementById('pfSearchInput').value.trim().toUpperCase(); if (v) { acClose(listId); pfSearch(v); } }
   }
@@ -2116,11 +2181,132 @@ function goResearch(ticker) { sw('research'); document.getElementById('researchI
 
 // ── Market news ──
 function renderMarket(mktNews) {
-  document.getElementById('marketGrid').innerHTML = (mktNews || []).map(n => {
+  const g = document.getElementById('marketGrid'); if (!g) return;   // News tab may have swapped to rich cards
+  g.innerHTML = (mktNews || []).map(n => {
     const sl = n.sentiment_label || '';
     const cls = sl.includes('BULLISH') ? 'bull' : sl.includes('BEARISH') ? 'bear' : '';
     return '<div class="mncrd ' + (n.breaking ? 'brk' : cls) + '"><div class="mntitle"><a href="' + (n.url || '#') + '" target="_blank">' + n.title + '</a></div>' + (n.summary ? '<div class="mnsumm">' + n.summary + '</div>' : '') + '<div class="mnmeta"><span class="otag">' + (n.outlet || '—') + '</span>' + (n.breaking ? '<span class="brkflag">BREAKING</span>' : '') + '<span class="bsent ' + sc(sl) + '">' + sl + '</span><span class="bage">' + age2str(n.age_hours) + '</span></div></div>';
   }).join('') || emptyState('newspaper', 'No market news', 'Market headlines will appear here');
+}
+
+// ════════ Explore hub (movers · collections · themes · news) ════════
+const EXP_THEMES = [
+  { key: 'ai', name: 'AI & Semiconductors', icon: 'data', tickers: ['NVDA','AMD','AVGO','TSM','ASML','MU','LRCX','AMAT','KLAC','MRVL','QCOM','ARM','SMCI','PLTR','INTC','TXN','ADI','MPWR','ON','SNPS','CDNS'] },
+  { key: 'mag7', name: 'Mega-cap Tech', icon: 'spark', tickers: ['AAPL','MSFT','GOOGL','GOOG','AMZN','META','NVDA','TSLA'] },
+  { key: 'banks', name: 'Banks & Financials', icon: 'briefcase', tickers: ['JPM','BAC','WFC','C','GS','MS','SCHW','BLK','AXP','USB','PNC','TFC','COF','BK','NTRS','CFG','MTB','AFL'] },
+  { key: 'ev', name: 'EV & Clean Energy', icon: 'activity', tickers: ['TSLA','RIVN','LCID','NIO','ENPH','FSLR','PLUG','SEDG','RUN','ALB','BE','CHPT','NEE'] },
+  { key: 'cloud', name: 'Cloud & Software', icon: 'box', tickers: ['MSFT','CRM','ADBE','NOW','ORCL','SNOW','PANW','CRWD','DDOG','NET','ZS','MDB','TEAM','WDAY','SHOP','INTU'] },
+  { key: 'health', name: 'Healthcare & Pharma', icon: 'flask', tickers: ['LLY','UNH','JNJ','MRK','ABBV','PFE','TMO','ABT','DHR','AMGN','ISRG','VRTX','REGN','BMY','GILD'] },
+  { key: 'consumer', name: 'Consumer & Retail', icon: 'home', tickers: ['WMT','COST','HD','MCD','NKE','SBUX','TGT','LOW','PG','KO','PEP','PM','BKNG','MAR','CMG'] },
+  { key: 'dividend', name: 'Dividend & Defensive', icon: 'check', tickers: ['KO','PEP','JNJ','PG','MCD','WMT','VZ','XOM','CVX','MMM','HD','ABBV','PM','O','SO'] }
+];
+function _expChange(t) { const e = liveEntry(t); return (e && e.changePct != null) ? e.changePct : null; }
+function _expPrice(t, s) { const e = liveEntry(t); if (e && e.price != null) return e.price; return s ? s.price : null; }
+function _pxStr(p) { return p == null ? '—' : '$' + (+p >= 1000 ? Number(p).toLocaleString(undefined, { maximumFractionDigits: 0 }) : Number(p).toFixed(2)); }
+function expStockRow(s) {
+  const t = s.ticker, chg = _expChange(t), px = _expPrice(t, s);
+  const chgHtml = chg != null ? '<div class="exp-row-chg ' + (chg >= 0 ? 'pos' : 'neg') + '">' + (chg >= 0 ? '+' : '') + chg.toFixed(2) + '%</div>'
+    : (s.momentum_3m != null ? '<div class="exp-row-chg ' + (s.momentum_3m >= 0 ? 'pos' : 'neg') + '">' + (s.momentum_3m >= 0 ? '+' : '') + s.momentum_3m + '% · 3M</div>' : '');
+  return '<div class="exp-row" onclick="goResearch(\'' + t + '\')">' +
+    '<div class="exp-logo" style="background:' + logoColor(t) + '">' + escHtml(t.slice(0, 2)) + '</div>' +
+    '<div class="exp-row-id"><div class="exp-row-tkr">' + escHtml(t) + '</div><div class="exp-row-nm" title="' + escHtml(s.name || '') + '">' + escHtml(s.name || '') + '</div></div>' +
+    '<div class="exp-row-r"><div class="exp-row-px">' + _pxStr(px) + '</div>' + chgHtml + '</div></div>';
+}
+function expChip(s) {
+  const t = s.ticker, chg = _expChange(t);
+  const c = chg != null ? '<span class="exp-chip-chg ' + (chg >= 0 ? 'pos' : 'neg') + '">' + (chg >= 0 ? '+' : '') + chg.toFixed(1) + '%</span>' : '';
+  return '<span class="exp-chip" onclick="goResearch(\'' + t + '\')"><span class="exp-logo" style="background:' + logoColor(t) + '">' + escHtml(t.slice(0, 2)) + '</span>' + escHtml(t) + c + '</span>';
+}
+let _expFetched = false;
+function renderExplore() {
+  const el = document.getElementById('exploreContent'); if (!el) return;
+  if (!D || !(D.stocks || []).length) { el.innerHTML = emptyState('compass', 'Explore is loading', 'Market data appears here once the scan loads.'); return; }
+  const stocks = D.stocks.slice();
+  // Fetch live quotes for the most relevant names so movers reflect today's move (capped to avoid rate limits).
+  if (!_expFetched) {
+    _expFetched = true;
+    const cand = stocks.slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 90).map(s => s.ticker);
+    fetchLivePrices(cand).then(() => { const tp = document.getElementById('tab-explore'); if (tp && tp.classList.contains('active')) renderExplore(); });
+  }
+  const withChg = stocks.map(s => ({ s: s, chg: _expChange(s.ticker) })).filter(x => x.chg != null);
+  const gainers = withChg.slice().sort((a, b) => b.chg - a.chg).slice(0, 7).map(x => x.s);
+  const losers = withChg.slice().sort((a, b) => a.chg - b.chg).slice(0, 7).map(x => x.s);
+  const active = stocks.filter(s => +s.vol_ratio > 0).sort((a, b) => (+b.vol_ratio) - (+a.vol_ratio)).slice(0, 7);
+  const loadingNote = '<div class="empty-sub" style="padding:6px 12px 10px">Fetching live moves…</div>';
+  let html = '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('activity', 18) + ' Market movers</div><span class="exp-seeall" onclick="sw(\'table\')">Open Screener →</span></div>' +
+    '<div class="exp-movers">' +
+      '<div class="exp-mcol"><div class="exp-mcol-h up">' + ic('chevup', 14) + ' Top gainers</div>' + (gainers.map(expStockRow).join('') || loadingNote) + '</div>' +
+      '<div class="exp-mcol"><div class="exp-mcol-h down">' + ic('chevdown', 14) + ' Top losers</div>' + (losers.map(expStockRow).join('') || loadingNote) + '</div>' +
+      '<div class="exp-mcol"><div class="exp-mcol-h vol">' + ic('barchart', 14) + ' Most active</div>' + (active.map(expStockRow).join('') || loadingNote) + '</div>' +
+    '</div></div>';
+  const claudeDriven = !!(D.claude_picks && D.claude_picks.length);
+  const picks = (claudeDriven ? D.claude_picks : stocks.slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0))).slice(0, 14);
+  if (picks.length) {
+    html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('spark', 18) + ' Trending — ' + (claudeDriven ? 'Claude’s picks' : 'top setups') + '</div><span class="exp-seeall" onclick="sw(\'cards\')">All picks →</span></div><div class="exp-chip-row">' + picks.map(expChip).join('') + '</div></div>';
+  }
+  const themeCards = EXP_THEMES.map(th => {
+    const matched = th.tickers.map(t => stocks.find(s => s.ticker === t)).filter(Boolean);
+    if (!matched.length) return '';
+    const top = matched.slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 8);
+    return '<div class="exp-coll"><div class="exp-coll-h"><div class="exp-coll-t">' + ic(th.icon, 15) + ' ' + th.name + '</div><span class="exp-coll-sub">' + matched.length + ' in scan</span></div><div class="exp-chip-row">' + top.map(expChip).join('') + '</div></div>';
+  }).filter(Boolean).join('');
+  if (themeCards) html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('box', 18) + ' Collections &amp; themes</div></div><div class="exp-colls">' + themeCards + '</div></div>';
+  const bySec = {};
+  stocks.forEach(s => { const k = s.sector || 'Other'; (bySec[k] = bySec[k] || []).push(s); });
+  const secs = Object.keys(bySec).filter(k => k && k !== '—' && k !== 'Other').sort((a, b) => bySec[b].length - bySec[a].length);
+  const secCards = secs.map(k => {
+    const top = bySec[k].slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 8);
+    const avg = Math.round(bySec[k].reduce((sum, x) => sum + (+x.combined_score || 0), 0) / bySec[k].length);
+    return '<div class="exp-coll"><div class="exp-coll-h"><div class="exp-coll-t">' + escHtml(k) + '</div><span class="exp-coll-sub">' + bySec[k].length + ' · avg ' + avg + '</span></div><div class="exp-chip-row">' + top.map(expChip).join('') + '</div></div>';
+  }).join('');
+  if (secCards) html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('table', 18) + ' Browse by sector</div><span class="exp-seeall" onclick="sw(\'table\')">Full screener →</span></div><div class="exp-colls">' + secCards + '</div></div>';
+  html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('newspaper', 18) + ' Latest market news</div><span class="exp-seeall" onclick="sw(\'market\')">See all news →</span></div><div id="exploreNews" class="news-cards"></div></div>';
+  el.innerHTML = html;
+  _loadExploreNews();
+}
+function _loadExploreNews() {
+  const host = document.getElementById('exploreNews'); if (!host) return;
+  host.innerHTML = '<div class="empty-sub" style="padding:6px">Loading news…</div>';
+  fetch(GETNEWS_API).then(r => r.json()).then(d => {
+    const m = (d.market || []).slice(0, 6);
+    host.innerHTML = m.length ? m.map(newsCardHtml).join('') : ((D.market_news || []).slice(0, 6).map(scanNewsCard).join('') || '<div class="empty-sub" style="padding:6px">No market news right now.</div>');
+  }).catch(() => { host.innerHTML = (D.market_news || []).slice(0, 6).map(scanNewsCard).join('') || '<div class="empty-sub" style="padding:6px">News unavailable.</div>'; });
+}
+
+// ── News tab (detailed cards + per-stock search) ──
+function newsCardHtml(n) {
+  const t = n.datetime ? timeAgo(n.datetime) : '';
+  const img = n.image ? '<img class="ncard-img" src="' + escHtml(n.image) + '" loading="lazy" alt="" onerror="this.style.display=\'none\'"/>' : '';
+  const tks = (n.tickers || []).slice(0, 3).map(x => '<span class="ncard-tk" onclick="event.stopPropagation();goResearch(\'' + escHtml(x) + '\')">' + escHtml(x) + '</span>').join('');
+  return '<div class="ncard' + (n.breaking ? ' brk' : '') + '">' + img + '<div class="ncard-body"><div class="ncard-t"><a href="' + escHtml(n.url || '#') + '" target="_blank" rel="noopener">' + escHtml(n.title || '') + '</a></div>' + (n.summary ? '<div class="ncard-sum">' + escHtml(n.summary) + '</div>' : '') + '<div class="ncard-meta"><span class="ncard-src">' + escHtml(n.source || n.outlet || '—') + '</span>' + (t ? '<span class="ncard-time">' + t + '</span>' : '') + tks + '</div></div></div>';
+}
+function scanNewsCard(n) { return newsCardHtml({ title: n.title, summary: n.summary, source: n.outlet, url: n.url, datetime: 0, tickers: [], breaking: n.breaking }); }
+function renderNewsTab() {
+  const back = document.getElementById('newsBackBtn'); if (back) back.style.display = 'none';
+  const el = document.getElementById('newsContent'); if (!el) return;
+  el.innerHTML = '<div class="empty-sub" style="padding:14px">Loading market news…</div>';
+  fetch(GETNEWS_API).then(r => r.json()).then(d => {
+    const seen = {}, all = [];
+    (d.market || []).concat((D && D.market_news || []).map(n => ({ title: n.title, summary: n.summary, source: n.outlet, url: n.url, datetime: 0, tickers: [], breaking: n.breaking })))
+      .forEach(n => { if (n.title && !seen[n.title]) { seen[n.title] = 1; all.push(n); } });
+    el.innerHTML = all.length ? '<div class="news-cards">' + all.slice(0, 40).map(newsCardHtml).join('') + '</div>' : emptyState('newspaper', 'No market news', 'Headlines will appear here shortly');
+  }).catch(() => {
+    const scan = (D && D.market_news || []);
+    el.innerHTML = scan.length ? '<div class="news-cards">' + scan.map(scanNewsCard).join('') + '</div>' : emptyState('newspaper', 'News unavailable', 'Please try again shortly');
+  });
+}
+function newsSearch() {
+  const inp = document.getElementById('newsSearchInput'); const t = (inp && inp.value || '').trim().toUpperCase();
+  if (!t) { researchShake(inp); return; }
+  acClose('newsAC');
+  const el = document.getElementById('newsContent'), back = document.getElementById('newsBackBtn');
+  el.innerHTML = '<div class="empty-sub" style="padding:14px">Loading ' + escHtml(t) + ' news…</div>';
+  fetch(GETNEWS_API + '?symbols=' + encodeURIComponent(t)).then(r => r.json()).then(d => {
+    if (back) back.style.display = '';
+    const items = (d.portfolio || []);
+    el.innerHTML = '<div class="exp-h" style="margin-bottom:12px"><div class="exp-h-l">' + ic('newspaper', 18) + ' ' + escHtml(t) + ' news</div><span class="exp-seeall" onclick="goResearch(\'' + escHtml(t) + '\')">Open research →</span></div>' +
+      (items.length ? '<div class="news-cards">' + items.slice(0, 30).map(newsCardHtml).join('') + '</div>' : '<div class="empty-sub" style="padding:14px">No recent news for ' + escHtml(t) + '.</div>');
+  }).catch(() => { el.innerHTML = '<div class="empty-sub" style="padding:14px">News unavailable right now.</div>'; });
 }
 
 // ── Screening / filter helpers (#12) ──
@@ -2824,7 +3010,8 @@ function renderHomeDashboard(hs, scope, ranges) {
   const newsPanels = '<div class="dash-news-grid stagger-in">' +
     '<div class="dash-news-card"><div class="dnhdr">' + ic('newspaper', 16) + ' Your Portfolio News</div><div id="homeNewsPortfolio"></div></div>' +
     '<div class="dash-news-card"><div class="dnhdr">' + ic('newspaper', 16) + ' Markets &amp; Influencers</div><div id="homeNewsInfluencer"></div></div>' +
-    '</div>';
+    '</div>' +
+    '<div class="dash-section" style="margin-top:14px"><div class="dash-section-title" style="justify-content:space-between"><span style="display:inline-flex;align-items:center;gap:7px">' + ic('newspaper', 16) + ' Latest market news</span><span class="news-seeall" onclick="sw(\'market\')">See all news →</span></div><div id="homeLatestNews" class="news-cards"></div></div>';
   if (!hs.length) {
     el.innerHTML = '<div class="home-grid">' +
       '<div class="home-stats">' + homeHeaderHtml() + emptyState('briefcase', 'No holdings in ' + escHtml(scopeName), 'Add holdings in the Portfolio tab to see your dashboard') + '</div>' +
@@ -2909,10 +3096,13 @@ async function loadHomeNews(syms) {
     const infTitles = new Set((d.influencer || []).map(x => x.title));
     const mix = (d.influencer || []).concat((d.market || []).filter(m => !infTitles.has(m.title)));
     if (iEl) iEl.innerHTML = newsListHtml(mix) || '<div class="empty-sub" style="padding:10px">No market news right now.</div>';
+    const lEl = document.getElementById('homeLatestNews');
+    if (lEl) lEl.innerHTML = (d.market || []).slice(0, 4).map(newsCardHtml).join('') || '<div class="empty-sub" style="padding:10px">No market news right now.</div>';
   } catch (e) {
     const err = '<div class="empty-sub" style="padding:10px">News unavailable right now.</div>';
     if (pEl) pEl.innerHTML = err;
     if (iEl) iEl.innerHTML = err;
+    const lEl = document.getElementById('homeLatestNews'); if (lEl) lEl.innerHTML = err;
   }
 }
 
@@ -3551,7 +3741,7 @@ function renderResearchMsg(ticker, kind) {
   const noquote = kind === 'noquote';
   const head = noquote ? 'Live quote unavailable for “' + escHtml(ticker) + '”' : 'Couldn\'t find “' + escHtml(ticker) + '”';
   const sub = noquote ? 'We could not fetch a live price right now — please try again in a moment.'
-    : 'No live quote for that symbol — check the spelling, or browse <a class="auth-link" onclick="sw(\'table\')">Explore US Stocks</a> to discover tickers.';
+    : 'No live quote for that symbol — check the spelling, or <a class="auth-link" onclick="sw(\'explore\')">Explore stocks</a> to discover tickers.';
   el.innerHTML = '<div class="research-box" style="text-align:center;padding:42px 20px;"><div style="font-size:30px;margin-bottom:8px;">' + (noquote ? '⏳' : '🔍') + '</div><div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px;">' + head + '</div><div class="empty-sub">' + sub + '</div></div>';
 }
 let _researchDoc = { ticker: null, data: null };   // last-loaded Claude brief, so a later live-price pass never wipes it
@@ -3773,6 +3963,8 @@ function sw(name) {
   if (name === 'home') loadHomeDashboard();
   if (name === 'assistant') { const h = document.getElementById('asstTabHost'); if (h && !h.querySelector('.asst-host')) h.innerHTML = assistantHostHtml('tab'); renderAllAssistant(); asstFocus(); }
   if (name === 'chart') renderCharts();
+  if (name === 'explore') renderExplore();
+  if (name === 'market') renderNewsTab();
   if (name === 'research') enterResearch();
   if (name === 'portfolio') renderHoldingsTable();
   if (name === 'watchlist') renderWatchlistTab();
