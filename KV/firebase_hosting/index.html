@@ -704,6 +704,19 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 /* scoped expand: fills the content area only — top just below the market/breaking strip, left flush to the sidebar (never covers nav, strip or sidebar) */
 .asst-host.asst-expanded{position:fixed;top:var(--asst-exp-top,calc(var(--nav-h) + var(--strip-h)));left:var(--asst-exp-left,var(--sidebar-w));right:0;bottom:0;height:auto;max-height:none;z-index:1500;background:var(--bg);padding:16px 22px 18px;border-left:1px solid var(--border);box-shadow:-8px 0 30px rgba(0,0,0,.12);}
 body.asst-expanded-open{overflow:hidden;}
+/* ── AI assistant pop-up: floating bubble → panel → fullscreen ── */
+.asst-fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:1400;width:56px;height:56px;border:none;border-radius:50%;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;background:conic-gradient(from 0deg,var(--blue),#9334e6,#0f9d58,#f29900,var(--blue));box-shadow:0 8px 28px rgba(26,115,232,.45);transition:transform .15s ease,box-shadow .15s ease;}
+.asst-fab:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 12px 34px rgba(26,115,232,.55);}
+.asst-fab.hidden{display:none;}
+.asst-pop{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:1450;width:min(400px,calc(100vw - 28px));height:min(620px,calc(100dvh - 110px));background:var(--surface-2);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden;animation:asstPopIn .18s ease;}
+.asst-pop.hidden{display:none;}
+.asst-pop.asst-pop-full{inset:0;right:0;bottom:0;width:100vw;height:100dvh;max-width:none;border-radius:0;animation:none;}
+.asst-pop #asstPopHost{padding:12px 14px;flex:1;min-height:0;}
+.asst-pop .asst-host{height:100%;flex:1;min-height:0;}
+body.asst-pop-full-open{overflow:hidden;}
+@keyframes asstPopIn{from{opacity:0;transform:translateY(12px) scale(.98);}to{opacity:1;transform:none;}}
+@media(max-width:600px){.asst-pop{width:calc(100vw - 20px);height:min(74dvh,calc(100dvh - 86px));right:10px;bottom:10px;}}
+@media(prefers-reduced-motion:reduce){.asst-pop{animation:none;}.asst-fab{transition:none;}}
 /* the .tab-panel fade animation animates transform, which would make the panel a containing block
    for the fixed expanded assistant — neutralize it while expanded so position:fixed tracks the viewport */
 body.asst-expanded-open .tab-panel.active{animation:none;transform:none;}
@@ -720,7 +733,7 @@ body.asst-expanded-open .tab-panel.active{animation:none;transform:none;}
 .asst-hist-del:hover{color:var(--red);background:var(--red-soft);}
 .asst-hist-empty{padding:10px;color:var(--text-3);font-size:12px;text-align:center;}
 /* Home layout: stats (top-left) + AI assistant (top-right, static, same height as the stats block) + full-width news below */
-.home-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(340px,46%,540px);grid-template-areas:"stats assistant" "news news";gap:16px 18px;align-items:stretch;}
+.home-grid{display:grid;grid-template-columns:1fr;grid-template-areas:"stats" "news";gap:16px 18px;align-items:start;}
 .home-stats{grid-area:stats;min-width:0;}
 .home-stats > :last-child{margin-bottom:0;}   /* end flush at the 52-week card so the assistant aligns exactly */
 .home-aside{grid-area:assistant;min-width:0;position:relative;}
@@ -730,7 +743,7 @@ body.asst-expanded-open .tab-panel.active{animation:none;transform:none;}
 .home-aside .asst-card{position:absolute;inset:0;margin-bottom:0;display:flex;flex-direction:column;}
 .home-aside .asst-host[data-place="home"]:not(.asst-expanded){flex:1;height:auto;min-height:0;max-height:none;}
 @media(max-width:1180px){
-  .home-grid{grid-template-columns:1fr;grid-template-areas:"stats" "assistant" "news";}
+  .home-grid{grid-template-columns:1fr;grid-template-areas:"stats" "news";}
   .home-aside{position:static;}
   .home-aside .asst-card{position:static;flex:none;}
   .home-aside .asst-host[data-place="home"]:not(.asst-expanded){flex:none;height:480px;height:min(480px,calc(100dvh - var(--nav-h) - var(--strip-h) - 24px));min-height:0;}
@@ -933,6 +946,7 @@ body.sidebar-open .nav-scrim{display:block;}
       <div class="live-badge"><span class="live-dot"></span> Live</div>
       <div class="scan-t">Updated <strong id="scanT">—</strong></div>
       <button class="icon-btn" onclick="startTour(true)" title="Take a tour" aria-label="Take a tour" style="font-weight:700;font-size:15px;">?</button>
+      <button class="icon-btn asst-nav-btn" id="asstNavBtn" onclick="asstPopToggle()" title="Ask the AI analyst" aria-label="AI Assistant"></button>
       <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle theme"></button>
       <span class="user-badge" id="userBadge"></span>
       <button class="sign-out-btn" onclick="doSignOut()">Sign out</button>
@@ -967,6 +981,7 @@ body.sidebar-open .nav-scrim{display:block;}
             <div class="scard st"><div class="snum" id="cT">—</div><div class="slbl">Scanned</div></div>
             <div class="scard sa"><div class="snum" id="cA">—</div><div class="slbl">Alerts</div></div>
           </div>
+          <div id="picksFilter" class="cc-chips" style="margin:2px 0 14px;" title="Filter today's picks by sector"></div>
           <div class="grid stagger-in" id="picksGrid"></div>
           <button class="show-more" id="showMoreBtn" style="display:none" onclick="showMorePicks()">Show more stocks</button>
         </div>
@@ -1047,7 +1062,7 @@ body.sidebar-open .nav-scrim{display:block;}
         </div>
         <div id="tab-market" class="tab-panel"><div class="page-title">Market News</div><div class="mnews-grid" id="marketGrid"></div></div>
         <div id="tab-table" class="tab-panel">
-          <div class="page-title">Full Scan Table</div>
+          <div class="page-title">Explore US Stocks</div>
           <div class="screen-bar">
             <input id="scrSearch" class="scr-search" type="text" placeholder="Search ticker or company…" oninput="applyFilter('search', this.value)" autocomplete="off"/>
             <select id="scrSignal" onchange="applyFilter('signal', this.value)"><option value="">All signals</option><option value="STRONG BUY">Strong Buy</option><option value="WATCH">Watch</option><option value="WEAK">Weak</option></select>
@@ -1159,6 +1174,9 @@ body.sidebar-open .nav-scrim{display:block;}
       </div>
     </main>
   </div>
+  <!-- AI assistant pop-up: floating bubble → panel → fullscreen -->
+  <button class="asst-fab" id="asstFab" onclick="asstPopOpen()" title="Ask the AI analyst" aria-label="Open AI assistant"></button>
+  <div class="asst-pop hidden" id="asstPop"><div id="asstPopHost" style="display:flex;flex-direction:column;height:100%;min-height:0;"></div></div>
 </div>
 
 <script>
@@ -1225,6 +1243,8 @@ function injectStaticIcons() {
   const ham = document.getElementById('hamburgerBtn'); if (ham) ham.innerHTML = ic('menu', 22);
   const tb = document.getElementById('themeToggle');
   if (tb) tb.innerHTML = ic(document.documentElement.getAttribute('data-theme') === 'dark' ? 'sun' : 'moon', 20);
+  const anb = document.getElementById('asstNavBtn'); if (anb) anb.innerHTML = ic('sparkles', 20);
+  const afb = document.getElementById('asstFab'); if (afb) afb.innerHTML = ic('sparkles', 24);
   document.querySelectorAll('.i-plus').forEach(el => el.innerHTML = ic('plus', 16));
   document.querySelectorAll('.i-bell').forEach(el => el.innerHTML = ic('bell', 16));
   document.querySelectorAll('.i-spark').forEach(el => el.innerHTML = ic('spark', 16));
@@ -1250,7 +1270,7 @@ const NAV = [
   { tab: 'earnings', label: 'Earnings', icon: 'calendar' },
   { tab: 'catalysts', label: 'Catalysts', icon: 'spark' },
   { tab: 'chart', label: 'Charts', icon: 'barchart' },
-  { tab: 'table', label: 'Full Table', icon: 'table' }
+  { tab: 'table', label: 'Explore US Stocks', icon: 'table' }
 ];
 function buildSidebar() {
   document.getElementById('sidebar').innerHTML = NAV.map(n => {
@@ -1512,16 +1532,21 @@ function tickerItems() {
   [...new Set([...movers, ...popular])].slice(0, 14).forEach(t => items.push({ sym: t, label: t }));
   return items;
 }
-function _tkPx(e) {
-  if (!e || e.price == null) return '—';
-  const chg = e.changePct || 0, cls = chg > 0 ? 'pos' : chg < 0 ? 'neg' : 'neu', ar = chg > 0 ? '▲' : chg < 0 ? '▼' : '';
-  const p = e.price >= 1000 ? e.price.toLocaleString(undefined, { maximumFractionDigits: 0 }) : e.price.toFixed(2);
-  return '<span class="tk-val">' + p + '</span> <span class="' + cls + '">' + ar + Math.abs(chg).toFixed(2) + '%</span>';
+function _fmtPx(p) { return +p >= 1000 ? Number(p).toLocaleString(undefined, { maximumFractionDigits: 0 }) : Number(p).toFixed(2); }
+function _tkPx(e, sym) {
+  if (e && e.price != null) {
+    const chg = e.changePct || 0, cls = chg > 0 ? 'pos' : chg < 0 ? 'neg' : 'neu', ar = chg > 0 ? '▲' : chg < 0 ? '▼' : '';
+    return '<span class="tk-val">' + _fmtPx(e.price) + '</span> <span class="' + cls + '">' + ar + Math.abs(chg).toFixed(2) + '%</span>';
+  }
+  // Fallback so the values still show even when the live-quote fetch is unavailable: use the scan price.
+  const sd = sym ? scanStockFor(sym) : null;
+  if (sd && sd.price != null) return '<span class="tk-val">' + _fmtPx(sd.price) + '</span>';
+  return '<span style="color:var(--text-3)">—</span>';
 }
 function updateTicker() {
   _tickerSyms.forEach(sym => {
     const e = liveEntry(sym), sel = '.tk-item[data-sym="' + (window.CSS && CSS.escape ? CSS.escape(sym) : sym) + '"] .tk-px';
-    document.querySelectorAll(sel).forEach(px => { px.innerHTML = _tkPx(e); });
+    document.querySelectorAll(sel).forEach(px => { px.innerHTML = _tkPx(e, sym); });
   });
 }
 function buildTicker() {
@@ -1652,6 +1677,7 @@ function acSelect(sym, listId, context) {
   else if (context === 'addHolding') { document.getElementById('holdingTicker').value = sym; autofillBuyPrice(sym); }
   else if (context === 'addHoldingInline') { document.getElementById('inlineHoldingTicker').value = sym; autofillBuyPriceInline(sym); }
   else if (context === 'addWL') { document.getElementById('wlTickerInput').value = sym; }
+  else if (context === 'alert') { document.getElementById('alertTicker').value = sym; }
   else if (context === 'chart') { setChartSym(sym); }
   else if (context === 'portfolio') { pfSearch(sym); }
 }
@@ -1998,6 +2024,9 @@ function renderAll() {
   renderMarket(mktNews);
   initScreenBar();
   renderTable(picks);
+  // Keep the top market-values strip populated: rebuild if empty, else refresh values
+  // (uses live quotes when available, scan prices as a fallback).
+  try { if (!document.querySelector('#indexStrip .tk-item')) buildIndexStrip(); else updateTicker(); } catch (e) {}
   renderDiscovery();
   renderEarnings();
   renderCatalysts();
@@ -2014,10 +2043,35 @@ function tvBadge(r) {
 }
 // ── Cards ──
 function showMorePicks() { picksShown += 24; renderCards((D && ((D.claude_picks && D.claude_picks.length) ? D.claude_picks : D.stocks)) || []); }
+// ── Top Picks sector filter ──
+let picksSector = 'all';
+let _cardPicks = [];
+function setPicksSector(sec) { picksSector = sec; picksShown = 24; renderCards(_cardPicks); }
+function renderPicksFilter() {
+  const host = document.getElementById('picksFilter'); if (!host) return;
+  const picks = _cardPicks || [];
+  const counts = {};
+  picks.forEach(s => { const k = (s.sector || 'Other'); counts[k] = (counts[k] || 0) + 1; });
+  const secs = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b));
+  if (secs.length < 2) { host.innerHTML = ''; if (picksSector !== 'all') picksSector = 'all'; return; }  // nothing to filter by
+  const chip = (key, label, n) => {
+    const k = String(key).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    return '<button class="cc-chip' + (picksSector === key ? ' active' : '') + '" onclick="setPicksSector(\'' + k + '\')">' + escHtml(label) + ' <span style="opacity:.6;font-weight:600">' + n + '</span></button>';
+  };
+  host.innerHTML = chip('all', 'All sectors', picks.length) + secs.map(s => chip(s, s, counts[s])).join('');
+}
 function renderCards(picks) {
   picks = picks || [];
+  _cardPicks = picks;
+  renderPicksFilter();
+  const view = (picksSector === 'all') ? picks : picks.filter(s => (s.sector || 'Other') === picksSector);
+  if (!view.length) {
+    document.getElementById('picksGrid').innerHTML = '<div class="empty-sub" style="grid-column:1/-1;padding:24px 0;text-align:center;">No picks in this sector today.</div>';
+    const m0 = document.getElementById('showMoreBtn'); if (m0) m0.style.display = 'none';
+    return;
+  }
   // Sort by combined score so the strongest setups lead, but WATCH/WEAK still show.
-  const sorted = [...picks].sort((a, b) => (b.combined_score || b.score || 0) - (a.combined_score || a.score || 0));
+  const sorted = [...view].sort((a, b) => (b.combined_score || b.score || 0) - (a.combined_score || a.score || 0));
   const slice = sorted.slice(0, picksShown);
   document.getElementById('picksGrid').innerHTML = slice.map(s => {
     const sig = (s.signal || '').replace(' ', '-');
@@ -2774,7 +2828,6 @@ function renderHomeDashboard(hs, scope, ranges) {
   if (!hs.length) {
     el.innerHTML = '<div class="home-grid">' +
       '<div class="home-stats">' + homeHeaderHtml() + emptyState('briefcase', 'No holdings in ' + escHtml(scopeName), 'Add holdings in the Portfolio tab to see your dashboard') + '</div>' +
-      '<div class="home-aside">' + asstCardHtml() + '</div>' +
       '<div class="home-news">' + newsPanels + '</div>' +
     '</div>';
     syncReportSelectors();
@@ -2835,7 +2888,6 @@ function renderHomeDashboard(hs, scope, ranges) {
   }
   el.innerHTML = '<div class="home-grid">' +
     '<div class="home-stats">' + homeHeaderHtml() + hero + fzHtml + '</div>' +
-    '<div class="home-aside">' + asstCardHtml() + '</div>' +
     '<div class="home-news">' + newsPanels + '</div>' +
   '</div>';
   syncReportSelectors();
@@ -3301,11 +3353,54 @@ function loadUserAlerts() {
 function renderUserAlerts() {
   const el = document.getElementById('userAlertsBody');
   if (!userAlerts.length) { el.innerHTML = emptyState('bell', 'No alerts set', 'Create price or news alerts for your tickers'); return; }
-  el.innerHTML = userAlerts.map(a => '<div class="alert-crd"><div class="alert-body"><div class="alert-tkr">' + (a.ticker || '—') + '</div><div class="alert-cond">' + (a.condition || a.type || 'Alert') + (a.value ? ' · ' + a.value : '') + '</div>' + (a.note ? '<div style="font-size:11px;color:var(--text-3);margin-top:2px;">' + a.note + '</div>' : '') + '</div><button class="alert-del" onclick="deleteAlert(\'' + a.id + '\')">Delete</button></div>').join('');
+  el.innerHTML = userAlerts.map(a => '<div class="alert-crd"><div class="alert-body"><div class="alert-tkr">' + escHtml(a.ticker || '—') + '</div><div class="alert-cond">' + escHtml(alertCondLabel(a.condition || a.type, a.value)) + '</div>' + (a.note ? '<div style="font-size:11px;color:var(--text-3);margin-top:2px;">' + escHtml(a.note) + '</div>' : '') + '</div><button class="alert-del" onclick="deleteAlert(\'' + a.id + '\')">Delete</button></div>').join('');
+}
+// Adapt the value field to the chosen condition (label, placeholder, hint, visibility).
+function onAlertCondChange() {
+  const sel = document.getElementById('alertCond'); if (!sel) return;
+  const cond = sel.value;
+  const val = document.getElementById('alertVal');
+  const lbl = document.getElementById('alertValLabel');
+  const hint = document.getElementById('alertValHint');
+  const show = (on) => { [val, lbl, hint].forEach(e => { if (e) e.style.display = on ? '' : 'none'; }); };
+  if (cond === 'news') { show(false); if (val) val.value = ''; return; }
+  show(true);
+  if (cond === 'price_above') { lbl.textContent = 'Target price ($)'; val.placeholder = 'e.g. 200'; hint.textContent = 'Notify me when the price rises to or above this level.'; }
+  else if (cond === 'price_below') { lbl.textContent = 'Target price ($)'; val.placeholder = 'e.g. 180'; hint.textContent = 'Notify me when the price falls to or below this level.'; }
+  else if (cond === 'pct_above') { lbl.textContent = '% change above (up by)'; val.placeholder = 'e.g. 5'; hint.textContent = "Notify me when the stock is up by at least this % on the day."; }
+  else if (cond === 'pct_below') { lbl.textContent = '% change below (down by)'; val.placeholder = 'e.g. 5'; hint.textContent = "Notify me when the stock is down by at least this % on the day."; }
+}
+function submitAlert() {
+  const ticker = document.getElementById('alertTicker').value;
+  const condition = document.getElementById('alertCond').value;
+  const value = document.getElementById('alertVal').value;
+  const note = document.getElementById('alertNote').value;
+  if (createAlert(ticker, condition, value, note)) closeModal();
 }
 function createAlert(ticker, condition, value, note) {
-  if (!UID) return;
-  db.collection('alerts').doc(UID).collection('list').add({ ticker: ticker.toUpperCase(), condition, value, note, created: new Date().toISOString() });
+  if (!UID) return false;
+  ticker = (ticker || '').trim().toUpperCase();
+  if (!ticker) { researchShake(document.getElementById('alertTicker')); return false; }
+  if (condition !== 'news') {
+    let num = parseFloat(String(value || '').replace(/[^0-9.\-]/g, ''));
+    if (!isFinite(num)) { researchShake(document.getElementById('alertVal')); return false; }
+    if (condition === 'pct_above' || condition === 'pct_below') num = Math.abs(num);   // store the magnitude; direction is the condition
+    value = String(num);
+  } else { value = ''; }
+  db.collection('alerts').doc(UID).collection('list').add({ ticker, condition, value, note: (note || '').trim(), created: new Date().toISOString() });
+  return true;
+}
+// Human-readable description of an alert condition for the alert card.
+function alertCondLabel(cond, value) {
+  switch (cond) {
+    case 'price_above': return 'Price above $' + value;
+    case 'price_below': return 'Price below $' + value;
+    case 'pct_above': return 'Up ' + value + '%+ on the day';
+    case 'pct_below': return 'Down ' + value + '%+ on the day';
+    case 'pct_change': return 'Moves ' + value + '%+ on the day';
+    case 'news': return 'Breaking news';
+    default: return (cond || 'Alert') + (value ? ' · ' + value : '');
+  }
 }
 function deleteAlert(alertId) {
   if (!UID) return;
@@ -3383,6 +3478,7 @@ function updateNotifBadge() {
 
 const NOTIF_CATS = [
   { key: 'all', label: 'All' },
+  { key: 'alert', label: 'My alerts' },
   { key: 'breaking', label: 'Breaking' },
   { key: 'price', label: 'Price moves' },
   { key: 'market', label: 'Market' },
@@ -3391,6 +3487,7 @@ const NOTIF_CATS = [
 ];
 function notifCategory(n) {
   const t = n.type || '';
+  if (t === 'user_alert') return 'alert';
   if (t === 'price_move') return 'price';
   if (t === 'market_move') return 'market';
   if (t === 'earnings_alert') return 'earnings';
@@ -3398,7 +3495,7 @@ function notifCategory(n) {
   return 'macro';   // premarket_digest + anything else
 }
 function notifBadge(cat) {
-  const map = { breaking: ['Breaking', 'badge-red'], price: ['Price', 'badge-blue'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], macro: ['Digest', 'badge-gray'] };
+  const map = { alert: ['My alert', 'badge-blue'], breaking: ['Breaking', 'badge-red'], price: ['Price', 'badge-blue'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], macro: ['Digest', 'badge-gray'] };
   const m = map[cat] || ['Alert', 'badge-gray'];
   return '<span class="badge ' + m[1] + '">' + m[0] + '</span>';
 }
@@ -3454,7 +3551,7 @@ function renderResearchMsg(ticker, kind) {
   const noquote = kind === 'noquote';
   const head = noquote ? 'Live quote unavailable for “' + escHtml(ticker) + '”' : 'Couldn\'t find “' + escHtml(ticker) + '”';
   const sub = noquote ? 'We could not fetch a live price right now — please try again in a moment.'
-    : 'No live quote for that symbol — check the spelling, or browse the <a class="auth-link" onclick="sw(\'table\')">Full Scan table</a> to discover tickers.';
+    : 'No live quote for that symbol — check the spelling, or browse <a class="auth-link" onclick="sw(\'table\')">Explore US Stocks</a> to discover tickers.';
   el.innerHTML = '<div class="research-box" style="text-align:center;padding:42px 20px;"><div style="font-size:30px;margin-bottom:8px;">' + (noquote ? '⏳' : '🔍') + '</div><div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px;">' + head + '</div><div class="empty-sub">' + sub + '</div></div>';
 }
 let _researchDoc = { ticker: null, data: null };   // last-loaded Claude brief, so a later live-price pass never wipes it
@@ -3655,11 +3752,13 @@ function openModal(type) {
       '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="addTickerToWL(currentWLId,document.getElementById(\'wlTickerInput\').value);closeModal()">Add</button></div>';
   } else if (type === 'newAlert') {
     box.innerHTML = '<div class="modal-title">New alert</div>' +
-      '<label class="modal-label">Ticker</label><input id="alertTicker" class="modal-input" placeholder="e.g. TSLA"/>' +
-      '<label class="modal-label">Condition</label><select id="alertCond" class="modal-input"><option value="price_above">Price Above</option><option value="price_below">Price Below</option><option value="pct_change">% Change</option><option value="news">Breaking News</option></select>' +
-      '<label class="modal-label">Value</label><input id="alertVal" class="modal-input" placeholder="e.g. 200 or 5%"/>' +
+      '<label class="modal-label">Ticker</label><div class="ac-wrap"><input id="alertTicker" class="modal-input" placeholder="e.g. TSLA" oninput="acFilter(this,\'alertAC\',\'alert\')" onkeydown="acKey(event,\'alertAC\',\'alert\')" autocomplete="off"/><div id="alertAC" class="ac-list" style="display:none"></div></div>' +
+      '<label class="modal-label">Condition</label><select id="alertCond" class="modal-input" onchange="onAlertCondChange()"><option value="price_above">Price above ($)</option><option value="price_below">Price below ($)</option><option value="pct_above">% change above (up by)</option><option value="pct_below">% change below (down by)</option><option value="news">Breaking news</option></select>' +
+      '<label class="modal-label" id="alertValLabel">Target price ($)</label><input id="alertVal" class="modal-input" type="text" inputmode="decimal" placeholder="e.g. 200"/>' +
+      '<div class="modal-price-hint" id="alertValHint" style="margin:-2px 0 0;">Notify me when the price reaches this level.</div>' +
       '<label class="modal-label">Note (optional)</label><input id="alertNote" class="modal-input" placeholder=""/>' +
-      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="createAlert(document.getElementById(\'alertTicker\').value,document.getElementById(\'alertCond\').value,document.getElementById(\'alertVal\').value,document.getElementById(\'alertNote\').value);closeModal()">Create</button></div>';
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitAlert()">Create</button></div>';
+    setTimeout(onAlertCondChange, 0);
   }
 }
 function closeModal() { document.getElementById('modalOverlay').classList.add('hidden'); }
@@ -3903,6 +4002,37 @@ function asstExpand(btn) {
   renderAllAssistant();
   const i = host.querySelector('.asst-input'); if (i) i.focus();
 }
+// ── AI assistant pop-up: bubble (FAB) → panel → fullscreen ──
+let _asstPopMounted = false;
+function _asstPopEnsure() {
+  if (_asstPopMounted) return;
+  const h = document.getElementById('asstPopHost');
+  if (h) { h.innerHTML = assistantHostHtml('pop'); _asstPopMounted = true; }
+}
+function asstPopOpen() {
+  _asstPopEnsure();
+  const p = document.getElementById('asstPop'), f = document.getElementById('asstFab');
+  if (p) p.classList.remove('hidden');
+  if (f) f.classList.add('hidden');
+  renderAllAssistant(); asstFocus();
+}
+function asstPopClose() {
+  const p = document.getElementById('asstPop'), f = document.getElementById('asstFab');
+  if (p) { p.classList.remove('asst-pop-full'); p.classList.add('hidden'); }
+  document.body.classList.remove('asst-pop-full-open');
+  if (f) f.classList.remove('hidden');
+}
+function asstPopToggle() {
+  const p = document.getElementById('asstPop');
+  if (!p || p.classList.contains('hidden')) asstPopOpen(); else asstPopClose();
+}
+function asstPopFull(btn) {
+  const p = document.getElementById('asstPop'); if (!p) return;
+  const on = p.classList.toggle('asst-pop-full');
+  document.body.classList.toggle('asst-pop-full-open', on);
+  if (btn) btn.title = on ? 'Restore size' : 'Fullscreen';
+  renderAllAssistant(); asstFocus();
+}
 function assistantHostHtml(place) {
   return '<div class="asst-host" data-place="' + place + '">' +
     '<div class="asst-head">' +
@@ -3911,6 +4041,7 @@ function assistantHostHtml(place) {
         '<button class="asst-tbtn" title="New chat" onclick="asstNewThread()">' + ic('plus', 16) + '</button>' +
         '<button class="asst-tbtn" title="History" onclick="asstToggleHistory()">' + ic('clock', 16) + '</button>' +
         (place === 'home' ? '<button class="asst-tbtn" title="Expand" onclick="asstExpand(this)">' + ic('expand', 16) + '</button>' : '') +
+        (place === 'pop' ? '<button class="asst-tbtn" title="Fullscreen" onclick="asstPopFull(this)">' + ic('expand', 16) + '</button><button class="asst-tbtn" title="Close" onclick="asstPopClose()">' + ic('x', 16) + '</button>' : '') +
       '</div>' +
       '<div class="asst-history" style="display:none"></div>' +
     '</div>' +
