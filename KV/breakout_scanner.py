@@ -371,6 +371,23 @@ def _new_listing_row(ticker, name, sector, market_cap, price, ma50, high_52w, lo
     }
 
 
+def curve_score(raw):
+    """De-saturate the raw points total into a smooth 0-100 display score.
+
+    The base + bonus points can total ~190, so a hard min(100, raw) cap piled many
+    strong-market names at a flat 100 — higher than Claude's nuanced top picks and
+    uninformative in the table. This keeps the 0-85 band 1:1 (so the STRONG BUY/WATCH
+    thresholds in score_label are unchanged) and compresses the overshoot above 85 with
+    diminishing returns, asymptoting toward — but never reaching — 100. So the strongest
+    setups spread across the high-80s/90s instead of clipping, matching the Top Picks scale.
+    """
+    raw = max(0.0, float(raw))
+    if raw <= 85:
+        return round(raw, 1)
+    over = raw - 85.0
+    return round(85.0 + 15.0 * over / (over + 30.0), 1)
+
+
 def score_stock(ticker_symbol, min_history=50):
     try:
         tk   = yf.Ticker(ticker_symbol)
@@ -465,12 +482,16 @@ def score_stock(ticker_symbol, min_history=50):
         score += earn_data["earnings_score"]     # -5 to +10
         score += 8 if vol_data["is_pocket_pivot"] else 0
 
-        # Cap at 100
-        score = round(min(100, max(0, score)), 1)
+        # De-saturate: keep the raw points total, then curve it to a 0-100 display score
+        # (smooth at the top instead of clipping a flat 100 onto every strong name).
+        score_raw = max(0.0, score)
+        score = curve_score(score_raw)
 
-        if score >= 75:   signal = "STRONG BUY"
-        elif score >= 55: signal = "WATCH"
-        else:             signal = "WEAK"
+        # Signal tiers are computed on the raw total so classification is unchanged by the
+        # display curve (curve is identity ≤85, and every >85 name is already STRONG BUY).
+        if score_raw >= 75:   signal = "STRONG BUY"
+        elif score_raw >= 55: signal = "WATCH"
+        else:                 signal = "WEAK"
 
         # ── Trade levels ──
         stop_loss = round(price * 0.92, 2)
@@ -512,8 +533,9 @@ def score_stock(ticker_symbol, min_history=50):
             "fwd_pe":        round(fwd_pe, 1) if fwd_pe else None,
             "analyst_rating": round(analyst_up, 2) if analyst_up else None,
             # Score & signal
-            "score":   score,
-            "signal":  signal,
+            "score":     score,
+            "score_raw": round(score_raw, 1),   # uncapped points total (run_full_scan re-curves with the news addon)
+            "signal":    signal,
             # Trade levels
             "entry":     round(price, 2),
             "stop_loss": stop_loss,
