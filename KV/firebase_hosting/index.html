@@ -23,7 +23,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <script src="/symbols.js"></script><!-- full US listings catalog (Nasdaq + NYSE/AMEX): window.US_SYMBOLS -->
-<script src="https://s3.tradingview.com/tv.js"></script><!-- TradingView Advanced Chart widget library -->
+<!-- TradingView Advanced Chart now uses the modern external-embedding widget (embed-widget-advanced-chart.js), loaded on demand per mount — no global tv.js library needed. -->
 
 <style>
 /* ════════ Design tokens ════════ */
@@ -2703,26 +2703,71 @@ function tvSymbol(t) {
   t = (t || '').toUpperCase().trim();
   if (!t) return 'SPY';
   if (/-USD$/.test(t)) return 'COINBASE:' + t.replace('-USD', 'USD');   // crypto: BTC-USD -> COINBASE:BTCUSD
-  return t.replace(/[.\-]/g, '');   // bare ticker resolves to its primary listing on TradingView
+  // Equities: keep the ticker intact and resolve to TradingView's class-share form. Yahoo/scan use a
+  // dash for share classes (BRK-B, BF-B); TradingView uses a dot (BRK.B). The old code stripped dots
+  // AND dashes, turning BRK-B into the INVALID 'BRKB' (no such TV symbol) — which left the financials/TA
+  // widgets blank. A correctly-formed bare ticker auto-resolves to its primary US listing on TradingView.
+  return t.replace(/-/g, '.');
 }
+// TradingView's Financials & Technical-Analysis widgets need a fully-qualified EXCHANGE:TICKER symbol
+// (e.g. NYSE:GS) — a bare ticker resolves in the lenient Symbol-Profile widget but leaves those two
+// BLANK. The scan data has no exchange field, so we look the exchange up via the deployed searchSymbols
+// endpoint (server-side Yahoo search — quota-free, never stale, and returns the correct US listing even
+// for ADRs like TSM). Yahoo's `exchDisp` maps cleanly to TradingView's exchange codes. Front-end only.
+const _tvSymCache = {};   // ticker -> 'EXCHANGE:TICKER' (cached); '' once we've learned no usable prefix
+function _tvExFromDisp(disp, exch) {
+  const d = (disp || '').toUpperCase().replace(/\s+/g, '');     // "NYSE Arca" -> "NYSEARCA"
+  const e = (exch || '').toUpperCase();                          // Yahoo short code: NMS/NYQ/PCX/ASE/NGM…
+  if (d.includes('NASDAQ') || ['NMS', 'NGM', 'NCM', 'NAS', 'NSD'].includes(e)) return 'NASDAQ';
+  if (d === 'NYSE' || e === 'NYQ') return 'NYSE';
+  // NYSE Arca / NYSE American / Cboe / BATS ETFs all live under AMEX on TradingView (e.g. AMEX:SPY).
+  if (d.includes('ARCA') || d.includes('AMERICAN') || d.includes('AMEX') || d.includes('CBOE') || d.includes('BATS') || ['PCX', 'ASE', 'BTS', 'BATS'].includes(e)) return 'AMEX';
+  if (d.includes('NYSE')) return 'NYSE';
+  return '';   // unknown — fall back to the bare symbol (Chart/Profile still resolve it)
+}
+// Resolve a ticker to a TradingView EXCHANGE:TICKER symbol (Promise). Crypto is already qualified by
+// tvSymbol(); equities/ETFs look up the exchange via Yahoo. Always resolves (bare fallback) — never rejects.
+function resolveTvSymbol(ticker) {
+  const base = tvSymbol(ticker);
+  if (base.includes(':')) return Promise.resolve(base);          // crypto already qualified
+  const t = (ticker || '').toUpperCase().trim();
+  if (_tvSymCache[t]) return Promise.resolve(_tvSymCache[t]);     // known prefix
+  if (_tvSymCache[t] === '') return Promise.resolve(base);        // learned: no usable prefix → bare
+  const yq = t.replace(/\./g, '-');                              // Yahoo uses a dash for class shares (BRK.B -> BRK-B)
+  const finish = ex => { _tvSymCache[t] = ex ? (ex + ':' + base) : ''; return _tvSymCache[t] || base; };
+  // 1) Yahoo symbol search — fast, covers ~99%. Only trust an EXACT US-listed equity/ETF match so a
+  //    foreign same-name listing (e.g. CTRA.JK in Jakarta) can never hijack the result.
+  return fetch(SEARCH_API + '?q=' + encodeURIComponent(yq)).then(r => r.json()).then(d => {
+    const qs = (d && d.quotes) || [];
+    const m = qs.find(q => (q.symbol || '').toUpperCase() === yq && ['EQUITY', 'ETF'].includes(q.quoteType));
+    const ex = m ? _tvExFromDisp(m.exchDisp, m.exchange) : '';
+    if (ex) return finish(ex);
+    // 2) Fallback: the chart endpoint resolves the bare US ticker authoritatively (catches names Yahoo
+    //    search mis-ranks, e.g. CTRA -> NYSE). One extra call, only when search couldn't pin the exchange.
+    return fetch(SERIES_API + '?symbol=' + encodeURIComponent(yq) + '&range=5d').then(r => r.json())
+      .then(d2 => finish(_tvExFromDisp('', (d2 && d2.meta && d2.meta.exchange) || '')))
+      .catch(() => base);
+  }).catch(() => base);
+}
+// Advanced Chart — modern external-embedding widget (the legacy s3.tradingview.com/tv.js global
+// `new TradingView.widget()` was the perpetual-spinner culprit: it polled forever for window.TradingView
+// with no timeout). This uses the SAME external-embedding pattern as the TA/financials/profile widgets,
+// so it loads its own script + iframe and renders reliably.
 function mountTvChart(containerId, ticker, opts) {
-  const el = document.getElementById(containerId); if (!el) return;
-  if (!window.TradingView || !TradingView.widget) { setTimeout(() => mountTvChart(containerId, ticker, opts), 500); return; }
-  el.innerHTML = '';
-  try {
-    const cfg = {
-      container_id: containerId, symbol: tvSymbol(ticker), interval: 'D', autosize: true,
-      theme: tvTheme(), style: '1', timezone: 'Etc/UTC', locale: 'en',
-      allow_symbol_change: true, hide_side_toolbar: false, withdateranges: true
-    };
-    if (opts && opts.range) cfg.range = opts.range;   // e.g. '12M' to default to the 52-week journey
-    new TradingView.widget(cfg);
-  } catch (e) {}
+  const cfg = {
+    symbol: tvSymbol(ticker), interval: 'D', autosize: true,
+    theme: tvTheme(), style: '1', timezone: 'Etc/UTC', locale: 'en',
+    allow_symbol_change: true, hide_side_toolbar: false, withdateranges: true,
+    support_host: 'https://www.tradingview.com'
+  };
+  if (opts && opts.range) cfg.range = opts.range;   // e.g. '12M' to default to the 52-week journey
+  _tvEmbed(containerId, 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js', cfg);
 }
-// Generic external-embedding widget mount (TA, financials, company profile all share this pattern).
+// Generic external-embedding widget mount (chart, TA, financials, company profile all share this pattern).
+// The wrapper fills 100% height so autosize:true widgets (the chart) expand to the container's set height.
 function _tvEmbed(containerId, src, cfg) {
   const el = document.getElementById(containerId); if (!el) return;
-  el.innerHTML = '<div class="tradingview-widget-container" style="width:100%"><div class="tradingview-widget-container__widget"></div></div>';
+  el.innerHTML = '<div class="tradingview-widget-container" style="width:100%;height:100%"><div class="tradingview-widget-container__widget" style="width:100%;height:100%"></div></div>';
   const sc = document.createElement('script');
   sc.type = 'text/javascript'; sc.async = true; sc.src = src;
   sc.innerHTML = JSON.stringify(cfg);
@@ -2730,13 +2775,14 @@ function _tvEmbed(containerId, src, cfg) {
 }
 // isTransparent:false -> the widget paints a SOLID panel that matches colorTheme (dark in dark
 // mode, white in light mode) with full-contrast text — no washed-out transparent rendering.
+// TA & Financials resolve to EXCHANGE:TICKER first (these two widgets blank on a bare ticker).
 function mountTvTA(containerId, ticker) {
-  _tvEmbed(containerId, 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js',
-    { symbol: tvSymbol(ticker), interval: '1D', width: '100%', height: 440, isTransparent: false, showIntervalTabs: true, displayMode: 'single', colorTheme: tvTheme(), locale: 'en' });
+  resolveTvSymbol(ticker).then(sym => _tvEmbed(containerId, 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js',
+    { symbol: sym, interval: '1D', width: '100%', height: 440, isTransparent: false, showIntervalTabs: true, displayMode: 'single', colorTheme: tvTheme(), locale: 'en' }));
 }
 function mountTvFinancials(containerId, ticker) {
-  _tvEmbed(containerId, 'https://s3.tradingview.com/external-embedding/embed-widget-financials.js',
-    { symbol: tvSymbol(ticker), colorTheme: tvTheme(), displayMode: 'regular', isTransparent: false, largeChartUrl: '', width: '100%', height: 600, locale: 'en' });
+  resolveTvSymbol(ticker).then(sym => _tvEmbed(containerId, 'https://s3.tradingview.com/external-embedding/embed-widget-financials.js',
+    { symbol: sym, colorTheme: tvTheme(), displayMode: 'regular', isTransparent: false, largeChartUrl: '', width: '100%', height: 600, locale: 'en' }));
 }
 function mountTvProfile(containerId, ticker) {
   _tvEmbed(containerId, 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js',
