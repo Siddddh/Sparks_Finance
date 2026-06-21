@@ -13,6 +13,9 @@
 <meta name="apple-mobile-web-app-title" content="Sparks"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- TradingView (Research tab chart/financials/profile/technical) — warm the connection so widgets paint sooner -->
+<link rel="preconnect" href="https://s3.tradingview.com" crossorigin><link rel="preconnect" href="https://www.tradingview-widget.com" crossorigin>
+<link rel="dns-prefetch" href="https://s3.tradingview.com"><link rel="dns-prefetch" href="https://www.tradingview-widget.com">
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -1226,7 +1229,7 @@ body.sidebar-open .nav-scrim{display:block;}
           <div class="sig-legend">Signals checklist: <span class="dot p"></span> criterion met · <span class="dot f"></span> not met — hover any dot for its name.</div>
           <div class="twrap"><table id="scanTable"><thead><tr>
             <th onclick="st('ticker')">Ticker</th><th onclick="st('signal')" title="Overall call: Strong Buy / Watch / Weak">Signal</th>
-            <th onclick="st('combined_score')" title="Combined 0–100 score across all factors">Score</th><th class="gradecol" onclick="st('setup_quality')">Grade</th>
+            <th onclick="st('_uscore')" title="Claude-tuned 0–100 score — one consistent rubric applied to every stock">Score</th><th class="gradecol" onclick="st('setup_quality')">Grade</th>
             <th onclick="st('price')">Price</th><th class="xcol-sm" onclick="st('rsi')" title="Relative Strength Index (14): above 70 overbought, below 30 oversold">RSI</th>
             <th class="xcol-sm" onclick="st('vol_ratio')" title="Volume ratio — today's volume vs its average (1.5× = 50% above normal)">Vol×</th><th onclick="st('momentum_3m')" title="Price change over the last 3 months">3M%</th>
             <th onclick="st('eps_growth')" title="Year-over-year earnings-per-share growth">EPS%</th>
@@ -1450,8 +1453,9 @@ let notifications = [];
 let notifFilter = 'all';
 let healthData = null, summaryData = null;
 let chartsInited = false;
-let sortKey = 'combined_score', sortAsc = false;
+let sortKey = '_uscore', sortAsc = false;  // Screener default sort: the unified Claude-tuned score
 let currentResearchTicker = null;
+let _tvResTicker = null;   // ticker the Research TradingView widgets are currently mounted for (mount-once guard)
 let picksShown = 24; // how many home cards to render (Fix #5 — show WATCH/WEAK too)
 // Portfolio holdings table: sort + search state, and a 52-week range cache for held tickers.
 let pfSortKey = 'value', pfSortAsc = false, pfSearchFilter = null, _pfRanges = {};
@@ -2395,12 +2399,12 @@ function renderExplore() {
   const bySec = {};
   stocks.forEach(s => { const k = s.sector || 'Other'; (bySec[k] = bySec[k] || []).push(s); });
   Object.keys(bySec).filter(k => k && k !== 'Other' && k !== '—').sort((a, b) => bySec[b].length - bySec[a].length).forEach(k => {
-    html += expRail('table', k, bySec[k].slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 16), "sw('table')");
+    html += expRail('table', k, bySec[k].slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 16), "exploreToScreener('sector','" + k.replace(/'/g, "\\'") + "')");
   });
   html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('box', 18) + ' Browse by market cap</div></div><div class="exp-mcaps">' +
     [['mega', 'Mega cap', '$200B+'], ['large', 'Large cap', '$10–200B'], ['mid', 'Mid cap', '$2–10B'], ['small', 'Small cap', '< $2B']].map(m => {
       const n = stocks.filter(s => mcapBucketOf(s.market_cap_b) === m[0]).length;
-      return '<div class="exp-mcap" onclick="sw(\'table\')"><div class="exp-mcap-t">' + m[1] + '</div><div class="exp-mcap-s">' + m[2] + ' · ' + n + ' stocks</div></div>';
+      return '<div class="exp-mcap" onclick="exploreToScreener(\'mcapBucket\',\'' + m[0] + '\')"><div class="exp-mcap-t">' + m[1] + '</div><div class="exp-mcap-s">' + m[2] + ' · ' + n + ' stocks</div></div>';
     }).join('') + '</div></div>';
   html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('newspaper', 18) + ' Stock news</div><span class="exp-seeall" onclick="sw(\'market\')">see all →</span></div><div id="exploreNews" class="news-cards"></div></div>';
   el.innerHTML = html;
@@ -2460,6 +2464,50 @@ function newsSearch() {
 
 // ── Screening / filter helpers (#12) ──
 function mcapBucketOf(b) { b = parseFloat(b) || 0; return b >= 200 ? 'mega' : b >= 10 ? 'large' : b >= 2 ? 'mid' : 'small'; }
+
+// ── Screener-only unified score (Claude-tuned rubric) ─────────────────────────
+// One consistent score for EVERY row on the Screener so the column reads on a single
+// scale instead of mixing Claude's ~30 hand-scores with ~470 saturated rule scores.
+// This is SCREENER-ONLY: it writes a throwaway `s._uscore`; it never touches
+// `combined_score`, `D.claude_picks`, or the Top Picks cards. Weights encode Claude's
+// priorities over the normalized factors every scan row already carries; if a scan ever
+// ships `D.score_rubric`, that overrides the built-in default ("Claude owns the rubric").
+const SCREENER_RUBRIC = {
+  trend: 0.14, nearHigh: 0.10, rsi: 0.08, volume: 0.07,
+  eps: 0.12, rev: 0.08, analyst: 0.05, momentum: 0.08,
+  vcp: 0.10, rs: 0.08, vdu: 0.04, squeeze: 0.03, insider: 0.02, earnings: 0.01
+};
+function screenerScore(s) {
+  const R = (D && D.score_rubric) || SCREENER_RUBRIC;
+  const cl = v => Math.max(0, Math.min(1, v));
+  const c = s.criteria || {};
+  const num = (v, d) => (v == null || isNaN(+v)) ? d : +v;
+  const pfh = num(s.pct_from_high, -50);   // 0 = at 52w high (best); guard 0-is-falsy
+  const rsi = num(s.rsi, 50);
+  // Each factor normalized to 0–1 (1 = ideal for a quality breakout setup).
+  const f = {
+    trend: c.trend_ok ? 1 : 0,
+    nearHigh: cl(1 + pfh / 25),                       // 0% off high → 1, −25% → 0
+    rsi: cl(1 - Math.abs(rsi - 60) / 30),             // peaks at 60, 0 at 30/90
+    volume: cl((num(s.vol_ratio, 0) - 0.8) / 1.2),    // 0.8× → 0, 2.0× → 1
+    eps: cl(num(s.eps_growth, 0) / 40),               // +40% → 1
+    rev: cl(num(s.rev_growth, 0) / 30),               // +30% → 1
+    analyst: s.analyst_rating != null ? cl((4 - s.analyst_rating) / 3) : 0.5, // 1=SB→1, 4=Reduce→0
+    momentum: cl((num(s.momentum_3m, 0) + 10) / 40),  // −10% → 0, +30% → 1
+    vcp: cl(num(s.vcp_score, 0) / 30),
+    rs: cl(num(s.rs_score, 0) / 20),
+    vdu: cl(num(s.vdu_score, 0) / 15),
+    squeeze: cl(num(s.squeeze_score, 0) / 15),
+    insider: cl(num(s.insider_score, 0) / 15),
+    earnings: cl((num(s.earnings_score, 0) + 5) / 15)
+  };
+  let sum = 0, wsum = 0;
+  for (const k in R) { if (f[k] != null && R[k] > 0) { sum += R[k] * f[k]; wsum += R[k]; } }
+  // Weighted average of normalized factors → naturally spread 0–100 (only an all-ideal
+  // stock reaches 100), so no pile-up at the top the way the saturated rule score had.
+  return Math.round(Math.max(0, Math.min(100, wsum ? (sum / wsum) * 100 : 0)));
+}
+function uscoreCls(v) { return v >= 75 ? 'sc-SB' : v >= 55 ? 'sc-W' : 'sc-K'; }
 function isAiExposure(s) {
   const sec = (s.sector || '').toLowerCase();
   if (sec.includes('tech') || sec.includes('semiconductor') || sec.includes('communication')) return true;
@@ -2499,6 +2547,14 @@ function applyPreset(name) {
   renderTable(D && D.stocks || []);
 }
 function clearScreen() { _resetFilters(); syncScreenBar(); renderTable(D && D.stocks || []); }
+// Explore tile/rail → Screener with one filter pre-applied (all others reset). Used by the market-cap tiles and sector rails.
+function exploreToScreener(field, value) {
+  _resetFilters();
+  if (field) tableFilters[field] = value;
+  sw('table');
+  syncScreenBar();
+  renderTable((D && D.stocks) || []);
+}
 function syncScreenBar() {
   const f = tableFilters, g = id => document.getElementById(id);
   if (!g('scrSignal')) return;
@@ -2558,12 +2614,15 @@ function factorBreakdownHtml(s) {
 function st(k) { sortKey === k ? (sortAsc = !sortAsc) : (sortKey = k, sortAsc = false); renderTable(D && D.stocks || []); }
 function syncSortHeaders() {
   // Indices match the header order (hidden columns still occupy their index). analyst_rating ascending = best-rated first.
-  const map = {ticker:0,signal:1,combined_score:2,setup_quality:3,price:4,rsi:5,vol_ratio:6,momentum_3m:7,eps_growth:8,rev_growth:9,fwd_pe:10,analyst_rating:11,market_cap_b:12,sector:13,days_to_earnings:14,pct_from_high:15,rr_ratio:16};
+  const map = {ticker:0,signal:1,_uscore:2,combined_score:2,setup_quality:3,price:4,rsi:5,vol_ratio:6,momentum_3m:7,eps_growth:8,rev_growth:9,fwd_pe:10,analyst_rating:11,market_cap_b:12,sector:13,days_to_earnings:14,pct_from_high:15,rr_ratio:16};
   document.querySelectorAll('#tab-table th').forEach((th, i) => { th.classList.remove('sa', 'sd'); if (i === map[sortKey]) th.classList.add(sortAsc ? 'sa' : 'sd'); });
 }
 function mcapStr(b) { b = parseFloat(b); if (!b) return '—'; return b >= 1000 ? '$' + (b / 1000).toFixed(2) + 'T' : '$' + b.toFixed(1) + 'B'; }
 function renderTable(picks) {
   const all = picks || [];
+  // Unified Claude-tuned score for the Screener (one scale for every row). Throwaway field —
+  // never persisted, never used by Top Picks; recomputed each render so a tuned rubric applies live.
+  all.forEach(s => { s._uscore = screenerScore(s); });
   const filtered = applyTableFilters(all);
   const sorted = [...filtered].sort((a, b) => {
     const av = a[sortKey] ?? -Infinity, bv = b[sortKey] ?? -Infinity;
@@ -2578,10 +2637,10 @@ function renderTable(picks) {
   }
   document.getElementById('tblBody').innerHTML = sorted.map(s => {
     const sig = (s.signal || '').replace(' ', '-');
-    const scc = signalCls(s.signal);
+    const scc = uscoreCls(s._uscore);  // Score circle color tracks the unified screener score, not the signal
     const dots = Object.entries(s.criteria || {}).map(([k, v]) => '<div class="dot ' + (v ? 'p' : 'f') + '" title="' + (CRIT_TIP[k] || critLabels[k] || k) + ' — ' + (v ? 'pass' : 'fail') + '"></div>').join('');
     const range52 = (s.low_52w != null && s.high_52w != null) ? '<div class="t52">$' + s.low_52w + '–$' + s.high_52w + '</div>' : '';
-    return '<tr><td><b style="color:var(--blue);cursor:pointer" onclick="goResearch(\'' + s.ticker + '\')">' + s.ticker + '</b>' + (s.is_new_listing ? '<span class="tbl-new" title="New listing — limited history">NEW</span>' : '') + '<br><span class="tname" style="font-size:10px;color:var(--text-3)" title="' + escHtml(s.name || '') + '">' + escHtml(s.name || '') + '</span></td><td><span class="sig sig-' + sig + '">' + s.signal + '</span></td><td><span class="sc-circle ' + scc + '">' + (s.combined_score || 0) + '</span></td><td class="gradecol" style="font-weight:700;color:var(--blue)">' + (s.setup_quality || '—') + '</td><td>$' + s.price + '</td><td class="xcol-sm" style="color:' + (s.rsi >= 50 && s.rsi <= 75 ? 'var(--green)' : 'var(--text-3)') + ';font-weight:600">' + s.rsi + '</td><td class="xcol-sm">' + s.vol_ratio + '×</td><td style="color:' + (s.momentum_3m >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (s.momentum_3m >= 0 ? '+' : '') + s.momentum_3m + '%</td><td style="color:' + (s.eps_growth >= 20 ? 'var(--green)' : s.eps_growth > 0 ? 'var(--text-2)' : 'var(--red)') + '">' + (s.eps_growth != null ? (s.eps_growth >= 0 ? '+' : '') + s.eps_growth + '%' : '—') + '</td>' +
+    return '<tr><td><b style="color:var(--blue);cursor:pointer" onclick="goResearch(\'' + s.ticker + '\')">' + s.ticker + '</b>' + (s.is_new_listing ? '<span class="tbl-new" title="New listing — limited history">NEW</span>' : '') + '<br><span class="tname" style="font-size:10px;color:var(--text-3)" title="' + escHtml(s.name || '') + '">' + escHtml(s.name || '') + '</span></td><td><span class="sig sig-' + sig + '">' + s.signal + '</span></td><td><span class="sc-circle ' + scc + '">' + (s._uscore != null ? s._uscore : 0) + '</span></td><td class="gradecol" style="font-weight:700;color:var(--blue)">' + (s.setup_quality || '—') + '</td><td>$' + s.price + '</td><td class="xcol-sm" style="color:' + (s.rsi >= 50 && s.rsi <= 75 ? 'var(--green)' : 'var(--text-3)') + ';font-weight:600">' + s.rsi + '</td><td class="xcol-sm">' + s.vol_ratio + '×</td><td style="color:' + (s.momentum_3m >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (s.momentum_3m >= 0 ? '+' : '') + s.momentum_3m + '%</td><td style="color:' + (s.eps_growth >= 20 ? 'var(--green)' : s.eps_growth > 0 ? 'var(--text-2)' : 'var(--red)') + '">' + (s.eps_growth != null ? (s.eps_growth >= 0 ? '+' : '') + s.eps_growth + '%' : '—') + '</td>' +
       '<td class="xcol xcol-rev" style="color:' + (s.rev_growth >= 10 ? 'var(--green)' : s.rev_growth < 0 ? 'var(--red)' : 'var(--text-2)') + '">' + (s.rev_growth != null ? (s.rev_growth >= 0 ? '+' : '') + s.rev_growth + '%' : '—') + '</td>' +
       '<td class="xcol xcol-pe">' + (s.fwd_pe != null && s.fwd_pe > 0 ? s.fwd_pe : '—') + '</td>' +
       '<td class="xcol xcol-analyst">' + analystLabel(s.analyst_rating) + '</td>' +
@@ -3936,6 +3995,22 @@ function queueTickerAnalysis(ticker) {
 }
 function renderAgentResearch(ticker, agentData, scanData) {
   const el = document.getElementById('researchContent'); if (!el) return;
+  // Fast path: this ticker is already painted with its TradingView widgets mounted → update only the
+  // live snapshot (.rtop) and Claude brief (.rbrief) in place, leaving the 4 iframes untouched. This is
+  // what makes a click feel instant: runResearch paints once, then the Firestore-brief and live-price
+  // passes flow through here WITHOUT rebuilding/re-mounting TradingView (the old 4×-remount reload jank).
+  if (_tvResTicker === ticker && document.getElementById('tvResChart')) {
+    const top = el.querySelector('.rtop');
+    if (top) top.innerHTML = scanData ? scanDataSection(ticker, scanData) : quickResearchSection(ticker);
+    const newBrief = claudeBriefSection(ticker, agentData);
+    if (newBrief) {   // only replace when we actually have brief HTML — never wipe a loaded brief with an empty pass
+      const tmp = document.createElement('div'); tmp.innerHTML = newBrief;
+      const node = tmp.firstElementChild, oldBrief = el.querySelector('.rbrief');
+      if (node) { if (oldBrief) oldBrief.replaceWith(node); else if (top) top.insertAdjacentElement('afterend', node); }
+    }
+    return;
+  }
+  // Full build — first paint, or the ticker changed. Render everything, then mount TradingView once.
   let html = '';
   // 1) Live snapshot — the at-a-glance "critical info" (scan read if in universe, else a live-quote read)
   html += '<div class="rtop">' + (scanData ? scanDataSection(ticker, scanData) : quickResearchSection(ticker)) + '</div>';
@@ -3950,6 +4025,7 @@ function renderAgentResearch(ticker, agentData, scanData) {
     mountTvTA('tvResTA', ticker);
     mountTvProfile('tvResProfile', ticker);
   } catch (e) {}
+  _tvResTicker = ticker;   // widgets are now mounted for this ticker — subsequent same-ticker renders take the fast path
 }
 function defaultResearchTicker() {
   try {
@@ -3959,21 +4035,26 @@ function defaultResearchTicker() {
   } catch (e) {}
   return 'AAPL';
 }
-// Auto-load a sensible default when the user first hops to Research; otherwise re-mount the
-// TradingView widgets (they can lose their size while the tab is display:none).
+// Auto-load a sensible default when the user first hops to Research. On re-entry the widgets persist
+// while the tab is hidden, so DON'T blindly re-mount (that caused reload flicker) — only (re)mount when
+// they're genuinely missing or were built for a different ticker.
 function enterResearch() {
   if (!currentResearchTicker) {
     const t = defaultResearchTicker();
     const inp = document.getElementById('researchInput'); if (inp) inp.value = t;
     runResearch();
-  } else if (document.getElementById('tvResChart')) {
-    try {
-      mountTvChart('tvResChart', currentResearchTicker, { range: '12M' });
-      mountTvFinancials('tvResFin', currentResearchTicker);
-      mountTvTA('tvResTA', currentResearchTicker);
-      mountTvProfile('tvResProfile', currentResearchTicker);
-    } catch (e) {}
+    return;
   }
+  const chart = document.getElementById('tvResChart');
+  if (!chart) { runResearch(); return; }                 // section gone entirely → rebuild + fetch
+  if (_tvResTicker === currentResearchTicker) return;    // already mounted for this ticker → no-op (no flicker)
+  try {
+    mountTvChart('tvResChart', currentResearchTicker, { range: '12M' });
+    mountTvFinancials('tvResFin', currentResearchTicker);
+    mountTvTA('tvResTA', currentResearchTicker);
+    mountTvProfile('tvResProfile', currentResearchTicker);
+    _tvResTicker = currentResearchTicker;
+  } catch (e) {}
 }
 function _briefList(arr) { return (arr || []).map(x => '<div class="th-item">• ' + escHtml(x) + '</div>').join(''); }
 function claudeBriefSection(ticker, a) {
