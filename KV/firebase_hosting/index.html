@@ -23,7 +23,8 @@
 <script src="https://s3.tradingview.com/tv.js"></script><!-- TradingView Advanced Chart widget library -->
 
 <style>
-/* ════════ Google Finance Beta design tokens ════════ */
+/* ════════ Design tokens ════════ */
+/* ── OLD THEME (pre-newtheme · Google-Finance blue) — kept commented for rollback ──
 :root{
   --bg:#ffffff; --surface:#f8f9fa; --surface-2:#ffffff; --surface-hover:#f1f3f4;
   --text:#202124; --text-2:#5f6368; --text-3:#9aa0a6;
@@ -45,6 +46,35 @@
   --green:#81c995; --green-soft:#13231a;
   --red:#f28b82; --red-soft:#2c1512;
   --amber:#fdd663; --amber-soft:#332a12;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 1px 3px rgba(0,0,0,.3);
+  --shadow-lg:0 2px 8px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+── end old theme ── */
+/* ── NEW THEME (newtheme.html · white+blue light / black+orange dark) ── */
+:root{
+  --bg:#ffffff; --surface:#f4f6f9; --surface-2:#ffffff; --surface-hover:#eef1f5;
+  --text:#0b0d12; --text-2:#59636f; --text-3:#9aa1ab;
+  --border:#e4e8ed; --border-soft:#eef1f5;
+  --blue:#445bfb; --blue-soft:#eaedff; --blue-hover:#3548d8;
+  --green:#16a65c; --green-soft:#e7f6ee;
+  --red:#e23e57; --red-soft:#fdeaed;
+  --amber:#f97316; --amber-soft:#fff0e6;
+  --logo-line:#445bfb; --logo-spark:#f97316;
+  --shadow:0 1px 2px rgba(60,64,67,.1),0 1px 3px rgba(60,64,67,.08);
+  --shadow-lg:0 2px 6px rgba(60,64,67,.15),0 1px 2px rgba(60,64,67,.1);
+  --radius:8px; --nav-h:56px; --strip-h:44px; --sidebar-w:240px;
+  color-scheme:light;
+}
+[data-theme="dark"]{
+  --bg:#07080a; --surface:#12161d; --surface-2:#0e1116; --surface-hover:#1b212a;
+  --text:#f3f5f7; --text-2:#9aa3af; --text-3:#5a626d;
+  --border:rgba(255,122,26,.30); --border-soft:rgba(33,210,124,.18);
+  --blue:#ff7a1a; --blue-soft:rgba(255,122,26,.14); --blue-hover:#ff9344;
+  --green:#21d27c; --green-soft:rgba(33,210,124,.14);
+  --red:#ff5c7a; --red-soft:rgba(255,92,122,.14);
+  --amber:#ffb020; --amber-soft:rgba(255,176,32,.14);
+  --logo-line:#21d27c; --logo-spark:#ff7a1a;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 1px 3px rgba(0,0,0,.3);
   --shadow-lg:0 2px 8px rgba(0,0,0,.5);
   color-scheme:dark;
@@ -135,8 +165,10 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .tour-btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
 .tour-btn:hover{border-color:var(--blue);}
 .tour-primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+/* dark mode: dark text on the orange accent (white-on-orange fails contrast) */
+[data-theme="dark"] .tour-primary,[data-theme="dark"] .cc-go,[data-theme="dark"] .cc-chip.active,[data-theme="dark"] .cc-seg button.active{color:#202124;}
 @media(prefers-reduced-motion:reduce){.tour-hole{transition:none;}}
-.tw-orb{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:#445BFB;margin:0 auto 12px;}
+.tw-orb{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--blue);margin:0 auto 12px;}
 .tw-noshow{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;color:var(--text-3);margin-top:14px;cursor:pointer;}
 .tw-noshow input{width:auto;margin:0;cursor:pointer;}
 .auth-form{display:none;}.auth-form.active{display:block;}
@@ -785,8 +817,8 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .asst-host.asst-expanded{position:fixed;top:var(--asst-exp-top,calc(var(--nav-h) + var(--strip-h)));left:var(--asst-exp-left,var(--sidebar-w));right:0;bottom:0;height:auto;max-height:none;z-index:1500;background:var(--bg);padding:16px 22px 18px;border-left:1px solid var(--border);box-shadow:-8px 0 30px rgba(0,0,0,.12);}
 body.asst-expanded-open{overflow:hidden;}
 /* ── AI assistant pop-up: floating bubble → panel → fullscreen ── */
-.asst-fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:1400;width:56px;height:56px;border:none;border-radius:50%;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;background:#445BFB;box-shadow:0 8px 24px rgba(68,91,251,.42);transition:transform .15s ease,box-shadow .15s ease;}
-.asst-fab:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 12px 34px rgba(26,115,232,.55);}
+.asst-fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:1400;width:56px;height:56px;border:none;border-radius:50%;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;background:var(--blue);box-shadow:0 8px 24px rgba(0,0,0,.28);transition:transform .15s ease,box-shadow .15s ease;}
+.asst-fab:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 12px 30px rgba(0,0,0,.34);}
 .asst-fab.hidden{display:none;}
 .asst-pop{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:1450;width:min(400px,calc(100vw - 28px));height:min(620px,calc(100dvh - 110px));background:var(--surface-2);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden;animation:asstPopIn .18s ease;}
 .asst-pop.hidden{display:none;}
@@ -1314,6 +1346,7 @@ function applyTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
   const btn = document.getElementById('themeToggle');
   if (btn) btn.innerHTML = ic(t === 'dark' ? 'sun' : 'moon', 20);
+  const mt = document.querySelector('meta[name="theme-color"]'); if (mt) mt.content = (t === 'dark' ? '#07080a' : '#ffffff');   // match the browser chrome to the theme bg
   try { localStorage.setItem('sparks-theme', t); } catch (e) {}
   if (typeof _remountTvForTheme === 'function') _remountTvForTheme();   // TradingView widgets don't auto-theme
 }
@@ -1323,14 +1356,17 @@ function toggleTheme() {
   applyTheme(cur === 'dark' ? 'light' : 'dark');
 }
 (function () {
-  let t = 'light';
-  try { t = localStorage.getItem('sparks-theme') || 'light'; } catch (e) {}
+  // Dark is the default for new users; a saved preference (from the toggle) always wins.
+  // let t = 'light'; t = localStorage.getItem('sparks-theme') || 'light';   // old: light default
+  let t = 'dark';
+  try { t = localStorage.getItem('sparks-theme') || 'dark'; } catch (e) {}
   document.documentElement.setAttribute('data-theme', t);
+  try { const mt = document.querySelector('meta[name="theme-color"]'); if (mt) mt.content = (t === 'dark' ? '#07080a' : '#ffffff'); } catch (e) {}
 })();
 
 // ════════ Static icon injection ════════
 function injectStaticIcons() {
-  const brandMark = (sz) => '<svg width="' + sz + '" height="' + sz + '" viewBox="0 0 48 48" fill="none" aria-hidden="true"><polyline points="5,36 15,27 24,30 34,16" fill="none" stroke="#445BFB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M39 2C39.78 7.08 42.92 10.22 48 11C42.92 11.78 39.78 14.92 39 20C38.22 14.92 35.08 11.78 30 11C35.08 10.22 38.22 7.08 39 2Z" fill="#F59E0B"/></svg>';
+  const brandMark = (sz) => '<svg width="' + sz + '" height="' + sz + '" viewBox="0 0 48 48" fill="none" aria-hidden="true"><polyline points="5,36 15,27 24,30 34,16" fill="none" stroke="var(--logo-line)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M39 2C39.78 7.08 42.92 10.22 48 11C42.92 11.78 39.78 14.92 39 20C38.22 14.92 35.08 11.78 30 11C35.08 10.22 38.22 7.08 39 2Z" fill="var(--logo-spark)"/></svg>';
   ['loadSpark', 'authSpark', 'brandSpark'].forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = brandMark(id === 'brandSpark' ? 22 : 24); });
   const sIcon = document.getElementById('searchIcon'); if (sIcon) sIcon.innerHTML = ic('search', 18);
   const ham = document.getElementById('hamburgerBtn'); if (ham) ham.innerHTML = ic('menu', 22);
@@ -1523,7 +1559,7 @@ function todayStr() { return new Date().toISOString().slice(0, 10); }
 function daysHeld(buyDate) { if (!buyDate) return 0; const d = new Date(buyDate); const now = new Date(); return Math.max(0, Math.round((now - d) / 864e5)); }
 function daysHeldStr(buyDate) { const d = daysHeld(buyDate); if (d < 30) return d + 'd'; if (d < 365) return Math.round(d / 30) + 'mo'; return (d / 365).toFixed(1) + 'yr'; }
 function annualizedReturn(pct, buyDate) { const d = daysHeld(buyDate); if (!d || d < 7) return null; const years = d / 365; return (Math.pow(1 + pct / 100, 1 / years) - 1) * 100; }
-function logoColor(ticker) { const colors = ['#1a73e8','#0f9d58','#9334e6','#f29900','#d93025','#0891b2','#be123c','#7c3aed']; let h = 0; for (let i = 0; i < ticker.length; i++) h = (h * 31 + ticker.charCodeAt(i)) & 0xFFFFFF; return colors[Math.abs(h) % colors.length]; }
+function logoColor(ticker) { const colors = ['#445bfb','#0f9d58','#9334e6','#f29900','#d93025','#0891b2','#be123c','#7c3aed']; let h = 0; for (let i = 0; i < ticker.length; i++) h = (h * 31 + ticker.charCodeAt(i)) & 0xFFFFFF; return colors[Math.abs(h) % colors.length]; }
 
 // ── Lazy real logos + mini sparklines (shared by Explore cards and Stock-news cards) ──
 const GETPROFILES_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getProfiles';
@@ -2570,7 +2606,7 @@ function hexA(hex, a) { hex = (hex || '').trim(); if (hex.indexOf('rgb') === 0) 
 function gradFill(chart, color) { const { ctx, chartArea } = chart; if (!chartArea) return hexA(color, 0); const g = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom); g.addColorStop(0, hexA(color, .34)); g.addColorStop(1, hexA(color, 0)); return g; }
 function abbrNum(v) { v = +v || 0; if (v >= 1e9) return (v / 1e9).toFixed(2) + 'B'; if (v >= 1e6) return (v / 1e6).toFixed(1) + 'M'; if (v >= 1e3) return (v / 1e3).toFixed(0) + 'K'; return '' + v; }
 function statCell(l, v) { return '<div class="ch-stat"><div class="chs-l">' + l + '</div><div class="chs-v">' + v + '</div></div>'; }
-function palette(i) { return ['#1a73e8', '#0f9d58', '#9334e6', '#f29900', '#d93025', '#0891b2', '#be123c', '#7c3aed', '#16a34a', '#ea580c'][i % 10]; }
+function palette(i) { return ['#445bfb', '#0f9d58', '#9334e6', '#f29900', '#d93025', '#0891b2', '#be123c', '#7c3aed', '#16a34a', '#ea580c'][i % 10]; }
 function setCardMsg(id, msg) { const el = document.getElementById(id); if (!el) return; const box = el.closest('.cbox'); if (!box) return; let m = box.querySelector('.chart-empty'); if (msg) { if (!m) { m = document.createElement('div'); m.className = 'chart-empty'; box.appendChild(m); } m.textContent = msg; el.style.visibility = 'hidden'; } else { if (m) m.remove(); el.style.visibility = ''; } }
 // indicators
 function smaArr(a, p) { const o = a.map(() => null); let s = 0; for (let i = 0; i < a.length; i++) { s += a[i]; if (i >= p) s -= a[i - p]; if (i >= p - 1) o[i] = s / p; } return o; }

@@ -38,7 +38,6 @@ def main():
     os.makedirs(ICONS_DIR, exist_ok=True)
     icon192 = load("sparksfinance-app-icon-192.png")
     icon512 = load("sparksfinance-app-icon-512.png")
-    favmark = load("sparksfinance-favicon-64.png")
 
     # Standard "any" icons — straight from the brand kit (rounded, transparent corners).
     icon192.save(os.path.join(ICONS_DIR, "icon-192.png"))
@@ -56,8 +55,8 @@ def main():
     apple.alpha_composite(icon512.resize((180, 180), Image.LANCZOS))
     apple.convert("RGB").save(os.path.join(ICONS_DIR, "apple-touch-icon.png"))
 
-    # Favicon — multi-resolution .ico from the simplified favicon mark (reads better tiny).
-    favmark.save(os.path.join(ROOT_DIR, "favicon.ico"), sizes=[(16, 16), (32, 32), (48, 48)])
+    # Favicon — multi-resolution .ico from the full app mark (chart + spark) so the browser tab matches the in-app logo.
+    icon192.save(os.path.join(ROOT_DIR, "favicon.ico"), sizes=[(16, 16), (32, 32), (48, 48)])
 
     print("Icons written to:", ICONS_DIR)
     for f in ["icon-192.png", "icon-512.png", "icon-512-maskable.png", "apple-touch-icon.png"]:

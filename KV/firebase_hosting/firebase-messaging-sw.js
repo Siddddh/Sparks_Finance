@@ -10,7 +10,7 @@ importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 
 // ── App-shell caching (PWA) ─────────────────────────────────────────────────
-const CACHE = 'sparks-shell-v3';   // bumped: new brand icons/favicon (same filenames)
+const CACHE = 'sparks-shell-v4';   // bumped: favicon now uses the full chart+spark logo (same filename)
 const SHELL = [
   '/',
   '/index.html',
