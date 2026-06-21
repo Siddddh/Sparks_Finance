@@ -136,6 +136,9 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .tour-btn:hover{border-color:var(--blue);}
 .tour-primary{background:var(--blue);border-color:var(--blue);color:#fff;}
 @media(prefers-reduced-motion:reduce){.tour-hole{transition:none;}}
+.tw-orb{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:#445BFB;margin:0 auto 12px;}
+.tw-noshow{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;color:var(--text-3);margin-top:14px;cursor:pointer;}
+.tw-noshow input{width:auto;margin:0;cursor:pointer;}
 .auth-form{display:none;}.auth-form.active{display:block;}
 .auth-form label{display:block;font-size:12px;font-weight:500;color:var(--text-2);margin-bottom:5px;margin-top:14px;}
 .auth-form input{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:8px;font-size:14px;outline:none;background:var(--bg);color:var(--text);transition:border-color .15s,box-shadow .15s;font-family:inherit;}
@@ -2106,7 +2109,7 @@ auth.onAuthStateChanged(user => {
     initUserListeners();
     registerForPush(false);   // silently refresh token if permission already granted
     asstSyncFromCloud();      // load this account's saved AI chats from Firestore (cross-login/device)
-    setTimeout(() => startTour(false), 1800);  // first-visit guided tour (once; replay via the ? button)
+    setTimeout(() => tourWelcome(), 1800);  // first-visit welcome popup → invites the tour (replay via the ? button)
   } else {
     UID = null;
     document.getElementById('loading').classList.add('hidden');
@@ -4492,7 +4495,9 @@ function startTour(force) {
   const ov = document.createElement('div'); ov.id = 'tourOverlay'; ov.className = 'tour-overlay';
   ov.innerHTML = '<div id="tourHole" class="tour-hole"></div><div id="tourCard" class="tour-card"></div>';
   document.body.appendChild(ov);
+  _tourDir = 1;
   window.addEventListener('resize', _tourReposition);
+  window.addEventListener('scroll', _tourReposition, { passive: true });
   setTimeout(() => tourShow(0), 450);
 }
 function _tourTarget(step) { return document.querySelector((window.innerWidth <= 900 && step.mobileSel) ? step.mobileSel : step.sel); }
@@ -4550,7 +4555,34 @@ function _tourReposition() {
 }
 function tourNext() { _tourDir = 1; tourShow(_tourStep + 1); }
 function tourPrev() { _tourDir = -1; tourShow(Math.max(0, _tourStep - 1)); }
-function tourEnd(done) { const ov = document.getElementById('tourOverlay'); if (ov) ov.remove(); window.removeEventListener('resize', _tourReposition); if (done) { try { lsSet('sparksTourDone', '1'); } catch (e) {} } }
+function tourEnd(done) { const ov = document.getElementById('tourOverlay'); if (ov) ov.remove(); window.removeEventListener('resize', _tourReposition); window.removeEventListener('scroll', _tourReposition); if (done) { try { lsSet('sparksTourDone', '1'); } catch (e) {} } }
+
+// First-visit welcome popup → invites the tour, with an opt-out. Auto-shown once for new users.
+function tourWelcome() {
+  if (!UID) return;
+  try { if (lsGet('sparksTourDone') || lsGet('sparksTourSeen')) return; } catch (e) {}
+  try { lsSet('sparksTourSeen', '1'); } catch (e) {}   // only ever auto-prompt once
+  if (document.getElementById('tourWelcome')) return;
+  const ov = document.createElement('div'); ov.id = 'tourWelcome'; ov.className = 'modal-overlay';
+  ov.onclick = function (e) { if (e.target === ov) tourWelcomeClose(); };
+  ov.innerHTML = '<div class="modal-box" style="max-width:380px;text-align:center;">' +
+    '<div class="tw-orb">' + ic('sparkles', 26) + '</div>' +
+    '<div class="modal-title" style="margin-bottom:6px;">Welcome to Sparks Finance 👋</div>' +
+    '<div style="font-size:13px;color:var(--text-2);line-height:1.6;margin-bottom:18px;">Take a quick 60-second tour — your dashboard, AI analyst, Explore, and how to set up a portfolio?</div>' +
+    '<div style="display:flex;flex-direction:column;gap:8px;">' +
+      '<button class="modal-btn modal-btn-primary" onclick="tourWelcomeStart()">Start the tour</button>' +
+      '<button class="modal-btn modal-btn-cancel" onclick="tourWelcomeClose()">Maybe later</button>' +
+    '</div>' +
+    '<label class="tw-noshow"><input type="checkbox" id="tourNoShow"/> Don’t show this again</label>' +
+    '</div>';
+  document.body.appendChild(ov);
+}
+function tourWelcomeClose() {
+  const cb = document.getElementById('tourNoShow');
+  if (cb && cb.checked) { try { lsSet('sparksTourDone', '1'); } catch (e) {} }
+  const ov = document.getElementById('tourWelcome'); if (ov) ov.remove();
+}
+function tourWelcomeStart() { tourWelcomeClose(); startTour(true); }
 
 // Keep the mobile drawer/scrim aligned to the navbar's real height (it grows to 2 rows on phones).
 function initNavHeightSync() {
