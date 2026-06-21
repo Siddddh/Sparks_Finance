@@ -217,9 +217,10 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .mkt-stat{display:flex;align-items:baseline;gap:6px;padding:6px 14px;border-right:1px solid var(--border-soft);white-space:nowrap;}
 .mkt-lbl{font-size:11px;color:var(--text-3);font-weight:500;}
 .mkt-val{font-size:13px;font-weight:600;color:var(--text);}
-.mkt-adv{font-size:11px;color:var(--text-3);padding:0 14px;white-space:nowrap;}
-/* Scrolling market ticker */
-.ticker{flex:1;min-width:0;overflow:hidden;position:relative;}
+/* Macro advisory — truncates with an ellipsis (full text on hover) so it can never crowd the price ticker out. */
+.mkt-adv{font-size:11px;color:var(--text-3);padding:0 14px;white-space:nowrap;min-width:0;flex:0 1 auto;max-width:34vw;overflow:hidden;text-overflow:ellipsis;}
+/* Scrolling market ticker — keep a guaranteed minimum width so the rotating stock prices are always visible. */
+.ticker{flex:2 1 200px;min-width:min(200px,45vw);overflow:hidden;position:relative;}
 .ticker-track{display:inline-flex;white-space:nowrap;will-change:transform;animation:tickerscroll 90s linear infinite;}
 .ticker:hover .ticker-track{animation-play-state:paused;}
 @keyframes tickerscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -2209,7 +2210,7 @@ function renderAll() {
   stEl.className = 'mkt-state ' + (stateColors[mh.state_color] || 'mkt-gray');
   document.getElementById('mDist').textContent = mh.dist_days != null ? (mh.dist_days + ' days') : '—';
   document.getElementById('mBreadth').textContent = mh.breadth_pct != null ? (mh.breadth_pct + '%') : '—';
-  document.getElementById('mktAdv').textContent = mh.state_advice || '—';
+  { const advEl = document.getElementById('mktAdv'); advEl.textContent = mh.state_advice || '—'; advEl.title = mh.state_advice || ''; }   // truncated in the bar; full text on hover
   const brk = alerts.filter(a => a.age_hours <= 4);
   const brkBar = document.getElementById('brkBar');
   if (brk.length && !_brkDismissed) {
