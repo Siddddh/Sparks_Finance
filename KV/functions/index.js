@@ -447,6 +447,27 @@ function mapNewsRows(rows, max) {
   return out;
 }
 
+// Google News RSS (free, no key) — broadens news with many outlets, like Google Finance. Regex-parsed
+// (no XML dep); returns Finnhub-shaped rows ({headline,source,url,datetime,related}) so mapNewsRows can merge them.
+async function googleNewsRss(query, ticker) {
+  try {
+    const url = 'https://news.google.com/rss/search?q=' + encodeURIComponent(query) + '&hl=en-US&gl=US&ceid=US:en';
+    const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    if (!r.ok) return [];
+    const xml = await r.text();
+    const dec = s => String(s || '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'").trim();
+    return xml.split('<item>').slice(1, 26).map(block => {
+      const grab = re => { const m = block.match(re); return m ? dec(m[1]) : ''; };
+      let title = grab(/<title>([\s\S]*?)<\/title>/);
+      const link = grab(/<link>([\s\S]*?)<\/link>/);
+      const pub = grab(/<pubDate>([\s\S]*?)<\/pubDate>/);
+      const source = grab(/<source[^>]*>([\s\S]*?)<\/source>/);
+      if (source && title.endsWith(' - ' + source)) title = title.slice(0, -(source.length + 3));   // Google titles end with " - Outlet"
+      const dt = pub ? Math.floor(Date.parse(pub) / 1000) : 0;
+      return { headline: title, source: source || 'Google News', url: link, datetime: dt || 0, related: ticker || '' };
+    }).filter(x => x.headline && x.url);
+  } catch (e) { return []; }
+}
 exports.getNews = onRequest(
   { region: 'us-central1', cors: true, secrets: [FINNHUB_API_KEY] },
   async (req, res) => {
@@ -461,9 +482,11 @@ exports.getNews = onRequest(
       // "Markets & Influencers" panel, which must not depend on how many holdings the user has.
       let generalRaw = [];
       try { generalRaw = (await finnhubGet('/news', { category: 'general' }, key)) || []; } catch (e) {}
+      // Broaden the market feed with Google News RSS (many outlets) — merged + deduped by mapNewsRows.
+      try { generalRaw = generalRaw.concat(await googleNewsRss('stock market OR S&P 500 OR Nasdaq OR Dow Jones')); } catch (e) {}
       generalRaw.sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
 
-      // Per-holding company news
+      // Per-holding company news — Finnhub company-news + Google News RSS per symbol (cap 8, parallel).
       const portfolioRaw = [];
       for (const sym of symbols) {
         try {
@@ -471,6 +494,10 @@ exports.getNews = onRequest(
           (rows || []).slice(0, 8).forEach(a => portfolioRaw.push(a));
         } catch (e) { /* skip symbol */ }
       }
+      try {
+        const rss = await Promise.all(symbols.slice(0, 8).map(s => googleNewsRss('"' + s + '" stock', s)));
+        rss.forEach(arr => arr.forEach(a => portfolioRaw.push(a)));
+      } catch (e) {}
       portfolioRaw.sort((a, b) => (b.datetime || 0) - (a.datetime || 0));
 
       // Influencer feed: general items mentioning an influencer keyword OR a held ticker
@@ -488,6 +515,35 @@ exports.getNews = onRequest(
       });
     } catch (e) {
       res.status(200).json({ portfolio: [], influencer: [], market: [], error: String(e) });
+    }
+  }
+);
+
+// ── Earnings calendar (Finnhub) — powers the Google-Finance-style Earnings tab ──
+// GET /getEarnings?from=YYYY-MM-DD&to=YYYY-MM-DD (default today..+7d) ->
+//   { from, to, earnings:[{ symbol, date, hour, epsEstimate, epsActual, revenueEstimate }] }
+exports.getEarnings = onRequest(
+  { region: 'us-central1', cors: true, secrets: [FINNHUB_API_KEY] },
+  async (req, res) => {
+    const key = FINNHUB_API_KEY.value();
+    const today = todayInET();
+    const plus = n => { const d = new Date(today.replace(/-/g, '/')); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
+    const from = String(req.query.from || today).slice(0, 10);
+    const to = String(req.query.to || plus(7)).slice(0, 10);
+    try {
+      const data = await finnhubGet('/calendar/earnings', { from, to }, key);
+      const earnings = ((data && data.earningsCalendar) || []).map(r => ({
+        symbol: (r.symbol || '').toUpperCase(),
+        date: r.date || '',
+        hour: r.hour || '',
+        epsEstimate: r.epsEstimate != null ? r.epsEstimate : null,
+        epsActual: r.epsActual != null ? r.epsActual : null,
+        revenueEstimate: r.revenueEstimate != null ? r.revenueEstimate : null
+      })).filter(r => r.symbol);
+      res.set('Cache-Control', 'public, max-age=3600');
+      res.json({ from, to, earnings });
+    } catch (e) {
+      res.status(200).json({ from, to, earnings: [], error: String(e) });
     }
   }
 );
