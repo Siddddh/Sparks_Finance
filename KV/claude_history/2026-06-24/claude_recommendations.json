@@ -1,0 +1,819 @@
+{
+  "date": "2026-06-24",
+  "market": {
+    "state": "UPTREND",
+    "advice": "Confirmed uptrend with healthy breadth — 61% of stocks above MA50, IWM outperforming, 3 distribution days, VIX at 18.9 (slightly rising from 18.1 5-day avg). SPY -2.6% on the week but the internals tell a different story: this is sector rotation, not distribution. Financials, utilities, industrials, and biotech are scoring 90+ across the board while mega-cap tech digests. SPY is above MA50 but still healing toward MA200 from the April correction. Best risk/reward is with the cleanest VCP breakouts in financials and industrials. Standard position sizing; avoid adding to RSI >75 names."
+  },
+  "picks": [
+    {
+      "ticker": "IRM",
+      "name": "Iron Mountain Incorporated",
+      "sector": "Real Estate",
+      "signal": "STRONG BUY",
+      "score": 94.0,
+      "grade": "A+",
+      "thesis": "Cleanest setup in the full 542-stock scan. At an all-time 52-week high with a 4-contraction VCP (tightest 2.2%), RS line at new highs, and a 860% EPS surge (includes reclassification) driving a 22% revenue gain. Data center + records management REIT riding AI-driven storage demand — the coil is tight and TV: STRONG BUY gives full confirmation.",
+      "strengths": [
+        "4-contraction VCP, tightest 2.2% — one of the tightest bases in the full scan",
+        "RS line at 52-week high — institutional accumulation confirmed",
+        "Revenue +22% YoY driven by data center expansion and records digitization",
+        "Post-earnings clear — no near-term earnings risk",
+        "TradingView STRONG BUY (16 buys, 0 sells) — unanimous technical confirmation"
+      ],
+      "risks": [
+        "Forward P/E ~50x — requires continued earnings execution; no earnings miss buffer",
+        "EPS figure inflated by reclassification items; normalize to core FFO for true picture",
+        "High leverage typical for data center REITs; rate sensitivity if yields spike"
+      ],
+      "watch": [
+        "RSI at 59 — healthy momentum, not extended; breakout above $133 on volume is the signal",
+        "Watch volume on breakout day — needs above-average confirmation",
+        "Any rate spike would pressure REITs broadly; monitor 10-year yield"
+      ],
+      "entry": 133.06,
+      "stop": 122.42,
+      "target": 159.67
+    },
+    {
+      "ticker": "AIZ",
+      "name": "Assurant, Inc.",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 93.7,
+      "grade": "A+",
+      "thesis": "Insurance holding company with massive EPS acceleration (+91% YoY) on improved underwriting margins. 3-contraction VCP with a 2.1% tightest contraction at an all-time high, RS at new highs, and a cheap forward P/E of 11.8x. TV: STRONG BUY — unanimous confirmation. One of the best fundamental + technical combinations in the financial sector.",
+      "strengths": [
+        "VCP 3 contractions, tightest 2.1% — pristine coiling pattern at all-time high",
+        "RS line at new highs — leading the financial sector",
+        "EPS +91% YoY — underwriting profitability surging",
+        "Forward P/E 11.8x — compelling value for the growth rate",
+        "TradingView STRONG BUY (16 buys, 0 sells)"
+      ],
+      "risks": [
+        "Connected Living segment subject to device replacement cycle slowdowns",
+        "Hurricane season H2 could spike catastrophe losses",
+        "RSI at 74 — slightly elevated; ideal entry on a brief consolidation to $255-260"
+      ],
+      "watch": [
+        "Earnings in ~42 days (Aug 5) — pre-earnings drift opportunity is open",
+        "RSI at 74 — watch for brief pause before next leg higher",
+        "Volume expansion above $265.30 confirms new high breakout"
+      ],
+      "entry": 265.30,
+      "stop": 244.08,
+      "target": 318.36
+    },
+    {
+      "ticker": "NTRS",
+      "name": "Northern Trust Corporation",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 93.5,
+      "grade": "A+",
+      "thesis": "Wealth management and custody bank at an all-time 52-week high with a 3-contraction VCP and RS at new highs. EPS +43% YoY driven by NIM expansion. Earnings in 28 days (July 22) creates a clear pre-earnings drift catalyst. TV: STRONG BUY — full technical confirmation on a fundamentally clean setup.",
+      "strengths": [
+        "3-contraction VCP, tightest 3.6% — classic pre-breakout coil",
+        "RS at new highs — wealth management stocks leading financials",
+        "EPS +43% YoY — NIM expansion in higher-rate environment",
+        "Earnings in 28 days (July 22) — pre-earnings accumulation window",
+        "TradingView STRONG BUY (16 buys, 0 sells)"
+      ],
+      "risks": [
+        "Near-term earnings event July 22 — position size accordingly",
+        "AUM fee compression risk if equities correct broadly",
+        "52-week high is a natural resistance level; needs clean volume breakout"
+      ],
+      "watch": [
+        "July 22 earnings — NIM guidance and AUM growth are the key metrics",
+        "RSI at 61 — healthy, room to run before becoming extended",
+        "Price at 52-week high $176.26 — above here is clear air"
+      ],
+      "entry": 176.26,
+      "stop": 162.16,
+      "target": 211.51
+    },
+    {
+      "ticker": "SWBI",
+      "name": "Smith & Wesson Brands, Inc.",
+      "sector": "Industrials",
+      "signal": "STRONG BUY",
+      "score": 93.9,
+      "grade": "A+",
+      "thesis": "Small-arms maker with a textbook 3-contraction VCP (tightest 2.6%) at an all-time 52-week high, RS at new highs, and strong fundamentals (EPS +87%, Rev +27%). Volume at 218% of average on a recent up-day confirms institutional interest. TV: STRONG BUY. Risk: small cap ($700M) and forward P/E at 50x requires continued earnings delivery.",
+      "strengths": [
+        "VCP 3 contractions, tightest 2.6% — pristine coil",
+        "Volume 218% of average on up-day — institutional accumulation",
+        "RS at new highs — leading small-cap industrials",
+        "EPS +87%, Rev +27% — accelerating demand cycle",
+        "TradingView STRONG BUY (17 buys, 0 sells)"
+      ],
+      "risks": [
+        "Small cap ~$700M — thin liquidity; gap risk on any negative news",
+        "Forward P/E 50.5x — elevated; miss would be punished severely",
+        "Subject to regulatory and political headline risk on firearms sector"
+      ],
+      "watch": [
+        "Price at exact 52-week high $16.67 — this IS the breakout level; watch volume",
+        "RSI at 61 — healthy, not extended; room to run",
+        "Earnings in ~72 days — long runway before next report"
+      ],
+      "entry": 16.67,
+      "stop": 15.34,
+      "target": 20.00
+    },
+    {
+      "ticker": "RL",
+      "name": "Ralph Lauren Corporation",
+      "sector": "Consumer Cyclical",
+      "signal": "STRONG BUY",
+      "score": 94.4,
+      "grade": "A+",
+      "thesis": "Highest-scoring stock in the full 542-stock scan. Luxury apparel with a 5-contraction VCP (tightest 3.8%), RS at new highs, and strong fundamentals (EPS +20%, Rev +17%). Near all-time high, short float 10.5% adds squeeze fuel. RSI at 70 is healthy but on the edge — breakout above $413 on volume is the clean entry trigger. TV: BUY agrees.",
+      "strengths": [
+        "Score 94.4 — highest in the entire scanned universe",
+        "5-contraction VCP, tightest 3.8% — maximum coiling pattern",
+        "RS at new highs — luxury sector leader",
+        "EPS +20%, Rev +17% — consistent compounding",
+        "Short float 10.5% — squeeze potential adds momentum fuel"
+      ],
+      "risks": [
+        "RSI at 70 — at the threshold; entering here means you're buying the edge",
+        "Consumer discretionary exposed to luxury spending slowdown in macro uncertainty",
+        "Trading just 1.5% from 52-week high — breakout or consolidation decision imminent"
+      ],
+      "watch": [
+        "Earnings in ~43 days (Aug 6) — pre-earnings drift window is open",
+        "Breakout above $413 52-week high on volume is the ideal entry trigger",
+        "RSI: monitor stays above 50 on any pullback to confirm trend health"
+      ],
+      "entry": 407.01,
+      "stop": 374.45,
+      "target": 488.41
+    },
+    {
+      "ticker": "FITB",
+      "name": "Fifth Third Bancorp",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 92.3,
+      "grade": "A",
+      "thesis": "Regional bank at near-52-week high with a 4-contraction VCP (tightest 3.9%) and revenue surging +33% YoY. Earnings in 23 days (July 17) is the primary catalyst. TV: STRONG BUY — strong institutional consensus. EPS comparison is distorted by prior-year provision releases, but NIM expansion is genuinely accelerating.",
+      "strengths": [
+        "VCP 4 contractions, tightest 3.9% — tight, textbook base at 52-week high",
+        "Revenue +33% YoY — NIM expansion driving top-line",
+        "Earnings in 23 days (July 17) — near-term catalyst event",
+        "TradingView STRONG BUY (16 buys, 0 sells)",
+        "Price just 0.1% from 52-week high — breakout is imminent"
+      ],
+      "risks": [
+        "EPS comps distorted by prior-year provision reversal — normalize the view",
+        "Regional bank exposure to commercial real estate portfolio",
+        "RSI at 69 — near overbought; consider partial sizing before the earnings event"
+      ],
+      "watch": [
+        "July 17 earnings — NIM guidance and credit quality metrics are the key",
+        "Watch volume expansion above $54.73 52-week high for confirmation",
+        "Any commercial real estate deterioration headlines would be a headwind"
+      ],
+      "entry": 54.67,
+      "stop": 50.30,
+      "target": 65.60
+    },
+    {
+      "ticker": "AFL",
+      "name": "AFLAC Incorporated",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 92.2,
+      "grade": "A",
+      "thesis": "Supplemental insurance giant at 52-week high with one of the tightest VCPs in the scan — 5 contractions with a 2.0% tightest contraction. Revenue +28% YoY is impressive for a large-cap insurer. TV: STRONG BUY confirms the institutional picture. The EPS figure is inflated by a low base-year comp but the operating momentum is real.",
+      "strengths": [
+        "5-contraction VCP, tightest 2.0% — exceptional tightness for a large cap",
+        "Revenue +28% YoY — Japan and US supplemental insurance demand surging",
+        "Price at 52-week high $118.79 — at the breakout",
+        "TradingView STRONG BUY (17 buys, 0 sells)",
+        "40+ year consecutive dividend growth history — institutional quality"
+      ],
+      "risks": [
+        "Japan business exposed to JPY/USD currency translation headwinds",
+        "EPS growth inflated by low base-year comp — normalize to operating income",
+        "RSI at 64 — healthy, watch for the 70 level as near-term resistance"
+      ],
+      "watch": [
+        "Earnings in ~44 days (Aug 7) — clean runway",
+        "RS line -6% from high — not fully at new highs yet; watch for RS to join",
+        "Break above $119 on strong volume is the entry signal"
+      ],
+      "entry": 118.79,
+      "stop": 109.29,
+      "target": 142.55
+    },
+    {
+      "ticker": "MNST",
+      "name": "Monster Beverage Corporation",
+      "sector": "Consumer Defensive",
+      "signal": "STRONG BUY",
+      "score": 93.7,
+      "grade": "A+",
+      "thesis": "Energy drink leader breaking to all-time highs on a 3-contraction VCP (tightest 2.0%) with RS at new highs. EPS +29%, Rev +27%. Red Bull's US price increase is a direct competitive tailwind. TV: BUY confirms. RSI at 72 is slightly elevated — ideal entry is a brief pullback to the $88-90 base area.",
+      "strengths": [
+        "3-contraction VCP, tightest 2.0% — coil at all-time highs is bullish",
+        "RS at new highs — consumer defensive leadership",
+        "EPS +29%, Rev +27% — consistent high-quality compounding",
+        "Red Bull price increase = direct pricing power benefit for MNST",
+        "TradingView BUY (15 buys, 2 sells)"
+      ],
+      "risks": [
+        "RSI at 72 — slightly hot; entering here adds 1-2% extra slippage risk",
+        "Energy drink market maturation risk in US — depends on international growth",
+        "Some TV sell votes (2 of 17) — not unanimous"
+      ],
+      "watch": [
+        "Earnings in ~44 days (Aug 7)",
+        "Ideal re-entry: pullback to $88-90 VCP base area",
+        "Watch RSI: stay above 55 on any pullback to confirm trend health"
+      ],
+      "entry": 93.69,
+      "stop": 86.19,
+      "target": 112.43
+    },
+    {
+      "ticker": "ILMN",
+      "name": "Illumina, Inc.",
+      "sector": "Healthcare",
+      "signal": "STRONG BUY",
+      "score": 91.7,
+      "grade": "A",
+      "thesis": "Genomics sequencing leader in turnaround mode — post-GRAIL divestiture, new management, cost restructuring underway. RS at new highs, 6-contraction VCP (tightest 4.7%), RSI at 52 (unextended). TV: STRONG BUY (16 buys, 1 sell). Caution: EPS/Rev growth currently thin — this is a sentiment/turnaround technical setup, not a classic fundamental breakout. The pattern and TV consensus are both very bullish.",
+      "strengths": [
+        "6-contraction VCP, tightest 4.7% — deep, compressed spring",
+        "RS at new highs — biotech rotation is driving this higher",
+        "RSI at 52 — essentially neutral; low risk of overextension at entry",
+        "Post-GRAIL divestiture removes a major multi-year overhang",
+        "TradingView STRONG BUY (16 buys, 1 sell)"
+      ],
+      "risks": [
+        "EPS growth only +6%, Revenue +5% — fundamentals are weak; this is a thesis trade",
+        "Genomics pricing pressure from emerging competitors",
+        "Short float 8.3% — volatility amplified on any negative news"
+      ],
+      "watch": [
+        "Earnings in ~37 days (July 31) — hear management on restructuring milestones",
+        "Watch RS line to maintain new highs — deterioration is the primary sell signal",
+        "Price 3.5% from 52-week high $170.93 — that level is the key breakout trigger"
+      ],
+      "entry": 164.93,
+      "stop": 151.74,
+      "target": 197.92
+    },
+    {
+      "ticker": "GE",
+      "name": "GE Aerospace",
+      "sector": "Industrials",
+      "signal": "STRONG BUY",
+      "score": 91.8,
+      "grade": "A",
+      "thesis": "Aerospace and defense giant near all-time high; commercial aviation boom driving record engine demand with revenue +25% YoY. 5-contraction VCP (tightest 3.5%). Earnings in 22 days (July 16) is the primary near-term catalyst — pre-earnings drift has been consistently positive for GE. RSI at 73 is slightly elevated but acceptable at an all-time high. TV: BUY.",
+      "strengths": [
+        "VCP 5 contractions, tightest 3.5% — tight pattern at 52-week high",
+        "Revenue +25% YoY — engine backlog is multi-year visibility",
+        "Near all-time highs with confirmed Stage 2 uptrend",
+        "Earnings in 22 days (July 16) — catalyst event approaching",
+        "TradingView BUY (15 buys, 3 sells)"
+      ],
+      "risks": [
+        "RSI at 73 — slightly elevated for new entries; consider a split entry",
+        "EPS YoY distorted by GE Vernova spin-off year-over-year comps",
+        "Forward P/E 41x — premium multiple; guidance miss would be punished",
+        "Boeing production ramp risk could affect LEAP engine delivery schedule"
+      ],
+      "watch": [
+        "July 16 earnings — commercial engine backlog and LEAP production rate are key",
+        "Watch for breakout above $357.64 52-week high on volume",
+        "RSI dip below 65 would offer a better risk-adjusted entry point"
+      ],
+      "entry": 356.47,
+      "stop": 327.95,
+      "target": 427.76
+    },
+    {
+      "ticker": "FTNT",
+      "name": "Fortinet, Inc.",
+      "sector": "Technology",
+      "signal": "STRONG BUY",
+      "score": 91.7,
+      "grade": "A+",
+      "thesis": "Best technology setup in the entire scan — cybersecurity leader at 52-week high with a 5-contraction VCP (tightest 3.6%), RS at new highs, AND RSI of just 48.8 (still deeply basing). This rare combination of RS@High + RSI below 50 is the cleanest unextended breakout setup in the tech universe. EPS +29%, Rev +20%. TV: BUY confirms. Earnings in 43 days = no near-term report risk.",
+      "strengths": [
+        "5-contraction VCP, tightest 3.6% — tight, multi-month base",
+        "RS at new highs — cybersecurity leading tech sector",
+        "RSI 48.8 — not extended AT ALL; basing, not topping",
+        "EPS +29%, Rev +20% — fundamentals support the breakout",
+        "TradingView BUY (15 buys, 1 sell)"
+      ],
+      "risks": [
+        "Fortinet has experienced prior multiple compression — market may re-test that skepticism",
+        "SASE/ZTNA competition from Palo Alto Networks and CrowdStrike",
+        "RSI below 50 — still needs a catalyst to break out definitively"
+      ],
+      "watch": [
+        "Earnings in 43 days (Aug 6) — long runway, no near-term report risk",
+        "Watch RSI move above 60 — that confirms the breakout is gaining real momentum",
+        "Close above 52-week high $149.67 on above-average volume is the entry confirmation"
+      ],
+      "entry": 148.00,
+      "stop": 136.16,
+      "target": 177.60
+    },
+    {
+      "ticker": "HWM",
+      "name": "Howmet Aerospace Inc.",
+      "sector": "Industrials",
+      "signal": "STRONG BUY",
+      "score": 91.9,
+      "grade": "A",
+      "thesis": "Aerospace precision parts supplier — forgings, fasteners, and engine components for Boeing and Airbus — riding the same commercial aviation wave as GE. 5-contraction VCP, EPS +71%, Rev +19%. TV: STRONG BUY (15 buys, 1 sell). Caution: forward P/E 45.7x is elevated and tightest VCP contraction is 5.9% (slightly above ideal threshold).",
+      "strengths": [
+        "VCP 5 contractions — strong multi-month accumulation base",
+        "EPS +71%, Rev +19% — aerospace cycle accelerating",
+        "TradingView STRONG BUY (15 buys, 1 sell)",
+        "Sole-source supplier for many critical engine components — durable moat",
+        "Price just 2.9% from 52-week high — at the doorstep"
+      ],
+      "risks": [
+        "Forward P/E 45.7x — premium; requires near-flawless execution",
+        "VCP tightest contraction 5.9% — slightly above ideal sub-5% threshold",
+        "Boeing production delays risk reducing near-term order flow"
+      ],
+      "watch": [
+        "Earnings in ~43 days (Aug 6) — management commentary on aerospace demand outlook",
+        "RS line -3.4% from high — watch for RS to confirm the breakout",
+        "Needs to clear $283.23 52-week high to confirm breakout"
+      ],
+      "entry": 275.13,
+      "stop": 253.12,
+      "target": 330.16
+    },
+    {
+      "ticker": "PNC",
+      "name": "PNC Financial Services Group",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 91.9,
+      "grade": "A",
+      "thesis": "Major regional bank in a 3-contraction VCP (tightest 3.0%) just 0.8% from its 52-week high. Revenue +14% YoY, earnings in 21 days (July 15) as the key catalyst. TV: STRONG BUY — unanimous institutional consensus. One of the cleanest large-cap bank setups in the full scan.",
+      "strengths": [
+        "VCP 3 contractions, tightest 3.0% — tight coil at 52-week high",
+        "Revenue +14% YoY — NIM expansion story intact",
+        "Earnings in 21 days (July 15) — catalyst event",
+        "TradingView STRONG BUY (16 buys, 0 sells)",
+        "Well-managed large regional bank with strong capital ratios"
+      ],
+      "risks": [
+        "Near-term earnings event July 15 — hold through or size accordingly",
+        "Commercial real estate exposure common to all large regional banks",
+        "RSI at 70 — at the elevated threshold; partial sizing on entry"
+      ],
+      "watch": [
+        "July 15 earnings — NIM guidance and credit quality are the key metrics",
+        "Volume confirmation needed on breakout above $240.63 52-week high",
+        "RS -7% from high — watch for RS line to close this gap on the breakout"
+      ],
+      "entry": 238.67,
+      "stop": 219.58,
+      "target": 286.40
+    },
+    {
+      "ticker": "MTB",
+      "name": "M&T Bank Corporation",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 91.0,
+      "grade": "A",
+      "thesis": "Conservative, well-run regional bank with a clean VCP, EPS +24% YoY, and TV: STRONG BUY institutional confirmation. RS is 7% off its high but improving — the financial sector rotation is lifting all quality regional banks. The catalyst is the upcoming bank earnings season in the next 2-3 weeks.",
+      "strengths": [
+        "VCP pattern with tight contractions — orderly institutional accumulation",
+        "EPS +24% YoY — solid growth for a large regional bank",
+        "TradingView STRONG BUY (16 buys, 0 sells)",
+        "Conservative underwriting culture — lower credit risk profile historically",
+        "Benefits from favorable regional bank regulatory environment"
+      ],
+      "risks": [
+        "RS line not yet at new highs (-6.5%) — market has not fully re-rated yet",
+        "Revenue growth only +5.7% — top-line growth is modest",
+        "RSI at 67 — healthy but watch for distribution near the $231 area"
+      ],
+      "watch": [
+        "Watch for RS line to reach new highs — that would be the full confirmation",
+        "Price -6.5% from 52-week high — needs to reclaim that area for a clean breakout",
+        "Bank earnings season (next 2-3 weeks) is the macro catalyst to unlock this"
+      ],
+      "entry": 231.24,
+      "stop": 212.74,
+      "target": 277.49
+    },
+    {
+      "ticker": "BK",
+      "name": "The Bank of New York Mellon",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 94.1,
+      "grade": "A+",
+      "thesis": "Custody banking giant with a 2-contraction VCP (tightest 3.0%), RS at new highs, EPS +42% YoY, and a high-volume confirmation day at 194% of average. Earnings in 21 days (July 15) is the primary catalyst. TV: BUY agrees. Minor negative news on BNY Pershing fee changes is noise against a fundamentally clean setup.",
+      "strengths": [
+        "VCP 2 contractions, tightest 3.0% — tight coil with institutional volume confirmation",
+        "RS at new highs — custody banking leading the financials sector",
+        "EPS +42% YoY, Rev +13% — strong fundamental tailwind",
+        "Volume at 194% of average — institutional accumulation confirmed",
+        "Earnings in 21 days (July 15) — pre-earnings drift window open"
+      ],
+      "risks": [
+        "BNY Pershing fee structure changes could create near-term revenue noise",
+        "Near-term earnings event July 15 — position size accordingly",
+        "RSI at 58 — healthy but news flow could push either direction"
+      ],
+      "watch": [
+        "July 15 earnings — AUC growth, NII expansion, fee revenue are the key metrics",
+        "Price 1.7% from 52-week high $146.07 — that level is the breakout trigger",
+        "Monitor BNY Pershing fee dispute headlines for resolution"
+      ],
+      "entry": 143.63,
+      "stop": 132.14,
+      "target": 172.36
+    },
+    {
+      "ticker": "PCG",
+      "name": "Pacific Gas & Electric Co.",
+      "sector": "Utilities",
+      "signal": "STRONG BUY",
+      "score": 93.1,
+      "grade": "A",
+      "thesis": "California utility with a 5-contraction VCP (tightest 3.7%), EPS +40%, Rev +15%. TV: STRONG BUY confirms technical picture. One caution: stock is 12% below its 52-week high and RS is not at new highs — this is a recovery base, not a new high breakout. For value-oriented entries, PCG at 9.3x forward P/E with TV STRONG BUY is compelling; AI data center power demand in California is the long-term catalyst.",
+      "strengths": [
+        "5-contraction VCP, tightest 3.7% — textbook coiling pattern",
+        "EPS +40%, Rev +15% — solid utility earnings growth",
+        "Forward P/E 9.3x — deeply discounted vs utility sector average ~18x",
+        "TradingView STRONG BUY (17 buys, 1 sell)",
+        "AI data center power demand in California — long-term secular catalyst"
+      ],
+      "risks": [
+        "Stock 12% below 52-week high — not leading; RS line -18% from high",
+        "Ongoing wildfire liability and California regulatory overhang",
+        "Lower conviction than names at new highs — this is a value recovery, not a breakout"
+      ],
+      "watch": [
+        "Watch RS line improve — it needs to narrow to -5% before full confidence",
+        "Price needs to clear $17.50-18.00 to confirm recovery breakout",
+        "California PUC regulatory decisions on wildfire liability caps"
+      ],
+      "entry": 16.77,
+      "stop": 15.43,
+      "target": 20.12
+    },
+    {
+      "ticker": "MRNA",
+      "name": "Moderna, Inc.",
+      "sector": "Healthcare",
+      "signal": "STRONG BUY",
+      "score": 92.7,
+      "grade": "A",
+      "thesis": "mRNA platform comeback — RS at new highs, 7-contraction VCP (wide at 7.2% but reflecting a deep recovery base), revenue +260% YoY from near-zero 2024 lows. High short squeeze potential (17.8% short float, 7.5 days to cover). FDA AdCom recently approved mRNA flu vaccine approach. TV: BUY. This is a momentum + catalyst + squeeze setup; company is not yet profitable at current scale.",
+      "strengths": [
+        "RS at new highs — mRNA sector leading healthcare rotation",
+        "Revenue +260% YoY (direction from very low base — meaningful recovery)",
+        "17.8% short float with 7.5 days to cover — material short squeeze potential",
+        "FDA AdCom flu vaccine approval — near-term regulatory catalyst",
+        "TradingView BUY (15 buys, 2 sells)"
+      ],
+      "risks": [
+        "Company currently unprofitable — no EPS positive at current revenue scale",
+        "VCP tightest contraction 7.2% — wider than ideal; messier base",
+        "RSI at 71 — slightly elevated; momentum volatile in biotech",
+        "Binary FDA final decision risk on mRNA flu vaccine"
+      ],
+      "watch": [
+        "FDA final decision on mRNA flu vaccine — key binary catalyst",
+        "Earnings in ~37 days (July 31) — pipeline update guidance",
+        "Short interest data — watch for any decrease in short float"
+      ],
+      "entry": 61.00,
+      "stop": 56.12,
+      "target": 73.20
+    },
+    {
+      "ticker": "CAT",
+      "name": "Caterpillar, Inc.",
+      "sector": "Industrials",
+      "signal": "STRONG BUY",
+      "score": 91.7,
+      "grade": "A",
+      "thesis": "Infrastructure supercycle thesis with RS at new highs, EPS +30%, Rev +22% YoY. The VCP contractions are wider than ideal (tightest 9.0% — a multi-month consolidation vs a tight coil), but RS@High and best-in-class fundamentals give this a STRONG BUY. Best large-cap industrial for infrastructure + mining + construction exposure. TV: BUY.",
+      "strengths": [
+        "RS at new highs — industrial sector leadership confirmed",
+        "EPS +30%, Rev +22% — infrastructure cycle is mid-inning",
+        "VCP 6 contractions — deep base with multi-month consolidation",
+        "Market cap $453B — unlimited liquidity, institutional quality",
+        "TradingView BUY (14 buys, 4 sells)"
+      ],
+      "risks": [
+        "VCP tightest contraction 9.0% — wider than ideal 5%; less precise signal",
+        "Forward P/E 32.7x — premium for an industrial; sensitive to guidance",
+        "TV: 4 sell votes — some divergence in the technical picture",
+        "Mining/construction slowdown risk if global growth disappoints"
+      ],
+      "watch": [
+        "Earnings in ~41 days (Aug 4) — infrastructure demand commentary is key",
+        "Price 3.7% from 52-week high $1022.28 — needs to clear this for breakout",
+        "Watch copper and iron ore prices as leading indicators for CAT revenue"
+      ],
+      "entry": 984.24,
+      "stop": 905.50,
+      "target": 1181.09
+    },
+    {
+      "ticker": "DELL",
+      "name": "Dell Technologies Inc.",
+      "sector": "Technology",
+      "signal": "STRONG BUY",
+      "score": 91.8,
+      "grade": "A",
+      "thesis": "AI server infrastructure play. Revenue +88%, EPS +283% — the AI server buildout is real and Dell is the primary direct beneficiary. The stock ran 142% in 3 months and is now digesting in a 6-contraction VCP (tightest 2.3%) with RSI at 47.8 — completely unextended. Classic tight-base setup after a major move. RS not yet at new highs is the one caution. TV: BUY.",
+      "strengths": [
+        "6-contraction VCP, tightest 2.3% — exceptional tightness after a 142% run",
+        "Revenue +88%, EPS +283% YoY — AI server demand is transformational",
+        "RSI 47.8 — not extended; this stock is basing, not topping",
+        "Forward P/E 20x — reasonable for the growth rate",
+        "TradingView BUY (15 buys, 1 sell)"
+      ],
+      "risks": [
+        "RS not at new highs (-5.3%) — still needs market leadership confirmation",
+        "AI server capex cycle could peak; NVDA GPU allocation risk",
+        "RSI below 50 — neutral momentum; needs a catalyst to break out definitively"
+      ],
+      "watch": [
+        "Earnings in ~72 days (Sept 4) — long runway, no near-term report risk",
+        "Watch Nvidia GPU delivery news — PowerEdge AI servers depend on GPU supply",
+        "Price 8.2% from 52-week high $465.96 — that level is the key resistance"
+      ],
+      "entry": 427.78,
+      "stop": 393.56,
+      "target": 513.34
+    },
+    {
+      "ticker": "RS",
+      "name": "Reliance, Inc.",
+      "sector": "Basic Materials",
+      "signal": "STRONG BUY",
+      "score": 93.5,
+      "grade": "A",
+      "thesis": "Metal distribution leader with RS at new highs, 2-contraction VCP (tightest 3.1%), EPS +36%, Rev +16%. Earnings in 29 days (July 23) creates a pre-earnings drift window. TV: BUY. Highest-quality basic materials setup in the scan — benefits from infrastructure buildout and nearshoring manufacturing trends.",
+      "strengths": [
+        "RS at new highs — metal distribution leading basic materials",
+        "EPS +36%, Rev +16% — fundamentals support the breakout",
+        "VCP 2 contractions, tightest 3.1% — tight pre-earnings base",
+        "Earnings in 29 days (July 23) — pre-earnings drift opportunity",
+        "TradingView BUY (13 buys, 4 sells)"
+      ],
+      "risks": [
+        "TV: 4 sell votes — some analyst skepticism at current levels",
+        "Steel/aluminum pricing is cyclical — macro slowdown risk",
+        "RSI at 54 — watch price stays above $390 for trend confirmation"
+      ],
+      "watch": [
+        "July 23 earnings — metals pricing, volumes, and margin trends are key",
+        "Price 3.6% from 52-week high $413.43 — close to breakout",
+        "Watch copper and steel futures as leading indicators for Reliance revenue"
+      ],
+      "entry": 398.63,
+      "stop": 366.74,
+      "target": 478.36
+    },
+    {
+      "ticker": "C",
+      "name": "Citigroup, Inc.",
+      "sector": "Financial Services",
+      "signal": "WATCH",
+      "score": 92.7,
+      "grade": "A",
+      "thesis": "Bank restructuring is delivering — EPS +56% YoY, 3-contraction VCP (tightest 2.0%), RS at new highs. Earnings in 20 days (July 14). BUT: RSI at 75 makes this technically extended for new entries right now. TV: BUY with 6 sell votes suggests some divergence emerging at current price. Better entry on a pullback to $130-135.",
+      "strengths": [
+        "EPS +56% YoY — Jane Fraser restructuring is clearly delivering",
+        "VCP 3 contractions, tightest 2.0% — tight technical base",
+        "RS at new highs — Citi leading money-center bank group",
+        "Earnings in 20 days (July 14) — catalyst approaching"
+      ],
+      "risks": [
+        "RSI at 75 — EXTENDED; not the right time to chase new positions",
+        "TV: 6 sell votes — divergence emerging at elevated levels",
+        "Complexity risk from ongoing multi-year restructuring"
+      ],
+      "watch": [
+        "Wait for RSI to pull back below 65 before entering a new position",
+        "July 14 earnings — first real test of continued transformation momentum",
+        "Better entry: pullback to $130-135 area offers significantly better R/R"
+      ],
+      "entry": 144.97,
+      "stop": 133.37,
+      "target": 173.96
+    },
+    {
+      "ticker": "GWW",
+      "name": "W.W. Grainger, Inc.",
+      "sector": "Industrials",
+      "signal": "WATCH",
+      "score": 92.7,
+      "grade": "A",
+      "thesis": "Industrial supply Dividend King with RS at new highs and a 3-contraction VCP (tightest 3.9%). EPS +18% is slightly below the 20% threshold and revenue growth is moderate at +10%. TV: BUY. Technically clean but fundamentals are middling — watch for a pullback to the $1240-1260 area for a better entry point.",
+      "strengths": [
+        "RS at new highs — industrial distributor leading the sector",
+        "VCP 3 contractions, tightest 3.9% — constructive base",
+        "Dividend King with 50+ years consecutive dividend growth",
+        "TradingView BUY (11 buys, 5 sells)"
+      ],
+      "risks": [
+        "EPS +18% — just below the 20% threshold for ideal fundamental setup",
+        "Revenue +10% — modest top-line growth for premium valuation",
+        "TV: 5 sell votes — distribution emerging in the technical picture",
+        "High absolute price ($1320) — position sizing challenge"
+      ],
+      "watch": [
+        "Earnings in ~41 days (Aug 4) — industrial end-market demand commentary",
+        "Better entry on pullback to $1240-1260 MA50 area",
+        "RS at high — monitor RS for any deterioration as the primary exit signal"
+      ],
+      "entry": 1320.48,
+      "stop": 1214.84,
+      "target": 1584.58
+    },
+    {
+      "ticker": "EQIX",
+      "name": "Equinix, Inc.",
+      "sector": "Real Estate",
+      "signal": "WATCH",
+      "score": 93.2,
+      "grade": "A",
+      "thesis": "Global data center REIT at all-time high with a 3-contraction VCP (tightest 4.7%), EPS +20%, Rev +12%. TV: BUY. Main watch: P/E of 58x is very elevated, RS is not yet at new highs, and the setup is slightly less clean than IRM or DLR. Best-in-class data center colocation franchise — wait for a pullback to $1060-1080 for a better entry.",
+      "strengths": [
+        "VCP 3 contractions, tightest 4.7% — constructive at all-time high",
+        "EPS +20%, Rev +12% — steady AI-driven colocation demand",
+        "Best-in-class global data center REIT with irreplaceable interconnection fabric",
+        "TradingView BUY (15 buys, 3 sells)"
+      ],
+      "risks": [
+        "Forward P/E 58.1x — extremely elevated; any guidance miss will be severely punished",
+        "RS not at new highs — EQIX slightly lagging its own historical trend",
+        "Heavy capex requirements for ongoing global expansion"
+      ],
+      "watch": [
+        "Earnings in ~36 days (July 30) — data center lease rates and forward guidance",
+        "Better entry: pullback to $1060-1080 (near MA50)",
+        "Watch RS line to reach new highs as confirmation of trend sustainability"
+      ],
+      "entry": 1115.93,
+      "stop": 1026.66,
+      "target": 1339.12
+    },
+    {
+      "ticker": "HLT",
+      "name": "Hilton Worldwide Holdings Inc.",
+      "sector": "Consumer Cyclical",
+      "signal": "WATCH",
+      "score": 92.7,
+      "grade": "A",
+      "thesis": "Hotel operator near 52-week high with a 2-contraction VCP (tightest 3.9%) and EPS +35%, Rev +11%. TV: BUY. The setup is clean but RS is 3.3% off new highs and TV has 4 sell votes. Leisure and business travel demand robust. Earnings in 35 days (July 29).",
+      "strengths": [
+        "VCP 2 contractions, tightest 3.9% — tight pattern near 52-week high",
+        "EPS +35%, Rev +11% — travel demand continues to outperform",
+        "Just 1.8% from 52-week high — at the doorstep",
+        "TradingView BUY (12 buys, 4 sells)"
+      ],
+      "risks": [
+        "RS not at new highs (-3.3%) — slight lag vs market",
+        "TV: 4 sell votes — some hesitation in the technical picture",
+        "Forward P/E 33x — premium; consumer spending slowdown risk"
+      ],
+      "watch": [
+        "Earnings in 35 days (July 29) — RevPAR and forward booking guidance",
+        "Watch RS line close the 3.3% gap to new highs",
+        "Volume confirmation needed on close above $350.22 52-week high"
+      ],
+      "entry": 343.83,
+      "stop": 316.32,
+      "target": 412.60
+    },
+    {
+      "ticker": "COCO",
+      "name": "Vita Coco Company, Inc.",
+      "sector": "Consumer Defensive",
+      "signal": "WATCH",
+      "score": 91.0,
+      "grade": "A",
+      "thesis": "Coconut water brand growing explosively — EPS +61%, Rev +37%, RS at new highs, VCP. Exceptional fundamentals. BUT RSI at 77.2 is the highest overbought reading in the entire picks list — this stock needs to digest before a safe entry. TV: BUY confirms the trend. Wait for a pullback to the $74-78 area.",
+      "strengths": [
+        "EPS +61%, Rev +37% YoY — fastest fundamental growth in consumer defensive",
+        "RS at new highs — outperforming the sector strongly",
+        "VCP pattern showing orderly institutional accumulation",
+        "TradingView BUY (15 buys, 2 sells)"
+      ],
+      "risks": [
+        "RSI at 77.2 — most overbought name in the picks list; near-term pullback likely",
+        "Small/mid cap (~$850M) — thin liquidity; gap risk on any adverse news",
+        "Coconut water segment subject to private-label competition"
+      ],
+      "watch": [
+        "WAIT: RSI 77 means this is extended; better entry on pullback to $74-78",
+        "Watch for RSI to reset to 55-60 range as the ideal re-entry signal",
+        "Volume decline on pullback confirms healthy consolidation vs distribution"
+      ],
+      "entry": 82.74,
+      "stop": 76.12,
+      "target": 99.29
+    },
+    {
+      "ticker": "DLR",
+      "name": "Digital Realty Trust, Inc.",
+      "sector": "Real Estate",
+      "signal": "WATCH",
+      "score": 92.4,
+      "grade": "A",
+      "thesis": "Data center REIT with a 4-contraction VCP (tightest 4.2%), EPS +68%, Rev +17%. TV: STRONG BUY (17 buys, 1 sell) — the strongest TV confirmation in the WATCH tier. Main caution: P/E of 68x is the highest in the picks list, and RS is 7.6% off new highs. Earnings in 30 days (July 24). A pullback to $185 would create a better entry.",
+      "strengths": [
+        "VCP 4 contractions, tightest 4.2% — multi-month base",
+        "EPS +68%, Rev +17% — AI-driven data center demand",
+        "TradingView STRONG BUY (17 buys, 1 sell) — strongest TV signal in WATCH tier",
+        "Earnings in 30 days (July 24) — catalyst approaching"
+      ],
+      "risks": [
+        "Forward P/E 68.1x — highest valuation risk in the entire picks list",
+        "RS -7.6% from high — significantly lagging; not leading the REIT sector",
+        "Hyperscaler cloud demand concentration risk (AWS, Google, Microsoft)"
+      ],
+      "watch": [
+        "July 24 earnings — data center lease rates and vacancy metrics are key",
+        "Better entry: pullback to $185-190 area",
+        "Watch for RS line to recover above -3% before committing full size"
+      ],
+      "entry": 195.00,
+      "stop": 179.40,
+      "target": 234.00
+    },
+    {
+      "ticker": "SPG",
+      "name": "Simon Property Group, Inc.",
+      "sector": "Real Estate",
+      "signal": "WATCH",
+      "score": 92.2,
+      "grade": "A",
+      "thesis": "Premier mall REIT near 52-week high with RS at new highs and a 4-contraction VCP (tightest 4.2%). Revenue +19% YoY. TV: STRONG BUY (16 buys, 0 sells). Main watch: EPS growth of +16% is below the ideal 20% threshold. Best-in-class mall real estate portfolio globally.",
+      "strengths": [
+        "RS at new highs — leading the REIT sector",
+        "Revenue +19% YoY — premium tenant occupancy and leasing spreads improving",
+        "TradingView STRONG BUY (16 buys, 0 sells)",
+        "VCP 4 contractions, tightest 4.2% — constructive base"
+      ],
+      "risks": [
+        "EPS growth +16% — below ideal 20% threshold",
+        "E-commerce continues to disrupt traditional retail anchor tenants",
+        "Forward P/E 32.1x — elevated for a REIT; interest rate sensitivity"
+      ],
+      "watch": [
+        "Earnings in ~41 days (Aug 4)",
+        "Price 1.1% from 52-week high $219.04 — breakout is imminent",
+        "RSI at 69 — watch for any distribution signals above $219"
+      ],
+      "entry": 216.74,
+      "stop": 199.40,
+      "target": 260.09
+    },
+    {
+      "ticker": "SPCX",
+      "name": "SpaceX (via SPCX)",
+      "sector": "Technology — Space & Satellite",
+      "signal": "WATCH",
+      "score": 50.0,
+      "grade": "B",
+      "thesis": "NEW LISTING — Thesis-driven entry only; quant signals are thin by design (only weeks of trading history). SpaceX has near-monopoly on commercial orbital launch (Falcon 9 >60% global market share), a rapidly growing Starlink satellite internet business, and the world's most ambitious next-generation vehicle in Starship. IPO area was ~$161; current $156 is slightly below. TV has no rating yet — expected for a new listing. For long-term investors this is a conviction hold on the next decade of space infrastructure. Treat as high-risk speculative allocation.",
+      "strengths": [
+        "Commercial launch near-monopoly — Falcon 9 dominates global market share",
+        "Starlink: satellite internet with no terrestrial competition in remote markets",
+        "Starship: if successful, will reduce launch cost dramatically — paradigm shift",
+        "No direct public market competitor with equivalent scope and vertical integration"
+      ],
+      "risks": [
+        "Brand-new listing — price discovery still ongoing; thin trading history",
+        "Valuation premium requires multi-decade execution without single-point failure",
+        "Government contracts concentration risk — FCC/launch license regulatory exposure",
+        "No technical setup signals available yet — purely a fundamental/thesis play"
+      ],
+      "watch": [
+        "Wait 2-3 months of trading history before relying on any technical signals",
+        "Monitor Starlink subscriber growth as the primary fundamental driver to track",
+        "Starship test launches — successful orbital mission is a major catalyst",
+        "Price $156 below IPO area $161 — monitor for base-building and stabilization"
+      ],
+      "entry": 156.11,
+      "stop": 143.62,
+      "target": 187.33
+    }
+  ]
+}
