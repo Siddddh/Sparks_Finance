@@ -1248,9 +1248,10 @@ body.sidebar-open .nav-scrim{display:block;}
         <div id="tab-market" class="tab-panel">
           <div class="page-title">News</div>
           <div class="news-top">
+            <div class="cc-seg" id="newsSeg"><button data-v="market" class="active" onclick="setNewsView('market')">Market News</button><button data-v="stock" onclick="setNewsView('stock')">Stock News</button></div>
             <div class="ac-wrap" style="flex:1;max-width:340px;"><input type="text" id="newsSearchInput" class="modal-input" placeholder="News for a ticker — e.g. AAPL, NVDA" oninput="acFilter(this,'newsAC','news')" onkeydown="acKey(event,'newsAC','news')" autocomplete="off"/><div id="newsAC" class="ac-list" style="display:none"></div></div>
             <button class="pf-btn pf-btn-primary" onclick="newsSearch()">Get news</button>
-            <button class="pf-btn pf-btn-outline" id="newsBackBtn" style="display:none" onclick="document.getElementById('newsSearchInput').value='';renderNewsTab()">← Market news</button>
+            <button class="pf-btn pf-btn-outline" id="newsBackBtn" style="display:none" onclick="document.getElementById('newsSearchInput').value='';renderNewsTab()">← Back</button>
           </div>
           <div id="newsContent"><div class="mnews-grid" id="marketGrid"></div></div>
         </div>
@@ -1504,6 +1505,7 @@ try { if (firebase.messaging.isSupported()) messaging = firebase.messaging(); } 
 const QUOTE_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getQuote';
 const SEARCH_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/searchSymbols';
 const GETNEWS_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getNews';
+const GETEARNINGS_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getEarnings';
 const GETRANGE_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getRange';
 const SERIES_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getSeries';
 const GETYTD_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getYtd';
@@ -2526,7 +2528,14 @@ function newsCardHtml(n) {
   return '<div class="ncard' + (n.breaking ? ' brk' : '') + '">' + logo + '<div class="ncard-body"><div class="ncard-t"><a href="' + escHtml(n.url || '#') + '" target="_blank" rel="noopener">' + escHtml(n.title || '') + '</a></div>' + (n.summary ? '<div class="ncard-sum">' + escHtml(n.summary) + '</div>' : '') + '<div class="ncard-meta"><span class="ncard-src">' + escHtml(n.source || n.outlet || '—') + '</span>' + (t ? '<span class="ncard-time">' + t + '</span>' : '') + tks + '</div></div></div>';
 }
 function scanNewsCard(n) { return newsCardHtml({ title: n.title, summary: n.summary, source: n.outlet, url: n.url, datetime: 0, tickers: [], breaking: n.breaking }); }
+let newsView = 'market', _stockNewsShow = { portfolio: 20, explore: 20 }, _stockNewsCache = null;
+function setNewsView(v) {
+  newsView = v;
+  document.querySelectorAll('#newsSeg button').forEach(b => b.classList.toggle('active', b.dataset.v === v));
+  renderNewsTab();
+}
 function renderNewsTab() {
+  if (newsView === 'stock') { renderStockNews(); return; }
   const back = document.getElementById('newsBackBtn'); if (back) back.style.display = 'none';
   const el = document.getElementById('newsContent'); if (!el) return;
   el.innerHTML = '<div class="empty-sub" style="padding:14px">Loading market news…</div>';
@@ -2541,6 +2550,34 @@ function renderNewsTab() {
     el.innerHTML = scan.length ? '<div class="news-cards">' + scan.map(scanNewsCard).join('') + '</div>' : emptyState('newspaper', 'News unavailable', 'Please try again shortly');
   });
 }
+// Stock News view: Portfolio + Explore subsections (20+ each, expandable).
+async function renderStockNews() {
+  const el = document.getElementById('newsContent'); if (!el) return;
+  const back = document.getElementById('newsBackBtn'); if (back) back.style.display = 'none';
+  el.innerHTML = '<div class="empty-sub" style="padding:14px">Loading stock news…</div>';
+  let held = [];
+  try { if (UID) held = [...new Set((await gatherUserHoldings('all')).map(h => h.ticker).filter(Boolean))]; } catch (e) {}
+  const stocks = (D && D.stocks) || [];
+  const trending = ((D && D.claude_picks && D.claude_picks.length) ? D.claude_picks : stocks.slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0))).slice(0, 14).map(s => s.ticker).filter(Boolean);
+  const fetchBucket = syms => syms.length ? fetch(GETNEWS_API + '?symbols=' + encodeURIComponent(syms.slice(0, 12).join(','))).then(r => r.json()).then(d => d.portfolio || []).catch(() => []) : Promise.resolve([]);
+  const [pf, ex] = await Promise.all([fetchBucket(held), fetchBucket(trending)]);
+  _stockNewsCache = { portfolio: pf, explore: ex };
+  if (newsView === 'stock') _renderStockNewsInner();
+}
+function _renderStockNewsInner() {
+  const el = document.getElementById('newsContent'); if (!el || !_stockNewsCache) return;
+  const sec = (key, title, items, emptyMsg) => {
+    const head = '<div class="exp-h" style="margin:6px 0 10px"><div class="exp-h-l">' + ic('newspaper', 18) + ' ' + title + (items.length ? ' <span style="font-size:12px;color:var(--text-3);font-weight:500">· ' + items.length + '</span>' : '') + '</div></div>';
+    if (!items.length) return '<div class="exp-sec">' + head + '<div class="empty-sub" style="padding:8px 2px">' + emptyMsg + '</div></div>';
+    const show = _stockNewsShow[key] || 20, shown = items.slice(0, show);
+    const more = items.length > show ? '<div style="text-align:center;margin-top:12px"><button class="pf-btn pf-btn-outline" onclick="moreStockNews(\'' + key + '\')">Show more (' + (items.length - show) + ')</button></div>' : '';
+    return '<div class="exp-sec">' + head + '<div class="news-cards">' + shown.map(newsCardHtml).join('') + '</div>' + more + '</div>';
+  };
+  el.innerHTML = sec('portfolio', 'Your portfolio', _stockNewsCache.portfolio, 'Add holdings to see news on the stocks you own.') +
+    sec('explore', 'Explore — trending', _stockNewsCache.explore, 'No trending-stock news right now.');
+  observeLazyCards(el);
+}
+function moreStockNews(key) { _stockNewsShow[key] = (_stockNewsShow[key] || 20) + 20; _renderStockNewsInner(); }
 function newsSearch() {
   const inp = document.getElementById('newsSearchInput'); const t = (inp && inp.value || '').trim().toUpperCase();
   if (!t) { researchShake(inp); return; }
@@ -3055,15 +3092,63 @@ function discCard(r) {
 }
 
 // ── Earnings ──
-function renderEarnings() {
-  const earns = (D && D.earnings_calendar) || (D && (D.stocks || []).filter(s => s.days_to_earnings != null && s.days_to_earnings >= 0 && s.days_to_earnings <= 30).sort((a, b) => a.days_to_earnings - b.days_to_earnings)) || [];
-  const el = document.getElementById('earningsContent');
-  if (!earns.length) { el.innerHTML = emptyState('calendar', 'No upcoming earnings', 'Earnings within 30 days will appear here'); return; }
-  el.innerHTML = earns.map(e => {
-    const flag = e.earnings_flag || 'UPCOMING';
-    const clr = flag === 'CATALYST' ? 'var(--blue)' : flag === 'HIGH_RISK' ? 'var(--red)' : 'var(--amber)';
-    return '<div class="earn-card"><div class="earn-top"><div class="earn-ticker">' + e.ticker + ' <span style="font-size:12px;font-weight:400;color:var(--text-3)">' + (e.name || '') + '</span></div><div><span class="earn-date" style="color:' + clr + '">' + (e.days_to_earnings != null ? e.days_to_earnings + ' days' : e.earnings_date_str || e.earn_date || '—') + '</span></div></div><div class="earn-meta">' + (e.earnings_label || flag) + (e.eps_est ? ' · EPS est: $' + e.eps_est : '') + (e.eps_growth != null ? ' · EPS growth: ' + (e.eps_growth >= 0 ? '+' : '') + e.eps_growth + '%' : '') + '</div></div>';
-  }).join('');
+// ── Earnings — Google-Finance-style: today + this week's reporting companies, All / My-stocks ──
+let _earnScope = 'all', _earnCache = null, _earnFetchedAt = 0;
+function setEarnScope(v) { _earnScope = v; _renderEarningsInner(); }
+function _earnUserSet() {
+  const s = new Set();
+  try { (holdings || []).forEach(h => h.ticker && s.add(h.ticker.toUpperCase())); Object.values(holdingsByPortfolio || {}).forEach(arr => (arr || []).forEach(h => h.ticker && s.add(h.ticker.toUpperCase()))); } catch (e) {}
+  try { (watchlists || []).forEach(w => (w.tickers || []).forEach(t => t && s.add(String(t).toUpperCase()))); } catch (e) {}
+  return s;
+}
+async function renderEarnings() {
+  const el = document.getElementById('earningsContent'); if (!el) return;
+  if (!_earnCache || Date.now() - _earnFetchedAt > 600000) {
+    el.innerHTML = '<div class="empty-sub" style="padding:14px">Loading earnings calendar…</div>';
+    try { const d = await fetch(GETEARNINGS_API).then(r => r.json()); _earnCache = (d && d.earnings) || []; _earnFetchedAt = Date.now(); }
+    catch (e) { _earnCache = null; }
+  }
+  _renderEarningsInner();
+}
+function _earnToggle(extra) {
+  return '<div class="news-top" style="margin-bottom:14px"><div class="cc-seg" id="earnSeg"><button data-v="all" class="' + (_earnScope === 'all' ? 'active' : '') + '" onclick="setEarnScope(\'all\')">All</button><button data-v="mine" class="' + (_earnScope === 'mine' ? 'active' : '') + '" onclick="setEarnScope(\'mine\')">My stocks</button></div>' + (extra ? '<span style="font-size:12px;color:var(--text-3);align-self:center">' + extra + '</span>' : '') + '</div>';
+}
+function _renderEarningsInner() {
+  const el = document.getElementById('earningsContent'); if (!el) return;
+  const mine = _earnUserSet();
+  if (!_earnCache || !_earnCache.length) {   // backend not deployed yet → scan-based upcoming-earnings fallback
+    const earns = (D && (D.stocks || []).filter(s => s.days_to_earnings != null && s.days_to_earnings >= 0 && s.days_to_earnings <= 30).sort((a, b) => a.days_to_earnings - b.days_to_earnings)) || [];
+    let list = _earnScope === 'mine' ? earns.filter(s => mine.has((s.ticker || '').toUpperCase())) : earns;
+    if (!list.length) { el.innerHTML = _earnToggle('') + emptyState('calendar', 'No upcoming earnings', 'The live calendar loads once the backend is deployed; meanwhile this shows scan stocks reporting within 30 days.'); return; }
+    el.innerHTML = _earnToggle('') + list.map(e => {
+      const flag = e.earnings_flag || 'UPCOMING', clr = flag === 'CATALYST' ? 'var(--blue)' : flag === 'HIGH_RISK' ? 'var(--red)' : 'var(--amber)';
+      const mb = mine.has((e.ticker || '').toUpperCase()) ? ' <span class="badge badge-blue">★ In your list</span>' : '';
+      return '<div class="earn-card"><div class="earn-top"><div class="earn-ticker">' + e.ticker + ' <span style="font-size:12px;font-weight:400;color:var(--text-3)">' + (e.name || '') + '</span>' + mb + '</div><div><span class="earn-date" style="color:' + clr + '">' + (e.days_to_earnings != null ? e.days_to_earnings + ' days' : '—') + '</span></div></div><div class="earn-meta">' + (e.earnings_label || flag) + (e.eps_growth != null ? ' · EPS growth ' + (e.eps_growth >= 0 ? '+' : '') + e.eps_growth + '%' : '') + '</div></div>';
+    }).join('');
+    return;
+  }
+  const today = new Date().toISOString().slice(0, 10);
+  let rows = _earnCache.slice();
+  if (_earnScope === 'mine') rows = rows.filter(r => mine.has(r.symbol));
+  rows.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : (a.symbol < b.symbol ? -1 : 1)));
+  const head = _earnToggle(rows.length + ' ' + (_earnScope === 'mine' ? 'of your stocks ' : 'companies ') + 'reporting this week');
+  if (!rows.length) { el.innerHTML = head + emptyState('calendar', 'No earnings', _earnScope === 'mine' ? 'None of your holdings or watchlist report in the next week.' : 'No earnings scheduled in this window.'); return; }
+  const hourLabel = h => h === 'bmo' ? 'Before open' : h === 'amc' ? 'After close' : h === 'dmh' ? 'During hours' : 'Time TBD';
+  const tm = new Date(); tm.setDate(tm.getDate() + 1); const tmStr = tm.toISOString().slice(0, 10);
+  const dayLabel = d => d === today ? 'Today' : d === tmStr ? 'Tomorrow' : new Date(d + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
+  let html = head, lastDate = null;
+  rows.forEach(r => {
+    if (r.date !== lastDate) { html += '<div class="notif-daysec">' + dayLabel(r.date) + '</div>'; lastDate = r.date; }
+    const name = (typeof TICKER_DB !== 'undefined' && TICKER_DB[r.symbol]) || (window.US_SYMBOLS && US_SYMBOLS[r.symbol]) || ((scanStockFor(r.symbol) || {}).name) || '';
+    const hb = '<span class="badge badge-gray">' + hourLabel(r.hour) + '</span>';
+    const mb = mine.has(r.symbol) ? '<span class="badge badge-blue">★ In your list</span>' : '';
+    const est = r.epsEstimate != null ? '<span>EPS est ' + (r.epsEstimate < 0 ? '-$' : '$') + Math.abs(r.epsEstimate).toFixed(2) + '</span>' : '';
+    const act = r.epsActual != null ? '<span class="' + (r.epsEstimate != null && r.epsActual >= r.epsEstimate ? 'pos' : 'neg') + '" style="font-weight:700">EPS ' + (r.epsActual < 0 ? '-$' : '$') + Math.abs(r.epsActual).toFixed(2) + (r.epsEstimate != null ? (r.epsActual >= r.epsEstimate ? ' · beat' : ' · miss') : '') + '</span>' : '';
+    html += '<div class="notif-row" onclick="goResearch(\'' + r.symbol + '\')">' + stockLogoHtml(r.symbol, 'notif-av') +
+      '<div class="notif-main"><div class="notif-t">' + escHtml(r.symbol) + ' <span style="font-weight:400;color:var(--text-3)">' + escHtml(name) + '</span> ' + mb + '</div>' +
+      '<div class="notif-meta">' + hb + est + act + '</div></div></div>';
+  });
+  el.innerHTML = html;
 }
 
 // ── Catalysts ──
@@ -3463,7 +3548,7 @@ function loadPortfolioData() {
     syncReportSelectors();
     const _dEl = document.getElementById('inlineHoldingDate'); if (_dEl && !_dEl.value) _dEl.value = todayStr();
     const sel = document.getElementById('pfSelect');
-    sel.innerHTML = portfolios.map(p => '<option value="' + p.id + '">' + (p.name || p.id) + '</option>').join('');
+    sel.innerHTML = '<option value="all">All portfolios</option>' + portfolios.map(p => '<option value="' + p.id + '">' + (p.name || p.id) + '</option>').join('');
     if (!portfolios.length) {
       document.getElementById('pfBody').innerHTML = emptyState('briefcase', 'No portfolios yet', 'Create your first portfolio to track holdings');
       return;
@@ -3473,13 +3558,34 @@ function loadPortfolioData() {
     loadHoldings(currentPfId);
   });
 }
+let _pfAllScope = false;   // true = "All portfolios" aggregate (read-only) view
 function switchPf(pfId) {
-  currentPfId = pfId;
-  holdings = holdingsByPortfolio[pfId] || [];   // instant render from cache; listener refreshes
-  loadHoldings(pfId);
+  if (pfId === 'all') {
+    _pfAllScope = true; _pfPanelScope = 'all'; currentPfId = 'all';
+    if (holdingsUnsub) { holdingsUnsub(); holdingsUnsub = null; }   // no single-portfolio listener in aggregate mode
+    loadAllHoldings();
+  } else {
+    _pfAllScope = false; _pfPanelScope = 'this'; currentPfId = pfId;
+    holdings = holdingsByPortfolio[pfId] || [];   // instant render from cache; listener refreshes
+    loadHoldings(pfId);
+  }
   // Summary & Health aggregate ALL portfolios — refresh them if the user is viewing them.
   if (document.getElementById('tab-summary').classList.contains('active')) loadSummary();
   if (document.getElementById('tab-health').classList.contains('active')) loadHealth();
+}
+// Aggregate raw lots across every portfolio (cache-first; one-time fetch for unvisited) for the "All" view.
+async function loadAllHoldings() {
+  holdings = []; renderHoldingsTable();   // paint header/banner immediately
+  const out = [];
+  for (const pf of (portfolios || [])) {
+    let docs = holdingsByPortfolio[pf.id];
+    if (!docs) {
+      try { const snap = await Promise.race([db.collection('holdings').doc(UID).collection(pf.id).get(), new Promise((_, rej) => setTimeout(() => rej(new Error('t')), 5000))]); docs = snap.docs.map(d => ({ id: d.id, ...d.data() })); holdingsByPortfolio[pf.id] = docs; } catch (e) { docs = []; }
+    }
+    docs.forEach(h => out.push(h));
+  }
+  if (currentPfId !== 'all') return;   // user switched away while awaiting
+  holdings = out; renderHoldingsTable();
 }
 function createPortfolio(name) {
   if (!UID || !name) return Promise.resolve(null);
@@ -3488,11 +3594,11 @@ function createPortfolio(name) {
 // Per-ticker portfolio notes live on the portfolio list doc (`notes` map) since holdings are multi-lot per ticker.
 function pfNoteFor(pfId, t) { const p = (portfolios || []).find(x => x.id === pfId); const n = (p && p.notes) || {}; return n[(t || '').toUpperCase()] || n[t] || ''; }
 function setPfNote(pfId, t, v) {
-  if (!UID || !pfId) return;
+  if (!UID || !pfId || pfId === 'all') return;
   db.collection('portfolios').doc(UID).collection('list').doc(pfId).update(new firebase.firestore.FieldPath('notes', (t || '').toUpperCase()), v == null ? '' : String(v)).catch(() => {});
 }
 function renamePortfolio(pfId, name) {
-  name = (name || '').trim(); if (!UID || !pfId || !name) return;
+  name = (name || '').trim(); if (!UID || !pfId || !name || pfId === 'all') return;
   db.collection('portfolios').doc(UID).collection('list').doc(pfId).update({ name }).catch(() => {});
 }
 // Inline "add portfolio" row (replaces the old modal). Auto-selects the new portfolio so
@@ -3530,6 +3636,7 @@ function renderPortfolioTab() { renderHoldingsTable(); }
 // ── Inline add-holding row (replaces the modal) ──
 async function addHoldingInline() {
   if (!currentPfId) { try { pmToast('Create a portfolio first'); } catch (e) {} return; }
+  if (currentPfId === 'all') { try { pmToast('Pick a specific portfolio to add a holding'); } catch (e) {} return; }
   const t = document.getElementById('inlineHoldingTicker'), q = document.getElementById('inlineHoldingQty'),
         p = document.getElementById('inlineHoldingPrice'), d = document.getElementById('inlineHoldingDate');
   const ticker = ((t && t.value) || '').trim().toUpperCase();
@@ -3786,7 +3893,9 @@ function _renderHoldingsUI() {
   if (!el) return;
   // Don't re-render (and lose the caret) while a notes field is being edited; it saves on blur.
   if (document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('pf-note')) return;
-  if (!holdings.length) { el.innerHTML = emptyState('briefcase', 'No holdings yet', 'Use the row above to add your first holding'); return; }
+  const ro = _pfAllScope;   // "All portfolios" → read-only aggregate (edit by picking a specific portfolio)
+  const _ah = document.getElementById('addHoldingRow'); if (_ah) _ah.style.display = ro ? 'none' : '';
+  if (!holdings.length) { el.innerHTML = (ro ? '<div class="pf-filter-note">No holdings across your portfolios yet.</div>' : emptyState('briefcase', 'No holdings yet', 'Use the row above to add your first holding')); return; }
   const all = pfMergedRows();
   let totalValue = 0, totalCost = 0, totalToday = 0;
   all.forEach(e => { totalValue += e.value; totalCost += e.cost; totalToday += e.today; });
@@ -3819,6 +3928,8 @@ function _renderHoldingsUI() {
     const ytdRetCell = (e.ytdRetPct != null) ? ((e.ytdRetAbs >= 0 ? '+' : '-') + dollarFmt(Math.abs(e.ytdRetAbs || 0)) + '<div class="ht-sub ' + ytdC + '">' + pctFmt(e.ytdRetPct) + '</div>') : '<span class="ht-sub">—</span>';
     const ytdDivCell = (e.ytdDivAbs != null) ? dollarFmt(e.ytdDivAbs) : '<span class="ht-sub">—</span>';
     const noteVal = pfNoteFor(currentPfId, e.ticker);
+    const noteCell = ro ? '<td><span class="ht-sub">—</span></td>' : '<td><input class="pf-note" value="' + escHtml(noteVal) + '" placeholder="Add note…" onkeydown="if(event.key===\'Enter\')this.blur()" onblur="setPfNote(currentPfId,\'' + e.ticker + '\',this.value)" style="width:130px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12px;color:var(--text)"/></td>';
+    const actCell = '<td style="white-space:nowrap"><button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="goResearch(\'' + e.ticker + '\')">Research</button>' + (ro ? '' : ' <button class="pf-btn pf-btn-danger" title="Remove ' + e.ticker + (e.lotIds.length > 1 ? ' (' + e.lotIds.length + ' lots)' : '') + '" onclick="removeHoldingTicker(\'' + currentPfId + '\',\'' + e.ticker + '\')">' + ic('x', 16) + '</button>') + '</td>';
     let cell52;
     if (e.has52) {
       cell52 = '<div class="rng-track"><div class="rng-fill" data-w="' + e.pos52.toFixed(0) + '" style="width:0%"></div><div class="rng-dot" data-l="' + e.pos52.toFixed(0) + '" style="left:0%"></div></div>' +
@@ -3837,8 +3948,7 @@ function _renderHoldingsUI() {
       '<td>' + ytdDivCell + '</td>' +
       '<td class="ht-52">' + cell52 + '</td>' +
       '<td><span class="ht-num-strong">' + dollarFmt(e.value) + '</span><div class="ht-sub">@ $' + e.price.toFixed(2) + (e.changePct ? ' ' + pctFmt(e.changePct) : '') + '</div></td>' +
-      '<td><input class="pf-note" value="' + escHtml(noteVal) + '" placeholder="Add note…" onkeydown="if(event.key===\'Enter\')this.blur()" onblur="setPfNote(currentPfId,\'' + e.ticker + '\',this.value)" style="width:130px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12px;color:var(--text)"/></td>' +
-      '<td style="white-space:nowrap"><button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="goResearch(\'' + e.ticker + '\')">Research</button> <button class="pf-btn pf-btn-danger" title="Remove ' + e.ticker + (e.lotIds.length > 1 ? ' (' + e.lotIds.length + ' lots)' : '') + '" onclick="removeHoldingTicker(\'' + currentPfId + '\',\'' + e.ticker + '\')">' + ic('x', 16) + '</button></td>' +
+      noteCell + actCell +
       '</tr>';
   }).join('');
   const table = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
@@ -3855,12 +3965,13 @@ function _renderHoldingsUI() {
     '<th title="Open Research, or remove the position"></th>' +
     '</tr></thead><tbody>' + rowsHtml + '</tbody></table></div>' +
     '<div class="rng-advice-note">Buy/Sell guidance is generated from scan signals and your cost basis — informational only, not financial advice.</div>';
-  el.innerHTML = header + filterNote + table;
+  const roBanner = ro ? '<div class="pf-filter-note">Aggregate of all portfolios — switch to a specific portfolio to add, remove, or edit notes.</div>' : '';
+  el.innerHTML = header + roBanner + filterNote + table;
   growBars(el);
 }
 // Remove an entire merged position (all lots of a ticker) from a portfolio.
 function removeHoldingTicker(pfId, ticker) {
-  if (!UID || !pfId || !ticker) return;
+  if (!UID || !pfId || !ticker || pfId === 'all') return;
   const lots = (holdings || []).filter(h => h.ticker === ticker);
   if (!lots.length) return;
   if (lots.length > 1 && !confirm('Remove all ' + lots.length + ' lots of ' + ticker + ' from this portfolio?')) return;
@@ -4434,12 +4545,17 @@ function renderAgentResearch(ticker, agentData, scanData) {
   // 4) Live TradingView widgets (public data): chart (the journey), financials, technical rating, company profile
   html += tvWidgetsSection(ticker);
   el.innerHTML = html;
-  try {
-    mountTvChart('tvResChart', ticker, { range: '12M' });
-    mountTvFinancials('tvResFin', ticker);
-    mountTvTA('tvResTA', ticker);
-    mountTvProfile('tvResProfile', ticker);
-  } catch (e) {}
+  const _mountTv = () => { try { mountTvChart('tvResChart', ticker, { range: '12M' }); mountTvFinancials('tvResFin', ticker); mountTvTA('tvResTA', ticker); mountTvProfile('tvResProfile', ticker); } catch (e) {} };
+  // Only mount TradingView when the ticker has live market data — a scanned stock or a working live quote.
+  // Delisted/uncovered tickers (e.g. SPCX) would otherwise show TradingView's "Invalid Symbol" cards.
+  const _le = liveEntry(ticker);
+  if (scanStockFor(ticker) || (_le && _le.price != null)) { _mountTv(); }
+  else {
+    fetchLivePrices([ticker]).then(() => {
+      const l = liveEntry(ticker);
+      if (l && l.price != null) _mountTv(); else tvUnavailable(ticker);
+    }).catch(() => _mountTv());   // transient fetch error → mount anyway rather than hide
+  }
   try { renderResRadar(ticker); } catch (e) {}   // Chart.js radar — render after the canvas is in the DOM
   _tvResTicker = ticker;   // widgets are now mounted for this ticker — subsequent same-ticker renders take the fast path
 }
@@ -4447,18 +4563,50 @@ function renderAgentResearch(ticker, agentData, scanData) {
 function factorRadarSection(ticker) {
   return '<div class="rsec"><div class="rsec-h">' + ic('activity', 15) + ' Factor profile — ' + escHtml((ticker || '').toUpperCase()) + '</div>' +
     '<div style="max-width:460px;margin:0 auto;height:300px;position:relative"><canvas id="resRadar"></canvas></div>' +
-    '<div id="resRadarNote" class="empty-sub" style="display:none;text-align:center;padding:18px 0">Factor profile is available for stocks in the daily scan universe.</div></div>';
+    '<div id="resRadarNote" class="empty-sub" style="display:none;text-align:center;padding:18px 0">Factor profile unavailable for this symbol.</div></div>';
 }
+function _radarChart(id, label, labels, vals) {
+  const blue = cvar('--blue') || '#1a73e8';
+  mkChart(id, { type: 'radar', data: { labels: labels, datasets: [{ label: label, data: vals.map(v => +(+v).toFixed(0)), borderColor: blue, backgroundColor: hexA(blue, .18), pointBackgroundColor: blue, borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { min: 0, max: 100, angleLines: { color: cvar('--border-soft') }, grid: { color: cvar('--border-soft') }, pointLabels: { color: cvar('--text-2'), font: { size: 11 } }, ticks: { display: false, stepSize: 25 } } } } });
+}
+// Hybrid: scan-universe stocks use the rich scan factors (instant); ANY other listed stock gets a
+// profile derived from its 1y price series, so the Factor profile shows for every covered ticker.
+const _resSeriesCache = {};
 function renderResRadar(ticker) {
   const cv = document.getElementById('resRadar'); if (!cv) return;
   const note = document.getElementById('resRadarNote');
   const s = scanStockFor(ticker);
-  if (!s) { killChart('resRadar'); cv.style.display = 'none'; if (note) note.style.display = 'block'; return; }
+  if (s) {
+    cv.style.display = ''; if (note) note.style.display = 'none';
+    const clamp = v => Math.max(0, Math.min(100, v));
+    const vals = [clamp(((+s.momentum_3m || 0) + 30) / 60 * 100), clamp(+s.fwd_pe > 0 ? 100 - Math.min(100, (+s.fwd_pe) / 60 * 100) : 50), clamp((+s.rev_growth || 0) / 50 * 100), clamp(+s.rs_score || 0), clamp(+s.rsi || 50), clamp(((+s.news_score_addon || 0) + 10) / 20 * 100)];
+    _radarChart('resRadar', s.ticker, ['Momentum', 'Value', 'Growth', 'Rel. Strength', 'RSI', 'Sentiment'], vals);
+    return;
+  }
+  renderResRadarFromPrice((ticker || '').toUpperCase());
+}
+async function renderResRadarFromPrice(ticker) {
+  let d = _resSeriesCache[ticker];
+  if (!d) { try { d = await fetch(SERIES_API + '?symbol=' + encodeURIComponent(ticker.replace(/\./g, '-')) + '&range=1y').then(r => r.json()); _resSeriesCache[ticker] = d; } catch (e) { d = null; } }
+  const cv = document.getElementById('resRadar'); if (!cv) return;   // research navigated away while awaiting
+  const note = document.getElementById('resRadarNote');
+  const c = d && d.c;
+  if (!c || c.length < 20) { killChart('resRadar'); cv.style.display = 'none'; if (note) { note.style.display = 'block'; note.textContent = 'Not enough price history to build a factor profile for ' + ticker + '.'; } return; }
   cv.style.display = ''; if (note) note.style.display = 'none';
   const clamp = v => Math.max(0, Math.min(100, v));
-  const vals = [clamp(((+s.momentum_3m || 0) + 30) / 60 * 100), clamp(+s.fwd_pe > 0 ? 100 - Math.min(100, (+s.fwd_pe) / 60 * 100) : 50), clamp((+s.rev_growth || 0) / 50 * 100), clamp(+s.rs_score || 0), clamp(+s.rsi || 50), clamp(((+s.news_score_addon || 0) + 10) / 20 * 100)];
-  const blue = cvar('--blue') || '#1a73e8';
-  mkChart('resRadar', { type: 'radar', data: { labels: ['Momentum', 'Value', 'Growth', 'Rel. Strength', 'RSI', 'Sentiment'], datasets: [{ label: s.ticker, data: vals, borderColor: blue, backgroundColor: hexA(blue, .18), pointBackgroundColor: blue, borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { min: 0, max: 100, angleLines: { color: cvar('--border-soft') }, grid: { color: cvar('--border-soft') }, pointLabels: { color: cvar('--text-2'), font: { size: 11 } }, ticks: { display: false, stepSize: 25 } } } } });
+  const last = c[c.length - 1], at = n => c[Math.max(0, c.length - 1 - n)];
+  const mom3 = (last / at(63) - 1) * 100, mom1 = (last / at(21) - 1) * 100;
+  const rsiA = rsiArr(c, 14).filter(x => x != null); const rsi = rsiA.length ? rsiA[rsiA.length - 1] : 50;
+  const ma50A = smaArr(c, 50).filter(x => x != null), ma200A = smaArr(c, 200).filter(x => x != null);
+  const ma50 = ma50A.length ? ma50A[ma50A.length - 1] : last, ma200 = ma200A.length ? ma200A[ma200A.length - 1] : last;
+  const trend = (last > ma50 ? 50 : 0) + (last > ma200 ? 50 : 0);
+  const hi = (d.meta && d.meta.high52 != null) ? +d.meta.high52 : Math.max.apply(null, c), lo = (d.meta && d.meta.low52 != null) ? +d.meta.low52 : Math.min.apply(null, c);
+  const pos52 = hi > lo ? (last - lo) / (hi - lo) * 100 : 50;
+  const rets = []; for (let i = 1; i < c.length; i++) { if (c[i] && c[i - 1]) rets.push(c[i] / c[i - 1] - 1); }
+  const mean = rets.reduce((a, b) => a + b, 0) / (rets.length || 1), sd = Math.sqrt(rets.reduce((a, b) => a + (b - mean) * (b - mean), 0) / (rets.length || 1)), volPct = sd * Math.sqrt(252) * 100;
+  const stability = clamp(100 - volPct);
+  const vals = [clamp((mom3 + 30) / 60 * 100), clamp(rsi), clamp(trend), clamp(pos52), clamp((mom1 + 15) / 30 * 100), stability];
+  _radarChart('resRadar', ticker, ['Momentum', 'RSI', 'Trend', '52-wk Range', '1-Month', 'Stability'], vals);
 }
 function defaultResearchTicker() {
   try {
@@ -4529,13 +4677,23 @@ function claudeBriefSection(ticker, a) {
 }
 function tvWidgetsSection(ticker) {
   const card = (icon, title, inner) => '<div class="rsec"><div class="rsec-h">' + ic(icon, 15) + ' ' + title + '</div>' + inner + '</div>';
-  return card('data', 'Price &amp; 52-week journey', '<div id="tvResChart" class="tv-chart-box" style="height:clamp(320px,56vh,460px)"></div>') +
+  return '<div id="tvResWrap">' +
+    card('data', 'Price &amp; 52-week journey', '<div id="tvResChart" class="tv-chart-box" style="height:clamp(320px,56vh,460px)"></div>') +
     card('barchart', 'Financial statements — income · balance sheet · cash flow', '<div id="tvResFin" class="tv-fin-box"></div>') +
     '<div class="rgrid2">' +
       card('activity', 'Technical rating', '<div id="tvResTA" class="tv-ta-box"></div>') +
       card('briefcase', 'Company profile', '<div id="tvResProfile" class="tv-prof-box"></div>') +
     '</div>' +
-    '<div class="tv-attr" style="margin-top:10px;">Live chart, financials, technicals &amp; profile by <a href="https://www.tradingview.com" target="_blank" rel="noopener">TradingView</a> (public data) · brief by Claude</div>';
+    '<div class="tv-attr" style="margin-top:10px;">Live chart, financials, technicals &amp; profile by <a href="https://www.tradingview.com" target="_blank" rel="noopener">TradingView</a> (public data) · brief by Claude</div>' +
+    '</div>';
+}
+// Delisted / uncovered ticker (no live quote) → replace the TradingView widgets with a clean notice
+// instead of TradingView's "Invalid Symbol" error cards.
+function tvUnavailable(ticker) {
+  const w = document.getElementById('tvResWrap'); if (!w) return;
+  w.innerHTML = '<div class="rsec"><div class="rsec-h">' + ic('data', 15) + ' Live charts &amp; financials</div>' +
+    emptyState('search', 'No live market data for ' + escHtml((ticker || '').toUpperCase()),
+      'This symbol appears delisted or isn’t covered by our market-data provider, so the live chart, financials and technical rating aren’t available. Claude’s brief above still applies.') + '</div>';
 }
 // Instant read for tickers outside the scan universe — uses the same scoring lens
 // as the top picks (signal + score derived from live momentum vs 52w range).
