@@ -453,6 +453,9 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 .holding-sub{font-size:11px;color:var(--text-3);margin-top:1px;}
 /* ── Portfolio holdings table (sortable) ── */
 .hold-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--surface-2);-webkit-overflow-scrolling:touch;}
+/* Top mirror scrollbar so the wide holdings table scrolls from the top edge too */
+.hold-scroll-top{overflow-x:auto;overflow-y:hidden;margin-bottom:3px;}
+.hold-scroll-top .hold-scroll-spacer{height:1px;}
 .hold-table{width:100%;border-collapse:collapse;font-size:13px;min-width:720px;}
 .hold-table thead th{position:sticky;top:0;background:var(--surface);color:var(--text-3);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;text-align:right;padding:11px 14px;border-bottom:1px solid var(--border);white-space:nowrap;z-index:2;}
 .hold-table thead th.ht-sortable{cursor:pointer;user-select:none;}
@@ -463,6 +466,11 @@ tr:last-child td{border-bottom:none;}tbody tr:hover td{background:var(--surface-
 .hold-table tbody tr:last-child td{border-bottom:none;}
 .hold-table tbody tr:hover td{background:var(--surface-hover);}
 .hold-table tbody tr.ht-hl td{background:var(--blue-soft);}
+.hold-table tbody tr.ht-placeholder td,.hold-table tbody tr.ht-placeholder:hover td,.hold-table tbody tr.ht-placeholder td.ht-sym,.hold-table tbody tr.ht-placeholder:hover td.ht-sym{background:var(--amber-soft);}
+.ph-input{width:90px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12px;color:var(--text);}
+.ph-input.ph-date{width:140px;}
+.ph-input.ph-bad{border-color:var(--red);}
+.ph-input:focus{outline:none;border-color:var(--blue);}
 .hold-table thead th.ht-sym,.hold-table tbody td.ht-sym{position:sticky;left:0;background:var(--surface-2);z-index:1;}
 .hold-table thead th.ht-sym{background:var(--surface);}
 .hold-table tbody tr:hover td.ht-sym{background:var(--surface-hover);}
@@ -754,6 +762,12 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .ac-chg{font-size:11px;font-weight:500;}
 .ac-skel{width:54px;height:13px;border-radius:4px;background:linear-gradient(90deg,var(--surface) 25%,var(--surface-hover) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;display:inline-block;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* Bulk-add chips (portfolio + watchlist) */
+.bulk-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.bulk-chip{display:inline-flex;align-items:center;gap:3px;background:var(--blue-soft);color:var(--blue);border:1px solid var(--border);border-radius:20px;padding:4px 6px 4px 12px;font-size:12px;font-weight:600;}
+.bulk-chip-unknown{background:var(--amber-soft);color:var(--amber);}
+.bulk-chip-x{display:inline-flex;align-items:center;justify-content:center;border:none;background:transparent;color:inherit;cursor:pointer;padding:1px;border-radius:50%;opacity:.65;line-height:0;}
+.bulk-chip-x:hover{opacity:1;background:rgba(125,125,125,.25);}
 
 /* ════════ Misc ════════ */
 .section-title{font-size:16px;font-weight:600;margin-bottom:14px;color:var(--text);}
@@ -1191,8 +1205,8 @@ body.sidebar-open .nav-scrim{display:block;}
               </div>
             </div>
             <div id="pfLookupCard"></div>
-            <div id="pfChartsPanel"></div>
             <div id="pfBody"></div>
+            <div id="pfChartsPanel"></div>
           </div>
         </div>
         <div id="tab-watchlist" class="tab-panel">
@@ -1966,6 +1980,7 @@ function acSelect(sym, listId, context) {
   else if (context === 'news') { document.getElementById('newsSearchInput').value = sym; newsSearch(); }
   else if (context === 'chart') { setChartSym(sym); }
   else if (context === 'portfolio') { pfSearch(sym); }
+  else if (context === 'bulkAdd') { bulkAddChip(sym); const inp = document.getElementById('bulkTickerInput'); if (inp) inp.focus(); }
 }
 function acClose(listId) { const el = document.getElementById(listId); if (el) el.style.display = 'none'; }
 function acKey(e, listId, context) {
@@ -1980,6 +1995,7 @@ function acKey(e, listId, context) {
     else if (context === 'news') { acClose(listId); newsSearch(); }
     else if (context === 'chart') { acClose(listId); setChartSym(document.getElementById('chartSymInput').value); }
     else if (context === 'portfolio') { const v = document.getElementById('pfSearchInput').value.trim().toUpperCase(); if (v) { acClose(listId); pfSearch(v); } }
+    else if (context === 'bulkAdd') { const inp = document.getElementById('bulkTickerInput'); if (inp && inp.value.trim()) { bulkAddChip(inp.value); } e.preventDefault(); }
   }
   else if (e.key === 'Escape') { acClose(listId); }
 }
@@ -3873,7 +3889,7 @@ function pfMergedRows() {
       const since = (a.buy_date && a.buy_date > yearStart) ? a.buy_date : yearStart;   // count dividends only after purchase
       ytdDivAbs = (y.divs || []).filter(dv => dv.date >= since).reduce((s, dv) => s + (+dv.amount || 0), 0) * a.qty;
     }
-    const row = { ticker: a.ticker, qty: a.qty, cost, lotIds: a.lotIds, buy_date: a.buy_date, scan, price, changePct, prev, buyAvg, value, pnl, pnlPct, today, todayPct, hi, lo, has52, fromHigh, pos52, ytdRetPct, ytdRetAbs, ytdDivAbs };
+    const row = { ticker: a.ticker, qty: a.qty, cost, lotIds: a.lotIds, lotId: a.lotIds[0], placeholder: (a.qty === 0), buy_date: a.buy_date, scan, price, changePct, prev, buyAvg, value, pnl, pnlPct, today, todayPct, hi, lo, has52, fromHigh, pos52, ytdRetPct, ytdRetAbs, ytdDivAbs };
     row.call = holdingCallFor(row.ticker, row);
     return row;
   });
@@ -3891,8 +3907,10 @@ function pfSort(k) {
 function _renderHoldingsUI() {
   const el = document.getElementById('pfBody');
   if (!el) return;
-  // Don't re-render (and lose the caret) while a notes field is being edited; it saves on blur.
-  if (document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('pf-note')) return;
+  // Don't re-render (and lose the caret / half-typed values) while a notes field or a
+  // placeholder editor (qty / price / date) is being edited; notes save on blur, editors on Save.
+  const _ae = document.activeElement;
+  if (_ae && _ae.classList && (_ae.classList.contains('pf-note') || _ae.classList.contains('ph-input'))) return;
   const ro = _pfAllScope;   // "All portfolios" → read-only aggregate (edit by picking a specific portfolio)
   const _ah = document.getElementById('addHoldingRow'); if (_ah) _ah.style.display = ro ? 'none' : '';
   if (!holdings.length) { el.innerHTML = (ro ? '<div class="pf-filter-note">No holdings across your portfolios yet.</div>' : emptyState('briefcase', 'No holdings yet', 'Use the row above to add your first holding')); return; }
@@ -3936,6 +3954,27 @@ function _renderHoldingsUI() {
         '<div class="ht-52meta">$' + e.lo.toFixed(0) + ' – $' + e.hi.toFixed(0) + ' · ' + (e.fromHigh >= 0 ? '+' : '') + e.fromHigh.toFixed(0) + '% vs high</div>' +
         '<div style="margin-top:5px">' + recHtml + '</div>';
     } else { cell52 = '<div class="ht-52meta">—</div><div style="margin-top:5px">' + recHtml + '</div>'; }
+    // Bulk-added placeholder (0-share lot): show editable qty / price / date inputs in an amber row.
+    if (e.placeholder && !ro) {
+      const le = liveEntry(e.ticker), sd = scanStockFor(e.ticker);
+      const liveP = (le && le.price) || (sd && parseFloat(sd.price)) || null;
+      const pricePh = liveP ? ('Buy $ (last $' + (+liveP).toFixed(2) + ')') : 'Buy $';
+      const dash = '<span class="ht-sub">—</span>';
+      return '<tr class="ht-placeholder" data-tkr="' + e.ticker + '">' +
+        '<td class="ht-sym"><div class="ht-symcell"><div class="holding-logo" style="background:' + logoColor(e.ticker) + '">' + e.ticker.slice(0, 2) + '</div>' +
+        '<div><a class="holding-ticker" style="cursor:pointer" onclick="goResearch(\'' + e.ticker + '\')">' + e.ticker + '</a><div class="holding-name" title="' + escHtml(name) + '">' + escHtml(name) + '</div>' +
+        '<div class="ht-sub" style="color:var(--amber)">Fill in details →</div></div></div></td>' +
+        '<td><input class="ph-input ph-price" type="number" step="0.01" min="0" inputmode="decimal" placeholder="' + pricePh + '" onkeydown="if(event.key===\'Enter\')savePlaceholderHolding(\'' + e.lotId + '\',\'' + e.ticker + '\')"/></td>' +
+        '<td><input class="ph-input ph-qty" type="number" step="any" min="0" inputmode="decimal" placeholder="Qty" onkeydown="if(event.key===\'Enter\')savePlaceholderHolding(\'' + e.lotId + '\',\'' + e.ticker + '\')"/></td>' +
+        '<td>' + dash + '</td><td>' + dash + '</td><td>' + dash + '</td><td>' + dash + '</td>' +
+        '<td class="ht-52"><div class="ht-52meta">—</div></td>' +
+        '<td>' + dash + '</td>' +
+        noteCell +
+        '<td style="white-space:nowrap"><input class="ph-input ph-date" type="date" value="' + (e.buy_date || todayStr()) + '" title="Date you bought"/> ' +
+        '<button class="pf-btn pf-btn-primary" style="padding:5px 10px;font-size:12px" title="Save ' + e.ticker + '" onclick="savePlaceholderHolding(\'' + e.lotId + '\',\'' + e.ticker + '\')">✓ Save</button> ' +
+        '<button class="pf-btn pf-btn-danger" title="Remove ' + e.ticker + '" onclick="removeHoldingTicker(\'' + currentPfId + '\',\'' + e.ticker + '\')">' + ic('x', 16) + '</button></td>' +
+        '</tr>';
+    }
     return '<tr data-tkr="' + e.ticker + '">' +
       '<td class="ht-sym"><div class="ht-symcell"><div class="holding-logo" style="background:' + logoColor(e.ticker) + '">' + e.ticker.slice(0, 2) + '</div>' +
       '<div><a class="holding-ticker" style="cursor:pointer" onclick="goResearch(\'' + e.ticker + '\')">' + e.ticker + '</a><div class="holding-name" title="' + escHtml(name) + '">' + escHtml(name) + '</div>' +
@@ -3951,7 +3990,8 @@ function _renderHoldingsUI() {
       noteCell + actCell +
       '</tr>';
   }).join('');
-  const table = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
+  const table = '<div class="hold-scroll-top"><div class="hold-scroll-spacer"></div></div>' +
+    '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
     '<th class="ht-sym ht-sortable' + act('symbol') + '" onclick="pfSort(\'symbol\')" title="Ticker &amp; company — click the symbol to open Research">Symbol' + ind('symbol') + '</th>' +
     '<th title="Your weighted-average purchase price across all lots">Buy avg</th>' +
     '<th title="Number of shares you hold (summed across all lots)">Qty</th>' +
@@ -3968,6 +4008,24 @@ function _renderHoldingsUI() {
   const roBanner = ro ? '<div class="pf-filter-note">Aggregate of all portfolios — switch to a specific portfolio to add, remove, or edit notes.</div>' : '';
   el.innerHTML = header + roBanner + filterNote + table;
   growBars(el);
+  attachDualScroll(el);
+}
+// Mirror the holdings table's horizontal scroll in a thin scrollbar above it, so the wide
+// table can be scrolled from either the top or the bottom edge. Two-way scrollLeft sync.
+let _dualScrollResize = null;
+function attachDualScroll(container) {
+  const top = container.querySelector('.hold-scroll-top'), wrap = container.querySelector('.hold-table-wrap');
+  const tbl = wrap && wrap.querySelector('.hold-table'), spacer = top && top.querySelector('.hold-scroll-spacer');
+  if (!top || !wrap || !tbl || !spacer) return;
+  const sync = () => { spacer.style.width = tbl.scrollWidth + 'px'; };
+  sync();
+  let lock = false;
+  top.onscroll = () => { if (lock) return; lock = true; wrap.scrollLeft = top.scrollLeft; lock = false; };
+  wrap.onscroll = () => { if (lock) return; lock = true; top.scrollLeft = wrap.scrollLeft; lock = false; };
+  if (_dualScrollResize) window.removeEventListener('resize', _dualScrollResize);
+  let t = null;
+  _dualScrollResize = () => { clearTimeout(t); t = setTimeout(sync, 120); };
+  window.addEventListener('resize', _dualScrollResize);
 }
 // Remove an entire merged position (all lots of a ticker) from a portfolio.
 function removeHoldingTicker(pfId, ticker) {
@@ -3979,6 +4037,27 @@ function removeHoldingTicker(pfId, ticker) {
   lots.forEach(l => batch.delete(db.collection('holdings').doc(UID).collection(pfId).doc(l.id)));
   batch.commit().catch(() => {});
   if (pfSearchFilter === ticker) pfSearchClear();
+}
+// Update a single holding lot (used to complete a bulk-added placeholder).
+function updateHolding(pfId, lotId, fields) {
+  if (!UID || !pfId || pfId === 'all' || !lotId) return Promise.resolve();
+  return db.collection('holdings').doc(UID).collection(pfId).doc(lotId).update(fields).catch(() => {});
+}
+// Read the inline editors on a placeholder row and turn it into a real holding.
+async function savePlaceholderHolding(lotId, ticker) {
+  if (currentPfId === 'all') return;
+  const tr = document.querySelector('#pfBody tr.ht-placeholder[data-tkr="' + ticker + '"]');
+  if (!tr) return;
+  const qEl = tr.querySelector('.ph-qty'), pEl = tr.querySelector('.ph-price'), dEl = tr.querySelector('.ph-date');
+  const qty = parseFloat(qEl && qEl.value);
+  let price = parseFloat(pEl && pEl.value);
+  if (isNaN(price)) { const le = liveEntry(ticker), sd = scanStockFor(ticker); price = (le && le.price) || (sd && parseFloat(sd.price)) || NaN; }
+  if (!(qty > 0)) { try { pmToast('Enter the number of shares for ' + ticker); } catch (e) {} if (qEl) { qEl.classList.add('ph-bad'); qEl.focus(); } return; }
+  if (!(price > 0)) { try { pmToast('Enter your buy price for ' + ticker); } catch (e) {} if (pEl) { pEl.classList.add('ph-bad'); pEl.focus(); } return; }
+  const buy_date = (dEl && dEl.value) || todayStr();
+  await updateHolding(currentPfId, lotId, { qty: qty, buy_price: price, buy_date: buy_date });
+  try { pmToast(ticker + ' set — ' + (Math.round(qty * 1e4) / 1e4) + ' sh @ $' + price.toFixed(2)); } catch (e) {}
+  // loadHoldings' onSnapshot re-renders the row as a normal holding.
 }
 // Portfolio search: filter the table if owned, else show a quick look-up card.
 function pfSearch(sym) {
@@ -4781,16 +4860,17 @@ function openModal(type) {
   } else if (type === 'bulkAdd') {
     const label = _bulkTarget === 'pf' ? 'portfolio' : 'watchlist';
     box.innerHTML = '<div class="modal-title">Bulk add to ' + label + '</div>' +
-      '<label class="modal-label">Paste tickers — comma, space, or newline separated</label>' +
-      '<textarea id="bulkTickers" class="modal-input" style="min-height:120px;resize:vertical;font-family:ui-monospace,monospace;" placeholder="ALMU, AIRJ, AMPX, NVDA, AMD …" oninput="bulkAddHint()"></textarea>' +
-      '<div class="modal-price-hint" id="bulkHint" style="margin-top:6px;">Enter one or more tickers.</div>' +
-      (_bulkTarget === 'pf' ? '<div class="modal-price-hint" style="margin-top:4px;color:var(--text-3)">Added as 0-share placeholders — set shares &amp; cost later via the Add holding row.</div>' : '') +
+      '<label class="modal-label">Search a ticker and pick it — or paste a list (comma / space / newline)</label>' +
+      '<div class="ac-wrap"><input id="bulkTickerInput" class="modal-input" autocomplete="off" placeholder="Type to search e.g. NVDA, AAPL…" oninput="bulkTickerInput(this)" onkeydown="acKey(event,\'bulkTickersAC\',\'bulkAdd\')" onpaste="bulkTickerPaste(event)"/><div id="bulkTickersAC" class="ac-list" style="display:none"></div></div>' +
+      '<div id="bulkChips" class="bulk-chips"></div>' +
+      '<div class="modal-price-hint" id="bulkHint" style="margin-top:8px;">Type a ticker and pick it, or press Enter / comma to add.</div>' +
+      (_bulkTarget === 'pf' ? '<div class="modal-price-hint" style="margin-top:4px;color:var(--text-3)">Added as placeholders — fill in shares, cost &amp; buy date right in the highlighted table rows.</div>' : '') +
       '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="bulkAddSubmit()">Add tickers</button></div>';
-    setTimeout(() => { const t = document.getElementById('bulkTickers'); if (t) t.focus(); }, 0);
+    setTimeout(() => { renderBulkChips(); const t = document.getElementById('bulkTickerInput'); if (t) t.focus(); }, 0);
   }
 }
 function closeModal() { document.getElementById('modalOverlay').classList.add('hidden'); }
-function openBulkAdd(target) { _bulkTarget = target; openModal('bulkAdd'); }
+function openBulkAdd(target) { _bulkTarget = target; _bulkChips = []; openModal('bulkAdd'); }
 // Parse a free-form paste into unique, cleaned tickers; flag which are recognized vs unknown (still added).
 function parseBulkTickers(raw) {
   const seen = new Set(), all = [], known = [], unknown = [];
@@ -4803,17 +4883,57 @@ function parseBulkTickers(raw) {
   });
   return { all, known, unknown };
 }
-function bulkAddHint() {
-  const t = document.getElementById('bulkTickers'), h = document.getElementById('bulkHint');
-  if (!t || !h) return;
-  const r = parseBulkTickers(t.value);
-  if (!r.all.length) { h.textContent = 'Enter one or more tickers.'; return; }
-  h.innerHTML = '<strong>' + r.all.length + '</strong> ticker' + (r.all.length === 1 ? '' : 's') + ' · ' + r.known.length + ' recognized' +
-    (r.unknown.length ? ' · <span style="color:var(--amber)">' + r.unknown.length + ' unknown (added anyway): ' + escHtml(r.unknown.slice(0, 12).join(', ')) + (r.unknown.length > 12 ? '…' : '') + '</span>' : '');
+// ── Bulk-add chip input (shared by portfolio + watchlist) ──
+let _bulkChips = [];
+function isKnownTicker(t) { return (window.US_SYMBOLS && US_SYMBOLS[t]) || (typeof TICKER_DB !== 'undefined' && TICKER_DB[t]) || !!scanStockFor(t); }
+// Add one cleaned, de-duplicated ticker as a chip; clear the input + close the dropdown.
+function bulkAddChip(sym) {
+  const t = (sym || '').toUpperCase().trim().replace(/[^A-Z0-9.\-]/g, '');
+  if (!t) return;
+  if (!_bulkChips.includes(t)) _bulkChips.push(t);
+  const inp = document.getElementById('bulkTickerInput'); if (inp) inp.value = '';
+  acClose('bulkTickersAC');
+  renderBulkChips();
+}
+function removeBulkChip(i) { _bulkChips.splice(i, 1); renderBulkChips(); }
+// Typing: peel off any tokens the user completed with a delimiter into chips, keep the trailing
+// partial in the box, and run the normal autocomplete on that partial.
+function bulkTickerInput(inp) {
+  if (/[\s,;]/.test(inp.value)) {
+    const parts = inp.value.split(/[\s,;]+/);
+    const partial = parts.pop();
+    parts.forEach(tok => { if (tok.trim()) bulkAddChip(tok); });
+    inp.value = partial;
+  }
+  if (inp.value.trim()) acFilter(inp, 'bulkTickersAC', 'bulkAdd');
+  else acClose('bulkTickersAC');
+}
+// Paste of a list: split into chips immediately.
+function bulkTickerPaste(e) {
+  const txt = ((e.clipboardData || window.clipboardData) || {}).getData ? (e.clipboardData || window.clipboardData).getData('text') : '';
+  if (txt && /[\s,;]/.test(txt)) {
+    e.preventDefault();
+    txt.split(/[\s,;]+/).forEach(tok => { if (tok.trim()) bulkAddChip(tok); });
+    const inp = document.getElementById('bulkTickerInput'); if (inp) inp.value = '';
+    acClose('bulkTickersAC');
+  }
+}
+function renderBulkChips() {
+  const box = document.getElementById('bulkChips'), h = document.getElementById('bulkHint');
+  if (box) box.innerHTML = _bulkChips.map((t, i) => '<span class="bulk-chip' + (isKnownTicker(t) ? '' : ' bulk-chip-unknown') + '">' + escHtml(t) +
+    '<button class="bulk-chip-x" title="Remove" onclick="removeBulkChip(' + i + ')">' + ic('x', 12) + '</button></span>').join('');
+  if (h) {
+    if (!_bulkChips.length) { h.textContent = 'Type a ticker and pick it, or press Enter / comma to add.'; return; }
+    const unknown = _bulkChips.filter(t => !isKnownTicker(t));
+    h.innerHTML = '<strong>' + _bulkChips.length + '</strong> ticker' + (_bulkChips.length === 1 ? '' : 's') + ' ready' +
+      (unknown.length ? ' · <span style="color:var(--amber)">' + unknown.length + ' unrecognized (added anyway): ' + escHtml(unknown.slice(0, 12).join(', ')) + (unknown.length > 12 ? '…' : '') + '</span>' : '');
+  }
 }
 async function bulkAddSubmit() {
-  const t = document.getElementById('bulkTickers'); if (!t) return;
-  const all = parseBulkTickers(t.value).all;
+  // Fold any text still sitting in the input into chips first.
+  const inp = document.getElementById('bulkTickerInput');
+  if (inp && inp.value.trim()) inp.value.split(/[\s,;]+/).forEach(tok => { if (tok.trim()) bulkAddChip(tok); });
+  const all = _bulkChips.slice();
   if (!all.length) { closeModal(); return; }
   if (_bulkTarget === 'pf') {
     if (!currentPfId) { try { pmToast('Create a portfolio first'); } catch (e) {} return; }
