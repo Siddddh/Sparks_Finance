@@ -16,7 +16,7 @@
 <!-- TradingView (Research tab chart/financials/profile/technical) — warm the connection so widgets paint sooner -->
 <link rel="preconnect" href="https://s3.tradingview.com" crossorigin><link rel="preconnect" href="https://www.tradingview-widget.com" crossorigin>
 <link rel="dns-prefetch" href="https://s3.tradingview.com"><link rel="dns-prefetch" href="https://www.tradingview-widget.com">
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -83,7 +83,9 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Google Sans','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;}
+body{font-family:'Roboto','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;}
+/* Google-Finance style: Roboto everywhere (via inherit), Google Sans for headings (falls back to Roboto). */
+.nav-brand,.page-title,.section-title{font-family:'Google Sans','Roboto',sans-serif;}
 a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .ic{display:inline-block;vertical-align:middle;flex-shrink:0;}
 .pos{color:var(--green);}.neg{color:var(--red);}.neu{color:var(--text-3);}
@@ -205,6 +207,12 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .sign-out-btn{background:none;border:1px solid var(--border);color:var(--text);font-size:13px;font-weight:500;padding:7px 16px;border-radius:24px;cursor:pointer;transition:background .15s;font-family:inherit;}
 .sign-out-btn:hover{background:var(--surface-hover);}
 .scan-t{font-size:11px;color:var(--text-3);}.scan-t strong{color:var(--text-2);font-weight:500;}
+/* Dow / Nasdaq / S&P 500 live mini-strip in the top nav (next to the Live badge). */
+.nav-indices{display:flex;align-items:center;gap:14px;white-space:nowrap;}
+.nav-ix{display:flex;align-items:baseline;gap:5px;font-size:12px;}
+.nav-ix-l{color:var(--text-3);font-weight:500;}
+.nav-ix-v{color:var(--text);font-weight:600;}
+.nav-ix .pos{color:var(--green);}.nav-ix .neg{color:var(--red);}.nav-ix .neu{color:var(--text-3);}
 
 /* ════════ Index strip ════════ */
 .mkt-bar{min-height:var(--strip-h);background:var(--surface-2);border-bottom:1px solid var(--border);display:flex;flex-direction:column;}
@@ -550,6 +558,7 @@ td.pos,.ht-pos{color:var(--green);}td.neg,.ht-neg{color:var(--red);}
 .exp-sec{margin-bottom:26px;}
 .exp-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;}
 .exp-h-l{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--text);}
+.exp-h-sub{font-size:12px;font-weight:400;color:var(--text-3);margin-top:2px;}
 .exp-h-l .ic{color:var(--blue);}
 .exp-seeall,.news-seeall{font-size:12px;font-weight:600;color:var(--blue);cursor:pointer;white-space:nowrap;}
 .exp-seeall:hover,.news-seeall:hover{text-decoration:underline;}
@@ -913,7 +922,7 @@ body.sidebar-open .nav-scrim{display:block;}
   .sidebar{position:fixed;top:var(--nav-h-real, calc(var(--nav-h) + env(safe-area-inset-top)));left:0;bottom:0;height:auto;z-index:900;transform:translateX(-100%);transition:transform .2s;box-shadow:var(--shadow-lg);width:min(82vw,300px);}
   body.sidebar-open .sidebar{transform:none;}
   .nav-hamburger{display:flex;}
-  .scan-t,.user-badge{display:none;}
+  .scan-t,.nav-indices,.user-badge{display:none;}
 }
 @media(max-width:680px){
   .content{padding:16px 18px 56px;}   /* recover horizontal room while research/news grids are still 2-col in the 601-679 band */
@@ -1066,7 +1075,7 @@ body.sidebar-open .nav-scrim{display:block;}
     </div>
     <div class="nav-right">
       <div class="live-badge"><span class="live-dot"></span> Live</div>
-      <div class="scan-t">Updated <strong id="scanT">—</strong></div>
+      <div class="nav-indices" id="navIndices"></div>
       <button class="icon-btn" onclick="startTour(true)" title="Take a tour" aria-label="Take a tour" style="font-weight:700;font-size:15px;">?</button>
       <button class="icon-btn asst-nav-btn" id="asstNavBtn" onclick="asstPopToggle()" title="Ask the AI analyst" aria-label="AI Assistant"></button>
       <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle theme"></button>
@@ -1122,17 +1131,18 @@ body.sidebar-open .nav-scrim{display:block;}
             <div class="pf-toolbar">
               <select id="pfSelect" class="pf-select" onchange="switchPf(this.value)"></select>
               <button class="pf-btn pf-btn-outline" title="Rename this portfolio" onclick="openModal('renamePf')">Rename</button>
-              <input id="newPfName" class="pf-select" style="flex:1 1 180px;min-width:140px;" placeholder="New portfolio name…" onkeydown="if(event.key==='Enter')addPortfolioInline()" autocomplete="off"/>
+              <input id="newPfName" class="pf-select" style="flex:1 1 180px;min-width:140px;" placeholder="Name a new portfolio (e.g. Long-term)…" title="Create a separate portfolio to group holdings (e.g. Long-term, Swing trades, Retirement)" onkeydown="if(event.key==='Enter')addPortfolioInline()" autocomplete="off"/>
               <button class="pf-btn pf-btn-outline" onclick="addPortfolioInline()"><span class="i-plus"></span> Add Portfolio</button>
             </div>
+            <div class="pf-hint" style="font-size:12px;color:var(--text-3);margin:2px 2px 6px;">Add a holding below — enter the ticker, how many shares you own, and your average buy price per share.</div>
             <div class="pf-toolbar" id="addHoldingRow">
               <div class="ac-wrap" style="flex:2 1 150px;min-width:120px;position:relative;">
-                <input id="inlineHoldingTicker" class="pf-select" style="width:100%;" placeholder="Ticker e.g. AAPL" oninput="acFilter(this,'inlineHoldingAC','addHoldingInline')" onkeydown="acKey(event,'inlineHoldingAC','addHoldingInline')" onchange="autofillBuyPriceInline(this.value)" autocomplete="off"/>
+                <input id="inlineHoldingTicker" class="pf-select" style="width:100%;" placeholder="Stock ticker (e.g. AAPL)" title="The stock symbol you bought" oninput="acFilter(this,'inlineHoldingAC','addHoldingInline')" onkeydown="acKey(event,'inlineHoldingAC','addHoldingInline')" onchange="autofillBuyPriceInline(this.value)" autocomplete="off"/>
                 <div id="inlineHoldingAC" class="ac-list" style="display:none"></div>
               </div>
-              <input id="inlineHoldingQty" class="pf-select" type="number" placeholder="Qty" style="flex:1 1 70px;min-width:64px;"/>
-              <input id="inlineHoldingPrice" class="pf-select" type="number" step="0.01" placeholder="Buy $" style="flex:1 1 80px;min-width:72px;"/>
-              <input id="inlineHoldingDate" class="pf-select" type="date" style="flex:1 1 140px;min-width:120px;"/>
+              <input id="inlineHoldingQty" class="pf-select" type="number" placeholder="Shares owned" title="Number of shares you hold" style="flex:1 1 90px;min-width:80px;"/>
+              <input id="inlineHoldingPrice" class="pf-select" type="number" step="0.01" placeholder="Avg buy price / share ($)" title="Your average purchase price per share — auto-fills from the live price if left blank" style="flex:1 1 150px;min-width:120px;"/>
+              <input id="inlineHoldingDate" class="pf-select" type="date" title="Date you bought — used for holding period and YTD figures" style="flex:1 1 140px;min-width:120px;"/>
               <button class="pf-btn pf-btn-primary" onclick="addHoldingInline()"><span class="i-plus"></span> Add holding</button>
               <button class="pf-btn pf-btn-outline" title="Paste many tickers at once" onclick="openBulkAdd('pf')"><span class="i-plus"></span> Bulk add</button>
             </div>
@@ -1403,19 +1413,19 @@ const NAV = [
   { tab: 'assistant', label: 'AI Assistant', icon: 'sparkles' },
   { tab: 'cards', label: 'Top Picks', icon: 'spark' },
   { tab: 'explore', label: 'Explore', icon: 'compass' },
-  { tab: 'summary', label: 'AI Summary', icon: 'sparkles' },
+  // { tab: 'summary', label: 'AI Summary', icon: 'sparkles' },   // hidden for now
   { tab: 'research', label: 'Research', icon: 'flask' },
-  { tab: 'discovery', label: 'Discovery', icon: 'compass' },
+  // { tab: 'discovery', label: 'Discovery', icon: 'compass' },   // hidden for now
   { sec: 'Lists' },
   { tab: 'portfolio', label: 'Portfolio', icon: 'briefcase' },
   { tab: 'watchlist', label: 'Watchlist', icon: 'eye' },
   { tab: 'useralerts', label: 'Alerts', icon: 'bell' },
-  { tab: 'health', label: 'Health', icon: 'activity' },
+  // { tab: 'health', label: 'Health', icon: 'activity' },   // hidden for now
   { sec: 'Markets' },
   { tab: 'premarket', label: 'Notifications', icon: 'bell' },
   { tab: 'market', label: 'Market News', icon: 'newspaper' },
   { tab: 'earnings', label: 'Earnings', icon: 'calendar' },
-  { tab: 'catalysts', label: 'Catalysts', icon: 'spark' },
+  // { tab: 'catalysts', label: 'Catalysts', icon: 'spark' },   // hidden for now
   { tab: 'chart', label: 'Charts', icon: 'barchart' },
   { tab: 'table', label: 'Screener', icon: 'table' }
 ];
@@ -1766,6 +1776,18 @@ function updateTicker() {
     const e = liveEntry(sym), sel = '.tk-item[data-sym="' + (window.CSS && CSS.escape ? CSS.escape(sym) : sym) + '"] .tk-px';
     document.querySelectorAll(sel).forEach(px => { px.innerHTML = _tkPx(e, sym); });
   });
+  renderNavIndices();
+}
+// Compact Dow / Nasdaq / S&P 500 strip in the top nav (reuses the ticker's live quotes).
+function renderNavIndices() {
+  const host = document.getElementById('navIndices'); if (!host) return;
+  const cells = [['^DJI', 'Dow'], ['^IXIC', 'Nasdaq'], ['^GSPC', 'S&P 500']].map(([sym, label]) => {
+    const e = liveEntry(sym);
+    if (!e || e.price == null) return '<span class="nav-ix"><span class="nav-ix-l">' + label + '</span><span class="nav-ix-v">—</span></span>';
+    const chg = e.changePct || 0, cls = chg > 0 ? 'pos' : chg < 0 ? 'neg' : 'neu', ar = chg > 0 ? '▲' : chg < 0 ? '▼' : '';
+    return '<span class="nav-ix"><span class="nav-ix-l">' + label + '</span><span class="nav-ix-v">' + _fmtPx(e.price) + '</span><span class="' + cls + '">' + ar + Math.abs(chg).toFixed(2) + '%</span></span>';
+  }).join('');
+  host.innerHTML = cells;
 }
 function buildTicker() {
   const host = document.getElementById('indexStrip');
@@ -2213,7 +2235,7 @@ function renderAll() {
   const alerts = D.alerts || [];
   const mktNews = D.market_news || [];
   const mh = D.market_health || {};
-  document.getElementById('scanT').textContent = (D.scan_date || '') + ' ' + (D.scan_time_et || '');
+  { const _st = document.getElementById('scanT'); if (_st) _st.textContent = (D.scan_date || '') + ' ' + (D.scan_time_et || ''); }   // scan-t removed from nav; guard the write
   const _psub = document.getElementById('picksSub');
   if (_psub) { const stamp = ((D.scan_date || '') + ' ' + (D.scan_time_et || '')).trim(); const byClaude = !!(D.claude_picks && D.claude_picks.length); _psub.textContent = (byClaude ? 'Suggested by Claude' : 'Top setups') + (stamp ? ' · updated ' + stamp : '') + ' · refreshes each scan.'; }
   setCount('cSB', cardPicks.filter(s => s.signal === 'STRONG BUY').length);
@@ -2247,9 +2269,9 @@ function renderAll() {
   // Keep the top market-values strip populated: rebuild if empty, else refresh values
   // (uses live quotes when available, scan prices as a fallback).
   try { if (!document.querySelector('#indexStrip .tk-item')) buildIndexStrip(); else updateTicker(); } catch (e) {}
-  renderDiscovery();
+  // renderDiscovery();   // Discovery tab hidden for now
   renderEarnings();
-  renderCatalysts();
+  // renderCatalysts();   // Catalysts tab hidden for now
   chartsInited = false;
   const ct = document.getElementById('tab-chart'); if (ct && ct.classList.contains('active')) renderCharts();
 }
@@ -2384,10 +2406,11 @@ function exploreCard(s) {
     '<div class="stk-spark exp-card-spark" data-spark="' + escHtml(t) + '"></div>' +
     '<div class="exp-card-bot"><span class="exp-card-px">' + _pxStr(px) + '</span>' + chgHtml + '</div></div>';
 }
-function expRail(icon, title, stocks, seeAll, emptyMsg) {
+function expRail(icon, title, stocks, seeAll, emptyMsg, sub) {
   if ((!stocks || !stocks.length) && !emptyMsg) return '';
   const body = (stocks && stocks.length) ? '<div class="exp-rail">' + stocks.map(exploreCard).join('') + '</div>' : '<div class="empty-sub" style="padding:4px 2px 10px">' + emptyMsg + '</div>';
-  return '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic(icon, 18) + ' ' + title + '</div>' + (seeAll ? '<span class="exp-seeall" onclick="' + seeAll + '">see all →</span>' : '') + '</div>' + body + '</div>';
+  const subHtml = sub ? '<div class="exp-h-sub">' + sub + '</div>' : '';
+  return '<div class="exp-sec"><div class="exp-h"><div><div class="exp-h-l">' + ic(icon, 18) + ' ' + title + '</div>' + subHtml + '</div>' + (seeAll ? '<span class="exp-seeall" onclick="' + seeAll + '">see all →</span>' : '') + '</div>' + body + '</div>';
 }
 function renderExplore() {
   const el = document.getElementById('exploreContent'); if (!el) return;
@@ -2406,25 +2429,26 @@ function renderExplore() {
   const claudeDriven = !!(D.claude_picks && D.claude_picks.length);
   const trending = (claudeDriven ? D.claude_picks : stocks.slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0))).slice(0, 16);
   let html = '';
-  html += expRail('chevup', 'Top gainers', gainers, "sw('table')", 'Fetching live moves…');
-  html += expRail('chevdown', 'Top losers', losers, "sw('table')", 'Fetching live moves…');
-  html += expRail('barchart', 'Most active', active, "sw('table')");
-  html += expRail('spark', 'Trending — ' + (claudeDriven ? 'Claude’s picks' : 'top setups'), trending, "sw('cards')");
-  EXP_THEMES.forEach(th => {
-    const matched = th.tickers.map(t => stocks.find(s => s.ticker === t)).filter(Boolean).sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0));
-    html += expRail(th.icon, th.name, matched.slice(0, 16));
-  });
-  const bySec = {};
-  stocks.forEach(s => { const k = s.sector || 'Other'; (bySec[k] = bySec[k] || []).push(s); });
-  Object.keys(bySec).filter(k => k && k !== 'Other' && k !== '—').sort((a, b) => bySec[b].length - bySec[a].length).forEach(k => {
-    html += expRail('table', k, bySec[k].slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 16), "exploreToScreener('sector','" + k.replace(/'/g, "\\'") + "')");
-  });
-  html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('box', 18) + ' Browse by market cap</div></div><div class="exp-mcaps">' +
+  // Browse by market cap — placed FIRST: a quick jump into the screener filtered by company size.
+  html += '<div class="exp-sec"><div class="exp-h"><div><div class="exp-h-l">' + ic('box', 18) + ' Browse by market cap</div><div class="exp-h-sub">Tap a size to open the screener filtered to those companies</div></div></div><div class="exp-mcaps">' +
     [['mega', 'Mega cap', '$200B+'], ['large', 'Large cap', '$10–200B'], ['mid', 'Mid cap', '$2–10B'], ['small', 'Small cap', '< $2B']].map(m => {
       const n = stocks.filter(s => mcapBucketOf(s.market_cap_b) === m[0]).length;
       return '<div class="exp-mcap" onclick="exploreToScreener(\'mcapBucket\',\'' + m[0] + '\')"><div class="exp-mcap-t">' + m[1] + '</div><div class="exp-mcap-s">' + m[2] + ' · ' + n + ' stocks</div></div>';
     }).join('') + '</div></div>';
-  html += '<div class="exp-sec"><div class="exp-h"><div class="exp-h-l">' + ic('newspaper', 18) + ' Stock news</div><span class="exp-seeall" onclick="sw(\'market\')">see all →</span></div><div id="exploreNews" class="news-cards"></div></div>';
+  html += expRail('chevup', 'Top gainers', gainers, "sw('table')", 'Fetching live moves…', 'Biggest percentage movers up today');
+  html += expRail('chevdown', 'Top losers', losers, "sw('table')", 'Fetching live moves…', 'Biggest percentage movers down today');
+  html += expRail('barchart', 'Most active', active, "sw('table')", null, 'Trading on unusually high volume vs their average');
+  html += expRail('spark', 'Trending — ' + (claudeDriven ? 'Claude’s picks' : 'top setups'), trending, "sw('cards')", null, claudeDriven ? 'Today’s highest-conviction setups picked by Claude' : 'The top-scoring setups in the latest scan');
+  EXP_THEMES.forEach(th => {
+    const matched = th.tickers.map(t => stocks.find(s => s.ticker === t)).filter(Boolean).sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0));
+    html += expRail(th.icon, th.name, matched.slice(0, 16), null, null, 'Stocks tied to the ' + th.name + ' theme');
+  });
+  const bySec = {};
+  stocks.forEach(s => { const k = s.sector || 'Other'; (bySec[k] = bySec[k] || []).push(s); });
+  Object.keys(bySec).filter(k => k && k !== 'Other' && k !== '—').sort((a, b) => bySec[b].length - bySec[a].length).forEach(k => {
+    html += expRail('table', k, bySec[k].slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 16), "exploreToScreener('sector','" + k.replace(/'/g, "\\'") + "')", null, 'Leading names in the ' + k + ' sector');
+  });
+  html += '<div class="exp-sec"><div class="exp-h"><div><div class="exp-h-l">' + ic('newspaper', 18) + ' Stock news</div><div class="exp-h-sub">Latest headlines for the trending names above</div></div><span class="exp-seeall" onclick="sw(\'market\')">see all →</span></div><div id="exploreNews" class="news-cards"></div></div>';
   el.innerHTML = html;
   observeLazyCards(el);
   _loadExploreNews(trending.map(s => s.ticker));
@@ -3253,7 +3277,8 @@ function newsListHtml(items) {
 }
 function homeHeaderHtml() {
   return '<div class="page-title">Home</div>' +
-    '<div class="pf-toolbar"><span class="pf-toolbar-lbl">Portfolio:</span><select id="homePfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div>';
+    '<div class="dsub" style="margin:-8px 0 12px;color:var(--text-3);font-size:13px;">A snapshot of the selected portfolio — total value, today’s and all-time gain, your news, and per-stock guidance.</div>' +
+    '<div class="pf-toolbar"><span class="pf-toolbar-lbl" title="Choose which portfolio this dashboard summarizes">Showing:</span><select id="homePfSelect" class="pf-select" title="Pick one portfolio, or “All portfolios” to see everything combined" onchange="setReportPf(this.value)"></select></div>';
 }
 async function loadHomeDashboard() {
   const el = document.getElementById('homeDashboard');
@@ -3318,10 +3343,10 @@ function renderHomeDashboard(hs, scope, ranges) {
       '<div class="dsub" title="Total gain or loss since purchase across all holdings (current value minus cost basis).">All-time ' + (totalPnl >= 0 ? 'gain' : 'loss') + ': ' + (totalPnl >= 0 ? '+' : '-') + '<span class="cnt" data-to="' + Math.abs(totalPnl).toFixed(2) + '" data-dec="2" data-pre="$"></span> (' + pctFmt(totalPct) + ')</div>' +
     '</div>' +
     '<div class="dash-mini-grid">' +
-      '<div class="dash-mini gain"><div class="dash-mini-label">Top gainer</div>' + (topG ? '<div class="dash-mini-tkr">' + topG.ticker + '</div><div class="dash-mini-val pos">' + pctFmt(topG.gp) + '</div>' : '<div class="dash-mini-tkr">—</div>') + '</div>' +
-      '<div class="dash-mini loss"><div class="dash-mini-label">Top loser</div>' + (topL ? '<div class="dash-mini-tkr">' + topL.ticker + '</div><div class="dash-mini-val neg">' + pctFmt(topL.gp) + '</div>' : '<div class="dash-mini-tkr">—</div>') + '</div>' +
-      '<div class="dash-mini dm-today"><div class="dash-mini-label">Today P&amp;L</div><div class="dash-mini-val ' + tCls + '">' + (todayPnl >= 0 ? '+' : '-') + '<span class="cnt" data-to="' + Math.abs(todayPnl).toFixed(2) + '" data-dec="2" data-pre="$"></span></div></div>' +
-      '<div class="dash-mini"><div class="dash-mini-label">Holdings</div><div class="dash-mini-val">' + en.length + '</div></div>' +
+      '<div class="dash-mini gain" title="Your best-performing holding by total return"><div class="dash-mini-label">Top gainer</div>' + (topG ? '<div class="dash-mini-tkr">' + topG.ticker + '</div><div class="dash-mini-val pos">' + pctFmt(topG.gp) + '</div>' : '<div class="dash-mini-tkr">—</div>') + '</div>' +
+      '<div class="dash-mini loss" title="Your weakest holding by total return"><div class="dash-mini-label">Top loser</div>' + (topL ? '<div class="dash-mini-tkr">' + topL.ticker + '</div><div class="dash-mini-val neg">' + pctFmt(topL.gp) + '</div>' : '<div class="dash-mini-tkr">—</div>') + '</div>' +
+      '<div class="dash-mini dm-today" title="Gain or loss across the portfolio so far in today’s session"><div class="dash-mini-label">Today P&amp;L</div><div class="dash-mini-val ' + tCls + '">' + (todayPnl >= 0 ? '+' : '-') + '<span class="cnt" data-to="' + Math.abs(todayPnl).toFixed(2) + '" data-dec="2" data-pre="$"></span></div></div>' +
+      '<div class="dash-mini" title="Number of distinct positions in this portfolio"><div class="dash-mini-label">Holdings</div><div class="dash-mini-val">' + en.length + '</div></div>' +
     '</div>' +
   '</div>';
   // 52-week range + buy/sell outlook — full coverage from getRange, fallback to scan data.
@@ -3696,17 +3721,17 @@ function _renderHoldingsUI() {
       '</tr>';
   }).join('');
   const table = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
-    '<th class="ht-sym ht-sortable' + act('symbol') + '" onclick="pfSort(\'symbol\')">Symbol' + ind('symbol') + '</th>' +
+    '<th class="ht-sym ht-sortable' + act('symbol') + '" onclick="pfSort(\'symbol\')" title="Ticker &amp; company — click the symbol to open Research">Symbol' + ind('symbol') + '</th>' +
     '<th title="Your weighted-average purchase price across all lots">Buy avg</th>' +
-    '<th>Qty</th>' +
+    '<th title="Number of shares you hold (summed across all lots)">Qty</th>' +
     '<th class="ht-sortable' + act('today') + '" onclick="pfSort(\'today\')" title="Gain/loss so far in today\'s session">Today' + ind('today') + '</th>' +
     '<th class="ht-sortable' + act('pct_total') + '" onclick="pfSort(\'pct_total\')" title="Total gain/loss since purchase (% of cost basis)">Total gain' + ind('pct_total') + '</th>' +
     '<th title="Price return year-to-date on this position ($ and %)">YTD Return</th>' +
     '<th title="Dividends received year-to-date (since purchase) × shares">YTD Dividend</th>' +
     '<th title="Where price sits in its 52-week range, with a buy/sell recommendation — click to open Research">52-week range &amp; rec.</th>' +
     '<th class="ht-sortable' + act('value') + '" onclick="pfSort(\'value\')" title="Current market value of the position">Value' + ind('value') + '</th>' +
-    '<th>Notes</th>' +
-    '<th></th>' +
+    '<th title="Your private notes on this position — saved automatically">Notes</th>' +
+    '<th title="Open Research, or remove the position"></th>' +
     '</tr></thead><tbody>' + rowsHtml + '</tbody></table></div>' +
     '<div class="rng-advice-note">Buy/Sell guidance is generated from scan signals and your cost basis — informational only, not financial advice.</div>';
   el.innerHTML = header + filterNote + table;
