@@ -1121,6 +1121,7 @@ body.sidebar-open .nav-scrim{display:block;}
           <div id="pfContent">
             <div class="pf-toolbar">
               <select id="pfSelect" class="pf-select" onchange="switchPf(this.value)"></select>
+              <button class="pf-btn pf-btn-outline" title="Rename this portfolio" onclick="openModal('renamePf')">Rename</button>
               <input id="newPfName" class="pf-select" style="flex:1 1 180px;min-width:140px;" placeholder="New portfolio name…" onkeydown="if(event.key==='Enter')addPortfolioInline()" autocomplete="off"/>
               <button class="pf-btn pf-btn-outline" onclick="addPortfolioInline()"><span class="i-plus"></span> Add Portfolio</button>
             </div>
@@ -1133,6 +1134,7 @@ body.sidebar-open .nav-scrim{display:block;}
               <input id="inlineHoldingPrice" class="pf-select" type="number" step="0.01" placeholder="Buy $" style="flex:1 1 80px;min-width:72px;"/>
               <input id="inlineHoldingDate" class="pf-select" type="date" style="flex:1 1 140px;min-width:120px;"/>
               <button class="pf-btn pf-btn-primary" onclick="addHoldingInline()"><span class="i-plus"></span> Add holding</button>
+              <button class="pf-btn pf-btn-outline" title="Paste many tickers at once" onclick="openBulkAdd('pf')"><span class="i-plus"></span> Bulk add</button>
             </div>
             <div class="pf-toolbar pf-search-row">
               <div class="ac-wrap" style="flex:1 1 260px;min-width:160px;position:relative;">
@@ -1148,6 +1150,8 @@ body.sidebar-open .nav-scrim{display:block;}
           <div class="page-title">Watchlist</div>
           <div class="pf-toolbar">
             <select id="wlSelect" class="pf-select" onchange="switchWL(this.value)"></select>
+            <button class="pf-btn pf-btn-outline" title="Rename this watchlist" onclick="openModal('renameWL')">Rename</button>
+            <button class="pf-btn pf-btn-outline" onclick="openBulkAdd('wl')"><span class="i-plus"></span> Bulk add</button>
             <button class="pf-btn pf-btn-outline" onclick="openModal('newWL')"><span class="i-plus"></span> New Watchlist</button>
           </div>
           <div id="wlBody"></div>
@@ -1449,6 +1453,7 @@ const SEARCH_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/sea
 const GETNEWS_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getNews';
 const GETRANGE_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getRange';
 const SERIES_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getSeries';
+const GETYTD_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getYtd';
 const ASSISTANT_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/assistant';
 const SENDOTP_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/sendOtp';
 const VERIFYOTP_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/verifyOtp';
@@ -1469,6 +1474,9 @@ let _tvResTicker = null;   // ticker the Research TradingView widgets are curren
 let picksShown = 24; // how many home cards to render (Fix #5 — show WATCH/WEAK too)
 // Portfolio holdings table: sort + search state, and a 52-week range cache for held tickers.
 let pfSortKey = 'value', pfSortAsc = false, pfSearchFilter = null, _pfRanges = {};
+let _pfYtd = {};        // ticker -> { ytdStartPrice, currentPrice, ytdReturnPct, divs:[{date,amount}] } from getYtd
+let _wlProfiles = {};   // ticker -> { marketCap, industry } from getProfiles (loadLogos keeps only the logo)
+let _bulkTarget = 'wl'; // which list the bulk-add modal writes to: 'wl' | 'pf'
 const TAB_NAMES = ['cards','explore','summary','portfolio','watchlist','useralerts','research','discovery','earnings','health','catalysts','market','table','chart'];
 const critLabels = {trend_ok:'Stage 2',near_high:'Near High',rsi_ok:'RSI',volume_ok:'Volume',eps_ok:'EPS 20%+',rev_ok:'Rev 10%+',vcp_ok:'VCP',rs_ok:'RS High',vdu_ok:'Vol DU',insider_ok:'Insider'};
 const CRIT_TIP = {trend_ok:'Stage 2 uptrend — price above key moving averages',near_high:'Trading near its 52-week high',rsi_ok:'RSI in a healthy momentum range',volume_ok:'Above-average volume confirmation',eps_ok:'Strong earnings-per-share growth (20%+)',rev_ok:'Solid revenue growth (10%+)',vcp_ok:'VCP — Volatility Contraction Pattern (tightening price ahead of a potential breakout)',rs_ok:'RS — high Relative Strength vs the market',vdu_ok:'Volume Dry-Up — a low-volume pullback (bullish)',insider_ok:'Recent insider buying'};
@@ -3400,6 +3408,16 @@ function createPortfolio(name) {
   if (!UID || !name) return Promise.resolve(null);
   return db.collection('portfolios').doc(UID).collection('list').add({ name, created: new Date().toISOString() });
 }
+// Per-ticker portfolio notes live on the portfolio list doc (`notes` map) since holdings are multi-lot per ticker.
+function pfNoteFor(pfId, t) { const p = (portfolios || []).find(x => x.id === pfId); const n = (p && p.notes) || {}; return n[(t || '').toUpperCase()] || n[t] || ''; }
+function setPfNote(pfId, t, v) {
+  if (!UID || !pfId) return;
+  db.collection('portfolios').doc(UID).collection('list').doc(pfId).update(new firebase.firestore.FieldPath('notes', (t || '').toUpperCase()), v == null ? '' : String(v)).catch(() => {});
+}
+function renamePortfolio(pfId, name) {
+  name = (name || '').trim(); if (!UID || !pfId || !name) return;
+  db.collection('portfolios').doc(UID).collection('list').doc(pfId).update({ name }).catch(() => {});
+}
 // Inline "add portfolio" row (replaces the old modal). Auto-selects the new portfolio so
 // the user immediately lands on it ready to add holdings.
 async function addPortfolioInline() {
@@ -3483,12 +3501,19 @@ async function renderHoldingsTable() {
   const syms = [...new Set((holdings || []).map(h => h.ticker).filter(Boolean))];
   const needP = syms.filter(t => !liveEntry(t));
   const needR = syms.filter(t => !_pfRanges[t]);
+  const needY = syms.filter(t => !_pfYtd[t]);
+  const chunk = (arr, n) => { const out = []; for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n)); return out; };
   const jobs = [];
   if (needP.length) jobs.push(fetchLivePrices(needP).catch(() => {}));
   if (needR.length) jobs.push(Promise.race([
     fetch(GETRANGE_API + '?symbols=' + encodeURIComponent(needR.join(','))).then(r => r.json()).then(d => { if (d && d.ranges) Object.assign(_pfRanges, d.ranges); }),
     new Promise(res => setTimeout(res, 5000))
   ]).catch(() => {}));
+  // YTD return + dividends (chunked; degrades to — until the getYtd function is deployed).
+  chunk(needY, 30).forEach(b => jobs.push(Promise.race([
+    fetch(GETYTD_API + '?symbols=' + encodeURIComponent(b.join(','))).then(r => r.json()).then(d => { if (d && d.ytd) Object.assign(_pfYtd, d.ytd); }),
+    new Promise(res => setTimeout(res, 8000))
+  ]).catch(() => {})));
   if (jobs.length) { await Promise.all(jobs); _renderHoldingsUI(); }
 }
 
@@ -3526,6 +3551,11 @@ function holdingCall(e) {
 function callBadge(c, withText) {
   if (!c) return '';
   return '<span class="call-badge call-' + (c.cls || 'blue') + '" title="' + escHtml(c.why) + '">' + c.label + '</span>' + (withText ? '<span class="call-why">' + escHtml(c.why) + '</span>' : '');
+}
+// Clickable recommendation badge → opens the Research tab (Claude's thesis + analyst/TradingView ratings) for the ticker.
+function callButton(c, ticker) {
+  if (!c) return '';
+  return '<button class="call-badge call-' + (c.cls || 'blue') + '" title="' + escHtml(c.why) + ' — click for full research" onclick="goResearch(\'' + (ticker || '').toUpperCase() + '\')" style="cursor:pointer;border:none;font:inherit">' + c.label + ' ↗</button>';
 }
 // Per-holding buy/sell call: use Claude's (Cowork-published, claude_holdings/{uid}) when present, else the rule-based one.
 let _claudeHoldings = {}, _claudeHoldingsUnsub = null;
@@ -3580,7 +3610,17 @@ function pfMergedRows() {
     const has52 = (hi != null && lo != null && hi > lo);
     const fromHigh = has52 ? (price / hi - 1) * 100 : null;
     const pos52 = has52 ? Math.max(0, Math.min(100, (price - lo) / (hi - lo) * 100)) : null;
-    const row = { ticker: a.ticker, qty: a.qty, cost, lotIds: a.lotIds, buy_date: a.buy_date, scan, price, changePct, prev, buyAvg, value, pnl, pnlPct, today, todayPct, hi, lo, has52, fromHigh, pos52 };
+    // YTD return + dividend income (from getYtd; null until that backend is deployed → renders as —).
+    const y = _pfYtd[a.ticker] || _pfYtd[(a.ticker || '').toUpperCase()];
+    let ytdRetPct = null, ytdRetAbs = null, ytdDivAbs = null;
+    if (y) {
+      ytdRetPct = (y.ytdReturnPct != null) ? y.ytdReturnPct : null;
+      if (y.ytdStartPrice != null) ytdRetAbs = (price - y.ytdStartPrice) * a.qty;
+      const yearStart = new Date().getFullYear() + '-01-01';
+      const since = (a.buy_date && a.buy_date > yearStart) ? a.buy_date : yearStart;   // count dividends only after purchase
+      ytdDivAbs = (y.divs || []).filter(dv => dv.date >= since).reduce((s, dv) => s + (+dv.amount || 0), 0) * a.qty;
+    }
+    const row = { ticker: a.ticker, qty: a.qty, cost, lotIds: a.lotIds, buy_date: a.buy_date, scan, price, changePct, prev, buyAvg, value, pnl, pnlPct, today, todayPct, hi, lo, has52, fromHigh, pos52, ytdRetPct, ytdRetAbs, ytdDivAbs };
     row.call = holdingCallFor(row.ticker, row);
     return row;
   });
@@ -3598,6 +3638,8 @@ function pfSort(k) {
 function _renderHoldingsUI() {
   const el = document.getElementById('pfBody');
   if (!el) return;
+  // Don't re-render (and lose the caret) while a notes field is being edited; it saves on blur.
+  if (document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('pf-note')) return;
   if (!holdings.length) { el.innerHTML = emptyState('briefcase', 'No holdings yet', 'Use the row above to add your first holding'); return; }
   const all = pfMergedRows();
   let totalValue = 0, totalCost = 0, totalToday = 0;
@@ -3626,12 +3668,17 @@ function _renderHoldingsUI() {
     const tdC = e.today >= 0 ? 'pos' : 'neg', tpC = e.pnl >= 0 ? 'pos' : 'neg';
     const name = TICKER_DB[e.ticker] || (e.scan && e.scan.name) || e.ticker;
     const sub = [e.lotIds.length > 1 ? e.lotIds.length + ' lots' : '', e.buy_date ? daysHeldStr(e.buy_date) + ' held' : ''].filter(Boolean).join(' · ');
+    const recHtml = callButton(e.call, e.ticker) + (e.call ? '<span class="call-why">' + escHtml(e.call.why) + '</span>' : '');
+    const ytdC = (e.ytdRetPct == null) ? '' : (e.ytdRetPct >= 0 ? 'pos' : 'neg');
+    const ytdRetCell = (e.ytdRetPct != null) ? ((e.ytdRetAbs >= 0 ? '+' : '-') + dollarFmt(Math.abs(e.ytdRetAbs || 0)) + '<div class="ht-sub ' + ytdC + '">' + pctFmt(e.ytdRetPct) + '</div>') : '<span class="ht-sub">—</span>';
+    const ytdDivCell = (e.ytdDivAbs != null) ? dollarFmt(e.ytdDivAbs) : '<span class="ht-sub">—</span>';
+    const noteVal = pfNoteFor(currentPfId, e.ticker);
     let cell52;
     if (e.has52) {
       cell52 = '<div class="rng-track"><div class="rng-fill" data-w="' + e.pos52.toFixed(0) + '" style="width:0%"></div><div class="rng-dot" data-l="' + e.pos52.toFixed(0) + '" style="left:0%"></div></div>' +
         '<div class="ht-52meta">$' + e.lo.toFixed(0) + ' – $' + e.hi.toFixed(0) + ' · ' + (e.fromHigh >= 0 ? '+' : '') + e.fromHigh.toFixed(0) + '% vs high</div>' +
-        '<div style="margin-top:5px">' + callBadge(e.call, true) + '</div>';
-    } else { cell52 = '<div class="ht-52meta">—</div><div style="margin-top:5px">' + callBadge(e.call, true) + '</div>'; }
+        '<div style="margin-top:5px">' + recHtml + '</div>';
+    } else { cell52 = '<div class="ht-52meta">—</div><div style="margin-top:5px">' + recHtml + '</div>'; }
     return '<tr data-tkr="' + e.ticker + '">' +
       '<td class="ht-sym"><div class="ht-symcell"><div class="holding-logo" style="background:' + logoColor(e.ticker) + '">' + e.ticker.slice(0, 2) + '</div>' +
       '<div><a class="holding-ticker" style="cursor:pointer" onclick="goResearch(\'' + e.ticker + '\')">' + e.ticker + '</a><div class="holding-name" title="' + escHtml(name) + '">' + escHtml(name) + '</div>' +
@@ -3640,9 +3687,12 @@ function _renderHoldingsUI() {
       '<td>' + (Math.round(e.qty * 1e4) / 1e4) + '</td>' +
       '<td class="' + tdC + '">' + (e.prev != null ? (e.today >= 0 ? '+' : '-') + dollarFmt(Math.abs(e.today)) + '<div class="ht-sub ' + tdC + '">' + pctFmt(e.todayPct) + '</div>' : '<span class="ht-sub">—</span>') + '</td>' +
       '<td class="' + tpC + '">' + (e.pnl >= 0 ? '+' : '-') + dollarFmt(Math.abs(e.pnl)) + '<div class="ht-sub ' + tpC + '">' + pctFmt(e.pnlPct) + '</div></td>' +
+      '<td class="' + ytdC + '">' + ytdRetCell + '</td>' +
+      '<td>' + ytdDivCell + '</td>' +
       '<td class="ht-52">' + cell52 + '</td>' +
       '<td><span class="ht-num-strong">' + dollarFmt(e.value) + '</span><div class="ht-sub">@ $' + e.price.toFixed(2) + (e.changePct ? ' ' + pctFmt(e.changePct) : '') + '</div></td>' +
-      '<td><button class="pf-btn pf-btn-danger" title="Remove ' + e.ticker + (e.lotIds.length > 1 ? ' (' + e.lotIds.length + ' lots)' : '') + '" onclick="removeHoldingTicker(\'' + currentPfId + '\',\'' + e.ticker + '\')">' + ic('x', 16) + '</button></td>' +
+      '<td><input class="pf-note" value="' + escHtml(noteVal) + '" placeholder="Add note…" onkeydown="if(event.key===\'Enter\')this.blur()" onblur="setPfNote(currentPfId,\'' + e.ticker + '\',this.value)" style="width:130px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12px;color:var(--text)"/></td>' +
+      '<td style="white-space:nowrap"><button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="goResearch(\'' + e.ticker + '\')">Research</button> <button class="pf-btn pf-btn-danger" title="Remove ' + e.ticker + (e.lotIds.length > 1 ? ' (' + e.lotIds.length + ' lots)' : '') + '" onclick="removeHoldingTicker(\'' + currentPfId + '\',\'' + e.ticker + '\')">' + ic('x', 16) + '</button></td>' +
       '</tr>';
   }).join('');
   const table = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
@@ -3651,8 +3701,11 @@ function _renderHoldingsUI() {
     '<th>Qty</th>' +
     '<th class="ht-sortable' + act('today') + '" onclick="pfSort(\'today\')" title="Gain/loss so far in today\'s session">Today' + ind('today') + '</th>' +
     '<th class="ht-sortable' + act('pct_total') + '" onclick="pfSort(\'pct_total\')" title="Total gain/loss since purchase (% of cost basis)">Total gain' + ind('pct_total') + '</th>' +
-    '<th title="Where price sits in its 52-week range, with buy/sell guidance">52-week range</th>' +
+    '<th title="Price return year-to-date on this position ($ and %)">YTD Return</th>' +
+    '<th title="Dividends received year-to-date (since purchase) × shares">YTD Dividend</th>' +
+    '<th title="Where price sits in its 52-week range, with a buy/sell recommendation — click to open Research">52-week range &amp; rec.</th>' +
     '<th class="ht-sortable' + act('value') + '" onclick="pfSort(\'value\')" title="Current market value of the position">Value' + ind('value') + '</th>' +
+    '<th>Notes</th>' +
     '<th></th>' +
     '</tr></thead><tbody>' + rowsHtml + '</tbody></table></div>' +
     '<div class="rng-advice-note">Buy/Sell guidance is generated from scan signals and your cost basis — informational only, not financial advice.</div>';
@@ -3771,29 +3824,99 @@ function removeTickerFromWL(wlId, ticker) {
   if (!UID || !wlId) return;
   const wl = watchlists.find(w => w.id === wlId);
   if (!wl) return;
-  const tickers = (wl.tickers || []).filter(t => t !== ticker);
-  db.collection('watchlists').doc(UID).collection('list').doc(wlId).update({ tickers });
+  const t = (ticker || '').toUpperCase();
+  const tickers = (wl.tickers || []).filter(x => x !== ticker && x !== t);
+  const ref = db.collection('watchlists').doc(UID).collection('list').doc(wlId);
+  // Drop the row AND its per-ticker meta. FieldPath keeps a dotted ticker (e.g. BRK.B) as one literal key.
+  ref.update({ tickers }).then(() => ref.update(new firebase.firestore.FieldPath('meta', t), firebase.firestore.FieldValue.delete()).catch(() => {})).catch(() => {});
+}
+// ── Per-ticker watchlist meta (notes + status). Backward compatible: docs without `meta` read as defaults. ──
+const WL_STATUSES = ['Watching', 'Bought', 'Sold', 'Avoid', 'Under review'];
+function wlMetaFor(wl, t) { const m = (wl && wl.meta) || {}; return m[(t || '').toUpperCase()] || m[t] || {}; }
+function setWLNote(wlId, t, v) {
+  if (!UID || !wlId) return;
+  db.collection('watchlists').doc(UID).collection('list').doc(wlId).update(new firebase.firestore.FieldPath('meta', (t || '').toUpperCase(), 'notes'), v == null ? '' : String(v)).catch(() => {});
+}
+function setWLStatus(wlId, t, v) {
+  if (!UID || !wlId) return;
+  db.collection('watchlists').doc(UID).collection('list').doc(wlId).update(new firebase.firestore.FieldPath('meta', (t || '').toUpperCase(), 'status'), v || 'Watching').catch(() => {});
+}
+function renameWatchlist(wlId, name) {
+  name = (name || '').trim(); if (!UID || !wlId || !name) return;
+  db.collection('watchlists').doc(UID).collection('list').doc(wlId).update({ name }).catch(() => {});
+}
+// Risk level from market-cap tier (≥10B Low · 2–10B Medium · <2B High); new listings bump up one notch.
+function riskTier(t) {
+  const scan = scanStockFor(t);
+  let mc = (scan && scan.market_cap_b != null) ? +scan.market_cap_b : null;
+  if (mc == null) { const p = _wlProfiles[(t || '').toUpperCase()]; if (p && p.marketCap != null) mc = +p.marketCap / 1000; }  // Finnhub marketCap is in millions
+  if (mc == null || isNaN(mc)) return { label: '—', color: 'var(--text-3)' };
+  let lvl = mc >= 10 ? 0 : mc >= 2 ? 1 : 2;
+  if (scan && scan.is_new_listing && lvl < 2) lvl++;
+  return [{ label: 'Low', color: 'var(--green)' }, { label: 'Medium', color: 'var(--amber)' }, { label: 'High', color: 'var(--red)' }][lvl];
 }
 function renderWatchlistTab() {
+  // Don't yank the caret out of a note being edited when our own write re-fires the snapshot listener.
+  if (document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('wl-note')) return;
   const el = document.getElementById('wlBody');
+  if (!el) return;
   if (!watchlists.length) { el.innerHTML = emptyState('eye', 'No watchlists yet', 'Create a watchlist to track tickers'); return; }
   const wl = watchlists.find(w => w.id === currentWLId);
   if (!wl) { el.innerHTML = ''; return; }
   const tickers = wl.tickers || [];
-  el.innerHTML = '<div style="background:var(--surface-2);border-radius:12px;border:1px solid var(--border);padding:18px;">' +
-    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><div class="section-title" style="margin-bottom:0">' + (wl.name || 'Watchlist') + '</div>' +
-    '<button class="pf-btn pf-btn-outline" onclick="openModal(\'addWLTicker\')"><span>' + ic('plus', 16) + '</span> Add to watchlist</button></div>' +
-    (tickers.length ? '<div>' + tickers.map(t => {
-      const scanStock = scanStockFor(t);
-      const live = liveEntry(t);
-      const price = scanStock ? '$' + scanStock.price : (live ? '$' + live.price.toFixed(2) : '—');
-      const sig = scanStock ? '<span class="sig sig-' + (scanStock.signal || '').replace(' ', '-') + '" style="font-size:10px">' + scanStock.signal + '</span>' : '';
-      return '<div class="wl-ticker-chip"><span style="cursor:pointer;color:var(--blue);font-weight:700" onclick="goResearch(\'' + t + '\')">' + t + '</span><span style="font-size:12px;color:var(--text-2)">' + price + '</span>' + sig + '<span class="rm" onclick="removeTickerFromWL(\'' + currentWLId + '\',\'' + t + '\')">' + ic('x', 14) + '</span></div>';
-    }).join('') + '</div>' : '<div class="empty-sub" style="padding:24px 0;text-align:center;">No tickers yet. Add some to start tracking.</div>') +
-    '</div>';
-  // hydrate live prices for watchlist tickers without scan data
-  const need = tickers.filter(t => !scanStockFor(t) && !liveEntry(t));
-  if (need.length) fetchLivePrices(need).then(() => { if (document.getElementById('tab-watchlist').classList.contains('active')) renderWatchlistTab(); });
+  const head = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap;">' +
+    '<div class="section-title" style="margin-bottom:0">' + escHtml(wl.name || 'Watchlist') + ' <span style="font-size:12px;color:var(--text-3);font-weight:500">· ' + tickers.length + (tickers.length === 1 ? ' ticker' : ' tickers') + '</span></div>' +
+    '<div style="display:flex;gap:8px"><button class="pf-btn pf-btn-outline" onclick="openBulkAdd(\'wl\')"><span class="i-plus"></span> Bulk add</button><button class="pf-btn pf-btn-outline" onclick="openModal(\'addWLTicker\')"><span class="i-plus"></span> Add ticker</button></div></div>';
+  if (!tickers.length) { el.innerHTML = head + '<div class="empty-sub" style="padding:24px 0;text-align:center;">No tickers yet. Add some — or paste a list with “Bulk add”.</div>'; return; }
+  const rows = tickers.map(t => {
+    const T = (t || '').toUpperCase();
+    const scan = scanStockFor(t), live = liveEntry(t), meta = wlMetaFor(wl, t);
+    const status = meta.status || 'Watching', note = meta.notes || '';
+    const name = (typeof TICKER_DB !== 'undefined' && TICKER_DB[T]) || (window.US_SYMBOLS && US_SYMBOLS[T]) || (scan && scan.name) || '';
+    const price = (live && live.price != null) ? live.price : (scan && scan.price != null ? +scan.price : null);
+    const chgPct = live ? (live.changePct || 0) : null;
+    const chgAbs = (live && live.prev != null) ? (live.price - live.prev) : null;
+    const cc = (chgPct == null) ? 'neu' : (chgPct > 0 ? 'pos' : chgPct < 0 ? 'neg' : 'neu');
+    const r = _pfRanges[t] || _pfRanges[T];
+    const hi = r ? +r.high52 : (scan && scan.high_52w != null ? +scan.high_52w : null);
+    const lo = r ? +r.low52 : (scan && scan.low_52w != null ? +scan.low_52w : null);
+    const prof = _wlProfiles[T];
+    const sector = (scan && scan.sector) || (prof && prof.industry) || '—';
+    const risk = riskTier(t);
+    const analyst = (scan && scan.analyst_rating != null) ? analystLabel(scan.analyst_rating) : '—';
+    const tv = scan ? (tvBadge(scan.tv_rating) || '—') : '—';
+    const statusOpts = WL_STATUSES.map(s => '<option' + (s === status ? ' selected' : '') + '>' + s + '</option>').join('');
+    return '<tr>' +
+      '<td class="ht-sym"><div class="ht-symcell"><div class="holding-logo" style="background:' + logoColor(T) + '">' + T.slice(0, 2) + '</div><a class="holding-ticker" style="cursor:pointer" onclick="goResearch(\'' + T + '\')">' + T + '</a></div></td>' +
+      '<td class="holding-name" title="' + escHtml(name) + '" style="max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(name || '—') + '</td>' +
+      '<td>' + (price != null ? '$' + (+price).toFixed(2) : '—') + '</td>' +
+      '<td class="' + cc + '">' + (chgAbs != null ? (chgAbs >= 0 ? '+' : '-') + '$' + Math.abs(chgAbs).toFixed(2) : '—') + '</td>' +
+      '<td class="' + cc + '">' + (chgPct != null ? pctFmt(chgPct) : '—') + '</td>' +
+      '<td style="color:var(--text-2);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + escHtml(sector) + '">' + escHtml(sector) + '</td>' +
+      '<td style="color:' + risk.color + ';font-weight:600">' + risk.label + '</td>' +
+      '<td>' + (hi != null ? '$' + hi.toFixed(2) : '—') + '</td>' +
+      '<td>' + (lo != null ? '$' + lo.toFixed(2) : '—') + '</td>' +
+      '<td>' + analyst + '</td>' +
+      '<td>' + tv + '</td>' +
+      '<td><input class="wl-note" data-tkr="' + T + '" value="' + escHtml(note) + '" placeholder="Add note…" onkeydown="if(event.key===\'Enter\')this.blur()" onblur="setWLNote(currentWLId,\'' + T + '\',this.value)" style="width:140px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12px;color:var(--text)"/></td>' +
+      '<td><select class="wl-status" onchange="setWLStatus(currentWLId,\'' + T + '\',this.value)" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 6px;font-size:12px;color:var(--text)">' + statusOpts + '</select></td>' +
+      '<td style="white-space:nowrap"><button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="goResearch(\'' + T + '\')">Research</button> <button class="pf-btn pf-btn-danger" title="Remove ' + T + '" onclick="removeTickerFromWL(currentWLId,\'' + T + '\')">' + ic('x', 14) + '</button></td>' +
+      '</tr>';
+  }).join('');
+  const table = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
+    '<th class="ht-sym">Ticker</th><th>Company</th><th>Price</th><th>$ Chg</th><th>% Chg</th><th>Sector</th><th title="From market-cap tier (small caps = higher risk)">Risk</th><th>52w High</th><th>52w Low</th><th title="Analyst consensus rating">Analyst</th><th title="TradingView technical rating">TV Rating</th><th>Notes</th><th>Status</th><th>Actions</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+  el.innerHTML = head + table;
+  // Background hydrate prices, 52w ranges, and profiles (sector/market-cap) — then re-render once.
+  const chunk = (arr, n) => { const out = []; for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n)); return out; };
+  const needP = tickers.filter(t => !liveEntry(t));
+  const needR = tickers.filter(t => !(_pfRanges[t] || _pfRanges[(t || '').toUpperCase()]) && !scanStockFor(t));
+  const needProf = tickers.filter(t => !_wlProfiles[(t || '').toUpperCase()] && !scanStockFor(t));
+  const jobs = [];
+  if (needP.length) jobs.push(fetchLivePrices(needP).catch(() => {}));
+  chunk(needR, 30).forEach(b => jobs.push(fetch(GETRANGE_API + '?symbols=' + encodeURIComponent(b.join(','))).then(r => r.json()).then(d => { if (d && d.ranges) Object.assign(_pfRanges, d.ranges); }).catch(() => {})));
+  chunk(needProf, 40).forEach(b => jobs.push(fetch(GETPROFILES_API + '?symbols=' + encodeURIComponent(b.join(','))).then(r => r.json()).then(d => { const p = (d && d.profiles) || {}; Object.keys(p).forEach(k => { _wlProfiles[k.toUpperCase()] = { marketCap: p[k].marketCap, industry: p[k].industry }; }); }).catch(() => {})));
+  if (jobs.length) Promise.all(jobs).then(() => { if (document.getElementById('tab-watchlist').classList.contains('active') && !(document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('wl-note'))) renderWatchlistTab(); });
 }
 
 // ── User Alerts ──
@@ -4235,9 +4358,72 @@ function openModal(type) {
       '<label class="modal-label">Note (optional)</label><input id="alertNote" class="modal-input" placeholder=""/>' +
       '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitAlert()">Create</button></div>';
     setTimeout(onAlertCondChange, 0);
+  } else if (type === 'renameWL') {
+    const wl = watchlists.find(w => w.id === currentWLId);
+    box.innerHTML = '<div class="modal-title">Rename watchlist</div><label class="modal-label">Name</label><input id="renameWLName" class="modal-input" value="' + escHtml((wl && wl.name) || '') + '"/><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="renameWatchlist(currentWLId,document.getElementById(\'renameWLName\').value);closeModal()">Save</button></div>';
+    setTimeout(() => { const i = document.getElementById('renameWLName'); if (i) { i.focus(); i.select(); } }, 0);
+  } else if (type === 'renamePf') {
+    const pf = portfolios.find(p => p.id === currentPfId);
+    box.innerHTML = '<div class="modal-title">Rename portfolio</div><label class="modal-label">Name</label><input id="renamePfName" class="modal-input" value="' + escHtml((pf && pf.name) || '') + '"/><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="renamePortfolio(currentPfId,document.getElementById(\'renamePfName\').value);closeModal()">Save</button></div>';
+    setTimeout(() => { const i = document.getElementById('renamePfName'); if (i) { i.focus(); i.select(); } }, 0);
+  } else if (type === 'bulkAdd') {
+    const label = _bulkTarget === 'pf' ? 'portfolio' : 'watchlist';
+    box.innerHTML = '<div class="modal-title">Bulk add to ' + label + '</div>' +
+      '<label class="modal-label">Paste tickers — comma, space, or newline separated</label>' +
+      '<textarea id="bulkTickers" class="modal-input" style="min-height:120px;resize:vertical;font-family:ui-monospace,monospace;" placeholder="ALMU, AIRJ, AMPX, NVDA, AMD …" oninput="bulkAddHint()"></textarea>' +
+      '<div class="modal-price-hint" id="bulkHint" style="margin-top:6px;">Enter one or more tickers.</div>' +
+      (_bulkTarget === 'pf' ? '<div class="modal-price-hint" style="margin-top:4px;color:var(--text-3)">Added as 0-share placeholders — set shares &amp; cost later via the Add holding row.</div>' : '') +
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="bulkAddSubmit()">Add tickers</button></div>';
+    setTimeout(() => { const t = document.getElementById('bulkTickers'); if (t) t.focus(); }, 0);
   }
 }
 function closeModal() { document.getElementById('modalOverlay').classList.add('hidden'); }
+function openBulkAdd(target) { _bulkTarget = target; openModal('bulkAdd'); }
+// Parse a free-form paste into unique, cleaned tickers; flag which are recognized vs unknown (still added).
+function parseBulkTickers(raw) {
+  const seen = new Set(), all = [], known = [], unknown = [];
+  (raw || '').toUpperCase().split(/[\s,;]+/).forEach(tok => {
+    const t = tok.trim().replace(/[^A-Z0-9.\-]/g, '');
+    if (!t || seen.has(t)) return;
+    seen.add(t); all.push(t);
+    const ok = (window.US_SYMBOLS && US_SYMBOLS[t]) || (typeof TICKER_DB !== 'undefined' && TICKER_DB[t]) || scanStockFor(t);
+    (ok ? known : unknown).push(t);
+  });
+  return { all, known, unknown };
+}
+function bulkAddHint() {
+  const t = document.getElementById('bulkTickers'), h = document.getElementById('bulkHint');
+  if (!t || !h) return;
+  const r = parseBulkTickers(t.value);
+  if (!r.all.length) { h.textContent = 'Enter one or more tickers.'; return; }
+  h.innerHTML = '<strong>' + r.all.length + '</strong> ticker' + (r.all.length === 1 ? '' : 's') + ' · ' + r.known.length + ' recognized' +
+    (r.unknown.length ? ' · <span style="color:var(--amber)">' + r.unknown.length + ' unknown (added anyway): ' + escHtml(r.unknown.slice(0, 12).join(', ')) + (r.unknown.length > 12 ? '…' : '') + '</span>' : '');
+}
+async function bulkAddSubmit() {
+  const t = document.getElementById('bulkTickers'); if (!t) return;
+  const all = parseBulkTickers(t.value).all;
+  if (!all.length) { closeModal(); return; }
+  if (_bulkTarget === 'pf') {
+    if (!currentPfId) { try { pmToast('Create a portfolio first'); } catch (e) {} return; }
+    const held = new Set((holdings || []).map(h => (h.ticker || '').toUpperCase()));
+    const toAdd = all.filter(x => !held.has(x));
+    if (!toAdd.length) { try { pmToast('All of those are already in this portfolio'); } catch (e) {} closeModal(); return; }
+    const col = db.collection('holdings').doc(UID).collection(currentPfId);
+    for (let i = 0; i < toAdd.length; i += 450) {   // Firestore batch cap is 500
+      const batch = db.batch();
+      toAdd.slice(i, i + 450).forEach(tk => batch.set(col.doc(), { ticker: tk, qty: 0, buy_price: 0, buy_date: todayStr(), added: new Date().toISOString() }));
+      await batch.commit().catch(() => {});
+    }
+    try { pmToast('Added ' + toAdd.length + ' ticker' + (toAdd.length === 1 ? '' : 's') + ' to ' + (portfolioNameById(currentPfId) || 'portfolio') + ' — set shares & cost via Add holding'); } catch (e) {}
+  } else {
+    if (!currentWLId) { try { pmToast('Create a watchlist first'); } catch (e) {} return; }
+    const wl = watchlists.find(w => w.id === currentWLId); if (!wl) { closeModal(); return; }
+    const tickers = [...new Set([...(wl.tickers || []), ...all])];
+    await db.collection('watchlists').doc(UID).collection('list').doc(currentWLId).update({ tickers }).catch(() => {});
+    try { pmToast('Added ' + all.length + ' ticker' + (all.length === 1 ? '' : 's') + ' to ' + (wl.name || 'watchlist')); } catch (e) {}
+  }
+  closeModal();
+}
 
 // ── Tab switcher (sidebar) ──
 function sw(name) {

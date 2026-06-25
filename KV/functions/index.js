@@ -600,6 +600,57 @@ exports.getSeries = onRequest(
   }
 );
 
+// ── YTD return + dividends (Yahoo chart proxy; quota-free, no Finnhub) ────────
+// GET /getYtd?symbols=NVDA,AAPL ->
+//   { ytd: { NVDA:{ ytdStartPrice, currentPrice, ytdReturnPct, divs:[{date,amount}] }, ... } }
+// Powers the portfolio's YTD Return ($/%) and YTD Dividend Income ($) columns.
+exports.getYtd = onRequest(
+  { region: 'us-central1', cors: true },
+  async (req, res) => {
+    const symbols = String(req.query.symbols || '')
+      .split(',').map(s => s.trim().toUpperCase()).filter(Boolean).slice(0, 30);
+    const ytd = {};
+    const yearStart = Math.floor(Date.UTC(new Date().getUTCFullYear(), 0, 1) / 1000);
+    const fetchChart = async (ysym, range) => {
+      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ysym)}?range=${range}&interval=1d&events=div`;
+      const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+      if (!r.ok) return null;
+      const d = await r.json();
+      return (d && d.chart && d.chart.result && d.chart.result[0]) || null;
+    };
+    await Promise.all(symbols.map(async (sym) => {
+      const ysym = sym.replace(/\./g, '-');
+      try {
+        // range=ytd is the happy path; some symbols reject it, so fall back to 1y sliced to Jan 1.
+        let result = await fetchChart(ysym, 'ytd');
+        if (!result || !result.timestamp) result = await fetchChart(ysym, '1y');
+        if (!result || !result.timestamp) return;
+        const ts = result.timestamp;
+        const closes = (result.indicators && result.indicators.quote && result.indicators.quote[0] && result.indicators.quote[0].close) || [];
+        let startPrice = null, endPrice = null;
+        for (let i = 0; i < ts.length; i++) {
+          if (ts[i] >= yearStart && closes[i] != null) { if (startPrice == null) startPrice = closes[i]; endPrice = closes[i]; }
+        }
+        const divsMap = (result.events && result.events.dividends) || {};
+        const divs = Object.values(divsMap)
+          .filter(dv => dv && dv.date >= yearStart && dv.amount != null)
+          .map(dv => ({ date: new Date(dv.date * 1000).toISOString().slice(0, 10), amount: +dv.amount }))
+          .sort((a, b) => (a.date < b.date ? -1 : 1));
+        if (startPrice != null && endPrice != null) {
+          ytd[sym] = {
+            ytdStartPrice: +(+startPrice).toFixed(4),
+            currentPrice: +(+endPrice).toFixed(4),
+            ytdReturnPct: +(((endPrice / startPrice) - 1) * 100).toFixed(2),
+            divs
+          };
+        }
+      } catch (e) { /* skip this symbol */ }
+    }));
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.json({ ytd });
+  }
+);
+
 // ── Intraday alert monitor (price moves, market moves, earnings) ──────────────
 // Runs hourly during market hours. Fires (deduped per user/day):
 //   • market_move   — S&P (SPY) moves ±1% on the day
