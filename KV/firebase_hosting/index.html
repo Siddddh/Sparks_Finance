@@ -485,6 +485,10 @@ td.pos,.ht-pos{color:var(--green);}td.neg,.ht-neg{color:var(--red);}
 .rng-advice-note{font-size:10px;color:var(--text-3);margin-top:10px;font-style:italic;}
 /* ── Portfolio search + lookup card ── */
 .pf-search-row{margin-bottom:12px;}
+/* Portfolio analytics panel (relocated charts) */
+.pf-analytics{margin:6px 0 18px;}
+.pf-analytics-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+.pf-analytics-ctrls{display:flex;gap:8px;flex-wrap:wrap;}
 .pf-filter-note{font-size:12px;color:var(--text-2);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
 .pf-clearx{border:1px solid var(--border);background:var(--surface-2);color:var(--text-2);border-radius:16px;padding:3px 10px;font-size:11px;cursor:pointer;font-family:inherit;}
 .pf-clearx:hover{background:var(--surface-hover);}
@@ -757,6 +761,34 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .badge-green{background:var(--green-soft);color:var(--green);}.badge-red{background:var(--red-soft);color:var(--red);}
 .badge-blue{background:var(--blue-soft);color:var(--blue);}.badge-yellow{background:var(--amber-soft);color:var(--amber);}
 .badge-gray{background:var(--surface);color:var(--text-2);}
+/* ── In-app notification center (navbar bell + dropdown + tab feed) ── */
+#notifBellBtn{position:relative;}
+.notif-dot{position:absolute;top:0;right:0;background:var(--red);color:#fff;border-radius:9px;font-size:9px;font-weight:700;line-height:1;min-width:15px;height:15px;padding:0 3px;display:flex;align-items:center;justify-content:center;}
+[data-theme="dark"] .notif-dot{color:#0f0f0f;}
+.notif-panel{position:fixed;top:calc(var(--nav-h-real,var(--nav-h)) + 4px);right:14px;width:min(390px,calc(100vw - 24px));max-height:72vh;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-lg);z-index:1500;display:flex;flex-direction:column;overflow:hidden;animation:asstPopIn .16s ease;}
+.notif-panel.hidden{display:none;}
+.notif-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.notif-head-l{font-size:15px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;}
+.notif-cnt{background:var(--red);color:#fff;border-radius:10px;font-size:11px;font-weight:700;padding:1px 7px;}
+[data-theme="dark"] .notif-cnt{color:#0f0f0f;}
+.notif-markall{background:none;border:none;color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.notif-markall:hover{color:var(--blue);}
+.notif-list{overflow-y:auto;flex:1;min-height:0;}
+.notif-foot{padding:11px 16px;text-align:center;font-size:13px;font-weight:600;color:var(--blue);cursor:pointer;border-top:1px solid var(--border);flex-shrink:0;}
+.notif-foot:hover{background:var(--surface-hover);}
+.notif-row{display:flex;gap:11px;padding:12px 16px;border-bottom:1px solid var(--border-soft);cursor:pointer;position:relative;transition:background .12s;}
+.notif-row:hover{background:var(--surface-hover);}
+.notif-row.unread{background:var(--blue-soft);}
+.notif-av{width:38px !important;height:38px !important;min-width:38px;border-radius:8px;font-size:12px;flex-shrink:0;}
+.notif-ic{display:flex;align-items:center;justify-content:center;background:var(--surface);color:var(--text-2);}
+.notif-main{flex:1;min-width:0;}
+.notif-t{font-size:13px;font-weight:600;color:var(--text);line-height:1.35;display:flex;align-items:center;flex-wrap:wrap;}
+.notif-udot{width:7px;height:7px;border-radius:50%;background:var(--blue);display:inline-block;margin-left:6px;}
+.notif-b{font-size:12px;color:var(--text-2);margin:3px 0 5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.notif-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-3);}
+.notif-ext{color:var(--text-3);flex-shrink:0;align-self:flex-start;text-decoration:none;font-size:14px;}
+.notif-ext:hover{color:var(--blue);}
+.notif-daysec{font-size:12px;font-weight:600;color:var(--text-3);background:var(--surface);padding:7px 14px;border-radius:6px;margin:14px 0 8px;}
 .show-more{display:block;margin:18px auto 0;padding:9px 22px;border-radius:24px;border:1px solid var(--border);background:var(--surface-2);color:var(--blue);font-weight:500;font-size:13px;cursor:pointer;font-family:inherit;}
 .show-more:hover{background:var(--blue-soft);}
 
@@ -1077,12 +1109,18 @@ body.sidebar-open .nav-scrim{display:block;}
       <div class="live-badge"><span class="live-dot"></span> Live</div>
       <div class="nav-indices" id="navIndices"></div>
       <button class="icon-btn" onclick="startTour(true)" title="Take a tour" aria-label="Take a tour" style="font-weight:700;font-size:15px;">?</button>
+      <button class="icon-btn" id="notifBellBtn" onclick="toggleNotifPanel()" title="Notifications" aria-label="Notifications"><span class="i-bell"></span><span class="notif-dot" id="notifBellBadge" style="display:none"></span></button>
       <button class="icon-btn asst-nav-btn" id="asstNavBtn" onclick="asstPopToggle()" title="Ask the AI analyst" aria-label="AI Assistant"></button>
       <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle theme"></button>
       <span class="user-badge" id="userBadge"></span>
       <button class="sign-out-btn" onclick="doSignOut()">Sign out</button>
     </div>
   </nav>
+  <div class="notif-panel hidden" id="notifPanel">
+    <div class="notif-head"><div class="notif-head-l">Notifications <span class="notif-cnt" id="notifPanelCount" style="display:none"></span></div><button class="notif-markall" onclick="markAllNotifsRead()">✉ Mark all read</button></div>
+    <div class="notif-list" id="notifPanelBody"></div>
+    <div class="notif-foot" onclick="sw('premarket');closeNotifPanel()">View all activity →</div>
+  </div>
 
   <div class="mkt-bar" id="mktBar">
     <div class="mkt-row mkt-row-ticker">
@@ -1153,6 +1191,7 @@ body.sidebar-open .nav-scrim{display:block;}
               </div>
             </div>
             <div id="pfLookupCard"></div>
+            <div id="pfChartsPanel"></div>
             <div id="pfBody"></div>
           </div>
         </div>
@@ -1199,8 +1238,10 @@ body.sidebar-open .nav-scrim{display:block;}
             <button class="pf-btn pf-btn-primary" id="enablePushBtn" onclick="registerForPush(true)"><span class="i-bell"></span> Enable notifications</button>
             <button class="pf-btn pf-btn-outline" id="installBtn" style="display:none" onclick="promptInstall()"><span class="i-spark"></span> Add to Home</button>
             <span id="pushStatus" style="font-size:12px;color:var(--text-3);align-self:center;"></span>
+            <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);cursor:pointer;margin-left:auto;"><input type="checkbox" id="notifUnreadOnly" onchange="toggleNotifUnreadOnly(this.checked)"> Show unread only</label>
+            <button class="pf-btn pf-btn-outline" onclick="markAllNotifsRead()">✉ Mark all as read</button>
           </div>
-          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Your 8 AM market digest plus intraday alerts — portfolio price moves (±5%), S&amp;P swings (±1%), earnings &amp; macro events.</div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Your alerts, digests, breaking news, plus live updates for your holdings, the market &amp; Explore — all in one place.</div>
           <div class="screen-bar" id="notifFilters" style="margin-bottom:12px;"></div>
           <div id="premarketBody"></div>
         </div>
@@ -1267,6 +1308,7 @@ body.sidebar-open .nav-scrim{display:block;}
             <th title="Setup checklist — each dot is one criterion (green = pass, grey = fail). Hover a dot for its name.">Signals</th>
           </tr></thead><tbody id="tblBody"></tbody></table></div>
         </div>
+        <!-- Charts tab retired — its graphs moved to Research (Factor radar), Portfolio (analytics panel) and Explore (market analytics). Block kept commented for easy restore.
         <div id="tab-chart" class="tab-panel">
           <div class="page-title">Charts &amp; Analysis</div>
           <div class="chart-controls">
@@ -1323,6 +1365,7 @@ body.sidebar-open .nav-scrim{display:block;}
             <div class="cwrap"><div class="ctitle">Top Signals <span class="ct-sub">(score)</span></div><div class="cbox"><canvas id="cScore"></canvas></div></div>
           </div>
         </div>
+        -->
       </div>
     </main>
   </div>
@@ -1426,7 +1469,7 @@ const NAV = [
   { tab: 'market', label: 'Market News', icon: 'newspaper' },
   { tab: 'earnings', label: 'Earnings', icon: 'calendar' },
   // { tab: 'catalysts', label: 'Catalysts', icon: 'spark' },   // hidden for now
-  { tab: 'chart', label: 'Charts', icon: 'barchart' },
+  // { tab: 'chart', label: 'Charts', icon: 'barchart' },   // retired — graphs moved into Research / Portfolio / Explore
   { tab: 'table', label: 'Screener', icon: 'table' }
 ];
 function buildSidebar() {
@@ -2449,9 +2492,18 @@ function renderExplore() {
     html += expRail('table', k, bySec[k].slice().sort((a, b) => (b.combined_score || 0) - (a.combined_score || 0)).slice(0, 16), "exploreToScreener('sector','" + k.replace(/'/g, "\\'") + "')", null, 'Leading names in the ' + k + ' sector');
   });
   html += '<div class="exp-sec"><div class="exp-h"><div><div class="exp-h-l">' + ic('newspaper', 18) + ' Stock news</div><div class="exp-h-sub">Latest headlines for the trending names above</div></div><span class="exp-seeall" onclick="sw(\'market\')">see all →</span></div><div id="exploreNews" class="news-cards"></div></div>';
+  // Market analytics (relocated from the Charts tab) — universe-level, at the very bottom.
+  html += '<div class="exp-sec"><div class="exp-h"><div><div class="exp-h-l">' + ic('barchart', 18) + ' Market analytics</div><div class="exp-h-sub">How the scanned universe looks right now — valuation, risk/reward, and sector strength</div></div></div>' +
+    '<div class="chart-grid">' +
+      '<div class="cwrap"><div class="ctitle">Valuation vs Growth <span class="ct-sub">(bubble = mkt cap)</span></div><div class="cbox"><canvas id="cValGrow"></canvas></div></div>' +
+      '<div class="cwrap"><div class="ctitle">Risk / Reward vs Score</div><div class="cbox"><canvas id="cRR"></canvas></div></div>' +
+      '<div class="cwrap"><div class="ctitle">Sector Strength <span class="ct-sub">(avg score)</span></div><div class="cbox"><canvas id="cSecStr"></canvas></div></div>' +
+      '<div class="cwrap"><div class="ctitle">Top Signals <span class="ct-sub">(score)</span></div><div class="cbox"><canvas id="cScore"></canvas></div></div>' +
+    '</div></div>';
   el.innerHTML = html;
   observeLazyCards(el);
   _loadExploreNews(trending.map(s => s.ticker));
+  try { if (D && (D.stocks || []).length) renderMarketCharts(); } catch (e) {}
 }
 function _loadExploreNews(tickers) {
   const host = document.getElementById('exploreNews'); if (!host) return;
@@ -2969,7 +3021,7 @@ function renderMarketCharts() {
   mkChart('cSecStr', { type: 'bar', data: { labels: secRows.map(r => r.k), datasets: [{ data: secRows.map(r => +r.v.toFixed(1)), backgroundColor: secRows.map((r, i) => palette(i)), borderRadius: 5 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { min: 0, max: 100, ...chartAxis() }, y: { ...chartAxis(), grid: { display: false } } } } });
   const top = stocks.slice(0, 12);
   mkChart('cScore', { type: 'bar', data: { labels: top.map(s => s.ticker), datasets: [{ data: top.map(s => +(s.combined_score || s.score || 0)), backgroundColor: top.map(s => sigColor(s.signal)), borderRadius: 5 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { min: 0, max: 100, ...chartAxis() }, x: { ...chartAxis(), grid: { display: false }, ticks: { color: cvar('--text-2'), font: { weight: '700', size: 10 } } } } } });
-  renderRadar();
+  // (Per-stock Factor radar now lives in the Research tab as renderResRadar; the universe radar retired with the Charts tab.)
 }
 function renderRadar() {
   const stocks = (D && D.stocks) || []; if (!stocks.length) return;
@@ -3523,6 +3575,7 @@ async function autofillBuyPriceInline(sym) {
 // today's change, and the 52-week column reflect the current market — not the buy price.
 async function renderHoldingsTable() {
   _renderHoldingsUI();
+  try { renderPortfolioPanel(); } catch (e) {}
   const syms = [...new Set((holdings || []).map(h => h.ticker).filter(Boolean))];
   const needP = syms.filter(t => !liveEntry(t));
   const needR = syms.filter(t => !_pfRanges[t]);
@@ -3540,6 +3593,74 @@ async function renderHoldingsTable() {
     new Promise(res => setTimeout(res, 8000))
   ]).catch(() => {})));
   if (jobs.length) { await Promise.all(jobs); _renderHoldingsUI(); }
+}
+// ── Portfolio analytics panel (relocated from the Charts tab) ────────────────
+// Indexed price-comparison line + allocation / performance / sector, scoped to this
+// portfolio or all portfolios. Reuses Chart.js helpers (mkChart, palette, hexA, chartAxis).
+let _pfPanelScope = 'this', _pfCmpRange = '6mo', _pfSeriesCache = {}, _pfPanelRows = [];
+function setPfPanelScope(s) { _pfPanelScope = s; renderPortfolioPanel(); }
+function setPfCmpRange(r) { _pfCmpRange = r; document.querySelectorAll('#pfChartsPanel .pf-cmp-range button').forEach(b => b.classList.toggle('active', b.dataset.r === r)); renderPfCompare(); }
+async function renderPortfolioPanel(scope) {
+  const host = document.getElementById('pfChartsPanel'); if (!host) return;
+  if (scope) _pfPanelScope = scope;
+  const rangeBtns = [['3mo', '3M'], ['6mo', '6M'], ['1y', '1Y']].map(([r, l]) => '<button data-r="' + r + '" class="' + (_pfCmpRange === r ? 'active' : '') + '" onclick="setPfCmpRange(\'' + r + '\')">' + l + '</button>').join('');
+  host.innerHTML = '<div class="pf-analytics">' +
+    '<div class="pf-analytics-head"><div class="section-title" style="margin:0">Portfolio analytics</div>' +
+      '<div class="pf-analytics-ctrls">' +
+        '<div class="cc-seg" title="Which holdings to chart"><button class="' + (_pfPanelScope === 'this' ? 'active' : '') + '" onclick="setPfPanelScope(\'this\')">This portfolio</button><button class="' + (_pfPanelScope === 'all' ? 'active' : '') + '" onclick="setPfPanelScope(\'all\')">All portfolios</button></div>' +
+        '<div class="cc-seg pf-cmp-range" title="Comparison range">' + rangeBtns + '</div>' +
+      '</div></div>' +
+    '<div class="cwrap"><div class="ctitle">Performance — indexed to 100 <span class="ct-sub">(' + (_pfPanelScope === 'all' ? 'all holdings' : 'this portfolio') + ' · top 8 by value)</span></div><div class="cbox cbox-lg"><canvas id="pfCompare"></canvas></div></div>' +
+    '<div class="chart-grid">' +
+      '<div class="cwrap"><div class="ctitle">Allocation</div><div class="cbox"><canvas id="pfAlloc"></canvas></div></div>' +
+      '<div class="cwrap"><div class="ctitle">Holdings performance <span class="ct-sub">(all-time %)</span></div><div class="cbox"><canvas id="pfPerf"></canvas></div></div>' +
+      '<div class="cwrap"><div class="ctitle">Sector exposure</div><div class="cbox"><canvas id="pfSector"></canvas></div></div>' +
+    '</div></div>';
+  let hs = [];
+  try { hs = await gatherUserHoldings(_pfPanelScope === 'all' ? 'all' : (currentPfId || 'all')); } catch (e) {}
+  if (!hs.length) { ['pfCompare', 'pfAlloc', 'pfPerf', 'pfSector'].forEach(id => { killChart(id); setCardMsg(id, 'Add holdings to see analytics'); }); _pfPanelRows = []; return; }
+  const rows = mergeHoldingsByTicker(hs.map(h => { const le = liveEntry(h.ticker); const px = (le && le.price) || h.current_price || h.buy_price || 0; const qty = h.qty || 0; const val = px * qty; const cost = (h.buy_price > 0 ? h.buy_price : 0) * qty; const sec = (scanStockFor(h.ticker) || {}).sector || 'Other'; return { t: h.ticker, val: val, cost: cost, gp: cost > 0 ? (val - cost) / cost * 100 : 0, sec: sec }; }), 't');
+  _pfPanelRows = rows;
+  const total = rows.reduce((a, b) => a + b.val, 0) || 1;
+  setCardMsg('pfAlloc', null);
+  mkChart('pfAlloc', { type: 'doughnut', data: { labels: rows.map(r => r.t), datasets: [{ data: rows.map(r => +r.val.toFixed(2)), backgroundColor: rows.map(r => logoColor(r.t)), borderColor: cvar('--surface-2'), borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'right', labels: { color: cvar('--text-2'), boxWidth: 12, font: { size: 11 } } }, tooltip: { callbacks: { label: (c) => c.label + ': $' + (+c.parsed).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' (' + (c.parsed / total * 100).toFixed(1) + '%)' } } } } });
+  const perf = [...rows].sort((a, b) => b.gp - a.gp);
+  const mags = perf.map(r => Math.abs(r.gp)).sort((a, b) => a - b);
+  const cap = Math.max(25, Math.min(500, (mags[Math.floor(mags.length * 0.9)] || mags[mags.length - 1] || 100) * 1.2));
+  const clampPct = v => Math.max(-cap, Math.min(cap, v));
+  setCardMsg('pfPerf', null);
+  mkChart('pfPerf', { type: 'bar', data: { labels: perf.map(r => r.t), datasets: [{ data: perf.map(r => +clampPct(r.gp).toFixed(2)), backgroundColor: perf.map(r => r.gp >= 0 ? hexA(cvar('--green'), .8) : hexA(cvar('--red'), .8)), borderRadius: 5 }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => { const g = perf[c.dataIndex].gp; return (g >= 0 ? '+' : '') + g.toLocaleString(undefined, { maximumFractionDigits: 1 }) + '%'; } } } }, scales: { x: { ...chartAxis(), ticks: { color: cvar('--text-2'), callback: v => Math.round(v).toLocaleString() + '%' } }, y: { ...chartAxis(), grid: { display: false } } } } });
+  const secMap = {}; rows.forEach(r => { secMap[r.sec] = (secMap[r.sec] || 0) + r.val; }); const sl = Object.keys(secMap), sv = sl.map(k => +secMap[k].toFixed(2));
+  setCardMsg('pfSector', null);
+  mkChart('pfSector', { type: 'doughnut', data: { labels: sl, datasets: [{ data: sv, backgroundColor: sl.map((s, i) => palette(i)), borderColor: cvar('--surface-2'), borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '55%', plugins: { legend: { position: 'right', labels: { color: cvar('--text-2'), boxWidth: 12, font: { size: 11 } } } } } });
+  renderPfCompare(rows);
+}
+// Indexed (rebased-to-100) price comparison of the top holdings — one Yahoo series per ticker (cached, throttled).
+async function renderPfCompare(rows) {
+  if (rows) _pfPanelRows = rows; rows = _pfPanelRows || [];
+  if (!document.getElementById('pfCompare')) return;
+  if (!rows.length) { killChart('pfCompare'); setCardMsg('pfCompare', 'No holdings to compare'); return; }
+  const range = _pfCmpRange;
+  const top = [...rows].sort((a, b) => b.val - a.val).slice(0, 8).map(r => r.t);
+  const series = await Promise.all(top.map(t => {
+    const key = t + '|' + range;
+    if (_pfSeriesCache[key]) return Promise.resolve({ t, d: _pfSeriesCache[key] });
+    return _lazyRun(() => fetch(SERIES_API + '?symbol=' + encodeURIComponent(t.replace(/\./g, '-')) + '&range=' + range).then(r => r.json()).then(d => { _pfSeriesCache[key] = d; return { t, d }; }).catch(() => ({ t, d: null })));
+  }));
+  if (!document.getElementById('pfCompare')) return;   // panel may have been rebuilt while awaiting
+  const valid = series.filter(s => s.d && s.d.c && s.d.c.length && s.d.t);
+  if (!valid.length) { killChart('pfCompare'); setCardMsg('pfCompare', 'Price history unavailable yet'); return; }
+  const tsSet = new Set(); valid.forEach(s => s.d.t.forEach(x => tsSet.add(x)));
+  const union = [...tsSet].sort((a, b) => a - b);
+  setCardMsg('pfCompare', null);
+  const datasets = valid.map((s, i) => {
+    const map = {}; s.d.t.forEach((x, j) => { if (s.d.c[j] != null) map[x] = s.d.c[j]; });
+    let base = null; for (const x of union) { if (map[x] != null) { base = map[x]; break; } }
+    const data = union.map(x => (map[x] != null && base) ? +(map[x] / base * 100).toFixed(2) : null);
+    const col = palette(i);
+    return { label: s.t, data: data, borderColor: col, backgroundColor: col, borderWidth: 1.8, pointRadius: 0, tension: .25, spanGaps: true };
+  });
+  mkChart('pfCompare', { type: 'line', data: { labels: fmtDates(union, range), datasets: datasets }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: true, labels: { color: cvar('--text-2'), boxWidth: 12, font: { size: 11 } } }, tooltip: { callbacks: { label: (c) => c.dataset.label + ': ' + (c.parsed.y == null ? '—' : (+c.parsed.y).toFixed(1)) } } }, scales: { x: { ticks: { color: cvar('--text-2'), maxTicksLimit: 8, font: { size: 10 } }, grid: { display: false } }, y: { ...chartAxis(), title: { display: true, text: 'Indexed to 100', color: cvar('--text-3') } } } } });
 }
 
 // Rule-based buy/sell guidance for a single position — driven by the scan signal, the
@@ -4057,83 +4178,171 @@ function pmToast(msg) {
   clearTimeout(t._h); t._h = setTimeout(() => { t.style.display = 'none'; }, 6000);
 }
 
-// ── Pre-Market notification feed ──
+// ════════ In-app notification center (navbar bell + dropdown + Notifications tab) ════════
+// Aggregates server-written notifications (digests, fired alerts, breaking) with client-derived
+// feeds (holdings news, holdings movers, market/breaking news, Explore highlights). Front-end only.
+let _derivedNotifs = [], _newsNotifs = [], _lastNotifNewsAt = 0, _refreshingNotifs = false, _notifTimer = null, _notifUnreadOnly = false;
 function loadNotifications() {
   if (!UID) return;
   db.collection('notifications').doc(UID).collection('list').orderBy('createdAt', 'desc').limit(60).onSnapshot(snap => {
     notifications = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     if (document.getElementById('tab-premarket').classList.contains('active')) renderNotifications();
     updateNotifBadge();
+    const p = document.getElementById('notifPanel'); if (p && !p.classList.contains('hidden')) renderNotifPanel();
   }, () => {});
+  refreshDerivedNotifs();
+  if (!_notifTimer) _notifTimer = setInterval(refreshDerivedNotifs, 90000);   // keep movers/news fresh
 }
-
-function updateNotifBadge() {
-  const unread = notifications.filter(n => !n.read).length;
-  const item = document.querySelector('.navitem[data-nav="premarket"]');
-  if (!item) return;
-  let b = item.querySelector('.notif-badge');
-  if (unread) {
-    if (!b) { b = document.createElement('span'); b.className = 'notif-badge'; b.style.cssText = 'margin-left:auto;background:var(--blue,#1a73e8);color:#fff;border-radius:10px;font-size:10px;padding:1px 6px;'; item.appendChild(b); }
-    b.textContent = unread;
-  } else if (b) { b.remove(); }
+// Read-state for client-derived items (server items use their Firestore `read`): a localStorage key set.
+function _notifSeen() { try { return new Set(JSON.parse(localStorage.getItem('notifSeenKeys') || '[]')); } catch (e) { return new Set(); } }
+function _addNotifSeen(keys) { try { const s = _notifSeen(); keys.forEach(k => s.add(k)); localStorage.setItem('notifSeenKeys', JSON.stringify([...s].slice(-600))); } catch (e) {} }
+function _notifTs(n) {
+  if (n.createdAt && n.createdAt.seconds) return n.createdAt.seconds * 1000;
+  if (n.createdAt && typeof n.createdAt.toMillis === 'function') { try { return n.createdAt.toMillis(); } catch (e) {} }
+  if (n.date) { const t = Date.parse(n.date); if (!isNaN(t)) return t; }
+  return Date.now();
 }
-
+function _dayLabel(ts) {
+  const d = new Date(ts), now = new Date(), sd = x => x.getFullYear() + '-' + x.getMonth() + '-' + x.getDate();
+  if (sd(d) === sd(now)) return 'Today';
+  const y = new Date(now); y.setDate(y.getDate() - 1); if (sd(d) === sd(y)) return 'Yesterday';
+  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function _notifIcon(cat) { return { portfolio: 'briefcase', alert: 'bell', breaking: 'spark', market: 'newspaper', earnings: 'calendar', explore: 'compass', macro: 'bell' }[cat] || 'bell'; }
 const NOTIF_CATS = [
   { key: 'all', label: 'All' },
+  { key: 'portfolio', label: 'Portfolio' },
   { key: 'alert', label: 'My alerts' },
   { key: 'breaking', label: 'Breaking' },
-  { key: 'price', label: 'Price moves' },
   { key: 'market', label: 'Market' },
   { key: 'earnings', label: 'Earnings' },
-  { key: 'macro', label: 'Macro & digest' }
+  { key: 'explore', label: 'Explore' },
+  { key: 'macro', label: 'Digest' }
 ];
 function notifCategory(n) {
   const t = n.type || '';
   if (t === 'user_alert') return 'alert';
-  if (t === 'price_move') return 'price';
+  if (t === 'price_move') return 'portfolio';
   if (t === 'market_move') return 'market';
   if (t === 'earnings_alert') return 'earnings';
   if (t === 'breaking_news') return 'breaking';
   return 'macro';   // premarket_digest + anything else
 }
 function notifBadge(cat) {
-  const map = { alert: ['My alert', 'badge-blue'], breaking: ['Breaking', 'badge-red'], price: ['Price', 'badge-blue'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], macro: ['Digest', 'badge-gray'] };
+  const map = { portfolio: ['Portfolio', 'badge-blue'], alert: ['My alert', 'badge-blue'], breaking: ['Breaking', 'badge-red'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], explore: ['Explore', 'badge-green'], macro: ['Digest', 'badge-gray'] };
   const m = map[cat] || ['Alert', 'badge-gray'];
   return '<span class="badge ' + m[1] + '">' + m[0] + '</span>';
 }
-function setNotifFilter(k) { notifFilter = k; renderNotifications(); }
-function renderNotifications() {
-  const el = document.getElementById('premarketBody');
-  if (!el) return;
-  const btn = document.getElementById('enablePushBtn');
-  if (btn && messaging && typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-    btn.disabled = true; btn.style.opacity = '.6'; pushStatusMsg('Notifications on ✓');
-  }
-  const fbar = document.getElementById('notifFilters');
-  if (fbar) fbar.innerHTML = NOTIF_CATS.map(c => {
-    const cnt = c.key === 'all' ? notifications.length : notifications.filter(n => notifCategory(n) === c.key).length;
-    return '<button class="scr-chip' + (notifFilter === c.key ? ' active' : '') + '" onclick="setNotifFilter(\'' + c.key + '\')">' + c.label + (cnt ? ' (' + cnt + ')' : '') + '</button>';
-  }).join('');
-  if (!notifications.length) {
-    el.innerHTML = emptyState('bell', 'No notifications yet', 'Enable notifications to get your 8 AM digest plus intraday price, market & earnings alerts.');
-    return;
-  }
-  const list = notifFilter === 'all' ? notifications : notifications.filter(n => notifCategory(n) === notifFilter);
-  if (!list.length) { el.innerHTML = emptyState('bell', 'Nothing here yet', 'No notifications in this category. Try another filter.'); return; }
-  el.innerHTML = list.map(n => {
-    const cat = notifCategory(n);
-    const earn = (n.earnings || []).map(e => '<span class="sig sig-WATCH" style="font-size:10px">' + e.ticker + (e.hourLabel ? ' · ' + e.hourLabel : '') + '</span>').join(' ');
-    const macro = (n.macro || []).map(m => '<div style="font-size:12px;color:var(--text-2)">• ' + escHtml(m.event || '') + (m.time ? ' (' + escHtml(m.time) + ')' : '') + '</div>').join('');
-    const pctTxt = (n.pct != null && !isNaN(n.pct)) ? '<span class="' + (n.pct >= 0 ? 'pos' : 'neg') + '" style="font-weight:700;font-size:12px;margin-left:6px;">' + pctFmt(n.pct) + '</span>' : '';
-    return '<div class="alert-crd" style="display:block;cursor:pointer;' + (n.read ? 'opacity:.7;' : '') + '" onclick="markNotifRead(\'' + n.id + '\')">' +
-      '<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;"><div class="alert-tkr" style="font-size:14px;line-height:1.4;">' + notifBadge(cat) + ' ' + escHtml(n.title || 'Notification') + pctTxt + '</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;">' + (n.date || '') + (n.read ? '' : ' • new') + '</div></div>' +
-      '<div style="font-size:13px;color:var(--text-2);margin:4px 0 8px;line-height:1.55;white-space:pre-line;">' + escHtml(n.body || '') + '</div>' +
-      (earn ? '<div style="margin-bottom:6px;">' + earn + '</div>' : '') + macro +
-      (n.url ? '<a href="' + escHtml(n.url) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-size:12px;font-weight:600;">Read full story →</a>' : '') +
-      '</div>';
-  }).join('');
+// Merge persisted + derived into one normalized, de-duped, time-sorted feed.
+function buildNotifFeed() {
+  const seen = _notifSeen(), out = [];
+  (notifications || []).forEach(n => out.push({ key: 'srv:' + n.id, id: n.id, persisted: true, cat: notifCategory(n), title: n.title || 'Notification', body: n.body || '', url: n.url || '', ticker: n.ticker || '', pct: (n.pct != null ? n.pct : null), ts: _notifTs(n), read: !!n.read }));
+  (_derivedNotifs || []).forEach(d => out.push(Object.assign({}, d, { persisted: false, read: seen.has(d.key) })));
+  const k = new Set(), dedup = [];
+  out.forEach(it => { const kk = (it.url || it.title || '').toLowerCase(); if (kk && k.has(kk)) return; if (kk) k.add(kk); dedup.push(it); });
+  dedup.sort((a, b) => (b.ts || 0) - (a.ts || 0));
+  return dedup.slice(0, 60);
 }
-
+// Recompute client-derived feeds: movers + Explore highlights every call (no network), news throttled ~5min.
+async function refreshDerivedNotifs() {
+  if (_refreshingNotifs) return; _refreshingNotifs = true;
+  try {
+    let held = [];
+    try { if (UID) held = [...new Set((await gatherUserHoldings('all')).map(h => h.ticker).filter(Boolean))]; } catch (e) {}
+    const day = new Date().toISOString().slice(0, 10);
+    const movers = [];
+    held.forEach(t => { const e = liveEntry(t), c = e && e.changePct; if (c != null && Math.abs(c) >= 0.25) movers.push({ key: 'mv:' + t + ':' + day, cat: 'portfolio', ticker: t, pct: c, title: t + ' ' + (c >= 0 ? '+' : '') + c.toFixed(2) + '% today', body: 'Your holding ' + t + ' is ' + (c >= 0 ? 'up' : 'down') + ' ' + Math.abs(c).toFixed(2) + '% so far today.', ts: Date.now() }); });
+    movers.sort((a, b) => Math.abs(b.pct) - Math.abs(a.pct));
+    const explore = [];
+    try {
+      const stocks = (D && D.stocks) || [], wc = stocks.map(s => ({ s, chg: _expChange(s.ticker) })).filter(x => x.chg != null);
+      if (wc.length) {
+        const g = wc.slice().sort((a, b) => b.chg - a.chg)[0], l = wc.slice().sort((a, b) => a.chg - b.chg)[0];
+        if (g && g.chg > 0) explore.push({ key: 'ex:g:' + day, cat: 'explore', ticker: g.s.ticker, title: 'Top mover today: ' + g.s.ticker + ' +' + g.chg.toFixed(1) + '%', body: (g.s.name || g.s.ticker) + ' leads the scan universe today.', ts: Date.now() });
+        if (l && l.chg < 0 && l.s.ticker !== (g && g.s.ticker)) explore.push({ key: 'ex:l:' + day, cat: 'explore', ticker: l.s.ticker, title: 'Biggest decliner: ' + l.s.ticker + ' ' + l.chg.toFixed(1) + '%', body: (l.s.name || l.s.ticker) + ' is down the most today.', ts: Date.now() });
+      }
+    } catch (e) {}
+    if (Date.now() - _lastNotifNewsAt > 300000) {
+      _lastNotifNewsAt = Date.now();
+      try {
+        const d = await fetch(GETNEWS_API + (held.length ? '?symbols=' + encodeURIComponent(held.slice(0, 8).join(',')) : '')).then(r => r.json());
+        const ns = [];
+        (d.portfolio || []).slice(0, 12).forEach(n => ns.push({ key: 'pn:' + (n.url || n.title), cat: 'portfolio', ticker: (n.tickers || [])[0] || '', title: n.title || '', body: n.summary || '', url: n.url || '', ts: (n.datetime ? n.datetime * 1000 : Date.now()) }));
+        (d.market || []).slice(0, 8).forEach(n => ns.push({ key: 'mn:' + (n.url || n.title), cat: 'market', ticker: (n.tickers || [])[0] || '', title: n.title || '', body: n.summary || '', url: n.url || '', ts: (n.datetime ? n.datetime * 1000 : Date.now()) }));
+        _newsNotifs = ns;
+      } catch (e) {}
+    }
+    _derivedNotifs = [...movers, ...explore, ..._newsNotifs];
+  } finally { _refreshingNotifs = false; }
+  updateNotifBadge();
+  const p = document.getElementById('notifPanel'); if (p && !p.classList.contains('hidden')) renderNotifPanel();
+}
+function updateNotifBadge() {
+  const unread = buildNotifFeed().filter(it => !it.read).length;
+  const item = document.querySelector('.navitem[data-nav="premarket"]');
+  if (item) {
+    let b = item.querySelector('.notif-badge');
+    if (unread) { if (!b) { b = document.createElement('span'); b.className = 'notif-badge'; b.style.cssText = 'margin-left:auto;background:var(--blue,#1a73e8);color:#fff;border-radius:10px;font-size:10px;padding:1px 6px;'; item.appendChild(b); } b.textContent = unread; }
+    else if (b) b.remove();
+  }
+  const bb = document.getElementById('notifBellBadge');
+  if (bb) { if (unread) { bb.textContent = unread > 99 ? '99+' : unread; bb.style.display = ''; } else { bb.style.display = 'none'; } }
+}
+// One notification row (shared by the dropdown and the tab).
+function notifRowHtml(it) {
+  const av = it.ticker ? stockLogoHtml(it.ticker, 'notif-av') : '<span class="notif-av notif-ic">' + ic(_notifIcon(it.cat), 16) + '</span>';
+  const t = it.ts ? timeAgo(Math.floor(it.ts / 1000)) : '';
+  const pctTxt = (it.pct != null && !isNaN(it.pct)) ? '<span class="' + (it.pct >= 0 ? 'pos' : 'neg') + '" style="font-weight:700;margin-left:6px">' + pctFmt(it.pct) + '</span>' : '';
+  const ext = it.url ? '<a class="notif-ext" href="' + escHtml(it.url) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Open story">↗</a>' : '';
+  return '<div class="notif-row' + (it.read ? '' : ' unread') + '" onclick="onNotifClick(\'' + escHtml(it.key) + '\')">' + av +
+    '<div class="notif-main"><div class="notif-t">' + escHtml(it.title) + pctTxt + (it.read ? '' : '<span class="notif-udot"></span>') + '</div>' +
+    (it.body ? '<div class="notif-b">' + escHtml(it.body) + '</div>' : '') +
+    '<div class="notif-meta">' + notifBadge(it.cat) + (t ? '<span>' + t + '</span>' : '') + '</div></div>' + ext + '</div>';
+}
+function onNotifClick(key) {
+  const it = buildNotifFeed().find(x => x.key === key); if (!it) return;
+  if (it.persisted && it.id) markNotifRead(it.id); else _addNotifSeen([it.key]);
+  if (it.url) window.open(it.url, '_blank', 'noopener');
+  else if (it.ticker) { closeNotifPanel(); goResearch(it.ticker); }
+  updateNotifBadge();
+  const p = document.getElementById('notifPanel'); if (p && !p.classList.contains('hidden')) renderNotifPanel();
+  if (document.getElementById('tab-premarket').classList.contains('active')) renderNotifications();
+}
+function renderNotifPanel() {
+  const host = document.getElementById('notifPanelBody'); if (!host) return;
+  const feed = buildNotifFeed(), unread = feed.filter(it => !it.read).length;
+  const cnt = document.getElementById('notifPanelCount'); if (cnt) { cnt.textContent = unread > 99 ? '99+' : unread; cnt.style.display = unread ? '' : 'none'; }
+  host.innerHTML = feed.length ? feed.slice(0, 30).map(notifRowHtml).join('') : '<div class="empty-sub" style="padding:30px 16px;text-align:center">You\'re all caught up — no notifications yet.</div>';
+}
+function toggleNotifPanel() { const p = document.getElementById('notifPanel'); if (!p) return; p.classList.contains('hidden') ? openNotifPanel() : closeNotifPanel(); }
+function openNotifPanel() { const p = document.getElementById('notifPanel'); if (!p) return; p.classList.remove('hidden'); refreshDerivedNotifs(); renderNotifPanel(); setTimeout(() => document.addEventListener('click', _notifOutside), 0); document.addEventListener('keydown', _notifEsc); }
+function closeNotifPanel() { const p = document.getElementById('notifPanel'); if (p) p.classList.add('hidden'); document.removeEventListener('click', _notifOutside); document.removeEventListener('keydown', _notifEsc); }
+function _notifOutside(e) { const p = document.getElementById('notifPanel'), b = document.getElementById('notifBellBtn'); if (p && !p.contains(e.target) && b && !b.contains(e.target)) closeNotifPanel(); }
+function _notifEsc(e) { if (e.key === 'Escape') closeNotifPanel(); }
+function markAllNotifsRead() {
+  (notifications || []).filter(n => !n.read).forEach(n => markNotifRead(n.id));
+  _addNotifSeen((_derivedNotifs || []).map(d => d.key));
+  updateNotifBadge();
+  const p = document.getElementById('notifPanel'); if (p && !p.classList.contains('hidden')) renderNotifPanel();
+  if (document.getElementById('tab-premarket').classList.contains('active')) renderNotifications();
+}
+function setNotifFilter(k) { notifFilter = k; renderNotifications(); }
+function toggleNotifUnreadOnly(c) { _notifUnreadOnly = !!c; renderNotifications(); }
+function renderNotifications() {
+  const el = document.getElementById('premarketBody'); if (!el) return;
+  const btn = document.getElementById('enablePushBtn');
+  if (btn && messaging && typeof Notification !== 'undefined' && Notification.permission === 'granted') { btn.disabled = true; btn.style.opacity = '.6'; pushStatusMsg('Notifications on ✓'); }
+  refreshDerivedNotifs();
+  const feed0 = buildNotifFeed();
+  const fbar = document.getElementById('notifFilters');
+  if (fbar) fbar.innerHTML = NOTIF_CATS.map(c => { const cnt = c.key === 'all' ? feed0.length : feed0.filter(n => n.cat === c.key).length; return '<button class="scr-chip' + (notifFilter === c.key ? ' active' : '') + '" onclick="setNotifFilter(\'' + c.key + '\')">' + c.label + (cnt ? ' (' + cnt + ')' : '') + '</button>'; }).join('');
+  let feed = notifFilter === 'all' ? feed0 : feed0.filter(n => n.cat === notifFilter);
+  if (_notifUnreadOnly) feed = feed.filter(n => !n.read);
+  if (!feed.length) { el.innerHTML = emptyState('bell', 'Nothing here', _notifUnreadOnly ? 'No unread notifications in this view.' : 'Notifications from your alerts, holdings, the market & Explore will appear here.'); return; }
+  let html = '', lastDay = null;
+  feed.forEach(it => { const dl = _dayLabel(it.ts); if (dl !== lastDay) { html += '<div class="notif-daysec">' + dl + '</div>'; lastDay = dl; } html += notifRowHtml(it); });
+  el.innerHTML = html;
+}
 function markNotifRead(id) {
   if (!UID) return;
   const n = notifications.find(x => x.id === id);
@@ -4220,7 +4429,9 @@ function renderAgentResearch(ticker, agentData, scanData) {
   html += '<div class="rtop">' + (scanData ? scanDataSection(ticker, scanData) : quickResearchSection(ticker)) + '</div>';
   // 2) Claude's authored brief — financial highlights, accomplishments, the 52-week journey, critical info
   html += claudeBriefSection(ticker, agentData);
-  // 3) Live TradingView widgets (public data): chart (the journey), financials, technical rating, company profile
+  // 3) Factor profile radar (relocated from the Charts tab) — momentum/value/growth/RS/RSI/sentiment
+  html += factorRadarSection(ticker);
+  // 4) Live TradingView widgets (public data): chart (the journey), financials, technical rating, company profile
   html += tvWidgetsSection(ticker);
   el.innerHTML = html;
   try {
@@ -4229,7 +4440,25 @@ function renderAgentResearch(ticker, agentData, scanData) {
     mountTvTA('tvResTA', ticker);
     mountTvProfile('tvResProfile', ticker);
   } catch (e) {}
+  try { renderResRadar(ticker); } catch (e) {}   // Chart.js radar — render after the canvas is in the DOM
   _tvResTicker = ticker;   // widgets are now mounted for this ticker — subsequent same-ticker renders take the fast path
+}
+// Per-stock Factor Profile radar (relocated from the Charts tab). Card markup + Chart.js render.
+function factorRadarSection(ticker) {
+  return '<div class="rsec"><div class="rsec-h">' + ic('activity', 15) + ' Factor profile — ' + escHtml((ticker || '').toUpperCase()) + '</div>' +
+    '<div style="max-width:460px;margin:0 auto;height:300px;position:relative"><canvas id="resRadar"></canvas></div>' +
+    '<div id="resRadarNote" class="empty-sub" style="display:none;text-align:center;padding:18px 0">Factor profile is available for stocks in the daily scan universe.</div></div>';
+}
+function renderResRadar(ticker) {
+  const cv = document.getElementById('resRadar'); if (!cv) return;
+  const note = document.getElementById('resRadarNote');
+  const s = scanStockFor(ticker);
+  if (!s) { killChart('resRadar'); cv.style.display = 'none'; if (note) note.style.display = 'block'; return; }
+  cv.style.display = ''; if (note) note.style.display = 'none';
+  const clamp = v => Math.max(0, Math.min(100, v));
+  const vals = [clamp(((+s.momentum_3m || 0) + 30) / 60 * 100), clamp(+s.fwd_pe > 0 ? 100 - Math.min(100, (+s.fwd_pe) / 60 * 100) : 50), clamp((+s.rev_growth || 0) / 50 * 100), clamp(+s.rs_score || 0), clamp(+s.rsi || 50), clamp(((+s.news_score_addon || 0) + 10) / 20 * 100)];
+  const blue = cvar('--blue') || '#1a73e8';
+  mkChart('resRadar', { type: 'radar', data: { labels: ['Momentum', 'Value', 'Growth', 'Rel. Strength', 'RSI', 'Sentiment'], datasets: [{ label: s.ticker, data: vals, borderColor: blue, backgroundColor: hexA(blue, .18), pointBackgroundColor: blue, borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { min: 0, max: 100, angleLines: { color: cvar('--border-soft') }, grid: { color: cvar('--border-soft') }, pointLabels: { color: cvar('--text-2'), font: { size: 11 } }, ticks: { display: false, stepSize: 25 } } } } });
 }
 function defaultResearchTicker() {
   try {
@@ -4459,7 +4688,7 @@ function sw(name) {
   document.body.classList.remove('sidebar-open');
   if (name === 'home') loadHomeDashboard();
   if (name === 'assistant') { const h = document.getElementById('asstTabHost'); if (h && !h.querySelector('.asst-host')) h.innerHTML = assistantHostHtml('tab'); renderAllAssistant(); asstFocus(); }
-  if (name === 'chart') renderCharts();
+  // if (name === 'chart') renderCharts();   // Charts tab retired
   if (name === 'explore') renderExplore();
   if (name === 'market') renderNewsTab();
   if (name === 'research') enterResearch();
