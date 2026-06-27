@@ -707,6 +707,100 @@ exports.getYtd = onRequest(
   }
 );
 
+// ── Analyst recommendations + price targets (powers the Recommendation tab) ────
+// Wall-Street consensus distribution from Finnhub /stock/recommendation (free key),
+// plus mean/high/low price target + analyst count from Yahoo quoteSummary
+// (financialData). Yahoo's quoteSummary needs a cookie+crumb, fetched once and cached
+// per instance. Every source is independent + defensive: a partial result is returned
+// if either upstream fails (the front-end degrades to the consensus rating it already
+// has baked into the scan).
+// GET /getRecommend?symbol=NVDA ->
+//   { symbol, consensus:{period,strongBuy,buy,hold,sell,strongSell,total}|null,
+//     target:{mean,high,low,current,numAnalysts,recommendationMean,recommendationKey}|null, asOf }
+let _yCrumb = null, _yCookie = null, _yCrumbAt = 0;
+// fetch with a hard timeout so a hung/slow upstream can never block the whole function past its budget.
+async function fetchT(url, opts, ms) {
+  const ac = new AbortController();
+  const t = setTimeout(() => ac.abort(), ms || 5000);
+  try { return await fetch(url, { ...(opts || {}), signal: ac.signal }); }
+  finally { clearTimeout(t); }
+}
+function _yInvalidate() { _yCrumb = null; _yCookie = null; _yCrumbAt = 0; }
+async function yahooCrumb() {
+  // Cache on the crumb alone: a valid crumb sometimes comes back with an empty cookie string, and
+  // gating the cache read on a truthy cookie would re-mint (two extra fetches) on every call.
+  if (_yCrumb && (Date.now() - _yCrumbAt) < 30 * 60 * 1000) return { crumb: _yCrumb, cookie: _yCookie };
+  try {
+    // 1) hit a Yahoo host to collect the consent cookies, 2) exchange them for a crumb.
+    const r1 = await fetchT('https://fc.yahoo.com', { headers: { 'User-Agent': 'Mozilla/5.0' } }, 5000);
+    const list = r1.headers.getSetCookie ? r1.headers.getSetCookie() : (r1.headers.get('set-cookie') ? [r1.headers.get('set-cookie')] : []);
+    const cookie = list.map(c => String(c).split(';')[0]).filter(Boolean).join('; ');
+    const r2 = await fetchT('https://query2.finance.yahoo.com/v1/test/getcrumb', { headers: { 'User-Agent': 'Mozilla/5.0', 'Cookie': cookie } }, 5000);
+    const crumb = (await r2.text()).trim();
+    if (crumb && crumb.length < 64 && !/[<{>]/.test(crumb)) { _yCrumb = crumb; _yCookie = cookie; _yCrumbAt = Date.now(); }
+  } catch (e) { /* self-contained: leave any prior cache; caller handles a null crumb */ }
+  return { crumb: _yCrumb, cookie: _yCookie };
+}
+async function yahooTargets(sym, _retried) {
+  try {
+    const { crumb, cookie } = await yahooCrumb();
+    if (!crumb) return null;
+    const ysym = sym.replace(/\./g, '-');
+    const url = `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${encodeURIComponent(ysym)}?modules=financialData,recommendationTrend&crumb=${encodeURIComponent(crumb)}`;
+    const r = await fetchT(url, { headers: { 'User-Agent': 'Mozilla/5.0', 'Cookie': cookie } }, 5000);
+    if (!r.ok) {
+      // 401/403 (and often 404) mean the cached crumb/cookie went stale — drop it and retry once
+      // with a fresh crumb instead of returning null for the rest of the 30-min TTL.
+      if (!_retried && (r.status === 401 || r.status === 403 || r.status === 404)) { _yInvalidate(); return yahooTargets(sym, true); }
+      return null;
+    }
+    const d = await r.json();
+    const qs = d && d.quoteSummary && d.quoteSummary.result && d.quoteSummary.result[0];
+    const fd = qs && qs.financialData;
+    if (!fd) return null;
+    const raw = x => (x && x.raw != null) ? x.raw : null;
+    const mean = raw(fd.targetMeanPrice);
+    if (mean == null && raw(fd.targetHighPrice) == null) return null;   // no usable target
+    return {
+      mean, high: raw(fd.targetHighPrice), low: raw(fd.targetLowPrice),
+      current: raw(fd.currentPrice), numAnalysts: raw(fd.numberOfAnalystOpinions),
+      recommendationMean: raw(fd.recommendationMean),
+      recommendationKey: fd.recommendationKey || null
+    };
+  } catch (e) { return null; }
+}
+exports.getRecommend = onRequest(
+  { region: 'us-central1', cors: true, secrets: [FINNHUB_API_KEY], timeoutSeconds: 30 },
+  async (req, res) => {
+    const sym = String(req.query.symbol || '').trim().toUpperCase();
+    if (!sym) { res.status(400).json({ error: 'symbol required' }); return; }
+    const key = FINNHUB_API_KEY.value();
+    // Both sources run in parallel and are independently fault-tolerant; a hung upstream is bounded
+    // by fetchT (Yahoo) and a Promise.race timeout (Finnhub), so the response always lands well
+    // within timeoutSeconds with whatever succeeded (the front-end degrades on a null).
+    const [consensus, target] = await Promise.all([
+      (async () => {
+        try {
+          const arr = await Promise.race([
+            finnhubGet('/stock/recommendation', { symbol: sym }, key),
+            new Promise((_, rej) => setTimeout(() => rej(new Error('finnhub timeout')), 6000))
+          ]);
+          const l = Array.isArray(arr) && arr.length ? arr[0] : null;
+          if (l) {
+            const sb = +l.strongBuy || 0, b = +l.buy || 0, h = +l.hold || 0, s = +l.sell || 0, ss = +l.strongSell || 0;
+            const total = sb + b + h + s + ss;
+            if (total > 0) return { period: l.period || '', strongBuy: sb, buy: b, hold: h, sell: s, strongSell: ss, total };
+          }
+        } catch (e) { /* consensus stays null */ }
+        return null;
+      })(),
+      (async () => { try { return await yahooTargets(sym); } catch (e) { return null; } })()
+    ]);
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.json({ symbol: sym, consensus, target, asOf: Date.now() });
+  }
+);
+
 // ── Intraday alert monitor (price moves, market moves, earnings) ──────────────
 // Runs hourly during market hours. Fires (deduped per user/day):
 //   • market_move   — S&P (SPY) moves ±1% on the day
