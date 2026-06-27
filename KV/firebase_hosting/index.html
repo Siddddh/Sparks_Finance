@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+firebase deploy --only hosting,functions<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
@@ -769,6 +769,68 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .bulk-chip-x{display:inline-flex;align-items:center;justify-content:center;border:none;background:transparent;color:inherit;cursor:pointer;padding:1px;border-radius:50%;opacity:.65;line-height:0;}
 .bulk-chip-x:hover{opacity:1;background:rgba(125,125,125,.25);}
 
+/* ════════ Recommendations tab ════════ */
+.rec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+.rec-back{align-self:flex-start;background:none;border:1px solid var(--border);border-radius:8px;color:var(--text-2);font:inherit;font-size:12px;padding:6px 12px;cursor:pointer;}
+.rec-back:hover{background:var(--surface-hover);color:var(--text);}
+.rec-head-main{display:flex;align-items:center;gap:14px;}
+.rec-head-main .rec-logo{width:46px;height:46px;border-radius:11px;font-size:15px;}
+.rec-head-id{flex:1;min-width:0;}
+.rec-head-tkr{font-size:22px;font-weight:700;color:var(--text);}
+.rec-head-name{font-size:13px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rec-head-px{font-size:18px;font-weight:600;color:var(--text);white-space:nowrap;}
+.rec-head-px .pos{color:var(--green);font-size:13px;}.rec-head-px .neg{color:var(--red);font-size:13px;}
+.rec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start;}
+@media(max-width:1100px){.rec-grid{grid-template-columns:1fr;}}
+.rec-analyst{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;}
+.rec-analyst-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+.rec-analyst-who{display:flex;align-items:center;gap:9px;color:var(--text-2);}
+.rec-analyst-name{font-size:14px;font-weight:700;color:var(--text);}
+.rec-analyst-sub{font-size:11px;color:var(--text-3);}
+.rec-analyst-body{font-size:13px;color:var(--text-2);line-height:1.6;}
+.rec-lead{margin:0 0 8px;color:var(--text);font-size:13.5px;}
+.rec-why{margin:0 0 10px;}
+.rec-sub{margin:10px 0;}
+.rec-sub-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-3);margin-bottom:5px;}
+.rec-sub-h.g{color:var(--green);}.rec-sub-h.r{color:var(--red);}.rec-sub-h.b{color:var(--blue);}
+.rec-bul{margin:0;padding-left:18px;}
+.rec-bul li{margin:3px 0;}
+.rec-levels{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}
+.rec-lvl{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 6px;text-align:center;}
+.rec-lvl-l{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-3);}
+.rec-lvl-v{font-size:13px;font-weight:700;color:var(--text);margin-top:2px;}
+.rec-bars{margin:10px 0;}
+.rec-bar{display:flex;height:8px;border-radius:5px;overflow:hidden;background:var(--surface);}
+.rec-bar span{display:block;height:100%;}
+.rec-bar-lbl{display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-top:5px;}
+.rec-cons{margin-top:4px;}
+.rec-cons-row{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:12px;}
+.rec-cons-l{width:78px;color:var(--text-3);flex-shrink:0;}
+.rec-cons-track{flex:1;height:8px;background:var(--surface);border-radius:5px;overflow:hidden;}
+.rec-cons-track span{display:block;height:100%;}
+.rec-cons-n{width:22px;text-align:right;font-weight:600;color:var(--text-2);}
+.rec-tv-gauge{margin-top:8px;}
+.rec-src{font-size:11px;color:var(--text-3);margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);}
+.rec-foot{font-size:12px;color:var(--text-3);margin-top:16px;text-align:center;line-height:1.6;}
+.rec-research-link{color:var(--blue);cursor:pointer;font-weight:600;white-space:nowrap;}
+.rec-research-link:hover{text-decoration:underline;}
+.rec-list-top{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:16px;}
+.rec-list-note{font-size:12px;color:var(--text-3);}
+.rec-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.rec-card{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s;}
+.rec-card:hover{border-color:var(--blue);box-shadow:var(--shadow-lg);transform:translateY(-2px);}
+.rec-card-top{display:flex;align-items:center;gap:11px;margin-bottom:12px;}
+.rec-card-top .rec-card-logo{width:38px;height:38px;border-radius:9px;font-size:13px;}
+.rec-card-id{min-width:0;}
+.rec-card-tkr{font-size:15px;font-weight:700;color:var(--text);}
+.rec-card-name{font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;}
+.rec-card-verdicts{display:flex;flex-direction:column;gap:6px;}
+.rec-vrow{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.rec-vwho{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-2);}
+.rec-vna{color:var(--text-3);font-size:12px;}
+.rec-card-why{font-size:12px;color:var(--text-3);line-height:1.5;margin-top:11px;padding-top:11px;border-top:1px solid var(--border);}
+.rec-card-cta{font-size:12px;font-weight:600;color:var(--blue);margin-top:11px;}
+
 /* ════════ Misc ════════ */
 .section-title{font-size:16px;font-weight:600;margin-bottom:14px;color:var(--text);}
 .badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;}
@@ -1238,6 +1300,18 @@ body.sidebar-open .nav-scrim{display:block;}
           <div class="research-hint"><span class="ic-info" title="Claude's brief — last-year financial highlights, accomplishments, the 52-week journey and critical info — plus live TradingView data (chart, financials, technical rating, company profile).">ⓘ</span> Claude's brief + live TradingView data · try <span class="ex-chip" onclick="goResearch('AAPL')">AAPL</span> <span class="ex-chip" onclick="goResearch('NVDA')">NVDA</span> <span class="ex-chip" onclick="goResearch('TSLA')">TSLA</span></div>
           <div id="researchContent"></div>
         </div>
+        <div id="tab-recommend" class="tab-panel">
+          <div class="page-title">Recommendations</div>
+          <div style="display:flex;gap:10px;margin-bottom:8px;align-items:center;">
+            <div class="ac-wrap" style="flex:1;max-width:340px;">
+              <input type="text" id="recInput" class="modal-input" placeholder="Search a ticker or company (e.g. AAPL, NVDA)…" oninput="acFilter(this,'recAC','recommend')" onkeydown="acKey(event,'recAC','recommend')" autocomplete="off"/>
+              <div id="recAC" class="ac-list" style="display:none"></div>
+            </div>
+            <button class="pf-btn pf-btn-primary" onclick="runRecommend()">Get recommendation</button>
+          </div>
+          <div class="research-hint"><span class="ic-info" title="See how Claude, TradingView and Wall Street analysts rate a stock — and the plain-English reasons behind each call.">ⓘ</span> How Claude, TradingView &amp; Wall Street rate a stock — and <em>why</em> · try <span class="ex-chip" onclick="recSearch('AAPL')">AAPL</span> <span class="ex-chip" onclick="recSearch('NVDA')">NVDA</span> <span class="ex-chip" onclick="recSearch('TSLA')">TSLA</span></div>
+          <div id="recommendContent"></div>
+        </div>
         <div id="tab-explore" class="tab-panel">
           <div class="page-title">Explore <span style="font-size:13px;font-weight:500;color:var(--text-3)">· movers, collections &amp; themes across the US market</span></div>
           <div id="exploreContent"></div>
@@ -1419,7 +1493,8 @@ const ICON_PATHS = {
   check:'<polyline points="20 6 9 17 4 12"/>',
   alert:'<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
   bot:'<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/>',
-  data:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'
+  data:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6"/>'
 };
 function ic(name, size, cls) {
   size = size || 18; cls = cls || '';
@@ -1473,6 +1548,7 @@ const NAV = [
   { tab: 'explore', label: 'Explore', icon: 'compass' },
   // { tab: 'summary', label: 'AI Summary', icon: 'sparkles' },   // hidden for now
   { tab: 'research', label: 'Research', icon: 'flask' },
+  { tab: 'recommend', label: 'Recommendations', icon: 'target' },
   // { tab: 'discovery', label: 'Discovery', icon: 'compass' },   // hidden for now
   { sec: 'Lists' },
   { tab: 'portfolio', label: 'Portfolio', icon: 'briefcase' },
@@ -1523,6 +1599,7 @@ const GETEARNINGS_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.ne
 const GETRANGE_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getRange';
 const SERIES_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getSeries';
 const GETYTD_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getYtd';
+const GETRECOMMEND_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/getRecommend';
 const ASSISTANT_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/assistant';
 const SENDOTP_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/sendOtp';
 const VERIFYOTP_API = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/verifyOtp';
@@ -1981,6 +2058,7 @@ function acSelect(sym, listId, context) {
   else if (context === 'chart') { setChartSym(sym); }
   else if (context === 'portfolio') { pfSearch(sym); }
   else if (context === 'bulkAdd') { bulkAddChip(sym); const inp = document.getElementById('bulkTickerInput'); if (inp) inp.focus(); }
+  else if (context === 'recommend') { document.getElementById('recInput').value = sym; runRecommend(); }
 }
 function acClose(listId) { const el = document.getElementById(listId); if (el) el.style.display = 'none'; }
 function acKey(e, listId, context) {
@@ -1996,6 +2074,7 @@ function acKey(e, listId, context) {
     else if (context === 'chart') { acClose(listId); setChartSym(document.getElementById('chartSymInput').value); }
     else if (context === 'portfolio') { const v = document.getElementById('pfSearchInput').value.trim().toUpperCase(); if (v) { acClose(listId); pfSearch(v); } }
     else if (context === 'bulkAdd') { const inp = document.getElementById('bulkTickerInput'); if (inp && inp.value.trim()) { bulkAddChip(inp.value); } e.preventDefault(); }
+    else if (context === 'recommend') { acClose(listId); runRecommend(); }
   }
   else if (e.key === 'Escape') { acClose(listId); }
 }
@@ -4716,6 +4795,284 @@ function enterResearch() {
     _tvResTicker = currentResearchTicker;
   } catch (e) {}
 }
+
+// ════════ Recommendations tab — multi-analyst verdicts (Claude · TradingView · Wall Street) ════════
+// Works like Research: search any ticker → see how each analyst rates it, in plain English, with the
+// reasons behind each call. Claude (published thesis / per-holding call / brief, else a transparent
+// rule-based read), TradingView (baked technical rating + live gauge) and Wall Street (consensus rating
+// now, plus price targets from the getRecommend backend — degrades gracefully until that's deployed).
+let _recTicker = null, _recScope = 'all', _recData = {}, _recBrief = {}, _recDataPending = {};
+// Sanitize a ticker to the only characters a real symbol uses, so a value can never break out of
+// an inline onclick="recSearch('…')" / goResearch('…') handler (escHtml does NOT escape the quote).
+function _recTk(t) { return (t || '').toUpperCase().replace('_', '.').replace(/[^A-Z0-9.\-]/g, ''); }
+
+function enterRecommend() { if (_recTicker) renderRecForTicker(_recTicker); else renderRecList(); }
+function runRecommend() {
+  const inp = document.getElementById('recInput');
+  const t = _recTk((inp && inp.value) || '');
+  if (!t) { _recTicker = null; renderRecList(); return; }
+  acClose('recAC'); recSearch(t);
+}
+function recSearch(sym) {
+  sym = _recTk(sym); if (!sym) return;
+  _recTicker = sym;
+  const inp = document.getElementById('recInput'); if (inp) inp.value = sym;
+  acClose('recAC'); renderRecForTicker(sym);
+}
+function recBackToList() { _recTicker = null; const inp = document.getElementById('recInput'); if (inp) inp.value = ''; renderRecList(); }
+function setRecScope(v) { _recScope = v; renderRecList(); }
+
+// — small render helpers —
+function _recBul(arr) { return '<ul class="rec-bul">' + (arr || []).map(x => '<li>' + escHtml(x) + '</li>').join('') + '</ul>'; }
+function _recLvl(l, v) { return '<div class="rec-lvl"><div class="rec-lvl-l">' + l + '</div><div class="rec-lvl-v">' + v + '</div></div>'; }
+function _recTvBars(b, n, s) {
+  b = +b || 0; n = +n || 0; s = +s || 0;
+  const tot = b + n + s || 1;
+  return '<div class="rec-bars"><div class="rec-bar">' +
+    '<span style="width:' + (b / tot * 100).toFixed(0) + '%;background:var(--green)"></span>' +
+    '<span style="width:' + (n / tot * 100).toFixed(0) + '%;background:var(--text-3)"></span>' +
+    '<span style="width:' + (s / tot * 100).toFixed(0) + '%;background:var(--red)"></span></div>' +
+    '<div class="rec-bar-lbl"><span class="pos">' + b + ' buy</span><span class="neu">' + n + ' neutral</span><span class="neg">' + s + ' sell</span></div></div>';
+}
+function _recConsensusBars(c) {
+  const tot = +c.total || 1;
+  const row = (lbl, n, color) => { n = +n || 0; return '<div class="rec-cons-row"><span class="rec-cons-l">' + lbl + '</span><div class="rec-cons-track"><span style="width:' + (n / tot * 100).toFixed(0) + '%;background:' + color + '"></span></div><span class="rec-cons-n">' + n + '</span></div>'; };
+  return '<div class="rec-cons">' + row('Strong buy', c.strongBuy, 'var(--green)') + row('Buy', c.buy, 'var(--green)') + row('Hold', c.hold, 'var(--amber)') + row('Sell', c.sell, 'var(--red)') + row('Strong sell', c.strongSell, 'var(--red)') + '</div>';
+}
+function _recAnalystCard(idKey, icon, who, sub, label, cls, body) {
+  return '<div class="rec-analyst" id="recPanel-' + idKey + '">' +
+    '<div class="rec-analyst-top"><div class="rec-analyst-who">' + ic(icon, 18) + '<div><div class="rec-analyst-name">' + who + '</div><div class="rec-analyst-sub">' + sub + '</div></div></div>' +
+    '<span class="call-badge call-' + (cls || 'blue') + '" style="cursor:default">' + escHtml(label) + '</span></div>' +
+    '<div class="rec-analyst-body">' + body + '</div></div>';
+}
+
+// — verdict derivation —
+function signalToCall(sig) {
+  const s = (sig || '').toUpperCase();
+  if (s === 'STRONG BUY') return { label: 'STRONG BUY', cls: 'green' };
+  if (s === 'BUY') return { label: 'BUY', cls: 'green' };
+  if (s === 'WATCH') return { label: 'WATCH', cls: 'blue' };
+  if (s === 'WEAK') return { label: 'AVOID / WEAK', cls: 'red' };
+  if (s === 'AVOID' || s === 'SELL') return { label: s, cls: 'red' };
+  return { label: s || 'HOLD', cls: 'blue' };
+}
+// Claude's verdict: prefer a published per-holding call → Top-Pick thesis → research brief → rule-based read.
+function recClaudeVerdict(ticker, scan, brief) {
+  const ch = _claudeHoldings[(ticker || '').toUpperCase()];
+  if (ch && (ch.action || ch.why)) return { label: (ch.action || 'HOLD').toUpperCase(), cls: callClsFor(ch.action), why: ch.why || '', source: 'Claude · your holding', byClaude: true };
+  if (scan && (scan.thesis || scan.claude_pick)) {
+    const c = signalToCall(scan.signal);
+    return { label: c.label, cls: c.cls, why: scan.thesis || '', strengths: scan.key_strengths || [], risks: scan.key_risks || [], watch: scan.what_to_watch || [], score: scan.combined_score || scan.score, grade: scan.setup_quality, target: scan.target_1, entry: scan.entry, stop: scan.stop_loss, rr: scan.rr_ratio, source: 'Claude · Top Pick', byClaude: true };
+  }
+  if (brief && (brief.verdict || (brief.financials && brief.financials.summary))) {
+    const c = signalToCall(brief.signal || (scan && scan.signal));
+    return { label: c.label, cls: c.cls, why: brief.verdict || (brief.financials && brief.financials.summary) || '', source: 'Claude · research brief', byClaude: true };
+  }
+  const rc = recRuleVerdict(ticker, scan);
+  return { label: rc.label, cls: rc.cls, why: rc.why, source: 'Rule-based read · Claude brief pending', byClaude: false };
+}
+// Rule-based read for an un-thesised ticker (mirrors holdingCall's signals, minus P&L / buy-price language).
+function recRuleVerdict(ticker, scan) {
+  const live = liveEntry(ticker);
+  const price = (live && live.price) || (scan && parseFloat(scan.price)) || 0;
+  const s = scan || {};
+  const sig = (s.signal || '').toUpperCase();
+  const score = s.combined_score != null ? s.combined_score : (s.score != null ? s.score : null);
+  const rsi = s.rsi != null ? parseFloat(s.rsi) : null;
+  let fromHigh = (s.pct_from_high != null) ? parseFloat(s.pct_from_high) : null;
+  if (fromHigh == null && s.high_52w && price) fromHigh = (price / +s.high_52w - 1) * 100;
+  if (sig === 'STRONG BUY' || (score != null && score >= 70)) return { label: 'BUY', cls: 'green', why: 'Momentum and trend are strong' + (score != null ? ' (setup score ' + score + '/100)' : '') + (fromHigh != null && fromHigh >= -8 ? ', with price pressing near its 52-week high' : '') + ' — a constructive setup for new buying on pullbacks.' };
+  if (fromHigh != null && fromHigh <= -40) return { label: 'WATCH', cls: 'blue', why: 'Price sits well below its 52-week high (' + fromHigh.toFixed(0) + '%). Wait for a base or a clear reversal before committing.' };
+  if (rsi != null && rsi >= 75) return { label: 'WATCH', cls: 'blue', why: 'The trend is healthy but momentum is stretched (RSI ' + rsi.toFixed(0) + ') — the risk/reward is better on a pullback.' };
+  return { label: 'HOLD', cls: 'blue', why: 'A balanced setup with no strong edge either way right now — hold and watch for a clearer trend or a fundamental catalyst.' };
+}
+
+// — the three analyst panels —
+function recClaudePanel(ticker, scan, brief) {
+  const v = recClaudeVerdict(ticker, scan, brief);
+  // Map known calls to a natural phrase; for any other (Cowork-authored) action fall back to a
+  // vowel-aware, lower-cased phrasing so the lead never reads "a EXIT" / "a Underperform".
+  const verbMap = { 'STRONG BUY': 'a Strong Buy', 'BUY': 'a Buy', 'WATCH': 'one to Watch', 'HOLD': 'a Hold', 'AVOID / WEAK': 'an Avoid', 'AVOID': 'an Avoid', 'SELL': 'a Sell', 'STRONG SELL': 'a Strong Sell', 'TRIM': 'a Trim', 'TRIM / DEFEND': 'a Trim / Defend', 'TRIM / LOCK GAINS': 'a Trim to lock gains', 'BUY MORE / ADD': 'a Buy / Add', 'ADD': 'an Add', 'REDUCE': 'a Reduce', 'EXIT': 'an Exit' };
+  const lab = (v.label || 'hold').toLowerCase();
+  const verb = verbMap[v.label] || ((/^[aeiou]/.test(lab) ? 'an ' : 'a ') + lab);
+  let body = '<p class="rec-lead">Claude rates <b>' + escHtml(ticker) + '</b> ' + escHtml(verb) + (v.grade ? ' (setup grade ' + escHtml(v.grade) + (v.score ? ', score ' + v.score + '/100' : '') + ')' : (v.score ? ' (score ' + v.score + '/100)' : '')) + '.</p>';
+  if (v.why) body += '<p class="rec-why">' + escHtml(v.why) + '</p>';
+  if (v.strengths && v.strengths.length) body += '<div class="rec-sub"><div class="rec-sub-h g">Why it could work</div>' + _recBul(v.strengths.slice(0, 4)) + '</div>';
+  if (v.risks && v.risks.length) body += '<div class="rec-sub"><div class="rec-sub-h r">Key risks</div>' + _recBul(v.risks.slice(0, 3)) + '</div>';
+  if (v.watch && v.watch.length) body += '<div class="rec-sub"><div class="rec-sub-h b">What to watch</div>' + _recBul(v.watch.slice(0, 3)) + '</div>';
+  if (v.target != null) body += '<div class="rec-levels">' + _recLvl('Entry', v.entry != null ? '$' + (+v.entry).toFixed(2) : '—') + _recLvl('Stop', v.stop != null ? '$' + (+v.stop).toFixed(2) : '—') + _recLvl('Target', v.target != null ? '$' + (+v.target).toFixed(2) : '—') + _recLvl('R:R', v.rr != null ? v.rr + ':1' : '—') + '</div>';
+  body += '<div class="rec-src">' + escHtml(v.source) + '</div>';
+  return _recAnalystCard('claude', 'sparkles', 'Claude', "AI thesis", v.label, v.cls, body);
+}
+function recTvPanel(ticker, scan) {
+  const tv = scan && scan.tv_rating;
+  let label = '—', cls = 'blue', body = '';
+  if (tv && tv.recommendation) {
+    const rec = (tv.recommendation || '').toUpperCase().replace(/_/g, ' ');
+    label = rec; cls = /STRONG BUY|BUY/.test(rec) ? 'green' : /SELL/.test(rec) ? 'red' : 'blue';
+    const b = tv.buy || 0, s = tv.sell || 0, n = tv.neutral || 0, tot = b + s + n;
+    body += '<p class="rec-lead">TradingView’s technicals read <b>' + escHtml(rec) + '</b>.</p>';
+    body += '<p class="rec-why">This is an automated read of moving averages and momentum oscillators across timeframes' + (tot ? ': of ' + tot + ' indicators, <b>' + b + '</b> point to buy, <b>' + s + '</b> to sell and <b>' + n + '</b> are neutral' : '') + '. It reflects price action and trend — not company fundamentals.</p>';
+    if (tot) body += _recTvBars(b, n, s);
+  } else {
+    body += '<p class="rec-why">No pre-computed technical rating for <b>' + escHtml(ticker) + '</b> — the live TradingView gauge below shows the current read.</p>';
+  }
+  body += '<div class="rec-tv-gauge"><div id="recTvTA" class="tv-ta-box" style="height:380px"></div></div>';
+  return _recAnalystCard('tv', 'activity', 'TradingView', 'Technical rating', label, cls, body);
+}
+function recWallStPanel(ticker, scan) {
+  const ar = (scan && scan.analyst_rating != null) ? scan.analyst_rating : null;
+  const rd = _recData[ticker];
+  let label = ar != null ? analystLabel(ar) : '—';
+  let cls = ar != null ? (ar <= 2.5 ? 'green' : ar > 3.5 ? 'red' : 'blue') : 'blue';
+  if (rd && rd.target && rd.target.recommendationKey) {
+    const key = (rd.target.recommendationKey || '').replace(/_/g, ' ').toUpperCase();
+    if (key) { label = key; cls = /STRONG BUY|BUY|OUTPERFORM/.test(key) ? 'green' : /SELL|UNDERPERFORM/.test(key) ? 'red' : 'blue'; }
+  }
+  const nA = (rd && rd.target && rd.target.numAnalysts) || (rd && rd.consensus && rd.consensus.total) || null;
+  let body = '';
+  if (label !== '—') body += '<p class="rec-lead">Wall Street’s consensus rating is <b>' + escHtml(label) + '</b>' + (nA ? ', based on <b>' + nA + '</b> analysts' : '') + '.</p>';
+  else if (!rd) body += '<p class="rec-why">Fetching Wall Street consensus…</p>';
+  else body += '<p class="rec-why">No Wall Street coverage found for <b>' + escHtml(ticker) + '</b>.</p>';
+  if (rd && rd.target && rd.target.mean != null) {
+    const live = liveEntry(ticker);
+    const px = (live && live.price) || rd.target.current || (scan && parseFloat(scan.price)) || null;
+    const mean = rd.target.mean, upside = (px && px > 0) ? (mean / px - 1) * 100 : null;
+    body += '<p class="rec-why">The average 12-month price target is <b>$' + (+mean).toFixed(2) + '</b>' +
+      (upside != null ? ' — about <b class="' + (upside >= 0 ? 'pos' : 'neg') + '">' + (upside >= 0 ? '+' : '') + upside.toFixed(1) + '%</b> ' + (upside >= 0 ? 'above' : 'below') + ' today’s $' + (+px).toFixed(2) : '') +
+      ((rd.target.low != null && rd.target.high != null) ? ' (range $' + (+rd.target.low).toFixed(2) + '–$' + (+rd.target.high).toFixed(2) + ')' : '') + '.</p>';
+  } else if (rd && !rd.target && rd.failed) {
+    body += '<p class="rec-src">Detailed price targets &amp; the full analyst breakdown appear once the analyst-data service is deployed.</p>';
+  } else if (!rd) {
+    body += '<div class="rec-tv-gauge"><span class="ac-skel" style="width:200px;height:14px;display:inline-block"></span></div>';
+  }
+  if (rd && rd.consensus) body += '<div class="rec-sub"><div class="rec-sub-h">Analyst breakdown' + (rd.consensus.period ? ' · ' + escHtml(rd.consensus.period) : '') + '</div>' + _recConsensusBars(rd.consensus) + '</div>';
+  body += '<div class="rec-src">Source: Wall Street analyst consensus' + (rd && rd.target ? ' &amp; price targets (Yahoo Finance · Finnhub)' : '') + '</div>';
+  return _recAnalystCard('wallst', 'briefcase', 'Wall Street', 'Analyst consensus', label, cls, body);
+}
+
+// — per-ticker view —
+function renderRecForTicker(ticker) {
+  ticker = _recTk(ticker);
+  const el = document.getElementById('recommendContent'); if (!el) return;
+  const scan = scanStockFor(ticker), live = liveEntry(ticker);
+  const name = (scan && scan.name) || TICKER_DB[ticker] || ticker;
+  const brief = (_recBrief[ticker] && _recBrief[ticker].data) || null;
+  const px = (live && live.price) || (scan && parseFloat(scan.price)) || null;
+  const chg = (live && live.changePct) || 0;
+  let html = '<div class="rec-head">' +
+    '<button class="rec-back" onclick="recBackToList()">← All recommendations</button>' +
+    '<div class="rec-head-main">' + stockLogoHtml(ticker, 'rec-logo') +
+    '<div class="rec-head-id"><div class="rec-head-tkr">' + escHtml(ticker) + '</div><div class="rec-head-name">' + escHtml(name) + '</div></div>' +
+    '<div class="rec-head-px">' + (px != null ? '$' + px.toFixed(2) : '—') + (px != null && chg ? ' <span class="' + (chg >= 0 ? 'pos' : 'neg') + '">' + pctFmt(chg, 2) + '</span>' : '') + '</div>' +
+    '</div></div>';
+  html += '<div class="rec-grid">' + recClaudePanel(ticker, scan, brief) + recTvPanel(ticker, scan) + recWallStPanel(ticker, scan) + '</div>';
+  html += '<div class="rec-foot">Three independent views — Claude’s AI thesis, TradingView’s technicals, and Wall Street’s consensus. Educational only, not financial advice. <a class="rec-research-link" onclick="goResearch(\'' + ticker + '\')">Open full Research →</a></div>';
+  el.innerHTML = html;
+  // Mount the live TradingView technical gauge, guarded by the current ticker: resolveTvSymbol is
+  // async, so without this a fast A→B switch could embed A's gauge into B's (reused) #recTvTA node.
+  try {
+    resolveTvSymbol(ticker).then(sym => {
+      if (_recTicker !== ticker) return;
+      _tvEmbed('recTvTA', 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js',
+        { symbol: sym, interval: '1D', width: '100%', height: 440, isTransparent: false, showIntervalTabs: true, displayMode: 'single', colorTheme: tvTheme(), locale: 'en' });
+    }).catch(() => {});
+  } catch (e) {}
+  loadLogos([ticker]);
+  _loadRecBrief(ticker);
+  _fetchRecData(ticker);
+  if (!live || live.price == null) { Promise.race([fetchLivePrices([ticker]), new Promise(r => setTimeout(r, 6000))]).then(() => { _refreshRecHead(ticker); }); }
+}
+function _refreshRecPanel(which, ticker) {
+  if (_recTicker !== ticker) return;
+  const n = document.getElementById('recPanel-' + which); if (!n) return;
+  const scan = scanStockFor(ticker), brief = (_recBrief[ticker] && _recBrief[ticker].data) || null;
+  if (which === 'claude') n.outerHTML = recClaudePanel(ticker, scan, brief);
+  else if (which === 'wallst') n.outerHTML = recWallStPanel(ticker, scan);
+}
+function _refreshRecHead(ticker) {
+  if (_recTicker !== ticker) return;
+  const live = liveEntry(ticker); if (!live) return;
+  const el = document.querySelector('#recommendContent .rec-head-px');
+  if (el) el.innerHTML = (live.price != null ? '$' + live.price.toFixed(2) : '—') + (live.price != null && live.changePct ? ' <span class="' + ((live.changePct || 0) >= 0 ? 'pos' : 'neg') + '">' + pctFmt(live.changePct, 2) + '</span>' : '');
+  _refreshRecPanel('wallst', ticker);   // upside depends on the live price
+}
+function _loadRecBrief(ticker) {
+  if (_recBrief[ticker]) { _refreshRecPanel('claude', ticker); return; }
+  if (typeof db === 'undefined' || !db) return;
+  const today = todayStr();
+  db.collection('agent_results').doc(ticker).collection('dates').doc(today).get()
+    .then(doc => {
+      if (doc.exists) { _recBrief[ticker] = { data: doc.data() }; _refreshRecPanel('claude', ticker); return; }
+      return db.collection('agent_results').doc(ticker).collection('dates').orderBy('date', 'desc').limit(1).get()
+        .then(snap => { _recBrief[ticker] = { data: (!snap.empty ? snap.docs[0].data() : null) }; _refreshRecPanel('claude', ticker); });
+    })
+    .catch(() => { _recBrief[ticker] = { data: null }; });
+}
+function _fetchRecData(ticker) {
+  if (_recData[ticker]) { _refreshRecPanel('wallst', ticker); return; }
+  if (_recDataPending[ticker]) return;   // a fetch is already in flight for this ticker
+  _recDataPending[ticker] = 1;
+  // No client race-timeout: the backend caps its own upstream calls, so a slow (e.g. cold-start)
+  // response is never wrongly cached as a permanent failure that sticks the "not deployed" note.
+  fetch(GETRECOMMEND_API + '?symbol=' + encodeURIComponent(ticker)).then(r => r.ok ? r.json() : null).then(d => {
+    delete _recDataPending[ticker];
+    _recData[ticker] = (d && (d.target || d.consensus)) ? { target: d.target || null, consensus: d.consensus || null } : { target: null, consensus: null, failed: true };
+    _refreshRecPanel('wallst', ticker);
+  }).catch(() => { delete _recDataPending[ticker]; _recData[ticker] = { target: null, consensus: null, failed: true }; _refreshRecPanel('wallst', ticker); });
+}
+
+// — default list view (Top Picks / My stocks) —
+function recListTickers() {
+  if (_recScope === 'my') {
+    const set = new Set();
+    try { Object.values(holdingsByPortfolio || {}).forEach(arr => (arr || []).forEach(h => { if (h && h.ticker) set.add((h.ticker || '').toUpperCase()); })); } catch (e) {}
+    try { (holdings || []).forEach(h => { if (h && h.ticker) set.add((h.ticker || '').toUpperCase()); }); } catch (e) {}
+    try { (watchlists || []).forEach(w => (w.tickers || []).forEach(t => { if (t) set.add((t || '').toUpperCase()); })); } catch (e) {}
+    return [...set];
+  }
+  const picks = (D && D.claude_picks && D.claude_picks.length) ? D.claude_picks : (((D && D.stocks) || []).slice().sort((a, b) => (b.combined_score || b.score || 0) - (a.combined_score || a.score || 0)).slice(0, 30));
+  return picks.map(s => (s.ticker || '').toUpperCase()).filter(Boolean);
+}
+function renderRecList() {
+  const el = document.getElementById('recommendContent'); if (!el) return;
+  const seg = '<div class="cc-seg rec-seg"><button class="' + (_recScope === 'all' ? 'active' : '') + '" onclick="setRecScope(\'all\')">Top Picks</button><button class="' + (_recScope === 'my' ? 'active' : '') + '" onclick="setRecScope(\'my\')">My stocks</button></div>';
+  const tickers = recListTickers();
+  if (!tickers.length) {
+    const msg = _recScope === 'my'
+      ? emptyState('briefcase', 'No holdings or watchlist yet', 'Add stocks to your portfolio or watchlist, or switch to Top Picks — or search any ticker above.')
+      : emptyState('target', 'Top Picks load with each scan', 'Claude’s Top Picks appear here once the latest scan publishes. Search any ticker above for its full breakdown.');
+    el.innerHTML = '<div class="rec-list-top">' + seg + '</div>' + msg;
+    return;
+  }
+  el.innerHTML = '<div class="rec-list-top">' + seg + '<div class="rec-list-note">' + tickers.length + ' stock' + (tickers.length === 1 ? '' : 's') + ' · tap any card for the full Claude · TradingView · Wall Street breakdown</div></div>' +
+    '<div class="rec-cards">' + tickers.map(t => recListCardHtml(t)).join('') + '</div>';
+  try { fetchLivePrices(tickers.slice(0, 40)); } catch (e) {}
+  try { loadLogos(tickers.slice(0, 60)); } catch (e) {}
+}
+function recListCardHtml(ticker) {
+  ticker = _recTk(ticker);   // sanitize before it reaches the inline onclick handler
+  const scan = scanStockFor(ticker);
+  const name = (scan && scan.name) || TICKER_DB[ticker] || ticker;
+  const cv = recClaudeVerdict(ticker, scan, null);
+  const tv = scan && scan.tv_rating, tvLabel = (tv && tv.recommendation) ? tv.recommendation.replace(/_/g, ' ') : null;
+  const tvCls = tvLabel ? (/STRONG BUY|BUY/.test(tvLabel.toUpperCase()) ? 'green' : /SELL/.test(tvLabel.toUpperCase()) ? 'red' : 'blue') : '';
+  const ar = (scan && scan.analyst_rating != null) ? scan.analyst_rating : null;
+  const wsLabel = ar != null ? analystLabel(ar) : null, wsCls = ar != null ? (ar <= 2.5 ? 'green' : ar > 3.5 ? 'red' : 'blue') : '';
+  let teaser = (scan && (scan.key_strengths || [])[0]) || cv.why || '';
+  if (teaser.length > 150) teaser = teaser.slice(0, 150) + '…';
+  return '<div class="rec-card" onclick="recSearch(\'' + ticker + '\')">' +
+    '<div class="rec-card-top">' + stockLogoHtml(ticker, 'rec-card-logo') +
+    '<div class="rec-card-id"><div class="rec-card-tkr">' + escHtml(ticker) + '</div><div class="rec-card-name">' + escHtml(name) + '</div></div></div>' +
+    '<div class="rec-card-verdicts">' +
+      '<div class="rec-vrow"><span class="rec-vwho">' + ic('sparkles', 13) + ' Claude</span><span class="call-badge call-' + cv.cls + '">' + escHtml(cv.label) + '</span></div>' +
+      '<div class="rec-vrow"><span class="rec-vwho">' + ic('activity', 13) + ' TradingView</span>' + (tvLabel ? '<span class="call-badge call-' + tvCls + '">' + escHtml(tvLabel) + '</span>' : '<span class="rec-vna">—</span>') + '</div>' +
+      '<div class="rec-vrow"><span class="rec-vwho">' + ic('briefcase', 13) + ' Wall Street</span>' + (wsLabel ? '<span class="call-badge call-' + wsCls + '">' + escHtml(wsLabel) + '</span>' : '<span class="rec-vna">—</span>') + '</div>' +
+    '</div>' +
+    (teaser ? '<div class="rec-card-why">' + escHtml(teaser) + '</div>' : '') +
+    '<div class="rec-card-cta">View full recommendation →</div>' +
+    '</div>';
+}
 function _briefList(arr) { return (arr || []).map(x => '<div class="th-item">• ' + escHtml(x) + '</div>').join(''); }
 function claudeBriefSection(ticker, a) {
   if (!a) {
@@ -4970,6 +5327,7 @@ function sw(name) {
   if (name === 'explore') renderExplore();
   if (name === 'market') renderNewsTab();
   if (name === 'research') enterResearch();
+  if (name === 'recommend') enterRecommend();
   if (name === 'portfolio') renderHoldingsTable();
   if (name === 'watchlist') renderWatchlistTab();
   if (name === 'useralerts') renderUserAlerts();
