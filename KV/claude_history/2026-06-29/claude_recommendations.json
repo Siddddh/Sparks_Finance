@@ -1,0 +1,730 @@
+{
+  "date": "2026-06-29",
+  "market": {
+    "state": "UNDER PRESSURE — SELECTIVE",
+    "advice": "SPY is below its 50-day MA and down 2.4% this week, but don't panic: QQQ is holding above its 50-day, breadth is healthy at 66% of stocks above their 50-day MAs, and VIX is at 18.3 — falling, not spiking. Two distribution days registered, no follow-through yet. The US-Iran ceasefire overnight removes a key geopolitical tail risk that had been weighing on energy and sentiment. The action plan: trade smaller size, hold only your strongest names, and use this consolidation to build your watchlist. Only A+ setups. Focus on stocks whose RS lines are at new highs — those are the real leaders regardless of what the index does."
+  },
+  "market_news": [
+    {
+      "title": "Stocks perk up and oil cools as US and Iran halt hostilities",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPYUFwVXV",
+      "outlet": "Reuters",
+      "summary": "US equities rallied and crude oil pulled back after Washington and Tehran agreed to a halt in hostilities, removing a near-term geopolitical risk that had been pressuring risk assets and lifting energy prices. The ceasefire signals a de-escalation that could sustain the recent relief rally in equities.",
+      "sentiment_label": "BULLISH",
+      "age_hours": 10.5,
+      "breaking": true
+    },
+    {
+      "title": "Everything tied to the data center is suddenly suspect. Can Big Tech fix it?",
+      "url": "https://www.cnbc.com/2026/06/28/cramer-the-data-center-is-su",
+      "outlet": "CNBC",
+      "summary": "Concerns mount over the sustainability of hyperscaler AI capex after several large data center operators flagged demand softness. The narrative shift is weighing on semis and cloud names that had priced in an uninterrupted build-out cycle, creating a near-term headwind for AI infrastructure plays.",
+      "sentiment_label": "BEARISH",
+      "age_hours": 14.0,
+      "breaking": false
+    },
+    {
+      "title": "Here are 3 big things we're watching in the stock market in the week ahead",
+      "url": "https://www.cnbc.com/2026/06/28/here-are-3-big-things-were-w",
+      "outlet": "CNBC",
+      "summary": "Key themes for this week: the June jobs report (Friday), Fed-speak on rate path after recent inflation data, and whether the broad market can stage a follow-through day after two distribution days on the S&P 500. A strong jobs number could reprice rate cut expectations lower.",
+      "sentiment_label": "NEUTRAL",
+      "age_hours": 22.7,
+      "breaking": false
+    },
+    {
+      "title": "Gold falls as Mideast tensions ease; Fed rate-hike bets back in focus",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPSTVKRTR",
+      "outlet": "Reuters",
+      "summary": "Gold reversed sharply on the Iran-US ceasefire news as the safe-haven premium unwound. Attention pivots back to the Fed rate path; stronger-than-expected recent inflation data had briefly re-priced rate hike odds higher, which is a headwind for rate-sensitive equities and growth multiples.",
+      "sentiment_label": "SLIGHTLY BEARISH",
+      "age_hours": 9.3,
+      "breaking": false
+    },
+    {
+      "title": "Asia shares: South Korea chip push steadies semiconductor sentiment",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOSkdzTjR",
+      "outlet": "Reuters",
+      "summary": "Asian markets were mixed but the semiconductor complex found a floor as South Korea's government announced additional support for domestic chip capacity, steadying sentiment around memory and logic chip names heading into the US open. HBM demand outlook remains a key debate.",
+      "sentiment_label": "NEUTRAL",
+      "age_hours": 7.1,
+      "breaking": false
+    }
+  ],
+  "picks": [
+    {
+      "ticker": "RL",
+      "name": "Ralph Lauren Corporation",
+      "sector": "Consumer Cyclical",
+      "signal": "STRONG BUY",
+      "score": 95.2,
+      "grade": "A+",
+      "thesis": "RL is the cleanest setup in the universe today: a textbook VCP with 5 contractions tightening to 2.1%, RS at a new high, and earnings accelerating (+20% EPS, +17% revenue YoY). At -0.5% from its all-time high with volume contracting into the base, this is a coiled spring. TradingView: BUY (14 buy, 2 sell) — confirms the technicals. Entry $411, stop $378, target $493.",
+      "entry": 411.16,
+      "stop": 378.27,
+      "target": 493.39,
+      "strengths": [
+        "5-contraction VCP, tightest pullback only 2.1% — the signature of institutional re-accumulation",
+        "RS line at 52-week high — leading the market, not riding it",
+        "EPS +20%, revenue +17% YoY — fundamentals justify the premium",
+        "VCP + pocket pivot combination — high-velocity breakout potential",
+        "TradingView: BUY (14 buy, 2 sell) — confirms the setup"
+      ],
+      "risks": [
+        "RSI at 70 — entering at the high end of healthy; market pressure could push through the stop",
+        "Earnings in 38 days (Aug 6) — manage size if not exiting before the print",
+        "Consumer discretionary: tariff-related cost inflation could pressure margins"
+      ]
+    },
+    {
+      "ticker": "BIIB",
+      "name": "Biogen Inc.",
+      "sector": "Healthcare",
+      "signal": "STRONG BUY",
+      "score": 94.2,
+      "grade": "A+",
+      "thesis": "BIIB has quietly built a 5-contraction VCP right at its 52-week high with EPS growing +31% on re-acceleration of its Alzheimer's franchise (Leqembi). TradingView: STRONG BUY (16 buy, 0 sell) — one of the clearest confluences of a tight technical base with unanimous institutional agreement in today's scan. Entry $216, stop $199, target $259.",
+      "entry": 216.03,
+      "stop": 198.75,
+      "target": 259.24,
+      "strengths": [
+        "VCP (5 contractions) + RS new high + pocket pivot — triple institutional confirmation",
+        "EPS +31% YoY — rare earnings acceleration for a large-cap biotech",
+        "TradingView: STRONG BUY (16 buy, 0 sell) — unanimous TV agreement",
+        "Forward PE 13 for a 30%+ EPS grower — value hidden in plain sight",
+        "Healthcare/defensive sector holds well in market pressure environments"
+      ],
+      "risks": [
+        "Leqembi reimbursement uncertainties remain a headline risk",
+        "Biotech binary events (FDA decisions, trial readouts) can gap the stock",
+        "Revenue only +1.9% YoY — reliant on margin expansion, not yet top-line acceleration"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "name": "Eli Lilly and Company",
+      "sector": "Healthcare",
+      "signal": "STRONG BUY",
+      "score": 94.2,
+      "grade": "A+",
+      "thesis": "LLY is the defining mega-cap growth story of this market cycle: EPS +170%, revenue +56% YoY on GLP-1 dominance (Mounjaro/Zepbound). A VCP forming right at the $1,208 all-time high with a pocket pivot signals institutional re-accumulation. TradingView: STRONG BUY (16 buy, 1 sell) — full confirmation. At $1,208 this is a $545B company still growing like a mid-cap.",
+      "entry": 1208.12,
+      "stop": 1111.47,
+      "target": 1449.74,
+      "strengths": [
+        "EPS +170%, revenue +56% YoY — fastest-growing mega-cap in our universe",
+        "GLP-1/obesity market still in early innings; international expansion ramping",
+        "VCP at all-time high + RS new high + pocket pivot — textbook Stage 2",
+        "TradingView: STRONG BUY (16 buy, 1 sell) — confirms the breakout",
+        "Forward PE 27.2 is a relative discount given 50%+ revenue growth"
+      ],
+      "risks": [
+        "At $1,208 the position requires larger capital per unit; size accordingly",
+        "PBM and drug pricing regulatory risk — GLP-1 reimbursement headlines can be volatile",
+        "Competition from Novo Nordisk intensifying; market share battles compress margins long-term"
+      ]
+    },
+    {
+      "ticker": "GE",
+      "name": "GE Aerospace",
+      "sector": "Industrials",
+      "signal": "STRONG BUY",
+      "score": 94.2,
+      "grade": "A+",
+      "thesis": "Post-spin GE Aerospace is a pure-play jet engine and defense services business in a structural upcycle: airlines need engines, militaries are re-arming, GE's LEAP and GE9X programs have multi-year backlogs. Revenue +24.7% YoY with a VCP at -0.6% from the high. TradingView: BUY (14 buy, 5 sell) — the 5 sell indicators flag the extended RSI (73.8); wait for a clean volume breakout above $369.",
+      "entry": 369.0,
+      "stop": 339.48,
+      "target": 442.8,
+      "strengths": [
+        "Revenue +24.7% YoY — structural defense and aviation upcycle drives durable growth",
+        "VCP + RS new high + pocket pivot — institutional buying pattern at the highs",
+        "Pure-play aerospace post-spin — clean, focused story; no GE Capital noise",
+        "Defense spending cycle continues regardless of geopolitical ceasefire"
+      ],
+      "risks": [
+        "RSI 73.8 is extended — sharp reversal risk if the market sells off broadly",
+        "TradingView: 5 sell indicators vs 14 buy — notable technical disagreement; less clean than peers",
+        "EPS slightly negative YoY on one-time charges — headline earnings can confuse",
+        "Forward PE 42.5 prices in near-perfection; a guidance miss would be punished"
+      ]
+    },
+    {
+      "ticker": "ROK",
+      "name": "Rockwell Automation",
+      "sector": "Industrials",
+      "signal": "STRONG BUY",
+      "score": 94.2,
+      "grade": "A+",
+      "thesis": "Industrial automation is the secular play behind the onshoring and AI hardware wave — and ROK is the leader. EPS +39.6%, revenue +11.9% YoY, 5-contraction VCP at -0.5% from its high. RSI 61 is clean and uncrowded. TradingView: BUY (15 buy, 2 sell). Entry $477, stop $439, target $572.",
+      "entry": 476.82,
+      "stop": 438.67,
+      "target": 572.18,
+      "strengths": [
+        "EPS +39.6% YoY — real earnings growth, not multiple expansion",
+        "VCP (5 contractions) + RS new high + pocket pivot — full institutional pattern",
+        "Secular tailwinds: reshoring manufacturing, AI data center buildout, EV production lines",
+        "TradingView: BUY (15 buy, 2 sell) — confirms the setup",
+        "RSI 61 — plenty of room to run before overbought"
+      ],
+      "risks": [
+        "PMI-sensitive — manufacturing recession signals would pressure the stock quickly",
+        "Forward PE 32.7 on a cyclical industrial prices in continued earnings acceleration",
+        "Customer capex cycles can delay orders; watch quarterly order backlogs"
+      ]
+    },
+    {
+      "ticker": "FTNT",
+      "name": "Fortinet Inc.",
+      "sector": "Technology",
+      "signal": "STRONG BUY",
+      "score": 94.1,
+      "grade": "A+",
+      "thesis": "FTNT is the rare cybersecurity name that is both at a 52-week high AND has the fundamentals to match: EPS +28.6%, revenue +20.1% YoY. The VCP with pocket pivot confirms institutional accumulation, not just drift. Cybersecurity spending is non-discretionary — FTNT benefits regardless of macro. TradingView: BUY (15 buy, 2 sell). Entry $151, stop $139, target $182.",
+      "entry": 151.35,
+      "stop": 139.24,
+      "target": 181.62,
+      "strengths": [
+        "At 52-week high with VCP + RS + pocket pivot — cleanest tech setup in today's scan",
+        "EPS +28.6%, revenue +20.1% YoY — real growth, not cost-cut-driven margin engineering",
+        "Cybersecurity is non-discretionary IT spend — structurally sticky demand",
+        "TradingView: BUY (15 buy, 2 sell) — confirms the breakout",
+        "High short interest = short squeeze fuel if breakout accelerates"
+      ],
+      "risks": [
+        "Forward PE 44.2 requires continued 20%+ growth to be justified",
+        "Data center narrative concerns (CNBC today) could drag tech broadly even if FTNT is distinct",
+        "Platform consolidation competition from Palo Alto, CrowdStrike"
+      ]
+    },
+    {
+      "ticker": "C",
+      "name": "Citigroup Inc.",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 94.0,
+      "grade": "A",
+      "thesis": "Citigroup's transformation under CEO Jane Fraser is showing in the numbers: EPS +56.1%, revenue +15.9% YoY. The VCP at -2.7% from its 52-week high suggests basing at elevated levels. At a forward PE of 11.3, this is a value/growth combination that's hard to find. TradingView: BUY (12 buy, 4 sell). Entry $141.76, stop $130.42, target $170.11.",
+      "entry": 141.76,
+      "stop": 130.42,
+      "target": 170.11,
+      "strengths": [
+        "EPS +56%, revenue +16% YoY — transformation delivering real earnings power",
+        "Forward PE 11.3 — cheapest large-cap bank in our picks universe",
+        "VCP + RS new high — institutional buyers accumulating at elevated levels",
+        "Rising rate environment benefits net interest income",
+        "Ongoing buyback program supports the floor"
+      ],
+      "risks": [
+        "TradingView: 4 sell indicators (12 buy) — some technical resistance",
+        "Regulatory and capital requirement headlines are wildcard for large US banks",
+        "International EM exposure adds currency and geopolitical risk vs pure US banks",
+        "Multi-year transformation stories can miss near-term expectations"
+      ]
+    },
+    {
+      "ticker": "TRNO",
+      "name": "Terreno Realty Corporation",
+      "sector": "Real Estate",
+      "signal": "STRONG BUY",
+      "score": 93.8,
+      "grade": "A+",
+      "thesis": "TRNO is a coastal infill industrial REIT at its 52-week high with EPS +40.2%, revenue +12.7% — rare accelerating fundamentals in the REIT space. TradingView: STRONG BUY (17 buy, 0 sell) — the highest buy count with zero sells in today's entire picks list. Coastal industrial real estate (LA, Seattle, NJ, DC) is structurally supply-constrained. Entry $66, stop $61, target $79.",
+      "entry": 65.98,
+      "stop": 60.7,
+      "target": 79.18,
+      "strengths": [
+        "EPS +40.2%, revenue +12.7% YoY — rare REIT earnings acceleration",
+        "TradingView: STRONG BUY (17 buy, 0 sell) — the single highest TV conviction reading in today's picks",
+        "Coastal infill industrial: supply-constrained markets with genuine pricing power",
+        "VCP at all-time highs — clean institutional pattern",
+        "RSI 59 — uncrowded, not overbought, room to run"
+      ],
+      "risks": [
+        "Rate-sensitive REIT: Fed hawkishness would reprice the sector broadly",
+        "Smaller-cap ($5B market cap) — lower liquidity than mega-cap peers",
+        "Forward PE 37.9 premium — EPS misses are punished harder"
+      ]
+    },
+    {
+      "ticker": "AIZ",
+      "name": "Assurant Inc.",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 93.8,
+      "grade": "A",
+      "thesis": "Assurant is a specialty insurance and risk management company with EPS +91.2% YoY and a VCP at -0.3% from its 52-week high. At a forward PE of 11.8 for a 90%+ earnings grower, this is one of the best value/growth trade-offs in today's scan. TradingView: BUY (15 buy, 1 sell). Entry $264, stop $243, target $317.",
+      "entry": 264.43,
+      "stop": 243.28,
+      "target": 317.32,
+      "strengths": [
+        "EPS +91.2% YoY — genuine multi-year earnings inflection",
+        "Forward PE 11.8 — deep value for a 90%+ earnings grower",
+        "VCP + RS new high — institutional accumulation at all-time highs",
+        "TradingView: BUY (15 buy, 1 sell) — strong confirmation",
+        "Embedded distribution via mobile carriers and mortgage servicers = durable revenue"
+      ],
+      "risks": [
+        "Lower liquidity vs large-cap names — position sizing matters",
+        "Insurance faces catastrophe exposure from extreme weather events",
+        "EPS surge partly reflects prior-year comparison base; watch for normalization"
+      ]
+    },
+    {
+      "ticker": "EW",
+      "name": "Edwards Lifesciences",
+      "sector": "Healthcare",
+      "signal": "STRONG BUY",
+      "score": 93.4,
+      "grade": "A+",
+      "thesis": "EW makes transcatheter heart valves (TAVR) — an aging-population-driven structural growth market. Revenue +16.7% YoY with a VCP at its 52-week high. TradingView: STRONG BUY (16 buy, 1 sell). At RSI 64.5 this is clean and uncrowded. Entry $90.78, stop $83.52, target $108.94.",
+      "entry": 90.78,
+      "stop": 83.52,
+      "target": 108.94,
+      "strengths": [
+        "TradingView: STRONG BUY (16 buy, 1 sell) — strong independent confirmation",
+        "At 52-week high with VCP + pocket pivot — Stage 2 breakout in progress",
+        "Revenue +16.7% YoY driven by aging demographics and TAVR expansion into lower-risk patients",
+        "~60% global TAVR market share — genuine moat in a high-barrier medical device market",
+        "RSI 64.5 — healthy, uncrowded, room to extend"
+      ],
+      "risks": [
+        "Premium valuation (PE 27) in a market under pressure means multiple compression is possible",
+        "Clinical trial risk: TAVR expansion into younger patients requires continued FDA data",
+        "Healthcare regulation and reimbursement changes remain ongoing headline risk"
+      ]
+    },
+    {
+      "ticker": "IEX",
+      "name": "IDEX Corporation",
+      "sector": "Industrials",
+      "signal": "STRONG BUY",
+      "score": 93.3,
+      "grade": "A",
+      "thesis": "IDEX makes highly engineered pumps and flow components for critical industrial processes — pharma, water treatment, energy. These are must-run applications, not deferrable capex. EPS +27.8%, VCP at -0.4% from its high. TradingView: BUY (15 buy, 3 sell). Entry $227, stop $209, target $273.",
+      "entry": 227.19,
+      "stop": 209.01,
+      "target": 272.63,
+      "strengths": [
+        "VCP + RS new high — institutional buyers accumulating into the highs",
+        "EPS +27.8% — compounding EPS growth from a niche industrial dominant",
+        "Pumps for pharma, water, energy: non-deferrable end markets",
+        "TradingView: BUY (15 buy, 3 sell) — broad confirmation",
+        "RSI 65.8 — healthy momentum with room to extend"
+      ],
+      "risks": [
+        "Forward PE 24.6 is a quality premium; could compress in an economic slowdown",
+        "Revenue growth 8.9% is solid but not high-velocity — this is a compounder, not a hyper-grower",
+        "PMI-sensitive on the industrial portion of the customer mix"
+      ]
+    },
+    {
+      "ticker": "IRM",
+      "name": "Iron Mountain Inc.",
+      "sector": "Real Estate",
+      "signal": "STRONG BUY",
+      "score": 93.3,
+      "grade": "A",
+      "thesis": "Iron Mountain has transformed from a document-storage REIT into a data center powerhouse while retaining annuity-like storage cash flows. Revenue +21.6% YoY, VCP at -0.5% from its high. TradingView: BUY (14 buy, 2 sell). Notably, IRM is one of the few data center adjacent names with a clean technical base in a market questioning the broader AI infrastructure trade. Entry $132, stop $122, target $159.",
+      "entry": 132.44,
+      "stop": 121.84,
+      "target": 158.93,
+      "strengths": [
+        "Hybrid revenue model: annuity storage cash flows + high-growth data centers",
+        "Revenue +21.6% YoY — data center expansion is ramping",
+        "VCP + RS new high — clean base at all-time highs",
+        "TradingView: BUY (14 buy, 2 sell) — confirms the setup",
+        "REIT dividend structure provides institutional demand floor"
+      ],
+      "risks": [
+        "Data center narrative under scrutiny (CNBC today) — could drag IRM lower by association even if its hybrid model is different",
+        "Stated EPS surge (+860%) includes one-time items — normalize before valuation calls",
+        "Rate sensitivity: data center REITs are still REITs; Fed hawkishness would pressure the sector"
+      ]
+    },
+    {
+      "ticker": "GLW",
+      "name": "Corning Inc.",
+      "sector": "Technology",
+      "signal": "STRONG BUY",
+      "score": 93.2,
+      "grade": "A",
+      "thesis": "Corning is the backbone of AI's physical infrastructure: optical fiber for data centers, Gorilla Glass for devices, precision glass for next-gen displays. EPS +139%, revenue +20% YoY. VCP at -3.1% from its high. TradingView: BUY (14 buy, 4 sell). The 4 sell indicators flag mild resistance but the fundamental story — fiber demand from AI buildouts — is intact. Entry $221, stop $203, target $265.",
+      "entry": 221.05,
+      "stop": 203.37,
+      "target": 265.26,
+      "strengths": [
+        "EPS +139%, revenue +20% YoY — fiber/optical demand surge from AI data center buildout",
+        "VCP + RS new high — institutional accumulation pattern",
+        "Structural tailwinds: fiber broadband (BEAD program), hyperscaler optical networking, EV displays",
+        "TradingView: BUY (14 buy, 4 sell) — net positive confirmation",
+        "Vertically integrated glass manufacturing — scale moat vs competitors"
+      ],
+      "risks": [
+        "4 TV sell indicators — mild technical resistance; the 3.1% pullback could extend slightly",
+        "Data center capex slowdown fears could dampen fiber demand outlook if AI buildout decelerates",
+        "Display glass is cyclical — smartphone and TV demand swings can move EPS significantly"
+      ]
+    },
+    {
+      "ticker": "KO",
+      "name": "The Coca-Cola Company",
+      "sector": "Consumer Defensive",
+      "signal": "STRONG BUY",
+      "score": 92.9,
+      "grade": "A",
+      "thesis": "In a market under pressure, Coca-Cola is the institutional rotation target of choice: EPS +18.2%, revenue +12.1% YoY, VCP at -0.5% from its all-time high. TradingView: STRONG BUY (18 buy, 0 sell) — tied for the highest buy count with zero sells in today's picks. This is capital preservation with upside. Entry $82.63, stop $76.02, target $99.16.",
+      "entry": 82.63,
+      "stop": 76.02,
+      "target": 99.16,
+      "strengths": [
+        "TradingView: STRONG BUY (18 buy, 0 sell) — joint-highest buy count, zero sells, in today's picks",
+        "Defensive: non-discretionary beverages outperform in risk-off environments",
+        "EPS +18.2%, revenue +12.1% YoY — above-trend growth for a blue-chip staple",
+        "VCP + pocket pivot near 52-week high — institutional accumulation confirmed",
+        "Global brand pricing power: real price increases have held without material volume loss"
+      ],
+      "risks": [
+        "FX headwinds: 70%+ of revenue is international; dollar strength compresses reported results",
+        "Forward PE 23.7 is a premium for a slow-growth staple; rate spikes reprice defensive equities",
+        "Long-term: GLP-1 obesity drugs may eventually pressure beverage volumes"
+      ]
+    },
+    {
+      "ticker": "DRI",
+      "name": "Darden Restaurants",
+      "sector": "Consumer Cyclical",
+      "signal": "STRONG BUY",
+      "score": 93.0,
+      "grade": "A",
+      "thesis": "Darden owns Olive Garden, LongHorn Steakhouse, and Capital Grille — a scale restaurant operator executing well with EPS +36%, revenue +13.7% YoY. VCP at -1.5% from its high. TradingView: STRONG BUY (16 buy, 1 sell). The RSI at 74.1 is the one flag — look for a brief cooling toward 70 before adding full size. Entry $213.72, stop $196.62, target $256.46.",
+      "entry": 213.72,
+      "stop": 196.62,
+      "target": 256.46,
+      "strengths": [
+        "EPS +36%, revenue +13.7% YoY — scale restaurant operator outperforming the casual dining sector",
+        "TradingView: STRONG BUY (16 buy, 1 sell) — strong institutional confirmation",
+        "VCP + pocket pivot — tight base, controlled buying pattern",
+        "Forward PE 17.3 is reasonable for 36% EPS growth — value angle for a compounder",
+        "Restaurant headwinds easing (labor cost, food inflation) — margin tailwind building"
+      ],
+      "risks": [
+        "RSI 74.1 is slightly elevated — prefer entry on any brief pullback",
+        "Consumer discretionary: if consumer spending decelerates, casual dining traffic softens",
+        "Earnings multiple reset risk if same-store sales disappoint"
+      ]
+    },
+    {
+      "ticker": "GWW",
+      "name": "W.W. Grainger Inc.",
+      "sector": "Industrials",
+      "signal": "STRONG BUY",
+      "score": 93.0,
+      "grade": "A",
+      "thesis": "Grainger is the distribution leader for MRO (maintenance, repair, operations) supplies — a compounding, defensively positioned industrial with EPS +18.2%, revenue +10.1% YoY. VCP at -1.5% from its all-time high. TradingView: BUY (14 buy, 3 sell). Industrial plants need parts regardless of PMI — that's the moat. Entry $1,354, stop $1,245, target $1,624.",
+      "entry": 1353.61,
+      "stop": 1245.32,
+      "target": 1624.33,
+      "strengths": [
+        "VCP + RS new high — Stage 2 institutional breakout pattern",
+        "EPS +18.2%, revenue +10.1% — steady compounding, not cyclical momentum",
+        "MRO distribution: non-discretionary; industrial plants need parts regardless of the economy",
+        "TradingView: BUY (14 buy, 3 sell) — confirms the setup",
+        "Zoro/MonotaRO digital subsidiaries add international growth optionality"
+      ],
+      "risks": [
+        "High absolute price ($1,354) — position sizing requires more capital per unit",
+        "PMI-sensitive: industrial MRO does slow in genuine recessions",
+        "Forward PE 26.9 prices in continued double-digit EPS growth"
+      ]
+    },
+    {
+      "ticker": "BK",
+      "name": "Bank of New York Mellon",
+      "sector": "Financial Services",
+      "signal": "WATCH",
+      "score": 94.2,
+      "grade": "A",
+      "thesis": "BK's custody banking model is a fee-driven compounder with EPS +41.8%, revenue +13.4% YoY. The VCP + RS pattern is clean at -2.5% from its high, but TradingView did not resolve a rating for BK today — no independent technical cross-check is available. RSI at 52.1 is low for a near-high stock, suggesting the base may need more time. Watch for a tighter setup and volume confirmation before entering.",
+      "entry": 143.56,
+      "stop": 132.08,
+      "target": 172.27,
+      "strengths": [
+        "EPS +41.8%, revenue +13.4% YoY — earnings acceleration in a custody/asset management model",
+        "VCP + RS new high — strong institutional accumulation signature",
+        "Forward PE 14.2 — reasonable for 40%+ earnings growth",
+        "Capital return program: high buyback yield"
+      ],
+      "risks": [
+        "TradingView rating not resolved today — no independent technical cross-check",
+        "RSI 52.1 is low for a stock near its high — base may need more time",
+        "Regulatory capital requirements and Basel III endgame remain headline risks",
+        "-2.5% from high — not at ideal breakout level; needs volume signal to confirm"
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "name": "Advanced Micro Devices",
+      "sector": "Technology",
+      "signal": "WATCH",
+      "score": 93.4,
+      "grade": "A",
+      "thesis": "AMD is a genuine AI accelerator and CPU compounder: EPS +91%, revenue +37.8% YoY from MI300X GPU ramp. The VCP is in place but the stock is -5.4% from its 52-week high, and the data center narrative overhang is a real near-term headwind (CNBC today). TradingView: BUY (12 buy, 4 sell) — confirms underlying strength. Wait for the base to tighten back toward the high before sizing up.",
+      "entry": 521.58,
+      "stop": 479.85,
+      "target": 625.9,
+      "strengths": [
+        "EPS +91%, revenue +38% YoY — MI300X GPU ramp inflecting faster than expected",
+        "TradingView: BUY (12 buy, 4 sell) — net positive, fundamentals confirmed",
+        "VCP signals institutional accumulation during the pullback",
+        "Market share gains in both CPUs (vs Intel) and AI accelerators (vs Nvidia) simultaneously"
+      ],
+      "risks": [
+        "-5.4% from 52-week high — not at ideal breakout level; needs to re-tighten",
+        "Data center capex concerns (CNBC today) weigh on all AI semi names",
+        "4 TV sell indicators — some technical deterioration to monitor",
+        "CUDA ecosystem moat limits AMD's AI accelerator TAM vs Nvidia",
+        "Forward PE 39.6 — guidance cut would punish the multiple aggressively"
+      ]
+    },
+    {
+      "ticker": "ALLY",
+      "name": "Ally Financial",
+      "sector": "Financial Services",
+      "signal": "WATCH",
+      "score": 93.2,
+      "grade": "B+",
+      "thesis": "Ally is a digital bank and auto lender at its 52-week high with revenue +19.7% YoY. TradingView: STRONG BUY (15 buy, 1 sell) — the technical picture is very strong. The caution: RSI 74.1 is extended and EPS is flat due to elevated auto credit losses. The technical strength is pricing in the credit improvement before it's delivered. Wait for an RSI reset below 70 before entering.",
+      "entry": 47.17,
+      "stop": 43.4,
+      "target": 56.6,
+      "strengths": [
+        "TradingView: STRONG BUY (15 buy, 1 sell) — strong cross-check confirmation",
+        "Revenue +19.7% YoY — deposit and auto finance growth accelerating",
+        "VCP + pocket pivot at 52-week high — clean Stage 2 base",
+        "Digital-only banking model: low overhead, improving deposit cost structure",
+        "Forward PE 7.3 — extreme value if auto credit losses normalize"
+      ],
+      "risks": [
+        "RSI 74.1 — extended; sharp reversal risk on any broad market sell-off",
+        "EPS flat YoY — auto loan losses remain elevated; recovery priced in before delivery",
+        "Auto lending concentration: used car price deflation and consumer credit stress persist",
+        "Rate sensitivity: net interest margins move with the Fed"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "name": "Micron Technology",
+      "sector": "Technology",
+      "signal": "WATCH",
+      "score": 92.9,
+      "grade": "A",
+      "thesis": "Micron is in the middle of a massive memory upcycle: EPS +1,368%, revenue +345.7% YoY from a deeply depressed trough, plus HBM3E ramp for AI. The VCP is forming at -6.7% from the high — a basing period, not an ideal breakout. TradingView: BUY (14 buy, 3 sell). Wait for MU to reclaim the 52-week high before committing full size.",
+      "entry": 1132.33,
+      "stop": 1041.74,
+      "target": 1358.8,
+      "strengths": [
+        "EPS and revenue in massive recovery — memory cycle in full upcycle, HBM3E share gaining",
+        "TradingView: BUY (14 buy, 3 sell) — net positive cross-check",
+        "VCP forming — base building; institutional buyers are active at these levels",
+        "HBM3E for AI accelerators: gaining share vs Samsung and SK Hynix"
+      ],
+      "risks": [
+        "-6.7% from 52-week high — not at ideal breakout level; patience required",
+        "Memory is the most cyclical semi segment — oversupply can return quickly",
+        "China export controls on advanced memory limit TAM",
+        "Data center narrative concerns affect all AI-adjacent semi names"
+      ]
+    },
+    {
+      "ticker": "MRNA",
+      "name": "Moderna Inc.",
+      "sector": "Healthcare",
+      "signal": "WATCH",
+      "score": 92.9,
+      "grade": "B+",
+      "thesis": "MRNA is a momentum breakout with revenue +260% YoY from flu and RSV mRNA vaccine launches, at its 52-week high. TradingView: STRONG BUY (16 buy, 0 sell) — unanimous agreement. But RSI at 78.3 is deep overbought territory and EPS remains negative. This is a high-risk momentum trade, not a value or compounder. Wait for RSI to reset below 70 or size very small — the setup is right but the timing is aggressive.",
+      "entry": 67.27,
+      "stop": 61.89,
+      "target": 80.72,
+      "strengths": [
+        "TradingView: STRONG BUY (16 buy, 0 sell) — unanimous technical agreement",
+        "Revenue +260% YoY — mRNA platform beyond COVID is finally inflecting",
+        "VCP + RS new high + pocket pivot — strong institutional accumulation",
+        "mRNA pipeline optionality: cancer vaccines, CMV, influenza, personalized medicine"
+      ],
+      "risks": [
+        "RSI 78.3 — significantly overbought; mean reversion risk is elevated right here",
+        "EPS still negative — revenue surge hasn't yet reached profitability",
+        "Vaccine revenue is lumpy and seasonal; one bad flu season resets expectations",
+        "TV disagrees with caution note: STRONG BUY technically but the RSI is the flag"
+      ]
+    },
+    {
+      "ticker": "MNST",
+      "name": "Monster Beverage Corporation",
+      "sector": "Consumer Defensive",
+      "signal": "WATCH",
+      "score": 92.5,
+      "grade": "A",
+      "thesis": "Monster is one of the highest-quality consumer compounder setups: EPS +28.9%, revenue +26.9% YoY, VCP + RS at its 52-week high. TradingView: BUY (15 buy, 2 sell). The flag: RSI at 76.7 is extended. MNST is a 'buy on the pullback' name — the setup is right, the timing is aggressive. Wait for RSI to cool toward 65 before entering full size.",
+      "entry": 96.38,
+      "stop": 88.67,
+      "target": 115.66,
+      "strengths": [
+        "EPS +28.9%, revenue +26.9% YoY — rare consumer growth compounder",
+        "VCP + RS new high — persistent institutional demand",
+        "TradingView: BUY (15 buy, 2 sell) — confirms the setup",
+        "At 52-week high — Stage 2 confirmed leadership in consumer staples",
+        "Coca-Cola distribution partnership: global scale without the capex burden"
+      ],
+      "risks": [
+        "RSI 76.7 — extended; buying here risks being the last buyer before a pullback",
+        "Forward PE 37.2 is full; consumer beverage multiples compress fast in risk-off",
+        "Competition from Red Bull, Celsius, and private label energy drinks intensifying"
+      ]
+    },
+    {
+      "ticker": "KIM",
+      "name": "Kimco Realty Corporation",
+      "sector": "Real Estate",
+      "signal": "WATCH",
+      "score": 92.8,
+      "grade": "A",
+      "thesis": "Kimco is a grocery-anchored retail REIT at its 52-week high with EPS +29.4%, VCP + RS, and TradingView: STRONG BUY (15 buy, 0 sell). The defensive, internet-resistant nature of grocery-anchored centers makes this a solid portfolio name. Watch: REITs reprice on Fed rate expectations; wait for a clean volume breakout before entering new positions.",
+      "entry": 25.89,
+      "stop": 23.82,
+      "target": 31.07,
+      "strengths": [
+        "TradingView: STRONG BUY (15 buy, 0 sell) — unanimous technical confirmation",
+        "EPS +29.4% YoY — uncommon REIT earnings growth",
+        "Grocery-anchored centers: internet-resistant, consistent traffic",
+        "VCP + RS new high — institutional buyers accumulating at all-time highs",
+        "High dividend yield provides a built-in return floor"
+      ],
+      "risks": [
+        "Rate-sensitive REIT: Fed hawkishness would compress the sector broadly",
+        "Not yet a confirmed volume breakout — wait for the signal",
+        "Brick-and-mortar retail secular pressure continues despite grocery anchors"
+      ]
+    },
+    {
+      "ticker": "SPG",
+      "name": "Simon Property Group",
+      "sector": "Real Estate",
+      "signal": "WATCH",
+      "score": 92.7,
+      "grade": "A",
+      "thesis": "SPG is the gold standard of mall and outlet center REITs — revenue +19.3%, EPS +16.4% YoY, VCP + RS at its 52-week high. TradingView: BUY (15 buy, 2 sell). RSI at 71.9 is slightly extended. Simon's premium outlet properties are the strongest segment of retail real estate. Good for income investors but active traders should wait for an RSI pullback to 65 before entering.",
+      "entry": 226.89,
+      "stop": 208.74,
+      "target": 272.27,
+      "strengths": [
+        "Revenue +19.3% YoY — premium retail real estate with genuine pricing power",
+        "VCP + RS new high — breakout confirmed at all-time highs",
+        "TradingView: BUY (15 buy, 2 sell) — confirms the setup",
+        "Premium outlet segment: luxury brand tenants paying top rents; resilient traffic",
+        "High dividend yield: core income holding for institutions"
+      ],
+      "risks": [
+        "RSI 71.9 — slightly extended; not the ideal technical entry",
+        "Rate-sensitive REIT: Fed rate path uncertainty is a persistent headwind",
+        "Forward PE 33.7 is high for the sector; NOI misses would reset the multiple"
+      ]
+    },
+    {
+      "ticker": "AFL",
+      "name": "Aflac Incorporated",
+      "sector": "Financial Services",
+      "signal": "WATCH",
+      "score": 92.2,
+      "grade": "A",
+      "thesis": "Aflac is a supplemental insurance compounder at its 52-week high with a VCP and TradingView: STRONG BUY (16 buy, 0 sell). Note: the stated EPS growth of +3,860% reflects a prior-year one-time charge comparison — normalized EPS growth is more modest. This is a slow-burn compounder with 40+ years of consecutive dividend increases. Good defensive allocation but not a momentum play.",
+      "entry": 120.15,
+      "stop": 110.54,
+      "target": 144.18,
+      "strengths": [
+        "TradingView: STRONG BUY (16 buy, 0 sell) — unanimous technical agreement",
+        "At 52-week high with VCP — clean base, minimal overhead resistance",
+        "Supplemental insurance duopoly in Japan + US — high retention, recurring premiums",
+        "40+ consecutive annual dividend increases — institutional holding floor"
+      ],
+      "risks": [
+        "Stated EPS +3,860% is a prior-year anomaly — normalize before using EPS in valuation",
+        "Significant Japan yen exposure: yen weakness is a persistent EPS headwind",
+        "RSI 55.7 is low — the stock may need time to build momentum before breakout accelerates"
+      ]
+    },
+    {
+      "ticker": "TRV",
+      "name": "The Travelers Companies",
+      "sector": "Financial Services",
+      "signal": "WATCH",
+      "score": 91.8,
+      "grade": "A",
+      "thesis": "Travelers is the premier P&C insurance compounder — EPS +357.6% YoY off a catastrophe-heavy prior year base, at its 52-week high with VCP + RS. TradingView: BUY (16 buy, 1 sell). RSI at 77.5 is the main flag — the earnings rebound has driven a sharp move and the stock needs to consolidate before the next leg. The P&C insurance pricing cycle remains hard: real premium expansion continues.",
+      "entry": 327.37,
+      "stop": 301.18,
+      "target": 392.84,
+      "strengths": [
+        "TradingView: BUY (16 buy, 1 sell) — strong cross-check confirmation",
+        "VCP + RS new high — institutional pattern at all-time highs",
+        "P&C pricing cycle remains hard: premiums expanded significantly since 2022",
+        "Reinsurance market tightening benefits primary P&C writers like TRV"
+      ],
+      "risks": [
+        "RSI 77.5 — extended; sharp mean reversion risk in the near term",
+        "EPS +357% is almost entirely a prior-year catastrophe comparison — normalize EPS",
+        "Geopolitical tail risks could spike catastrophe-adjacent exposures"
+      ]
+    },
+    {
+      "ticker": "PANW",
+      "name": "Palo Alto Networks",
+      "sector": "Technology",
+      "signal": "WATCH",
+      "score": 90.9,
+      "grade": "A",
+      "thesis": "PANW is the cybersecurity platform consolidation leader: revenue +31.1% YoY from Platformization, at its 52-week high with VCP + RS + pocket pivot. TradingView did not resolve a rating for PANW today — we rely on scan data and fundamentals alone. RSI at 70.5 is at the boundary of extended. This is an A+ quality name in WATCH tier only because the RSI needs room to cool and the lack of TV confirmation today removes one layer of confidence.",
+      "entry": 304.2,
+      "stop": 279.86,
+      "target": 365.04,
+      "strengths": [
+        "Revenue +31.1% YoY from Platformization — multi-product security consolidation is the dominant IT trend",
+        "VCP + RS new high + pocket pivot — institutional accumulation at all-time highs",
+        "Network security is one of the last things IT budgets cut — sticky demand",
+        "Platformization drives ARR and reduces churn — improving revenue quality"
+      ],
+      "risks": [
+        "TradingView rating not resolved today — no independent technical cross-check available",
+        "RSI 70.5 — at extended territory boundary; entry here reduces margin of safety",
+        "Forward PE 73.9 — highest in the picks list; guidance miss is punished severely",
+        "CrowdStrike and Fortinet compete in the same platform consolidation market"
+      ]
+    },
+    {
+      "ticker": "AMAT",
+      "name": "Applied Materials Inc.",
+      "sector": "Technology",
+      "signal": "WATCH",
+      "score": 93.1,
+      "grade": "A",
+      "thesis": "Applied Materials is the dominant semiconductor equipment supplier: EPS +33.5%, revenue +11.4% YoY. The VCP is forming at -6.2% from its high — a basing period rather than an ideal breakout. TradingView: BUY (14 buy, 3 sell). The underlying cycle (advanced logic, HBM, advanced packaging) is intact but the setup needs to tighten before committing full size.",
+      "entry": 626.84,
+      "stop": 576.69,
+      "target": 752.21,
+      "strengths": [
+        "EPS +33.5%, revenue +11.4% YoY — semicap equipment upcycle confirmed",
+        "TradingView: BUY (14 buy, 3 sell) — net positive cross-check",
+        "VCP forming — accumulation active even during the pullback",
+        "Advanced packaging (CoWoS, HBM stacking) is a new, high-growth revenue stream",
+        "Dominant WFE market share: foundry, logic, and DRAM all buying AMAT equipment"
+      ],
+      "risks": [
+        "-6.2% from 52-week high — not at ideal breakout level; wait for the base to tighten",
+        "China export control restrictions limit ~25% of revenue — ongoing regulatory overhang",
+        "Semicap is a leading indicator — if wafer starts soften, AMAT guidance cuts follow",
+        "Data center narrative concerns affect all AI-adjacent semi names"
+      ]
+    }
+  ]
+}
