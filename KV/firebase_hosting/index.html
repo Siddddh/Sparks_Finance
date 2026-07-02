@@ -21,6 +21,7 @@ firebase deploy --only hosting,functions<!DOCTYPE html>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <script src="/symbols.js"></script><!-- full US listings catalog (Nasdaq + NYSE/AMEX): window.US_SYMBOLS -->
 <!-- TradingView Advanced Chart now uses the modern external-embedding widget (embed-widget-advanced-chart.js), loaded on demand per mount — no global tv.js library needed. -->
@@ -892,6 +893,21 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .dash-mini-val{font-size:15px;font-weight:700;color:var(--text);}
 .dash-section{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin-bottom:14px;}
 .dash-section-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+/* ── Loans & Notes ── */
+.loan-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.loan-field{background:var(--surface-2);padding:12px 15px;}
+.loan-field-l{font-size:10px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.loan-field-v{font-size:14px;color:var(--text);font-weight:600;}
+.loan-notes{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.5;white-space:pre-line;}
+.loan-notes .loan-field-l{margin-bottom:6px;}
+.loan-docs{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px;}
+.loan-docs .loan-field-l{margin-bottom:6px;}
+.loan-doc-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.loan-doc-row:last-child{border-bottom:none;}
+.loan-doc-name{flex:1;min-width:0;color:var(--blue);text-decoration:none;font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.loan-doc-name:hover{text-decoration:underline;}
+.loan-doc-note{font-size:12px;color:var(--text-3);line-height:1.5;padding:4px 0;}
+.loan-upload{display:inline-block;margin-top:10px;cursor:pointer;}
 .rng-row{margin:13px 0;}
 .rng-top{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-bottom:6px;gap:8px;}
 .rng-tkr{font-weight:700;color:var(--blue);cursor:pointer;}
@@ -1325,6 +1341,16 @@ body.sidebar-open .nav-scrim{display:block;}
         <div id="tab-earnings" class="tab-panel"><div class="page-title">Earnings</div><div id="earningsContent"></div></div>
         <div id="tab-health" class="tab-panel"><div class="page-title">Portfolio Health</div><div class="pf-toolbar"><select id="healthPfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div><div id="healthContent"></div></div>
         <div id="tab-catalysts" class="tab-panel"><div class="page-title">Catalysts</div><div id="catalystsContent"></div></div>
+        <div id="tab-loansdash" class="tab-panel"><div class="page-title">Loans &amp; Notes — Dashboard</div><div id="loansDashBody"></div></div>
+        <div id="tab-loans" class="tab-panel">
+          <div class="page-title">Loans &amp; Notes</div>
+          <div class="pf-toolbar">
+            <button class="pf-btn pf-btn-primary" onclick="openModal('newLoan')"><span class="i-plus"></span> New loan / note</button>
+            <div class="cc-seg" id="loanFilterSeg" style="margin-left:auto;flex-wrap:wrap;"></div>
+          </div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Track every note you've borrowed or lent — principal, interest, payments, maturities and documents, all in one place.</div>
+          <div id="loansBody"></div>
+        </div>
         <div id="tab-premarket" class="tab-panel">
           <div class="page-title">Notifications</div>
           <div class="pf-toolbar">
@@ -1499,7 +1525,8 @@ const ICON_PATHS = {
   alert:'<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
   bot:'<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/>',
   data:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
-  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6"/>'
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6"/>',
+  file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>'
 };
 function ic(name, size, cls) {
   size = size || 18; cls = cls || '';
@@ -1569,9 +1596,13 @@ const NAV = [
   { sec: 'Markets' },
   { tab: 'market', label: 'Market News', icon: 'newspaper' },
   { tab: 'earnings', label: 'Earnings', icon: 'calendar' },
-  { tab: 'premarket', label: 'Notifications', icon: 'bell' }
+  { tab: 'premarket', label: 'Notifications', icon: 'bell' },
   // { tab: 'catalysts', label: 'Catalysts', icon: 'spark' },   // hidden for now
   // { tab: 'chart', label: 'Charts', icon: 'barchart' },   // retired — graphs moved into Research / Portfolio / Explore
+  { cat: 'Loans & Notes' },
+  { sec: 'Manage' },
+  { tab: 'loansdash', label: 'Dashboard', icon: 'data' },
+  { tab: 'loans', label: 'Loans & Notes', icon: 'file' }
 ];
 function buildSidebar() {
   document.getElementById('sidebar').innerHTML = NAV.map(n => {
@@ -1594,6 +1625,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
+// Cloud Storage for loan/note documents. Guarded: null if the SDK/bucket isn't available, so the
+// Loans module degrades to an "enable Storage" note instead of throwing.
+let storage = null;
+try { storage = firebase.storage(); } catch (e) { storage = null; }
 
 // ── Cloud Messaging (web push) ──
 // VAPID public key: Firebase Console → Project Settings → Cloud Messaging →
@@ -1621,6 +1656,7 @@ let D = null, UID = null;
 let portfolios = [], currentPfId = null, holdings = [], holdingsByPortfolio = {}, holdingsUnsub = null;
 let watchlists = [], currentWLId = null;
 let userAlerts = [];
+let loans = [], loansUnsub = null, _loanView = 'list', _loanId = null, _loanEditId = null, _loanFilter = 'all';
 let notifications = [];
 let notifFilter = 'all';
 let healthData = null, summaryData = null;
@@ -2343,6 +2379,8 @@ auth.onAuthStateChanged(user => {
     setTimeout(() => tourWelcome(), 1800);  // first-visit welcome popup → invites the tour (replay via the ? button)
   } else {
     UID = null;
+    if (loansUnsub) { try { loansUnsub(); } catch (e) {} loansUnsub = null; }
+    loans = []; _loanView = 'list'; _loanId = null;
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('loading').style.display = 'none';
     document.getElementById('app').style.display = 'none';
@@ -2374,6 +2412,7 @@ function initUserListeners() {
   loadPortfolioData();
   loadWatchlistData();
   loadUserAlerts();
+  loadLoans();
   loadNotifications();
 }
 
@@ -4488,7 +4527,7 @@ function _dayLabel(ts) {
   const y = new Date(now); y.setDate(y.getDate() - 1); if (sd(d) === sd(y)) return 'Yesterday';
   return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 }
-function _notifIcon(cat) { return { portfolio: 'briefcase', alert: 'bell', breaking: 'spark', market: 'newspaper', earnings: 'calendar', explore: 'compass', macro: 'bell' }[cat] || 'bell'; }
+function _notifIcon(cat) { return { portfolio: 'briefcase', alert: 'bell', breaking: 'spark', market: 'newspaper', earnings: 'calendar', explore: 'compass', reminder: 'file', macro: 'bell' }[cat] || 'bell'; }
 const NOTIF_CATS = [
   { key: 'all', label: 'All' },
   { key: 'portfolio', label: 'Portfolio' },
@@ -4497,6 +4536,7 @@ const NOTIF_CATS = [
   { key: 'market', label: 'Market' },
   { key: 'earnings', label: 'Earnings' },
   { key: 'explore', label: 'Explore' },
+  { key: 'reminder', label: 'Reminders' },
   { key: 'macro', label: 'Digest' }
 ];
 function notifCategory(n) {
@@ -4506,10 +4546,11 @@ function notifCategory(n) {
   if (t === 'market_move') return 'market';
   if (t === 'earnings_alert') return 'earnings';
   if (t === 'breaking_news') return 'breaking';
+  if (t === 'loan_reminder') return 'reminder';
   return 'macro';   // premarket_digest + anything else
 }
 function notifBadge(cat) {
-  const map = { portfolio: ['Portfolio', 'badge-blue'], alert: ['My alert', 'badge-blue'], breaking: ['Breaking', 'badge-red'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], explore: ['Explore', 'badge-green'], macro: ['Digest', 'badge-gray'] };
+  const map = { portfolio: ['Portfolio', 'badge-blue'], alert: ['My alert', 'badge-blue'], breaking: ['Breaking', 'badge-red'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], explore: ['Explore', 'badge-green'], reminder: ['Reminder', 'badge-yellow'], macro: ['Digest', 'badge-gray'] };
   const m = map[cat] || ['Alert', 'badge-gray'];
   return '<span class="badge ' + m[1] + '">' + m[0] + '</span>';
 }
@@ -4552,7 +4593,8 @@ async function refreshDerivedNotifs() {
         _newsNotifs = ns;
       } catch (e) {}
     }
-    _derivedNotifs = [...movers, ...explore, ..._newsNotifs];
+    let reminders = []; try { reminders = _loanReminders(); } catch (e) {}
+    _derivedNotifs = [...movers, ...explore, ..._newsNotifs, ...reminders];
   } finally { _refreshingNotifs = false; }
   updateNotifBadge();
   const p = document.getElementById('notifPanel'); if (p && !p.classList.contains('hidden')) renderNotifPanel();
@@ -4583,6 +4625,7 @@ function onNotifClick(key) {
   const it = buildNotifFeed().find(x => x.key === key); if (!it) return;
   if (it.persisted && it.id) markNotifRead(it.id); else _addNotifSeen([it.key]);
   if (it.url) window.open(it.url, '_blank', 'noopener');
+  else if (it.loanId) { closeNotifPanel(); sw('loans'); openLoan(it.loanId); }
   else if (it.ticker) { closeNotifPanel(); goResearch(it.ticker); }
   updateNotifBadge();
   const p = document.getElementById('notifPanel'); if (p && !p.classList.contains('hidden')) renderNotifPanel();
@@ -5189,10 +5232,305 @@ function scanDataSection(ticker, s) {
 }
 
 // ── Modal ──
+// ═══════════════════════ Loans & Notes ═══════════════════════
+// Centralized borrowed/lent funds manager: per-user records in loans/{uid}/list, per-loan
+// documents in Firebase Storage, a dashboard of totals, and client-derived payment/maturity
+// reminders folded into the notification center. Every user-entered field is escHtml-escaped.
+const LOAN_FREQS = [['one-time', 'One-time'], ['weekly', 'Weekly'], ['biweekly', 'Bi-weekly'], ['monthly', 'Monthly'], ['quarterly', 'Quarterly'], ['semiannual', 'Semi-annual'], ['annually', 'Annually']];
+const LOAN_STATUSES = [['active', 'Active'], ['closed', 'Closed'], ['paid_off', 'Paid off'], ['defaulted', 'Defaulted']];
+const _FREQ_DAYS = { weekly: 7, biweekly: 14, monthly: 30, quarterly: 91, semiannual: 182, annually: 365 };
+
+function fmtDate(s) { if (!s) return '—'; const d = new Date(s + 'T00:00:00'); if (isNaN(d)) return escHtml(String(s)); return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); }
+function loanNum(v) { const n = parseFloat(v); return isFinite(n) ? n : 0; }
+function daysUntil(dateStr) { if (!dateStr) return null; const d = new Date(dateStr + 'T00:00:00'); if (isNaN(d)) return null; const now = new Date(); now.setHours(0, 0, 0, 0); return Math.round((d - now) / 864e5); }
+function _fmtBytes(b) { b = +b || 0; if (b < 1024) return b + ' B'; if (b < 1048576) return (b / 1024).toFixed(0) + ' KB'; return (b / 1048576).toFixed(1) + ' MB'; }
+function loanIsActive(l) { return !l.status || l.status === 'active' || l.status === 'defaulted'; }
+function loanOutstanding(l) { if (!l) return 0; if (l.outstanding != null && l.outstanding !== '') return loanNum(l.outstanding); return (l.status === 'closed' || l.status === 'paid_off') ? 0 : loanNum(l.principal); }
+function loanAnnualInterest(l) { return loanNum(l.principal) * loanNum(l.rate) / 100; }
+function loanTitle(l) { return l.name || ((l.type === 'lent' ? 'Loan to ' : 'Loan from ') + (l.type === 'lent' ? (l.borrower || '—') : (l.lender || '—'))); }
+// Next payment: explicit field, else step startDate forward by the frequency to the next future date.
+function loanNextPayment(l) {
+  if (l.nextPaymentDate) return l.nextPaymentDate;
+  const step = _FREQ_DAYS[l.paymentFreq]; if (!step || !l.startDate) return null;
+  const start = new Date(l.startDate + 'T00:00:00'); if (isNaN(start)) return null;
+  const now = new Date(); now.setHours(0, 0, 0, 0);
+  let d = new Date(start), guard = 0;
+  while (d < now && guard++ < 600) d = new Date(d.getTime() + step * 864e5);
+  return d.toISOString().slice(0, 10);
+}
+function loanStatusBadge(s) { const m = { active: ['Active', 'badge-green'], closed: ['Closed', 'badge-gray'], paid_off: ['Paid off', 'badge-blue'], defaulted: ['Defaulted', 'badge-red'] }; const b = m[s] || m.active; return '<span class="badge ' + b[1] + '">' + b[0] + '</span>'; }
+function loanTypeBadge(t) { return t === 'lent' ? '<span class="badge badge-blue">Lent</span>' : '<span class="badge badge-yellow">Borrowed</span>'; }
+
+// ── Firestore CRUD (mirrors alerts/{uid}/list) ──
+function loadLoans() {
+  if (!UID) return;
+  if (loansUnsub) { try { loansUnsub(); } catch (e) {} }
+  loansUnsub = db.collection('loans').doc(UID).collection('list').onSnapshot(snap => {
+    loans = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (document.getElementById('tab-loans').classList.contains('active')) renderLoans();
+    if (document.getElementById('tab-loansdash').classList.contains('active')) renderLoansDash();
+    try { refreshDerivedNotifs(); } catch (e) {}
+  }, () => {});
+}
+function createLoan(fields) { if (!UID) return Promise.resolve(null); return db.collection('loans').doc(UID).collection('list').add({ ...fields, created: new Date().toISOString(), updated: new Date().toISOString() }); }
+function updateLoan(id, fields) { if (!UID || !id) return Promise.resolve(); return db.collection('loans').doc(UID).collection('list').doc(id).update({ ...fields, updated: new Date().toISOString() }).catch(() => {}); }
+async function deleteLoan(id) {
+  if (!UID || !id) return;
+  const l = loans.find(x => x.id === id);
+  if (!confirm('Delete "' + (l ? loanTitle(l) : 'this loan') + '" and its documents? This cannot be undone.')) return;
+  if (l && storage && (l.documents || []).length) { for (const d of l.documents) { if (d.path) { try { await storage.ref(d.path).delete(); } catch (e) {} } } }
+  await db.collection('loans').doc(UID).collection('list').doc(id).delete().catch(() => {});
+  if (_loanId === id) { _loanView = 'list'; _loanId = null; }
+  try { pmToast('Loan deleted'); } catch (e) {}
+  renderLoans();
+}
+
+// ── Modal form (create + edit) ──
+function _opt(list, cur) { return list.map(o => '<option value="' + o[0] + '"' + (o[0] === cur ? ' selected' : '') + '>' + o[1] + '</option>').join(''); }
+function loanFormModal(l) {
+  l = l || {};
+  const v = (x) => escHtml(x == null ? '' : x);
+  return '<div class="modal-title">' + (l.id ? 'Edit loan / note' : 'New loan / note') + '</div>' +
+    '<label class="modal-label">Loan / note name or reference</label><input id="loanName" class="modal-input" value="' + v(l.name) + '" placeholder="e.g. Acme promissory note #2024-1"/>' +
+    '<label class="modal-label">Type</label><select id="loanType" class="modal-input">' + _opt([['borrowed', 'Borrowed (I owe)'], ['lent', 'Lent (owed to me)']], l.type || 'borrowed') + '</select>' +
+    '<label class="modal-label">Borrower name</label><input id="loanBorrower" class="modal-input" value="' + v(l.borrower) + '" placeholder="Who owes the money"/>' +
+    '<label class="modal-label">Lender name</label><input id="loanLender" class="modal-input" value="' + v(l.lender) + '" placeholder="Who provided the money"/>' +
+    '<label class="modal-label">Principal amount ($)</label><input id="loanPrincipal" class="modal-input" type="number" step="0.01" min="0" value="' + v(l.principal) + '" placeholder="e.g. 25000"/>' +
+    '<label class="modal-label">Interest rate (% annual)</label><input id="loanRate" class="modal-input" type="number" step="0.01" min="0" value="' + v(l.rate) + '" placeholder="e.g. 6.5"/>' +
+    '<label class="modal-label">Current outstanding balance ($) <span class="modal-price-hint">defaults to principal</span></label><input id="loanOutstanding" class="modal-input" type="number" step="0.01" min="0" value="' + v(l.outstanding) + '" placeholder="e.g. 20000"/>' +
+    '<label class="modal-label">Loan start date</label><input id="loanStart" class="modal-input" type="date" value="' + v(l.startDate || todayStr()) + '"/>' +
+    '<label class="modal-label">Maturity date</label><input id="loanMaturity" class="modal-input" type="date" value="' + v(l.maturityDate) + '"/>' +
+    '<label class="modal-label">Payment frequency</label><select id="loanFreq" class="modal-input">' + _opt(LOAN_FREQS, l.paymentFreq || 'monthly') + '</select>' +
+    '<label class="modal-label">Next payment date <span class="modal-price-hint">optional — auto if blank</span></label><input id="loanNextPay" class="modal-input" type="date" value="' + v(l.nextPaymentDate) + '"/>' +
+    '<label class="modal-label">Insurance renewal date <span class="modal-price-hint">optional</span></label><input id="loanInsurance" class="modal-input" type="date" value="' + v(l.insuranceRenewalDate) + '"/>' +
+    '<label class="modal-label">Status</label><select id="loanStatus" class="modal-input">' + _opt(LOAN_STATUSES, l.status || 'active') + '</select>' +
+    '<label class="modal-label">Notes &amp; comments</label><textarea id="loanNotes" class="modal-input" style="min-height:70px;resize:vertical;font-family:inherit;" placeholder="Terms, collateral, context…">' + v(l.notes) + '</textarea>' +
+    '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitLoan(' + (l.id ? '\'' + l.id + '\'' : 'null') + ')">' + (l.id ? 'Save' : 'Create') + '</button></div>';
+}
+function submitLoan(id) {
+  const g = (x) => { const e = document.getElementById(x); return e ? e.value : ''; };
+  const principal = parseFloat(g('loanPrincipal'));
+  if (!(principal > 0)) { try { pmToast('Enter a principal amount greater than 0'); } catch (e) {} const p = document.getElementById('loanPrincipal'); if (p) p.focus(); return; }
+  const fields = {
+    name: g('loanName').trim(), type: g('loanType') || 'borrowed',
+    borrower: g('loanBorrower').trim(), lender: g('loanLender').trim(),
+    principal, rate: loanNum(g('loanRate')),
+    outstanding: g('loanOutstanding') === '' ? null : loanNum(g('loanOutstanding')),
+    startDate: g('loanStart') || null, maturityDate: g('loanMaturity') || null,
+    paymentFreq: g('loanFreq') || 'monthly', nextPaymentDate: g('loanNextPay') || null,
+    insuranceRenewalDate: g('loanInsurance') || null,
+    status: g('loanStatus') || 'active', notes: g('loanNotes').trim()
+  };
+  if (id) updateLoan(id, fields).then(() => { try { pmToast('Loan updated'); } catch (e) {} });
+  else createLoan(fields).then(() => { try { pmToast('Loan added'); } catch (e) {} });
+  closeModal();
+}
+function editLoan(id) { _loanEditId = id; openModal('editLoan'); }
+
+// ── Records list + filter ──
+function setLoanFilter(k) { _loanFilter = k; renderLoans(); }
+function _loanFilterMatch(l) {
+  const f = _loanFilter;
+  if (f === 'all') return true;
+  if (f === 'borrowed') return l.type === 'borrowed';
+  if (f === 'lent') return l.type === 'lent';
+  if (f === 'active') return loanIsActive(l);
+  if (f === 'closed') return l.status === 'closed' || l.status === 'paid_off';
+  if (f === 'overdue') { const dp = daysUntil(loanNextPayment(l)); return loanIsActive(l) && dp != null && dp < 0; }
+  return true;
+}
+function renderLoans() {
+  const el = document.getElementById('loansBody'); if (!el) return;
+  const seg = document.getElementById('loanFilterSeg');
+  if (seg) { const F = [['all', 'All'], ['borrowed', 'Borrowed'], ['lent', 'Lent'], ['active', 'Active'], ['overdue', 'Overdue'], ['closed', 'Closed']]; seg.innerHTML = F.map(f => '<button class="' + (_loanFilter === f[0] ? 'active' : '') + '" onclick="setLoanFilter(\'' + f[0] + '\')">' + f[1] + '</button>').join(''); }
+  if (_loanView === 'detail' && _loanId) { renderLoanDetail(_loanId); return; }
+  if (!UID) { el.innerHTML = emptyState('file', 'Sign in to manage loans', 'Your loans & promissory notes live here.'); return; }
+  if (!loans.length) { el.innerHTML = emptyState('file', 'No loans or notes yet', 'Click "New loan / note" to record your first borrowed or lent amount.'); return; }
+  const view = loans.filter(_loanFilterMatch);
+  if (!view.length) { el.innerHTML = '<div class="pf-filter-note">No loans match this filter.</div>'; return; }
+  const rows = view.map(l => {
+    const out = loanOutstanding(l), np = loanNextPayment(l), dp = daysUntil(np), dm = daysUntil(l.maturityDate);
+    const overdue = loanIsActive(l) && dp != null && dp < 0;
+    const npCell = np ? ('<span class="' + (overdue ? 'neg' : '') + '">' + fmtDate(np) + '</span><div class="ht-sub ' + (overdue ? 'neg' : '') + '">' + (dp < 0 ? Math.abs(dp) + 'd overdue' : (dp === 0 ? 'due today' : 'in ' + dp + 'd')) + '</div>') : '<span class="ht-sub">—</span>';
+    const mCell = l.maturityDate ? (fmtDate(l.maturityDate) + '<div class="ht-sub">' + (dm < 0 ? Math.abs(dm) + 'd ago' : 'in ' + dm + 'd') + '</div>') : '<span class="ht-sub">—</span>';
+    const who = l.type === 'lent' ? ('to ' + (l.borrower || '—')) : ('from ' + (l.lender || '—'));
+    return '<tr onclick="openLoan(\'' + l.id + '\')" style="cursor:pointer">' +
+      '<td class="ht-sym"><div><div class="holding-ticker">' + escHtml(loanTitle(l)) + '</div><div class="ht-sub">' + escHtml(who) + '</div></div></td>' +
+      '<td>' + loanTypeBadge(l.type) + '</td>' +
+      '<td>' + dollarFmt(loanNum(l.principal)) + '</td>' +
+      '<td>' + (loanNum(l.rate) ? loanNum(l.rate).toFixed(2) + '%' : '—') + '</td>' +
+      '<td>' + dollarFmt(out) + '</td>' +
+      '<td>' + npCell + '</td>' +
+      '<td>' + mCell + '</td>' +
+      '<td>' + loanStatusBadge(l.status) + '</td>' +
+      '<td style="white-space:nowrap" onclick="event.stopPropagation()"><button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="openLoan(\'' + l.id + '\')">View</button> <button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="editLoan(\'' + l.id + '\')">Edit</button> <button class="pf-btn pf-btn-danger" title="Delete" onclick="deleteLoan(\'' + l.id + '\')">' + ic('x', 16) + '</button></td>' +
+      '</tr>';
+  }).join('');
+  el.innerHTML = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
+    '<th class="ht-sym">Loan / Note</th><th>Type</th><th>Principal</th><th>Rate</th><th>Outstanding</th><th>Next payment</th><th>Maturity</th><th>Status</th><th></th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+}
+function openLoan(id) { _loanId = id; _loanView = 'detail'; sw('loans'); renderLoans(); }
+function loanBackToList() { _loanView = 'list'; _loanId = null; renderLoans(); }
+function renderLoanDetail(id) {
+  const el = document.getElementById('loansBody'); if (!el) return;
+  const l = loans.find(x => x.id === id);
+  if (!l) { loanBackToList(); return; }
+  const out = loanOutstanding(l), np = loanNextPayment(l), dp = daysUntil(np), dm = daysUntil(l.maturityDate);
+  const overdue = loanIsActive(l) && dp != null && dp < 0, ann = loanAnnualInterest(l);
+  const field = (lbl, val) => '<div class="loan-field"><div class="loan-field-l">' + lbl + '</div><div class="loan-field-v">' + val + '</div></div>';
+  const head = '<div class="rec-head"><button class="rec-back" onclick="loanBackToList()">← All loans &amp; notes</button>' +
+    '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">' +
+    '<div style="flex:1 1 auto;min-width:0"><div class="rec-head-tkr">' + escHtml(loanTitle(l)) + '</div><div class="rec-head-name">' + loanTypeBadge(l.type) + ' ' + loanStatusBadge(l.status) + '</div></div>' +
+    '<button class="pf-btn pf-btn-outline" onclick="editLoan(\'' + l.id + '\')">Edit</button>' +
+    '<button class="pf-btn pf-btn-danger" title="Delete" onclick="deleteLoan(\'' + l.id + '\')">' + ic('x', 16) + '</button></div></div>';
+  const grid = '<div class="loan-fields">' +
+    field('Borrower', escHtml(l.borrower || '—')) +
+    field('Lender', escHtml(l.lender || '—')) +
+    field('Principal', dollarFmt(loanNum(l.principal))) +
+    field('Interest rate', loanNum(l.rate) ? loanNum(l.rate).toFixed(2) + '% /yr' : '—') +
+    field('Outstanding balance', dollarFmt(out)) +
+    field('Annual interest', (l.type === 'lent' ? 'Income ' : 'Expense ') + dollarFmt(ann)) +
+    field('Start date', fmtDate(l.startDate)) +
+    field('Maturity date', l.maturityDate ? fmtDate(l.maturityDate) + (dm != null ? ' <span class="ht-sub">(' + (dm < 0 ? Math.abs(dm) + 'd ago' : 'in ' + dm + 'd') + ')</span>' : '') : '—') +
+    field('Payment frequency', escHtml((LOAN_FREQS.find(f => f[0] === l.paymentFreq) || [, '—'])[1])) +
+    field('Next payment', np ? '<span class="' + (overdue ? 'neg' : '') + '">' + fmtDate(np) + (dp != null ? ' (' + (dp < 0 ? Math.abs(dp) + 'd overdue' : (dp === 0 ? 'today' : 'in ' + dp + 'd')) + ')' : '') + '</span>' : '—') +
+    field('Insurance renewal', l.insuranceRenewalDate ? fmtDate(l.insuranceRenewalDate) : '—') +
+    field('Status', loanStatusBadge(l.status)) +
+    '</div>';
+  const notes = l.notes ? '<div class="loan-notes"><div class="loan-field-l">Notes &amp; comments</div><div>' + escHtml(l.notes) + '</div></div>' : '';
+  el.innerHTML = head + grid + notes + _loanDocsHtml(l) + '<div class="rng-advice-note">Interest figures are annualized estimates (principal × rate) — informational only, not financial advice.</div>';
+}
+
+// ── Documents (Firebase Storage) ──
+function _loanDocsHtml(l) {
+  let inner;
+  if (!storage) {
+    inner = '<div class="loan-doc-note">Document upload becomes available once Firebase Storage is enabled for this project and deployed. You\'ll then be able to attach promissory notes, agreements &amp; amortization schedules here.</div>';
+  } else {
+    const docs = l.documents || [];
+    const list = docs.length ? docs.map((d, i) => '<div class="loan-doc-row">' + ic('file', 16) + '<a href="' + escHtml(d.url) + '" target="_blank" rel="noopener" class="loan-doc-name">' + escHtml(d.name) + '</a><span class="ht-sub">' + _fmtBytes(d.size) + '</span><button class="pf-btn pf-btn-danger" title="Delete document" onclick="deleteLoanDoc(\'' + l.id + '\',' + i + ')">' + ic('x', 14) + '</button></div>').join('') : '<div class="ht-sub" style="padding:6px 0">No documents yet.</div>';
+    inner = list + '<label class="loan-upload"><input type="file" style="display:none" onchange="uploadLoanDoc(\'' + l.id + '\', this.files[0]); this.value=\'\'"/><span class="pf-btn pf-btn-outline">' + ic('plus', 15) + ' Upload document</span></label>';
+  }
+  return '<div class="loan-docs"><div class="loan-field-l">Documents</div>' + inner + '</div>';
+}
+async function uploadLoanDoc(loanId, file) {
+  if (!file || !UID) return;
+  if (!storage) { try { pmToast('Enable Firebase Storage to upload documents'); } catch (e) {} return; }
+  if (file.size > 25 * 1024 * 1024) { try { pmToast('File too large (max 25 MB)'); } catch (e) {} return; }
+  const safe = file.name.replace(/[^A-Za-z0-9._-]/g, '_').slice(0, 120);
+  const path = 'loans/' + UID + '/' + loanId + '/' + Date.now() + '_' + safe;
+  try {
+    try { pmToast('Uploading ' + file.name + '…'); } catch (e) {}
+    const ref = storage.ref(path);
+    await ref.put(file);
+    const url = await ref.getDownloadURL();
+    const meta = { name: file.name, path, url, size: file.size, type: file.type || '', uploaded: new Date().toISOString() };
+    await db.collection('loans').doc(UID).collection('list').doc(loanId).update({ documents: firebase.firestore.FieldValue.arrayUnion(meta), updated: new Date().toISOString() });
+    try { pmToast('Uploaded ' + file.name); } catch (e) {}
+    if (_loanView === 'detail' && _loanId === loanId) renderLoanDetail(loanId);
+  } catch (e) { try { pmToast('Upload failed: ' + ((e && e.message) || 'error')); } catch (e2) {} }
+}
+async function deleteLoanDoc(loanId, idx) {
+  if (!UID) return;
+  const l = loans.find(x => x.id === loanId); if (!l) return;
+  const doc = (l.documents || [])[idx]; if (!doc) return;
+  if (!confirm('Delete document "' + doc.name + '"?')) return;
+  if (storage && doc.path) { try { await storage.ref(doc.path).delete(); } catch (e) {} }
+  await db.collection('loans').doc(UID).collection('list').doc(loanId).update({ documents: firebase.firestore.FieldValue.arrayRemove(doc), updated: new Date().toISOString() }).catch(() => {});
+  try { pmToast('Document removed'); } catch (e) {}
+}
+
+// ── Dashboard ──
+function _dashMini(label, val, cls) { return '<div class="dash-mini' + (cls ? ' ' + cls : '') + '"><div class="dash-mini-label">' + label + '</div><div class="dash-mini-val' + (cls === 'gain' ? ' pos' : cls === 'loss' ? ' neg' : '') + '">' + val + '</div></div>'; }
+function _loanDashSection(title, items, danger, kind) {
+  if (!items || !items.length) return '';
+  const rows = items.map(it => {
+    const l = it.l, d = it.d;
+    let when;
+    if (kind === 'maturity' || kind === 'insurance') when = 'in ' + d + 'd';
+    else when = d < 0 ? Math.abs(d) + 'd overdue' : (d === 0 ? 'due today' : 'in ' + d + 'd');
+    return '<div class="notif-row" onclick="openLoan(\'' + l.id + '\')" style="cursor:pointer">' +
+      '<span class="notif-av notif-ic">' + ic('file', 16) + '</span>' +
+      '<div class="notif-main"><div class="notif-t">' + escHtml(loanTitle(l)) + '</div>' +
+      '<div class="notif-b">' + loanTypeBadge(l.type) + ' · ' + dollarFmt(loanOutstanding(l)) + ' outstanding</div></div>' +
+      '<span class="' + (danger || d < 0 ? 'neg' : '') + '" style="font-weight:700;font-size:12px;white-space:nowrap">' + when + '</span></div>';
+  }).join('');
+  return '<div class="dash-section"><div class="dash-section-title">' + title + '</div>' + rows + '</div>';
+}
+function renderLoansDash() {
+  const el = document.getElementById('loansDashBody'); if (!el) return;
+  if (!UID) { el.innerHTML = emptyState('file', 'Sign in to view your loans dashboard', ''); return; }
+  if (!loans.length) { el.innerHTML = emptyState('file', 'No loans or notes yet', 'Add loans in the Loans & Notes tab to see totals, interest and reminders here.') + '<div style="text-align:center;margin-top:14px"><button class="pf-btn pf-btn-primary" onclick="sw(\'loans\')">Go to Loans & Notes</button></div>'; return; }
+  let borrowed = 0, lent = 0, outstanding = 0, intIncome = 0, intExpense = 0, active = 0, closed = 0, nB = 0, nL = 0;
+  loans.forEach(l => {
+    const p = loanNum(l.principal), ann = loanAnnualInterest(l);
+    if (l.type === 'lent') { lent += p; nL++; if (loanIsActive(l)) intIncome += ann; } else { borrowed += p; nB++; if (loanIsActive(l)) intExpense += ann; }
+    outstanding += loanOutstanding(l);
+    if (l.status === 'closed' || l.status === 'paid_off') closed++; else active++;
+  });
+  const net = lent - borrowed;
+  const overdue = [], upPay = [], upMat = [], upIns = [];
+  loans.forEach(l => {
+    if (!loanIsActive(l)) return;
+    const np = loanNextPayment(l), dp = daysUntil(np), dm = daysUntil(l.maturityDate), di = daysUntil(l.insuranceRenewalDate);
+    if (dp != null && dp < 0) overdue.push({ l, d: dp });
+    else if (dp != null && dp <= 14) upPay.push({ l, d: dp });
+    if (dm != null && dm >= 0 && dm <= 30) upMat.push({ l, d: dm });
+    if (di != null && di >= 0 && di <= 30) upIns.push({ l, d: di });
+  });
+  overdue.sort((a, b) => a.d - b.d); upPay.sort((a, b) => a.d - b.d); upMat.sort((a, b) => a.d - b.d); upIns.sort((a, b) => a.d - b.d);
+  const hero = '<div class="dash-hero">' +
+    '<div class="dash-card dash-hero-main" style="background:linear-gradient(135deg,var(--blue),var(--blue-hover))"><div class="dlabel">Total borrowed (you owe)</div><div class="dval">' + dollarFmt(borrowed) + '</div><div class="dsub">Across ' + nB + ' note' + (nB === 1 ? '' : 's') + '</div></div>' +
+    '<div class="dash-card dash-hero-main" style="background:linear-gradient(135deg,var(--green),#0a8f5b)"><div class="dlabel">Total lent (owed to you)</div><div class="dval">' + dollarFmt(lent) + '</div><div class="dsub">Across ' + nL + ' note' + (nL === 1 ? '' : 's') + '</div></div>' +
+    '</div>';
+  const mini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
+    _dashMini('Outstanding balance', dollarFmt(outstanding), '') +
+    _dashMini('Net position', (net >= 0 ? '+' : '-') + dollarFmt(Math.abs(net)), net >= 0 ? 'gain' : 'loss') +
+    _dashMini('Interest income /yr', dollarFmt(intIncome), 'gain') +
+    _dashMini('Interest expense /yr', dollarFmt(intExpense), 'loss') +
+    _dashMini('Active loans', String(active), '') +
+    _dashMini('Closed loans', String(closed), '') +
+    _dashMini('Overdue payments', String(overdue.length), overdue.length ? 'loss' : '') +
+    '</div>';
+  el.innerHTML = hero + mini +
+    _loanDashSection('Overdue & defaults', overdue, true) +
+    _loanDashSection('Upcoming payments (14 days)', upPay, false) +
+    _loanDashSection('Upcoming maturities (30 days)', upMat, false, 'maturity') +
+    _loanDashSection('Insurance renewals (30 days)', upIns, false, 'insurance') +
+    '<div class="rng-advice-note">Interest figures are annualized estimates (principal × rate) — informational only, not financial advice.</div>';
+}
+
+// ── Client-derived reminders folded into the notification center ──
+function _loanReminders() {
+  if (!loans || !loans.length) return [];
+  const out = [];
+  loans.forEach(l => {
+    if (!loanIsActive(l)) return;
+    const title0 = loanTitle(l);
+    const np = loanNextPayment(l), dp = daysUntil(np);
+    if (dp != null && dp <= 5) {
+      const overdue = dp < 0;
+      out.push({ key: 'loan:' + l.id + ':pay:' + np, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: Date.now(),
+        title: (overdue ? 'OVERDUE payment — ' : 'Payment due soon — ') + title0,
+        body: (overdue ? 'Payment was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'Payment due today' : 'Payment due in ' + dp + ' day(s)')) + ' · ' + dollarFmt(loanOutstanding(l)) + ' outstanding.' });
+    }
+    const dm = daysUntil(l.maturityDate);
+    if (dm != null && dm >= 0 && dm <= 7) out.push({ key: 'loan:' + l.id + ':mat:' + l.maturityDate, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: Date.now(), title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + fmtDate(l.maturityDate) + '.' });
+    const di = daysUntil(l.insuranceRenewalDate);
+    if (di != null && di >= 0 && di <= 14) out.push({ key: 'loan:' + l.id + ':ins:' + l.insuranceRenewalDate, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: Date.now(), title: 'Insurance renewal in ' + di + 'd — ' + title0, body: 'Insurance renewal due ' + fmtDate(l.insuranceRenewalDate) + '.' });
+  });
+  return out;
+}
+
 function openModal(type) {
   const box = document.getElementById('modalBox');
   document.getElementById('modalOverlay').classList.remove('hidden');
-  if (type === 'newPf') {
+  if (type === 'newLoan' || type === 'editLoan') {
+    const l = (type === 'editLoan') ? (loans.find(x => x.id === _loanEditId) || null) : null;
+    box.innerHTML = loanFormModal(l);
+    setTimeout(() => { const i = document.getElementById('loanName'); if (i) i.focus(); }, 0);
+  } else if (type === 'newPf') {
     box.innerHTML = '<div class="modal-title">New portfolio</div><label class="modal-label">Portfolio name</label><input id="newPfName" class="modal-input" placeholder="e.g. Growth Portfolio"/><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="createPortfolio(document.getElementById(\'newPfName\').value);closeModal()">Create</button></div>';
   } else if (type === 'addHolding') {
     box.innerHTML = '<div class="modal-title">Add holding</div>' +
@@ -5348,6 +5686,8 @@ function sw(name) {
   if (name === 'discovery') renderDiscovery();
   if (name === 'earnings') renderEarnings();
   if (name === 'catalysts') renderCatalysts();
+  if (name === 'loansdash') renderLoansDash();
+  if (name === 'loans') renderLoans();
 }
 
 // ── Click outside autocomplete ──
