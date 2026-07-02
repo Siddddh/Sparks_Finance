@@ -1,4 +1,18 @@
 {
+  "FITB": {
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 0,
+    "neutral": 10,
+    "tv_symbol": "NYSE:FITB"
+  },
+  "RL": {
+    "recommendation": "BUY",
+    "buy": 13,
+    "sell": 4,
+    "neutral": 9,
+    "tv_symbol": "NYSE:RL"
+  },
   "C": {
     "recommendation": "BUY",
     "buy": 12,
@@ -6,75 +20,173 @@
     "neutral": 10,
     "tv_symbol": "NYSE:C"
   },
-  "ROK": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 0,
-    "neutral": 10,
-    "tv_symbol": "NYSE:ROK"
-  },
-  "GLW": {
+  "TRNO": {
     "recommendation": "STRONG_BUY",
     "buy": 17,
     "sell": 0,
     "neutral": 9,
-    "tv_symbol": "NYSE:GLW"
+    "tv_symbol": "NYSE:TRNO"
   },
-  "IIPR": {
+  "JPM": {
+    "recommendation": "STRONG_BUY",
+    "buy": 15,
+    "sell": 1,
+    "neutral": 10,
+    "tv_symbol": "NYSE:JPM"
+  },
+  "ROK": {
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 4,
+    "neutral": 8,
+    "tv_symbol": "NYSE:ROK"
+  },
+  "ILMN": {
     "recommendation": "STRONG_BUY",
     "buy": 16,
     "sell": 1,
     "neutral": 9,
-    "tv_symbol": "NYSE:IIPR"
+    "tv_symbol": "NASDAQ:ILMN"
   },
-  "LRCX": {
+  "MNST": {
+    "recommendation": "BUY",
+    "buy": 15,
+    "sell": 1,
+    "neutral": 10,
+    "tv_symbol": "NASDAQ:MNST"
+  },
+  "CFG": {
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 1,
+    "neutral": 9,
+    "tv_symbol": "NYSE:CFG"
+  },
+  "CVS": {
     "recommendation": "STRONG_BUY",
     "buy": 16,
     "sell": 0,
     "neutral": 10,
-    "tv_symbol": "NASDAQ:LRCX"
+    "tv_symbol": "NYSE:CVS"
   },
-  "TRNO": {
+  "WERN": {
     "recommendation": "BUY",
     "buy": 14,
     "sell": 2,
     "neutral": 10,
-    "tv_symbol": "NYSE:TRNO"
+    "tv_symbol": "NASDAQ:WERN"
+  },
+  "GLW": {
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 2,
+    "neutral": 10,
+    "tv_symbol": "NYSE:GLW"
   },
   "AMAT": {
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 3,
+    "neutral": 9,
+    "tv_symbol": "NASDAQ:AMAT"
+  },
+  "BAC": {
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 0,
+    "neutral": 10,
+    "tv_symbol": "NYSE:BAC"
+  },
+  "OTTR": {
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 2,
+    "neutral": 10,
+    "tv_symbol": "NASDAQ:OTTR"
+  },
+  "PNC": {
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 0,
+    "neutral": 10,
+    "tv_symbol": "NYSE:PNC"
+  },
+  "JBHT": {
+    "recommendation": "BUY",
+    "buy": 15,
+    "sell": 2,
+    "neutral": 9,
+    "tv_symbol": "NASDAQ:JBHT"
+  },
+  "AFL": {
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 1,
+    "neutral": 9,
+    "tv_symbol": "NYSE:AFL"
+  },
+  "CAT": {
+    "recommendation": "BUY",
+    "buy": 12,
+    "sell": 4,
+    "neutral": 10,
+    "tv_symbol": "NYSE:CAT"
+  },
+  "ALGN": {
     "recommendation": "STRONG_BUY",
     "buy": 17,
     "sell": 0,
     "neutral": 9,
-    "tv_symbol": "NASDAQ:AMAT"
+    "tv_symbol": "NASDAQ:ALGN"
   },
-  "LLY": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 0,
-    "neutral": 10,
-    "tv_symbol": "NYSE:LLY"
-  },
-  "RL": {
-    "recommendation": "BUY",
-    "buy": 11,
-    "sell": 5,
-    "neutral": 10,
-    "tv_symbol": "NYSE:RL"
-  },
-  "MGM": {
+  "SBUX": {
     "recommendation": "BUY",
     "buy": 15,
-    "sell": 3,
-    "neutral": 8,
-    "tv_symbol": "NYSE:MGM"
+    "sell": 1,
+    "neutral": 10,
+    "tv_symbol": "NASDAQ:SBUX"
   },
-  "AMD": {
+  "MTB": {
+    "recommendation": "STRONG_BUY",
+    "buy": 17,
+    "sell": 0,
+    "neutral": 9,
+    "tv_symbol": "NYSE:MTB"
+  },
+  "GE": {
     "recommendation": "BUY",
     "buy": 14,
     "sell": 2,
     "neutral": 10,
-    "tv_symbol": "NASDAQ:AMD"
+    "tv_symbol": "NYSE:GE"
+  },
+  "IIPR": {
+    "recommendation": "BUY",
+    "buy": 15,
+    "sell": 1,
+    "neutral": 10,
+    "tv_symbol": "NYSE:IIPR"
+  },
+  "NTRS": {
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 2,
+    "neutral": 10,
+    "tv_symbol": "NASDAQ:NTRS"
+  },
+  "CNC": {
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 1,
+    "neutral": 9,
+    "tv_symbol": "NYSE:CNC"
+  },
+  "D": {
+    "recommendation": "BUY",
+    "buy": 10,
+    "sell": 6,
+    "neutral": 10,
+    "tv_symbol": "NYSE:D"
   },
   "AIZ": {
     "recommendation": "STRONG_BUY",
@@ -83,180 +195,159 @@
     "neutral": 10,
     "tv_symbol": "NYSE:AIZ"
   },
-  "KIM": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 3,
-    "neutral": 9,
-    "tv_symbol": "NYSE:KIM"
-  },
   "BKH": {
     "recommendation": "BUY",
-    "buy": 14,
-    "sell": 6,
-    "neutral": 6,
+    "buy": 12,
+    "sell": 4,
+    "neutral": 10,
     "tv_symbol": "NYSE:BKH"
   },
-  "FRT": {
+  "RF": {
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 1,
+    "neutral": 9,
+    "tv_symbol": "NYSE:RF"
+  },
+  "SNA": {
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 4,
+    "neutral": 8,
+    "tv_symbol": "NYSE:SNA"
+  },
+  "ETR": {
+    "recommendation": "BUY",
+    "buy": 12,
+    "sell": 4,
+    "neutral": 10,
+    "tv_symbol": "NYSE:ETR"
+  },
+  "AMD": {
     "recommendation": "BUY",
     "buy": 13,
     "sell": 3,
     "neutral": 10,
-    "tv_symbol": "NYSE:FRT"
+    "tv_symbol": "NASDAQ:AMD"
+  },
+  "KEY": {
+    "recommendation": "STRONG_BUY",
+    "buy": 15,
+    "sell": 1,
+    "neutral": 10,
+    "tv_symbol": "NYSE:KEY"
+  },
+  "EW": {
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 3,
+    "neutral": 9,
+    "tv_symbol": "NYSE:EW"
+  },
+  "PSA": {
+    "recommendation": "STRONG_BUY",
+    "buy": 17,
+    "sell": 1,
+    "neutral": 8,
+    "tv_symbol": "NYSE:PSA"
+  },
+  "MRNA": {
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 3,
+    "neutral": 9,
+    "tv_symbol": "NASDAQ:MRNA"
+  },
+  "LLY": {
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 4,
+    "neutral": 8,
+    "tv_symbol": "NYSE:LLY"
+  },
+  "AME": {
+    "recommendation": "BUY",
+    "buy": 13,
+    "sell": 3,
+    "neutral": 10,
+    "tv_symbol": "NYSE:AME"
+  },
+  "DTE": {
+    "recommendation": "BUY",
+    "buy": 12,
+    "sell": 4,
+    "neutral": 10,
+    "tv_symbol": "NYSE:DTE"
+  },
+  "LRCX": {
+    "recommendation": "BUY",
+    "buy": 12,
+    "sell": 5,
+    "neutral": 9,
+    "tv_symbol": "NASDAQ:LRCX"
   },
   "FTNT": {
-    "recommendation": "BUY",
+    "recommendation": "STRONG_BUY",
     "buy": 15,
     "sell": 2,
     "neutral": 9,
     "tv_symbol": "NASDAQ:FTNT"
   },
-  "WDC": {
-    "recommendation": "BUY",
-    "buy": 15,
-    "sell": 2,
-    "neutral": 9,
-    "tv_symbol": "NASDAQ:WDC"
-  },
-  "BIIB": {
-    "recommendation": "BUY",
-    "buy": 16,
-    "sell": 2,
-    "neutral": 8,
-    "tv_symbol": "NASDAQ:BIIB"
-  },
-  "SIRI": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 0,
-    "neutral": 10,
-    "tv_symbol": "NASDAQ:SIRI"
-  },
-  "DRI": {
-    "recommendation": "NEUTRAL",
-    "buy": 8,
-    "sell": 8,
-    "neutral": 10,
-    "tv_symbol": "NYSE:DRI"
-  },
-  "CSX": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 0,
-    "neutral": 10,
-    "tv_symbol": "NASDAQ:CSX"
-  },
-  "FFIV": {
-    "recommendation": "STRONG_BUY",
-    "buy": 17,
-    "sell": 1,
-    "neutral": 8,
-    "tv_symbol": "NASDAQ:FFIV"
-  },
-  "KMI": {
-    "recommendation": "BUY",
-    "buy": 12,
-    "sell": 6,
-    "neutral": 8,
-    "tv_symbol": "NYSE:KMI"
-  },
-  "HWM": {
-    "recommendation": "BUY",
-    "buy": 12,
-    "sell": 5,
-    "neutral": 9,
-    "tv_symbol": "NYSE:HWM"
-  },
-  "GNRC": {
-    "recommendation": "BUY",
-    "buy": 15,
-    "sell": 1,
-    "neutral": 10,
-    "tv_symbol": "NYSE:GNRC"
-  },
-  "STX": {
-    "recommendation": "BUY",
-    "buy": 13,
-    "sell": 4,
-    "neutral": 9,
-    "tv_symbol": "NASDAQ:STX"
-  },
-  "KLAC": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 0,
-    "neutral": 10,
-    "tv_symbol": "NASDAQ:KLAC"
-  },
-  "ILMN": {
-    "recommendation": "BUY",
-    "buy": 15,
-    "sell": 2,
-    "neutral": 9,
-    "tv_symbol": "NASDAQ:ILMN"
-  },
-  "CB": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 0,
-    "neutral": 10,
-    "tv_symbol": "NYSE:CB"
-  },
-  "FR": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 2,
-    "neutral": 10,
-    "tv_symbol": "NYSE:FR"
-  },
-  "CVS": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 4,
-    "neutral": 8,
-    "tv_symbol": "NYSE:CVS"
-  },
-  "MRNA": {
-    "recommendation": "STRONG_BUY",
-    "buy": 17,
-    "sell": 0,
-    "neutral": 9,
-    "tv_symbol": "NASDAQ:MRNA"
-  },
-  "EQIX": {
-    "recommendation": "BUY",
-    "buy": 13,
-    "sell": 4,
-    "neutral": 9,
-    "tv_symbol": "NASDAQ:EQIX"
-  },
-  "JPM": {
+  "IEX": {
     "recommendation": "BUY",
     "buy": 13,
     "sell": 3,
     "neutral": 10,
-    "tv_symbol": "NYSE:JPM"
+    "tv_symbol": "NYSE:IEX"
   },
-  "GWW": {
+  "HWM": {
+    "recommendation": "BUY",
+    "buy": 11,
+    "sell": 6,
+    "neutral": 9,
+    "tv_symbol": "NYSE:HWM"
+  },
+  "MGM": {
+    "recommendation": "BUY",
+    "buy": 10,
+    "sell": 6,
+    "neutral": 10,
+    "tv_symbol": "NYSE:MGM"
+  },
+  "GNRC": {
+    "recommendation": "SELL",
+    "buy": 6,
+    "sell": 10,
+    "neutral": 10,
+    "tv_symbol": "NYSE:GNRC"
+  },
+  "AEP": {
     "recommendation": "BUY",
     "buy": 14,
     "sell": 2,
     "neutral": 10,
-    "tv_symbol": "NYSE:GWW"
+    "tv_symbol": "NASDAQ:AEP"
+  },
+  "FFIV": {
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 1,
+    "neutral": 9,
+    "tv_symbol": "NASDAQ:FFIV"
+  },
+  "BIIB": {
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 4,
+    "neutral": 8,
+    "tv_symbol": "NASDAQ:BIIB"
   },
   "MU": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 2,
-    "neutral": 10,
+    "recommendation": "NEUTRAL",
+    "buy": 8,
+    "sell": 9,
+    "neutral": 9,
     "tv_symbol": "NASDAQ:MU"
-  },
-  "KEY": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 2,
-    "neutral": 10,
-    "tv_symbol": "NYSE:KEY"
   },
   "ABNB": {
     "recommendation": "STRONG_BUY",
@@ -265,207 +356,116 @@
     "neutral": 9,
     "tv_symbol": "NASDAQ:ABNB"
   },
-  "CAT": {
-    "recommendation": "STRONG_BUY",
-    "buy": 15,
-    "sell": 1,
-    "neutral": 10,
-    "tv_symbol": "NYSE:CAT"
-  },
-  "NTRS": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 3,
-    "neutral": 9,
-    "tv_symbol": "NASDAQ:NTRS"
-  },
-  "IRM": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 2,
-    "neutral": 10,
-    "tv_symbol": "NYSE:IRM"
-  },
-  "FAST": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 0,
-    "neutral": 10,
-    "tv_symbol": "NASDAQ:FAST"
-  },
-  "PFG": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 3,
-    "neutral": 9,
-    "tv_symbol": "NASDAQ:PFG"
-  },
-  "DVA": {
-    "recommendation": "BUY",
-    "buy": 15,
-    "sell": 2,
-    "neutral": 9,
-    "tv_symbol": "NYSE:DVA"
-  },
-  "PSA": {
-    "recommendation": "BUY",
-    "buy": 15,
-    "sell": 1,
-    "neutral": 10,
-    "tv_symbol": "NYSE:PSA"
-  },
-  "PPL": {
-    "recommendation": "BUY",
-    "buy": 13,
-    "sell": 6,
-    "neutral": 7,
-    "tv_symbol": "NYSE:PPL"
-  },
-  "RF": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 3,
-    "neutral": 9,
-    "tv_symbol": "NYSE:RF"
-  },
-  "UDR": {
-    "recommendation": "BUY",
-    "buy": 15,
-    "sell": 1,
-    "neutral": 10,
-    "tv_symbol": "NYSE:UDR"
-  },
-  "WMB": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 4,
-    "neutral": 8,
-    "tv_symbol": "NYSE:WMB"
-  },
-  "PNC": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 3,
-    "neutral": 9,
-    "tv_symbol": "NYSE:PNC"
-  },
-  "ALGN": {
-    "recommendation": "BUY",
-    "buy": 10,
-    "sell": 6,
-    "neutral": 10,
-    "tv_symbol": "NASDAQ:ALGN"
-  },
-  "GE": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 2,
-    "neutral": 8,
-    "tv_symbol": "NYSE:GE"
-  },
-  "AFL": {
-    "recommendation": "BUY",
-    "buy": 15,
-    "sell": 2,
-    "neutral": 9,
-    "tv_symbol": "NYSE:AFL"
-  },
-  "WERN": {
-    "recommendation": "BUY",
-    "buy": 15,
-    "sell": 1,
-    "neutral": 10,
-    "tv_symbol": "NASDAQ:WERN"
-  },
-  "MNST": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 1,
-    "neutral": 9,
-    "tv_symbol": "NASDAQ:MNST"
-  },
   "UNM": {
-    "recommendation": "BUY",
-    "buy": 12,
-    "sell": 4,
-    "neutral": 10,
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 1,
+    "neutral": 9,
     "tv_symbol": "NYSE:UNM"
   },
-  "FITB": {
+  "HSIC": {
+    "recommendation": "BUY",
+    "buy": 15,
+    "sell": 1,
+    "neutral": 10,
+    "tv_symbol": "NASDAQ:HSIC"
+  },
+  "GWW": {
+    "recommendation": "BUY",
+    "buy": 11,
+    "sell": 5,
+    "neutral": 10,
+    "tv_symbol": "NYSE:GWW"
+  },
+  "LIN": {
+    "recommendation": "STRONG_BUY",
+    "buy": 18,
+    "sell": 0,
+    "neutral": 8,
+    "tv_symbol": "NASDAQ:LIN"
+  },
+  "FAST": {
     "recommendation": "BUY",
     "buy": 14,
     "sell": 3,
     "neutral": 9,
-    "tv_symbol": "NYSE:FITB"
+    "tv_symbol": "NASDAQ:FAST"
   },
-  "REG": {
+  "DUK": {
+    "recommendation": "BUY",
+    "buy": 11,
+    "sell": 5,
+    "neutral": 10,
+    "tv_symbol": "NYSE:DUK"
+  },
+  "WEC": {
     "recommendation": "BUY",
     "buy": 14,
-    "sell": 4,
-    "neutral": 8,
-    "tv_symbol": "NASDAQ:REG"
+    "sell": 2,
+    "neutral": 10,
+    "tv_symbol": "NYSE:WEC"
   },
-  "GS": {
-    "recommendation": "NEUTRAL",
-    "buy": 8,
-    "sell": 10,
-    "neutral": 8,
-    "tv_symbol": "NYSE:GS"
+  "KDP": {
+    "recommendation": "BUY",
+    "buy": 15,
+    "sell": 1,
+    "neutral": 10,
+    "tv_symbol": "NASDAQ:KDP"
   },
   "AAPL": {
-    "recommendation": "SELL",
-    "buy": 8,
-    "sell": 11,
-    "neutral": 7,
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 3,
+    "neutral": 9,
     "tv_symbol": "NASDAQ:AAPL"
   },
   "ALAB": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 0,
-    "neutral": 10,
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 3,
+    "neutral": 9,
     "tv_symbol": "NASDAQ:ALAB"
   },
   "AMKR": {
-    "recommendation": "BUY",
-    "buy": 12,
-    "sell": 4,
-    "neutral": 10,
-    "tv_symbol": "NASDAQ:AMKR"
-  },
-  "AMZN": {
     "recommendation": "NEUTRAL",
     "buy": 8,
     "sell": 8,
     "neutral": 10,
-    "tv_symbol": "NASDAQ:AMZN"
+    "tv_symbol": "NASDAQ:AMKR"
   },
-  "APLD": {
-    "recommendation": "SELL",
-    "buy": 5,
-    "sell": 12,
-    "neutral": 9,
-    "tv_symbol": "NASDAQ:APLD"
-  },
-  "APP": {
+  "AMZN": {
     "recommendation": "BUY",
     "buy": 12,
     "sell": 5,
     "neutral": 9,
+    "tv_symbol": "NASDAQ:AMZN"
+  },
+  "APLD": {
+    "recommendation": "SELL",
+    "buy": 4,
+    "sell": 12,
+    "neutral": 10,
+    "tv_symbol": "NASDAQ:APLD"
+  },
+  "APP": {
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 0,
+    "neutral": 10,
     "tv_symbol": "NASDAQ:APP"
   },
   "COCO": {
-    "recommendation": "SELL",
-    "buy": 6,
-    "sell": 11,
-    "neutral": 9,
+    "recommendation": "NEUTRAL",
+    "buy": 8,
+    "sell": 10,
+    "neutral": 8,
     "tv_symbol": "NASDAQ:COCO"
   },
   "COIN": {
-    "recommendation": "SELL",
-    "buy": 3,
-    "sell": 14,
-    "neutral": 9,
+    "recommendation": "NEUTRAL",
+    "buy": 7,
+    "sell": 9,
+    "neutral": 10,
     "tv_symbol": "NASDAQ:COIN"
   },
   "DELL": {
@@ -477,177 +477,191 @@
   },
   "DIOD": {
     "recommendation": "SELL",
-    "buy": 5,
-    "sell": 11,
-    "neutral": 10,
+    "buy": 7,
+    "sell": 10,
+    "neutral": 9,
     "tv_symbol": "NASDAQ:DIOD"
   },
   "DLR": {
-    "recommendation": "BUY",
-    "buy": 11,
-    "sell": 5,
-    "neutral": 10,
+    "recommendation": "STRONG_SELL",
+    "buy": 1,
+    "sell": 16,
+    "neutral": 9,
     "tv_symbol": "NYSE:DLR"
   },
   "DOCN": {
-    "recommendation": "BUY",
-    "buy": 11,
-    "sell": 8,
-    "neutral": 7,
+    "recommendation": "SELL",
+    "buy": 4,
+    "sell": 12,
+    "neutral": 10,
     "tv_symbol": "NYSE:DOCN"
-  },
-  "DTE": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 6,
-    "neutral": 6,
-    "tv_symbol": "NYSE:DTE"
   },
   "EOG": {
     "recommendation": "SELL",
     "buy": 3,
-    "sell": 13,
-    "neutral": 10,
+    "sell": 14,
+    "neutral": 9,
     "tv_symbol": "NYSE:EOG"
   },
   "FICO": {
     "recommendation": "BUY",
-    "buy": 11,
-    "sell": 5,
+    "buy": 12,
+    "sell": 4,
     "neutral": 10,
     "tv_symbol": "NYSE:FICO"
   },
   "FLEX": {
     "recommendation": "BUY",
-    "buy": 15,
-    "sell": 1,
+    "buy": 12,
+    "sell": 4,
     "neutral": 10,
     "tv_symbol": "NASDAQ:FLEX"
   },
   "GOOGL": {
-    "recommendation": "NEUTRAL",
-    "buy": 7,
-    "sell": 9,
+    "recommendation": "BUY",
+    "buy": 12,
+    "sell": 4,
     "neutral": 10,
     "tv_symbol": "NASDAQ:GOOGL"
   },
+  "GS": {
+    "recommendation": "NEUTRAL",
+    "buy": 10,
+    "sell": 9,
+    "neutral": 7,
+    "tv_symbol": "NYSE:GS"
+  },
   "HOOD": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 2,
-    "neutral": 10,
+    "recommendation": "STRONG_BUY",
+    "buy": 17,
+    "sell": 0,
+    "neutral": 9,
     "tv_symbol": "NASDAQ:HOOD"
   },
   "ICHR": {
     "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 0,
-    "neutral": 10,
+    "buy": 17,
+    "sell": 3,
+    "neutral": 6,
     "tv_symbol": "NASDAQ:ICHR"
   },
   "INTC": {
     "recommendation": "BUY",
-    "buy": 15,
-    "sell": 1,
+    "buy": 11,
+    "sell": 5,
     "neutral": 10,
     "tv_symbol": "NASDAQ:INTC"
   },
   "IREN": {
-    "recommendation": "SELL",
-    "buy": 3,
-    "sell": 14,
-    "neutral": 9,
+    "recommendation": "STRONG_SELL",
+    "buy": 1,
+    "sell": 15,
+    "neutral": 10,
     "tv_symbol": "NASDAQ:IREN"
+  },
+  "IRM": {
+    "recommendation": "SELL",
+    "buy": 4,
+    "sell": 12,
+    "neutral": 10,
+    "tv_symbol": "NYSE:IRM"
+  },
+  "KIM": {
+    "recommendation": "BUY",
+    "buy": 10,
+    "sell": 6,
+    "neutral": 10,
+    "tv_symbol": "NYSE:KIM"
   },
   "LQDA": {
     "recommendation": "BUY",
-    "buy": 14,
-    "sell": 3,
-    "neutral": 9,
+    "buy": 17,
+    "sell": 2,
+    "neutral": 7,
     "tv_symbol": "NASDAQ:LQDA"
   },
   "LUNR": {
     "recommendation": "SELL",
-    "buy": 5,
-    "sell": 12,
-    "neutral": 9,
+    "buy": 2,
+    "sell": 14,
+    "neutral": 10,
     "tv_symbol": "NASDAQ:LUNR"
   },
   "LUV": {
     "recommendation": "BUY",
     "buy": 14,
-    "sell": 6,
-    "neutral": 6,
+    "sell": 2,
+    "neutral": 10,
     "tv_symbol": "NYSE:LUV"
   },
   "MSFT": {
-    "recommendation": "STRONG_SELL",
-    "buy": 1,
-    "sell": 15,
+    "recommendation": "SELL",
+    "buy": 5,
+    "sell": 11,
     "neutral": 10,
     "tv_symbol": "NASDAQ:MSFT"
   },
   "MXL": {
-    "recommendation": "STRONG_BUY",
-    "buy": 16,
-    "sell": 0,
-    "neutral": 10,
+    "recommendation": "BUY",
+    "buy": 14,
+    "sell": 5,
+    "neutral": 7,
     "tv_symbol": "NASDAQ:MXL"
   },
   "NTAP": {
     "recommendation": "BUY",
-    "buy": 12,
-    "sell": 6,
-    "neutral": 8,
+    "buy": 13,
+    "sell": 4,
+    "neutral": 9,
     "tv_symbol": "NASDAQ:NTAP"
   },
   "NVDA": {
     "recommendation": "SELL",
-    "buy": 7,
-    "sell": 12,
-    "neutral": 7,
+    "buy": 5,
+    "sell": 11,
+    "neutral": 10,
     "tv_symbol": "NASDAQ:NVDA"
   },
   "NXPI": {
-    "recommendation": "SELL",
-    "buy": 5,
-    "sell": 12,
-    "neutral": 9,
+    "recommendation": "NEUTRAL",
+    "buy": 8,
+    "sell": 10,
+    "neutral": 8,
     "tv_symbol": "NASDAQ:NXPI"
   },
   "ORCL": {
     "recommendation": "SELL",
-    "buy": 3,
-    "sell": 16,
-    "neutral": 7,
+    "buy": 2,
+    "sell": 15,
+    "neutral": 9,
     "tv_symbol": "NYSE:ORCL"
   },
   "PLTR": {
     "recommendation": "SELL",
-    "buy": 2,
-    "sell": 14,
+    "buy": 6,
+    "sell": 10,
     "neutral": 10,
     "tv_symbol": "NASDAQ:PLTR"
   },
   "PRTH": {
-    "recommendation": "BUY",
-    "buy": 14,
-    "sell": 4,
-    "neutral": 8,
+    "recommendation": "STRONG_BUY",
+    "buy": 17,
+    "sell": 0,
+    "neutral": 9,
     "tv_symbol": "NASDAQ:PRTH"
   },
   "QBTS": {
     "recommendation": "NEUTRAL",
-    "buy": 9,
-    "sell": 8,
-    "neutral": 9,
+    "buy": 7,
+    "sell": 9,
+    "neutral": 10,
     "tv_symbol": "NYSE:QBTS"
   },
   "QLD": {
     "recommendation": "BUY",
     "buy": 13,
-    "sell": 4,
-    "neutral": 9,
+    "sell": 3,
+    "neutral": 10,
     "tv_symbol": "AMEX:QLD"
   },
   "RBRK": {
@@ -659,9 +673,9 @@
   },
   "RGTI": {
     "recommendation": "SELL",
-    "buy": 5,
+    "buy": 3,
     "sell": 13,
-    "neutral": 8,
+    "neutral": 10,
     "tv_symbol": "NASDAQ:RGTI"
   },
   "RKLB": {
@@ -671,74 +685,95 @@
     "neutral": 10,
     "tv_symbol": "NASDAQ:RKLB"
   },
+  "SIRI": {
+    "recommendation": "STRONG_BUY",
+    "buy": 16,
+    "sell": 1,
+    "neutral": 9,
+    "tv_symbol": "NASDAQ:SIRI"
+  },
   "SMCI": {
     "recommendation": "STRONG_SELL",
     "buy": 0,
-    "sell": 17,
-    "neutral": 9,
+    "sell": 16,
+    "neutral": 10,
     "tv_symbol": "NASDAQ:SMCI"
   },
   "SNDK": {
     "recommendation": "BUY",
-    "buy": 12,
-    "sell": 4,
+    "buy": 11,
+    "sell": 5,
     "neutral": 10,
     "tv_symbol": "NASDAQ:SNDK"
   },
   "SNOW": {
     "recommendation": "BUY",
-    "buy": 16,
+    "buy": 15,
     "sell": 2,
-    "neutral": 8,
+    "neutral": 9,
     "tv_symbol": "NYSE:SNOW"
+  },
+  "SPCX": {
+    "recommendation": "STRONG_SELL",
+    "buy": 0,
+    "sell": 4,
+    "neutral": 0,
+    "tv_symbol": "NASDAQ:SPCX"
   },
   "SPG": {
     "recommendation": "BUY",
     "buy": 14,
-    "sell": 3,
-    "neutral": 9,
+    "sell": 2,
+    "neutral": 10,
     "tv_symbol": "NYSE:SPG"
   },
   "SSO": {
     "recommendation": "BUY",
-    "buy": 12,
-    "sell": 5,
-    "neutral": 9,
+    "buy": 15,
+    "sell": 1,
+    "neutral": 10,
     "tv_symbol": "AMEX:SSO"
   },
   "SWBI": {
-    "recommendation": "BUY",
-    "buy": 15,
-    "sell": 2,
-    "neutral": 9,
+    "recommendation": "NEUTRAL",
+    "buy": 7,
+    "sell": 9,
+    "neutral": 10,
     "tv_symbol": "NASDAQ:SWBI"
   },
   "TSLA": {
-    "recommendation": "BUY",
-    "buy": 15,
-    "sell": 2,
-    "neutral": 9,
-    "tv_symbol": "NASDAQ:TSLA"
-  },
-  "TSM": {
     "recommendation": "STRONG_BUY",
     "buy": 16,
     "sell": 1,
     "neutral": 9,
+    "tv_symbol": "NASDAQ:TSLA"
+  },
+  "TSM": {
+    "recommendation": "BUY",
+    "buy": 12,
+    "sell": 4,
+    "neutral": 10,
     "tv_symbol": "NYSE:TSM"
   },
   "VRT": {
     "recommendation": "SELL",
     "buy": 5,
-    "sell": 11,
-    "neutral": 10,
+    "sell": 12,
+    "neutral": 9,
     "tv_symbol": "NYSE:VRT"
   },
+  "WDC": {
+    "recommendation": "NEUTRAL",
+    "buy": 8,
+    "sell": 8,
+    "neutral": 10,
+    "tv_symbol": "NASDAQ:WDC"
+  },
   "BTC-USD": {
-    "recommendation": "STRONG_SELL",
-    "buy": 1,
-    "sell": 16,
-    "neutral": 9,
+    "recommendation": "SELL",
+    "buy": 5,
+    "sell": 11,
+    "neutral": 10,
     "tv_symbol": "COINBASE:BTCUSD"
   }
 }

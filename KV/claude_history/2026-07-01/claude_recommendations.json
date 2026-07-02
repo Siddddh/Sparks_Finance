@@ -1,0 +1,643 @@
+{
+  "date": "2026-07-01",
+  "scan_time_et": "01:36 AM ET",
+  "market": {
+    "state": "UPTREND",
+    "advice": "Q2 2026 closed as the strongest quarter for equities since 2020 — and the internals argue this bull has more legs into Q3. VIX at 16.5 is falling from a 5-day average of 18.0; fear is draining from the market. Distribution days stand at just 1. Follow-through is confirmed. Breadth is moderate-healthy at 63% of stocks above their 50-day MA. Full position sizing is appropriate for clean, unextended setups. The dominant Q3 setup: Semiconductors (AMD/LRCX/TSM/ASML) are in synchronized Stage 2 breakouts — the AI infrastructure build-out is still in innings 2 or 3. Industrial Automation (ROK/GNRC) is the quiet leader — factory AI is the new trade capturing institutional rotation alongside big tech. Financials (C/AFL) are making new highs on a disinflating economy. Oil posting its steepest quarterly loss since 2020 is a deflationary gift — input costs falling as revenues rise is the margin expansion formula. Key risk: Iran nuclear talks and the Israel-Lebanon ceasefire situation remain wildcards; if either flares, tighten stops on extended names (PANW RSI 88.8, AMAT RSI 74.6, GLW RSI 74.9) first. For Q3: ride the Stage 2 leaders, add to dips in clean setups, and resist chasing high-RSI names."
+  },
+  "picks": [
+    {
+      "ticker": "ROK",
+      "signal": "STRONG BUY",
+      "score": 93.3,
+      "grade": "A+",
+      "thesis": "Rockwell Automation is the standout industrial setup closing Q2. VCP with 4 contractions and a 4.4% tightest pullback — classic coiled-spring ahead of a breakout. RS line at new highs. Factory AI and reshoring are structural demand drivers: TSMC/Intel/Samsung fab construction in the US creates a multi-year pipeline for ROK's automation systems. TV: STRONG_BUY (17/0) — perfect score, zero sell votes, the unanimous #1 confirmation in today's scan.",
+      "strengths": [
+        "RS line at new highs vs S&P 500 — institutional accumulation leading price",
+        "VCP 4 contractions, 4.4% tightest pullback — coiled-spring setup",
+        "Factory AI and reshoring boom = multi-year structural demand pipeline",
+        "TV: STRONG_BUY 17/0 — maximum confirmation, zero dissent"
+      ],
+      "risks": [
+        "fwd P/E ~33x — premium requires sustained execution every quarter",
+        "Manufacturing PMI softness = estimate risk to the downside"
+      ],
+      "watch": [
+        "Hold above MA50 $445 on any pullback — key support floor",
+        "TV: 17 buy, 0 sell — strongest confirmation in the universe today",
+        "Earnings ~Aug 6 — trim half before report to manage binary event risk"
+      ],
+      "entry": 500.0,
+      "stop": 462.0,
+      "target": 576.0
+    },
+    {
+      "ticker": "AMD",
+      "signal": "STRONG BUY",
+      "score": 94.0,
+      "grade": "A+",
+      "thesis": "AMD is the top-ranked ticker in today's scan at 94.0. VCP 6 contractions with a 5.8% tightest pullback, RS line at new highs, pocket pivot signal. The MI300X GPU is taking meaningful share in AI inference workloads. Q1 FY2026 showed data center revenue surging as TSLA, Amazon, and Meta all confirmed as MI300X buyers. TV: STRONG_BUY (16/1) — near-unanimous confirmation with only 1 dissenting sell vote.",
+      "strengths": [
+        "Score 94.0 — top of the universe today",
+        "VCP 6 contractions, tightest 5.8%, price $580.91 above MA50 $450 — clean Stage 2",
+        "RS line at new highs — institutional rotation leading price",
+        "TV: STRONG_BUY (16/1) — near-unanimous confirmation"
+      ],
+      "risks": [
+        "NVIDIA holds dominant AI training share — AMD is the challenger, not the king",
+        "Semiconductor cycles can reverse quickly if data center capex guidance disappoints"
+      ],
+      "watch": [
+        "MA50 $450 is the key support — a sustained break below invalidates the setup",
+        "TV: 16 buy, 1 sell — strong confirmation",
+        "NVIDIA earnings are a sector read-through for AI spend velocity"
+      ],
+      "entry": 590.0,
+      "stop": 545.0,
+      "target": 680.0
+    },
+    {
+      "ticker": "LRCX",
+      "signal": "STRONG BUY",
+      "score": 92.9,
+      "grade": "A+",
+      "thesis": "Lam Research is the etch/deposition equipment leader — every advanced chip at TSMC, Samsung, or Intel's fab runs through Lam's systems. VCP 6 contractions, RS line at new highs, EPS growing 41% YoY. The semiconductor equipment cycle is in a major upcycle as CoWoS, HBM, and advanced packaging volumes surge. TV: STRONG_BUY (17/0) — perfect score, zero sell votes. Both our scan and TradingView are in complete agreement.",
+      "strengths": [
+        "VCP 6 contractions, tightest 7.4%, price $433.33 — coiled-spring setup",
+        "EPS +41% YoY — institutional-grade earnings momentum",
+        "RS line at new highs — leading the semi equipment space",
+        "TV: STRONG_BUY 17/0 — maximum technical confirmation"
+      ],
+      "risks": [
+        "Tariff exposure on components; semiconductor equipment demand is lumpy",
+        "Any capex pause from hyperscalers shows up immediately in LRCX results"
+      ],
+      "watch": [
+        "MA50 $316 is the major support floor — a break invalidates the Stage 2",
+        "TSMC/Samsung capex guidance is the leading indicator for LRCX demand",
+        "TV: 17 buy, 0 sell — unanimously bullish from every technical angle"
+      ],
+      "entry": 440.0,
+      "stop": 405.0,
+      "target": 510.0
+    },
+    {
+      "ticker": "TSM",
+      "signal": "STRONG BUY",
+      "score": 92.6,
+      "grade": "A+",
+      "thesis": "Taiwan Semiconductor is the backbone of AI — every H100, MI300X, and Apple Silicon chip is fabbed here. VCP 7 contractions with RS line at new highs. EPS growing 58% YoY driven by CoWoS packaging demand and N3/N2 node pricing power. TSMC Arizona is reducing US-based supply chain risk narrative. TV: STRONG_BUY (17/0) — perfect confirmation mirroring its fundamental dominance.",
+      "strengths": [
+        "VCP 7 contractions, tightest 7.6%, price $477.24 — deepest multi-contraction base",
+        "EPS +58% YoY — exceptional earnings power for a $1T+ company",
+        "RS line at new highs — leading the global semiconductor index",
+        "TV: STRONG_BUY 17/0 — maximum technical confirmation"
+      ],
+      "risks": [
+        "Geopolitical risk (Taiwan Strait) — the single biggest tail risk in the portfolio",
+        "USD/TWD dynamics affect US ADR pricing"
+      ],
+      "watch": [
+        "MA50 $416 is the key support level",
+        "NVIDIA AI chip order flow is the real-time demand signal for TSM capacity",
+        "TV: 17 buy, 0 sell — strongest possible confirmation"
+      ],
+      "entry": 483.0,
+      "stop": 443.0,
+      "target": 563.0
+    },
+    {
+      "ticker": "GNRC",
+      "signal": "STRONG BUY",
+      "score": 92.2,
+      "grade": "A",
+      "thesis": "Generac is emerging as an AI infrastructure play through data center backup power. The explosion of GPU-dense hyperscaler data centers demands reliable backup generation — Generac's industrial systems are a direct beneficiary. RS line at new highs. TV: STRONG_BUY (17/0) — perfect score, unanimous. Clean, unextended setup at RSI 60 entering Q3 as data center power demand projections are being revised significantly upward.",
+      "strengths": [
+        "RS line at new highs vs S&P 500 — institutional accumulation building",
+        "TV: STRONG_BUY 17/0 — maximum technical confirmation",
+        "Data center backup power: AI infrastructure drives structural demand, not cyclical",
+        "Score 92.2, RSI 60.0 — ideal entry zone, not extended"
+      ],
+      "risks": [
+        "Residential generator segment is maturing — growth depends on commercial/industrial execution",
+        "Competition from Caterpillar and Cummins in commercial data center power contracts"
+      ],
+      "watch": [
+        "TV: 17 buy, 0 sell — strongest confirmation in industrials today",
+        "Data center capex announcements are near-term catalysts",
+        "RSI 60 — room to run without reversal risk"
+      ]
+    },
+    {
+      "ticker": "ASML",
+      "signal": "STRONG BUY",
+      "score": 92.0,
+      "grade": "A",
+      "thesis": "ASML is the only company on Earth that makes EUV lithography systems — the machines that print advanced chips at 3nm and below. Without ASML, there is no AI chip manufacturing. RS line at new highs. Revenue targets were raised as 2nm HVM ramps at TSMC and Samsung. TV: STRONG_BUY (16/1) — near-unanimous. RSI 60.9 is healthy and unextended.",
+      "strengths": [
+        "Monopoly on EUV lithography — structurally irreplaceable supply chain position",
+        "RS line at new highs — leading the semiconductor equipment complex",
+        "TV: STRONG_BUY 16/1 — near-unanimous technical confirmation",
+        "Multi-year revenue visibility through order backlog"
+      ],
+      "risks": [
+        "Export controls on China shipments — an ongoing material revenue overhang",
+        "European geopolitical risk and US-EU chip alliance dynamics"
+      ],
+      "watch": [
+        "TV: 16 buy, 1 sell — strong confirmation",
+        "China export control updates are a binary catalyst risk",
+        "RSI 60.9 — healthy and unextended, room to run"
+      ]
+    },
+    {
+      "ticker": "FLEX",
+      "signal": "STRONG BUY",
+      "score": 90.7,
+      "grade": "A",
+      "thesis": "Flex is the global electronics manufacturing services leader — AI hardware, medical devices, automotive, and cloud infrastructure all run through its factories. RS line at new highs. Reshoring mandates and EMS industry consolidation are structural tailwinds. TV: STRONG_BUY (16/1). RSI 58.5 is the cleanest entry RSI in the technology group — room to run.",
+      "strengths": [
+        "RS line at new highs — outperforming the market",
+        "TV: STRONG_BUY 16/1 — strong technical confirmation",
+        "Reshoring tailwind: US manufacturing mandates directing new orders",
+        "RSI 58.5 — most unextended technology pick on this list"
+      ],
+      "risks": [
+        "Thin margins typical of contract manufacturers — execution risk on new program ramps",
+        "Customer concentration: top 5 customers represent significant revenue"
+      ],
+      "watch": [
+        "TV: 16 buy, 1 sell — clean confirmation",
+        "AI hardware design-win announcements from hyperscalers = near-term catalyst",
+        "RSI 58.5 — ideal entry zone"
+      ]
+    },
+    {
+      "ticker": "DELL",
+      "signal": "STRONG BUY",
+      "score": 89.8,
+      "grade": "A",
+      "thesis": "Dell Technologies is the AI server pick for enterprises — PowerEdge servers with NVIDIA H100/H200 GPUs are the preferred corporate AI deployment platform. RSI 64.4 is healthy. TV: STRONG_BUY (16/1). The ISG (Infrastructure Solutions Group) segment is the growth engine as enterprises accelerate AI infrastructure buildout in H2 2026.",
+      "strengths": [
+        "TV: STRONG_BUY 16/1 — near-unanimous technical confirmation",
+        "AI server demand: NVIDIA's preferred OEM partner for H100/H200 GPU servers",
+        "Score 89.8, RSI 64.4 — strong, unextended setup",
+        "Enterprise AI infrastructure spending is accelerating in H2 2026"
+      ],
+      "risks": [
+        "AI server gross margins are lower than traditional enterprise products — mix headwind",
+        "PC segment is mature; growth depends almost entirely on server/storage execution"
+      ],
+      "watch": [
+        "TV: 16 buy, 1 sell — strong confirmation",
+        "Quarterly AI server order commentary is the key metric",
+        "RSI 64.4 — healthy momentum, not overextended"
+      ]
+    },
+    {
+      "ticker": "VRT",
+      "signal": "STRONG BUY",
+      "score": 85.7,
+      "grade": "A",
+      "thesis": "Vertiv is the data center power and thermal management leader. As GPU clusters consume 10-30x more power per rack than traditional servers, liquid cooling and power distribution are mandatory infrastructure. TV: STRONG_BUY (17/0) — perfect score. Every hyperscaler expanding AI capacity is a direct Vertiv customer. RSI 60.6 is clean and unextended.",
+      "strengths": [
+        "TV: STRONG_BUY 17/0 — maximum technical confirmation",
+        "Data center power/cooling: AI infrastructure drives multi-year structural demand",
+        "Score 85.7, RSI 60.6 — clean, unextended setup",
+        "AWS, Microsoft, Google are all Vertiv customers for cooling infrastructure"
+      ],
+      "risks": [
+        "Supply chain constraints on specialized cooling components (pumps, heat exchangers)",
+        "Premium valuation — any guidance miss could cause a sharp correction"
+      ],
+      "watch": [
+        "TV: 17 buy, 0 sell — unanimously bullish",
+        "Data center cooling contract announcements are near-term catalysts",
+        "RSI 60.6 — ideal entry territory"
+      ]
+    },
+    {
+      "ticker": "SNDK",
+      "signal": "STRONG BUY",
+      "score": 88.4,
+      "grade": "A",
+      "thesis": "SanDisk (spun off from Western Digital) is the pure-play NAND flash storage story. AI model training and inference require massive fast storage — NAND demand is structurally growing. TV: STRONG_BUY (17/0) — perfect confirmation. Score 88.4 with RSI 64.1 — healthy and unextended for a recently restructured entity still in the institutional accumulation phase.",
+      "strengths": [
+        "TV: STRONG_BUY 17/0 — maximum technical confirmation",
+        "Pure-play NAND flash: AI workload storage demand is an underappreciated tailwind",
+        "Score 88.4, RSI 64.1 — clean, unextended setup",
+        "Spin-off discount: institutional rebalancing creating a buyable opportunity"
+      ],
+      "risks": [
+        "NAND pricing cycles can be brutal — oversupply periods devastate margins",
+        "Samsung and SK Hynix are formidable competitors with larger scale"
+      ],
+      "watch": [
+        "TV: 17 buy, 0 sell — unanimous confirmation",
+        "NAND spot pricing trend is the key industry indicator to monitor",
+        "RSI 64.1 — healthy momentum"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "signal": "STRONG BUY",
+      "score": 87.1,
+      "grade": "A",
+      "thesis": "Intel is the most contrarian strong buy in today's scan — and the data argues to take it seriously. RSI 69.2, RS line at new highs, TV STRONG_BUY (17/0) with zero sell votes — the technicals are unanimously bullish. Lip-Bu Tan's restructuring is showing early results: foundry separation, IFS signing external customers, and CHIPS Act funding flowing. Asymmetric risk/reward if the turnaround thesis plays out.",
+      "strengths": [
+        "RS line at new highs — institutional money rotating into the turnaround",
+        "TV: STRONG_BUY 17/0 — strongest technical confirmation possible",
+        "Foundry turnaround: IFS gaining traction, CHIPS Act funding deployed",
+        "Score 87.1, RSI 69.2 — improving technical trajectory"
+      ],
+      "risks": [
+        "Turnaround is not guaranteed — TSMC and Samsung maintain a 2-3 node process lead",
+        "Cash burn during the restructuring and foundry buildout is substantial"
+      ],
+      "watch": [
+        "TV: 17 buy, 0 sell — unanimous; strongest signal for a turnaround stock we have seen",
+        "IFS customer wins are the binary catalyst — each new win validates the thesis",
+        "RSI 69.2 approaching elevated territory — tighter stop warranted vs. typical STRONG BUY"
+      ]
+    },
+    {
+      "ticker": "FFIV",
+      "signal": "STRONG BUY",
+      "score": 91.6,
+      "grade": "A",
+      "thesis": "F5 Networks is the application delivery and security platform — enterprises rely on it for multi-cloud traffic management. RS line at new highs. Hybrid multi-cloud is expanding F5's addressable market. TV: STRONG_BUY (16/1) — near-unanimous. Score 91.6 with RSI 65.6 — clean setup. The AI-driven application security spending cycle is a direct tailwind.",
+      "strengths": [
+        "RS line at new highs — outperforming as cloud security spending accelerates",
+        "TV: STRONG_BUY 16/1 — near-unanimous confirmation",
+        "Score 91.6, RSI 65.6 — strong setup, unextended",
+        "Multi-cloud security: durable growing market with high switching costs"
+      ],
+      "risks": [
+        "Competition from Cloudflare and Zscaler in application delivery",
+        "Hardware replacement cycles can be lumpy and affect quarterly results"
+      ],
+      "watch": [
+        "TV: 16 buy, 1 sell — strong confirmation",
+        "Multi-cloud adoption announcements are catalysts",
+        "RSI 65.6 — healthy"
+      ]
+    },
+    {
+      "ticker": "RBRK",
+      "signal": "STRONG BUY",
+      "score": 83.8,
+      "grade": "A",
+      "thesis": "Rubrik is the data security platform for the AI era — protecting hybrid cloud and on-premise data from ransomware at enterprise scale. TV: STRONG_BUY (16/0) — zero sell votes. As AI pipelines multiply the attack surface, backup and recovery security is becoming mandatory enterprise spend. RSI 67.8, score 83.8. Still in the institutional accumulation phase as a recent IPO.",
+      "strengths": [
+        "TV: STRONG_BUY 16/0 — zero sell votes, near-perfect confirmation",
+        "Ransomware protection: growing regulatory mandate = recurring, non-discretionary demand",
+        "Score 83.8, RSI 67.8 — solid setup for a recent IPO",
+        "SaaS-model revenue with high net revenue retention"
+      ],
+      "risks": [
+        "Growth-stage losses — not yet consistently profitable",
+        "Competition from Cohesity and Veeam in data protection"
+      ],
+      "watch": [
+        "TV: 16 buy, 0 sell — near-perfect confirmation",
+        "Quarterly ARR growth rate is the key metric to monitor",
+        "RSI 67.8 — healthy, room to extend"
+      ]
+    },
+    {
+      "ticker": "AMKR",
+      "signal": "STRONG BUY",
+      "score": 88.9,
+      "grade": "A",
+      "thesis": "Amkor Technology is the semiconductor packaging and testing leader. As advanced packaging (CoWoS, SoIC, fan-out) becomes the primary AI chip performance lever, Amkor is a structural beneficiary. TV: STRONG_BUY (16/1). RSI 64.3 is healthy. Directly linked to TSMC's CoWoS capacity expansion for NVIDIA's H100/H200/B200 AI chips.",
+      "strengths": [
+        "TV: STRONG_BUY 16/1 — near-unanimous confirmation",
+        "Advanced packaging: CoWoS demand for AI chips is the key structural driver",
+        "Score 88.9, RSI 64.3 — clean, unextended setup",
+        "Direct TSMC supply chain partner for AI chip packaging"
+      ],
+      "risks": [
+        "Capex-intensive business — capacity additions require significant ongoing investment",
+        "Geographic concentration in Korea/Taiwan with geopolitical risk"
+      ],
+      "watch": [
+        "TV: 16 buy, 1 sell — strong confirmation",
+        "NVIDIA CoWoS allocation updates are the leading demand signal",
+        "RSI 64.3 — clean entry zone"
+      ]
+    },
+    {
+      "ticker": "FAST",
+      "signal": "STRONG BUY",
+      "score": 91.4,
+      "grade": "A",
+      "thesis": "Fastenal is the industrial distribution bellwether — a proxy for US manufacturing activity. Score 91.4, TV: STRONG_BUY (16/0), RSI 60.4. As US reshoring accelerates, Fastenal's vending machine and warehouse distribution model is capturing more MRO spend at new domestic factories. Consistent double-digit earnings growth and high ROIC make it a core institutional holding.",
+      "strengths": [
+        "TV: STRONG_BUY 16/0 — strong confirmation",
+        "US reshoring: new domestic factories expanding Fastenal's customer base",
+        "Score 91.4, RSI 60.4 — clean, unextended",
+        "Consistent double-digit earnings growth, high ROIC — institutional quality"
+      ],
+      "risks": [
+        "Trades at a valuation premium — any macro slowdown creates estimate risk",
+        "If US manufacturing activity contracts, Fastenal is a leading indicator to the downside"
+      ],
+      "watch": [
+        "TV: 16 buy, 0 sell — clean confirmation",
+        "Monthly Fastenal fastener volume commentary is an early demand indicator",
+        "RSI 60.4 — ideal entry territory"
+      ]
+    },
+    {
+      "ticker": "JBHT",
+      "signal": "STRONG BUY",
+      "score": 91.5,
+      "grade": "A",
+      "thesis": "J.B. Hunt is the US intermodal transport leader — making new RS highs as Q2 ends with freight rates showing early signs of recovery. TV: STRONG_BUY (15/1). RSI 51.6 is the lowest RSI of any STRONG BUY on this list — this is very early in the move, the most unextended major setup in the universe today. The intermodal market typically leads a broader freight recovery by 2-3 quarters.",
+      "strengths": [
+        "RS line at new highs — leading the industrial/transport complex",
+        "TV: STRONG_BUY 15/1 — strong confirmation",
+        "RSI 51.6 — lowest on the list, most room to run without reversal risk",
+        "Intermodal volume inflection: freight recovery is early, not late"
+      ],
+      "risks": [
+        "Freight markets remain below cycle-peak levels — full recovery not yet certain",
+        "Fuel cost volatility affects operating margins"
+      ],
+      "watch": [
+        "TV: 15 buy, 1 sell — strong confirmation",
+        "Weekly rail carload data is the real-time demand proxy",
+        "RSI 51.6 — extremely unextended; the biggest room to run of any pick today"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "signal": "STRONG BUY",
+      "score": 92.2,
+      "grade": "A",
+      "thesis": "Micron Technology is the US leader in DRAM and NAND — and the primary beneficiary of HBM demand for AI chips. HBM3E is already in NVIDIA's H200; HBM4 ramp is the next catalyst. Score 92.2, RSI 61.4. TV: BUY (14/3) — solid confirmation with 3 dissenting sell votes to note. The memory upcycle is early, not late.",
+      "strengths": [
+        "HBM3E in NVIDIA H200 — only US-based HBM supplier at scale",
+        "Score 92.2, RSI 61.4 — strong and unextended",
+        "Memory upcycle: DRAM pricing recovering as AI demand outpaces capacity",
+        "TV: BUY (14/3) — strong confirmation"
+      ],
+      "risks": [
+        "TV: 3 sell votes — not unanimous; some technical caution warranted",
+        "Memory cycles can reverse — if DRAM pricing falls, estimates drop sharply",
+        "Samsung and SK Hynix racing to close the HBM capacity gap"
+      ],
+      "watch": [
+        "TV says BUY with 3 dissenting sells — we call STRONG BUY on fundamentals",
+        "HBM4 production announcements are the next major catalyst",
+        "DRAM spot pricing index is the leading revenue indicator"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "signal": "STRONG BUY",
+      "score": 91.5,
+      "grade": "A",
+      "thesis": "Eli Lilly is the GLP-1 and oncology powerhouse — Mounjaro/Zepbound supply is ramping while Kisunla (Alzheimer's) opens a new multi-billion dollar market. Score 91.5, RSI 60.6. TV: BUY (14/4) — strong confirmation with 4 sell votes reflecting premium valuation concern. The GLP-1 market is potentially a $100B+ opportunity with Lilly as the best-positioned player globally.",
+      "strengths": [
+        "Mounjaro/Zepbound: fastest drug ramp in pharmaceutical history",
+        "Score 91.5, RSI 60.6 — strong, unextended setup",
+        "Kisunla: Alzheimer's market adds a new $10B+ revenue line",
+        "TV: BUY (14/4) — strong confirmation"
+      ],
+      "risks": [
+        "TV: 4 sell votes — valuation concern at premium P/E reflected by dissent",
+        "GLP-1 competition from Novo Nordisk is intensifying",
+        "Injectable biologics supply chain complexity — any manufacturing issue = estimate risk"
+      ],
+      "watch": [
+        "TV says BUY with 4 dissenting sells — we hold STRONG BUY on the fundamental thesis",
+        "Weekly Mounjaro/Zepbound prescription data (IQVIA Rx) is the key metric",
+        "RSI 60.6 — clean entry zone"
+      ]
+    },
+    {
+      "ticker": "BIIB",
+      "signal": "STRONG BUY",
+      "score": 92.6,
+      "grade": "A",
+      "thesis": "Biogen is in a turnaround driven by Leqembi — the first Alzheimer's disease-modifying therapy with broad Medicare coverage. Score 92.6, RSI 68.5, RS line at new highs. TV: BUY (15/2) — strong confirmation. Leqembi adoption is still in early innings as prescriber confidence and patient selection protocols mature. The Alzheimer's market is multi-decade in scope.",
+      "strengths": [
+        "RS line at new highs — institutional money rotating into Alzheimer's treatment leaders",
+        "TV: BUY 15/2 — strong confirmation",
+        "Leqembi: first disease-modifying Alzheimer's therapy with full Medicare coverage",
+        "Score 92.6, RSI 68.5 — strong setup"
+      ],
+      "risks": [
+        "Leqembi adoption slower than initial projections — brain bleed safety data limits eligible patients",
+        "Legacy MS drugs declining; growth depends on Alzheimer's ramp"
+      ],
+      "watch": [
+        "TV: 15 buy, 2 sell — strong confirmation with mild dissent",
+        "Quarterly Leqembi prescription volume is the key adoption metric",
+        "RSI 68.5 — approaching elevated territory; a pullback would be a better entry"
+      ]
+    },
+    {
+      "ticker": "AFL",
+      "signal": "STRONG BUY",
+      "score": 92.3,
+      "grade": "A",
+      "thesis": "Aflac is the supplemental insurance giant — Japan-exposed, dividend-growing, and the most undervalued setup in the Financials group today. Score 92.3, RSI 55.0. TV: BUY (12/4). The low RSI of 55.0 is a feature — this has the most room to run of any Financial on the list without overextension risk. Yen carry trade normalization is a potential positive for Aflac's Japan unit.",
+      "strengths": [
+        "RSI 55.0 — most room to run in Financials without overextension",
+        "Score 92.3 — near the top of the scanned universe",
+        "40+ consecutive years of dividend increases — institutional income holding",
+        "TV: BUY (12/4) — solid confirmation"
+      ],
+      "risks": [
+        "TV: 4 sell votes — not unanimous; some technical caution",
+        "Japan exposure: yen fluctuations affect reported USD earnings",
+        "Supplemental insurance growth is slower than P&C or investment banking"
+      ],
+      "watch": [
+        "TV says BUY with 4 sell votes — we like the low RSI 55 as a feature, not a bug",
+        "Yen/USD rate movement is a meaningful variable for the Japan unit",
+        "RSI 55 — most unextended Financial pick; one of the cleanest risk/rewards today"
+      ]
+    },
+    {
+      "ticker": "C",
+      "signal": "STRONG BUY",
+      "score": 93.5,
+      "grade": "A+",
+      "thesis": "Citigroup is the highest-scored Financial at 93.5. Jane Fraser's transformation is gaining credibility — the bank is shedding non-core businesses and improving ROTCE. Earnings season starts in ~2 weeks — the optimal pre-earnings window. TV: BUY (11/5) — solid confirmation but 5 sell votes suggest technical resistance; position at half-size.",
+      "strengths": [
+        "Score 93.5 — highest-ranked Financial in the universe today",
+        "Earnings in ~2 weeks — optimal pre-earnings catalyst window",
+        "Transformation delivering ROTCE improvement — cheap at fwd P/E 11x",
+        "TV: BUY (11/5) — solid directional confirmation"
+      ],
+      "risks": [
+        "TV: 5 sell votes — most dissent of any pick on this list; half-size position warranted",
+        "Banking-sector correlation: macro shocks hit all banks regardless of quality",
+        "RSI 60.4 fine but TV dissent argues for caution above near-term resistance"
+      ],
+      "watch": [
+        "TV says BUY but with 5 dissenting sells — half-size position is the right call",
+        "Earnings in 2 weeks: hold through with a stop below pre-earnings support",
+        "RSI 60.4 — clean, but tread carefully given TV dissent"
+      ]
+    },
+    {
+      "ticker": "FTNT",
+      "signal": "WATCH",
+      "score": 93.3,
+      "grade": "A+",
+      "thesis": "Fortinet is the highest-quality A+ cybersecurity setup in the scan — VCP 4 contractions with a 3.6% tightest pullback, RS line at new highs. The issue: RSI 71.8 is elevated and approaching the overextended zone. TV: BUY (13/5) — solid but 5 sell votes signal technical resistance at current levels. Best approach: wait for a 5-7% pullback toward MA50 $124 for a cleaner entry. TV confirms the direction; the risk/reward is better on a dip.",
+      "strengths": [
+        "VCP 4 contractions, tightest 3.6%, price $153.62 — classic coiled-spring",
+        "RS line at new highs — leading the cybersecurity sector",
+        "TV: BUY (13/5) — solid directional confirmation"
+      ],
+      "risks": [
+        "RSI 71.8 — approaching overextended territory; chasing risk is elevated",
+        "TV: 5 sell votes — meaningful technical dissent at current prices",
+        "SASE/XDR market competitive: Palo Alto Networks and CrowdStrike as rivals"
+      ],
+      "watch": [
+        "Pullback to MA50 $124 area = ideal entry for this setup",
+        "TV: BUY with 5 sell votes — wait for the dip, don't chase",
+        "RSI needs to cool below 65 for a cleaner risk/reward entry"
+      ]
+    },
+    {
+      "ticker": "MNST",
+      "signal": "WATCH",
+      "score": 93.3,
+      "grade": "A+",
+      "thesis": "Monster Beverage has an elite A+ VCP setup — 3 contractions with only 2.0% tightest pullback — but RSI 73.3 is extended. TV: BUY (14/4). This is a patience setup: the 2.0% VCP contraction is the tightest in the scan universe and signals a high-velocity move when it breaks. Wait for a 3-5% pullback to the $90 area. Don't chase extended RSI on an otherwise elite base.",
+      "strengths": [
+        "VCP 3 contractions, tightest 2.0%, price $96.12 — most explosive potential base",
+        "RS line at new highs — Monster outperforming the S&P 500",
+        "TV: BUY (14/4) — solid confirmation"
+      ],
+      "risks": [
+        "RSI 73.3 — extended; chasing here risks buying the short-term top",
+        "TV: 4 sell votes — some technical resistance at current levels",
+        "Energy drink category growth is maturing; international expansion is the incremental story"
+      ],
+      "watch": [
+        "Pullback to $90 area (near MA50 $86) = ideal entry zone",
+        "TV: BUY with 4 sells — let the RSI cool to 60-65 first",
+        "Tightest VCP contraction of 2.0% means a powerful move comes — be patient"
+      ]
+    },
+    {
+      "ticker": "AMAT",
+      "signal": "WATCH",
+      "score": 92.5,
+      "grade": "A",
+      "thesis": "Applied Materials is the deposition and etch equipment leader alongside LRCX. Score 92.5, RS line at new highs. The issue: RSI 74.6 — this is an extended setup. TV: STRONG_BUY (16/0) — perfect confirmation but that also means a lot of optimism is already reflected technically. Wait for a pullback for a better entry. TV fully confirms the direction but LRCX (with RSI 69.1) is the cleaner entry in semi equipment right now.",
+      "strengths": [
+        "RS line at new highs — co-leading the semi equipment space with LRCX",
+        "TV: STRONG_BUY 16/0 — maximum technical confirmation",
+        "Score 92.5 — top-tier setup in the semi equipment complex"
+      ],
+      "risks": [
+        "RSI 74.6 — extended; buying here adds short-term reversal risk",
+        "China equipment export controls are an ongoing revenue headwind",
+        "TV STRONG_BUY with RSI 74.6 = optimism already technically priced in"
+      ],
+      "watch": [
+        "TV: 16 buy, 0 sell — direction confirmed completely; timing is the only issue",
+        "Pullback to RSI 60-65 = ideal entry; LRCX is the cleaner entry today",
+        "RSI 74.6 — be patient"
+      ]
+    },
+    {
+      "ticker": "GLW",
+      "signal": "WATCH",
+      "score": 94.0,
+      "grade": "A+",
+      "thesis": "Corning is tied for the top score at 94.0 — but RSI 74.9 is elevated. VCP 6 contractions A+ setup, price $255.49. The optical fiber business is booming from hyperscaler data center interconnect demand. TV: BUY (15/3). Wait for a 5-8% pullback toward MA50 $187. On any dip, this becomes the strongest-scored entry in the scan universe.",
+      "strengths": [
+        "Score 94.0 — tied for the highest in the universe today",
+        "VCP 6 contractions, RS line at new highs, price $255.49 above MA50 $187",
+        "Optical fiber: AI data center interconnect is a structural demand boom",
+        "TV: BUY (15/3) — solid confirmation"
+      ],
+      "risks": [
+        "RSI 74.9 — extended; too hot to buy at current levels",
+        "TV: 3 sell votes — resistance acknowledged at current price",
+        "Display glass segment is cyclical and dampens the optical fiber story"
+      ],
+      "watch": [
+        "Pullback to $230-240 range (toward MA50 $187) = the entry to act on",
+        "TV: BUY with 3 sell votes and RSI 74.9 — wait, do not chase",
+        "At 94.0 score, any pullback is a buying opportunity — have an alert set"
+      ]
+    },
+    {
+      "ticker": "LQDA",
+      "signal": "WATCH",
+      "score": 93.8,
+      "grade": "A+",
+      "thesis": "Liquidia is the specialty pharma setup of the quarter — VCP 6 contractions with a 3.9% tightest pullback at price $79.73. TV: STRONG_BUY (16/0) — unanimous, zero sell votes. Both our scan and TradingView fully agree. The issue: RSI 73.7 is elevated. Liquidia's YUTREPIA (inhaled treprostinil) for pulmonary arterial hypertension is a genuine competitive threat to United Therapeutics' dominance in a $3B+ monopoly market.",
+      "strengths": [
+        "VCP 6 contractions, tightest 3.9%, price $79.73 above MA50 $57 — elite base",
+        "TV: STRONG_BUY 16/0 — unanimous confirmation, zero dissent",
+        "YUTREPIA approval: first competition to a $3B+ monopoly market"
+      ],
+      "risks": [
+        "RSI 73.7 — extended; near-term reversal risk is elevated here",
+        "United Therapeutics litigation risk remains a binary event",
+        "Small-cap biotech: high volatility on any sales ramp data surprises"
+      ],
+      "watch": [
+        "TV: 16 buy, 0 sell — unanimous; direction is unambiguous",
+        "Pullback to the $70-72 area = cleaner entry",
+        "RSI needs to cool to 65 area before this is a STRONG BUY entry"
+      ]
+    },
+    {
+      "ticker": "ALAB",
+      "signal": "WATCH",
+      "score": 90.9,
+      "grade": "A",
+      "thesis": "Astera Labs is the PCIe and CXL connectivity semiconductor company — their chips are mandatory in AI server racks connecting GPUs to memory and storage. TV: STRONG_BUY (17/1) — near-maximum confirmation. RSI 72.1 is slightly elevated. Score 90.9. Wait for RSI to cool to 65. Any pullback in the semiconductor sector is the entry point for ALAB.",
+      "strengths": [
+        "TV: STRONG_BUY 17/1 — near-maximum confirmation",
+        "PCIe/CXL connectivity: mandatory AI server rack infrastructure, no substitutes",
+        "Score 90.9 — elite tier"
+      ],
+      "risks": [
+        "RSI 72.1 — slightly elevated; slightly extended here",
+        "Customer concentration in hyperscalers is meaningful risk for a small-cap semi",
+        "TV: 1 sell vote — noting the slight dissent"
+      ],
+      "watch": [
+        "TV: 17 buy, 1 sell — near-unanimous; direction is clear",
+        "Pullback to RSI 60-65 = entry zone",
+        "Broader semi pullback creates the entry here"
+      ]
+    },
+    {
+      "ticker": "PANW",
+      "signal": "WATCH",
+      "score": 86.5,
+      "grade": "B",
+      "thesis": "Palo Alto Networks is the cybersecurity platform leader — platformization is winning enterprise deals. RS line at new highs. But RSI 88.8 is dangerously extended — one of the most overbought readings in the entire scanned universe today. TV rating was not available in today's run. Wait for a 10-15% pullback before considering entry. The setup will be far cleaner after consolidation.",
+      "strengths": [
+        "RS line at new highs — institutional accumulation continuing in cybersecurity",
+        "Platform consolidation: PANW winning multi-product deals vs. point solutions",
+        "Score 86.5 — strong fundamentals backing the technical setup"
+      ],
+      "risks": [
+        "RSI 88.8 — severely extended; the most overbought name in the universe today",
+        "TV rating not available in today's run — missing independent technical confirmation",
+        "Extended names at RSI 88+ historically need 10-20% corrections before resuming"
+      ],
+      "watch": [
+        "TV: not rated today — missing confirmation; adds caution",
+        "RSI 88.8 — do not buy here; wait for RSI to come in to the 60-70 zone",
+        "MA50 pullback = the eventual re-entry level after correction"
+      ]
+    }
+  ]
+}

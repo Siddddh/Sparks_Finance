@@ -1,431 +1,490 @@
 {
-  "date": "2026-06-30",
+  "date": "2026-07-02",
   "analyses": [
     {
-      "ticker": "ROK",
-      "name": "Rockwell Automation",
+      "ticker": "BK",
+      "name": "The Bank of New York Mellon",
       "signal": "STRONG BUY",
-      "verdict": "The cleanest breakout in the scan today — pocket pivot at a 52-week high, EPS +40%, and the industrial automation sector riding the AI-driven manufacturing renaissance.",
+      "verdict": "Cleanest technical setup in the scan, backed by real earnings acceleration — buy the breakout, trim before the July 15 print.",
       "financials": {
-        "period": "FY2025 (ended Sep 2025)",
-        "summary": "Rockwell returned to strong profitability as the post-pandemic inventory digestion cycle ended and new orders accelerated from discrete manufacturers building AI-enabled factories. EPS growth of 40% YoY on revenue growth of 12% demonstrates meaningful operating leverage. Gross margins have stabilized and the company reinstated its share repurchase program with authority to buy back ~$1B in FY2026.",
+        "period": "FY2025",
+        "summary": "The world's largest custody bank continued to benefit from higher markets (fee income scales with assets under custody/administration) and higher-for-longer short rates on its deposit book. Net interest income and fee income both grew, expenses stayed disciplined, and the bank kept returning capital via buybacks.",
         "highlights": [
-          "EPS +40% YoY — strongest earnings recovery in industrial automation",
-          "Revenue +12% — discrete manufacturing and life sciences driving demand",
-          "Gross margin ~42% — stable and among the highest in industrial automation",
-          "Raised FY2026 guidance on continued order momentum",
-          "Share repurchase program active — management returning capital to shareholders"
+          "EPS growth of roughly +42% YoY per the latest trailing figures",
+          "Revenue growth of roughly +13% YoY",
+          "Continued share buybacks supporting EPS growth on top of operating gains",
+          "Assets under custody/administration near record levels on higher equity markets"
         ]
       },
       "accomplishments": [
-        "Launched FactoryTalk AI platform — embedded AI in factory automation software used by 2,500+ customers globally",
-        "Signed five-year AI manufacturing partnership with a Tier-1 EV battery maker (undisclosed)",
-        "Won $400M+ in new discrete manufacturing orders from reshoring US semiconductor fabs",
-        "Acquired Clearpath Robotics to expand autonomous mobile robot (AMR) portfolio",
-        "Expanded EMEA AI factory presence — 18 new design wins in Germany, Italy, and the Netherlands"
+        "Continued expansion of digital-assets/tokenization custody services for institutional clients",
+        "Ongoing buyback program shrinking share count",
+        "Record or near-record levels of assets under custody"
       ],
       "journey_52w": {
-        "summary": "ROK bottomed in late 2024 after a painful post-pandemic correction from $350+ to under $250, as customers worked through two years of excess inventory. The recovery began in Q1 2025 when order rates finally turned positive and management guided above consensus. The stock has been in a clean Stage 2 uptrend for four consecutive quarters, breaking above every key moving average and finding institutional support on every pullback. Today's pocket pivot (a high-volume day where the stock opens above the prior week's high) near the 52-week high is the technical signal that institutional accumulation is continuing.",
+        "summary": "BK spent the past year in a steady Stage 2 uptrend, grinding from the low-$90s to the mid-$140s with only shallow pullbacks — the kind of low-volatility grind institutions favor. It's now coiling in its tightest base of the year (3% contraction) just 2.5% under its 52-week high.",
         "milestones": [
-          {"label": "Sep 2025", "note": "Order rates turn positive YoY for first time in 6 quarters — the inflection point"},
-          {"label": "Nov 2025", "note": "EPS beat drives stock to break above the 200-day MA for first time in two years"},
-          {"label": "Feb 2026", "note": "Q1 FY2026 earnings beat consensus by 18% — guidance raised; institutional buying accelerates"},
-          {"label": "Apr 2026", "note": "Acquisition of Clearpath Robotics adds AMR to the AI factory portfolio"},
-          {"label": "Jun 2026", "note": "Pocket pivot at 52-week high — today's setup; RS line at new highs"}
+          {
+            "label": "Past year",
+            "note": "Steady higher-highs/higher-lows uptrend from the low-$90s toward $147"
+          },
+          {
+            "label": "Recent weeks",
+            "note": "Formed a 2-contraction VCP tightening to 3%, with the RS line hitting a new high"
+          }
         ]
       },
       "critical": {
         "risks": [
-          "Manufacturing recession risk — if global PMIs contract sharply, ROK order books will soften",
-          "fwd P/E 33x — premium valuation leaves little margin of safety on a miss",
-          "Competition from Siemens and ABB intensifying in European AI factory deployments",
-          "Tariff risk on Chinese-manufactured components (15-20% of COGS)"
+          "Earnings July 15 is a binary event after a big run-up",
+          "A market-wide selloff hits custody-fee income (AUC/A) directly since it scales with asset prices"
         ],
         "catalysts": [
-          "Earnings ~Aug 6 — expect guidance raised again if Q3 orders hold",
-          "FactoryTalk AI expanding to pharmaceutical and food/beverage verticals — new revenue stream",
-          "Semiconductor fab construction boom (TSMC Arizona, Samsung Texas) = multi-year ROK demand pipeline",
-          "US infrastructure + reshoring legislation driving discrete manufacturing capex"
+          "July 15 earnings — continued NII/fee beat would confirm the breakout",
+          "Any capital-markets rebound lifts AUC/A further"
         ],
         "watch": [
-          "Monthly PMI data — global manufacturing health is the leading indicator for ROK",
-          "Order-to-book ratio: if new orders outpace backlog, estimates go up",
-          "Hold above $450 (MA50) on any pullback — that's the line in the sand"
+          "Whether the stock can clear $147.29 (52-week high) on volume",
+          "Buyback pace in the next 10-Q"
         ],
-        "valuation": "fwd P/E 33x vs. historical average of 28x — a moderate premium justified by the AI factory automation narrative and higher long-term growth rate expectations. PEG ratio ~0.8x (33x P/E / 40% EPS growth) suggests the stock is actually undervalued on a growth-adjusted basis."
+        "valuation": "Fwd P/E ~14x — reasonable for a bank compounding EPS at 40%+, not obviously expensive"
       }
     },
     {
-      "ticker": "C",
-      "name": "Citigroup",
+      "ticker": "JPM",
+      "name": "JPMorgan Chase",
       "signal": "STRONG BUY",
-      "verdict": "Best pre-earnings setup in Financials — earnings in 14 days, EPS +56%, RS at new highs, and the cheapest valuation among money-center banks at 11.4x forward earnings.",
+      "verdict": "The largest US bank still setting the pace for the group heading into earnings — technical and TradingView signals both agree.",
       "financials": {
         "period": "FY2025",
-        "summary": "Citigroup's transformation under CEO Jane Fraser hit an inflection point in 2025. The combination of rising net interest income, a rebounding investment banking cycle, and successful divestiture of international consumer banking operations produced EPS growth of 56% — the strongest among the Big Four US banks. The balance sheet is cleaner with CET1 ratio now at 13.5%, above regulatory minimums, allowing the resumption of buybacks.",
+        "summary": "JPMorgan kept posting record or near-record profitability across its consumer, markets, and investment-banking franchises, with net interest income holding up better than feared and trading/banking fees recovering as capital-markets activity picked up.",
         "highlights": [
-          "EPS +56% YoY — best earnings growth among large US banks",
-          "Revenue +16% YoY — NII expansion + investment banking recovery",
-          "Net interest margin expanding as deposit repricing lags rate moves",
-          "CET1 ratio 13.5% — strong capital position supporting buyback resumption",
-          "fwd P/E 11.4x — significant discount to JPM (14x) and BAC (13x)"
+          "EPS growth of roughly +17% YoY",
+          "Revenue growth of roughly +13% YoY",
+          "Fortress balance sheet with CET1 well above regulatory minimums",
+          "Continued buybacks and a growing dividend"
         ]
       },
       "accomplishments": [
-        "Completed exit of international consumer banking (divested Mexico consumer unit — Banamex IPO)",
-        "Investment banking division returned to top-5 global ranking in equity underwriting",
-        "Launched Citi Treasury AI — enterprise cash management platform signed by 140 new corporates",
-        "Share buyback reinstatement — first meaningful repurchase since 2022",
-        "Simplified organizational structure from 11 divisions to 5 core businesses"
+        "Continued market-share gains in investment banking and trading",
+        "Ongoing technology/AI investment across the consumer and markets businesses",
+        "Dividend increases alongside buybacks"
       ],
       "journey_52w": {
-        "summary": "C spent most of 2024 as the bank that 'transformation skeptics' loved to short — every organizational announcement was greeted with 'we've heard this before.' The turning point was the Q4 2024 earnings report, where Jane Fraser showed that the simplification was producing real margin improvement, not just headcount cuts. From there, institutional money rotated back into C as one of the cheapest ways to play the US banking recovery with a real catalyst (transformation completion) rather than just macro sensitivity. Today the stock is 2.2% from a 52-week high and earnings are in 14 days.",
+        "summary": "JPM has been one of the steadiest large-cap uptrends of the past year, climbing from the low-$200s toward the mid-$330s, now forming a 6-contraction VCP just 0.3% off its high.",
         "milestones": [
-          {"label": "Oct 2025", "note": "Q3 2025 EPS beat — NII + IB combo fires for the first time; stock gaps 8%"},
-          {"label": "Jan 2026", "note": "Banamex IPO complete — removes the biggest transformation uncertainty"},
-          {"label": "Mar 2026", "note": "Q4 2025 EPS: +56% YoY; guidance raised; RS line breaks to new highs"},
-          {"label": "Jun 2026", "note": "Stock 2.2% from 52-week high with earnings 14 days away — pre-report catalyst window"}
+          {
+            "label": "Past year",
+            "note": "Multi-quarter uptrend on resilient NII and a capital-markets recovery"
+          },
+          {
+            "label": "Recent weeks",
+            "note": "Tightened into a 2.3% VCP right under the 52-week high"
+          }
         ]
       },
       "critical": {
         "risks": [
-          "Binary earnings risk in 14 days — any miss on NII or provision guidance = sharp pullback",
-          "4 TradingView sell votes — some technical momentum indicators are turning",
-          "Macro credit risk: if unemployment rises sharply, provision expense would spike",
-          "Transformation fatigue — management has missed timelines before; investor patience has limits"
+          "Earnings in 12 days — binary event risk",
+          "RSI 70 near the highs leaves less room before a natural pause"
         ],
         "catalysts": [
-          "Q2 2026 earnings in ~14 days — the most proximate catalyst; any guidance raise would be significant",
-          "Investment banking cycle: M&A advisory rebound could surprise on fees",
-          "Share buyback acceleration — CET1 at 13.5% gives room to buy aggressively",
-          "Fed rate path: flat-to-falling rates initially pressures NII, but Citi's diverse mix helps"
+          "Q2 earnings — NII trajectory and trading revenue are the key lines to watch",
+          "Any Fed rate-path clarity that firms up NII guidance"
         ],
         "watch": [
-          "Q2 earnings: watch NII guidance and provision expense — those two lines drive the stock",
-          "Credit card delinquency rates — Citi has significant consumer card exposure",
-          "TV: BUY (12/4) — solid but not unanimous; the 4 sell votes are a watch item"
+          "$335.12 resistance/breakout level",
+          "Guidance on full-year NII"
         ],
-        "valuation": "fwd P/E 11.4x — trading at a 20-25% discount to JPMorgan and Bank of America. If the transformation is complete and EPS continues at 30%+ growth, the P/E re-rating alone (from 11x to 14x) adds 25% to the price before any earnings growth. Price-to-book ~0.72x — below tangible book value; historically a mean-reversion buy signal for C."
-      }
-    },
-    {
-      "ticker": "AIZ",
-      "name": "Assurant",
-      "signal": "STRONG BUY",
-      "verdict": "The best-kept valuation secret in the scan — EPS +91% at fwd P/E 11.9x with unanimous TV confirmation and a clean 52-week high breakout.",
-      "financials": {
-        "period": "FY2025",
-        "summary": "Assurant delivered exceptional results as its Connected Living (device protection) and Global Housing segments both outperformed. The company is the behind-the-scenes insurer for device protection plans at major carriers (AT&T, Verizon, T-Mobile) and appliance warranties for Lowe's and Sears. EPS growth of 91% reflects a combination of premium growth, favorable loss ratios, and operational leverage from the previous two years of restructuring. Revenue grew 11% YoY — solid and steady.",
-        "highlights": [
-          "EPS +91% YoY — exceptional earnings recovery",
-          "Revenue +11% YoY — steady top-line growth across both segments",
-          "fwd P/E 11.9x — lowest valuation among high-growth specialty insurers",
-          "Connected Living segment: renewed all three major US carrier contracts through 2028+",
-          "Loss ratio improving: favorable frequency trends on smartphone claims"
-        ]
-      },
-      "accomplishments": [
-        "Renewed wireless device protection contracts with all three major US carriers (AT&T, Verizon, T-Mobile)",
-        "Expanded embedded insurance into Latin America — 3 new telecom partnerships",
-        "Launched AI-powered claims processing — reduced claim cycle time by 40%",
-        "Global Housing: renter's insurance now embedded in 4 major apartment REIT platforms",
-        "Stock buyback of $250M completed; new $300M authorization approved"
-      ],
-      "journey_52w": {
-        "summary": "AIZ has been a quiet compounder — not a flashy AI name, not a headline stock. The 52-week journey is a steady staircase upward as institutional money that understands the embedded insurance model continued accumulating. The stock bottomed near $200 in September 2025 when hurricane season fears peaked, then recovered as claims came in below catastrophe models. Q4 and Q1 earnings beats drove institutional re-rating from 'fine business at fair value' to 'exceptional business at cheap value.'",
-        "milestones": [
-          {"label": "Sep 2025", "note": "Hurricane Helene fears drive temporary selloff to $200 — turns out to be the buy"},
-          {"label": "Nov 2025", "note": "Q3 earnings: EPS +67% YoY; device protection loss ratios better than feared"},
-          {"label": "Feb 2026", "note": "Q4 earnings: EPS +91% YoY; AT&T contract renewed through 2029; stock hits new highs"},
-          {"label": "Jun 2026", "note": "Breakout at 52-week high with TV: STRONG_BUY (16/0) — today's setup"}
-        ]
-      },
-      "critical": {
-        "risks": [
-          "Hurricane/catastrophe season (July-October) creates volatility — AIZ's Global Housing has cat exposure",
-          "Device replacement cycle slowing — if consumers hold phones longer, claims drop but so do premium renewals",
-          "Wireless carrier consolidation could reduce the number of contract partners",
-          "RSI 73 — technically extended, near-term consolidation likely"
-        ],
-        "catalysts": [
-          "Embedded insurance expansion — any new retail or platform partner announcement",
-          "Smartphone supercycle from AI-capable handsets drives device protection renewal rates",
-          "International (LATAM/APAC) expansion — large untapped market for embedded device protection",
-          "Earnings ~Aug 5 — 36-day window; if Q2 EPS beats again, valuation re-rating accelerates"
-        ],
-        "watch": [
-          "Hurricane season: tropical development in the Atlantic is the primary short-term risk",
-          "TV: STRONG_BUY (16/0) — unanimous confirmation; no technical dissent",
-          "Device protection renewal rates — the #1 fundamental metric to track"
-        ],
-        "valuation": "fwd P/E 11.9x vs. specialty insurance peers at 18-22x. Assurant deserves to trade at 15-16x on the current EPS growth trajectory — that alone implies 25-35% upside without any further earnings growth. This is the definition of a value-growth dislocation in a strong market."
+        "valuation": "Fwd P/E ~14x, in line with its own history despite best-in-class franchise quality"
       }
     },
     {
       "ticker": "LLY",
       "name": "Eli Lilly",
       "signal": "STRONG BUY",
-      "verdict": "The GLP-1 empire — EPS +170%, Rev +56%, back at all-time highs. The best fundamentals in large-cap healthcare with a multi-decade pipeline and unanimous TV confirmation.",
+      "verdict": "The best fundamentals in this entire list — GLP-1 franchise (Mounjaro/Zepbound) still compounding at triple-digit growth rates.",
       "financials": {
         "period": "FY2025",
-        "summary": "Eli Lilly's FY2025 financials are the most impressive in large-cap pharma history. Tirzepatide (Mounjaro/Zepbound) global sales exceeded $28B — growing 80% YoY as manufacturing capacity ramped to meet demand. Gross margins are above 80%. EPS grew 170% as operating leverage from the blockbuster GLP-1 franchise amplified every dollar of incremental revenue. The company now generates more annual revenue than it did in its entire first century of operations.",
+        "summary": "Lilly's incretin franchise (tirzepatide, sold as Mounjaro for diabetes and Zepbound for obesity) continued to scale rapidly, driving outsized revenue and earnings growth as manufacturing capacity expanded to meet demand. Non-incretin pharma and pipeline R&D spend remain heavy but are increasingly funded by incretin cash flow.",
         "highlights": [
-          "Revenue +56% YoY — tirzepatide global sales exceeded $28B",
-          "EPS +170% YoY — operating leverage amplifying GLP-1 franchise growth",
-          "Gross margin above 80% — among the highest in all of pharma",
-          "Added $8B in manufacturing capacity via new factories in North Carolina and Germany",
-          "R&D spend at record $10B+ — the largest pipeline in company history"
+          "Revenue growth of roughly +56% YoY",
+          "EPS growth of roughly +170% YoY, reflecting operating leverage on incretin volume",
+          "Continued capacity expansion investments to relieve supply constraints",
+          "Pipeline readouts across obesity, Alzheimer's and oncology remain active catalysts"
         ]
       },
       "accomplishments": [
-        "Tirzepatide (Zepbound) FDA-approved for obesity, Type 2 diabetes, sleep apnea, and heart failure prevention — one drug, four indications",
-        "Donanemab (Kisunla) Alzheimer's drug approved and ramping — second major franchise",
-        "Global manufacturing expansion: new $9B facility opened in Indiana, additional $5.3B plant in Germany",
-        "Orforglipron (oral GLP-1) Phase 3 data — first daily pill that rivals injectable GLP-1 efficacy",
-        "Entered agreement with Medicare for tirzepatide coverage — opens 65M patient market"
+        "Continued global capacity build-out for tirzepatide manufacturing",
+        "Ongoing label/indication expansion efforts for Zepbound/Mounjaro",
+        "Pipeline progress in next-generation obesity and metabolic-disease compounds"
       ],
       "journey_52w": {
-        "summary": "LLY spent early 2025 consolidating between $950-1100 after the 2024 parabolic move from $600 to $960. The consolidation was healthy — it shook out weak hands while fundamentals continued to compound. The second leg began when Medicare coverage for tirzepatide was confirmed in February 2026 and orforglipron Phase 3 data beat expectations. The stock is now back at all-time highs and the institutional demand is structural — LLY is in virtually every large-cap growth, healthcare, and dividend-growth fund.",
+        "summary": "LLY has been one of the strongest large-cap compounders of the past year on relentless GLP-1 demand, climbing steadily with brief pauses around supply-chain and competitive headlines, now just 3% off its 52-week high.",
         "milestones": [
-          {"label": "Sep 2025", "note": "Consolidation phase: stock sideways while earnings grew 100%+"},
-          {"label": "Nov 2025", "note": "Q3 2025 earnings: tirzepatide $8.3B quarterly — first $30B annualized run rate"},
-          {"label": "Feb 2026", "note": "Medicare tirzepatide coverage confirmed + orforglipron Phase 3 data beat: stock +15% week"},
-          {"label": "Apr 2026", "note": "Kisunla (donanemab) Alzheimer's sales ramp — $800M quarterly run rate"},
-          {"label": "Jun 2026", "note": "Back at all-time highs, RS at new highs — today's setup"}
+          {
+            "label": "Past year",
+            "note": "Steady climb driven by incretin volume growth and capacity expansion"
+          },
+          {
+            "label": "Recent weeks",
+            "note": "5-contraction VCP tightening to 5.4%, holding near the highs"
+          }
         ]
       },
       "critical": {
         "risks": [
-          "US drug pricing negotiation (IRA provisions) — tirzepatide could face price negotiation in 2026",
-          "Manufacturing risk — demand still exceeds supply; any facility disruption would hurt near-term revenue",
-          "GLP-1 competition: Novo Nordisk's semaglutide (Ozempic/Wegovy) holds significant market share",
-          "High absolute price ($1,230) — dollar-value volatility is substantial"
+          "Valuation (fwd P/E ~27x) leaves little room for a GLP-1 competitive or pricing disappointment",
+          "Manufacturing/supply constraints have periodically capped upside surprises",
+          "High dollar price ($1,192) means wider absolute-dollar stops"
         ],
         "catalysts": [
-          "Orforglipron (oral GLP-1 pill) — pending FDA approval; could triple the addressable patient market",
-          "Heart failure indication expanding to more payers globally",
-          "Q2 2026 earnings ~Aug 5 — any raised guidance is the most proximate catalyst",
-          "International expansion: tirzepatide approval in Japan, China, India opening massive new markets"
+          "Continued Zepbound/Mounjaro volume ramp and any new indication approvals",
+          "Pipeline readouts in oral GLP-1s and next-gen obesity compounds"
         ],
         "watch": [
-          "Quarterly tirzepatide prescription data — TRx growth rate is the top fundamental metric",
-          "Any FDA decision on orforglipron NDA — the oral GLP-1 catalyst",
-          "IRA drug pricing negotiation list — tirzepatide inclusion would be a negative catalyst"
+          "Manufacturing capacity updates",
+          "Competitive dynamics vs. other GLP-1 entrants"
         ],
-        "valuation": "fwd P/E 27.7x for a company growing EPS at 170%. By traditional PEG methodology (27.7 / 170) = 0.16x — deeply undervalued relative to growth. Even assuming EPS growth decelerates to 40% in FY2027, the stock is cheap at 27x. The risk is not valuation — it's the binary outcomes of the drug pricing negotiation and oral GLP-1 FDA decision."
+        "valuation": "Premium multiple, but growth (+170% EPS) is outrunning the multiple expansion so far"
       }
     },
     {
       "ticker": "AMD",
       "name": "Advanced Micro Devices",
       "signal": "STRONG BUY",
-      "verdict": "The AI GPU alternative trade that TradingView is backing while NVDA gets a Sell — EPS +91%, RS at new highs, and momentum from MI300X data center wins accelerating.",
+      "verdict": "The cleanest AI-accelerator exposure in this list right now — several mega-cap tech names screened weak in the same scan.",
       "financials": {
         "period": "FY2025",
-        "summary": "AMD delivered its best fiscal year in company history in FY2025 as the MI300X AI accelerator gained meaningful traction. EPS grew 91% and revenue grew 38% as data center GPU revenue approached $10B annually. The PC market recovery added a second tailwind. Gross margins expanded above 53% as the higher-ASP MI300X shifted the revenue mix toward premium AI silicon.",
+        "summary": "AMD's data-center GPU and EPYC server-CPU businesses continued to take share, with the MI-series accelerator ramp and continued EPYC server share gains driving outsized revenue growth; gross margins expanded as the mix shifted toward higher-margin data-center product.",
         "highlights": [
-          "EPS +91% YoY — best earnings growth in AMD's history",
-          "Revenue +38% YoY — MI300X data center GPU revenue the primary driver",
-          "Gross margin >53% — mix shift to AI silicon expanding profitability",
-          "Data center GPU revenue ~$9.8B annualized run rate — rapidly approaching NVDA's H100 market",
-          "PC/client segment recovered: Zen 5 architecture gaining laptop market share"
+          "Revenue growth of roughly +38% YoY",
+          "EPS growth of roughly +91% YoY on operating leverage and mix shift",
+          "Continued data-center GPU (MI-series) revenue ramp",
+          "EPYC server CPU share gains against the incumbent"
         ]
       },
       "accomplishments": [
-        "MI300X adoption by Microsoft Azure, Google Cloud, and Meta — three hyperscalers confirmed as major customers",
-        "MI400X (next-gen AI GPU) roadmap announced — maintains annual cadence against NVDA",
-        "EPYC server CPUs now above 25% x86 data center market share — at the expense of Intel",
-        "Acquired Silo AI (Europe's largest private AI lab) — in-house AI model expertise",
-        "Zen 5 CPU launch: record-breaking performance per watt in laptop segment"
+        "Continued AI-accelerator roadmap execution (MI-series ramp)",
+        "Server CPU share gains in the data center",
+        "Client/gaming segments stabilizing alongside data-center strength"
       ],
       "journey_52w": {
-        "summary": "AMD spent most of 2024 frustrating bulls — NVDA was getting all the AI glory while AMD's MI300X ramp was slower than expected. The stock underperformed badly relative to its semiconductor peers. The inflection came in Q4 2024 when Microsoft confirmed a multi-billion dollar MI300X purchase and Google disclosed it was using MI300X for inference workloads at scale. From there, institutional money rotated aggressively into AMD as the clear #2 in AI GPUs — a duopoly is far more valuable than a distant laggard. The stock has run 175% in 3 months.",
+        "summary": "AMD has been volatile but trending higher over the past year as the market alternately doubted and re-embraced its AI-accelerator roadmap versus the dominant incumbent; it's currently 6.9% off its 52-week high after a recent basing period.",
         "milestones": [
-          {"label": "Oct 2025", "note": "Microsoft Azure MI300X contract announcement — AI GPU confirmation; stock +20% week"},
-          {"label": "Jan 2026", "note": "Q4 2025 earnings: data center GPU revenue $4.1B — beats consensus by 40%; guidance raised"},
-          {"label": "Mar 2026", "note": "Google Cloud confirms MI300X for inference at scale — second hyperscaler buy"},
-          {"label": "Apr 2026", "note": "EPYC Milan-X server CPU hits 25% x86 market share — Intel's home turf"},
-          {"label": "Jun 2026", "note": "At 52-week high, RS at new highs; TV: BUY while NVDA gets TV: SELL — rotation signal"}
+          {
+            "label": "Past year",
+            "note": "Volatile uptrend tracking sentiment on its AI-accelerator competitive position"
+          },
+          {
+            "label": "Recent weeks",
+            "note": "5-contraction VCP tightening to 5.8%, still building the base"
+          }
         ]
       },
       "critical": {
         "risks": [
-          "NVDA CUDA software moat — most AI developers write CUDA code, creating switching costs that favor NVDA",
-          "fwd P/E 41x — premium valuation; any data center spending slowdown = multiple compression",
-          "MI400X roadmap execution risk — annual AI chip cadence requires flawless manufacturing at TSMC"
+          "Semis are the most crowded, highest-beta trade in the market — sharp drawdowns on any AI-capex doubt",
+          "Execution against the dominant GPU incumbent remains the central debate"
         ],
         "catalysts": [
-          "Q3 2026 earnings ~Aug 5 — MI300X data center guidance the #1 watch item",
-          "New hyperscaler purchase order announcements — Meta or Amazon would be the next confirmation",
-          "MI400X launch and performance benchmarks — leapfrog NVDA's H200 performance?"
+          "Continued MI-series revenue disclosure/ramp updates",
+          "Hyperscaler capex commentary each earnings season"
         ],
         "watch": [
-          "NVDA vs AMD quarterly GPU revenue gap — is it narrowing? That's the re-rating catalyst",
-          "TV: BUY (14/2) vs NVDA: TV SELL — the market is rotating to AMD today. Watch this divergence.",
-          "RSI 58.5 — healthy, room to run; not overbought"
+          "Data-center segment revenue growth rate each quarter",
+          "Any hyperscaler capex guidance cuts"
         ],
-        "valuation": "fwd P/E 41x on 91% EPS growth. PEG = 0.45x — compelling value for the growth rate. The market is pricing AMD as a high-quality second-tier chip company; if it gets priced as a true AI GPU duopolist, the target multiple is 55-60x, suggesting significant upside."
+        "valuation": "Fwd P/E ~41x — priced for continued share gains, not for a slowdown"
       }
     },
     {
-      "ticker": "FTNT",
-      "name": "Fortinet",
+      "ticker": "RL",
+      "name": "Ralph Lauren",
       "signal": "STRONG BUY",
-      "verdict": "Cybersecurity's best-positioned platform company — at 52-week highs, EPS +29%, and secular demand from AI-driven cyberattack proliferation driving mandatory enterprise security upgrades.",
+      "verdict": "Premium-brand pricing power showing up in both margins and the stock's relative strength.",
+      "financials": {
+        "period": "FY2025 (fiscal year ended March 2025 basis)",
+        "summary": "Ralph Lauren's 'elevate the brand' strategy continued to pay off — full-price selling and international/China growth drove both revenue and margin expansion, with average unit retail (AUR) increases showing the pricing power to work.",
+        "highlights": [
+          "Revenue growth of roughly +17% YoY",
+          "EPS growth of roughly +20% YoY",
+          "Continued full-price mix and AUR growth supporting gross margin expansion",
+          "International (Europe, Asia) growth outpacing North America"
+        ]
+      },
+      "accomplishments": [
+        "Continued brand-elevation strategy execution (reduced promotional activity)",
+        "International store/DTC expansion, notably in China and Europe",
+        "Ongoing share buybacks and dividend growth"
+      ],
+      "journey_52w": {
+        "summary": "RL has been a steady outperformer over the past year as the 'affordable luxury' positioning proved resilient even as broader apparel retail was mixed; RS is up 12% over just the last 4 weeks.",
+        "milestones": [
+          {
+            "label": "Past year",
+            "note": "Steady uptrend on full-price mix and international growth"
+          },
+          {
+            "label": "Recent 4 weeks",
+            "note": "RS +12% — accelerating relative outperformance into a tight 2.1% VCP"
+          }
+        ]
+      },
+      "critical": {
+        "risks": [
+          "Premium apparel is discretionary — any real consumer pullback hits AUR and volume together",
+          "China consumer-spending trends are a swing factor for the growth story"
+        ],
+        "catalysts": [
+          "Continued AUR/full-price mix gains each quarter",
+          "China/international comp growth"
+        ],
+        "watch": [
+          "Earnings in 35 days",
+          "Any read-through from other luxury names on China demand"
+        ],
+        "valuation": "Fwd P/E ~20x — reasonable for the growth and margin trajectory"
+      }
+    },
+    {
+      "ticker": "GLW",
+      "name": "Corning",
+      "signal": "STRONG BUY",
+      "verdict": "Legacy glass/optics manufacturer re-rated as an AI-datacenter infrastructure play — the earnings growth backs it up.",
       "financials": {
         "period": "FY2025",
-        "summary": "Fortinet delivered strong results as enterprise security spending reaccelerated after 2024's budget scrutiny. The SASE (Secure Access Service Edge) and cloud security platforms drove billings growth while the legacy firewall business maintained pricing discipline. EPS grew 29% on revenue growth of 20% — the combination of top-line acceleration and margin expansion is the institutional magnet.",
+        "summary": "Corning's Optical Communications segment benefited sharply from hyperscaler datacenter buildouts (fiber connectivity for AI clusters), while its other segments (Display, Mobile Consumer Electronics, Life Sciences) contributed more modest, steady growth.",
         "highlights": [
-          "EPS +29% YoY — strong earnings leverage on platform consolidation wins",
-          "Revenue +20% YoY — SASE and cloud security leading the growth",
-          "Billings grew 24% — leading indicator for future revenue",
-          "Operating margin expanded 300bps — scaling benefits from the platform model",
-          "FortiCloud ARR surpassed $3.5B — recurring revenue base growing"
+          "EPS growth of roughly +139% YoY",
+          "Revenue growth of roughly +20% YoY",
+          "Optical Communications segment the primary growth driver on AI-datacenter fiber demand",
+          "Margin expansion from higher-value optical connectivity mix"
         ]
       },
       "accomplishments": [
-        "FortiSASE platform won 1,200 new enterprise customers in FY2025 — record quarterly additions",
-        "AI-native security operations center (AI SOC) launched — automates 80% of tier-1 alert triage",
-        "Entered partnership with NVIDIA for GPU-accelerated threat detection in data centers",
-        "Fortinet Security Fabric expanded to cover 4,800+ integrations — broadest ecosystem in cybersecurity",
-        "Recognized as Leader in Gartner Magic Quadrant for Network Firewalls for 11th consecutive year"
+        "Continued ramp of next-generation optical connectivity products for AI datacenters",
+        "Capacity investment to meet hyperscaler fiber demand",
+        "Diversified base (Display/Mobile/Life Sciences) providing a floor beneath the optical growth"
       ],
       "journey_52w": {
-        "summary": "Fortinet's 52-week journey is a story of a platform company proving it could grow into its valuation. After disappointing billings growth in late 2024 (customers slowing purchase decisions), the stock sold off sharply and gave skeptics ammunition. The recovery came when Q1 2025 billings re-accelerated beyond expectations, driven by AI-driven cyberattacks forcing accelerated security spending across enterprise. The stock has more than doubled from its 52-week low, and today's breakout to new highs with RS leading the market confirms the institutional re-rating.",
+        "summary": "GLW re-rated meaningfully over the past year as investors recognized it as a picks-and-shovels AI infrastructure name rather than a legacy glass manufacturer; it's currently basing about 14% below its 52-week high after the initial re-rating move.",
         "milestones": [
-          {"label": "Oct 2025", "note": "Q3 2025 billings re-acceleration: +24% YoY — skeptics proven wrong; stock +18% week"},
-          {"label": "Jan 2026", "note": "High-profile AI-enabled cyberattack on US critical infrastructure accelerates enterprise budgets"},
-          {"label": "Mar 2026", "note": "Q4 2025: EPS +29%, billings +24%; SASE wins accelerating — guidance raised"},
-          {"label": "Jun 2026", "note": "At 52-week high with RS at new highs — today's setup; TV: BUY (15/2)"}
+          {
+            "label": "Past year",
+            "note": "Re-rated higher as AI-datacenter fiber demand became the dominant growth narrative"
+          },
+          {
+            "label": "Recent weeks",
+            "note": "Basing 14% off the high — a 6-contraction VCP, not yet a fresh breakout"
+          }
         ]
       },
       "critical": {
         "risks": [
-          "fwd P/E 45.4x — elevated multiple after +97% in 3 months requires continued beat-and-raise",
-          "Competitive pressure: Palo Alto Networks (PANW) aggressive platform bundling strategy",
-          "Security spending budget risk if economic conditions soften",
-          "RSI 66 — watch for short-term consolidation at these levels"
+          "Fwd P/E ~52x prices in a lot of continued AI-capex growth — a pause in hyperscaler spending would hit the multiple hard",
+          "Historically a lower-growth, cyclical manufacturer — the market's re-rating could reverse if the AI narrative cools"
         ],
         "catalysts": [
-          "Q3 2026 earnings ~Aug 6 — any billings guidance raise = strong positive",
-          "AI-native security products ramping — commands premium pricing",
-          "US government spending on cybersecurity under new mandates",
-          "International expansion — EMEA and APAC government contracts in the pipeline"
+          "Continued hyperscaler capex commentary/orders",
+          "Earnings in 26 days"
         ],
         "watch": [
-          "Billings growth rate — that's the leading indicator, not revenue",
-          "TV: BUY (15/2) — confirmed; no material tension",
-          "Pullback to $142-145 (MA50) = add zone; don't chase RSI 66"
+          "Optical Communications segment growth rate specifically, not just consolidated revenue"
         ],
-        "valuation": "fwd P/E 45.4x for 29% EPS growth rate — a 1.5x PEG. Premium but justified by the platform consolidation story (customers replacing point solutions with Fortinet's integrated fabric). Palo Alto trades at a similar multiple; the sector premium is structural for platform winners."
+        "valuation": "Rich multiple (52x fwd) relative to its own history — this is a growth re-rating, not a value name anymore"
       }
     },
     {
-      "ticker": "MU",
-      "name": "Micron Technology",
-      "signal": "WATCH",
-      "verdict": "The biggest fundamental turnaround in the scan — EPS from deeply negative to +1368% YoY as HBM memory for AI chips creates a structural demand shift in DRAM pricing.",
+      "ticker": "CVS",
+      "name": "CVS Health",
+      "signal": "STRONG BUY",
+      "verdict": "Turnaround story with earnings growth and a cheap multiple — rare combination in this list.",
       "financials": {
-        "period": "FY2025 (ended Aug 2025)",
-        "summary": "Micron's FY2025 was a historic financial recovery. DRAM and NAND prices surged as AI chip manufacturers (NVIDIA, AMD, Google TPUs) created insatiable demand for High Bandwidth Memory (HBM). HBM revenue grew from near-zero to >$4B in a single year. The combination of HBM premium pricing and NAND market tightening produced EPS of +1368% YoY and revenue of +346% YoY. Gross margins rebounded from negative to above 38%.",
+        "period": "FY2025",
+        "summary": "CVS continued to work through the margin pressure in its Aetna health-insurance segment (medical cost trend) while its pharmacy/retail and Caremark PBM segments provided steadier cash flow; cost-discipline and pricing actions on the insurance side began showing up in improved earnings.",
         "highlights": [
-          "EPS +1368% YoY — from deeply loss-making to highly profitable in 12 months",
-          "Revenue +346% YoY — HBM is the primary driver",
-          "HBM3E revenue >$4B — Micron is the only US-based HBM manufacturer",
-          "Gross margin recovered from -2% to +38% — full cycle recovery",
-          "fwd P/E 7.7x — one of the cheapest high-growth tech stocks in the scan"
+          "EPS growth of roughly +63% YoY off a depressed prior-year base",
+          "Revenue growth of roughly +6% YoY",
+          "Aetna medical-cost-trend management showing early signs of stabilizing",
+          "Continued PBM (Caremark) and retail pharmacy cash-flow contribution"
         ]
       },
       "accomplishments": [
-        "First HBM3E (High Bandwidth Memory 3E) samples to NVIDIA for H200/H100 NVL — qualified as sole US-based supplier",
-        "New fab in Boise, Idaho online — added 20% to DRAM capacity with advanced EUV lithography",
-        "Signed 5-year HBM supply agreement with NVIDIA — provides revenue visibility through 2030",
-        "LPDRAM for Apple iPhones: Micron captured 35% of Apple's DRAM supply — record market share",
-        "Awarded $6.1B CHIPS Act grant for US semiconductor manufacturing expansion"
+        "Repricing actions in the Medicare Advantage / Aetna insurance book to address medical-cost trend",
+        "Continued cost-reduction initiatives across the enterprise",
+        "Store footprint optimization in the retail pharmacy segment"
       ],
       "journey_52w": {
-        "summary": "Micron's 52-week story is one of the most extreme turnarounds in semiconductor history. The stock was at $500 a year ago, crashed below $300 when memory oversupply fears peaked, then rocketed to over $1,100 as AI chip demand created a DRAM supercycle that no one had modeled. The key catalyst was the NVIDIA HBM3E qualification — which confirmed Micron as the only US-based supplier of the memory that powers every H100/H200 AI chip. The stock has returned 256% in 3 months.",
+        "summary": "CVS bottomed out after a rough stretch tied to elevated medical costs in its insurance business, then trended higher over the past year as repricing and cost actions started to show through in results; it's now at a fresh 52-week high.",
         "milestones": [
-          {"label": "Sep 2025", "note": "DRAM prices bottom — oversupply narrative collapses as HBM demand exceeds all capacity"},
-          {"label": "Oct 2025", "note": "NVIDIA H200 NVL uses Micron HBM3E — exclusive US supplier status confirmed; stock +40% week"},
-          {"label": "Dec 2025", "note": "Q1 FY2026 earnings: revenue +346%, gross margin positive for first time in 2 years"},
-          {"label": "Mar 2026", "note": "CHIPS Act $6.1B grant received — US-based capacity expansion de-risked financially"},
-          {"label": "Jun 2026", "note": "HBM4 roadmap confirmed at 2x HBM3E bandwidth — next generation contract signed"}
+          {
+            "label": "Past year",
+            "note": "Recovery uptrend from depressed levels as insurance-segment repricing took hold"
+          },
+          {
+            "label": "Recent weeks",
+            "note": "3-contraction VCP tightened to 3.6%, breaking out to new highs"
+          }
         ]
       },
       "critical": {
         "risks": [
-          "Memory is inherently cyclical — DRAM prices can reverse in 6-12 months if AI spending plateaus",
-          "Samsung/SK Hynix are aggressively ramping HBM capacity — supply/demand balance is fragile",
-          "+256% in 3 months — very extended; any earnings disappointment would be severe",
-          "US-China trade tensions could disrupt DRAM sales to China (currently ~18% of revenue)"
+          "Medical-cost trend in the insurance segment can reaccelerate and erase the earnings recovery",
+          "Earnings in 28 days is a real test of whether the repricing gains are durable"
         ],
         "catalysts": [
-          "HBM4 (next generation) supply agreements with NVIDIA and AMD",
-          "Apple intelligence chip (A20) using Micron LPDRAM — could expand Apple market share further",
-          "Q4 FY2026 earnings — HBM guidance is the primary forward indicator",
-          "US CHIPS Act manufacturing expansion — adds long-term capacity and cost advantages"
+          "Continued evidence that Aetna medical-cost trend is stabilizing",
+          "Any additional PBM/Caremark contract wins"
         ],
         "watch": [
-          "DRAM spot prices — the leading fundamental indicator for MU",
-          "Samsung/SK Hynix HBM capacity announcements — competitive supply additions are the bear case",
-          "TV: BUY (14/2) — confirmed; not unanimous, some technical dissent worth watching"
+          "Medical loss ratio (MLR) trend in quarterly reports"
         ],
-        "valuation": "fwd P/E 7.7x for a company growing EPS at 1,368% — the cheapest high-growth stock in the semiconductor sector. Even adjusting for the highly cyclical nature of DRAM, normalized earnings should be $150+ per share, implying the stock is at 7-8x normalized EPS. The bull case is structural: HBM creates a durable pricing premium over commodity DRAM that changes the cycle's floor."
+        "valuation": "Fwd P/E ~12.5x — still priced like a turnaround, despite the EPS recovery already underway"
       }
     },
     {
-      "ticker": "LRCX",
-      "name": "Lam Research",
-      "signal": "WATCH",
-      "verdict": "The chip equipment supercycle's etch-and-deposition leader — at a 52-week high with unanimous TV confirmation after +106% in 3 months, but extended for fresh entries; major portfolio holding.",
+      "ticker": "ETR",
+      "name": "Entergy",
+      "signal": "STRONG BUY",
+      "verdict": "Direct beneficiary of datacenter power demand in its Gulf South service territory — a cleaner thematic utility than most.",
       "financials": {
-        "period": "FY2025 (ended Jun 2025)",
-        "summary": "Lam Research delivered its best financial results in 5 years as semiconductor customers (TSMC, Samsung, SK Hynix, Intel Foundry) ramped spending on leading-edge fab construction. EPS grew 41% and revenue grew 24% as the demand for advanced etch and deposition equipment accelerated with the transition to Gate-All-Around (GAA) transistors and advanced DRAM. Multiple analysts raised price targets by $100-150 on the strength of the fab spending pipeline.",
+        "period": "FY2025",
+        "summary": "Entergy continued to benefit from large-load (datacenter/industrial) interconnection demand in its Louisiana/Mississippi/Arkansas/Texas service territories, supporting above-average rate-base growth versus regulated-utility peers, even as near-term EPS growth remained modest.",
         "highlights": [
-          "EPS +41% YoY — strong leverage from leading-edge fab spending",
-          "Revenue +24% YoY — DRAM etch + logic deposition driving demand",
-          "BofA raised price target by $150; Citi raised by $135 — analyst consensus bullish",
-          "fwd P/E 51.3x — elevated; premium for the supercycle leader",
-          "Backlog remains elevated — visibility into FY2027 revenue above trend"
+          "Revenue growth of roughly +12% YoY",
+          "EPS growth roughly flat (+1% YoY) — top line running ahead of the bottom line as capex/financing costs are absorbed",
+          "Continued large-load/datacenter interconnection agreements supporting multi-year rate-base growth",
+          "Regulated-utility earnings visibility via constructive rate cases"
         ]
       },
       "accomplishments": [
-        "Qualified as primary etch supplier for TSMC's N2 (2nm) and N1.4 process nodes",
-        "Cryogenic etch technology for next-generation 3D NAND — sole-sourced by three leading NAND makers",
-        "DRAM etch: captured 60%+ market share in advanced DRAM patterning (HBM and LP6)",
-        "Record 15% share buyback from FY2025 earnings — returning capital at peak cycle",
-        "Expanded Korea operations: 1,200 engineers added for DRAM customer support at Samsung/SK Hynix"
+        "New large-load (datacenter/industrial) interconnection agreements in its service territory",
+        "Continued regulated rate-base growth investment program",
+        "Constructive regulatory outcomes supporting the capex plan"
       ],
       "journey_52w": {
-        "summary": "LRCX has been one of the most volatile stocks in the portfolio — from $250 a year ago, it sold off below $150 during the DRAM oversupply scare, then rocket-shipped to $410 as it became clear that HBM demand had structurally changed the DRAM spending profile and that leading-edge logic (2nm, 3nm) fab construction was a multi-year buildout. The stock has tripled from its 52-week low. Today it's at its 52-week high with unanimous TV confirmation — the technical picture is clean but extension risk is real for new entries.",
+        "summary": "ETR has trended higher over the past year as the market increasingly priced in datacenter-driven load growth as a multi-year rate-base growth tailwind for Gulf South utilities; it's currently basing in a tight 2.4% VCP about 4% off its high.",
         "milestones": [
-          {"label": "Sep 2025", "note": "Stock bottoms at $148 — DRAM oversupply fears at maximum; short interest peaks"},
-          {"label": "Nov 2025", "note": "Q1 FY2026 earnings: EPS +41%, backlog still elevated; stock +22% week"},
-          {"label": "Feb 2026", "note": "TSMC Arizona 2nm fab groundbreaking — $50B capex commitment locks in LRCX orders"},
-          {"label": "Apr 2026", "note": "Samsung HBM fab expansion adds $2B+ to LRCX backlog — Korea demand surge"},
-          {"label": "Jun 2026", "note": "At 52-week high, TV: STRONG_BUY (16/0) — today's setup; major portfolio position"}
+          {
+            "label": "Past year",
+            "note": "Steady re-rating on datacenter/large-load demand supporting long-term rate-base growth"
+          },
+          {
+            "label": "Recent weeks",
+            "note": "Very tight 2.4% VCP forming just under the 52-week high"
+          }
         ]
       },
       "critical": {
         "risks": [
-          "Earnings ~Jul 30 — 30 days; plan partial exit before binary event",
-          "fwd P/E 51.3x — elevated for a cyclical equipment company",
-          "+106% in 3 months — severely extended for new entries",
-          "US export restrictions on chip equipment to China could create revenue cliff"
+          "EPS growth (+1%) is lagging revenue (+12%) — financing costs on the capex buildout are a near-term drag",
+          "Regulatory/rate-case risk if commissions push back on cost recovery"
         ],
         "catalysts": [
-          "Q4 FY2026 earnings ~Jul 30 — backlog guidance is the primary catalyst",
-          "TSMC Arizona and Samsung Texas fab ramp — domestic US demand not subject to export controls",
-          "Intel Foundry 2.0 launch — potential major new customer for leading-edge etch",
-          "HBM demand for AI chips sustaining through 2028 — multi-year DRAM etch cycle"
+          "Additional large-load interconnection announcements",
+          "Rate-case outcomes in its service territories"
         ],
         "watch": [
-          "TV: STRONG_BUY (16/0) — unanimous; technically strong but late-stage for new money",
-          "China revenue exposure — any new export control tightening = risk",
-          "Better entry: $370-380 (prior breakout level) = 8-10% pullback would be high-conviction add"
+          "Earnings in 28 days",
+          "Whether EPS growth starts catching up to revenue growth"
         ],
-        "valuation": "fwd P/E 51.3x — elevated, reflecting the supercycle premium. Normalized earnings (mid-cycle) imply a P/E of 28-30x, so the current price embeds significant cycle continuation expectations. The bull case: if this is truly a structural AI-driven chip equipment cycle (not just a cyclical upturn), then 51x is supportable. The risk: any sign of fab capex slowdown reprices the entire equipment sector."
+        "valuation": "Fwd P/E ~22x — a premium to traditional utilities, justified if the load-growth thesis keeps delivering"
+      }
+    },
+    {
+      "ticker": "TRNO",
+      "name": "Terreno Realty",
+      "signal": "STRONG BUY",
+      "verdict": "Industrial-warehouse REIT with early institutional buying (pocket pivot) ahead of what looks like an imminent breakout.",
+      "financials": {
+        "period": "FY2025",
+        "summary": "Terreno owns and operates industrial/logistics real estate concentrated in six major coastal US markets. Same-store NOI growth and continued acquisition activity in supply-constrained infill industrial markets supported FFO growth in line with the broader industrial-REIT recovery.",
+        "highlights": [
+          "EPS growth of roughly +40% YoY",
+          "Revenue growth of roughly +13% YoY",
+          "Continued acquisition activity in supply-constrained coastal infill industrial markets",
+          "Occupancy remained healthy across its portfolio"
+        ]
+      },
+      "accomplishments": [
+        "Continued acquisitions in target coastal infill industrial markets",
+        "Portfolio releasing at positive rent spreads as older leases roll to market rates",
+        "Balance-sheet discipline supporting continued external growth"
+      ],
+      "journey_52w": {
+        "summary": "TRNO tracked the broader industrial-REIT recovery over the past year, grinding higher with a pocket pivot (a burst of institutional buying volume) just detected today — often an early tell ahead of a formal technical breakout.",
+        "milestones": [
+          {
+            "label": "Past year",
+            "note": "Grinding uptrend in line with the industrial-REIT sector recovery"
+          },
+          {
+            "label": "Today",
+            "note": "Pocket pivot detected — a volume signature associated with early institutional accumulation"
+          }
+        ]
+      },
+      "critical": {
+        "risks": [
+          "REITs are rate-sensitive — a hawkish rate surprise would pressure the whole sector, TRNO included",
+          "Industrial/logistics demand growth has moderated from the pandemic-era peak"
+        ],
+        "catalysts": [
+          "Continued positive re-leasing spreads as below-market leases roll",
+          "Additional accretive acquisitions in target markets"
+        ],
+        "watch": [
+          "$66.73 52-week high as the breakout trigger",
+          "Rate-case-style sensitivity to Fed policy signals"
+        ],
+        "valuation": "Fwd P/E ~38x is rich for a REIT, but reflects premium coastal infill industrial exposure with limited new supply"
+      }
+    },
+    {
+      "ticker": "SPCX",
+      "name": "SpaceX",
+      "signal": "WATCH",
+      "verdict": "A fundamentals-and-momentum story, not a technical one yet — brand new to public markets with no chart history to lean on.",
+      "financials": {
+        "period": "Pre-IPO / newly listed — no public full fiscal year reported yet",
+        "summary": "SpaceX's business is built on two pillars: Falcon 9/Falcon Heavy/Starship launch services (where reusability has driven launch costs down and cadence up dramatically versus legacy providers) and Starlink, its satellite-broadband constellation, which has scaled into a large recurring-revenue subscription business. As a newly public company there isn't yet a public 10-K to cite line-item financials from.",
+        "highlights": [
+          "Starlink has scaled into a multi-million-subscriber global broadband business with recurring, subscription-style revenue",
+          "Falcon 9 reusability has pushed launch cadence and cost efficiency well beyond legacy competitors",
+          "Bloomberg reported analyst price targets around its public debut testing a roughly $2.2 trillion valuation"
+        ]
+      },
+      "accomplishments": [
+        "High-cadence Falcon 9 reusable-booster launch operations",
+        "Continued Starship development toward full and rapid reusability",
+        "Starlink global broadband subscriber growth, including direct-to-cell service expansion"
+      ],
+      "journey_52w": {
+        "summary": "Not applicable in the traditional sense — SPCX has no 52-week public trading history. The relevant 'journey' has been the pre-IPO narrative: years of rising private-market valuations culminating in a public listing where sell-side analysts are now debuting coverage.",
+        "milestones": [
+          {
+            "label": "IPO debut",
+            "note": "Public listing with sell-side analyst coverage beginning; Bloomberg reported targets testing a ~$2.2T valuation"
+          }
+        ]
+      },
+      "critical": {
+        "risks": [
+          "No trading history means no technical signal is reliable yet — TradingView's STRONG_SELL read here is based on just 4 total oscillator signals and should be disregarded, not acted on",
+          "A ~$2.2T valuation leaves very little room for execution missteps on Starship or Starlink growth",
+          "New-listing volatility can be extreme in both directions in the first weeks/months of trading"
+        ],
+        "catalysts": [
+          "Initial sell-side analyst notes and price targets as coverage is initiated",
+          "Starship flight-test milestones",
+          "Starlink subscriber growth disclosures"
+        ],
+        "watch": [
+          "First 2-3 months of price action to establish a real base/RS/VCP read",
+          "Lock-up expiration timing, which often pressures newly-public stocks"
+        ],
+        "valuation": "No traditional multiple to anchor to yet given the lack of public financials — treat this purely as a thesis-driven, story/valuation position sized accordingly"
       }
     }
   ]

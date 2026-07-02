@@ -1,157 +1,157 @@
 {
-  "date": "2026-06-30",
+  "date": "2026-07-02",
   "users": {
     "9U3EMCIBlyYATLhh9YLnfYwKgpC2": {
       "holdings": [
         {
           "ticker": "AAPL",
-          "action": "TRIM",
-          "why": "Scan score 37.9 WEAK, TV: SELL (8/11 sell votes). Apple is below all key moving averages and -14% from its 52-week high. You're at a profit from $200 avg — take 25-30% off the table. The business is fine long-term but the chart is broken today and TV confirms the selling pressure. Rebuild on a confirmed base above the 50-day MA."
+          "action": "HOLD",
+          "why": "Confirmed uptrend, 6.6% off its 52-week high with room to run; EPS +22% / revenue +17% YoY and TV's BUY both confirm. Hold the core position."
         },
         {
           "ticker": "ALAB",
           "action": "HOLD",
-          "why": "TV: STRONG_BUY — Astera Labs is an AI networking infrastructure play (optical chip interconnects for AI clusters). Not in the scan universe but TV confirms strong momentum. Hold core; the AI infrastructure buildout is a multi-year theme and ALAB is a key enabler. Avg cost $76 — still in good position."
+          "why": "Not in today's scanned universe (rate-limited during the data pull), but TradingView's independent read is BUY. AI-connectivity chip name — hold, no red flags from the data we have."
         },
         {
           "ticker": "AMD",
           "action": "HOLD",
-          "why": "Scan score 88.4 STRONG BUY, TV: BUY (14/2). At $539 vs your $265 avg — more than 2x. The setup is clean: EPS +91%, RS at new highs, and critically TV rates AMD as BUY while NVDA gets a SELL — the market is rotating toward AMD as the AI GPU alternative. Hold your core position. Earnings ~Aug 5 — consider sizing down 20% before the report."
+          "why": "Today's Top Pick — EPS +91% / revenue +38% YoY, TV BUY confirms. The cleanest AI-accelerator exposure in the whole scan right now. Hold."
         },
         {
           "ticker": "APLD",
           "action": "TRIM",
-          "why": "TV: SELL. Applied Digital Corporation (AI data centers) did not clear the scan's quality thresholds and TV is in sell mode. Avg cost $46.14 — depending on current price, you may be at a loss. If still at a loss, hold and don't compound the mistake; if near breakeven or above, trim to half position."
+          "why": "Not in today's scanned universe. TV rates it SELL (4 buy / 12 sell) — a clear bearish tilt for this AI-datacenter/bitcoin-infrastructure name. Consider trimming or tightening your stop."
         },
         {
           "ticker": "APP",
           "action": "HOLD",
-          "why": "TV: BUY. Applovin is one of the hottest ad-tech names — AI-driven mobile advertising at scale. Avg cost $423. TV confirms the setup. Hold your core position; this is a sector leader in digital advertising and the fundamentals are strong."
+          "why": "Not in today's scanned universe, but TV's STRONG_BUY (16 buy / 0 sell) is one of the most one-sided reads in the whole holdings list. Hold; the independent technical signal is strongly constructive."
         },
         {
           "ticker": "DRAM",
           "action": "HOLD",
-          "why": "Market uptrend with DRAM (semiconductor) cycle fully recovered — HBM pricing surge from AI chips is the structural driver. Hold through the upcycle. TV not available for this ticker but the macro setup (65% breadth, low VIX) is favorable for semiconductor exposure."
+          "why": "No scan data and no TradingView rating resolved for this ticker today (rate-limited during the data pull) — there's no independent read to confirm or contradict the position. Hold and monitor manually; avoid adding blind until data resolves on a future run."
         },
         {
           "ticker": "GOOGL",
           "action": "HOLD",
-          "why": "TV: NEUTRAL (8 buy / 8 sell). Google's AI monetization via AI Overviews in Search and Gemini in Cloud is showing in earnings but the stock has been a relative laggard vs the market. Avg cost $215 — you have a solid profit. Hold core; don't add at NEUTRAL TV. The next catalyst is earnings + any major Gemini product announcement."
+          "why": "Still WATCH-tier technically (10% off its high, still building the base) but TV rates it BUY and EPS growth is strong (+82% YoY). Hold; wait for a confirmed breakout before adding."
         },
         {
           "ticker": "GS",
           "action": "HOLD",
-          "why": "Scan score 78.3, TV: NEUTRAL (8 buy / 10 sell — technicals lean slightly negative). At $1020 vs your $670 avg — substantial profit. The IB cycle is recovering and earnings quality is good (EPS +24%), but TV's slight sell-lean is a caution flag for adding. Hold core; tighten stop to the $940 area."
+          "why": "Our technical screen likes it (clean uptrend, EPS +24% / revenue +15% YoY) but TV is more cautious at NEUTRAL — a real divergence worth noting. Hold the current position; wait for TV to confirm before adding more."
         },
         {
           "ticker": "HOOD",
-          "action": "WATCH",
-          "why": "TV: BUY on Robinhood — active trading platform benefiting from the retail bull market. However, avg cost $91.17 likely puts you significantly underwater at current prices. TV buy is a positive signal but don't average down into a large loss. Watch for a confirmed base forming above the key moving averages before adding."
+          "action": "HOLD",
+          "why": "Not in today's scanned universe, but TV's STRONG_BUY (17 buy / 0 sell) is the most one-sided bullish read among your non-scanned holdings. Fintech/trading-volume beneficiary — hold, consider adding on strength."
         },
         {
           "ticker": "INTC",
           "action": "HOLD",
-          "why": "Scan score 67.7 WATCH, TV: BUY. Intel's recovery under Pat Gelsinger's IFS (Intel Foundry Services) strategy is starting to show — the stock has recovered significantly from multi-year lows. Your $45 avg gives you a strong profit buffer. Hold; the AI PC and foundry recovery story is real."
+          "why": "Technical score has improved into STRONG BUY territory and TV confirms with BUY, but EPS growth data is unavailable this cycle (likely lapping a loss) — this is still an early-stage turnaround. Hold; don't oversize given the turnaround uncertainty."
         },
         {
           "ticker": "IREN",
           "action": "TRIM",
-          "why": "TV: SELL on Iris Energy (bitcoin mining). Not in scan. Bitcoin mining economics are challenged by higher energy costs and post-halving dynamics. Avg cost $45 — assess your current P&L and trim the position. This is a speculative holding in a headwind environment per TV signals."
+          "why": "Not in today's scanned universe. TV rates it STRONG_SELL (1 buy / 15 sell) — the harshest rating across your entire portfolio. Bitcoin-mining/AI-datacenter infrastructure names have gotten volatile; consider meaningfully reducing this position."
         },
         {
           "ticker": "LRCX",
           "action": "HOLD",
-          "why": "Scan score 89.7, TV: STRONG_BUY (16/0) — unanimous. At $410 vs your $289 avg — strong gain. This is one of today's top setups. The chip equipment supercycle (HBM demand, leading-edge fab buildout) is the theme and LRCX is the etch/deposition leader. Hold your core; earnings ~Jul 30 — consider trimming 20% before the report."
+          "why": "Clean STRONG BUY setup, TV confirms with BUY. Semicap-equipment name riding the same AI/fab-capex cycle as AMAT. Hold; consider adding on strength."
         },
         {
           "ticker": "LUNR",
-          "action": "WATCH",
-          "why": "TV: SELL on Intuitive Machines (lunar lander). Speculative space infrastructure play. TV is in sell mode. Avg cost $20 — assess your current P&L. If at a gain, trim to a small speculative size. If at a loss, hold and wait for a confirmed technical base before deciding."
+          "action": "TRIM",
+          "why": "Not in today's scanned universe. TV rates it SELL (2 buy / 14 sell) — a lopsided bearish read for this space/lunar-lander name. High-risk small cap; consider trimming or tightening risk management."
         },
         {
           "ticker": "MSFT",
           "action": "TRIM",
-          "why": "Scan score 31.9 WEAK, TV: STRONG_SELL (1/15 — nearly unanimous sell from all 15 indicators). Microsoft is in a clear technical downtrend. Your $345 avg means you still have a profit at current prices ($368). Take 30-40% off the table now while still profitable — TV's strongest sell signal in the entire scan. The AI Copilot thesis is real long-term, but the chart is broken today."
+          "why": "Both our technical screen (WEAK, 29% off its high) and TV (SELL) agree this name has broken down technically despite continued cloud/AI revenue growth (EPS +23% / revenue +18% YoY) — the fundamentals haven't translated into price strength. This is one of several mega-cap tech names (alongside NVDA, ORCL, PLTR) that screened weak in today's scan. Consider trimming into any bounce."
         },
         {
           "ticker": "MU",
           "action": "HOLD",
-          "why": "Scan score 85.1, TV: BUY (14/2). At $1,145 vs your $245 avg — a massive 4.7x return. The AI memory (HBM3E) supercycle is structural and Micron is the only US-based supplier. Hold your core position with a trailing stop at $1,050. Don't let a cyclical turn catch you with full size."
+          "why": "Our screen loves it — EPS +1,369% / revenue +346% YoY on the AI-driven memory upcycle — but TV is NEUTRAL on the oscillators. Hold; the fundamental story here is exceptional even without full technical confirmation yet."
         },
         {
           "ticker": "NVDA",
-          "action": "TRIM",
-          "why": "Scan score 37.4 WEAK, TV: SELL (7/12 — clear sell majority). NVIDIA is below all major moving averages despite still being the AI GPU leader. Your $165 avg means you're still well in the green at $195. Trim 25-30% into strength. The business remains exceptional — but the chart says institutional money is taking profits, and TV confirms selling pressure. Rebuild when TV flips back to buy."
+          "action": "HOLD",
+          "why": "Notable divergence: fundamentals remain exceptional (EPS +215% / revenue +85% YoY) but the technical setup has weakened to WATCH (16% off its high) and TV rates it an outright SELL on the oscillators. Hold the current position; don't add until price action re-confirms strength."
         },
         {
           "ticker": "ORCL",
-          "action": "TRIM",
-          "why": "Scan score 26.7 WEAK, TV: SELL (3/16 — strong sell). Oracle is in severe technical deterioration — RSI 11 and -54% from its 52-week high based on the scan data. Your $100 avg means you're still in profit at $147. Take meaningful gains off the table now. The Oracle Cloud thesis is fine long-term, but the chart is deeply broken and TV agrees."
+          "action": "SELL",
+          "why": "The weakest alignment in your entire portfolio — 56% off its 52-week high with RSI at 12 (extreme oversold, a sign of a severe breakdown, not just a dip), and TV also rates SELL. Consider a meaningful trim or exit unless you have strong independent conviction on an eventual AI-cloud recovery."
         },
         {
           "ticker": "PLTR",
-          "action": "HOLD",
-          "why": "TV: SELL (2/14 — strong sell). Palantir has pulled back significantly from its highs. Avg cost $120 — you're likely at a loss or near breakeven. Don't compound the loss by selling at the lows. Hold and wait for TV to improve. The AI government data platform thesis is intact; the chart and TV signal a period of underperformance. No new buying until TV shows Buy."
+          "action": "TRIM",
+          "why": "Not in today's scanned universe. TV rates it SELL (6/10/10) — notable given how popular this AI-software name is; it's grouped with other mega-cap AI names (NVDA, MSFT) that screened weak/bearish today, a real rotation-away-from-crowded-AI signal. Consider trimming into strength."
         },
         {
           "ticker": "QBTS",
           "action": "HOLD",
-          "why": "TV: NEUTRAL on D-Wave Quantum. Speculative quantum computing position. Avg cost $4.66 — this is a small spec bet, not a core holding. TV neutral is the appropriate setup to hold and wait. No catalyst near-term. Quantum computing remains a 3-5 year thesis."
+          "why": "Not in today's scanned universe. TV is NEUTRAL — a speculative quantum-computing name with no strong edge either way. Hold, but keep position size small given the speculative nature."
         },
         {
           "ticker": "QLD",
           "action": "HOLD",
-          "why": "2x QQQ leveraged ETF in a confirmed UPTREND. Avg cost $51 = significantly in profit. In an uptrend with low VIX and positive breadth, leveraged long exposure is appropriate. Hold. Tighten to TRIM if VIX spikes above 22 or distribution days increase above 4."
+          "why": "A 2x leveraged Nasdaq-100 ETF — TV rates it BUY, consistent with the broader index holding up even as individual mega-cap tech names (NVDA, MSFT, ORCL) screened weak today. Hold, but remember leverage cuts both ways — size accordingly."
         },
         {
           "ticker": "RBRK",
-          "action": "ADD",
-          "why": "TV: STRONG_BUY on Rubrik — the fastest-growing cybersecurity platform (data security + recovery). Not in main scan universe but TV unanimously confirms strength. Avg cost $56 is excellent for a company in strong secular growth. This is a high-conviction ADD for a small addition to your position. Cybersecurity is the theme of this market."
+          "action": "HOLD",
+          "why": "Not in today's scanned universe, but TV's STRONG_BUY (16/1/9) aligns with the cybersecurity-sector strength we're already seeing confirmed in FTNT. Hold; consider adding on strength."
         },
         {
           "ticker": "RGTI",
-          "action": "WATCH",
-          "why": "TV: SELL on Rigetti Computing (quantum). Very speculative quantum hardware play. Avg cost $6 — assess your current P&L. If still at a loss, hold (don't compound). If at a gain, consider taking some profits. TV sell signal + speculative nature = keep position small."
+          "action": "TRIM",
+          "why": "Not in today's scanned universe. TV rates it SELL (3/13/10) — a bearish read on this speculative quantum-computing name. Keep sized small if held at all, or consider trimming."
         },
         {
           "ticker": "RKLB",
           "action": "HOLD",
-          "why": "TV: NEUTRAL on Rocket Lab. Space infrastructure is a long-duration thesis. Avg cost $21. TV neutral says sideways movement is the most likely near-term outcome. Hold your position; don't add at neutral signal. The next catalyst is a successful Neutron rocket milestone."
+          "why": "Not in today's scanned universe. TV is NEUTRAL — a space-launch name (same theme as SPCX) with no strong edge either way right now. Hold."
         },
         {
           "ticker": "SMCI",
-          "action": "TRIM",
-          "why": "Scan score 34.4 WEAK, TV: STRONG_SELL (0/17 — unanimous sell, all 17 indicators negative). Super Micro Computer remains under significant pressure from accounting restatement concerns and competitive pressure from Dell and HP in AI server racks. Avg cost $23 puts you slightly in profit at $28 — trim now while you still have a gain. The chart is -53.6% from its 52-week high. TV's unanimous strong sell is the clearest signal in today's scan."
+          "action": "SELL",
+          "why": "The worst alignment in your portfolio — 54% off its 52-week high, WEAK technical score, and TV's STRONG_SELL (the harshest rating in this scan) all agree. Despite explosive headline growth (EPS +326% / revenue +123%, likely AI-server volume), the stock has been in a serious technical breakdown. Consider a significant trim or exit; re-evaluate only after a genuine base forms."
         },
         {
           "ticker": "SNDK",
           "action": "HOLD",
-          "why": "TV: BUY. SanDisk (the spinoff entity, ticker SNDK) benefits from the same storage recovery as WDC — Citi has a $2,500 price target. Your $450 avg means you may have caught the SanDisk spinoff early. TV buy confirms the setup. Hold with trailing stop protection."
+          "why": "Not in today's scanned universe, but TV rates it BUY (11/5/10) — consistent with the same storage/memory upcycle theme we're seeing confirmed in WDC and MU. Hold."
         },
         {
           "ticker": "SNOW",
           "action": "HOLD",
-          "why": "TV: BUY on Snowflake. The cloud data platform is recovering as enterprises integrate AI workloads into data pipelines. Avg cost $240. TV buy is a positive signal. Hold; the next major catalyst is earnings and any major AI data partnership announcement."
+          "why": "Not in today's scanned universe, but TV rates it BUY (15/2/9). Data-cloud/AI name — hold, constructive independent read."
         },
         {
           "ticker": "SSO",
           "action": "HOLD",
-          "why": "2x SPY leveraged ETF in a confirmed UPTREND (VIX 17.4, 65% breadth, Dow at record). Avg cost $44 = significantly in profit. Leveraged long in an uptrend is correct positioning. Hold. Reduce to 50% position if market breadth deteriorates (below 50%) or distribution days increase above 4."
+          "why": "A 2x leveraged S&P 500 ETF — TV rates it BUY, consistent with our own healthy-uptrend market read (breadth 66%, VIX calm, only 1 distribution day). Hold, but remember leverage cuts both ways in a pullback."
         },
         {
           "ticker": "TSLA",
           "action": "HOLD",
-          "why": "Scan score 59.4 WATCH, TV: BUY. Tesla is -15.9% from its 52-week high. Avg cost $439 means you're slightly underwater at $411. TV buy signal and the confirmed market uptrend support holding — don't sell into a loss with a buy signal. The Optimus robot and FSD expansion are the long-term catalysts. Hold; a move back above $440 would recover your cost."
+          "why": "TV's STRONG_BUY fully confirms, 13% off its high. Hold; consider adding on strength."
         },
         {
           "ticker": "TSM",
           "action": "HOLD",
-          "why": "TV: STRONG_BUY on TSMC. The global fab of record for every leading-edge chip (Apple, NVIDIA, AMD, Apple). Avg cost $175 = excellent long-term entry. TV strong buy confirms the setup. TSMC Arizona fab and the global chip supercycle make this a core long-term hold. Don't touch it."
+          "why": "Not in today's scanned universe (rate-limited during the data pull), but TV rates it BUY (12/4/10) — the same AI-capex/foundry theme already confirmed in AMAT and LRCX. Hold; consider adding on strength."
         },
         {
           "ticker": "VRT",
           "action": "TRIM",
-          "why": "TV: SELL on Vertiv Holdings (data center power and cooling). Avg cost $16 — you have an extraordinary gain if Vertiv is near its 2025-2026 highs. TV sell signal + single-share position = take the exceptional profit. Trim at least 50% of this position given the TV sell signal and the enormous percentage gain."
+          "why": "Not in today's scanned universe. TV rates it SELL (5/12/9) — notable since this is a popular AI-datacenter power/cooling infrastructure name; it's showing the same rotation-away-from-crowded-AI-infrastructure pattern we're seeing in PLTR and NVDA. Consider trimming."
         }
       ]
     },
@@ -159,8 +159,8 @@
       "holdings": [
         {
           "ticker": "AAPL",
-          "action": "TRIM",
-          "why": "Scan score 37.9 WEAK, TV: SELL (8/11 sell votes). Apple is below all key moving averages. Avg cost $250 puts you at a modest profit — trim 25% now while still in the green. The AI iPhone narrative is long-term intact but the chart is broken today. Rebuild on a confirmed base above the 50-day MA."
+          "action": "HOLD",
+          "why": "Confirmed uptrend, 6.6% off its 52-week high with room to run; EPS +22% / revenue +17% YoY and TV's BUY both confirm. Hold the core position."
         }
       ]
     },
@@ -169,87 +169,87 @@
         {
           "ticker": "AMKR",
           "action": "HOLD",
-          "why": "TV: BUY on Amkor Technology — advanced chip packaging (SiP, 2.5D) is a critical part of the AI chip supply chain. 1,060 shares at $83 avg. TV buy confirms the setup. The chip equipment supercycle flows through packaging too. Hold your core position."
+          "why": "Not in today's scanned universe. TV rates it NEUTRAL (8 buy / 8 sell) — no strong edge either way for this OSAT/semiconductor-packaging name. Hold, no urgency to add or trim."
         },
         {
           "ticker": "COCO",
-          "action": "TRIM",
-          "why": "TV: SELL on Vita Coco Company. Consumer staples facing pricing pressure. 3,000 shares at $78.71 avg — a large position in a name with TV sell signals. Reduce to half position; reallocate to stronger setups with TV buy confirmation."
+          "action": "HOLD",
+          "why": "Not in today's scanned universe. TV rates it NEUTRAL — no strong signal either way for this consumer-beverage name. Hold."
         },
         {
           "ticker": "DELL",
           "action": "HOLD",
-          "why": "TV: BUY on Dell Technologies. Dell is an AI server infrastructure play — the fastest-growing segment is its AI-optimized server line (PowerEdge XE). 1,500 shares at $417.23 avg. TV buy confirms the setup. Hold; earnings will be the next major catalyst."
+          "why": "Not in today's scanned universe, but TV rates it BUY (14/2/10). AI-server and PC-hardware demand story remains intact per the independent read. Hold; consider adding on strength."
         },
         {
           "ticker": "DIOD",
           "action": "TRIM",
-          "why": "TV: SELL on Diodes Inc (analog semiconductors). 2,000 shares at $122.81 avg — a large position with TV sell signals. The analog chip sector is facing pricing headwinds. Trim 30-40% of the position; hold the rest for a potential sector recovery."
+          "why": "Not in today's scanned universe. TV rates it SELL (7 buy / 10 sell) — a bearish tilt for this semiconductor name. Consider trimming."
         },
         {
           "ticker": "DOCN",
-          "action": "HOLD",
-          "why": "TV: BUY on DigitalOcean — cloud infrastructure for SMBs and developers is recovering. 2,600 shares at $179.89 avg. TV buy confirms momentum. The AI developer tools and GPU cloud expansion are the growth catalysts. Hold."
+          "action": "TRIM",
+          "why": "Not in today's scanned universe. TV rates it SELL (4 buy / 12 sell), one of the more lopsided bearish reads in the holdings list. Consider trimming this cloud-infrastructure position."
         },
         {
           "ticker": "FLEX",
           "action": "HOLD",
-          "why": "TV: BUY on Flex Ltd (electronics manufacturing services). 1,500 shares at $152.31 avg. Flex benefits from reshoring of electronics manufacturing and AI hardware ramp. TV buy confirms. Hold your position."
+          "why": "No scan or TradingView data resolved for this ticker today — hold and monitor manually until data resolves."
         },
         {
           "ticker": "FTNT",
-          "action": "ADD",
-          "why": "Scan score 87.7 STRONG BUY, TV: BUY (15/2). Fortinet is at a 52-week high with EPS +29% and revenue +20%. Your 1,000 shares at $144.90 avg are in a comfortable profit at $155.42. This is one of today's highest-conviction setups — cybersecurity secular demand + clean technical breakout. Add a small position (5-10% more shares). Earnings ~Aug 6 — plan sizing before the report."
+          "action": "HOLD",
+          "why": "Today's Top Pick — TV's STRONG_BUY fully confirms, but RSI 75 means it's already extended. Hold; don't chase new adds at this level."
         },
         {
           "ticker": "GLW",
           "action": "HOLD",
-          "why": "Scan score 90.2, TV: STRONG_BUY (16/0). Corning is at a 52-week high after +99% in 3 months. Your 1,000 shares at $189.20 avg means you have exceptional gains at $255.69. TV unanimously confirms strength but the stock is very extended (fwd P/E 60x). Hold your core but trim 20-25% into this strength to protect the gains — a parabolic move of 99% in 3 months rarely sustains without a pullback."
+          "why": "Today's Top Pick and one of our deep-dive research names — EPS +139% YoY on AI-datacenter fiber demand, TV BUY confirms. Hold; still 14% off its high so there's room before resistance."
         },
         {
           "ticker": "GOOGL",
           "action": "HOLD",
-          "why": "TV: NEUTRAL (8 buy / 8 sell). Your 1,640 shares at $363.53 avg is a very large position. Google at current prices puts you roughly at cost — this is the most important holding to monitor. TV neutral = no urgency to act, but also no confirmation to add. Hold; the Gemini AI earnings catalyst is the thing to watch for a move above cost."
+          "why": "Still WATCH-tier technically (10% off its high, still building the base) but TV rates it BUY and EPS growth is strong (+82% YoY). Hold; wait for a confirmed breakout before adding."
         },
         {
           "ticker": "ICHR",
           "action": "HOLD",
-          "why": "TV: STRONG_BUY on Ichor Holdings — ultra-high-purity gas delivery systems for semiconductor fabs. 3,200 shares at $85.66 avg. Ichor is a direct beneficiary of the chip equipment supercycle (LRCX, AMAT, KLAC are all customers). TV strong buy confirms. Hold; consider adding small on any weakness."
+          "why": "Not in today's scanned universe, but TV's STRONG_BUY (17/3/6) aligns with the broader semicap-equipment strength we're already seeing confirmed in AMAT and LRCX. Hold; consider adding on strength."
         },
         {
           "ticker": "LLY",
           "action": "HOLD",
-          "why": "Scan score 88.9 STRONG BUY, TV: STRONG_BUY (16/0). Your 200 shares at $1,162 avg are in profit at $1,229.93. This is one of today's best setups — GLP-1 dominance with EPS +170%, Rev +56%, and unanimous TV confirmation. Hold; the pre-earnings window (~36 days) is the ideal accumulation zone. Don't sell this unless the GLP-1 thesis changes."
+          "why": "Today's Top Pick and deep-dive research name — the best fundamentals in the whole scan (EPS +170% / revenue +56% YoY on the GLP-1 franchise), TV BUY confirms. Hold; consider adding on strength."
         },
         {
           "ticker": "LQDA",
           "action": "HOLD",
-          "why": "TV: BUY on Liquidia Corp (specialty pulmonary hypertension drugs). 3,000 shares at $75.41 avg. Specialty pharma with FDA approval catalysts ahead. TV buy confirms. Hold; this is a pipeline-driven catalyst stock — the next FDA milestone will be the price-mover."
+          "why": "Not in today's scanned universe, but TV rates it BUY (17/2/7). Specialty-pharma name — hold, constructive independent read."
         },
         {
           "ticker": "LUV",
           "action": "HOLD",
-          "why": "TV: BUY on Southwest Airlines. 4,000 shares at $42.75 avg. Airlines are recovering as travel demand remains strong and fuel costs moderate. TV buy confirms. Hold; the airline sector typically benefits from the consumer confidence that comes with a Dow at record highs. Watch for summer travel season revenue updates."
+          "why": "Not in today's scanned universe, but TV rates it BUY (14/2/10). Airline-turnaround name — hold, constructive independent read."
         },
         {
           "ticker": "MXL",
           "action": "HOLD",
-          "why": "TV: STRONG_BUY on MaxLinear (high-speed mixed-signal semiconductors). 5,000 shares at $99.95 avg. MaxLinear's PAM4 optical chips for data centers are in strong demand from AI infrastructure buildout. TV strong buy confirms. Hold your core; this is a direct AI infrastructure play."
+          "why": "Not in today's scanned universe, but TV rates it BUY (14/5/7). Semiconductor name — hold, constructive independent read."
         },
         {
           "ticker": "NTAP",
-          "action": "WATCH",
-          "why": "Scan score 49.7 WEAK, TV: BUY. NetApp at $155 vs your $159.26 avg = slightly underwater. TV shows buy but scan fundamentals are weak. The tension: TV buy but scan says avoid. Hold (don't add); wait for the stock to recover above your cost basis and for scan score to improve before adding. Stop: exit below $148 if the position moves further against you."
+          "action": "HOLD",
+          "why": "WATCH-tier technically but TV leans BUY. No strong edge either way — hold, no urgency to add."
         },
         {
           "ticker": "PRTH",
           "action": "HOLD",
-          "why": "TV: BUY on Priority Technology Holdings (payment processing for SMBs). 30,000 shares at $7.38 avg — a large speculative position. TV buy confirms momentum. Payment processing is a recurring revenue model that benefits from economic activity. Hold; watch for earnings to confirm revenue growth trend."
+          "why": "Not in today's scanned universe, but TV's STRONG_BUY (17/0/9) is unanimous on the buy side. Payments-processing name — hold, consider adding on strength."
         },
         {
           "ticker": "SWBI",
           "action": "HOLD",
-          "why": "TV: BUY on Smith & Wesson Brands. 15,000 shares at $16.04 avg. Firearms demand typically rises with economic uncertainty and election cycles. TV buy confirms. Hold; this is a consumer defensive/demand play. Watch for quarterly NICS (background check) data as the fundamental indicator."
+          "why": "Not in today's scanned universe. TV is NEUTRAL — no strong edge either way for this firearms manufacturer. Hold."
         }
       ]
     },
@@ -257,28 +257,28 @@
       "holdings": [
         {
           "ticker": "AAPL",
-          "action": "TRIM",
-          "why": "Scan score 37.9 WEAK, TV: SELL (8/11). Apple is in technical downtrend below all key MAs. Avg cost $240 = modest profit at current prices. Trim 25% now to protect gains. Rebuild on a confirmed technical base above the 50-day MA."
+          "action": "HOLD",
+          "why": "Confirmed uptrend, 6.6% off its 52-week high with room to run; EPS +22% / revenue +17% YoY and TV's BUY both confirm. Hold the core position."
         },
         {
           "ticker": "GS",
           "action": "HOLD",
-          "why": "Scan score 78.3, TV: NEUTRAL (10/8 slight sell-lean). Goldman Sachs at $1,020 vs your $800 avg — solid profit. The investment banking recovery is real (EPS +24%), but TV's slight negative lean is a caution flag for adding. Hold your 3-share position; tighten stop to $940."
+          "why": "Our technical screen likes it (clean uptrend, EPS +24% / revenue +15% YoY) but TV is more cautious at NEUTRAL — a real divergence worth noting. Hold the current position; wait for TV to confirm before adding more."
         },
         {
           "ticker": "MNST",
           "action": "HOLD",
-          "why": "Scan score 78.7, TV: STRONG_BUY (16/1). Monster Beverage is at a 52-week high and RSI 85.4 — deeply overbought. Your 5 shares at $80 avg are in solid profit at $97.64. Hold existing shares with a trailing stop near $89 (the scan's stop level). Do NOT add new shares at RSI 85 — wait for a pullback to $85-88 before adding."
+          "why": "Today's Top Pick — RS at a new high, EPS +29% / revenue +27% YoY, TV BUY confirms. RSI 74 means it's already extended, so hold rather than chase; a pullback toward the 50-day would be the better add point."
         },
         {
           "ticker": "SPCX",
           "action": "HOLD",
-          "why": "SpaceX (SPCX) is a new IPO — no scan data available yet (insufficient trading history for quantitative signals). This is a thesis-driven hold: SpaceX is the dominant private space infrastructure company (Starlink internet, Falcon 9, Starship). Avg cost $160.95. New IPO momentum can be powerful in the early weeks. Hold your 5 shares as a high-upside, high-risk allocation. No stop recommendation until more trading history establishes key technical levels."
+          "why": "New listing — no chart history yet, so this is a fundamentals-and-momentum thesis, not a technical one. TV's STRONG_SELL here is based on only 4 total signals (not enough trading history to mean anything) and should be disregarded. Bloomberg reported analyst targets around its debut testing a ~$2.2T valuation. Hold as a thesis-driven position sized for new-listing volatility; re-evaluate once 2-3 months of real trading history accumulate."
         },
         {
           "ticker": "TSLA",
           "action": "HOLD",
-          "why": "Scan score 59.4 WATCH, TV: BUY. Tesla is -15.9% from its 52-week high. Your 15 shares at $250 avg give you a solid profit at $411.84. TV buy confirms continued upside potential. Hold; the Optimus humanoid robot and FSD international expansion are the long-term catalysts. Consider trailing stop at $380."
+          "why": "TV's STRONG_BUY fully confirms, 13% off its high. Hold; consider adding on strength."
         }
       ]
     },
@@ -286,8 +286,8 @@
       "holdings": [
         {
           "ticker": "AAPL",
-          "action": "TRIM",
-          "why": "Scan score 37.9 WEAK, TV: SELL (8/11). Apple is in technical downtrend. Avg cost $259.38 = modest profit at current prices (~$281). Trim 25-30% to protect gains while still in the green. This is the time to reduce, not hold full size into a TV-confirmed sell signal."
+          "action": "HOLD",
+          "why": "Confirmed uptrend, 6.6% off its 52-week high with room to run; EPS +22% / revenue +17% YoY and TV's BUY both confirm. Hold the core position."
         }
       ]
     },
@@ -295,93 +295,93 @@
       "holdings": [
         {
           "ticker": "AAPL",
-          "action": "TRIM",
-          "why": "Scan score 37.9 WEAK, TV: SELL (8/11). Small 4-share position at $250 avg. Trim to 2 shares; take the modest gain while the TV signal is negative."
+          "action": "HOLD",
+          "why": "Confirmed uptrend, 6.6% off its 52-week high with room to run; EPS +22% / revenue +17% YoY and TV's BUY both confirm. Hold the core position."
         },
         {
           "ticker": "AMAT",
           "action": "HOLD",
-          "why": "Scan score 89.1, TV: STRONG_BUY (16/0). Applied Materials is at a 52-week high after +115% in 3 months. Your 5 shares at $140 avg = extraordinary gain at $694.64 (+396%). TV unanimously confirms strength. Hold core but consider trimming 1 share (20%) to bank some of the exceptional gain — RSI 73 suggests potential consolidation ahead."
+          "why": "One of today's Top Picks — clean breakout, EPS +34% YoY, TV BUY confirms. Hold; consider adding on strength or a pullback toward the 50-day."
         },
         {
           "ticker": "AMZN",
           "action": "HOLD",
-          "why": "TV: NEUTRAL (8/8 buy/sell — perfectly balanced). Amazon's cloud (AWS) and AI monetization are strong but the stock is a relative laggard. Your 3 shares at $250 avg are in solid profit. TV neutral = hold, don't add. The next AWS revenue acceleration or major Anthropic milestone would be the upgrade catalyst."
+          "why": "Strong fundamentals (EPS +75% / revenue +17% YoY), 12% off its high, TV BUY confirms. Hold."
         },
         {
           "ticker": "COIN",
-          "action": "TRIM",
-          "why": "TV: SELL on Coinbase (3/14 — strong sell). Crypto-correlated and technically broken. Your 5 shares at $80 avg — assess your current P&L. If at a gain, take it now (TV sell is clear). If underwater, hold to avoid selling at the bottom — but no new buying until TV improves."
+          "action": "HOLD",
+          "why": "Not in today's scanned universe. TV rates it NEUTRAL, consistent with the soft near-term crypto backdrop (BTC-USD itself rates SELL on TV right now). Hold, but don't add into crypto weakness."
         },
         {
           "ticker": "DTE",
           "action": "HOLD",
-          "why": "DTE Energy (utility) is a rate-sensitive, defensive hold. In the current uptrend environment, utilities underperform. Hold your 4 shares at $100 avg for income and stability; don't add. If the market shifts to risk-off, this becomes more valuable."
+          "why": "Technically clean (tight VCP, TV BUY) and part of the datacenter power-demand utility theme, but EPS is down -44% YoY — a real fundamental headwind likely from capex/financing costs on the buildout. Hold the current position; wait for earnings growth to turn positive before adding."
         },
         {
           "ticker": "EOG",
-          "action": "HOLD",
-          "why": "Scan score 36.1 WEAK, TV: SELL (3/13). Tiny 1-share position at $11 avg — an extraordinary gain. TV sell and weak scan score argue for trimming, but with just 1 share the transaction cost makes it impractical. Hold the single share and let it ride; the gain is already locked in mentally."
+          "action": "TRIM",
+          "why": "Technical score has broken down to WEAK with RSI at 26 (deeply oversold), and TV also rates SELL — both signals agree despite decent EPS (+40%) and revenue (+16%) growth. Falling crude prices (Iran de-escalation headlines) are likely the driver. Consider trimming."
         },
         {
           "ticker": "FICO",
-          "action": "HOLD",
-          "why": "TV: BUY on Fair Isaac Corp. Your 2 shares at $760 avg. FICO's scoring models are mandatory infrastructure for mortgage and credit decisions — irreplaceable business with pricing power. TV buy confirms. Hold; this is a quality compounder. Don't trade it."
+          "action": "TRIM",
+          "why": "Technical score has fallen to WEAK — the stock is 36% off its 52-week high even though TV still shows BUY and fundamentals are strong (EPS +69% / revenue +39%). Price action has broken down after a big prior run. Hold only with a long-term thesis; otherwise trim into any bounce and reassess once it re-bases."
         },
         {
           "ticker": "GS",
           "action": "HOLD",
-          "why": "Scan score 78.3, TV: NEUTRAL (10/8 slight sell-lean). Your 20 shares at $140 avg — exceptional gain at $1,020 (+629%). TV neutral is slightly concerning. Hold your profitable position but do not add here. Tighten your mental stop to $940 to protect the outsized gain."
+          "why": "Our technical screen likes it (clean uptrend, EPS +24% / revenue +15% YoY) but TV is more cautious at NEUTRAL — a real divergence worth noting. Hold the current position; wait for TV to confirm before adding more."
         },
         {
           "ticker": "INTC",
           "action": "HOLD",
-          "why": "Scan score 67.7 WATCH, TV: BUY. Intel is in a recovery — AI PC cycle + foundry services ramp. Your 35 shares at $44.29 avg are in a strong profit at $131.72. TV buy confirms the setup. Hold your core Intel position; the AI PC refresh cycle is still early and foundry ramp continues."
+          "why": "Technical score has improved into STRONG BUY territory and TV confirms with BUY, but EPS growth data is unavailable this cycle (likely lapping a loss) — this is still an early-stage turnaround. Hold; don't oversize given the turnaround uncertainty."
         },
         {
           "ticker": "IRM",
-          "action": "WATCH",
-          "why": "Scan score 83.5 WATCH, TV: BUY. Iron Mountain at $129.97 vs your $232 avg — significantly underwater. TV buy is the only positive here. Hold (don't add into a loss; don't sell at the bottom with a buy signal). The data center REIT angle is the recovery thesis — watch for AFFO growth to confirm the thesis. Stop: exit below $115 to cap the loss."
+          "action": "TRIM",
+          "why": "Technical score is WATCH-tier (8% off highs) and TV rates it SELL — both signals lean cautious despite a large reported EPS growth number that's likely off an easy base. Consider trimming."
         },
         {
           "ticker": "MNST",
           "action": "HOLD",
-          "why": "Tiny 0.1365-share fractional position at $93.43 avg — near breakeven at $97.64. TV: STRONG_BUY but RSI 85 = deeply overbought. Hold the fractional position; the amount is too small to action on."
+          "why": "Today's Top Pick — RS at a new high, EPS +29% / revenue +27% YoY, TV BUY confirms. RSI 74 means it's already extended, so hold rather than chase; a pullback toward the 50-day would be the better add point."
         },
         {
           "ticker": "NVDA",
           "action": "HOLD",
-          "why": "Scan score 37.4 WEAK, TV: SELL (7/12). Your 10 shares at $280 avg — at a loss at current $194.97 (-30%). TV sell signal is real, but selling at -30% crystallizes a loss into a company that is still the dominant AI GPU provider. Hold (not a forever hold — but don't sell into a -30% loss with a sell signal that may be temporary). Watch for TV to flip to neutral or buy before reassessing. Stop: exit below $175 to prevent a larger loss."
+          "why": "Notable divergence: fundamentals remain exceptional (EPS +215% / revenue +85% YoY) but the technical setup has weakened to WATCH (16% off its high) and TV rates it an outright SELL on the oscillators. Hold the current position; don't add until price action re-confirms strength."
         },
         {
           "ticker": "NXPI",
           "action": "TRIM",
-          "why": "Scan score 39.7 WEAK, TV: SELL (5/12). NXP Semiconductors — automotive chip exposure facing inventory digestion. Your 2 shares at $285.20 — likely slightly underwater. TV sell + weak scan = trim to 1 share. The automotive chip cycle is in its down-phase."
+          "why": "Technical score has fallen to WEAK and TV is NEUTRAL — no clear edge and the chart has deteriorated. Consider trimming."
         },
         {
           "ticker": "SIRI",
           "action": "HOLD",
-          "why": "TV: STRONG_BUY (16/0). SiriusXM at $29.24 vs your $80 avg — a large loss (-63%). TV's unanimous strong buy says the stock has found a technical base. Do NOT sell at the bottom of a massive loss with a strong buy signal. Hold and wait for the technical recovery — if TV is right, the stock should continue recovering. Stop: exit below $24 if the TV signal fails."
+          "why": "One of today's picks, but WATCH-tier there — TV's STRONG_BUY is unanimous, yet RSI 84 is the most overbought reading in the entire scan. Hold current position; don't add or chase here."
         },
         {
           "ticker": "SNDK",
           "action": "HOLD",
-          "why": "TV: BUY. Your 35 shares at $5.45 avg — an extraordinary gain on the SanDisk position. Citi $2,500 price target on the SanDisk spinoff entity. TV buy confirms. Hold; this is one of your best performers. Use a trailing stop at $580 to protect the majority of the gain."
+          "why": "Not in today's scanned universe, but TV rates it BUY (11/5/10) — consistent with the same storage/memory upcycle theme we're seeing confirmed in WDC and MU. Hold."
         },
         {
           "ticker": "SPCX",
           "action": "HOLD",
-          "why": "SpaceX (SPCX) new IPO — no scan data available yet. Thesis-driven hold: SpaceX's Starlink, Falcon 9, and Starship represent the most valuable private space infrastructure on Earth. Your 0.8549 fractional shares at $204.12 avg. Hold; new IPO momentum is the near-term driver. No TV rating available yet (expected for new listings)."
+          "why": "New listing — no chart history yet, so this is a fundamentals-and-momentum thesis, not a technical one. TV's STRONG_SELL here is based on only 4 total signals (not enough trading history to mean anything) and should be disregarded. Bloomberg reported analyst targets around its debut testing a ~$2.2T valuation. Hold as a thesis-driven position sized for new-listing volatility; re-evaluate once 2-3 months of real trading history accumulate."
         },
         {
           "ticker": "TSLA",
           "action": "HOLD",
-          "why": "Scan score 59.4 WATCH, TV: BUY. Tesla at $411.84 vs your $400 avg — a modest profit. TV buy confirms upside potential. Hold; Optimus robot and FSD expansion are the long-duration catalysts. The -16% from 52-week high creates re-entry potential if price recovers above $440."
+          "why": "TV's STRONG_BUY fully confirms, 13% off its high. Hold; consider adding on strength."
         },
         {
           "ticker": "WDC",
           "action": "HOLD",
-          "why": "Scan score 87.7, TV: BUY (15/2). Western Digital at $651.88 vs your $500.01 avg — a solid 30% gain. EPS +483%, Rev +46% — full storage cycle recovery. Citi $2,500 target on the SanDisk spinoff. Hold your 3 shares; the RS line lagging is the only caution flag, but TV BUY confirms directional momentum."
+          "why": "Explosive earnings growth (EPS +483% / revenue +46% YoY) on the storage/memory upcycle, but TV is NEUTRAL rather than confirming outright. Hold the current position; wait for TV to firm up before adding more."
         }
       ]
     },
@@ -390,12 +390,12 @@
         {
           "ticker": "BTC-USD",
           "action": "TRIM",
-          "why": "TV: STRONG_SELL (1/16 — nearly unanimous sell from all 16 technical indicators). Your 2 BTC at $1,000 avg cost is one of the greatest trades in the portfolio — if BTC is near current market prices (~$80,000-100,000), you have an extraordinary 80-100x return. TV's unanimous strong sell is the most compelling trim signal we have. Take 25-30% off the table (0.5 BTC). The long-term Bitcoin thesis is intact, but TV's unanimous sell says short-term pressure is likely. Protect a portion of this exceptional gain."
+          "why": "TradingView rates BTC-USD SELL (5 buy / 11 sell) right now. If you're holding this as a smaller, sized-for-volatility position that's fine to ride, but the near-term technical read is bearish — consider reducing if it's oversized relative to the rest of the portfolio."
         },
         {
           "ticker": "GS",
           "action": "HOLD",
-          "why": "Scan score 78.3, TV: NEUTRAL (10/8 slight sell-lean). Goldman Sachs at $1,020 vs your $500 avg — a solid 2x return. TV neutral is slightly concerning for the technicals, but the fundamental momentum (EPS +24%) is real. Hold your 5 shares; don't add until TV flips to buy."
+          "why": "Our technical screen likes it (clean uptrend, EPS +24% / revenue +15% YoY) but TV is more cautious at NEUTRAL — a real divergence worth noting. Hold the current position; wait for TV to confirm before adding more."
         }
       ]
     }

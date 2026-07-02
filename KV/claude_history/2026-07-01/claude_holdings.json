@@ -1,0 +1,112 @@
+{
+  "date": "2026-07-01",
+  "users": {
+    "9U3EMCIBlyYATLhh9YLnfYwKgpC2": {
+      "holdings": [
+        {"ticker": "AAPL", "action": "TRIM", "why": "Scan WEAK (52.3) + TV SELL (6 buy, 10 sell). Both signals agree momentum has stalled. Take some off the table and redeploy into higher-conviction setups."},
+        {"ticker": "ALAB", "action": "HOLD", "why": "Scan STRONG BUY (90.9) + TV STRONG_BUY (17/1). Excellent dual confirmation. RSI 72.1 is slightly elevated — tighten stop to protect gains but no reason to exit."},
+        {"ticker": "AMD", "action": "ADD", "why": "Scan STRONG BUY (94.0) + TV STRONG_BUY (16/1) — the top-scored ticker in today's universe. VCP 6 contractions, RS line at new highs. You bought at $265; this setup argues for adding at current levels."},
+        {"ticker": "APLD", "action": "REDUCE", "why": "Scan WATCH (59.5) + TV SELL (6 buy, 11 sell). Deteriorating momentum, RSI 39.5 trending lower. Reduce exposure and watch for a base to form before re-entry."},
+        {"ticker": "APP", "action": "HOLD", "why": "Mixed signals: scan WEAK (34.2) but TV BUY (12/4). RSI 48.8 is neutral. Hold for now but don't add — the scan signal is not confirming TV's optimism."},
+        {"ticker": "DRAM", "action": "HOLD", "why": "Scan WATCH (68.3) with RSI 62 — developing setup. No TV rating available. Speculative position; hold small size and watch for scan signal to upgrade to STRONG BUY."},
+        {"ticker": "GOOGL", "action": "HOLD", "why": "Scan WATCH (56.4) + TV NEUTRAL (8/8). RSI 46.1 shows no momentum. Flat signal across the board. Hold if you believe in the long-term AI monetization story but don't expect near-term leadership."},
+        {"ticker": "GS", "action": "HOLD", "why": "Scan STRONG BUY (82.0) but TV NEUTRAL (7/10). Divergence: the fundamentals are solid but TV's technical read is skeptical. Hold existing position; don't add until TV confirms with a BUY rating."},
+        {"ticker": "HOOD", "action": "HOLD", "why": "Scan WEAK (44.2) but TV BUY (12/4). Mixed signals. HOOD is speculative — hold small size, don't add at current levels."},
+        {"ticker": "INTC", "action": "ADD", "why": "Scan STRONG BUY (87.1) + TV STRONG_BUY (17/0) — unanimous, zero sell votes. The Lip-Bu Tan turnaround is gaining institutional credibility. Your avg cost of $45 is near current levels; this is the point to add conviction."},
+        {"ticker": "IREN", "action": "REDUCE", "why": "Scan WEAK (37.5) + TV SELL (4 buy, 14 sell). RSI 36.5 in a downtrend. Both signals are bearish. Reduce and redeploy into stronger setups."},
+        {"ticker": "LRCX", "action": "ADD", "why": "Scan STRONG BUY (92.9) + TV STRONG_BUY (17/0) — maximum dual confirmation. VCP 6 contractions, EPS +41%. You bought at $289; this is a premium entry now but the setup argues for adding given the strength of the signal."},
+        {"ticker": "LUNR", "action": "REDUCE", "why": "Scan WEAK (27.6) + TV SELL (5 buy, 11 sell). RSI 34.7 confirming downtrend. Speculative space play with both scan and TV bearish — reduce to a small starter position or exit."},
+        {"ticker": "MSFT", "action": "REDUCE", "why": "Scan WEAK (35.8) + TV STRONG_SELL (1 buy, 15 sell). RSI 36.5 in a confirmed downtrend. TV STRONG_SELL is the strongest negative signal — reduce meaningfully here."},
+        {"ticker": "MU", "action": "HOLD", "why": "Scan STRONG BUY (92.2) + TV BUY (14/3). HBM upcycle intact. Your avg cost of $245; the memory thesis is solid but you're underwater — hold and let the HBM4 catalyst play out."},
+        {"ticker": "NVDA", "action": "HOLD", "why": "Scan WATCH (67.6) + TV SELL (4 buy, 12 sell). RSI 43.2 showing weakness. However, you bought at $165 — substantial gain. Don't sell into weakness; tighten stop but hold the core position."},
+        {"ticker": "ORCL", "action": "HOLD", "why": "Scan WEAK (43.2) + TV SELL (4 buy, 16 sell). RSI 12.0 is extreme oversold — one of the most oversold readings in the universe. Don't sell into extreme oversold conditions. Hold and watch for a bounce before reassessing."},
+        {"ticker": "PLTR", "action": "REDUCE", "why": "Scan WEAK (29.9) + TV STRONG_SELL (1 buy, 15 sell). RSI 34.4. Both signals are very bearish. Reduce — you bought at $120 and if current price is below that, this is a loss management situation."},
+        {"ticker": "QBTS", "action": "HOLD", "why": "Scan WEAK (34.1) + TV BUY (11/6). Speculative quantum computing position. Hold small size — the TV BUY provides some optimism; don't add but don't exit at low RSI 51.5."},
+        {"ticker": "QLD", "action": "ADD", "why": "Scan STRONG BUY (88.5) + TV BUY (14/2). 2x Nasdaq ETF in a confirmed UPTREND. Q2 was the best quarter since 2020 for the Nasdaq — this is the leveraged expression of that trend. Good add for Q3."},
+        {"ticker": "RBRK", "action": "ADD", "why": "Scan STRONG BUY (83.8) + TV STRONG_BUY (16/0) — zero sell votes. Your avg of $56 is in profit. Data security is a regulatory mandate; add and let this compound."},
+        {"ticker": "RGTI", "action": "REDUCE", "why": "Scan WEAK (29.5) + TV SELL (2 buy, 14 sell). RSI 48.4 and weak signals throughout. Speculative quantum play with very bearish technical setup — reduce exposure."},
+        {"ticker": "RKLB", "action": "HOLD", "why": "Scan WEAK (27.9) + TV NEUTRAL (7/9/10). Speculative space play. Mixed signals; hold small size and don't add until the scan upgrades."},
+        {"ticker": "SMCI", "action": "REDUCE", "why": "Scan WEAK (36.0) + TV SELL (3 buy, 14 sell). RSI 33.9 in a downtrend. Server manufacturer under regulatory pressure. Reduce and redeploy."},
+        {"ticker": "SNDK", "action": "HOLD", "why": "Scan STRONG BUY (88.4) + TV STRONG_BUY (17/0) — maximum confirmation. Pure-play NAND flash with AI storage tailwind. Hold and let the setup resolve."},
+        {"ticker": "SNOW", "action": "HOLD", "why": "Scan WATCH (73.6) + TV BUY (14/2). RSI 60.9 — developing. The cloud data warehouse thesis is intact. Hold and add if the scan upgrades to STRONG BUY."},
+        {"ticker": "SSO", "action": "ADD", "why": "Scan STRONG BUY (85.6) + TV BUY (14/2). 2x S&P 500 ETF in a confirmed UPTREND after the best quarter since 2020. Your avg of $44 is well below current levels — add for Q3 with a market in good health."},
+        {"ticker": "TSLA", "action": "HOLD", "why": "Scan STRONG BUY (79.1) + TV STRONG_BUY (16/0). Both signals agree Tesla is in a strong position. Your avg of $439 may be above current price — hold and let the dual-confirmed setup work; add on a pullback to reduce avg cost."},
+        {"ticker": "TSM", "action": "ADD", "why": "Scan STRONG BUY (92.6) + TV STRONG_BUY (17/0) — maximum dual confirmation. VCP 7 contractions, EPS +58%, foundry of every AI chip. Your avg of $175 is a tremendous gain. Add to a position that's both fundamentally exceptional and technically pristine."},
+        {"ticker": "VRT", "action": "HOLD", "why": "Scan STRONG BUY (85.7) + TV STRONG_BUY (17/0). You bought at $16 — an extraordinary gain. Data center cooling demand is structural. Trail your stop to protect the gain but do not exit a setup this strong."}
+      ]
+    },
+    "9XYERwojDqZYyeKV2ajvWQig8Bh2": {
+      "holdings": [
+        {"ticker": "AAPL", "action": "HOLD", "why": "Scan WEAK (52.3) + TV SELL (6 buy, 10 sell). Both signals are negative. At avg $250, the position may be underwater depending on current price. For a small single-stock position, hold and set a stop loss. Reducing further isn't compelling at current levels without knowing the size context."}
+      ]
+    },
+    "H0Wv2PLzKzR0JwanHqUssGUsmMl1": {
+      "holdings": [
+        {"ticker": "AMKR", "action": "ADD", "why": "Scan STRONG BUY (88.9) + TV STRONG_BUY (16/1). Advanced packaging for AI chips — CoWoS demand is structural. Your avg of $83 is in profit. Add conviction here."},
+        {"ticker": "COCO", "action": "REDUCE", "why": "Scan WATCH (66.0) + TV SELL (4 buy, 13 sell). RSI 35.8 in a clear downtrend. Large position (3000 shares at $78.71). Reduce significantly — both signals are bearish, and the position size at current metrics is too large for a deteriorating setup."},
+        {"ticker": "DELL", "action": "HOLD", "why": "Scan STRONG BUY (89.8) + TV STRONG_BUY (16/1). AI server story intact. Your avg of $417 is significant — hold and let the AI infrastructure cycle do the work."},
+        {"ticker": "DIOD", "action": "HOLD", "why": "Scan WATCH (74.4) + TV BUY (11/6). Mixed: scan is WATCH but TV is BUY. Hold — the developing setup may upgrade; check again next scan."},
+        {"ticker": "DOCN", "action": "HOLD", "why": "Scan STRONG BUY (86.9) but TV NEUTRAL (10 buy, 7 sell). Divergence — our scan model is more bullish than TV. Hold existing position; the cloud infrastructure thesis is intact but tighter position sizing than a full dual-confirmed STRONG BUY."},
+        {"ticker": "FLEX", "action": "ADD", "why": "Scan STRONG BUY (90.7) + TV STRONG_BUY (16/1). Electronics manufacturing services with reshoring tailwind. RSI 58.5 — cleanest entry RSI in the technology space today. Add here."},
+        {"ticker": "FTNT", "action": "HOLD", "why": "Scan STRONG BUY (93.3) + TV BUY (13/5). You bought at $144.90 — great gain to $153.62. RSI 71.8 is elevated; don't add here, but hold with a trailing stop. Let a pullback to the MA50 $124 area be your next add point."},
+        {"ticker": "GLW", "action": "HOLD", "why": "Scan STRONG BUY (94.0) + TV BUY (15/3). You bought at $189.20 — solid gain to $255.49. RSI 74.9 is elevated; tighten stop. The A+ setup will be even better after a pullback toward MA50 $187. Hold but don't add at current RSI."},
+        {"ticker": "GOOGL", "action": "HOLD", "why": "Scan WATCH (56.4) + TV NEUTRAL (8/8). Large position (1640 shares) at avg $363.53 — underwater significantly at current GOOGL levels. Hold; cutting at a loss only locks it in. Watch for the AI monetization thesis to accelerate. Don't add."},
+        {"ticker": "ICHR", "action": "ADD", "why": "Scan STRONG BUY (76.4) + TV STRONG_BUY (17/1) — near-maximum confirmation. Ichhor Holdings supplies chemical delivery systems for semiconductor fab equipment. Your avg of $85.66 with RSI 78.8 elevated — add small and trail a tight stop given the high RSI."},
+        {"ticker": "LLY", "action": "HOLD", "why": "Scan STRONG BUY (91.5) + TV BUY (14/4). You bought at $1162 — likely underwater at current LLY levels. The GLP-1 and Alzheimer's thesis is intact. Hold; don't average down at this stage. Watch for Q3 guidance raise catalyst."},
+        {"ticker": "LQDA", "action": "HOLD", "why": "Scan STRONG BUY (93.8) + TV STRONG_BUY (16/0) — unanimous. You bought at $75.41, current $79.73. Small gain. RSI 73.7 is elevated — hold but don't add until RSI cools to 65. The setup is exceptional; the timing is just slightly stretched."},
+        {"ticker": "LUV", "action": "TRIM", "why": "Scan WATCH (64.7) + TV BUY (14/5) but RSI 78.5 is extremely elevated — the most extended airline stock in the universe today. Large position (4000 shares at $42.75). Take profits on at least 30-40% of the position while RSI is this hot."},
+        {"ticker": "MXL", "action": "TRIM", "why": "Scan STRONG BUY (87.6) + TV STRONG_BUY (17/1) but RSI 80.3 is dangerously extended — one of the highest RSI readings in the universe. Large position (5000 shares at $99.95). Take profits on 30-40% at these levels; re-enter after the RSI cools."},
+        {"ticker": "NTAP", "action": "HOLD", "why": "Scan WATCH (56.1) + TV NEUTRAL (9/8). RSI 31.7 is very oversold — do not sell at a low. Large position (2000 shares at $159.26). Hold through the oversold condition; watch for a base and RSI recovery before adding."},
+        {"ticker": "PRTH", "action": "HOLD", "why": "Scan STRONG BUY (76.4) + TV BUY (11/5). You bought at $7.38 — great gain. Hold with a trailing stop to protect the significant gain in this large position (30,000 shares)."},
+        {"ticker": "SWBI", "action": "HOLD", "why": "Scan STRONG BUY (78.2) + TV NEUTRAL (7/9/10). Mixed TV signal — hold existing position (15,000 shares at $16.04). Don't add until TV upgrades to BUY. Trailing stop to protect the gain."}
+      ]
+    },
+    "RWaiB5nNl5TjiWamTOEMb8tgVgQ2": {
+      "holdings": [
+        {"ticker": "AAPL", "action": "HOLD", "why": "Scan WEAK (52.3) + TV SELL (6 buy, 10 sell). Small position (5 shares). Both signals are negative at avg $240. Hold for now — the position is small; watch for improvement or exit on the next bounce."},
+        {"ticker": "GS", "action": "HOLD", "why": "Scan STRONG BUY (82.0) but TV NEUTRAL (7/10). You bought at $800 — deeply underwater if current GS is in the $550-600 range. Hold; the scan signal is positive. Do not average down until TV confirms with a BUY signal."},
+        {"ticker": "MNST", "action": "HOLD", "why": "Scan STRONG BUY (93.3) + TV BUY (14/4). You bought at $80 — great gain to current $96. RSI 73.3 is extended; hold with a trailing stop near $88 (MA50 $86). Don't add at the current elevated RSI."},
+        {"ticker": "SPCX", "action": "HOLD", "why": "New listing — SpaceX IPO. TV NEUTRAL (limited data; only 3 buy votes as expected for a brand new listing). Hold your IPO position. The thesis (Starlink + Starship) is intact. Quant signals will take 2-3 months to become meaningful. Hold and evaluate after the first quarterly update."},
+        {"ticker": "TSLA", "action": "ADD", "why": "Scan STRONG BUY (79.1) + TV STRONG_BUY (16/0). Dual-confirmed setup. You bought at $250 — potentially profitable depending on current TSLA price. Both scan and TV agree on direction; add a small amount and trail a stop."}
+      ]
+    },
+    "Upr1qGqvOZVTbZIazl3fVapJAWt1": {
+      "holdings": [
+        {"ticker": "AAPL", "action": "HOLD", "why": "Scan WEAK (52.3) + TV SELL (6 buy, 10 sell). Small position (5 shares) at avg $259.38. Both signals are negative. Hold — the position is small enough that trimming here isn't compelling vs. transaction costs. Set a stop at 5-7% below avg cost and revisit."}
+      ]
+    },
+    "WwfbUgQdviVtfrB3BBzR25joqbv2": {
+      "holdings": [
+        {"ticker": "AAPL", "action": "TRIM", "why": "Scan WEAK (52.3) + TV SELL (6 buy, 10 sell). Reduce the position and redeploy into higher-conviction setups like AMAT or INTC."},
+        {"ticker": "AMAT", "action": "HOLD", "why": "Scan STRONG BUY (92.5) + TV STRONG_BUY (16/0). You bought at $140 — substantial gain. RSI 74.6 is elevated; hold with a tighter trailing stop and wait for RSI to cool before adding more."},
+        {"ticker": "AMZN", "action": "HOLD", "why": "Scan WATCH (67.9) + TV SELL (6 buy, 11 sell). RSI 45.9 showing weakness. Hold for the AWS AI tailwind story but don't add at current levels with TV bearish."},
+        {"ticker": "COIN", "action": "REDUCE", "why": "Scan WEAK (24.9) + TV STRONG_SELL (1 buy, 15 sell). RSI 42.6. Very bearish signals — reduce significantly. Crypto correlation makes this a volatile position with adverse signals."},
+        {"ticker": "DLR", "action": "HOLD", "why": "Scan WATCH (71.0) + TV SELL (2 buy, 14 sell). Data center REIT — scan shows developing setup but TV disagrees. Zero shares currently so this is a watchlist. Wait for TV to upgrade before initiating."},
+        {"ticker": "DTE", "action": "HOLD", "why": "Scan STRONG BUY (90.8) + TV BUY (14/4). Utility stock in an UPTREND. RSI 74.6 is elevated but you bought at $100 — good gain. Hold with a trailing stop."},
+        {"ticker": "EOG", "action": "HOLD", "why": "Scan WEAK (52.9) + TV SELL (3 buy, 14 sell). RSI 35.4 in a downtrend. Oil sector under pressure (steepest quarterly decline since 2020). If you have a large gain from a very low cost basis, hold; otherwise reduce exposure to oil-sensitive names."},
+        {"ticker": "FICO", "action": "HOLD", "why": "Scan WEAK (43.9) + TV BUY (12/4). Mixed signals. FICO scores business is monopoly-like; hold for the fundamental story. Don't add on weak scan signal."},
+        {"ticker": "GS", "action": "HOLD", "why": "Scan STRONG BUY (82.0) + TV NEUTRAL (7/10). You bought at $140 — very large gain. Hold and trail a stop. Don't add until TV upgrades from NEUTRAL to BUY."},
+        {"ticker": "HWM", "action": "HOLD", "why": "Scan STRONG BUY (91.5) + TV BUY (12/5). Zero shares currently — watchlist. RSI 59.2 is healthy and unextended. Consider initiating a position — Howmet Aerospace has aerospace/defense and industrial turbine tailwinds."},
+        {"ticker": "INTC", "action": "ADD", "why": "Scan STRONG BUY (87.1) + TV STRONG_BUY (17/0) — unanimous. You hold 35 shares at avg $44.29. Add here — the turnaround thesis is gaining institutional credibility."},
+        {"ticker": "IRM", "action": "HOLD", "why": "Scan STRONG BUY (91.5) but TV SELL (6 buy, 10 sell). Notable divergence — our scan model likes IRM but TradingView's technical read is bearish. Hold; don't add. The TV SELL overrides the impulse to add more to this REIT."},
+        {"ticker": "KIM", "action": "HOLD", "why": "Scan STRONG BUY (91.5) + TV BUY (15/2). Zero shares currently — watchlist. Kimco Realty is an open-air retail REIT with improving fundamentals. Consider initiating if you want REIT income exposure."},
+        {"ticker": "MNST", "action": "HOLD", "why": "Scan STRONG BUY (93.3) + TV BUY (14/4). Very small fractional position (0.1365 shares at avg $93.43). Hold; RSI 73.3 is extended — add on a pullback to $88-90 area."},
+        {"ticker": "MSFT", "action": "HOLD", "why": "Zero shares — watchlist. Scan WEAK (35.8) + TV STRONG_SELL (1 buy, 15 sell). Not a position to initiate right now given very bearish signals."},
+        {"ticker": "NVDA", "action": "HOLD", "why": "Scan WATCH (67.9) + TV SELL (4 buy, 12 sell). RSI 43.2 showing weakness. You hold 10 shares at avg $280. Depending on when you bought, this could be at a loss post-split. Hold — NVIDIA's AI position is long-term intact; don't sell into technical weakness."},
+        {"ticker": "NXPI", "action": "REDUCE", "why": "Scan WEAK (45.0) + TV SELL (6 buy, 11 sell). RSI 44.6 in a downtrend. Small position (2 shares) — trim or exit."},
+        {"ticker": "SIRI", "action": "TRIM", "why": "Scan STRONG BUY (88.6) + TV STRONG_BUY (16/1) — strong confirmation. BUT RSI 81.6 is one of the highest readings in the universe today. At avg $80 with significant gains, trim 30-40% of this position at these extreme RSI levels. Let the rest run with a trailing stop."},
+        {"ticker": "SNDK", "action": "ADD", "why": "Scan STRONG BUY (88.4) + TV STRONG_BUY (17/0) — maximum confirmation. Pure-play NAND flash for AI storage. You bought at $5.45 — enormous gain. Add small and trail a stop to protect the gain."},
+        {"ticker": "SPCX", "action": "HOLD", "why": "New listing — SpaceX IPO. TV NEUTRAL (limited data; expected for a brand new listing). Hold your fractional IPO position. Thesis intact. Quant signals take 2-3 months to develop."},
+        {"ticker": "SPG", "action": "HOLD", "why": "Scan STRONG BUY (89.8) + TV BUY (15/4). Zero shares — watchlist. Simon Property Group is the premier mall REIT. RSI 65.6 is healthy. Consider initiating if you want high-quality REIT exposure."},
+        {"ticker": "TSLA", "action": "HOLD", "why": "Scan STRONG BUY (79.1) + TV STRONG_BUY (16/0). You bought at $400. Depending on current TSLA price, hold — both signals are STRONG BUY. Add on any pullback below $380 to reduce avg cost."},
+        {"ticker": "WDC", "action": "HOLD", "why": "Scan STRONG BUY (88.7) + TV BUY (13/4). Western Digital post-SNDK spinoff. RSI 60.3 is healthy. You hold 3 shares — hold and let the NAND recovery cycle play out. The SNDK spinoff simplified the story."}
+      ]
+    },
+    "XywlmmAEAhN9JBDkYQnagsBIkCf1": {
+      "holdings": [
+        {"ticker": "BTC-USD", "action": "HOLD", "why": "Scan WEAK (8.3) + TV STRONG_SELL (1 buy, 16 sell). RSI 23.1 is extremely oversold. Do NOT sell into an RSI of 23 — that is near-maximum capitulation territory. Hold and watch for a technical bounce. The trend is bearish but buying into a STRONG_SELL signal at RSI 23 is high risk. Set a strict stop loss and reassess after any bounce."},
+        {"ticker": "GS", "action": "HOLD", "why": "Scan STRONG BUY (82.0) + TV NEUTRAL (7/10). You bought at $500 — hold and let the scan's STRONG BUY thesis play out. Goldman's financial performance is solid; the TV NEUTRAL doesn't override the fundamental case. Add if TV upgrades to BUY."}
+      ]
+    }
+  }
+}

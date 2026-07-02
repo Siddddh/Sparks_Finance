@@ -246,7 +246,12 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 /* ════════ Layout ════════ */
 .layout{display:flex;align-items:flex-start;}
 .sidebar{width:var(--sidebar-w);flex-shrink:0;position:sticky;top:calc(var(--nav-h) + var(--strip-h));height:calc(100vh - var(--nav-h) - var(--strip-h));overflow-y:auto;padding:14px 12px;border-right:1px solid var(--border);background:var(--bg);}
-.nav-section{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text-3);padding:14px 12px 6px;}
+.nav-cat{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text);padding:15px 12px 3px;margin-top:10px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.nav-cat::before{content:"";width:4px;height:14px;border-radius:2px;background:var(--blue);flex-shrink:0;}
+.nav-cat:first-child{border-top:none;margin-top:0;}
+.nav-section{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text-3);padding:11px 12px 5px 18px;}
+/* Sub-group labels nested under a category get a lighter indent + weight than the category header */
+.nav-cat + .nav-section{padding-top:6px;}
 .navitem{display:flex;align-items:center;gap:14px;padding:9px 12px;border-radius:0 24px 24px 0;font-size:14px;font-weight:500;color:var(--text-2);cursor:pointer;transition:background .15s,color .15s;border-left:3px solid transparent;margin-bottom:1px;}
 .navitem .ic{color:var(--text-3);transition:color .15s;}
 .navitem:hover{background:var(--surface-hover);color:var(--text);}
@@ -1540,31 +1545,37 @@ function injectStaticIcons() {
 }
 
 // ════════ Sidebar nav ════════
+// Two-level nav: { cat } = a top-level category header, { sec } = a sub-group label under it,
+// { tab } = a nav link. Home + AI Assistant sit above the category as general entry points; every
+// stock/trading module lives under the "Stocks & Trading" category (Discover / My Lists / Markets).
 const NAV = [
   { sec: '' },
   { tab: 'home', label: 'Home', icon: 'home' },
   { tab: 'assistant', label: 'AI Assistant', icon: 'sparkles' },
+  { cat: 'Stocks & Trading' },
+  { sec: 'Discover' },
   { tab: 'cards', label: 'Top Picks', icon: 'spark' },
   { tab: 'explore', label: 'Explore', icon: 'compass' },
   // { tab: 'summary', label: 'AI Summary', icon: 'sparkles' },   // hidden for now
   { tab: 'research', label: 'Research', icon: 'flask' },
   { tab: 'recommend', label: 'Recommendations', icon: 'target' },
   // { tab: 'discovery', label: 'Discovery', icon: 'compass' },   // hidden for now
-  { sec: 'Lists' },
+  { tab: 'table', label: 'Screener', icon: 'table' },
+  { sec: 'My Lists' },
   { tab: 'portfolio', label: 'Portfolio', icon: 'briefcase' },
   { tab: 'watchlist', label: 'Watchlist', icon: 'eye' },
   { tab: 'useralerts', label: 'Alerts', icon: 'bell' },
   // { tab: 'health', label: 'Health', icon: 'activity' },   // hidden for now
   { sec: 'Markets' },
-  { tab: 'premarket', label: 'Notifications', icon: 'bell' },
   { tab: 'market', label: 'Market News', icon: 'newspaper' },
   { tab: 'earnings', label: 'Earnings', icon: 'calendar' },
+  { tab: 'premarket', label: 'Notifications', icon: 'bell' }
   // { tab: 'catalysts', label: 'Catalysts', icon: 'spark' },   // hidden for now
   // { tab: 'chart', label: 'Charts', icon: 'barchart' },   // retired — graphs moved into Research / Portfolio / Explore
-  { tab: 'table', label: 'Screener', icon: 'table' }
 ];
 function buildSidebar() {
   document.getElementById('sidebar').innerHTML = NAV.map(n => {
+    if (n.cat) return '<div class="nav-cat">' + n.cat + '</div>';
     if (!n.tab) return '<div class="nav-section">' + (n.sec || '') + '</div>';
     return '<div class="navitem" data-nav="' + n.tab + '" onclick="sw(\'' + n.tab + '\')">' + ic(n.icon, 20) + '<span>' + n.label + '</span></div>';
   }).join('');
