@@ -4557,10 +4557,12 @@ function notifBadge(cat) {
 // Merge persisted + derived into one normalized, de-duped, time-sorted feed.
 function buildNotifFeed() {
   const seen = _notifSeen(), out = [];
-  (notifications || []).forEach(n => out.push({ key: 'srv:' + n.id, id: n.id, persisted: true, cat: notifCategory(n), title: n.title || 'Notification', body: n.body || '', url: n.url || '', ticker: n.ticker || '', pct: (n.pct != null ? n.pct : null), ts: _notifTs(n), read: !!n.read }));
+  (notifications || []).forEach(n => out.push({ key: (n.rkey || ('srv:' + n.id)), id: n.id, persisted: true, cat: notifCategory(n), title: n.title || 'Notification', body: n.body || '', url: n.url || '', ticker: n.ticker || '', loanId: n.loanId || '', pct: (n.pct != null ? n.pct : null), ts: _notifTs(n), read: !!n.read }));
   (_derivedNotifs || []).forEach(d => out.push(Object.assign({}, d, { persisted: false, read: seen.has(d.key) })));
   const k = new Set(), dedup = [];
-  out.forEach(it => { const kk = (it.url || it.title || '').toLowerCase(); if (kk && k.has(kk)) return; if (kk) k.add(kk); dedup.push(it); });
+  // Dedupe on url, else the item's own stable key (so distinct reminders that share a title aren't
+  // dropped, and a server-persisted reminder collapses with its client-derived twin via a shared rkey).
+  out.forEach(it => { const kk = (it.url || it.key || it.title || '').toLowerCase(); if (kk && k.has(kk)) return; if (kk) k.add(kk); dedup.push(it); });
   dedup.sort((a, b) => (b.ts || 0) - (a.ts || 0));
   return dedup.slice(0, 60);
 }
@@ -5242,7 +5244,12 @@ const _FREQ_DAYS = { weekly: 7, biweekly: 14, monthly: 30, quarterly: 91, semian
 
 function fmtDate(s) { if (!s) return '—'; const d = new Date(s + 'T00:00:00'); if (isNaN(d)) return escHtml(String(s)); return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); }
 function loanNum(v) { const n = parseFloat(v); return isFinite(n) ? n : 0; }
-function daysUntil(dateStr) { if (!dateStr) return null; const d = new Date(dateStr + 'T00:00:00'); if (isNaN(d)) return null; const now = new Date(); now.setHours(0, 0, 0, 0); return Math.round((d - now) / 864e5); }
+// "Today" as the US/Eastern calendar date (YYYY-MM-DD), matching the backend's todayInET() so the
+// in-app day-counts and the server push agree. en-CA formats as ISO.
+function _etToday() { try { return new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); } catch (e) { return new Date().toISOString().slice(0, 10); } }
+// Whole-day delta between a YYYY-MM-DD and ET-today. Both parsed at UTC midnight so no local-offset
+// leaks in (which previously shifted derived dates a day for ahead-of-UTC users).
+function daysUntil(dateStr) { if (!dateStr) return null; const d = Date.parse(dateStr + 'T00:00:00Z'); if (isNaN(d)) return null; const now = Date.parse(_etToday() + 'T00:00:00Z'); return Math.round((d - now) / 864e5); }
 function _fmtBytes(b) { b = +b || 0; if (b < 1024) return b + ' B'; if (b < 1048576) return (b / 1024).toFixed(0) + ' KB'; return (b / 1048576).toFixed(1) + ' MB'; }
 function loanIsActive(l) { return !l.status || l.status === 'active' || l.status === 'defaulted'; }
 function loanOutstanding(l) { if (!l) return 0; if (l.outstanding != null && l.outstanding !== '') return loanNum(l.outstanding); return (l.status === 'closed' || l.status === 'paid_off') ? 0 : loanNum(l.principal); }
@@ -5252,11 +5259,11 @@ function loanTitle(l) { return l.name || ((l.type === 'lent' ? 'Loan to ' : 'Loa
 function loanNextPayment(l) {
   if (l.nextPaymentDate) return l.nextPaymentDate;
   const step = _FREQ_DAYS[l.paymentFreq]; if (!step || !l.startDate) return null;
-  const start = new Date(l.startDate + 'T00:00:00'); if (isNaN(start)) return null;
-  const now = new Date(); now.setHours(0, 0, 0, 0);
-  let d = new Date(start), guard = 0;
-  while (d < now && guard++ < 600) d = new Date(d.getTime() + step * 864e5);
-  return d.toISOString().slice(0, 10);
+  const start = Date.parse(l.startDate + 'T00:00:00Z'); if (isNaN(start)) return null;
+  const now = Date.parse(_etToday() + 'T00:00:00Z');
+  // O(1): jump straight to the first scheduled date on/after today (no loop guard to exhaust).
+  const steps = Math.max(0, Math.ceil((now - start) / (step * 864e5)));
+  return new Date(start + steps * step * 864e5).toISOString().slice(0, 10);
 }
 function loanStatusBadge(s) { const m = { active: ['Active', 'badge-green'], closed: ['Closed', 'badge-gray'], paid_off: ['Paid off', 'badge-blue'], defaulted: ['Defaulted', 'badge-red'] }; const b = m[s] || m.active; return '<span class="badge ' + b[1] + '">' + b[0] + '</span>'; }
 function loanTypeBadge(t) { return t === 'lent' ? '<span class="badge badge-blue">Lent</span>' : '<span class="badge badge-yellow">Borrowed</span>'; }
@@ -5352,7 +5359,7 @@ function renderLoans() {
     const out = loanOutstanding(l), np = loanNextPayment(l), dp = daysUntil(np), dm = daysUntil(l.maturityDate);
     const overdue = loanIsActive(l) && dp != null && dp < 0;
     const npCell = np ? ('<span class="' + (overdue ? 'neg' : '') + '">' + fmtDate(np) + '</span><div class="ht-sub ' + (overdue ? 'neg' : '') + '">' + (dp < 0 ? Math.abs(dp) + 'd overdue' : (dp === 0 ? 'due today' : 'in ' + dp + 'd')) + '</div>') : '<span class="ht-sub">—</span>';
-    const mCell = l.maturityDate ? (fmtDate(l.maturityDate) + '<div class="ht-sub">' + (dm < 0 ? Math.abs(dm) + 'd ago' : 'in ' + dm + 'd') + '</div>') : '<span class="ht-sub">—</span>';
+    const mCell = l.maturityDate ? (fmtDate(l.maturityDate) + (dm != null ? '<div class="ht-sub">' + (dm < 0 ? Math.abs(dm) + 'd ago' : 'in ' + dm + 'd') + '</div>' : '')) : '<span class="ht-sub">—</span>';
     const who = l.type === 'lent' ? ('to ' + (l.borrower || '—')) : ('from ' + (l.lender || '—'));
     return '<tr onclick="openLoan(\'' + l.id + '\')" style="cursor:pointer">' +
       '<td class="ht-sym"><div><div class="holding-ticker">' + escHtml(loanTitle(l)) + '</div><div class="ht-sub">' + escHtml(who) + '</div></div></td>' +
@@ -5509,7 +5516,7 @@ function _loanReminders() {
     if (!loanIsActive(l)) return;
     const title0 = loanTitle(l);
     const np = loanNextPayment(l), dp = daysUntil(np);
-    if (dp != null && dp <= 5) {
+    if (dp != null && dp <= 5 && dp >= -14) {   // stop nagging after ~2 weeks overdue (still shown on the dashboard)
       const overdue = dp < 0;
       out.push({ key: 'loan:' + l.id + ':pay:' + np, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: Date.now(),
         title: (overdue ? 'OVERDUE payment — ' : 'Payment due soon — ') + title0,
