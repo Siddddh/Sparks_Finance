@@ -1080,6 +1080,112 @@ exports.runUserAlertsNow = onRequest(
   }
 );
 
+// ── Loan & note reminders (payment / maturity / insurance milestones) ─────────
+// Daily scan of every user's loans/{uid}/list; writes a `loan_reminder` notification (+ FCM push)
+// for payments due within 5 days or overdue, maturities within 7 days, and insurance renewals
+// within 14 days. Deduped per user/day via alert_state/loan_{uid} so each milestone pings once/day.
+// (The web app also derives these same reminders client-side; this delivers push when it's closed.)
+const _FREQ_DAYS_FN = { weekly: 7, biweekly: 14, monthly: 30, quarterly: 91, semiannual: 182, annually: 365 };
+function _dUntil(dateStr, todayStr) {
+  if (!dateStr) return null;
+  const a = new Date(dateStr + 'T00:00:00Z'), b = new Date(todayStr + 'T00:00:00Z');
+  if (isNaN(a) || isNaN(b)) return null;
+  return Math.round((a - b) / 864e5);
+}
+function _loanNextPay(l, todayStr) {
+  if (l.nextPaymentDate) return l.nextPaymentDate;
+  const step = _FREQ_DAYS_FN[l.paymentFreq]; if (!step || !l.startDate) return null;
+  const start = Date.parse(l.startDate + 'T00:00:00Z'); if (isNaN(start)) return null;
+  const now = Date.parse(todayStr + 'T00:00:00Z');
+  // O(1): jump straight to the first scheduled date on/after today (no loop guard to exhaust).
+  const steps = Math.max(0, Math.ceil((now - start) / (step * 864e5)));
+  return new Date(start + steps * step * 864e5).toISOString().slice(0, 10);
+}
+function _loanActive(l) { return !l.status || l.status === 'active' || l.status === 'defaulted'; }
+function _loanTitleFn(l) { return l.name || ((l.type === 'lent' ? 'Loan to ' : 'Loan from ') + (l.type === 'lent' ? (l.borrower || 'borrower') : (l.lender || 'lender'))); }
+
+async function runLoanReminders() {
+  const db = admin.firestore();
+  const messaging = admin.messaging();
+  const date = todayInET();
+  const owners = await db.collection('loans').listDocuments();
+  const summary = { date, owners: 0, reminders: 0, sent: 0 };
+
+  for (const ownerRef of owners) {
+    const uid = ownerRef.id;
+    let snap;
+    try { snap = await ownerRef.collection('list').get(); } catch (e) { continue; }
+    if (snap.empty) continue;
+    summary.owners++;
+
+    let tokens = [];
+    try { const udoc = await db.collection('users').doc(uid).get(); tokens = Array.isArray(udoc.get('fcmTokens')) ? udoc.get('fcmTokens') : []; } catch (e) {}
+    const stateRef = db.collection('alert_state').doc('loan_' + uid);
+    let state = {};
+    try { const s = await stateRef.get(); state = s.exists ? s.data() : {}; } catch (e) {}
+    if (state.date !== date) state = { date, keys: [] };
+    const fired = new Set(state.keys || []);
+    const toNotify = [];
+
+    for (const d of snap.docs) {
+      const l = d.data(); if (!_loanActive(l)) continue;
+      const title0 = _loanTitleFn(l);
+      const np = _loanNextPay(l, date), dp = _dUntil(np, date);
+      if (dp != null && dp <= 5 && dp >= -14) {   // stop pushing after ~2 weeks overdue (still shown in-app)
+        const key = 'pay:' + d.id + ':' + np;
+        if (!fired.has(key)) {
+          fired.add(key); const overdue = dp < 0;
+          // Title matches the client-derived reminder so the feed collapses the two into one.
+          toNotify.push({ rkey: 'loan:' + d.id + ':pay:' + np, loanId: d.id, title: (overdue ? 'OVERDUE payment — ' : 'Payment due soon — ') + title0, body: (overdue ? 'A payment on this note was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'A payment on this note is due today' : 'A payment on this note is due in ' + dp + ' day(s)')) + '.' });
+        }
+      }
+      const dm = _dUntil(l.maturityDate, date);
+      if (dm != null && dm >= 0 && dm <= 7) { const key = 'mat:' + d.id + ':' + l.maturityDate; if (!fired.has(key)) { fired.add(key); toNotify.push({ rkey: 'loan:' + d.id + ':mat:' + l.maturityDate, loanId: d.id, title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + l.maturityDate + '.' }); } }
+      const di = _dUntil(l.insuranceRenewalDate, date);
+      if (di != null && di >= 0 && di <= 14) { const key = 'ins:' + d.id + ':' + l.insuranceRenewalDate; if (!fired.has(key)) { fired.add(key); toNotify.push({ rkey: 'loan:' + d.id + ':ins:' + l.insuranceRenewalDate, loanId: d.id, title: 'Insurance renewal in ' + di + 'd — ' + title0, body: 'An insurance renewal for this note is due ' + l.insuranceRenewalDate + '.' }); } }
+    }
+
+    for (const n of toNotify) {
+      try {
+        await db.collection('notifications').doc(uid).collection('list').add({
+          date, type: 'loan_reminder', title: n.title, body: n.body, ticker: null, url: null,
+          rkey: n.rkey || null, loanId: n.loanId || null,
+          read: false, status: 'sent', data: { type: 'loan_reminder' },
+          createdAt: admin.firestore.FieldValue.serverTimestamp()
+        });
+        summary.reminders++;
+      } catch (e) { logger.error('loan-reminder notif write failed', { uid, error: String(e) }); }
+      if (tokens.length) {
+        try {
+          const resp = await messaging.sendEachForMulticast({ tokens, notification: { title: n.title, body: pushBody(n.body) }, data: { type: 'loan_reminder' }, webpush: { fcmOptions: { link: '/' } } });
+          summary.sent += resp.successCount;
+          const dead = [];
+          resp.responses.forEach((r, i) => { if (!r.success) { const c = r.error && r.error.code; if (c === 'messaging/registration-token-not-registered' || c === 'messaging/invalid-registration-token' || c === 'messaging/invalid-argument') dead.push(tokens[i]); } });
+          if (dead.length) await db.collection('users').doc(uid).set({ fcmTokens: admin.firestore.FieldValue.arrayRemove(...dead) }, { merge: true });
+        } catch (e) { logger.error('loan-reminder FCM failed', { uid, error: String(e) }); }
+      }
+    }
+    try { await stateRef.set({ date, keys: [...fired] }); } catch (e) {}
+  }
+  logger.info('Loan-reminders run complete', summary);
+  return summary;
+}
+
+// Scheduled: once daily at 9 AM ET.
+exports.loanReminderNotifications = onSchedule(
+  { schedule: '0 9 * * *', timeZone: 'America/New_York', region: 'us-central1' },
+  async () => { await runLoanReminders(); }
+);
+// On-demand test. Guarded by ?token=<FINNHUB_API_KEY> (reused purely as a shared secret).
+exports.runLoanRemindersNow = onRequest(
+  { secrets: [FINNHUB_API_KEY], region: 'us-central1' },
+  async (req, res) => {
+    if (req.query.token !== FINNHUB_API_KEY.value()) { res.status(403).send('Forbidden'); return; }
+    try { res.status(200).json({ ok: true, summary: await runLoanReminders() }); }
+    catch (e) { res.status(500).json({ ok: false, error: String(e) }); }
+  }
+);
+
 // ── Breaking-news monitor (geopolitical / macro market-movers) ────────────────
 // Scans general market news for high-impact headlines (war, ceasefire, sanctions,
 // Fed/rate, tariffs, oil/OPEC, crash/selloff…) and pushes a `breaking_news` alert
