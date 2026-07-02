@@ -80,6 +80,14 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == uid;
     }
 
+    // ── Loans & Notes (owner-only CRUD) ──
+    match /loans/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+    match /loans/{uid}/list/{loanId} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
     // ── AI reports (Python writes via Admin SDK; browser reads) ──
     match /ai_reports/{uid} {
       allow read: if request.auth != null && request.auth.uid == uid;
