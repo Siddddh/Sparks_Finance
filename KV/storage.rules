@@ -1,0 +1,12 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Loan/note supporting documents — owner-only, under loans/{uid}/...
+    // Reads/writes require the signed-in user to own the path; uploads capped at 25 MB.
+    match /loans/{uid}/{allPaths=**} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if request.auth != null && request.auth.uid == uid
+        && (request.resource == null || request.resource.size < 25 * 1024 * 1024);
+    }
+  }
+}
