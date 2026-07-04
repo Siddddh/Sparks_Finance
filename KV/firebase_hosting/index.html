@@ -253,6 +253,15 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .nav-section{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text-3);padding:11px 12px 5px 18px;}
 /* Sub-group labels nested under a category get a lighter indent + weight than the category header */
 .nav-cat + .nav-section{padding-top:6px;}
+/* Collapsible categories: the .nav-cat header toggles its .nav-group open/closed */
+.nav-cat{cursor:pointer;user-select:none;}
+.nav-group .nav-cat{border-top:1px solid var(--border);margin-top:8px;}
+.nav-cat:hover{color:var(--blue);}
+.nav-cat:focus-visible{outline:2px solid var(--blue-soft);outline-offset:2px;border-radius:6px;}
+.nav-cat-label{flex:1;}
+.nav-cat-chev{color:var(--text-3);transition:transform .18s ease;flex-shrink:0;}
+.nav-group.collapsed .nav-cat-chev{transform:rotate(-90deg);}
+.nav-group.collapsed .nav-cat-items{display:none;}
 .navitem{display:flex;align-items:center;gap:14px;padding:9px 12px;border-radius:0 24px 24px 0;font-size:14px;font-weight:500;color:var(--text-2);cursor:pointer;transition:background .15s,color .15s;border-left:3px solid transparent;margin-bottom:1px;}
 .navitem .ic{color:var(--text-3);transition:color .15s;}
 .navitem:hover{background:var(--surface-hover);color:var(--text);}
@@ -1604,13 +1613,56 @@ const NAV = [
   { tab: 'loansdash', label: 'Dashboard', icon: 'data' },
   { tab: 'loans', label: 'Loans & Notes', icon: 'file' }
 ];
+// Collapsible categories: each { cat } becomes a .nav-group whose header toggles it. Absent/false in
+// _navExpanded = collapsed, so it's empty on load ⇒ every category starts collapsed each login.
+// Independent (per-category) and future-proof: any new { cat } auto-becomes a collapsible group.
+const _navExpanded = {};
+function _navItemHtml(n) {
+  if (!n.tab) return '<div class="nav-section">' + escHtml(n.sec || '') + '</div>';
+  return '<div class="navitem" data-nav="' + n.tab + '" onclick="sw(\'' + n.tab + '\')">' + ic(n.icon, 20) + '<span>' + escHtml(n.label) + '</span></div>';
+}
 function buildSidebar() {
-  document.getElementById('sidebar').innerHTML = NAV.map(n => {
-    if (n.cat) return '<div class="nav-cat">' + n.cat + '</div>';
-    if (!n.tab) return '<div class="nav-section">' + (n.sec || '') + '</div>';
-    return '<div class="navitem" data-nav="' + n.tab + '" onclick="sw(\'' + n.tab + '\')">' + ic(n.icon, 20) + '<span>' + n.label + '</span></div>';
-  }).join('');
-  document.querySelector('.navitem[data-nav="home"]').classList.add('active');
+  let html = '', curCat = null, buf = '';
+  const flush = () => {
+    if (curCat != null) {
+      const collapsed = !_navExpanded[curCat];
+      html += '<div class="nav-group' + (collapsed ? ' collapsed' : '') + '" data-cat="' + escHtml(curCat) + '">' +
+        '<div class="nav-cat" onclick="toggleNavCat(this)" role="button" tabindex="0" aria-expanded="' + (!collapsed) + '" ' +
+          'onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();toggleNavCat(this);}">' +
+          '<span class="nav-cat-label">' + escHtml(curCat) + '</span>' + ic('chevdown', 16, 'nav-cat-chev') +
+        '</div>' +
+        '<div class="nav-cat-items">' + buf + '</div>' +
+      '</div>';
+    } else {
+      html += buf;   // uncategorized items (Home, AI Assistant) — always visible
+    }
+    buf = '';
+  };
+  NAV.forEach(n => {
+    if (n.cat) { flush(); curCat = n.cat; return; }
+    buf += _navItemHtml(n);
+  });
+  flush();
+  document.getElementById('sidebar').innerHTML = html;
+  const home = document.querySelector('.navitem[data-nav="home"]'); if (home) home.classList.add('active');
+}
+function toggleNavCat(headerEl) {
+  const g = headerEl.closest('.nav-group'); if (!g) return;
+  const cat = g.getAttribute('data-cat');
+  _navExpanded[cat] = !_navExpanded[cat];
+  g.classList.toggle('collapsed', !_navExpanded[cat]);
+  headerEl.setAttribute('aria-expanded', String(!!_navExpanded[cat]));
+}
+// Expand the category that contains a tab, so the active item is visible after navigating into it.
+function revealNavCatFor(tabName) {
+  const item = document.querySelector('.navitem[data-nav="' + tabName + '"]');
+  const g = item && item.closest('.nav-group');
+  if (g && g.classList.contains('collapsed')) {
+    const cat = g.getAttribute('data-cat');
+    _navExpanded[cat] = true;
+    g.classList.remove('collapsed');
+    const h = g.querySelector('.nav-cat'); if (h) h.setAttribute('aria-expanded', 'true');
+  }
 }
 
 // ── Firebase ──
@@ -5676,6 +5728,7 @@ function sw(name) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   const panel = document.getElementById('tab-' + name);
   if (panel) panel.classList.add('active');
+  try { revealNavCatFor(name); } catch (e) {}   // open the category holding the active tab
   document.body.classList.remove('sidebar-open');
   if (name === 'home') loadHomeDashboard();
   if (name === 'assistant') { const h = document.getElementById('asstTabHost'); if (h && !h.querySelector('.asst-host')) h.innerHTML = assistantHostHtml('tab'); renderAllAssistant(); asstFocus(); }
