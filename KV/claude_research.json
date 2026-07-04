@@ -2,352 +2,253 @@
   "date": "2026-07-03",
   "analyses": [
     {
+      "ticker": "LLY", "name": "Eli Lilly and Company",
+      "signal": "STRONG BUY",
+      "verdict": "The GLP-1 franchise keeps compounding faster than the Street can model it -- TradingView's STRONG_BUY fully agrees.",
+      "financials": {
+        "period": "FY2025 (last reported fiscal year)",
+        "summary": "Lilly's income statement is being carried by the Zepbound/Mounjaro (tirzepatide) obesity-and-diabetes franchise, which scaled to become one of the largest drug launches in industry history over the past two years. The scan shows EPS growth of roughly +170% YoY and revenue growth of roughly +56% YoY -- both by far the strongest fundamental prints of any name in this scan -- reflecting continued volume growth plus manufacturing capacity finally catching up with demand after years of supply constraints.",
+        "highlights": ["EPS growth ~+170% YoY", "Revenue growth ~+56% YoY", "Forward P/E ~27x -- a premium multiple, but backed by the fastest growth in large-cap pharma", "Obesity/diabetes franchise (tirzepatide) is the primary growth driver"]
+      },
+      "accomplishments": [
+        "Scaled Zepbound/Mounjaro into one of the best-selling drug launches ever, aided by new manufacturing capacity coming online through 2025",
+        "Continued pipeline progress on oral GLP-1 candidates (orforglipron) aimed at expanding the obesity-drug market beyond injectables",
+        "Became one of the largest companies in the world by market cap on the back of the obesity-drug re-rating"
+      ],
+      "journey_52w": {
+        "summary": "LLY's past year has been defined by resolving its own supply constraints -- once manufacturing caught up with tirzepatide demand, both volumes and margins expanded, and the stock has spent the year grinding toward new highs on a series of tight, orderly bases rather than one violent move.",
+        "milestones": [
+          {"label": "Throughout the year", "note": "Sequential capacity expansion for tirzepatide manufacturing gradually resolved the supply bottleneck that had capped growth"},
+          {"label": "Ongoing", "note": "Oral GLP-1 pipeline (orforglipron) progress kept the growth narrative alive beyond the injectable franchise"},
+          {"label": "Current", "note": "RS line at new highs with a 5-contraction VCP tightened to 3.1% -- textbook continuation pattern"}
+        ]
+      },
+      "critical": {
+        "risks": ["Valuation leaves no room for a pipeline or manufacturing disappointment", "Competitive GLP-1 dynamics (Novo Nordisk and emerging oral entrants) could pressure pricing over time"],
+        "catalysts": ["Next earnings print Aug 5, 2026 -- watch tirzepatide volume/pricing trends", "Oral GLP-1 (orforglipron) regulatory and pipeline updates"],
+        "watch": ["RSI at 60 -- healthy, not yet overbought", "Continued new 52-week highs would confirm trend strength"],
+        "valuation": "27x forward earnings is a premium to the market, but justified by ~56% revenue growth -- growth at a reasonable-relative-to-growth price rather than cheap."
+      }
+    },
+    {
+      "ticker": "MRNA", "name": "Moderna, Inc.",
+      "signal": "STRONG BUY",
+      "verdict": "A high-momentum bounce off a multi-year base -- TradingView's STRONG_BUY agrees, but RSI 86 means this is a name to manage tightly, not chase blindly.",
+      "financials": {
+        "period": "FY2025 (last reported fiscal year)",
+        "summary": "Moderna's post-pandemic reset continues: COVID vaccine revenue has normalized to a much smaller, seasonal base, while the company leans on its broader respiratory-vaccine portfolio (COVID, RSV) and cost discipline to move back toward breakeven. The scan shows revenue growth of roughly +260% YoY off a very depressed prior-year comparison base -- a reflection of how low the trough was, not a sign the company is back to pandemic-era scale.",
+        "highlights": ["Revenue growth ~+260% YoY off a depressed prior-year base", "Forward P/E is negative (still working toward sustained profitability)", "RSV and next-gen respiratory vaccine portfolio broadening beyond COVID"]
+      },
+      "accomplishments": [
+        "Continued build-out of its respiratory-vaccine portfolio (COVID + RSV combination approaches) beyond the single-product COVID franchise",
+        "Ongoing cost-reduction program aimed at reaching sustained profitability post-pandemic",
+        "Received renewed sell-side attention (including a widely-noted shift from a long-time skeptic) as cost cuts and pipeline diversification progress"
+      ],
+      "journey_52w": {
+        "summary": "MRNA spent much of the past two years in a steep post-pandemic drawdown as COVID vaccine demand normalized far below the 2021-2022 peak. The past year has seen the stock stabilize and begin repairing off that multi-year low as cost cuts took hold and the market started pricing in a smaller but more durable respiratory-vaccine business.",
+        "milestones": [
+          {"label": "Past 12 months", "note": "Stock based near multi-year lows before beginning a repair as cost discipline showed up in results"},
+          {"label": "Recent", "note": "Positive sell-side commentary shift (including a notable bullish turn from a longtime market commentator) added to sentiment tailwinds"},
+          {"label": "Current", "note": "RS line at new highs with a 5-contraction VCP -- a genuine trend change, not just a dead-cat bounce"}
+        ]
+      },
+      "critical": {
+        "risks": ["RSI 86 -- extremely overbought; a sharp pullback is a real near-term risk after this size of a move", "Business is still smaller and less predictable than the pandemic-era run rate", "Forward P/E still negative -- profitability isn't fully proven yet"],
+        "catalysts": ["Earnings Jul 31, 2026 -- watch for confirmation that cost cuts are sustainable", "RSV/combination-vaccine pipeline updates"],
+        "watch": ["Given RSI 86, this is a trim-into-strength name, not an add-here name", "Watch for the RS trend to hold through any near-term cooling"],
+        "valuation": "Negative forward P/E reflects a company still working back to sustained profitability -- this is a turnaround/momentum trade, not a value one."
+      }
+    },
+    {
       "ticker": "BK", "name": "The Bank of New York Mellon",
       "signal": "STRONG BUY",
-      "verdict": "Cleanest technical setup in today's scan, backed by real earnings acceleration -- buy the breakout, trim before the July 15 print.",
+      "verdict": "The highest-quality technical setup in the entire scan, and the fundamentals back it up -- but no independent TradingView read exists to confirm it.",
       "financials": {
-        "period": "FY2025",
-        "summary": "The world's largest custody bank continued to benefit from higher markets (fee income scales with assets under custody/administration) and higher-for-longer short rates on its deposit book. Net interest income and fee income both grew, expenses stayed disciplined, and the bank kept returning capital via buybacks.",
-        "highlights": ["EPS growth of roughly +42% YoY per the latest trailing figures", "Revenue growth of roughly +13% YoY", "Continued share buybacks supporting EPS growth on top of operating gains", "Assets under custody/administration near record levels on higher equity markets"]
+        "period": "FY2025 (last reported fiscal year)",
+        "summary": "As the world's largest custody bank, BNY Mellon has benefited from higher-for-longer rates on client cash balances plus continued growth in its securities-services and asset-servicing fee businesses, including a push into digital-asset custody. The scan shows EPS growth of roughly +42% YoY and revenue growth of roughly +13% YoY, a strong combination of margin expansion and top-line growth for a mega-cap bank.",
+        "highlights": ["EPS growth ~+42% YoY", "Revenue growth ~+13% YoY", "Forward P/E ~14x -- inexpensive relative to its growth rate", "Expanding into digital-asset custody services alongside its core securities-servicing franchise"]
       },
-      "accomplishments": ["Continued expansion of digital-assets/tokenization custody services for institutional clients", "Ongoing buyback program shrinking share count", "Record or near-record levels of assets under custody"],
+      "accomplishments": [
+        "Continued expansion of digital-asset custody and tokenization services for institutional clients",
+        "Sustained fee growth across securities services and asset servicing even as market volatility normalized",
+        "Efficiency initiatives drove EPS growth well ahead of revenue growth"
+      ],
       "journey_52w": {
-        "summary": "BK spent the past year in a steady Stage 2 uptrend, grinding higher with only shallow pullbacks -- the kind of low-volatility grind institutions favor. It's now coiling in its tightest base of the year (3% contraction) just 2.5% under its 52-week high.",
+        "summary": "BK has spent the past year in a steady, low-volatility uptrend typical of the money-center/custody-bank group, aided by resilient net interest income and fee growth, culminating in a tight coiling pattern right below its 52-week high heading into earnings season.",
         "milestones": [
-          {"label": "Q3 2025", "note": "Beat on EPS driven by fee-income strength"},
-          {"label": "Q1 2026", "note": "Guided higher on net interest income amid the rate environment"},
-          {"label": "Jun 2026", "note": "Tightened into a 3% VCP just under its 52-week high"}
+          {"label": "Through the year", "note": "Steady fee and NII growth kept the stock in a persistent uptrend with shallow pullbacks"},
+          {"label": "Recent quarters", "note": "Digital-asset custody build-out added a new growth narrative on top of the core custody-bank business"},
+          {"label": "Current", "note": "2-contraction VCP tightened to just 3.0%, RS at new highs, 2.5% off the 52-week high heading into the Jul 15 print"}
         ]
       },
       "critical": {
-        "risks": ["Earnings on July 15 is a binary event after a big run", "Custody fee income is sensitive to an equity-market drawdown"],
-        "catalysts": ["Q2 earnings July 15", "Continued AUC/AUA growth on record equity markets"],
-        "watch": ["Fee-income trend in the print", "Buyback pace"],
-        "valuation": "Fwd P/E ~14x is reasonable for a business growing EPS over 40%"
-      }
-    },
-    {
-      "ticker": "JPM", "name": "JPMorgan Chase",
-      "signal": "STRONG BUY",
-      "verdict": "Best-in-breed money-center bank riding a clean breakout into earnings -- TradingView's strongest financial-sector read of the day backs the call.",
-      "financials": {
-        "period": "FY2025",
-        "summary": "Record profitability across investment banking, trading, and consumer segments; net interest income stayed resilient even as rates plateaued, and investment-banking fees recovered alongside stronger capital-markets activity.",
-        "highlights": ["EPS +17% YoY", "Revenue +13% YoY", "Continued buybacks and a growing dividend", "Investment-banking fees recovering with capital-markets activity"]
-      },
-      "accomplishments": ["Continued gains in trading and investment-banking market share", "Strong capital ratios supporting buybacks", "Ongoing technology/AI investment driving efficiency gains"],
-      "journey_52w": {
-        "summary": "A steady grind higher over the past year with occasional pullbacks on rate-path uncertainty, resuming its uptrend as capital-markets activity picked up into 2026.",
-        "milestones": [
-          {"label": "Q4 2025", "note": "Record annual profit reported"},
-          {"label": "Q1 2026", "note": "Trading and investment-banking fees beat estimates"},
-          {"label": "Jun 2026", "note": "Tightened into a 2.3% VCP near all-time highs"}
-        ]
-      },
-      "critical": {
-        "risks": ["Earnings in ~12 days -- binary risk", "RSI 68 with little room left before the 52-week high"],
-        "catalysts": ["Q2 earnings", "Continued capital-markets recovery"],
-        "watch": ["Net interest income trend", "Credit costs / reserve builds"],
-        "valuation": "Fwd P/E ~14x is cheap for the highest-quality large-cap bank franchise"
-      }
-    },
-    {
-      "ticker": "LLY", "name": "Eli Lilly",
-      "signal": "STRONG BUY",
-      "verdict": "The clearest fundamental story in the whole scan -- the GLP-1 franchise is driving triple-digit EPS growth -- and TradingView agrees.",
-      "financials": {
-        "period": "FY2025",
-        "summary": "Zepbound and Mounjaro sales continued scaling rapidly, driving explosive revenue and EPS growth, alongside heavy ongoing capex investment into manufacturing capacity to relieve supply constraints.",
-        "highlights": ["EPS +170% YoY", "Revenue +55% YoY -- the GLP-1 franchise is the primary growth driver", "Continued heavy capex into manufacturing capacity", "Consistent beat-and-raise quarters"]
-      },
-      "accomplishments": ["Continued GLP-1 manufacturing capacity expansion to meet demand", "Pipeline progress in oral GLP-1 and metabolic/Alzheimer's programs", "Multiple consecutive beat-and-raise quarters"],
-      "journey_52w": {
-        "summary": "A strong uptrend over the past year with volatility around competitive GLP-1 headlines (Novo Nordisk, emerging oral candidates) and drug-pricing/political scrutiny, but fundamentals kept overwhelming the noise.",
-        "milestones": [
-          {"label": "Q4 2025", "note": "GLP-1 sales beat, FY guidance raised"},
-          {"label": "Q1 2026", "note": "Continued triple-digit obesity-drug revenue growth"},
-          {"label": "Jun 2026", "note": "Basing just 1.5% under its 52-week high"}
-        ]
-      },
-      "critical": {
-        "risks": ["US drug-pricing/political headline risk", "Competitive GLP-1 landscape (Novo Nordisk, emerging oral candidates)", "High-dollar stock ($1,200+) means larger point-swings"],
-        "catalysts": ["Q2 earnings in ~34 days", "Continued capacity ramp easing supply constraints"],
-        "watch": ["Pricing/reimbursement policy headlines", "Competitor trial readouts"],
-        "valuation": "Fwd P/E ~27x is full but justified by the growth rate -- growth, not multiple expansion, is doing the work here"
-      }
-    },
-    {
-      "ticker": "AAPL", "name": "Apple",
-      "signal": "STRONG BUY",
-      "verdict": "Steady mega-cap climb with the broadest technical confirmation of any pick today -- services growth keeps cushioning hardware cyclicality.",
-      "financials": {
-        "period": "FY2025 (ended Sep 2025)",
-        "summary": "Services revenue continued double-digit growth, iPhone demand held steady, gross margins stayed near record highs, and the buyback program continued at scale.",
-        "highlights": ["EPS +22% YoY", "Revenue +17% YoY", "Services-segment margin near record levels", "Continued large-scale buyback program shrinking share count"]
-      },
-      "accomplishments": ["Apple Intelligence rollout continuing across the device ecosystem", "Record services revenue (App Store, subscriptions, advertising)", "Continued expansion in wearables and emerging markets"],
-      "journey_52w": {
-        "summary": "After a choppy stretch tied to AI-strategy skepticism and China-demand questions, the stock resumed its uptrend as services growth and buybacks reasserted themselves -- a wide, patient base rather than an explosive breakout.",
-        "milestones": [
-          {"label": "Q4 FY2025", "note": "Record services revenue reported"},
-          {"label": "Q1 CY2026", "note": "iPhone demand steadied, AI-feature rollout continued"},
-          {"label": "Jun 2026", "note": "Basing in an 8%-wide range just 2% under its 52-week high"}
-        ]
-      },
-      "critical": {
-        "risks": ["China smartphone demand/competition", "Regulatory pressure on App Store economics", "Earnings in ~29 days"],
-        "catalysts": ["Q3 FY2026 earnings", "Continued Apple Intelligence feature rollout", "Services growth trajectory"],
-        "watch": ["China unit trends", "App Store regulatory developments"],
-        "valuation": "Fwd P/E ~32x -- a premium multiple, backed by best-in-class capital returns and services growth"
-      }
-    },
-    {
-      "ticker": "FTNT", "name": "Fortinet",
-      "signal": "STRONG BUY",
-      "verdict": "Durable double-digit cybersecurity grower with a tight base -- a steady compounder, not a moonshot.",
-      "financials": {
-        "period": "FY2025",
-        "summary": "Continued strong billings growth as the SASE/cloud-security platform gained share against legacy network-security competitors, with healthy free-cash-flow margins.",
-        "highlights": ["EPS +29% YoY", "Revenue +20% YoY", "Continued platform consolidation (SASE, cloud security) driving cross-sell", "Healthy free-cash-flow margins"]
-      },
-      "accomplishments": ["Continued expansion of the SASE/cloud-security platform", "Share gains against legacy network-security competitors", "Consistent double-digit billings growth"],
-      "journey_52w": {
-        "summary": "A steady grind higher over the past year as enterprise security budgets held up better than broader IT spend, with only shallow pullbacks.",
-        "milestones": [
-          {"label": "Q4 2025", "note": "Billings growth beat, double-digit revenue guide reaffirmed"},
-          {"label": "Q1 2026", "note": "Continued SASE platform momentum"},
-          {"label": "Jun 2026", "note": "Tightened into a 3.6% VCP near highs"}
-        ]
-      },
-      "critical": {
-        "risks": ["Richest valuation in the tech group (fwd P/E ~46x)", "Earnings in ~28 days", "Competitive cybersecurity landscape (Palo Alto, CrowdStrike, Zscaler)"],
-        "catalysts": ["Q2 earnings", "Continued SASE platform adoption"],
-        "watch": ["Billings growth trend", "Enterprise IT security budget commentary"],
-        "valuation": "Fwd P/E ~46x is the richest multiple among the tech picks -- priced for continued 20%+ growth"
-      }
-    },
-    {
-      "ticker": "AMAT", "name": "Applied Materials",
-      "signal": "STRONG BUY",
-      "verdict": "Quietly repairing while megacap-tech peers stay broken -- the tightest base in the whole scan, still 17% under its high.",
-      "financials": {
-        "period": "FY2025",
-        "summary": "Semiconductor-equipment demand recovering unevenly by segment -- leading-edge logic/foundry capex strong on AI tailwinds, while NAND/DRAM equipment demand lagged.",
-        "highlights": ["EPS +34% YoY", "Revenue +11% YoY", "AI-driven leading-edge logic/foundry capex a key growth driver", "Memory (NAND/DRAM) equipment demand lagging the logic recovery"]
-      },
-      "accomplishments": ["Continued share in leading-edge (sub-3nm) equipment tools", "Growing services/AGS (Applied Global Services) recurring-revenue base", "AI-datacenter-driven fab capex supporting bookings"],
-      "journey_52w": {
-        "summary": "A choppy year, hit alongside the broader semiconductor-equipment complex on export-control and cyclical-inventory concerns, but repairing over the past month with the fastest relative-strength move in this entire scan.",
-        "milestones": [
-          {"label": "Q4 2025", "note": "China export-control headwinds weighed on the stock"},
-          {"label": "Q1 2026", "note": "Bookings stabilized on AI/logic capex strength"},
-          {"label": "Jun 2026", "note": "Sharpest 4-week RS turn (+22%) in the scan while NVDA/INTC/MU stayed weak"}
-        ]
-      },
-      "critical": {
-        "risks": ["US-China export-control policy remains the single biggest swing factor", "Still 17% below its 52-week high -- an early repair, not a confirmed new uptrend", "Earnings 43 days out"],
-        "catalysts": ["Q3 FY2026 earnings", "Continued AI/logic capex commentary from TSMC/Intel/Samsung"],
-        "watch": ["Export-control policy headlines", "NAND/DRAM equipment order trends for a broader semi-cycle turn"],
-        "valuation": "Fwd P/E ~37x, reasonable given the growth rate if the repair holds"
+        "risks": ["Earnings Jul 15, 2026 is only 12 days out -- binary event risk into the print", "No independent TradingView rating resolved for this ticker -- this call rests entirely on the scan's own data"],
+        "catalysts": ["Jul 15 earnings -- watch net interest income and fee growth trends", "Continued digital-asset custody expansion"],
+        "watch": ["A break of the $147.29 52-week high on volume would confirm the breakout", "Consider trimming into strength ahead of the earnings print given the binary risk"],
+        "valuation": "14x forward earnings against 42% EPS growth is a genuinely cheap multiple for the growth rate -- one of the better risk/reward setups in the scan on valuation grounds alone."
       }
     },
     {
       "ticker": "AEP", "name": "American Electric Power",
       "signal": "STRONG BUY",
-      "verdict": "Direct AI-data-center power-demand beneficiary -- TradingView's cleanest utility-sector read of the day, zero sell votes.",
+      "verdict": "The cleanest expression of the AI-power-demand utility trade -- TradingView's STRONG_BUY with zero sell votes fully confirms.",
       "financials": {
-        "period": "FY2025",
-        "summary": "Regulated utility with a growing rate base, increasingly driven by data-center interconnection demand across its multi-state footprint, alongside constructive regulatory outcomes.",
-        "highlights": ["EPS +7% YoY", "Revenue +10% YoY", "Data-center/large-load interconnection requests driving multi-year capex and rate-base growth guidance higher", "Constructive regulatory outcomes across several jurisdictions"]
+        "period": "FY2025 (last reported fiscal year)",
+        "summary": "AEP, one of the largest regulated electric utilities in the US, is benefiting from surging electricity demand tied to data-center and industrial reshoring growth across its service territories (including a heavy presence in the mid-Atlantic/Ohio Valley data-center corridor). The scan shows steady EPS growth of roughly +7% YoY and revenue growth of roughly +10% YoY -- modest by growth-stock standards but strong for a regulated utility, reflecting rate-base growth tied to that demand.",
+        "highlights": ["EPS growth ~+7% YoY", "Revenue growth ~+10% YoY", "Forward P/E ~20x -- a premium utility multiple reflecting the data-center growth story", "Large exposure to data-center-driven load growth in its transmission territory"]
       },
-      "accomplishments": ["Raised long-term capex/rate-base growth guidance on data-center demand", "Continued grid-modernization investment", "Constructive rate-case settlements"],
+      "accomplishments": [
+        "Continued capital investment in transmission infrastructure to serve growing data-center and industrial demand",
+        "Raised or reaffirmed longer-term earnings growth guidance as electricity demand forecasts across its territory were revised upward",
+        "Maintained regulated-utility credit quality while funding an elevated capex program"
+      ],
       "journey_52w": {
-        "summary": "Utilities broadly re-rated over the past year as AI data-center power demand became a mainstream investment theme; AEP has been a prime beneficiary given its exposure to data-center-heavy states.",
+        "summary": "AEP's past year tracks the broader re-rating of power utilities as AI/data-center electricity demand forecasts were repeatedly revised higher, turning a historically slow-growth regulated utility into one of the market's more interesting secular-growth stories, with the stock grinding steadily toward new highs.",
         "milestones": [
-          {"label": "Q3 2025", "note": "Raised long-term load-growth guidance on data-center demand"},
-          {"label": "Q1 2026", "note": "Continued data-center interconnection request growth"},
-          {"label": "Jun 2026", "note": "RSI warmed to 73 as the AI-power-demand rotation accelerated"}
+          {"label": "Through the year", "note": "Data-center demand forecasts for AEP's territory were revised upward multiple times, supporting a re-rating of the growth outlook"},
+          {"label": "Current", "note": "3-contraction VCP tightened to 2.6%, essentially at the 52-week high"}
         ]
       },
       "critical": {
-        "risks": ["RSI 73 is warm -- limited room before overbought", "Regulatory/rate-case outcomes are never guaranteed", "Typical utility-sector interest-rate sensitivity"],
-        "catalysts": ["Continued data-center interconnection announcements", "Q2 earnings in ~28 days"],
-        "watch": ["New data-center load announcements", "Rate-case decisions in key states"],
-        "valuation": "Fwd P/E ~20x -- a full multiple for a regulated utility, reflecting the AI-power-demand re-rating"
+        "risks": ["RSI 73 -- stretched short-term; a pullback to the 50-day would be a healthier entry than chasing here", "Rate-sensitive as a utility -- a hawkish Fed surprise would pressure the whole group"],
+        "catalysts": ["Earnings Jul 30, 2026 -- watch for updated data-center demand and capex guidance"],
+        "watch": ["A breakout above the 52-week high on volume confirms continuation", "Watch for the broader utility-sector rotation (AEP/DUK/DTE) to broaden or stall"],
+        "valuation": "20x forward earnings is a premium for a regulated utility, priced for the data-center-driven rate-base growth to continue."
       }
     },
     {
-      "ticker": "SBUX", "name": "Starbucks",
+      "ticker": "TRNO", "name": "Terreno Realty",
       "signal": "STRONG BUY",
-      "verdict": "Turnaround initiatives are showing up in the numbers -- TradingView's zero-sell-vote STRONG_BUY backs the technical read.",
+      "verdict": "A high-quality small-cap industrial REIT with the strongest TV consensus of any REIT in this scan.",
       "financials": {
-        "period": "FY2025",
-        "summary": "The 'Back to Starbucks' turnaround plan showed early traction on US comparable sales and cost discipline, while China remains a mixed, competitive market.",
-        "highlights": ["EPS +33% YoY", "Revenue +9% YoY", "US comparable-sales trends improving under the turnaround plan", "Cost/efficiency initiatives supporting margin recovery"]
+        "period": "FY2025 (last reported fiscal year)",
+        "summary": "Terreno owns and operates industrial/logistics properties in six major coastal US markets. The scan shows EPS growth of roughly +40% YoY and revenue growth of roughly +13% YoY, reflecting continued strong releasing spreads (re-leasing expiring space at meaningfully higher rents) as e-commerce and logistics demand keeps industrial vacancy low in its target markets.",
+        "highlights": ["EPS growth ~+40% YoY", "Revenue growth ~+13% YoY", "Forward P/E ~38.7x -- priced for continued execution", "Concentrated in six high-barrier-to-entry coastal industrial markets"]
       },
-      "accomplishments": ["Continued rollout of the 'Back to Starbucks' turnaround initiatives", "Store-level efficiency and menu-simplification progress", "Stabilizing US traffic trends"],
+      "accomplishments": [
+        "Continued to post strong cash releasing spreads as expiring industrial leases were renewed at significantly higher market rents",
+        "Maintained a disciplined acquisition strategy focused on infill, high-barrier coastal industrial markets rather than chasing cheaper secondary markets"
+      ],
       "journey_52w": {
-        "summary": "The stock spent much of the past year range-bound to lower amid turnaround skepticism and China competitive pressure (Luckin Coffee and local players), before stabilizing and turning higher as comps improved.",
+        "summary": "TRNO's past year reflects the broader resilience of coastal infill industrial real estate -- even as some secondary-market industrial REITs saw softening, Terreno's supply-constrained coastal footprint kept occupancy and rent growth strong, and the stock has spent the year building a tight base right at its highs.",
         "milestones": [
-          {"label": "Q4 FY2025", "note": "US comps showed early turnaround traction"},
-          {"label": "Q1 FY2026", "note": "Margin recovery continued"},
-          {"label": "Jun 2026", "note": "Confirmed uptrend with EPS +33% YoY behind it"}
+          {"label": "Through the year", "note": "Consistent double-digit cash releasing spreads reported each quarter as leases rolled over"},
+          {"label": "Current", "note": "4-contraction VCP tightened to 5.1%, sitting right at the 52-week high"}
         ]
       },
       "critical": {
-        "risks": ["Fwd P/E ~35x prices in continued turnaround success", "China market remains competitive (Luckin and local players)", "Revenue growth (+8.8%) more modest than EPS growth -- margin-driven, not demand-driven"],
-        "catalysts": ["Next comparable-sales print", "Continued cost/efficiency initiative progress"],
-        "watch": ["US traffic/comp trends", "China same-store sales"],
-        "valuation": "Fwd P/E ~35x -- a premium that assumes the turnaround keeps delivering"
+        "risks": ["Small-cap REIT -- thinner liquidity than the mega-cap names on this pick list", "Fwd P/E 38.7x is rich; a slowdown in releasing spreads would pressure the multiple", "Earnings Aug 6, 2026"],
+        "catalysts": ["Aug 6 earnings -- watch same-store NOI growth and releasing spreads"],
+        "watch": ["A clean breakout above the 52-week high vs. a false start at resistance"],
+        "valuation": "38.7x forward earnings is expensive even by REIT standards -- this is a quality premium, not a value entry."
       }
     },
     {
-      "ticker": "MRNA", "name": "Moderna",
+      "ticker": "FTNT", "name": "Fortinet, Inc.",
+      "signal": "STRONG BUY",
+      "verdict": "A held position -- cybersecurity demand keeps compounding, but TradingView's plain BUY (not STRONG_BUY) is a touch softer than our score implies.",
+      "financials": {
+        "period": "FY2025 (last reported fiscal year)",
+        "summary": "Fortinet continues to benefit from enterprise consolidation onto its SASE (secure access service edge) and network-security platform as global cybersecurity spending keeps growing double digits. The scan shows EPS growth of roughly +29% YoY and revenue growth of roughly +20% YoY, reflecting continued share gains as customers consolidate point-security-tools spend onto fewer, broader platforms.",
+        "highlights": ["EPS growth ~+29% YoY", "Revenue growth ~+20% YoY", "Forward P/E ~46x -- the richest multiple in this pick list", "SASE/platform-consolidation trend continues to drive share gains"]
+      },
+      "accomplishments": [
+        "Continued platform consolidation wins as enterprises reduce their number of point-security vendors in favor of Fortinet's integrated SASE offering",
+        "Benefited from broader industry tailwinds as global cybersecurity spend was recently estimated to have crossed the $300B mark"
+      ],
+      "journey_52w": {
+        "summary": "FTNT has spent the past year as one of the more consistent performers in enterprise security, riding the SASE-consolidation trend to a series of higher highs and tight bases, even as some higher-multiple software peers saw more volatility.",
+        "milestones": [
+          {"label": "Through the year", "note": "Consistent SASE/platform-consolidation bookings growth kept the stock in a persistent uptrend"},
+          {"label": "Current", "note": "RS line at new highs, 4-contraction VCP tightened to 3.6%, only 1.7% off the 52-week high"}
+        ]
+      },
+      "critical": {
+        "risks": ["TradingView's plain BUY (14/5/7) is softer than our A-grade score implies -- 5 of 20 indicators lean sell/neutral, worth noting the disagreement", "Fwd P/E 46x is the richest multiple on this pick list -- no room for a growth deceleration"],
+        "catalysts": ["Earnings Jul 30, 2026 -- watch billings growth as the read on demand durability"],
+        "watch": ["Confirm the TV disagreement resolves toward STRONG_BUY, or watch billings growth closely at the print"],
+        "valuation": "46x forward earnings prices in continued 20%+ revenue growth -- expensive, but the growth has been consistently delivered."
+      }
+    },
+    {
+      "ticker": "SIRI", "name": "SiriusXM Holdings",
+      "signal": "STRONG BUY",
+      "verdict": "A held position -- RS at new highs and a unanimous TradingView STRONG_BUY, but no clean VCP base means this is momentum, not a textbook breakout.",
+      "financials": {
+        "period": "FY2025 (last reported fiscal year)",
+        "summary": "SiriusXM's satellite-radio and streaming subscription business has stabilized after a multi-year period of slow subscriber growth, helped by bundling initiatives and cost discipline. The scan shows EPS growth of roughly +22% YoY on revenue growth of roughly +1% YoY -- a story of margin expansion and buybacks driving EPS well ahead of a roughly flat top line.",
+        "highlights": ["EPS growth ~+22% YoY on roughly flat (+1%) revenue", "Forward P/E ~9x -- one of the cheapest multiples in this pick list", "Berkshire Hathaway remains a large, well-known holder of the stock"]
+      },
+      "accomplishments": [
+        "Continued cost discipline and buyback activity drove EPS growth well ahead of a roughly flat top line",
+        "Bundling and streaming-platform initiatives aimed at stabilizing subscriber trends after years of slow declines/flat growth"
+      ],
+      "journey_52w": {
+        "summary": "SIRI has been a value/turnaround story for much of the past few years given slow subscriber growth, but the past year has seen renewed momentum as cost discipline and buybacks pushed EPS higher even without top-line acceleration, culminating in a move to new relative-strength highs.",
+        "milestones": [
+          {"label": "Through the year", "note": "Buyback-driven EPS growth continued even as subscriber growth stayed roughly flat"},
+          {"label": "Current", "note": "RS line at new highs; no clear VCP base has formed, so this reads as a momentum move rather than a coiled-spring breakout"}
+        ]
+      },
+      "critical": {
+        "risks": ["No clear VCP base -- give this wider stops than the textbook-base names on this list, since there's no obvious support level", "RSI 87 -- very extended, a sharp reversal is a real risk here", "Revenue growth is nearly flat (+1%) -- EPS growth is coming from buybacks/margin, not the top line"],
+        "catalysts": ["Continued buyback execution", "Any acceleration in subscriber or streaming-bundle metrics"],
+        "watch": ["Given RSI 87, trim into strength rather than add here"],
+        "valuation": "9x forward earnings is cheap, but reflects the market's skepticism about the flat top line -- this is a value-with-momentum story, not a growth one."
+      }
+    },
+    {
+      "ticker": "AMAT", "name": "Applied Materials",
       "signal": "WATCH",
-      "verdict": "TradingView loves it and the score is the highest in the scan, but RSI 86 and a +57% 4-week RS surge make this the most extended name on the list -- watch, don't chase.",
+      "verdict": "A held position -- strong fundamentals, but the chart is still 16.6% below its 52-week high, meaning this is a repair story, not a fresh breakout.",
       "financials": {
-        "period": "FY2025",
-        "summary": "Revenue swung sharply on COVID-vaccine order-timing comparisons; the RSV vaccine (mResvia) and pipeline programs continued scaling as the company worked toward a lower, sustainable post-pandemic break-even revenue level.",
-        "highlights": ["Revenue +260% YoY -- almost certainly an easy comparison against a deeply depressed prior-year base, not a durable growth rate", "Continued cost-cutting to reach a lower break-even revenue level", "RSV vaccine and combination-shot pipeline progressing"]
+        "period": "FY2025 (last reported fiscal year)",
+        "summary": "As one of the largest semiconductor-equipment makers, Applied Materials benefits from the ongoing capex build-out across leading-edge logic and memory fabs. The scan shows EPS growth of roughly +34% YoY and revenue growth of roughly +11% YoY, reflecting continued strong demand for wafer-fab-equipment tied to AI-driven chip capacity expansion, even as the stock's price action has lagged the fundamentals.",
+        "highlights": ["EPS growth ~+34% YoY", "Revenue growth ~+11% YoY", "Forward P/E ~37x", "Still 16.6% below its 52-week high despite the strong fundamental print"]
       },
-      "accomplishments": ["Continued diversification beyond COVID vaccines into RSV and combination respiratory shots", "Pipeline progress in individualized cancer vaccines (with partners)", "Aggressive cost restructuring to right-size the post-pandemic cost base"],
+      "accomplishments": [
+        "Continued to benefit from elevated fab-equipment capex tied to AI/leading-edge chip capacity expansion across foundry and memory customers",
+        "Maintained EPS growth well ahead of revenue growth through operating leverage"
+      ],
       "journey_52w": {
-        "summary": "The stock spent most of the past year in a deep, multi-year downtrend as COVID-vaccine revenue collapsed, before a sharp, parabolic reversal over the last month that has pushed RSI to the most extended level in the entire scan.",
+        "summary": "AMAT's past year has been more volatile than the broader semiconductor-equipment recovery story would suggest, with the stock pulling back meaningfully from its highs even as fundamentals stayed strong -- a disconnect that makes this a name to watch for a technical confirmation rather than assume the fundamentals alone are enough.",
         "milestones": [
-          {"label": "2H 2025", "note": "Continued COVID-revenue decline, restructuring announcements"},
-          {"label": "Q1 2026", "note": "RSV vaccine and pipeline updates"},
-          {"label": "Jun 2026", "note": "Sharp, parabolic +57% 4-week RS surge -- the most extended setup in the scan"}
+          {"label": "Through the year", "note": "Fundamentals stayed strong through the AI capex cycle even as the stock pulled back from highs on cyclical/export-control concerns common across the semi-equipment group"},
+          {"label": "Current", "note": "5-contraction VCP, 2.1% tightest contraction, but still 16.6% below the 52-week high"}
         ]
       },
       "critical": {
-        "risks": ["RSI 86 -- highest in the scan, high odds of a sharp mean-reversion", "Revenue base remains structurally lower than the pandemic peak", "Binary pipeline/regulatory catalysts create event risk"],
-        "catalysts": ["RSV/combination-vaccine regulatory and sales updates", "Q2 earnings in ~29 days"],
-        "watch": ["Whether the rally consolidates (healthy) or reverses sharply (typical after this kind of RSI extreme)"],
-        "valuation": "Fwd P/E is negative (still unprofitable on a trailing basis) -- this is a story/turnaround stock, not a value one"
+        "risks": ["16.6% below the 52-week high -- still in repair mode, not a confirmed breakout", "Semiconductor-equipment names remain sensitive to export-control and China-demand headlines", "Earnings Aug 14, 2026 -- still six weeks out"],
+        "catalysts": ["A reclaim of the 50-day moving average and a fresh higher high would upgrade this from WATCH to a live setup"],
+        "watch": ["Don't chase here -- wait for confirmation of a base completion before adding meaningfully"],
+        "valuation": "37x forward earnings against 34% EPS growth is reasonable for the growth rate, but the stock needs to prove the base is complete before that valuation gets fully credited."
       }
     },
     {
-      "ticker": "GE", "name": "GE Aerospace",
-      "signal": "WATCH",
-      "verdict": "Most overbought name in the entire scan (RSI 91) riding an aerospace-cycle narrative -- earnings growth is actually negative, so the rally is running on revenue and sentiment, not the bottom line.",
+      "ticker": "SPG", "name": "Simon Property Group",
+      "signal": "STRONG BUY",
+      "verdict": "A held position -- best-in-class mall REIT with RS at new highs and a unanimous-leaning TradingView STRONG_BUY.",
       "financials": {
-        "period": "FY2025",
-        "summary": "GE Aerospace benefited from strong commercial-engine services and spare-parts demand as global air travel and aircraft utilization stayed elevated; EPS was pressured by one-off items and mix effects despite solid revenue growth.",
-        "highlights": ["Revenue +25% YoY -- strong commercial aerospace services demand", "EPS -2% YoY despite the revenue growth -- one-off charges/mix effects offsetting operating strength", "Services/spare-parts (higher-margin, recurring) mix continuing to grow as a share of revenue"]
+        "period": "FY2025 (last reported fiscal year)",
+        "summary": "Simon, the largest mall/premium-outlet REIT in the US, continues to post strong results as premium retail traffic and occupancy at its top-tier properties remain resilient even amid a mixed broader retail backdrop. The scan shows EPS growth of roughly +16% YoY and revenue growth of roughly +19% YoY, among the strongest top-line growth of any REIT in this scan.",
+        "highlights": ["EPS growth ~+16% YoY", "Revenue growth ~+19% YoY -- the strongest top-line growth of any REIT in this pick list", "Forward P/E ~33.5x"]
       },
-      "accomplishments": ["Continued growth in engine services and spare-parts revenue as global fleets fly more hours", "Backlog at multi-year highs on commercial engine orders", "Progress on LEAP engine production ramp supporting Boeing/Airbus narrow-body output"],
+      "accomplishments": [
+        "Maintained high occupancy and strong releasing spreads across its flagship mall and premium-outlet portfolio",
+        "Continued to outperform lower-quality mall peers as retail traffic concentrated further into top-tier, well-located properties"
+      ],
       "journey_52w": {
-        "summary": "The stock has been in a strong, largely uninterrupted uptrend over the past year as the aerospace-recovery and services-mix-shift story gained investor conviction, pushing RSI to an extreme 91 -- the most overbought reading in this scan.",
+        "summary": "SPG's past year reflects the broader 'flight to quality' in retail real estate -- as weaker regional malls continued to struggle, premium properties like Simon's kept posting strong traffic and occupancy, and the stock has climbed steadily to new relative-strength highs.",
         "milestones": [
-          {"label": "Q4 2025", "note": "Backlog and services revenue hit new highs"},
-          {"label": "Q1 2026", "note": "LEAP engine production ramp continued"},
-          {"label": "Jun 2026", "note": "RSI reached 91 -- the most extended reading in the entire scan"}
+          {"label": "Through the year", "note": "Consistent occupancy and releasing-spread strength at flagship properties despite a mixed broader retail landscape"},
+          {"label": "Current", "note": "RS line at new highs, 4-contraction VCP tightened to 4.2%, just 0.7% off the 52-week high"}
         ]
       },
       "critical": {
-        "risks": ["RSI 91 -- most overbought name in the scan, high odds of a sharp pullback or extended consolidation", "EPS actually declined YoY despite the stock's strength -- a disconnect worth watching into the print", "Earnings in 14 days into an extremely stretched setup"],
-        "catalysts": ["Q2 earnings in 14 days", "Continued LEAP engine ramp/Boeing-Airbus delivery-rate commentary"],
-        "watch": ["Whether EPS reconciles with the revenue growth in the next print, or whether the gap widens"],
-        "valuation": "Fwd P/E ~44x is one of the richest multiples in this whole scan, on declining EPS -- a name priced for a services-mix re-rating story, not near-term earnings"
-      }
-    },
-    {
-      "ticker": "PG", "name": "Procter & Gamble",
-      "signal": "WATCH",
-      "verdict": "Not one of today's Top Picks -- the scan flags a broken trend (still below its 150/200-day) despite an ongoing base -- a name to watch for repair, not to buy on the current bounce.",
-      "financials": {
-        "period": "FY2025 (ended Jun 2025)",
-        "summary": "Steady, low-single-digit organic sales growth, with price/mix offsetting soft volumes in some categories; continued strong free cash flow and a multi-decade dividend-growth streak.",
-        "highlights": ["EPS +6% YoY", "Revenue +7% YoY", "Organic sales growth modest -- price/mix carrying more of the load than volume", "Continued strong free cash flow supporting the dividend"]
-      },
-      "accomplishments": ["Continued multi-decade dividend-growth streak", "Ongoing productivity/cost-savings program", "Steady market-share performance in most core categories"],
-      "journey_52w": {
-        "summary": "P&G has underperformed the broader market over the past year, down as much as 20% from its highs on soft volume trends and consumer trade-down pressure in some categories, only recently stabilizing into a multi-contraction base.",
-        "milestones": [
-          {"label": "2H 2025", "note": "Soft volume trends in several categories weighed on the stock"},
-          {"label": "Q1 2026", "note": "Price/mix continued to offset volume softness"},
-          {"label": "Jun 2026", "note": "8.8% off its high, basing (6-contraction VCP, 3.6% tight) but still below its 150/200-day lines"}
-        ]
-      },
-      "critical": {
-        "risks": ["Trend still broken -- below both the 150- and 200-day moving averages despite the tightening base", "Volume growth remains soft; consumer trade-down risk in a slower economy", "No TradingView cross-check resolved for this ticker"],
-        "catalysts": ["Next earnings report (~27 days out)", "Any signs of volume reacceleration"],
-        "watch": ["Volume trends vs. price/mix in the next print", "A reclaim of the 150/200-day would be the first real repair signal"],
-        "valuation": "Fwd P/E ~21x -- full for the current low-single-digit growth profile; needs volume reacceleration to justify chasing"
-      }
-    },
-    {
-      "ticker": "COIN", "name": "Coinbase Global",
-      "signal": "WATCH",
-      "verdict": "TradingView reads NEUTRAL -- a coin-flip technical picture. Not in today's scanned universe; fundamentally levered to crypto-market activity and regulatory clarity, both wildcards right now.",
-      "financials": {
-        "period": "FY2025",
-        "summary": "Trading volumes and revenue remained highly correlated with crypto-market activity (BTC/ETH price action), while subscription/services revenue (custody, staking, USDC yield) kept growing as a diversification effort away from pure transaction revenue.",
-        "highlights": ["Revenue remains heavily levered to trading volume, which swings sharply with crypto prices", "Subscription & services revenue (custody, staking, stablecoin yield) a growing, more durable mix shift", "US crypto regulatory environment has been gradually clarifying, a tailwind for the business model"]
-      },
-      "accomplishments": ["Continued build-out of subscription/services revenue to reduce trading-volume dependence", "Expanded institutional custody and staking offerings", "Benefiting from an incrementally clearer US regulatory stance on crypto"],
-      "journey_52w": {
-        "summary": "Coinbase's stock has tracked crypto-market sentiment closely over the past year -- rallying hard during bullish BTC/ETH stretches and giving back gains during risk-off crypto drawdowns. TradingView's current NEUTRAL read reflects that two-sided setup.",
-        "milestones": [
-          {"label": "2H 2025", "note": "Rallied alongside a strong crypto-market stretch"},
-          {"label": "Q1 2026", "note": "Gave back some gains during a crypto-market pullback"},
-          {"label": "Jun 2026", "note": "TradingView rates the setup NEUTRAL (9 buy / 7 sell / 10 neutral)"}
-        ]
-      },
-      "critical": {
-        "risks": ["Revenue remains highly correlated to and dependent on crypto-market trading volumes and prices", "Regulatory risk, while improving, is not fully resolved", "Not in today's scanned universe -- no live quant/VCP read available"],
-        "catalysts": ["BTC/ETH price trends", "Further US regulatory clarity (stablecoin, market-structure legislation)"],
-        "watch": ["Trading-volume trends in the next print", "Subscription/services revenue as a % of total (the diversification thesis)"],
-        "valuation": "Trades on crypto-market sentiment as much as on fundamentals -- treat as a high-beta crypto proxy"
-      }
-    },
-    {
-      "ticker": "SNDK", "name": "Sandisk",
-      "signal": "WEAK",
-      "verdict": "TradingView rates this an outright SELL (6 buy / 11 sell) -- the NAND-flash memory cycle is historically volatile and the technical picture is currently negative.",
-      "financials": {
-        "period": "FY2025 (post-spinoff)",
-        "summary": "Standalone NAND-flash memory maker (spun off from Western Digital) navigating a cyclical, historically volatile memory-pricing environment, with margins highly sensitive to NAND pricing swings.",
-        "highlights": ["NAND flash pricing is the dominant swing factor for revenue and margins", "Standalone balance sheet post-spinoff carries the debt load allocated in the separation", "Memory-market cycles have historically been sharp in both directions"]
-      },
-      "accomplishments": ["Completed spinoff from Western Digital as an independent, pure-play NAND flash company", "Continued technology-roadmap investment (next-gen NAND nodes) alongside joint-venture partner Kioxia"],
-      "journey_52w": {
-        "summary": "Since separating from Western Digital, SNDK has traded with high volatility tied to NAND pricing headlines and the broader memory cycle; TradingView's current SELL rating reflects a technical picture that has turned negative.",
-        "milestones": [
-          {"label": "Post-spinoff 2025", "note": "Began trading as an independent NAND-flash pure play"},
-          {"label": "Q1 2026", "note": "NAND pricing volatility weighed on margins"},
-          {"label": "Jun 2026", "note": "TradingView rates the setup SELL (6 buy / 11 sell / 9 neutral)"}
-        ]
-      },
-      "critical": {
-        "risks": ["TradingView SELL rating -- the technical picture is currently negative", "NAND pricing is highly cyclical and difficult to forecast", "Standalone post-spinoff balance sheet carries real leverage"],
-        "catalysts": ["A NAND pricing trend inflection (has been known to turn sharply)", "Data-center/AI-storage demand growth as a structural tailwind"],
-        "watch": ["NAND spot pricing trends", "Debt paydown progress"],
-        "valuation": "Best assessed as a cyclical memory play -- valuation swings with the NAND cycle more than with steady per-share earnings"
-      }
-    },
-    {
-      "ticker": "BFLY", "name": "Butterfly Network",
-      "signal": "WATCH",
-      "verdict": "No TradingView rating resolved and not in today's scanned universe -- a small-cap medical-device story stock; size any position accordingly.",
-      "financials": {
-        "period": "FY2025",
-        "summary": "Point-of-care ultrasound device maker (the handheld 'ultrasound-on-a-chip') still working toward sustained profitability, with revenue growth driven by device placements and subscription/software attach.",
-        "highlights": ["Revenue growth driven by continued handheld-ultrasound device placements", "Software/subscription attach rate is the key long-term margin driver", "Company has historically been unprofitable while scaling the platform"]
-      },
-      "accomplishments": ["Continued expansion of the handheld point-of-care ultrasound installed base", "Ongoing software/AI-guidance feature development to increase subscription attach", "Expanding use cases beyond radiology into emergency medicine and primary care"],
-      "journey_52w": {
-        "summary": "BFLY remains a small-cap, high-volatility story stock -- its share price has swung on financing news, device-adoption updates, and broader small-cap risk appetite rather than steady fundamentals.",
-        "milestones": [
-          {"label": "2025", "note": "Continued device-placement growth and software-feature rollout"},
-          {"label": "Jun 2026", "note": "No TradingView technical rating currently resolved for this ticker"}
-        ]
-      },
-      "critical": {
-        "risks": ["Not profitable -- still burning cash to fund growth", "No independent technical (TV) read available", "Small-cap liquidity and volatility risk"],
-        "catalysts": ["Path-to-profitability updates", "New use-case/reimbursement expansions"],
-        "watch": ["Cash runway / burn rate", "Subscription attach-rate trend"],
-        "valuation": "Speculative, pre-profitability small-cap -- valued on adoption trajectory, not current earnings"
+        "risks": ["Fwd P/E 33.5x prices in continued strength", "Earnings Aug 11, 2026 -- the furthest-out catalyst of the REIT names in this scan"],
+        "catalysts": ["Aug 11 earnings -- watch occupancy and releasing-spread trends"],
+        "watch": ["A shallow, 0.7%-off-high pullback -- watch for the retest of the highs to hold as support"],
+        "valuation": "33.5x forward earnings is a premium REIT multiple, justified by best-in-class revenue growth (+19% YoY) relative to REIT peers."
       }
     }
   ]

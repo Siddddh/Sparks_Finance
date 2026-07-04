@@ -6,152 +6,152 @@
         {
           "ticker": "AAPL",
           "action": "HOLD",
-          "why": "Confirmed uptrend, 2.1% off its 52-week high with room to run; EPS +22% / revenue +17% YoY and TV's STRONG_BUY (zero sell votes) both confirm. Hold the core position."
+          "why": "STRONG BUY (90.7), TV STRONG_BUY confirms. RS at new highs, EPS +22%/rev +17% YoY, only 2% off the 52-week high -- a clean core holding, no action needed."
         },
         {
           "ticker": "ALAB",
           "action": "HOLD",
-          "why": "Not in today's scanned universe, but TradingView's independent read is BUY (11/5/10). AI-connectivity chip name -- hold, no red flags from the data we have."
+          "why": "STRONG BUY (88.3), TV BUY. EPS +144%/rev +93% YoY is exceptional, but the stock is 16% off its high -- still repairing, not breaking out. Hold through the base."
         },
         {
           "ticker": "AMD",
           "action": "HOLD",
-          "why": "EPS +91% / revenue +38% YoY is excellent, but TV reads NEUTRAL (8/8/10) -- momentum has stalled even though the fundamentals are strong. Hold, don't add until TV confirms."
+          "why": "STRONG BUY (90.9), TV BUY. EPS +91%/rev +38% YoY backs the AI-compute thesis; 11% off highs but trend intact. Hold."
         },
         {
           "ticker": "APLD",
           "action": "TRIM",
-          "why": "Not in today's scanned universe; TradingView rates it SELL (3/14/9) -- one of the weaker independent reads among AI-datacenter/power names. Trim on strength."
+          "why": "WEAK (52.0), TV SELL. 33% off highs with a loose 7% VCP contraction -- speculative data-center-power name that hasn't confirmed a base. Trim into strength if it bounces."
         },
         {
           "ticker": "APP",
           "action": "HOLD",
-          "why": "Not in today's scanned universe, but TV's BUY (13/3/10) is supportive. AdTech/mobile-platform name -- hold."
+          "why": "WEAK (47.0) but TV disagrees with BUY -- a genuine split verdict. 28% off highs. Hold a reduced size and wait for the technical picture to clarify before adding."
         },
         {
           "ticker": "DRAM",
           "action": "HOLD",
-          "why": "Not in today's scanned universe and no TradingView rating resolved either -- no independent read available. Hold with reduced conviction until data improves."
+          "why": "New listing, WEAK (54.0), TV rating not yet available. Thin trading history -- hold a small position and wait for more data before sizing up."
         },
         {
           "ticker": "GOOGL",
           "action": "HOLD",
-          "why": "Today's scan reads WATCH (score 62.5), 10.6% off its high, while TV's BUY (12/8) is more constructive. Hold -- mixed but not alarming."
+          "why": "WATCH (62.8), TV leans BUY. 11% off highs, EPS +82%/rev +22% YoY -- fundamentals outrunning the chart. Hold."
         },
         {
           "ticker": "GS",
           "action": "HOLD",
-          "why": "Today's scan reads STRONG BUY (score 81.2), though TV is NEUTRAL -- a mixed read. EPS +24% / revenue +15% YoY still supports holding."
+          "why": "STRONG BUY (82.4) but TV is NEUTRAL. EPS +24%/rev +15% YoY, 8% off highs. Hold -- money-center banks remain in favor even if TV's read is more cautious here."
         },
         {
           "ticker": "HOOD",
           "action": "HOLD",
-          "why": "Not in today's scanned universe, but TradingView's STRONG_BUY (15/1/10) is one of the cleanest independent reads in the whole portfolio. Hold."
+          "why": "WEAK (51.6) by score but TV strongly disagrees with STRONG_BUY -- a notable split. 26% off highs. Hold current size and watch which read proves right before adding."
         },
         {
           "ticker": "INTC",
-          "action": "TRIM",
-          "why": "Today's scan reads STRONG BUY (score 78.4) but TradingView rates it an outright SELL -- a clear divergence. Intel's turnaround remains unproven; trim into any strength rather than trusting the scan score alone here."
+          "action": "HOLD",
+          "why": "STRONG BUY (78.7) but TV is NEUTRAL. Turnaround still in progress, 15% off highs. Hold -- don't add until TV's read firms up."
         },
         {
           "ticker": "IREN",
-          "action": "SELL",
-          "why": "Not in today's scanned universe; TradingView rates it STRONG_SELL with zero buy votes (0/16/10) -- the most one-sided negative read in the portfolio. AI-datacenter/crypto-adjacent name under real technical pressure -- reduce exposure."
+          "action": "TRIM",
+          "why": "WEAK (43.0), TV agrees with STRONG_SELL -- both reads bearish. 49% off its high, a deep drawdown in a volatile crypto-adjacent power/compute name. Consider trimming meaningfully."
         },
         {
           "ticker": "LRCX",
-          "action": "TRIM",
-          "why": "Today's scan reads STRONG BUY (score 88.4) but TradingView rates it SELL -- semi-equipment peer AMAT is repairing faster and with cleaner TV confirmation. Trim LRCX in favor of the stronger names in the group if rebalancing."
+          "action": "HOLD",
+          "why": "STRONG BUY (88.5) but TV disagrees with SELL -- worth flagging. Semiconductor-equipment cycle exposure, 19% off highs. Hold current size, don't add until the disagreement resolves."
         },
         {
           "ticker": "LUNR",
           "action": "TRIM",
-          "why": "Not in today's scanned universe; TV rates it SELL (1/15/10), nearly unanimous against. Space/lunar-lander name remains highly speculative and technically weak -- trim/size down."
+          "why": "WEAK (25.7), TV agrees with SELL. 57% off its high -- a speculative small-cap lunar-lander name in a steep drawdown. Consider trimming to a size you can hold through continued volatility."
         },
         {
           "ticker": "MSFT",
-          "action": "TRIM",
-          "why": "Today's scan reads WEAK (score 48.4), 27.5% off its high with a broken trend, and TV is NEUTRAL. Best-in-class fundamentals, but the technical picture argues for trimming concentration rather than adding here."
+          "action": "HOLD",
+          "why": "WEAK (48.8) by the scan's momentum criteria, TV NEUTRAL, 28% off highs. Megacap tech is broadly out of favor in this scan's rotation -- hold as a core long-term position, but this isn't a name to add to right now."
         },
         {
           "ticker": "MU",
-          "action": "TRIM",
-          "why": "The +1,369% EPS / +346% revenue growth is real but almost certainly reflects a sharp memory-pricing upswing rather than a durable trend, and TradingView rates the setup an outright SELL despite today's STRONG BUY scan score. Trim into strength given the divergence."
+          "action": "HOLD",
+          "why": "STRONG BUY (88.3) by score but TV disagrees with SELL -- worth flagging. Memory-cycle exposure (EPS +1369%/rev +346% YoY off a trough base) is compelling, but 20% off highs. Hold, watch for TV to confirm."
         },
         {
           "ticker": "NVDA",
-          "action": "TRIM",
-          "why": "Today's scan reads WATCH (score 66.8), 17.3% off its high, and TradingView rates it SELL. The AI-leader narrative is intact long-term, but the near-term technical picture argues for trimming into strength rather than adding at current levels."
+          "action": "HOLD",
+          "why": "WATCH (67.3), TV disagrees with SELL. 17% off highs -- the AI-compute leader is currently out of favor in this scan's rotation into value/financials/utilities. Hold as a core position; not a name to chase here."
         },
         {
           "ticker": "ORCL",
           "action": "TRIM",
-          "why": "Today's scan reads WEAK (score 45.2) with RSI at an extremely oversold 14.9 and the stock 56.9% off its high -- a severe technical breakdown, likely tied to AI/cloud capex spending concerns. TV agrees with a SELL. Trim/reduce exposure."
+          "why": "WEAK (46.6), TV agrees with SELL. 57% off its high -- the steepest drawdown of any megacap name in the holdings. Consider trimming meaningfully."
         },
         {
           "ticker": "PLTR",
-          "action": "HOLD",
-          "why": "Not in today's scanned universe; TV reads NEUTRAL (10/7/9). Elevated valuation with a mixed technical picture -- hold, don't chase."
+          "action": "TRIM",
+          "why": "WEAK (34.5), TV NEUTRAL. 38% off its high despite EPS +325%/rev +85% YoY -- valuation reset after a big prior run. Consider trimming to a smaller position."
         },
         {
           "ticker": "QBTS",
           "action": "TRIM",
-          "why": "Not in today's scanned universe; TV rates it SELL (4/12/10). Speculative quantum-computing name under technical pressure -- trim/size down."
+          "why": "WEAK (23.0), TV agrees with SELL. 50% off its high, revenue -81% YoY -- speculative quantum-computing name with weak technicals and weak fundamentals together. Consider trimming meaningfully."
         },
         {
           "ticker": "QLD",
-          "action": "TRIM",
-          "why": "This is a 2x-leveraged Nasdaq-100 ETF, and TradingView reads SELL (5/11/10) -- consistent with the broken trend we're seeing across several megacap tech names (NVDA, MSFT, ORCL, TSLA) in this scan. Leverage cuts both ways; trim given the negative read on the underlying index."
+          "action": "HOLD",
+          "why": "WATCH (55.0), TV disagrees with SELL. This is a 2x-leveraged S&P 500 ETF -- treat it as a leveraged market-timing tool, not a stock pick; size and manage accordingly given the broader UPTREND market read."
         },
         {
           "ticker": "RBRK",
           "action": "HOLD",
-          "why": "Not in today's scanned universe, but TV's BUY (15/2/9) is supportive. Data-security/cyber-resilience name -- hold."
+          "why": "STRONG BUY (77.7), TV STRONG_BUY -- full agreement. 15% off highs but both reads confirm the security-data-management story. Hold, consider adding."
         },
         {
           "ticker": "RGTI",
-          "action": "SELL",
-          "why": "Not in today's scanned universe; TradingView rates it STRONG_SELL with zero buy votes (0/16/10) -- as one-sided negative as it gets. Highly speculative quantum-computing name -- reduce exposure."
+          "action": "TRIM",
+          "why": "WEAK (30.9), TV agrees with STRONG_SELL -- both reads strongly bearish. 68% off its high, the single steepest drawdown in the whole holdings list. Consider trimming meaningfully."
         },
         {
           "ticker": "RKLB",
           "action": "TRIM",
-          "why": "Not in today's scanned universe; TV rates it SELL (6/11/9). Space-launch name under technical pressure -- trim."
+          "why": "WEAK (28.2), TV agrees with SELL. 33% off its high. Consider trimming to a smaller speculative-sleeve size."
         },
         {
           "ticker": "SMCI",
-          "action": "SELL",
-          "why": "Today's scan reads WEAK (score 34.9), 55.2% off its high, and TradingView agrees with a SELL. One of the weakest technical setups in the entire portfolio -- reduce exposure."
+          "action": "TRIM",
+          "why": "WEAK (35.0), TV agrees with SELL. 55% off its high -- both reads bearish on this AI-server name after its accounting-related volatility. Consider trimming."
         },
         {
           "ticker": "SNDK",
-          "action": "TRIM",
-          "why": "Not in today's scanned universe; TradingView rates it SELL (6/11/9). NAND-flash pricing is highly cyclical and the current technical picture is negative -- trim."
+          "action": "HOLD",
+          "why": "WATCH (72.4) but TV disagrees with SELL. 25% off highs -- memory/storage cycle name. Hold and watch for the disagreement to resolve."
         },
         {
           "ticker": "SNOW",
           "action": "HOLD",
-          "why": "Not in today's scanned universe, but TV's BUY (15/4/7) is supportive. Data-cloud platform -- hold."
+          "why": "STRONG BUY (88.4), TV BUY. 7% off highs -- data-cloud platform continuing to execute. Hold, consider adding."
         },
         {
           "ticker": "SSO",
           "action": "HOLD",
-          "why": "2x-leveraged S&P 500 ETF; TV's BUY (13/3/10) tracks the broader market's healthy uptrend (70% breadth, VIX calm and falling). Hold, but size for the leverage."
+          "why": "STRONG BUY (86.2), TV BUY. This is a 2x-leveraged S&P 500 ETF -- the STRONG BUY read reflects the healthy broad-market UPTREND, not a single-stock setup. Hold, size per your leverage tolerance."
         },
         {
           "ticker": "TSLA",
-          "action": "TRIM",
-          "why": "Today's scan reads WATCH (score 66.1), 19.7% off its high, and TradingView agrees with a SELL. Momentum has broken down -- trim into any strength."
+          "action": "HOLD",
+          "why": "WATCH (66.4), TV disagrees with SELL. 20% off highs -- out of favor in this scan's current rotation away from megacap tech. Hold as a core position; not a name to add to here."
         },
         {
           "ticker": "TSM",
           "action": "HOLD",
-          "why": "Not in today's scanned universe; TV reads NEUTRAL (8/8/10). Structural AI-chip foundry demand remains the long-term thesis even though the near-term technical picture is mixed -- hold."
+          "why": "STRONG BUY-caliber score (92.4) but TV's NEUTRAL (8/8/10) is a genuine split verdict -- best fundamentals of any chip name (EPS +58%/rev +35% YoY) but the independent read is a coin flip. Hold, don't add until TV tips toward BUY."
         },
         {
           "ticker": "VRT",
           "action": "TRIM",
-          "why": "Not in today's scanned universe; TV rates it SELL (4/14/8). Data-center cooling/power-infrastructure name -- the AI-infra theme is real, but the technical picture has turned negative -- trim."
+          "why": "WATCH (56.5), TV agrees with SELL. 20% off highs -- data-center power/cooling name cooling off technically as well. Consider trimming."
         }
       ]
     },
@@ -160,7 +160,7 @@
         {
           "ticker": "AAPL",
           "action": "HOLD",
-          "why": "Confirmed uptrend, 2.1% off its 52-week high with room to run; EPS +22% / revenue +17% YoY and TV's STRONG_BUY (zero sell votes) both confirm. Hold the core position."
+          "why": "STRONG BUY (90.7), TV STRONG_BUY confirms. RS at new highs, EPS +22%/rev +17% YoY, only 2% off the 52-week high -- a clean core holding, no action needed."
         }
       ]
     },
@@ -169,87 +169,87 @@
         {
           "ticker": "AMKR",
           "action": "TRIM",
-          "why": "Not in today's scanned universe; TradingView rates it an outright SELL (4/12/10). Semiconductor packaging is cyclical and the technical picture has turned negative -- trim into any strength."
+          "why": "WEAK (43.8) and TV agrees with SELL -- 25% off the 52-week high with a wide, undisciplined base (16% VCP contraction). Both reads agree bearish; consider trimming."
         },
         {
           "ticker": "COCO",
           "action": "TRIM",
-          "why": "Not in today's scanned universe; TV rates it SELL (7/11/8). Consumer beverage name showing technical weakness -- trim."
+          "why": "WEAK (47.6), TV agrees with SELL. 21% off highs on a wide, undisciplined base. Both reads bearish."
         },
         {
           "ticker": "DELL",
           "action": "HOLD",
-          "why": "Not in today's scanned universe; TV reads NEUTRAL (8/8/10). AI-server demand is a real tailwind but the technical picture is mixed right now -- hold."
+          "why": "STRONG BUY (87.3) but TV is NEUTRAL -- a mild disagreement. EPS +283%/rev +88% YoY (AI server buildout) is exceptional; hold through the 15%-off-high base."
         },
         {
           "ticker": "DIOD",
           "action": "TRIM",
-          "why": "Not in today's scanned universe; TV rates it SELL (5/13/8). Analog/discrete semiconductor name showing broad technical weakness -- trim."
+          "why": "WEAK (36.6), TV agrees with SELL. 22% off highs, no clear catalyst. Consider trimming."
         },
         {
           "ticker": "DOCN",
           "action": "TRIM",
-          "why": "Not in today's scanned universe; TV rates it SELL (4/12/10). Cloud-infrastructure name showing technical weakness -- trim."
+          "why": "WATCH (60.6), TV agrees with SELL. 28% off highs -- cloud-infrastructure name still working through a difficult stretch. Consider trimming."
         },
         {
           "ticker": "FLEX",
-          "action": "TRIM",
-          "why": "Not in today's scanned universe; TV rates it SELL (6/11/9). Contract manufacturer showing technical weakness -- trim."
+          "action": "HOLD",
+          "why": "STRONG BUY (85.3) but TV disagrees with SELL -- worth noting the tension. Hold current size, don't add until TV's read improves."
         },
         {
           "ticker": "FTNT",
           "action": "HOLD",
-          "why": "Today's Top Pick -- EPS +29% / revenue +20% YoY with TV's BUY confirming. Hold."
+          "why": "STRONG BUY (93.4), TV BUY. RS at new highs, EPS +29%/rev +20% YoY -- one of our top picks this cycle. Hold, consider adding on a pullback to the 50-day."
         },
         {
           "ticker": "GLW",
           "action": "HOLD",
-          "why": "Today's scan reads STRONG BUY on huge EPS growth (+139% YoY), but TV reads NEUTRAL (7/9/10) and the VCP data is messy -- a genuine divergence. Hold, but don't add until TV and the technical picture align."
+          "why": "STRONG BUY (92.4) by score but TV is NEUTRAL -- a real disagreement. EPS +139% YoY (AI datacenter fiber demand) is the best fundamental print in the scan, but the stock is still 23% off its high. Hold; treat as a turnaround still in progress."
         },
         {
           "ticker": "GOOGL",
           "action": "HOLD",
-          "why": "Today's scan reads WATCH (score 62.5), 10.6% off its high, while TV's BUY (12/8) is more constructive. Hold -- mixed but not alarming."
+          "why": "WATCH (62.8), TV leans BUY. 11% off highs, EPS +82%/rev +22% YoY -- fundamentals outrunning the chart. Hold."
         },
         {
           "ticker": "ICHR",
           "action": "HOLD",
-          "why": "Not in today's scanned universe, but TV's BUY (12/5/9) is supportive. Semi-equipment components supplier -- hold."
+          "why": "STRONG BUY (79.9), TV BUY. 13% off highs on a semiconductor-supply-chain name; both reads agree constructive. Hold."
         },
         {
           "ticker": "LLY",
           "action": "HOLD",
-          "why": "Today's Top Pick -- the GLP-1 franchise is driving +170% EPS growth, and TV's STRONG_BUY confirms. Hold the core position."
+          "why": "STRONG BUY (93.8), TV STRONG_BUY -- full agreement. RS at new highs, EPS +170%/rev +56% YoY, the strongest fundamental story in the whole scan. Hold, consider adding on strength."
         },
         {
           "ticker": "LQDA",
           "action": "HOLD",
-          "why": "Not in today's scanned universe, but TV's BUY (14/4/8) is supportive. Small-cap pharma -- hold."
+          "why": "STRONG BUY (94.4), TV BUY. Tightest VCP in the scan (0.5%), RS at new highs. Hold, consider adding -- one of the highest-conviction setups this cycle."
         },
         {
           "ticker": "LUV",
           "action": "HOLD",
-          "why": "Not in today's scanned universe, but TV's BUY (14/2/10) is supportive. Airline name -- hold."
+          "why": "STRONG BUY (87.4), TV BUY. 7.5% off highs -- airline consolidation/pricing discipline story. Hold."
         },
         {
           "ticker": "MXL",
           "action": "HOLD",
-          "why": "Not in today's scanned universe; TV reads NEUTRAL (9/7/10). Semiconductor name -- hold, mixed picture."
+          "why": "WATCH (73.5), TV leans BUY. 27% off highs -- analog-semiconductor name still basing. Hold."
         },
         {
           "ticker": "NTAP",
           "action": "HOLD",
-          "why": "Today's scan reads STRONG BUY (score 75.3) but TV is NEUTRAL -- lower conviction than the cleaner Top Picks. Hold."
+          "why": "STRONG BUY (75.5) but TV is NEUTRAL. 15% off highs. Hold current size."
         },
         {
           "ticker": "PRTH",
           "action": "HOLD",
-          "why": "Not in today's scanned universe, but TV's BUY (15/2/9) is supportive. Payments-technology name -- hold."
+          "why": "WATCH (59.1), TV leans BUY. 16% off highs. Hold a small position."
         },
         {
           "ticker": "SWBI",
-          "action": "TRIM",
-          "why": "Not in today's scanned universe; TV rates it SELL (6/10/10). Firearms manufacturer under technical pressure -- trim."
+          "action": "HOLD",
+          "why": "STRONG BUY (86.2) but TV is NEUTRAL. EPS +87%/rev +27% YoY, 9.5% off highs. Hold current size."
         }
       ]
     },
@@ -258,27 +258,27 @@
         {
           "ticker": "AAPL",
           "action": "HOLD",
-          "why": "Confirmed uptrend, 2.1% off its 52-week high with room to run; EPS +22% / revenue +17% YoY and TV's STRONG_BUY (zero sell votes) both confirm. Hold the core position."
+          "why": "STRONG BUY (90.7), TV STRONG_BUY confirms. RS at new highs, EPS +22%/rev +17% YoY, only 2% off the 52-week high -- a clean core holding, no action needed."
         },
         {
           "ticker": "GS",
           "action": "HOLD",
-          "why": "Today's scan reads STRONG BUY (score 81.2), though TV is NEUTRAL -- a mixed read. EPS +24% / revenue +15% YoY still supports holding."
+          "why": "STRONG BUY (82.4) but TV is NEUTRAL. EPS +24%/rev +15% YoY, 8% off highs. Hold -- money-center banks remain in favor even if TV's read is more cautious here."
         },
         {
           "ticker": "MNST",
           "action": "HOLD",
-          "why": "Today's Top Pick -- EPS +29% / revenue +27% YoY with TV's BUY confirming. Hold."
+          "why": "STRONG BUY (93.2), TV BUY. RS at new highs, EPS +29%/rev +27% YoY -- rare growth profile for a consumer-defensive name. Hold, consider adding."
         },
         {
           "ticker": "SPCX",
           "action": "HOLD",
-          "why": "New listing (SpaceX) -- TradingView's rating is still thin (2/2/1 sample) given limited trading history, so lead with the thesis rather than the quant signal: dominant launch-services position and Starlink's growing revenue base. Hold as a long-term thesis position; expect volatility until the technical picture matures over the next few months."
+          "why": "New listing (SpaceX) -- WEAK by the scan's quant criteria (no VCP/RS history yet, as expected for a fresh IPO), TV rating not yet available. This is a thesis-driven hold: dominant launch/Starlink business and strong IPO momentum, not a technical setup. Hold and let the base develop over the next few months before expecting clean signals."
         },
         {
           "ticker": "TSLA",
-          "action": "TRIM",
-          "why": "Today's scan reads WATCH (score 66.1), 19.7% off its high, and TradingView agrees with a SELL. Momentum has broken down -- trim into any strength."
+          "action": "HOLD",
+          "why": "WATCH (66.4), TV disagrees with SELL. 20% off highs -- out of favor in this scan's current rotation away from megacap tech. Hold as a core position; not a name to add to here."
         }
       ]
     },
@@ -287,7 +287,7 @@
         {
           "ticker": "AAPL",
           "action": "HOLD",
-          "why": "Confirmed uptrend, 2.1% off its 52-week high with room to run; EPS +22% / revenue +17% YoY and TV's STRONG_BUY (zero sell votes) both confirm. Hold the core position."
+          "why": "STRONG BUY (90.7), TV STRONG_BUY confirms. RS at new highs, EPS +22%/rev +17% YoY, only 2% off the 52-week high -- a clean core holding, no action needed."
         }
       ]
     },
@@ -296,117 +296,117 @@
         {
           "ticker": "AAPL",
           "action": "HOLD",
-          "why": "Confirmed uptrend, 2.1% off its 52-week high with room to run; EPS +22% / revenue +17% YoY and TV's STRONG_BUY (zero sell votes) both confirm. Hold the core position."
+          "why": "STRONG BUY (90.7), TV STRONG_BUY confirms. RS at new highs, EPS +22%/rev +17% YoY, only 2% off the 52-week high -- a clean core holding, no action needed."
         },
         {
           "ticker": "AMAT",
           "action": "HOLD",
-          "why": "Today's Top Pick -- the tightest VCP in the whole scan (2.1%) with TV's BUY confirming, though it's still 16.6% off its high, an early-stage repair. Hold."
+          "why": "STRONG BUY (92.4), TV BUY. EPS +34%/rev +11% YoY is strong, but still 17% below the 52-week high -- a repair story. Hold; don't add until it reclaims the 50-day."
         },
         {
           "ticker": "AMZN",
           "action": "HOLD",
-          "why": "Today's scan reads STRONG BUY (score 81) with TV's BUY confirming. EPS +75% / revenue +17% YoY. Hold."
+          "why": "STRONG BUY (81.3), TV BUY. EPS +75%/rev +17% YoY, tight 3.5% VCP. Hold -- one of the cleaner mega-cap setups."
         },
         {
           "ticker": "COIN",
-          "action": "HOLD",
-          "why": "Not in today's scanned universe; TV reads NEUTRAL (9/7/10) -- a coin-flip technical picture tied to crypto-market activity. Hold, don't add until the read clarifies."
+          "action": "TRIM",
+          "why": "WEAK (45.6), TV NEUTRAL. 61% off its high, revenue -31% YoY -- crypto-cycle sensitive and still in a steep drawdown. Trim to a smaller, crypto-correlated sleeve size."
         },
         {
           "ticker": "DLR",
-          "action": "TRIM",
-          "why": "Today's scan reads WATCH (score 66.6), 14.5% off its high with a broken trend, and TradingView rates it STRONG_SELL. Data-center REIT facing AI-capex competition concerns -- trim."
+          "action": "HOLD",
+          "why": "WATCH (68.4) but TV disagrees with SELL. Data-center REIT, 14% off highs -- hold and watch for the technical picture to firm up before adding."
         },
         {
           "ticker": "DTE",
           "action": "HOLD",
-          "why": "Today's Top Pick -- TV's STRONG_BUY (16/0/10) confirms the technical strength, though the -44% EPS growth figure (likely a one-off prior-year charge) is worth watching into the next print. Hold."
+          "why": "STRONG BUY (91.6), TV STRONG_BUY confirms. Essentially at the 52-week high with a tight 2.5% VCP -- utility/power-demand tailwind. Hold, consider adding on any pullback."
         },
         {
           "ticker": "EOG",
           "action": "TRIM",
-          "why": "Today's scan reads WEAK (score 52.6) and TradingView agrees with an outright SELL. Energy E&P name under technical pressure -- trim."
+          "why": "WEAK (53.8), TV agrees with SELL. 12% off highs, no confirming technical strength in an energy tape that's been news-driven rather than trend-driven. Consider trimming."
         },
         {
           "ticker": "FICO",
           "action": "HOLD",
-          "why": "Today's scan reads WATCH (score 61.4), 32.4% off its high -- a real drawdown -- though TV's BUY (14/4/8) is supportive. Hold, don't add until the trend repairs."
+          "why": "WATCH (62.3), TV leans BUY. 32% off its high -- still a large drawdown to repair. Hold and watch for a base to complete."
         },
         {
           "ticker": "GS",
           "action": "HOLD",
-          "why": "Today's scan reads STRONG BUY (score 81.2), though TV is NEUTRAL -- a mixed read. EPS +24% / revenue +15% YoY still supports holding."
+          "why": "STRONG BUY (82.4) but TV is NEUTRAL. EPS +24%/rev +15% YoY, 8% off highs. Hold -- money-center banks remain in favor even if TV's read is more cautious here."
         },
         {
           "ticker": "HWM",
           "action": "HOLD",
-          "why": "Today's Top Pick -- EPS +71% / revenue +19% YoY with TV's BUY confirming. Hold."
+          "why": "STRONG BUY (91.4), TV BUY. EPS +71%/rev +19% YoY, healthier RSI than sibling GE. Hold, consider adding -- one of the cleaner aerospace setups."
         },
         {
           "ticker": "INTC",
-          "action": "TRIM",
-          "why": "Today's scan reads STRONG BUY (score 78.4) but TradingView rates it an outright SELL -- a clear divergence. Intel's turnaround remains unproven; trim into any strength rather than trusting the scan score alone here."
+          "action": "HOLD",
+          "why": "STRONG BUY (78.7) but TV is NEUTRAL. Turnaround still in progress, 15% off highs. Hold -- don't add until TV's read firms up."
         },
         {
           "ticker": "IRM",
-          "action": "TRIM",
-          "why": "Today's scan reads WATCH (score 66.0) and TradingView agrees with a SELL. Data-management REIT under technical pressure -- trim."
+          "action": "HOLD",
+          "why": "WATCH (68.0) but TV disagrees with SELL. 12% off highs, EPS growth reported at +860% YoY (likely a one-time/base-effect item -- verify before reading too much into it). Hold and watch."
         },
         {
           "ticker": "KIM",
           "action": "HOLD",
-          "why": "Today's scan reads STRONG BUY (score 88.8) with TV's BUY confirming. Shopping-center REIT -- hold."
+          "why": "STRONG BUY (89.4), TV BUY. EPS +29% YoY, only 2.3% off the 52-week high -- grocery-anchored REIT rotation. Hold, consider adding."
         },
         {
           "ticker": "MNST",
           "action": "HOLD",
-          "why": "Today's Top Pick -- EPS +29% / revenue +27% YoY with TV's BUY confirming. Hold."
+          "why": "STRONG BUY (93.2), TV BUY. RS at new highs, EPS +29%/rev +27% YoY -- rare growth profile for a consumer-defensive name. Hold, consider adding."
         },
         {
           "ticker": "MSFT",
-          "action": "TRIM",
-          "why": "Today's scan reads WEAK (score 48.4), 27.5% off its high with a broken trend, and TV is NEUTRAL. Best-in-class fundamentals, but the technical picture argues for trimming concentration rather than adding here."
+          "action": "HOLD",
+          "why": "WEAK (48.8) by the scan's momentum criteria, TV NEUTRAL, 28% off highs. Megacap tech is broadly out of favor in this scan's rotation -- hold as a core long-term position, but this isn't a name to add to right now."
         },
         {
           "ticker": "NVDA",
-          "action": "TRIM",
-          "why": "Today's scan reads WATCH (score 66.8), 17.3% off its high, and TradingView rates it SELL. The AI-leader narrative is intact long-term, but the near-term technical picture argues for trimming into strength rather than adding at current levels."
+          "action": "HOLD",
+          "why": "WATCH (67.3), TV disagrees with SELL. 17% off highs -- the AI-compute leader is currently out of favor in this scan's rotation into value/financials/utilities. Hold as a core position; not a name to chase here."
         },
         {
           "ticker": "NXPI",
           "action": "TRIM",
-          "why": "Today's scan reads WEAK (score 46.9) and TradingView agrees with a SELL. Auto-semiconductor demand remains soft -- trim."
+          "why": "WEAK (47.2), TV agrees with SELL. 17.5% off highs, no confirming strength. Consider trimming."
         },
         {
           "ticker": "SIRI",
-          "action": "TRIM",
-          "why": "Today's scan flags this as a WATCH-tier extended name -- RSI 86.5, the widest VCP base on the whole scan (9.6%) -- even though TV's BUY (15/4/7) is supportive. Consider trimming into strength given how stretched the technical setup is."
+          "action": "HOLD",
+          "why": "STRONG BUY (88.8), TV STRONG_BUY -- full agreement, RS at new highs. No clean VCP base though, so manage with a wider stop. Hold, consider adding."
         },
         {
           "ticker": "SNDK",
-          "action": "TRIM",
-          "why": "Not in today's scanned universe; TradingView rates it SELL (6/11/9). NAND-flash pricing is highly cyclical and the current technical picture is negative -- trim."
+          "action": "HOLD",
+          "why": "WATCH (72.4) but TV disagrees with SELL. 25% off highs -- memory/storage cycle name. Hold and watch for the disagreement to resolve."
         },
         {
           "ticker": "SPCX",
           "action": "HOLD",
-          "why": "New listing (SpaceX) -- TradingView's rating is still thin (2/2/1 sample) given limited trading history, so lead with the thesis rather than the quant signal: dominant launch-services position and Starlink's growing revenue base. Hold as a long-term thesis position; expect volatility until the technical picture matures over the next few months."
+          "why": "New listing (SpaceX) -- WEAK by the scan's quant criteria (no VCP/RS history yet, as expected for a fresh IPO), TV rating not yet available. This is a thesis-driven hold: dominant launch/Starlink business and strong IPO momentum, not a technical setup. Hold and let the base develop over the next few months before expecting clean signals."
         },
         {
           "ticker": "SPG",
           "action": "HOLD",
-          "why": "Today's Top Pick -- EPS +16% / revenue +19% YoY with TV's STRONG_BUY confirming. Hold."
+          "why": "STRONG BUY (91.7), TV STRONG_BUY -- full agreement, RS at new highs. Hold, consider adding -- best-in-class mall REIT."
         },
         {
           "ticker": "TSLA",
-          "action": "TRIM",
-          "why": "Today's scan reads WATCH (score 66.1), 19.7% off its high, and TradingView agrees with a SELL. Momentum has broken down -- trim into any strength."
+          "action": "HOLD",
+          "why": "WATCH (66.4), TV disagrees with SELL. 20% off highs -- out of favor in this scan's current rotation away from megacap tech. Hold as a core position; not a name to add to here."
         },
         {
           "ticker": "WDC",
-          "action": "TRIM",
-          "why": "Today's scan reads STRONG BUY on huge growth (EPS +483% / revenue +46% YoY) but TradingView rates it SELL -- the same memory-cycle divergence seen in MU and SNDK. Trim into strength given the disagreement."
+          "action": "HOLD",
+          "why": "STRONG BUY (78.5) by score but TV disagrees with SELL -- worth flagging. Storage-cycle exposure (EPS +483%/rev +46% YoY), 28% off highs. Hold current size, don't add until the disagreement resolves."
         }
       ]
     },
@@ -415,12 +415,12 @@
         {
           "ticker": "BTC-USD",
           "action": "TRIM",
-          "why": "TradingView reads SELL (5/11/10) on Bitcoin's technical picture right now. Crypto is a high-beta, sentiment-driven position -- consider trimming into strength given the negative near-term technical read."
+          "why": "WEAK (11.2), TV NEUTRAL. 50% off its high -- a deep drawdown with no confirming technical strength. Consider trimming exposure to a size you're comfortable holding through more volatility."
         },
         {
           "ticker": "GS",
           "action": "HOLD",
-          "why": "Today's scan reads STRONG BUY (score 81.2), though TV is NEUTRAL -- a mixed read. EPS +24% / revenue +15% YoY still supports holding."
+          "why": "STRONG BUY (82.4) but TV is NEUTRAL. EPS +24%/rev +15% YoY, 8% off highs. Hold -- money-center banks remain in favor even if TV's read is more cautious here."
         }
       ]
     }

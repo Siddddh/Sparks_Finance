@@ -2,278 +2,224 @@
   "scan_date": "2026-07-03",
   "market": {
     "state": "UPTREND",
-    "advice": "US session closed healthy overnight: SPY holds above its 50-day (+1.4% this week, though -1.7% over the past month as the tape digests June's rally), breadth is solid at 70% of stocks above their 50-day MA, VIX is calm and falling (16.3, 5-day avg 17.1), and only 1 distribution day is on the tape -- no sign of institutional selling. Leadership keeps broadening away from the AI/megacap-tech complex (NVDA, TSLA, MSFT, ORCL, SMCI, NXPI, INTC all screen WATCH/WEAK here, several well below their 50/150-day lines) into money-center and regional banks ahead of Q2 earnings season, REITs, healthcare, consumer staples and AI-power-demand utilities. Geopolitical headlines out of the Middle East (Iran/Israel, Khamenei funeral coverage) are keeping oil-related news flow elevated but haven't dented equity breadth. For the next session: stay long with normal position sizing, lean into the broadening rotation (banks/REITs/utilities/healthcare) rather than chasing megacap tech names that are extended or broken below key moving averages, and avoid adding to anything already more than ~15% above its 50-day into resistance."
+    "advice": "Pre-open setup looks healthy into the US open: SPY at 744.78 sits comfortably above its 50-day (735.91), breadth is a solid 68% of stocks above their 50-day MA, VIX is calm and falling (15.8, 5-day avg 16.5), and only 1 distribution day is on the tape with a follow-through day intact -- no sign of institutional distribution. QQQ also holds above its 50-day. Leadership keeps broadening away from megacap tech -- NVDA, MSFT, TSLA, ORCL, PLTR all screen WATCH/WEAK here, several well off their highs -- into regional/money-center banks ahead of Q2 earnings season, REITs, healthcare, utilities (AI-power-demand angle) and select industrials. Geopolitical headlines (Khamenei funeral proceedings in Tehran, the NATO Ankara summit, Iran-related oil-export stories) are keeping energy-news flow elevated but haven't dented breadth or spiked the VIX. Into the open: normal position sizing, lean into the rotation (banks/utilities/REITs/healthcare) rather than chasing extended megacap tech, and be selective on names already >15% below their 50-day -- that's a repair, not a breakout."
   },
   "picks": [
     {
       "ticker": "BK", "name": "The Bank of New York Mellon", "sector": "Financial Services",
       "signal": "STRONG BUY", "score": 94.7, "grade": "A+",
       "entry": 143.56, "stop": 132.08, "target": 172.27,
-      "thesis": "Highest-quality setup in the whole scan: a textbook 2-contraction VCP tightening to 3% with the RS line at new highs and EPS +42%/revenue +13% YoY behind it. No independent TV read resolved for BK, so this call rests entirely on the scan's own data -- which is about as clean as it gets.",
-      "strengths": ["Tightest VCP in the universe (3.0%) with RS at new highs -- institutions leading, not following", "EPS +42% / revenue +13% YoY backs the technical strength", "Only 2.5% off its 52-week high with room to run"],
-      "risks": ["Earnings in 13 days -- binary event risk into the print", "No TradingView cross-check available for this ticker -- flying on the scan's data alone"],
+      "thesis": "The cleanest setup in the whole scan: a 2-contraction VCP tightened to 3.0% with the RS line at new highs, EPS +42%/revenue +13% YoY, and a forward P/E of just 14x. No TradingView rating resolved for BK, so this call rests entirely on the scan's own data.",
+      "strengths": ["Tightest VCP in the financials group (2 contractions, 3.0%) with RS at new highs", "EPS +42% / revenue +13% YoY funds the setup", "Only 2.5% off the 52-week high, cheap at 14x forward earnings"],
+      "risks": ["Earnings in 12 days (Jul 15) -- binary event risk into the print", "No independent TV read available -- flying on the scan's data alone"],
       "watch": ["Trim into strength ahead of the July 15 print", "$147.29 52-week high is the breakout trigger"]
     },
     {
-      "ticker": "JPM", "name": "JPMorgan Chase", "sector": "Financial Services",
-      "signal": "STRONG BUY", "score": 92.3, "grade": "A",
-      "entry": 334.35, "stop": 307.60, "target": 401.22,
-      "thesis": "Money-center bank leadership continues into earnings season. TradingView's 15-buy/1-sell STRONG_BUY fully confirms our read, and a 5-contraction VCP tightened to 2.3% is a mature, well-formed base.",
-      "strengths": ["TV STRONG_BUY (15 buy / 1 sell) -- full agreement with our signal", "EPS +17% / revenue +13% YoY, fwd P/E only 14x -- growth at a reasonable price"],
-      "risks": ["RSI 68 with just 0.2% left to the 52-week high -- little room before resistance", "Earnings in 12 days"],
-      "watch": ["Breakout above the 52-week high confirms; trim ahead of the report"]
+      "ticker": "LLY", "name": "Eli Lilly and Company", "sector": "Healthcare",
+      "signal": "STRONG BUY", "score": 93.8, "grade": "A+",
+      "entry": 1213.91, "stop": 1116.80, "target": 1456.69,
+      "thesis": "GLP-1 leadership continues to compound: EPS +170%/revenue +56% YoY off the obesity and diabetes franchise, a 5-contraction VCP tightened to 3.1%, and RS at new highs. TradingView's STRONG_BUY (15/1/10) fully confirms.",
+      "strengths": ["TV STRONG_BUY, near-unanimous (15 buy/1 sell)", "EPS +170%/revenue +56% YoY -- best fundamental momentum on this list", "RS line at new highs -- leading, not lagging, the market"],
+      "risks": ["Priced at 27x forward earnings -- no room for a stumble", "Earnings Aug 5 -- still a month out, less of a near-term catalyst"],
+      "watch": ["New 52-week highs confirm continuation", "RSI 60 -- healthy, room to run before overbought"]
     },
     {
-      "ticker": "C", "name": "Citigroup", "sector": "Financial Services",
-      "signal": "STRONG BUY", "score": 93.2, "grade": "A",
-      "entry": 139.94, "stop": 128.74, "target": 167.93,
-      "thesis": "Citi's turnaround shows up in the numbers -- EPS +56% YoY, the best of the money-centers -- backed by a tight 3-contraction VCP (2.0%). TV's BUY (11/6/9) is a notch softer than our score, likely reflecting the stock's longer turnaround history versus JPM/BAC.",
-      "strengths": ["EPS +56% / revenue +16% YoY -- best fundamental momentum among the money-centers", "Cheapest fwd P/E in the group at 11x"],
-      "risks": ["Earnings in 12 days", "TV's plain BUY (not STRONG_BUY) is softer than our score implies -- 6 of 20 indicators sell/neutral-leaning"],
-      "watch": ["$145.67-area 52-week high is resistance"]
+      "ticker": "AEP", "name": "American Electric Power", "sector": "Utilities",
+      "signal": "STRONG BUY", "score": 92.8, "grade": "A",
+      "entry": 138.51, "stop": 127.43, "target": 166.21,
+      "thesis": "The AI-power-demand utility trade in its cleanest form: a 3-contraction VCP tightened to 2.6% right at the 52-week high, and TradingView's STRONG_BUY (16/0/10) with zero sell votes fully agrees.",
+      "strengths": ["TV STRONG_BUY, zero sell votes", "Sitting essentially at the 52-week high with a tight 2.6% base", "Defensive sector with a genuine secular growth driver (data-center load growth)"],
+      "risks": ["RSI 73 -- stretched short-term, a pullback to the 50-day would be healthy before adding", "Fwd P/E 20x is rich for a regulated utility"],
+      "watch": ["Breakout above the 52-week high on volume confirms; a rejection here would flag exhaustion"]
+    },
+    {
+      "ticker": "DUK", "name": "Duke Energy", "sector": "Utilities",
+      "signal": "STRONG BUY", "score": 92.5, "grade": "A",
+      "entry": 129.60, "stop": 119.23, "target": 155.52,
+      "thesis": "Second utility name riding the same power-demand rotation as AEP -- tightest VCP of the group at 2.0% -- with TradingView's STRONG_BUY (17/0/9) the strongest of any name on this list.",
+      "strengths": ["TV STRONG_BUY, 17 buy/0 sell -- the strongest TV consensus in this scan", "Tightest VCP in utilities (2.0%) -- coiled and ready", "EPS +12%/revenue +11% YoY, solid for a regulated utility"],
+      "risks": ["RSI 67 and only 2.1% off the 52-week high -- limited room before resistance", "Rate-sensitive; a hawkish surprise from the Fed would pressure the whole group"],
+      "watch": ["Group-wide rotation into utilities/REITs is the tailwind -- watch for that rotation to stall"]
+    },
+    {
+      "ticker": "DTE", "name": "DTE Energy", "sector": "Utilities",
+      "signal": "STRONG BUY", "score": 91.6, "grade": "A-",
+      "entry": 154.06, "stop": 141.74, "target": 184.87,
+      "thesis": "Third leg of the utility rotation -- essentially at its 52-week high with TV's STRONG_BUY (16/0/10) confirming, though the negative EPS growth print (Michigan rate-case timing) is a wrinkle the market is looking through.",
+      "strengths": ["TV STRONG_BUY, zero sell votes", "Revenue +16% YoY -- the underlying business is growing even as reported EPS lags on rate-case timing"],
+      "risks": ["Headline EPS growth is negative (-44%) -- read the footnotes on regulatory timing before sizing up", "RSI 73, stretched short-term"],
+      "watch": ["A new 52-week high confirms; watch for the group rotation (AEP/DUK/DTE) to broaden further into utilities"]
     },
     {
       "ticker": "TRNO", "name": "Terreno Realty", "sector": "Real Estate",
-      "signal": "STRONG BUY", "score": 92.5, "grade": "A",
-      "entry": 67.28, "stop": 61.90, "target": 80.74,
-      "thesis": "Industrial/logistics REIT with EPS +40% YoY and TradingView's strongest rating in today's REIT group (17 buy / 0 sell) -- full agreement between our score and TV's independent read.",
-      "strengths": ["TV STRONG_BUY with zero sell votes (17/0/9)", "EPS +40% / revenue +13% YoY funds the distribution growth"],
-      "risks": ["Small-cap REIT ($7.1B) -- thinner liquidity than the mega-cap names on this list", "Earnings in 35 days, fwd P/E a rich 38.6x"],
-      "watch": ["Sitting right at its 52-week high -- watch for a clean breakout vs. a false start"]
+      "signal": "STRONG BUY", "score": 93.8, "grade": "A",
+      "entry": 67.33, "stop": 61.94, "target": 80.80,
+      "thesis": "Industrial/logistics REIT with EPS +40% YoY and TradingView's STRONG_BUY (17/0/9) -- zero sell votes -- fully agreeing with our score.",
+      "strengths": ["TV STRONG_BUY, zero sell votes", "EPS +40%/revenue +13% YoY funds continued distribution growth"],
+      "risks": ["Small-cap REIT -- thinner liquidity than the mega-cap names on this list", "Fwd P/E 38.7x is rich; priced for continued execution"],
+      "watch": ["Sitting right at the 52-week high -- watch for a clean breakout vs. a false start"]
     },
     {
       "ticker": "PSA", "name": "Public Storage", "sector": "Real Estate",
-      "signal": "STRONG BUY", "score": 91.8, "grade": "A",
-      "entry": 329.54, "stop": 303.18, "target": 395.45,
-      "thesis": "Self-storage REIT with the tightest VCP in the real-estate group (1.9%) after 6 contractions, and TradingView's STRONG_BUY (16/0/10) with zero sell signals confirms the base is ready.",
-      "strengths": ["TV STRONG_BUY, zero sell votes", "EPS +33% YoY on a defensive, recession-resistant business model"],
-      "risks": ["Fwd P/E 31x is elevated for a REIT -- priced for continued execution", "Revenue growth a modest 3.2% -- earnings growth is coming more from margin/buybacks than top-line"],
-      "watch": ["New 52-week high is the trigger; a rejection here would flag a false breakout"]
+      "signal": "STRONG BUY", "score": 92.0, "grade": "A",
+      "entry": 329.64, "stop": 303.27, "target": 395.57,
+      "thesis": "Self-storage REIT with the tightest VCP in real estate (1.9% after 6 contractions), and TradingView's STRONG_BUY (16/0/10) confirms the base is mature and ready.",
+      "strengths": ["TV STRONG_BUY, zero sell votes", "EPS +33% YoY on a defensive, recession-resistant model", "Tightest base of any REIT in this scan"],
+      "risks": ["Fwd P/E 31.5x is elevated for a REIT", "Revenue growth a modest 3.2% -- earnings growth is coming more from margin than top-line"],
+      "watch": ["New 52-week high is the trigger; a rejection would flag a false breakout"]
     },
     {
       "ticker": "SPG", "name": "Simon Property Group", "sector": "Real Estate",
-      "signal": "STRONG BUY", "score": 91.5, "grade": "A-",
-      "entry": 226.08, "stop": 207.99, "target": 271.30,
-      "thesis": "Best-in-class mall REIT posting EPS +16%/revenue +19% YoY -- consumer spending at premium retail centers remains resilient. TV's STRONG_BUY (15/1/10) backs the call.",
-      "strengths": ["TV STRONG_BUY confirms", "Revenue growth (+19.3%) outpacing most REIT peers on this list"],
-      "risks": ["Earnings in 40 days -- furthest out on this list, less of a near-term catalyst", "Fwd P/E 33.5x prices in continued strength"],
-      "watch": ["0.6% off the 52-week high -- a very shallow pullback, watch for the retest to hold"]
+      "signal": "STRONG BUY", "score": 91.7, "grade": "A-",
+      "entry": 226.06, "stop": 207.98, "target": 271.27,
+      "thesis": "Best-in-class mall REIT posting EPS +16%/revenue +19% YoY with RS at new highs -- premium retail traffic remains resilient. TV's STRONG_BUY (16/0/10) backs the call.",
+      "strengths": ["TV STRONG_BUY, RS at new highs -- full agreement across both technical reads", "Revenue +19% YoY outpaces most REIT peers on this list"],
+      "risks": ["Earnings Aug 11 -- furthest out on this list", "Fwd P/E 33.5x prices in continued strength"],
+      "watch": ["Just 0.7% off the 52-week high -- a shallow pullback; watch for the retest to hold"]
     },
     {
-      "ticker": "ILMN", "name": "Illumina", "sector": "Healthcare",
-      "signal": "STRONG BUY", "score": 93.6, "grade": "A",
-      "entry": 188.68, "stop": 173.59, "target": 226.42,
-      "thesis": "Genomics-sequencing leader at new highs with TV's strongest healthcare read (16/2/8, STRONG_BUY). The technical setup (6-contraction VCP, RS at new highs) is well ahead of the fundamentals, which are decelerating.",
-      "strengths": ["TV STRONG_BUY confirms the breakout", "RS line at new highs with a 6-contraction, 2.9%-tight VCP"],
-      "risks": ["EPS +6% / revenue +5% YoY is modest -- the stock is being bought on turnaround hope more than current growth", "Earnings in 29 days"],
-      "watch": ["Confirm the breakout holds above the 52-week high on volume"]
+      "ticker": "KIM", "name": "Kimco Realty", "sector": "Real Estate",
+      "signal": "STRONG BUY", "score": 89.4, "grade": "B+",
+      "entry": 25.32, "stop": 23.29, "target": 30.38,
+      "thesis": "Grocery-anchored shopping-center REIT rounding out the real-estate sleeve -- EPS +29% YoY with TV's BUY (15/2/9) confirming, at a much more approachable price point than SPG/PSA.",
+      "strengths": ["TV BUY confirms", "EPS +29% YoY, defensive grocery-anchored tenant base", "Cheapest entry point of the REIT names on this list"],
+      "risks": ["RSI 45 -- weaker momentum than the other REITs here, still working through its base", "Revenue growth a slim 4.0%"],
+      "watch": ["Needs to reclaim momentum vs. peers before adding size"]
     },
     {
-      "ticker": "LLY", "name": "Eli Lilly", "sector": "Healthcare",
-      "signal": "STRONG BUY", "score": 92.8, "grade": "A",
-      "entry": 1211.34, "stop": 1114.43, "target": 1453.61,
-      "thesis": "The GLP-1 leader keeps compounding -- EPS +170%/revenue +55% YoY is the strongest fundamental print on this entire list -- and TV's STRONG_BUY (15/1/10) agrees.",
-      "strengths": ["EPS +170% / revenue +55% YoY -- best fundamentals on the list", "TV STRONG_BUY confirms"],
-      "risks": ["High-dollar stock ($1,200+) -- position sizing matters more than usual", "Earnings in 34 days; fwd P/E 27x already prices in continued execution"],
-      "watch": ["Watch GLP-1 competitive/pricing headlines -- the main swing factor for the whole obesity-drug complex"]
-    },
-    {
-      "ticker": "CVS", "name": "CVS Health", "sector": "Healthcare",
+      "ticker": "SNA", "name": "Snap-On", "sector": "Industrials",
       "signal": "STRONG BUY", "score": 93.3, "grade": "A",
-      "entry": 104.73, "stop": 96.35, "target": 125.68,
-      "thesis": "Turnaround story with EPS +63% YoY and the cheapest valuation of any pick on this list (fwd P/E 12.5x). TV's BUY (14/4/8) confirms, if a notch softer than our score.",
-      "strengths": ["EPS +63% YoY -- the earnings turnaround is real", "Cheapest fwd P/E (12.5x) on this list -- room for multiple expansion"],
-      "risks": ["Revenue growth only +6.1% -- most of the EPS gain is margin recovery, not top-line", "Earnings in 28 days"],
-      "watch": ["A move through the 52-week high would confirm the multiple re-rating thesis"]
+      "entry": 412.09, "stop": 379.12, "target": 494.51,
+      "thesis": "Tool-and-equipment maker with RS at new highs and a tight 2.1% VCP (5 contractions); TradingView's STRONG_BUY (16/0/10) -- zero sell votes -- is a clean confirmation.",
+      "strengths": ["TV STRONG_BUY, zero sell votes, RS at new highs", "Tightest VCP in industrials (2.1%)"],
+      "risks": ["Earnings in 13 days (Jul 16) -- binary event risk", "RSI 72, stretched into the print"],
+      "watch": ["Trim into strength ahead of earnings; $412 area is the recent pivot"]
     },
     {
-      "ticker": "ALGN", "name": "Align Technology", "sector": "Healthcare",
-      "signal": "STRONG BUY", "score": 91.6, "grade": "A-",
-      "entry": 184.52, "stop": 169.76, "target": 221.42,
-      "thesis": "Invisalign maker pulled back 10.9% from its high and is basing again (5-contraction VCP, 5.5% tight) with EPS +24% YoY. TV's STRONG_BUY (16/0/10) with zero sell votes is a strong confirming signal on a name that's cheaper (fwd P/E 15x) than most on this list.",
-      "strengths": ["TV STRONG_BUY, zero sell votes", "Cheapest healthcare pick on this list at 14.9x forward earnings"],
-      "risks": ["10.9% off the 52-week high -- needs to reclaim that ground to fully confirm the uptrend resumed", "Revenue growth only +6.2%, discretionary consumer spending on ortho work is a swing factor"],
-      "watch": ["Reclaiming the prior high on volume would confirm this is a resumption, not a bounce"]
+      "ticker": "GE", "name": "GE Aerospace", "sector": "Industrials",
+      "signal": "STRONG BUY", "score": 92.2, "grade": "A-",
+      "entry": 377.52, "stop": 347.32, "target": 453.02,
+      "thesis": "Aerospace engine cycle remains the strongest industrial story out there -- RS at new highs and revenue +25% YoY -- but RSI at 91 is about as extended as a chart gets, so this is a name to watch for an entry, not chase here.",
+      "strengths": ["TV BUY (14/3/9) confirms", "RS at new highs, revenue +25% YoY on the aftermarket/engine cycle"],
+      "risks": ["RSI 91 -- extremely overbought, highest reading of any pick on this list", "Earnings in 13 days -- binary risk stacked on top of an extended chart"],
+      "watch": ["Wait for RSI to cool toward 60-65 or a pullback to the 50-day before adding new money"]
     },
     {
-      "ticker": "FTNT", "name": "Fortinet", "sector": "Technology",
-      "signal": "STRONG BUY", "score": 93.3, "grade": "A",
-      "entry": 156.25, "stop": 143.75, "target": 187.50,
-      "thesis": "Cybersecurity leader with EPS +29%/revenue +20% YoY and a tight, 4-contraction VCP. TV's BUY (14/4/8) confirms, though it's a notch below the pure STRONG_BUY names on this list.",
-      "strengths": ["EPS +29% / revenue +20% YoY -- durable double-digit growth", "TV BUY confirms"],
-      "risks": ["Fwd P/E 45.6x is the richest multiple in the tech group -- priced for continued execution", "Earnings in 28 days"],
-      "watch": ["Only 1.7% off the 52-week high -- watch for a clean new-high breakout"]
-    },
-    {
-      "ticker": "AMAT", "name": "Applied Materials", "sector": "Technology",
-      "signal": "STRONG BUY", "score": 92.4, "grade": "A-",
-      "entry": 603.04, "stop": 554.80, "target": 723.65,
-      "thesis": "Semi-equipment name down 16.6% from its high but with the tightest VCP on this whole list (2.1%) and the fastest 4-week RS move (+21.9%) -- a name quietly repairing while megacap-tech peers stay broken. TV's BUY (11/5/10) confirms.",
-      "strengths": ["Tightest VCP (2.1%) of any pick on this list", "RS +21.9% over 4 weeks -- fastest relative-strength turn here, and it's happening while NVDA/INTC/LRCX/MU all screen WATCH/WEAK"],
-      "risks": ["Still 16.6% below its 52-week high -- this is an early-stage repair, not a fresh breakout", "Earnings 43 days out -- the furthest catalyst on this list"],
-      "watch": ["A push back above the 50-day with volume would confirm the repair is turning into a real uptrend"]
-    },
-    {
-      "ticker": "AAPL", "name": "Apple", "sector": "Technology",
-      "signal": "STRONG BUY", "score": 90.7, "grade": "B+",
-      "entry": 308.63, "stop": 283.94, "target": 370.36,
-      "thesis": "Steady mega-cap climber, only 2.1% off its high, with TV's cleanest read of the day (17/0/9, STRONG_BUY, zero sell votes). Base is wider (8.1%) than the tightest names here, reflecting its size rather than weakness.",
-      "strengths": ["TV STRONG_BUY with zero sell votes -- broadest agreement of any pick", "EPS +22% / revenue +17% YoY -- still growing at scale"],
-      "risks": ["Wider VCP (8.1%) than peers -- a mega-cap base, less explosive but also less fragile", "Fwd P/E 32x -- priced for continued growth"],
-      "watch": ["Earnings in 29 days -- the next big volatility event"]
-    },
-    {
-      "ticker": "GRMN", "name": "Garmin", "sector": "Technology",
-      "signal": "STRONG BUY", "score": 91.1, "grade": "B+",
-      "entry": 240.03, "stop": 220.83, "target": 288.04,
-      "thesis": "Wearables/fitness-tech name pulled back 9.9% from its high, basing (7 contractions, 3.1% tight) with EPS +22% YoY. TV's BUY (14/2/10) confirms.",
-      "strengths": ["7-contraction VCP shows patient, deliberate accumulation", "TV BUY confirms"],
-      "risks": ["4-week RS change nearly flat (+1.0%) -- momentum has stalled, this is a base, not yet a breakout", "9.9% off the 52-week high"],
-      "watch": ["Needs a volume pickup and RS re-acceleration to justify chasing before the breakout"]
-    },
-    {
-      "ticker": "RL", "name": "Ralph Lauren", "sector": "Consumer Cyclical",
-      "signal": "STRONG BUY", "score": 93.4, "grade": "A",
-      "entry": 398.21, "stop": 366.36, "target": 477.86,
-      "thesis": "Premium apparel brand executing well -- EPS +20%/revenue +17% YoY -- with the tightest VCP in the consumer group (2.1%). TV's BUY (11/5/10) is softer than our score.",
-      "strengths": ["EPS +20% / revenue +17% YoY", "Tight 5-contraction VCP (2.1%)"],
-      "risks": ["TV's plain BUY (not STRONG_BUY) suggests more mixed technical opinion than our score implies", "Earnings in 35 days"],
-      "watch": ["Watch for confirmation above the recent high on strong volume"]
-    },
-    {
-      "ticker": "SBUX", "name": "Starbucks", "sector": "Consumer Cyclical",
-      "signal": "STRONG BUY", "score": 92.4, "grade": "A-",
-      "entry": 104.27, "stop": 95.93, "target": 125.12,
-      "thesis": "Turnaround story with EPS +33% YoY and TV's STRONG_BUY (16/0/10, zero sell votes) fully confirming the technical read.",
-      "strengths": ["TV STRONG_BUY, zero sell votes", "EPS +33% YoY -- turnaround initiatives showing up in the numbers"],
-      "risks": ["Revenue growth a more modest +8.8% -- margin recovery is doing more work than top-line", "Fwd P/E 34.6x prices in continued turnaround success"],
-      "watch": ["Comp-sales trends in the next print are the key tell on whether the turnaround is durable"]
+      "ticker": "HWM", "name": "Howmet Aerospace", "sector": "Industrials",
+      "signal": "STRONG BUY", "score": 91.4, "grade": "B+",
+      "entry": 270.41, "stop": 248.78, "target": 324.49,
+      "thesis": "Same aerospace-cycle tailwind as GE without the extended RSI -- EPS +71% YoY and TV's BUY (14/3/9) confirms, with a healthier RSI of 56.",
+      "strengths": ["TV BUY confirms", "EPS +71%/revenue +19% YoY -- strongest fundamentals in the aerospace-supply-chain group", "RSI 56 -- room to run unlike GE"],
+      "risks": ["Fwd P/E 44.9x is rich", "Earnings Aug 6, still a ways out"],
+      "watch": ["4.5% off the 52-week high -- a cleaner entry than the extended GE chart"]
     },
     {
       "ticker": "MNST", "name": "Monster Beverage", "sector": "Consumer Defensive",
       "signal": "STRONG BUY", "score": 93.2, "grade": "A",
       "entry": 97.60, "stop": 89.79, "target": 117.12,
-      "thesis": "Energy-drink category leader with EPS +29%/revenue +27% YoY -- the best growth in the defensive group -- and a tight 2.0% VCP. TV's BUY (15/3/8) confirms.",
-      "strengths": ["EPS +29% / revenue +27% YoY -- growth-at-scale rare for a 'defensive' name", "Tight, 3-contraction VCP (2.0%)"],
-      "risks": ["RSI 72.5 is getting warm -- less room before overbought territory", "Earnings 36 days out"],
-      "watch": ["A pullback to the 50-day would offer a lower-risk add if the RSI cools first"]
+      "thesis": "Energy-drink category leader with RS at new highs, EPS +29%/revenue +27% YoY, and TV's BUY (15/3/8) confirming -- a defensive-sector name still growing like a discretionary one.",
+      "strengths": ["RS at new highs, TV BUY confirms", "EPS +29%/revenue +27% YoY -- rare growth profile for consumer defensive"],
+      "risks": ["RSI 73, stretched short-term", "Fwd P/E 37.7x prices in continued category growth"],
+      "watch": ["Earnings Aug 7 -- a beat-and-raise here would extend the trend"]
     },
     {
-      "ticker": "KO", "name": "Coca-Cola", "sector": "Consumer Defensive",
-      "signal": "STRONG BUY", "score": 90.5, "grade": "B+",
-      "entry": 83.97, "stop": 77.25, "target": 100.76,
-      "thesis": "Defensive anchor at new highs with TV's cleanest defensive-sector read (17/0/9, STRONG_BUY, zero sell votes) and EPS +18% YoY.",
-      "strengths": ["TV STRONG_BUY, zero sell votes", "Low-beta ballast for a portfolio if rotation out of tech continues"],
-      "risks": ["Fwd P/E 24x is rich for a low-single-digit organic grower", "Earnings in 26 days"],
-      "watch": ["Good candidate to add on any market-wide pullback given its defensive character"]
-    },
-    {
-      "ticker": "SNA", "name": "Snap-on", "sector": "Industrials",
-      "signal": "STRONG BUY", "score": 93.0, "grade": "A-",
-      "entry": 412.33, "stop": 379.34, "target": 494.79,
-      "thesis": "Tools maker at new highs with a tight 2.1% VCP and TV's STRONG_BUY (16/0/10) fully confirming, though fundamental growth (EPS +4%, revenue +5%) is the slowest of any STRONG BUY on this list.",
-      "strengths": ["TV STRONG_BUY, zero sell votes", "Tight, 5-contraction VCP (2.1%)"],
-      "risks": ["EPS +4% / revenue +5% YoY -- the technical strength is running well ahead of the fundamentals", "Earnings in 14 days"],
-      "watch": ["This is a technical-strength-over-fundamentals trade -- size accordingly into the print"]
-    },
-    {
-      "ticker": "ROK", "name": "Rockwell Automation", "sector": "Industrials",
-      "signal": "STRONG BUY", "score": 91.6, "grade": "B+",
-      "entry": 471.52, "stop": 433.80, "target": 565.82,
-      "thesis": "Factory-automation name with EPS +40%/revenue +12% YoY, pulled back 4.8% and basing. TV's BUY (12/4/10) confirms but is more mixed than the cleanest names on this list.",
-      "strengths": ["EPS +40% YoY -- strong fundamental backdrop", "Reasonable pullback (4.8%) offers a better entry than chasing new highs"],
-      "risks": ["4-week RS change only +3.4% -- momentum has cooled versus peers", "Earnings 35 days out"],
-      "watch": ["Needs RS to re-accelerate before this becomes a high-conviction breakout rather than a base"]
-    },
-    {
-      "ticker": "FAST", "name": "Fastenal", "sector": "Industrials",
-      "signal": "STRONG BUY", "score": 90.7, "grade": "B+",
-      "entry": 48.60, "stop": 44.71, "target": 58.32,
-      "thesis": "Industrial-distribution compounder with EPS +14%/revenue +12% YoY and TV's STRONG_BUY (16/1/9) confirming.",
-      "strengths": ["TV STRONG_BUY confirms", "Steady, low-volatility compounder -- good ballast alongside higher-beta picks"],
-      "risks": ["Fwd P/E 35.4x is rich for the growth rate", "Earnings in 12 days"],
-      "watch": ["Low-drama name -- watch the print for any deceleration in industrial demand commentary"]
-    },
-    {
-      "ticker": "HWM", "name": "Howmet Aerospace", "sector": "Industrials",
-      "signal": "STRONG BUY", "score": 91.3, "grade": "A-",
-      "entry": 270.56, "stop": 248.92, "target": 324.67,
-      "thesis": "Aerospace-parts supplier with EPS +71%/revenue +19% YoY riding the aircraft build-rate recovery. TV's BUY (14/3/9) confirms.",
-      "strengths": ["EPS +71% YoY -- among the strongest fundamental prints on this list", "Aerospace build-rate tailwind is a multi-year theme, not a one-quarter pop"],
-      "risks": ["Fwd P/E 44.9x is one of the richest multiples here", "Earnings 35 days out"],
-      "watch": ["Boeing/Airbus delivery-rate commentary is the read-through catalyst to watch"]
-    },
-    {
-      "ticker": "AEP", "name": "American Electric Power", "sector": "Utilities",
-      "signal": "STRONG BUY", "score": 92.8, "grade": "A-",
-      "entry": 138.51, "stop": 127.43, "target": 166.21,
-      "thesis": "AI-data-center power-demand utility with TV's STRONG_BUY (16/0/10, zero sell votes) confirming. Part of the broader rotation into power/utilities as AI capex drives grid-demand forecasts higher.",
-      "strengths": ["TV STRONG_BUY, zero sell votes", "Direct beneficiary of the AI data-center power-demand theme"],
-      "risks": ["RSI 73.4 is warm -- limited room before overbought", "Fwd P/E 20x is a full multiple for a regulated utility"],
-      "watch": ["Rate-case and data-center interconnection headlines are the catalysts that move this group"]
-    },
-    {
-      "ticker": "DUK", "name": "Duke Energy", "sector": "Utilities",
-      "signal": "STRONG BUY", "score": 92.4, "grade": "A-",
-      "entry": 129.54, "stop": 119.18, "target": 155.45,
-      "thesis": "Another AI-power-demand utility with TV's cleanest utility read (17/0/9, STRONG_BUY, zero sell votes) and EPS +12% YoY.",
-      "strengths": ["TV STRONG_BUY, zero sell votes", "Diversified regulated footprint across the Carolinas/Midwest/Florida"],
-      "risks": ["Earnings 33 days out", "Fwd P/E 18x is reasonable but leaves less margin of safety if rates rise"],
-      "watch": ["Good complement to AEP for utility-sector exposure without doubling up on a single name"]
-    },
-    {
-      "ticker": "DTE", "name": "DTE Energy", "sector": "Utilities",
-      "signal": "STRONG BUY", "score": 91.2, "grade": "B+",
-      "entry": 153.92, "stop": 141.61, "target": 184.70,
-      "thesis": "A current portfolio holding for several users -- TV's STRONG_BUY (16/0/10) confirms the technical strength, though the -44% EPS growth figure (likely a prior-year one-off charge) is a fundamental red flag worth watching into the print.",
-      "strengths": ["TV STRONG_BUY, zero sell votes", "Revenue growth +15.8% is healthy even with the EPS anomaly"],
-      "risks": ["EPS growth of -44% YoY doesn't fit the technical strength -- likely a one-time charge in the comparison period, but worth confirming before the next print", "RSI 72.9 is warm"],
-      "watch": ["Read the next earnings release closely to confirm the EPS decline was a one-off, not a trend"]
-    },
-    {
-      "ticker": "LIN", "name": "Linde", "sector": "Basic Materials",
-      "signal": "STRONG BUY", "score": 90.1, "grade": "B+",
-      "entry": 546.64, "stop": 502.91, "target": 655.97,
-      "thesis": "Industrial-gases leader at new highs with EPS +13%/revenue +8% YoY. No TradingView cross-check resolved for this ticker, so this call rests on the scan's data alone.",
-      "strengths": ["Steady double-digit EPS growth in a defensive, moat-protected business", "Only sector representative from Basic Materials -- adds diversification"],
-      "risks": ["No TV cross-check available", "Fwd P/E 27.7x is a full multiple for the growth rate"],
-      "watch": ["Industrial-gas volumes are a decent macro-activity proxy -- watch for any deceleration signal"]
-    },
-    {
-      "ticker": "LNG", "name": "Cheniere Energy", "sector": "Energy",
-      "signal": "STRONG BUY", "score": 89.9, "grade": "B",
-      "entry": 246.04, "stop": 226.36, "target": 295.25,
-      "thesis": "LNG exporter down 16.9% from its high with revenue +24% YoY and a cheap fwd P/E (12.6x) -- the only energy name on this list, offering sector diversification amid elevated Middle East headline risk. No TV read resolved.",
-      "strengths": ["Revenue +24% YoY on strong global LNG demand", "Cheapest fwd P/E (12.6x) of any pick on this list"],
-      "risks": ["No TV cross-check available", "16.9% off its 52-week high -- this is a repair trade, not a fresh breakout; geopolitical oil/gas headline risk cuts both ways"],
-      "watch": ["Middle East headline flow is a real swing factor here -- both up and down"]
-    },
-    {
-      "ticker": "MRNA", "name": "Moderna", "sector": "Healthcare",
-      "signal": "WATCH", "score": 93.0, "grade": "B",
-      "entry": 79.76, "stop": 73.38, "target": 95.71,
-      "thesis": "Highest score in the scan (93.0) and TV's STRONG_BUY (16/2/8) agrees, but RSI 86 and a 4-week RS surge of +56.8% make this the most extended name on the entire list. The eye-popping +260% revenue growth is likely an easy comp against a depressed prior-year base, not a sustainable growth rate. WATCH, not chase.",
-      "strengths": ["TV STRONG_BUY confirms the momentum is real, not just a scan artifact", "Pipeline optionality beyond COVID vaccines (RSV, flu combo shots)"],
-      "risks": ["RSI 86 and +56.8% 4-week RS change -- this is a parabolic move, high odds of a sharp mean-reversion", "+260% revenue growth almost certainly reflects an easy prior-year comparison, not durable demand"],
-      "watch": ["Wait for RSI to cool into the 60s-70s before considering new money; this is a name to watch, not chase, at these levels"]
-    },
-    {
-      "ticker": "SIRI", "name": "SiriusXM", "sector": "Communication Services",
-      "signal": "WATCH", "score": 88.8, "grade": "B-",
+      "ticker": "SIRI", "name": "SiriusXM Holdings", "sector": "Communication Services",
+      "signal": "STRONG BUY", "score": 88.8, "grade": "B+",
       "entry": 30.51, "stop": 28.07, "target": 36.61,
-      "thesis": "A current portfolio holding -- TV's BUY (15/4/7) is supportive, but RSI 86.5 and the widest VCP on this list (9.6%) mean the base is loose and the stock is stretched. Cheap on paper (fwd P/E 9.0x) but technically extended.",
-      "strengths": ["TV BUY confirms", "Cheapest valuation (fwd P/E 9.0x) of any pick on this list"],
-      "risks": ["RSI 86.5 is the second-most extended reading on this whole list", "9.6%-wide VCP is loose, not a tight institutional base -- higher whipsaw risk"],
-      "watch": ["Let this cool off before adding; existing holders should consider trimming into strength"]
+      "thesis": "RS at new highs and TradingView's STRONG_BUY (16/0/10) -- zero sell votes -- fully confirms, though there's no clean VCP base here, so this is more of a momentum continuation than a textbook breakout setup.",
+      "strengths": ["TV STRONG_BUY, zero sell votes, RS at new highs", "EPS +22% YoY, cheap at 9x forward earnings"],
+      "risks": ["No clear VCP -- this is a momentum name, not a coiled-base breakout, so give it a wider berth on stops", "RSI 87 -- very extended"],
+      "watch": ["Given the RSI, this is a name to trim into strength rather than add to here"]
     },
     {
-      "ticker": "GE", "name": "GE Aerospace", "sector": "Industrials",
-      "signal": "WATCH", "score": 92.0, "grade": "B",
-      "entry": 377.49, "stop": 347.29, "target": 452.99,
-      "thesis": "Score of 92 and TV's BUY (14/3/9) are both supportive of the AI-and-jet-engine-cycle narrative, but RSI 91 is the single most overbought reading in the entire scan, and EPS growth is actually negative (-1.8%) despite the run. This is a name riding sentiment and revenue growth (+24.7%), not earnings, into a print in 14 days.",
-      "strengths": ["Revenue +24.7% YoY on strong commercial aerospace engine and services demand", "TV BUY confirms the broader jet-engine-cycle thesis"],
-      "risks": ["RSI 91 -- most extended reading in the whole scan, high odds of a sharp pullback or at minimum a long consolidation", "EPS growth actually negative (-1.8%) -- the rally is running on revenue and multiple expansion, not bottom-line growth", "Earnings in 14 days into an extremely stretched technical setup"],
-      "watch": ["Do not chase here -- wait for either a pullback to the 50-day or a post-earnings reset before considering new money"]
+      "ticker": "IAC", "name": "IAC Inc.", "sector": "Communication Services",
+      "signal": "STRONG BUY", "score": 93.4, "grade": "A-",
+      "entry": 44.77, "stop": 41.19, "target": 53.72,
+      "thesis": "Diversified media/internet holding company scoring near the top of the whole scan on a tight 3.6% VCP; no TradingView rating resolved, so like BK this call leans entirely on the scan's own technicals.",
+      "strengths": ["Tight 4-contraction VCP (3.6%)", "Score of 93.4 is among the highest in the entire universe"],
+      "risks": ["Revenue growth is negative (-12% YoY) -- the technical setup is ahead of the fundamental story here", "No independent TV cross-check available", "Earnings Aug 4"],
+      "watch": ["Fundamentals lag the chart -- confirm with the Aug 4 print before adding size"]
+    },
+    {
+      "ticker": "RL", "name": "Ralph Lauren", "sector": "Consumer Cyclical",
+      "signal": "STRONG BUY", "score": 93.6, "grade": "A-",
+      "entry": 398.22, "stop": 366.36, "target": 477.86,
+      "thesis": "Premium apparel EPS +20%/revenue +17% YoY, a tight 2.1% VCP, and TV's BUY (12/4/10) confirming -- affluent-consumer spending remains resilient even as the broader retail tape is mixed.",
+      "strengths": ["TV BUY confirms", "EPS +20%/revenue +17% YoY -- strong for an apparel name"],
+      "risks": ["Earnings Aug 6", "3.6% off the 52-week high -- not the cheapest entry in this group"],
+      "watch": ["Watch for confirmation via a new high before adding"]
+    },
+    {
+      "ticker": "SBUX", "name": "Starbucks", "sector": "Consumer Cyclical",
+      "signal": "STRONG BUY", "score": 92.5, "grade": "B+",
+      "entry": 104.27, "stop": 95.93, "target": 125.12,
+      "thesis": "Turnaround story gaining traction -- EPS +33%/revenue +9% YoY -- with TradingView's STRONG_BUY (16/0/10) the cleanest TV read of any consumer name on this list.",
+      "strengths": ["TV STRONG_BUY, zero sell votes", "EPS +33% YoY -- the turnaround plan is showing up in the numbers"],
+      "risks": ["Fwd P/E 34.7x is rich for a mature restaurant chain", "Earnings Jul 30 -- binary event risk in under a month"],
+      "watch": ["A beat on comps here would confirm the turnaround is durable, not a one-quarter blip"]
+    },
+    {
+      "ticker": "FTNT", "name": "Fortinet", "sector": "Technology", "note": "held position",
+      "signal": "STRONG BUY", "score": 93.4, "grade": "A",
+      "entry": 156.25, "stop": 143.75, "target": 187.50,
+      "thesis": "Cybersecurity spend keeps compounding -- RS at new highs, EPS +29%/revenue +20% YoY -- and TV's BUY (14/5/7) confirms, though 5 of 20 TV indicators lean sell/neutral, a touch softer than our score implies.",
+      "strengths": ["RS at new highs, tight 3.6% VCP", "EPS +29%/revenue +20% YoY funds continued share gains in SASE/network security"],
+      "risks": ["TV's plain BUY (not STRONG_BUY) is a notch softer than our A-grade score -- worth noting the disagreement", "Fwd P/E 45.6x is the richest multiple in this pick list"],
+      "watch": ["Earnings Jul 30 -- watch billings growth as the read on demand durability"]
+    },
+    {
+      "ticker": "OKTA", "name": "Okta, Inc.", "sector": "Technology",
+      "signal": "STRONG BUY", "score": 93.1, "grade": "A-",
+      "entry": 141.42, "stop": 130.11, "target": 169.70,
+      "thesis": "Identity-security leader with RS at new highs, EPS +21%/revenue +11% YoY, and TV's BUY (15/4/7) confirming the setup.",
+      "strengths": ["RS at new highs, TV BUY confirms", "EPS +21% YoY on a durable subscription model"],
+      "risks": ["RSI 80 -- extended, and earnings aren't until Aug 26 so there's no near-term catalyst to justify chasing here", "Fwd P/E 33x"],
+      "watch": ["Wait for a pullback toward the 50-day rather than chasing at RSI 80"]
+    },
+    {
+      "ticker": "LIN", "name": "Linde plc", "sector": "Basic Materials",
+      "signal": "STRONG BUY", "score": 90.2, "grade": "B+",
+      "entry": 546.64, "stop": 502.91, "target": 655.97,
+      "thesis": "Industrial-gas leader rounding out sector diversification -- steady EPS +13%/revenue +8% YoY and a tight 2.4% VCP -- though no TV rating resolved for this one either.",
+      "strengths": ["Tight 3-contraction VCP (2.4%)", "Steady, defensive growth profile -- less volatile than the tech/consumer names on this list"],
+      "risks": ["No independent TV cross-check available", "Fwd P/E 27.7x is rich for an industrial-gas company"],
+      "watch": ["A steady compounder -- best used as a portfolio ballast rather than a fast-money trade"]
+    },
+    {
+      "ticker": "AMAT", "name": "Applied Materials", "sector": "Technology", "note": "held position",
+      "signal": "WATCH", "score": 92.4, "grade": "B",
+      "entry": 603.04, "stop": 554.80, "target": 723.65,
+      "thesis": "Semiconductor-capex-cycle exposure with strong fundamentals (EPS +34%/revenue +11% YoY) but still 16.6% below its 52-week high -- this is a name still repairing its base, not breaking out yet. TV's BUY (12/4/10) is constructive but not a green light to chase.",
+      "strengths": ["EPS +34%/revenue +11% YoY -- fab-tool demand remains strong", "TV BUY leans positive"],
+      "risks": ["16.6% below the 52-week high -- still in repair mode, not a fresh breakout", "Earnings Aug 14, still six weeks out"],
+      "watch": ["Wait for a reclaim of the 50-day and a new higher high before treating this as a fresh signal"]
+    },
+    {
+      "ticker": "TSM", "name": "Taiwan Semiconductor", "sector": "Technology", "note": "held position",
+      "signal": "WATCH", "score": 92.4, "grade": "B",
+      "entry": 434.16, "stop": 399.43, "target": 520.99,
+      "thesis": "Best fundamentals of any chip name here (EPS +58%/revenue +35% YoY) but TradingView's NEUTRAL (8/8/10) is a genuine split verdict, not a confirmation -- worth flagging since our score says STRONG BUY-quality but the independent read is a coin flip.",
+      "strengths": ["EPS +58%/revenue +35% YoY -- the strongest fundamentals in the semiconductor group", "Cheapest fwd P/E of the mega-cap chip names at 21x"],
+      "risks": ["TV NEUTRAL (8 buy/8 sell/10 neutral) directly disagrees with our STRONG BUY-caliber score -- treat as a WATCH, not a green light", "9.1% off the 52-week high, still basing", "Earnings Jul 16 -- 13 days out"],
+      "watch": ["Wait for TV's read to tip toward BUY, or a fresh 52-week high, before treating this as confirmed"]
+    },
+    {
+      "ticker": "GLW", "name": "Corning Incorporated", "sector": "Technology", "note": "held position",
+      "signal": "WATCH", "score": 92.4, "grade": "B-",
+      "entry": 196.79, "stop": 181.05, "target": 236.15,
+      "thesis": "Turnaround story with the best EPS growth on this entire list (+139% YoY, fiber/optical-connectivity demand from AI datacenter buildouts), but the chart is still 23% off its high and TV's NEUTRAL (8/8/10) says the jury's still out.",
+      "strengths": ["EPS +139% YoY -- the single best fundamental print in this whole pick list", "AI datacenter fiber-connectivity demand is a genuine secular tailwind"],
+      "risks": ["TV NEUTRAL directly contradicts the STRONG BUY-caliber score -- a real disagreement worth sizing around", "23% below the 52-week high -- this is a name still finding its footing, not confirmed"],
+      "watch": ["Needs a clean higher-high and a TV upgrade before treating as more than a watch item"]
+    },
+    {
+      "ticker": "ABNB", "name": "Airbnb, Inc.", "sector": "Consumer Cyclical",
+      "signal": "WATCH", "score": 90.8, "grade": "B",
+      "entry": 148.93, "stop": 137.02, "target": 178.72,
+      "thesis": "Solid fundamentals (revenue +18% YoY) and RSI 73 near the highs, but no TradingView rating resolved yet to cross-check against -- flying without the second opinion on this one.",
+      "strengths": ["Revenue +18% YoY, at the 52-week high", "5-contraction VCP shows a maturing base"],
+      "risks": ["No TV cross-check available", "RSI 73 -- already stretched, less room to run before a pullback"],
+      "watch": ["Treat as a watch item until either a TV rating resolves or the stock pulls back to a lower-risk entry"]
     }
   ]
 }
