@@ -2,138 +2,129 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // ── Public scan data (read-only; Python Admin SDK writes) ──
-    match /scans/{document=**} {
-      allow read: if true;
-      allow write: if false;
+    // ── Multi-tenant RBAC (Super Admin → Org → Company → Admin → Member) ──────────
+    // Financial data lives under organizations/{o}/companies/{c}. Company membership docs
+    // (organizations/{o}/companies/{c}/members/{uid}) are the permission source of truth — written
+    // ONLY by the Cloud Functions, so no self-escalation. Org Admins (organizations/{o}/orgAdmins/{uid})
+    // see ALL companies in their org. Owner emails are PLATFORM super-admins above everything.
+    function isSignedIn() { return request.auth != null; }
+    function isPlatformAdmin() { return isSignedIn() && request.auth.token.email_verified == true && request.auth.token.email in ['sean@txsparks.com', 'ravi@txsparks.com']; }
+    function orgAdminPath(o) { return /databases/$(database)/documents/organizations/$(o)/orgAdmins/$(request.auth.uid); }
+    function isOrgAdmin(o) { return isPlatformAdmin() || (isSignedIn() && exists(orgAdminPath(o))); }
+    function coMemberPath(o, c) { return /databases/$(database)/documents/organizations/$(o)/companies/$(c)/members/$(request.auth.uid); }
+    function isCoMember(o, c) { return isSignedIn() && exists(coMemberPath(o, c)); }
+    function coDoc(o, c) { return get(coMemberPath(o, c)).data; }
+    function coRole(o, c) { return isCoMember(o, c) ? coDoc(o, c).role : 'none'; }
+    function coIsAdmin(o, c) { return isOrgAdmin(o) || coRole(o, c) == 'admin'; }
+    function coPerm(o, c, m) {
+      return (isCoMember(o, c) && ('perms' in coDoc(o, c)) && (m in coDoc(o, c).perms)) ? coDoc(o, c).perms[m] : 'none';
     }
-    // ── Per-day Claude recommendations archive (browsable history; admin writes) ──
-    match /recommendations/{document=**} {
-      allow read: if true;
+    // A soft-deleted/deactivated org or company denies ALL data access (deactivate = revoke). get() is
+    // a privileged read (not subject to the doc's own read rule); identical get()s are deduped per request.
+    function orgLive(o) { return exists(/databases/$(database)/documents/organizations/$(o)) && get(/databases/$(database)/documents/organizations/$(o)).data.get('deleted', false) != true; }
+    function coLive(o, c) { return orgLive(o) && exists(/databases/$(database)/documents/organizations/$(o)/companies/$(c)) && get(/databases/$(database)/documents/organizations/$(o)/companies/$(c)).data.get('active', true) == true && get(/databases/$(database)/documents/organizations/$(o)/companies/$(c)).data.get('deleted', false) != true; }
+    function coCanRead(o, c, m)   { return coLive(o, c) && (coIsAdmin(o, c) || coPerm(o, c, m) == 'read' || coPerm(o, c, m) == 'update' || coPerm(o, c, m) == 'delete'); }
+    function coCanWrite(o, c, m)  { return coLive(o, c) && (coIsAdmin(o, c) || coPerm(o, c, m) == 'update' || coPerm(o, c, m) == 'delete'); }
+    function coCanDelete(o, c, m) { return coLive(o, c) && (coIsAdmin(o, c) || coPerm(o, c, m) == 'delete'); }
+
+    // ── Organizations → Companies → data. Org/company/member/orgAdmin docs are Cloud-Function-only writes. ──
+    match /organizations/{o} {
+      allow read: if isOrgAdmin(o) || isPlatformAdmin();   // members read org/company names from users/{uid}.orgs (denormalized)
       allow write: if false;
-    }
-    match /history/{document=**} {
-      allow read: if true;
-      allow write: if false;
-    }
-    match /agent_results/{document=**} {
-      allow read: if true;
-      allow write: if false;
-    }
-    // ── Company logo/profile cache (getProfiles Cloud Function writes; public-read) ──
-    match /logos/{document=**} {
-      allow read: if true;
-      allow write: if false;
-    }
-    match /earnings/{document=**} {
-      allow read: if true;
-      allow write: if false;
-    }
-    match /catalysts/{document=**} {
-      allow read: if true;
-      allow write: if false;
-    }
-    match /opportunities/{document=**} {
-      allow read: if request.auth != null;
-      allow write: if false;
+
+      match /orgAdmins/{uid} { allow read: if isOrgAdmin(o); allow write: if false; }
+      match /audit/{id} { allow read: if isOrgAdmin(o); allow write: if false; }
+
+      match /companies/{c} {
+        allow read: if isCoMember(o, c) || isOrgAdmin(o);
+        allow write: if false;                            // createCompany / updateCompany
+
+        match /members/{uid} {
+          allow read: if isCoMember(o, c) || isOrgAdmin(o);
+          allow write: if false;                          // company member CFs only
+        }
+        // Trading module (portfolios, holdings, transactions, watchlists, alerts) → 'stocks' perm.
+        match /portfolios/{document=**} {
+          allow read: if coCanRead(o, c, 'stocks');
+          allow create, update: if coCanWrite(o, c, 'stocks');
+          allow delete: if coCanDelete(o, c, 'stocks');
+        }
+        match /holdings/{document=**} {
+          allow read: if coCanRead(o, c, 'stocks');
+          allow create, update: if coCanWrite(o, c, 'stocks');
+          allow delete: if coCanDelete(o, c, 'stocks');
+        }
+        match /transactions/{document=**} {
+          allow read: if coCanRead(o, c, 'stocks');
+          allow create, update: if coCanWrite(o, c, 'stocks');
+          allow delete: if coCanDelete(o, c, 'stocks');
+        }
+        match /watchlists/{document=**} {
+          allow read: if coCanRead(o, c, 'stocks');
+          allow create, update: if coCanWrite(o, c, 'stocks');
+          allow delete: if coCanDelete(o, c, 'stocks');
+        }
+        match /alerts/{document=**} {
+          allow read: if coCanRead(o, c, 'stocks');
+          allow create, update: if coCanWrite(o, c, 'stocks');
+          allow delete: if coCanDelete(o, c, 'stocks');
+        }
+        // Loans & Notes module → 'loans' perm.
+        match /loans/{document=**} {
+          allow read: if coCanRead(o, c, 'loans');
+          allow create, update: if coCanWrite(o, c, 'loans');
+          allow delete: if coCanDelete(o, c, 'loans');
+        }
+      }
     }
 
-    // ── Agent analysis queue (browser queues tickers, Python processes them) ──
-    match /agent_queue/{ticker} {
-      allow read, write: if request.auth != null;
-    }
+    // ── Invitations (top-level; Cloud Functions only — clients use listMyInvites / acceptInvite) ──
+    match /invites/{id} { allow read, write: if false; }
 
-    // ── User profile ──
+    // ── User profiles + org index ──
+    // Read: self or platform admin. Clients may write ONLY fcmTokens / activeOrg / email — never orgs,
+    // role, or perms (those are Cloud-Function-managed). orgs/role/perms are set via the Admin SDK.
     match /users/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read: if isPlatformAdmin() || (isSignedIn() && request.auth.uid == uid);
+      allow create: if isSignedIn() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['fcmTokens', 'activeOrg', 'activeCompany', 'email']);
+      allow update: if isSignedIn() && request.auth.uid == uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fcmTokens', 'activeOrg', 'activeCompany', 'email']);
+      allow delete: if false;
     }
 
-    // ── Portfolios — parent doc + subcollection ──
-    match /portfolios/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
-    match /portfolios/{uid}/list/{portfolioId} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
+    // ── Public scan data (read-only; Python/Admin SDK writes) ──
+    match /scans/{document=**} { allow read: if true; allow write: if false; }
+    match /recommendations/{document=**} { allow read: if true; allow write: if false; }
+    match /history/{document=**} { allow read: if true; allow write: if false; }
+    match /agent_results/{document=**} { allow read: if true; allow write: if false; }
+    match /logos/{document=**} { allow read: if true; allow write: if false; }
+    match /earnings/{document=**} { allow read: if true; allow write: if false; }
+    match /catalysts/{document=**} { allow read: if true; allow write: if false; }
+    match /opportunities/{document=**} { allow read: if isSignedIn(); allow write: if false; }
 
-    // ── Holdings ──
-    match /holdings/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
-    match /holdings/{uid}/{portfolioId}/{holdingId} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
+    // ── Agent analysis queue (Research) — any signed-in user may queue a public ticker for analysis ──
+    match /agent_queue/{ticker} { allow read: if isSignedIn(); allow write: if isSignedIn(); }
 
-    // ── Watchlists ──
-    match /watchlists/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
-    match /watchlists/{uid}/list/{watchlistId} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
+    // ── Platform / admin audit logs (Cloud Functions write; platform admins review) ──
+    match /platform_audit/{id} { allow read: if isPlatformAdmin(); allow write: if false; }
+    match /admin_audit/{id} { allow read: if isPlatformAdmin(); allow write: if false; }
 
-    // ── Personal alerts ──
-    match /alerts/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
-    match /alerts/{uid}/list/{alertId} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
-
-    // ── Loans & Notes (owner-only CRUD) ──
-    match /loans/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
-    match /loans/{uid}/list/{loanId} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
-
-    // ── AI reports (Python writes via Admin SDK; browser reads) ──
-    match /ai_reports/{uid} {
-      allow read: if request.auth != null && request.auth.uid == uid;
-      allow write: if false;
-    }
-    match /ai_reports/{uid}/reports/{date} {
-      allow read: if request.auth != null && request.auth.uid == uid;
-      allow write: if false;
-    }
-
-    // ── Claude per-holding analysis (Cowork admin SDK writes; owner reads) ──
-    match /claude_holdings/{uid} {
-      allow read: if request.auth != null && request.auth.uid == uid;
-      allow write: if false;
-    }
-
-    // ── Portfolio health reports (Python writes; browser reads) ──
-    match /health_reports/{uid} {
-      allow read: if request.auth != null && request.auth.uid == uid;
-      allow write: if false;
-    }
-    match /health_reports/{uid}/reports/{date} {
-      allow read: if request.auth != null && request.auth.uid == uid;
-      allow write: if false;
-    }
-
-    // ── Pre-market notifications (Cloud Function writes via Admin SDK; browser reads) ──
-    match /notifications/{uid} {
-      allow read: if request.auth != null && request.auth.uid == uid;
-      allow write: if false;
-    }
+    // ── Supporting per-user features (AI reports / notifications / assistant) ──
+    // NOTE: still keyed per-uid (server-written). Phase 2 re-keys these to the org.
+    match /ai_reports/{uid} { allow read: if isSignedIn() && request.auth.uid == uid; allow write: if false; }
+    match /ai_reports/{uid}/reports/{date} { allow read: if isSignedIn() && request.auth.uid == uid; allow write: if false; }
+    match /claude_holdings/{uid} { allow read: if isSignedIn() && request.auth.uid == uid; allow write: if false; }
+    match /health_reports/{uid} { allow read: if isSignedIn() && request.auth.uid == uid; allow write: if false; }
+    match /health_reports/{uid}/reports/{date} { allow read: if isSignedIn() && request.auth.uid == uid; allow write: if false; }
+    match /notifications/{uid} { allow read: if isSignedIn() && request.auth.uid == uid; allow write: if false; }
     match /notifications/{uid}/list/{notificationId} {
-      // Browser may read its own digests and mark them read; only the
-      // Cloud Function (Admin SDK) creates or deletes them.
-      allow read, update: if request.auth != null && request.auth.uid == uid;
+      allow read, update: if isSignedIn() && request.auth.uid == uid;
       allow create, delete: if false;
     }
-
-    // ── AI assistant chat history (per-user; synced across the user's devices) ──
-    match /assistant_chats/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
+    match /assistant_chats/{uid} { allow read, write: if isSignedIn() && request.auth.uid == uid; }
 
     // ── OTP reset codes (Cloud Functions only via Admin SDK; never client-accessible) ──
-    match /otp/{id} {
-      allow read, write: if false;
-    }
+    match /otp/{id} { allow read, write: if false; }
   }
 }
