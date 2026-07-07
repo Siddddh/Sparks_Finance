@@ -1,0 +1,205 @@
+{
+  "date": "2026-07-07",
+  "analyses": [
+    {
+      "ticker": "BK", "name": "The Bank of New York Mellon", "signal": "STRONG BUY",
+      "verdict": "Highest-scored setup in today's scan -- a cheap, growing custody bank breaking out of its tightest base of the year, though TradingView has no independent rating on file to cross-check.",
+      "financials": {
+        "period": "FY2025 (last full fiscal year, calendar Dec-end)",
+        "summary": "BNY's core custody, asset-servicing and markets businesses have been benefiting from higher rates on client cash balances plus record assets under custody/administration as markets rallied through the year; the bank has been running with improving operating leverage (fee revenue growing faster than expenses) and returning significant capital via buybacks.",
+        "highlights": ["EPS growth ~42% YoY per current scan data -- a standout among large custody banks", "Revenue growth ~13% YoY, driven by fee income and net interest income", "Forward P/E of just 14.2x against that growth -- a below-market multiple for the growth rate", "Continued share buybacks have been a meaningful EPS tailwind on top of organic growth"]
+      },
+      "accomplishments": ["Record or near-record assets under custody/administration as markets pushed to new highs", "Continued build-out of digital-assets and tokenization initiatives within custody services", "Consistent capital return via dividends and buybacks"],
+      "journey_52w": {
+        "summary": "BK has been one of the steadiest performers in the custody-bank group over the past year, grinding higher with the broader financials rally rather than any single dramatic catalyst, and is now breaking to fresh highs out of its tightest base of the last 12 months.",
+        "milestones": [{"label": "Throughout 2025", "note": "Steady re-rating alongside peer custody banks (NTRS, STT) as rate environment and fee income supported earnings"}, {"label": "Q2 2026", "note": "New 3-contraction VCP base forms, tightening to 2.5% ahead of today's breakout"}]
+      },
+      "critical": {
+        "risks": ["Earnings in 8 days -- a real gap-risk window", "Custody-bank group broadly extended after the sector's run; a group-wide pullback would pressure this too", "No independent TradingView technical rating resolved for this symbol"],
+        "catalysts": ["Q2 2026 earnings in ~8 days", "Continued AUC/A growth if markets stay firm", "Rate-path clarity from the Fed"],
+        "watch": ["Fee income growth rate quarter over quarter", "Net interest income trend as the rate cycle evolves"],
+        "valuation": "At 14.2x forward earnings against ~42% EPS growth, BK screens cheap on a growth-adjusted basis relative to both the market and its custody-bank peer group."
+      }
+    },
+    {
+      "ticker": "NTRS", "name": "Northern Trust Corporation", "signal": "STRONG BUY",
+      "verdict": "BK's custody-bank twin -- same clean breakout, same fee-income tailwind, and TradingView is unanimously bullish (17 buy, 0 sell).",
+      "financials": {
+        "period": "FY2025 (last full fiscal year, calendar Dec-end)",
+        "summary": "Northern Trust's Wealth Management and Asset Servicing segments have both benefited from higher average client balances and firmer markets; expense discipline alongside fee growth has been driving positive operating leverage similar to peer custody banks.",
+        "highlights": ["EPS growth ~43% YoY per current scan data", "Revenue growth ~14% YoY", "Forward P/E of 14.8x -- in line with BK and below the broader market multiple", "Wealth management fee growth has been a consistent bright spot"]
+      },
+      "accomplishments": ["Continued growth in assets under management within Wealth Management", "Technology/operations investment aimed at improving servicing margins", "Steady capital return program"],
+      "journey_52w": {
+        "summary": "NTRS has tracked its custody-bank peers closely over the past year, participating in the sector-wide re-rating and now breaking to new highs alongside BK, STT and CFG out of a similarly tight base.",
+        "milestones": [{"label": "Throughout 2025", "note": "Re-rated alongside the custody-bank group on rate/fee tailwinds"}, {"label": "Q2 2026", "note": "Breaks to new highs out of a 3.6%-tight VCP base"}]
+      },
+      "critical": {
+        "risks": ["Earnings in 15 days", "Group-wide extension after the custody-bank sector's run", "Market-driven fee income means a market drawdown would hit revenue directly"],
+        "catalysts": ["Q2 2026 earnings in ~15 days", "AUM growth if markets hold up", "Continued expense discipline flowing to margins"],
+        "watch": ["Wealth Management AUM trend", "Expense-to-revenue ratio for operating leverage confirmation"],
+        "valuation": "14.8x forward earnings against ~43% EPS growth is a similarly attractive growth-adjusted multiple to BK -- the market has not yet fully re-rated either custody bank for the growth being delivered."
+      }
+    },
+    {
+      "ticker": "CFG", "name": "Citizens Financial Group, Inc.", "signal": "STRONG BUY",
+      "verdict": "Second-highest score in today's scan -- a regional bank re-rating on improving credit and fee income, cheap at 11.2x forward earnings, TV near-unanimous (16 buy, 1 sell).",
+      "financials": {
+        "period": "FY2025 (last full fiscal year, calendar Dec-end)",
+        "summary": "Citizens has been working through its private-bank and wealth build-out (including the Silicon Valley Bank private-bank team hires) while net interest margin has stabilized/improved off the 2023-2024 regional-bank stress trough, with credit costs normalizing.",
+        "highlights": ["EPS growth ~47% YoY per current scan data -- off an easier prior-year base as NIM pressure eased", "Revenue growth ~14% YoY", "Forward P/E of just 11.2x, the cheapest multiple among the bank picks in today's scan", "Continued build-out of the private/wealth banking franchise as a fee-income diversifier"]
+      },
+      "accomplishments": ["Continued scaling of the private-bank/wealth franchise launched with senior hires from the 2023 regional-bank turmoil", "NIM stabilization after the 2023-2024 regional-bank funding-cost pressure", "Improving efficiency ratio trajectory"],
+      "journey_52w": {
+        "summary": "CFG has recovered from the regional-bank-stress overhang of 2023 into a genuine re-rating candidate over the past year, and is now breaking out again alongside the broader bank group, though RSI 71.5 makes it the warmest of the bank breakouts in today's scan.",
+        "milestones": [{"label": "2025", "note": "NIM stabilizes and credit costs normalize post regional-bank-stress period"}, {"label": "Q2 2026", "note": "Breaks out again with RSI running warmer than peer banks"}]
+      },
+      "critical": {
+        "risks": ["RSI 71.5 -- less room to run before overbought than peer banks like BK/NTRS", "Earnings in 9 days", "Regional-bank credit quality remains a swing factor if the economy softens"],
+        "catalysts": ["Q2 2026 earnings in ~9 days", "Continued private-bank/wealth fee ramp", "Further NIM expansion if rates stay supportive"],
+        "watch": ["Net interest margin trend quarter over quarter", "Private-bank deposit/AUM growth as the newer franchise scales"],
+        "valuation": "11.2x forward earnings against ~47% EPS growth is the cheapest growth-adjusted multiple among today's bank picks, though the elevated RSI argues for a pullback rather than chasing here."
+      }
+    },
+    {
+      "ticker": "FTNT", "name": "Fortinet, Inc.", "signal": "STRONG BUY",
+      "verdict": "Cybersecurity leader breaking to new highs with revenue growth accelerating faster than EPS -- a sign of reinvestment, not deceleration -- and TV unanimous (16 buy, 0 sell).",
+      "financials": {
+        "period": "FY2025 (last full fiscal year, calendar Dec-end)",
+        "summary": "Fortinet's shift toward SASE/unified-SASE and cloud security alongside its core firewall franchise has been driving billings and revenue growth, with the company continuing to invest in the newer product lines while maintaining strong profitability in its core appliance business.",
+        "highlights": ["Revenue growth ~20% YoY per current scan data, outpacing EPS growth (~29%) -- indicates continued reinvestment in newer product lines", "Forward P/E of 47.4x, the richest multiple among today's picks, reflecting premium growth expectations", "SASE/cloud-security billings have been a key growth driver alongside the core firewall refresh cycle"]
+      },
+      "accomplishments": ["Continued expansion of the Unified SASE platform and cloud-security product suite", "Sustained firewall-refresh cycle revenue as enterprises upgrade aging hardware", "Strong free-cash-flow generation funding both growth investment and buybacks"],
+      "journey_52w": {
+        "summary": "FTNT has been one of the stronger cybersecurity performers over the past year as enterprise security spend held up better than broader IT budgets, breaking to new highs on continued SASE momentum.",
+        "milestones": [{"label": "2025", "note": "SASE and cloud-security billings scale as a growing share of total revenue"}, {"label": "Q2 2026", "note": "Breaks to new highs on a 4-contraction VCP base"}]
+      },
+      "critical": {
+        "risks": ["47.4x forward P/E is the richest multiple in today's batch -- priced for continued execution", "Earnings in 23 days", "Cybersecurity spend is generally resilient but not immune to a broader IT-budget slowdown"],
+        "catalysts": ["Q2 2026 earnings in ~23 days", "Continued SASE/cloud-security billings growth", "Firewall-refresh cycle tailwind"],
+        "watch": ["Billings growth rate as the leading indicator ahead of revenue", "Commentary on the firewall-refresh cycle's remaining runway"],
+        "valuation": "At 47.4x forward earnings, FTNT is priced for continued premium growth -- the multiple leaves less margin for error than the cheaper bank names in today's scan."
+      }
+    },
+    {
+      "ticker": "AAPL", "name": "Apple Inc.", "signal": "STRONG BUY",
+      "verdict": "The most widely-held name in the book -- a steady compounder near its highs with unanimous-adjacent TV backing (16 buy, 1 sell), best treated as a core add rather than a fresh trade.",
+      "financials": {
+        "period": "FY2025 (last full fiscal year, ended late September 2025)",
+        "summary": "Apple's FY2025 was driven by continued Services growth (now a large, high-margin recurring-revenue engine), steady iPhone replacement-cycle revenue, and ongoing gross-margin expansion from the Services mix shift, even as overall hardware unit growth stayed modest.",
+        "highlights": ["EPS growth ~22% YoY per current scan data", "Revenue growth ~17% YoY, with Services continuing to grow faster than hardware", "Forward P/E of 32.5x -- a premium multiple reflecting Services mix-shift and buyback support", "Continued aggressive share buybacks remain a structural EPS tailwind"]
+      },
+      "accomplishments": ["Services revenue continuing to scale as a high-margin, recurring engine (App Store, subscriptions, advertising, payments)", "Ongoing AI-feature rollout across the device ecosystem", "Continued expansion in India and other emerging manufacturing/sales markets"],
+      "journey_52w": {
+        "summary": "AAPL has been a steady, lower-volatility compounder over the past year, tracking modestly below its all-time highs for much of the period before this latest push to within 1% of its 52-week high.",
+        "milestones": [{"label": "FY2025 (ended Sept 2025)", "note": "Services growth and margin mix shift continue to drive earnings above hardware unit growth"}, {"label": "Q2 2026", "note": "Stock pushes back to within 0.8% of its 52-week high"}]
+      },
+      "critical": {
+        "risks": ["32.5x forward P/E is a premium multiple for 22% EPS growth", "Earnings in 24 days", "China unit-sales trends and regulatory/tariff headlines remain a recurring swing factor"],
+        "catalysts": ["Q2/FY2026 earnings in ~24 days", "Continued Services revenue growth", "Any incremental AI-feature-driven upgrade cycle"],
+        "watch": ["Services revenue growth rate as the key margin driver", "China unit trends and any new tariff/regulatory headlines"],
+        "valuation": "At 32.5x forward earnings, AAPL trades at a premium to the market that is largely justified by Services mix shift and buyback-driven EPS growth, but it is not a cheap entry point on an absolute basis."
+      }
+    },
+    {
+      "ticker": "AMD", "name": "Advanced Micro Devices, Inc.", "signal": "STRONG BUY",
+      "verdict": "Genuine fundamental acceleration (91% EPS growth, 38% revenue growth) with TV's strongest semiconductor rating in today's batch (17 buy, 1 sell) -- a sharp contrast to the split AMAT/MU ratings.",
+      "financials": {
+        "period": "FY2025 (last full fiscal year, calendar Dec-end)",
+        "summary": "AMD's data-center GPU (Instinct) ramp alongside continued EPYC server-CPU share gains against Intel has been the primary growth driver, with the AI-accelerator business scaling from a smaller base and pulling blended margins and EPS growth well above revenue growth.",
+        "highlights": ["EPS growth ~91% YoY per current scan data -- among the strongest in today's scan", "Revenue growth ~38% YoY, led by data-center GPU and server-CPU share gains", "Forward P/E of 41.8x reflects continued premium growth expectations", "Data-center segment margins expanding as the Instinct GPU line scales"]
+      },
+      "accomplishments": ["Continued ramp of the Instinct MI-series AI accelerators against Nvidia", "Ongoing EPYC server-CPU share gains versus Intel in the data-center market", "Client (PC) CPU share gains alongside the data-center growth story"],
+      "journey_52w": {
+        "summary": "AMD has been one of the stronger semiconductor performers over the past year as the AI-accelerator narrative broadened beyond Nvidia, though it remains a higher-beta name than the bank/utility picks in today's list, currently 5% off its 52-week high.",
+        "milestones": [{"label": "2025", "note": "Instinct GPU ramp scales as a second AI-accelerator supplier alongside Nvidia gains traction"}, {"label": "Q2 2026", "note": "5% off 52-week high with a looser (10.9%) VCP base than the tightest setups in today's scan"}]
+      },
+      "critical": {
+        "risks": ["41.8x forward P/E; earnings in 29 days", "AI-accelerator competitive dynamics against Nvidia remain the key swing factor", "10.9% VCP contraction is looser than the cleanest bases in today's scan -- less textbook technically"],
+        "catalysts": ["Q2 2026 earnings in ~29 days", "Continued Instinct GPU adoption commentary from hyperscaler customers", "EPYC server-CPU share-gain updates"],
+        "watch": ["Data-center GPU revenue growth rate as the key metric", "Hyperscaler capex commentary as a leading indicator for AMD's AI-accelerator demand"],
+        "valuation": "41.8x forward earnings against 91% EPS growth is a growth-adjusted multiple that looks reasonable if the AI-accelerator ramp continues, but leaves room for disappointment if growth decelerates."
+      }
+    },
+    {
+      "ticker": "GS", "name": "Goldman Sachs Group, Inc.", "signal": "STRONG BUY",
+      "verdict": "Held across three portfolios -- RSI just 48.0 makes this the least-extended large bank in today's scan, with TV confirming 16 buy / 1 sell.",
+      "financials": {
+        "period": "FY2025 (last full fiscal year, calendar Dec-end)",
+        "summary": "Goldman's Global Banking & Markets (investment banking and trading) and Asset & Wealth Management segments have both benefited from a healthier capital-markets environment -- higher M&A and equity-issuance activity alongside firm trading revenue -- while continuing to grow the more fee-stable Asset & Wealth Management business.",
+        "highlights": ["EPS growth ~24% YoY per current scan data", "Revenue growth ~15% YoY, aided by an improving investment-banking fee environment", "Forward P/E of 15.8x remains reasonable for the growth delivered", "Asset & Wealth Management continues to grow as a more fee-stable earnings stream alongside the more cyclical trading/banking business"]
+      },
+      "accomplishments": ["Improving investment-banking fee pool as M&A and equity-issuance activity picked up", "Continued scaling of Asset & Wealth Management as a fee-stable diversifier", "Consistent capital return via buybacks and dividends"],
+      "journey_52w": {
+        "summary": "GS has participated in the broader financials rally over the past year but with a choppier, less textbook chart than the cleanest custody-bank breakouts in today's scan, which is why its combined score (83.1) trails peers like BK/NTRS despite similar fundamental strength.",
+        "milestones": [{"label": "2025", "note": "Investment-banking fee pool improves on stronger capital-markets activity"}, {"label": "Q2 2026", "note": "RSI sits at just 48 -- the least extended large bank in today's scan"}]
+      },
+      "critical": {
+        "risks": ["Earnings in 7 days -- a tight catalyst window", "Trading/investment-banking revenue is inherently more cyclical than the custody-bank fee model", "Less textbook chart pattern than the tightest VCP setups in today's scan"],
+        "catalysts": ["Q2 2026 earnings in ~7 days", "Continued M&A/equity-issuance recovery", "Asset & Wealth Management fee growth"],
+        "watch": ["Investment-banking fee-pool trends into earnings", "Trading-revenue volatility as a swing factor"],
+        "valuation": "15.8x forward earnings against 24% EPS growth is a reasonable multiple, and the low RSI (48) suggests this is a less-chased entry than most of today's other bank picks."
+      }
+    },
+    {
+      "ticker": "MET", "name": "MetLife, Inc.", "signal": "STRONG BUY",
+      "verdict": "The least-extended STRONG BUY in today's entire scan (RSI 54.6) at a cheap 8.2x forward multiple, TV backing it 16 buy / 1 sell.",
+      "financials": {
+        "period": "FY2025 (last full fiscal year, calendar Dec-end)",
+        "summary": "MetLife's group benefits and international insurance segments have provided steady, low-volatility earnings growth, with the EPS growth substantially outpacing thin top-line revenue growth -- consistent with a buyback- and underwriting-margin-driven earnings story rather than a top-line growth story.",
+        "highlights": ["EPS growth ~36% YoY per current scan data, well ahead of ~3% revenue growth -- margin/buyback driven", "Forward P/E of just 8.2x, among the cheapest multiples in today's entire scan", "Group benefits and international segments provide earnings diversification against U.S. individual-life mortality trends"]
+      },
+      "accomplishments": ["Continued underwriting-margin improvement in group benefits", "Steady capital return through buybacks supporting the EPS growth well above revenue growth", "International segment diversification reducing reliance on any single geography"],
+      "journey_52w": {
+        "summary": "MET has quietly re-rated over the past year without the dramatic price action of some tech/semi names, and its RSI of just 54.6 makes it the freshest, least-chased STRONG BUY setup in today's entire scan.",
+        "milestones": [{"label": "2025", "note": "Underwriting margins and buybacks drive EPS well ahead of thin revenue growth"}, {"label": "Q2 2026", "note": "Breaks out of a 5-contraction base with RSI still moderate at 54.6"}]
+      },
+      "critical": {
+        "risks": ["Thin revenue growth (~3%) means this is primarily a margin/buyback story -- a slowdown in buybacks would remove a key EPS driver", "5-contraction VCP base is choppier/less textbook than the tightest setups in today's scan"],
+        "catalysts": ["Continued buyback execution", "Group-benefits underwriting-margin trends", "Any acceleration in international segment growth"],
+        "watch": ["Buyback pace as the primary EPS-growth driver given thin revenue growth", "Group benefits loss-ratio trends"],
+        "valuation": "8.2x forward earnings is among the cheapest multiples in today's entire scan, and the low RSI (54.6) suggests there is still room to run before this becomes an extended, overbought name."
+      }
+    },
+    {
+      "ticker": "MU", "name": "Micron Technology, Inc.", "signal": "WATCH",
+      "verdict": "Cheapest multiple in today's scan (6.6x forward) on a genuine memory-cycle recovery, but TradingView is dead-even split (9 buy, 9 sell) -- the most technically uncertain name in this batch, and a held position.",
+      "financials": {
+        "period": "FY2025 (last full fiscal year, ended ~August/September 2025)",
+        "summary": "Micron's FY2025 captured the memory (DRAM/NAND) pricing recovery from the 2022-2023 downturn, with high-bandwidth memory (HBM) for AI accelerators emerging as a fast-growing, higher-margin product line layered on top of the broader cyclical recovery in commodity DRAM/NAND pricing.",
+        "highlights": ["EPS growth of well over 1,000% YoY per current scan data -- a low-base memory-cycle-recovery comparison, not a steady-state growth rate", "Revenue growth over 300% YoY on the same low-base dynamic", "Forward P/E of just 6.6x -- the cheapest multiple in today's entire scan, reflecting the market's skepticism that peak-cycle margins persist", "HBM (high-bandwidth memory) for AI accelerators has become an increasingly important high-margin product line"]
+      },
+      "accomplishments": ["HBM3E/HBM4 qualification and ramp with major AI-accelerator customers", "Continued DRAM/NAND pricing recovery from the 2022-2023 memory downturn", "Capacity expansion investments to meet AI-driven memory demand"],
+      "journey_52w": {
+        "summary": "MU has been on a genuine memory-upcycle recovery over the past year, but the stock remains 18.8% below its 52-week high and TradingView's technical oscillators are split dead-even -- reflecting real uncertainty about whether current pricing/margins represent a durable new level or a cyclical peak.",
+        "milestones": [{"label": "2025", "note": "DRAM/NAND pricing recovery accelerates, HBM ramp for AI customers scales"}, {"label": "Q2 2026", "note": "Still 18.8% off 52-week high with TV rating split 9 buy / 9 sell"}]
+      },
+      "critical": {
+        "risks": ["TV rating is a dead-even split (9 buy / 9 sell / 8 neutral) -- genuine technical disagreement, not a confirming signal", "Memory is a historically cyclical, commodity-pricing business -- the extraordinary YoY growth rates are a low-base comparison that will normalize", "Earnings 79 days out -- no near-term catalyst to resolve the technical uncertainty"],
+        "catalysts": ["DRAM/NAND spot-price trends as the leading fundamental indicator", "HBM allocation/qualification news with AI-accelerator customers", "Q3/FY2026 earnings in ~79 days"],
+        "watch": ["DRAM and NAND spot pricing week to week", "Capex/capacity-expansion commentary from Micron and peers (Samsung, SK Hynix) as a supply-side indicator"],
+        "valuation": "6.6x forward earnings is the cheapest multiple in today's scan, but that cheapness reflects the market pricing in some normalization of currently elevated memory pricing/margins -- not a free lunch."
+      }
+    },
+    {
+      "ticker": "GLW", "name": "Corning Incorporated", "signal": "WATCH",
+      "verdict": "A live scan-vs-TradingView disagreement: the quant score likes the VCP and EPS growth, but TV rates this an outright SELL (7 buy, 10 sell) and the stock remains a 52-week laggard, not a leader. Held position.",
+      "financials": {
+        "period": "FY2025 (last full fiscal year, calendar Dec-end)",
+        "summary": "Corning's Optical Communications segment has been the key growth driver as AI-datacenter buildouts drive demand for optical fiber and connectivity products, layered on top of its more mature Display Technologies and Specialty Materials (Gorilla Glass) segments, which have grown more slowly.",
+        "highlights": ["EPS growth ~139% YoY per current scan data -- driven substantially by the Optical Communications/AI-datacenter buildout", "Revenue growth ~20% YoY", "Forward P/E of 45.9x prices in continued strong execution on the AI-datacenter optical-fiber ramp", "Optical Communications has become the primary growth engine, with Display and Specialty Materials growing more slowly"]
+      },
+      "accomplishments": ["Optical fiber and connectivity product demand scaling with AI-datacenter buildouts", "Continued Gorilla Glass design wins in the mature Specialty Materials segment", "Capacity investment to meet AI-driven optical-fiber demand"],
+      "journey_52w": {
+        "summary": "GLW's fundamental growth story (AI-datacenter optical fiber) has been strong, but the stock remains 23.8% below its 52-week high -- a genuine laggard relative to the growth being delivered, and TradingView's technical oscillators are outright bearish (7 buy, 10 sell), the sharpest scan-vs-TV disagreement in today's entire batch.",
+        "milestones": [{"label": "2025", "note": "Optical Communications revenue accelerates on AI-datacenter fiber demand"}, {"label": "Q2 2026", "note": "Still 23.8% off 52-week high; TV rates the stock an outright SELL despite the fundamental growth story"}]
+      },
+      "critical": {
+        "risks": ["TradingView rates this an outright SELL (7 buy / 10 sell / 9 neutral) -- the sharpest scan-vs-TV disagreement in today's entire batch", "23.8% off 52-week high despite strong EPS growth -- the market isn't yet rewarding the fundamental story technically", "45.9x forward P/E prices in continued strong execution; any AI-datacenter capex slowdown would hit the optical-fiber growth story directly"],
+        "catalysts": ["Continued AI-datacenter optical-fiber demand", "Q2 2026 earnings in ~21 days", "Any technical confirmation (TV rating improving) that would resolve the current scan-vs-TV tension"],
+        "watch": ["Optical Communications segment revenue growth specifically, not just consolidated results", "Whether the TV technical rating improves as the stock works through its base -- until it does, treat this as a hold-not-add"],
+        "valuation": "45.9x forward earnings against 139% EPS growth looks reasonable on paper, but the combination of a laggard chart and an outright bearish technical rating argues for caution despite the fundamental growth story."
+      }
+    }
+  ]
+}
