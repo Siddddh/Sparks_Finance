@@ -87,9 +87,9 @@ service cloud.firestore {
     match /users/{uid} {
       allow read: if isPlatformAdmin() || (isSignedIn() && request.auth.uid == uid);
       allow create: if isSignedIn() && request.auth.uid == uid
-        && request.resource.data.keys().hasOnly(['fcmTokens', 'activeOrg', 'activeCompany', 'email']);
+        && request.resource.data.keys().hasOnly(['fcmTokens', 'activeOrg', 'activeCompany', 'email', 'emailPrefs']);
       allow update: if isSignedIn() && request.auth.uid == uid
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fcmTokens', 'activeOrg', 'activeCompany', 'email']);
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fcmTokens', 'activeOrg', 'activeCompany', 'email', 'emailPrefs']);
       allow delete: if false;
     }
 
