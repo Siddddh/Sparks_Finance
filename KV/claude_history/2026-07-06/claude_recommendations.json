@@ -1,0 +1,694 @@
+{
+  "scan_date": "2026-07-06",
+  "scan_time_et": "05:58 PM ET",
+  "market": {
+    "state": "UPTREND",
+    "advice": "Breadth is broad and healthy - 67% of stocks above their 50-day MA, VIX calm at 16.3 and falling, SPY holding above its 50-day. This is one of the widest fields of clean STRONG BUY setups the scan has produced, led by financials, healthcare, utilities and REITs. Normal position sizing is appropriate, but several of today's picks (GE, SIRI, OKTA, SNA) are technically overbought - favor the less-extended names or wait for pullbacks on the stretched ones. The macro backdrop carries some geopolitical/oil-supply risk out of the Middle East, but it isn't showing up in volatility yet."
+  },
+  "picks": [
+    {
+      "ticker": "LQDA",
+      "name": "Liquidia Corporation",
+      "sector": "Healthcare",
+      "signal": "STRONG BUY",
+      "score": 94.3,
+      "grade": "A+",
+      "thesis": "Cleanest setup in the whole scan \u2014 a textbook 5-contraction VCP within 1% of a 52-week high with RS at new highs, and a forward P/E of just 14x against explosive top-line growth as Yutrepia ramps. TradingView agrees (BUY, 14 buy/4 sell/8 neutral).",
+      "strengths": [
+        "5-contraction VCP, tightest 0.5%",
+        "RS at new high",
+        "Cheap 14x forward P/E for the growth rate"
+      ],
+      "risks": [
+        "Volume-on-breakout criterion failed \u2014 light volume so far",
+        "Thin-float name, earnings not until ~37 days out"
+      ],
+      "watch": [
+        "Confirm the breakout holds above $79 on rising volume before adding"
+      ],
+      "entry": 78.93,
+      "stop": 72.62,
+      "target": 94.72
+    },
+    {
+      "ticker": "ILMN",
+      "name": "Illumina, Inc.",
+      "sector": "Healthcare",
+      "signal": "STRONG BUY",
+      "score": 94.2,
+      "grade": "A+",
+      "thesis": "Genomics leader breaking to fresh highs with a confirmed VCP; TradingView's strongest possible read (STRONG_BUY, 16/1/9) backs the tape.",
+      "strengths": [
+        "RS at new high",
+        "VCP confirmed",
+        "TV Strong Buy alignment, 16 buy vs 1 sell"
+      ],
+      "risks": [
+        "RSI 68 \u2014 not cheap short-term",
+        "~32x forward earnings"
+      ],
+      "watch": [
+        "A pullback to the 50-day would be a lower-risk add point"
+      ],
+      "entry": 188.68,
+      "stop": 173.59,
+      "target": 226.42
+    },
+    {
+      "ticker": "LLY",
+      "name": "Eli Lilly and Company",
+      "sector": "Healthcare",
+      "signal": "STRONG BUY",
+      "score": 93.8,
+      "grade": "A",
+      "thesis": "The GLP-1 franchise keeps compounding \u2014 RS at new highs, VCP intact, and TradingView's top rating (STRONG_BUY, 15/1/10) confirms institutional accumulation isn't slowing.",
+      "strengths": [
+        "55% revenue growth",
+        "RS at new high",
+        "TV Strong Buy, 15 buy vs 1 sell"
+      ],
+      "risks": [
+        "Priced for perfection at 27x forward earnings",
+        "Any GLP-1 competitive or Medicare pricing headline is a real risk"
+      ],
+      "watch": [
+        "Medicare drug-pricing news flow"
+      ],
+      "entry": 1213.91,
+      "stop": 1116.8,
+      "target": 1456.69
+    },
+    {
+      "ticker": "BK",
+      "name": "The Bank of New York Mellon Cor",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 94.2,
+      "grade": "A+",
+      "thesis": "BNY Mellon posted the single highest score in this scan (94.2) \u2014 fresh highs, RS confirmed, VCP intact, and a cheap 14x forward multiple. TradingView doesn't cover it this run, so there's no second opinion to cross-check.",
+      "strengths": [
+        "Top score in the scan",
+        "RS at new high",
+        "Cheap 14.2x forward P/E"
+      ],
+      "risks": [
+        "No TradingView cross-check available this run",
+        "Heavy financial-sector concentration in this list \u2014 don't overweight the group"
+      ],
+      "watch": [
+        "Sector rotation out of financials"
+      ],
+      "entry": 146.62,
+      "stop": 134.89,
+      "target": 175.94
+    },
+    {
+      "ticker": "FITB",
+      "name": "Fifth Third Bancorp",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 93.6,
+      "grade": "A",
+      "thesis": "Regional bank breakout with RS at new highs and an 11.6x forward multiple; TradingView agrees (BUY, 15/4/7).",
+      "strengths": [
+        "RS at new high",
+        "VCP confirmed",
+        "33% revenue growth on a cheap multiple"
+      ],
+      "risks": [
+        "RSI 70 \u2014 stretched near-term",
+        "Regional banks are rate-sensitive"
+      ],
+      "watch": [
+        "Fed rate-path commentary"
+      ],
+      "entry": 57.16,
+      "stop": 52.59,
+      "target": 68.59
+    },
+    {
+      "ticker": "NTRS",
+      "name": "Northern Trust Corporation",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 93.3,
+      "grade": "A",
+      "thesis": "One of the cleanest bank-sector setups in the scan \u2014 fresh highs, RS confirmed, and TradingView's 15 buy/1 sell tally backs it.",
+      "strengths": [
+        "RS at new high",
+        "VCP confirmed",
+        "Steady 14% revenue growth"
+      ],
+      "risks": [
+        "Large financial-sector concentration across this list \u2014 don't overweight the group"
+      ],
+      "watch": [
+        "Sector rotation out of financials"
+      ],
+      "entry": 176.5,
+      "stop": 162.38,
+      "target": 211.8
+    },
+    {
+      "ticker": "CVS",
+      "name": "CVS Health Corporation",
+      "sector": "Healthcare",
+      "signal": "STRONG BUY",
+      "score": 93.3,
+      "grade": "A",
+      "thesis": "Turnaround story confirming technically \u2014 RS at new highs on a cheap 12.5x forward P/E; TradingView agrees (BUY, 15/2/9).",
+      "strengths": [
+        "RS at new high",
+        "VCP confirmed",
+        "Cheapest valuation in the healthcare group"
+      ],
+      "risks": [
+        "PBM/reimbursement regulatory risk is structural and ongoing"
+      ],
+      "watch": [
+        "Any Medicare Advantage or PBM regulatory headline"
+      ],
+      "entry": 104.72,
+      "stop": 96.34,
+      "target": 125.66
+    },
+    {
+      "ticker": "SNA",
+      "name": "Snap-On Incorporated",
+      "sector": "Industrials",
+      "signal": "STRONG BUY",
+      "score": 93.3,
+      "grade": "A",
+      "thesis": "Snap-on at new highs with RS confirmed and TradingView's top rating (STRONG_BUY, 16/0/10) \u2014 zero sell votes, as clean a consensus as this scan produced.",
+      "strengths": [
+        "RS at new high",
+        "VCP confirmed",
+        "TV 16 buy / 0 sell"
+      ],
+      "risks": [
+        "RSI 72 \u2014 overbought, chase risk if it gaps further"
+      ],
+      "watch": [
+        "Wait for a pullback toward the 21-day rather than chasing here"
+      ],
+      "entry": 412.09,
+      "stop": 379.12,
+      "target": 494.51
+    },
+    {
+      "ticker": "MNST",
+      "name": "Monster Beverage Corporation",
+      "sector": "Consumer Defensive",
+      "signal": "STRONG BUY",
+      "score": 93.2,
+      "grade": "A",
+      "thesis": "Monster Beverage at fresh highs with RS confirmed; TradingView agrees (BUY, 15/3/8). Already a core holding for several of our users \u2014 this reads as hold/add, not a fresh-money chase.",
+      "strengths": [
+        "RS at new high",
+        "VCP confirmed",
+        "27% revenue growth"
+      ],
+      "risks": [
+        "RSI 72.5 \u2014 overbought short-term"
+      ],
+      "watch": [
+        "Don't add above the current 50-day extension"
+      ],
+      "entry": 97.6,
+      "stop": 89.79,
+      "target": 117.12
+    },
+    {
+      "ticker": "DUK",
+      "name": "Duke Energy Corporation (Holdin",
+      "sector": "Utilities",
+      "signal": "STRONG BUY",
+      "score": 92.9,
+      "grade": "A",
+      "thesis": "Utilities are quietly leading the market \u2014 Duke breaking out with RS confirmed and TradingView's strongest rating (STRONG_BUY, 17/0/9, zero sell votes).",
+      "strengths": [
+        "TV 17/0/9 \u2014 near-unanimous buy tilt",
+        "VCP confirmed",
+        "Defensive sector strength alongside a falling VIX"
+      ],
+      "risks": [
+        "RSI 67",
+        "Rate-sensitive if long yields back up"
+      ],
+      "watch": [
+        "10-year yield direction"
+      ],
+      "entry": 129.6,
+      "stop": 119.23,
+      "target": 155.52
+    },
+    {
+      "ticker": "AEP",
+      "name": "American Electric Power Company",
+      "sector": "Utilities",
+      "signal": "STRONG BUY",
+      "score": 92.9,
+      "grade": "A",
+      "thesis": "Same utility-leadership theme as Duke \u2014 RS confirmed, TradingView STRONG_BUY (16/0/10), and an AI-datacenter power-demand tailwind underneath it.",
+      "strengths": [
+        "TV unanimous-tilt buy",
+        "AI/datacenter power demand tailwind"
+      ],
+      "risks": [
+        "RSI 73 \u2014 stretched"
+      ],
+      "watch": [
+        "Pace of further Fed rate moves"
+      ],
+      "entry": 138.51,
+      "stop": 127.43,
+      "target": 166.21
+    },
+    {
+      "ticker": "CNP",
+      "name": "CenterPoint Energy, Inc (Holdin",
+      "sector": "Utilities",
+      "signal": "STRONG BUY",
+      "score": 92.5,
+      "grade": "A",
+      "thesis": "CenterPoint rounds out the utility trio \u2014 RS confirmed, TradingView STRONG_BUY (16/0/10).",
+      "strengths": [
+        "TV unanimous-tilt buy",
+        "VCP confirmed"
+      ],
+      "risks": [
+        "RSI 67",
+        "Only 1.9% revenue growth \u2014 this is a technical/defensive-rotation trade, not a growth story"
+      ],
+      "watch": [
+        "Guidance updates"
+      ],
+      "entry": 44.61,
+      "stop": 41.04,
+      "target": 53.53
+    },
+    {
+      "ticker": "TRNO",
+      "name": "Terreno Realty Corporation",
+      "sector": "Real Estate",
+      "signal": "STRONG BUY",
+      "score": 93.5,
+      "grade": "A",
+      "thesis": "Industrial-REIT breakout with TradingView's top rating (STRONG_BUY, 17/0/9) \u2014 logistics real estate continuing to lead.",
+      "strengths": [
+        "VCP confirmed",
+        "TV 17/0/9",
+        "E-commerce/logistics demand tailwind"
+      ],
+      "risks": [
+        "REITs are rate-sensitive"
+      ],
+      "watch": [
+        "Rate moves"
+      ],
+      "entry": 67.33,
+      "stop": 61.94,
+      "target": 80.8
+    },
+    {
+      "ticker": "PSA",
+      "name": "Public Storage",
+      "sector": "Real Estate",
+      "signal": "STRONG BUY",
+      "score": 92.0,
+      "grade": "A",
+      "thesis": "Public Storage confirming new highs with TradingView's STRONG_BUY (16/0/10).",
+      "strengths": [
+        "Mega-cap REIT stability",
+        "TV unanimous-tilt buy"
+      ],
+      "risks": [
+        "Self-storage demand is macro-sensitive",
+        "Only 3% revenue growth"
+      ],
+      "watch": [
+        "Occupancy trends"
+      ],
+      "entry": 329.64,
+      "stop": 303.27,
+      "target": 395.57
+    },
+    {
+      "ticker": "SBUX",
+      "name": "Starbucks Corporation",
+      "sector": "Consumer Cyclical",
+      "signal": "STRONG BUY",
+      "score": 92.8,
+      "grade": "A",
+      "thesis": "Starbucks' turnaround is gaining technical confirmation \u2014 TradingView STRONG_BUY (16/0/10, zero sell votes).",
+      "strengths": [
+        "TV unanimous-tilt buy",
+        "Turnaround narrative",
+        "VCP confirmed"
+      ],
+      "risks": [
+        "China same-store-sales recovery still uneven"
+      ],
+      "watch": [
+        "Next quarterly same-store sales print"
+      ],
+      "entry": 104.27,
+      "stop": 95.93,
+      "target": 125.12
+    },
+    {
+      "ticker": "FTNT",
+      "name": "Fortinet, Inc.",
+      "sector": "Technology",
+      "signal": "STRONG BUY",
+      "score": 93.3,
+      "grade": "A",
+      "thesis": "Fortinet at new highs with RS confirmed; TradingView agrees (BUY, 14/5/7). We already hold this \u2014 this is confirmation to stay long, not a fresh entry signal.",
+      "strengths": [
+        "RS at new high",
+        "VCP confirmed",
+        "Cybersecurity secular demand"
+      ],
+      "risks": [
+        "RSI 65",
+        "Growth decelerating to ~20% vs historical pace"
+      ],
+      "watch": [
+        "Firewall-refresh cycle commentary at next earnings"
+      ],
+      "entry": 156.25,
+      "stop": 143.75,
+      "target": 187.5
+    },
+    {
+      "ticker": "OKTA",
+      "name": "Okta, Inc.",
+      "sector": "Technology",
+      "signal": "STRONG BUY",
+      "score": 93.1,
+      "grade": "A",
+      "thesis": "Okta breaking to new highs with RS confirmed; TradingView agrees directionally (BUY) though RSI 80 flags real near-term overbought/chase risk.",
+      "strengths": [
+        "RS at new high",
+        "VCP confirmed"
+      ],
+      "risks": [
+        "RSI 79.7 \u2014 very extended short-term",
+        "4 TV sell votes alongside the 15 buys"
+      ],
+      "watch": [
+        "Wait for a cooling-off period before adding size"
+      ],
+      "entry": 141.42,
+      "stop": 130.11,
+      "target": 169.7
+    },
+    {
+      "ticker": "SIRI",
+      "name": "SiriusXM Holdings Inc.",
+      "sector": "Communication Services",
+      "signal": "STRONG BUY",
+      "score": 88.8,
+      "grade": "B+",
+      "thesis": "SiriusXM at new highs with TradingView's strongest rating (STRONG_BUY, 16/0/10) \u2014 but RSI 86.5 is about as overbought as a stock gets, so this is a hold-and-trail, not a chase. We already hold this name.",
+      "strengths": [
+        "RS at new high",
+        "TV unanimous-tilt buy",
+        "Cheap 9x forward P/E"
+      ],
+      "risks": [
+        "RSI 86.5 \u2014 extreme overbought reading, high near-term pullback risk"
+      ],
+      "watch": [
+        "Use a trailing stop rather than adding here"
+      ],
+      "entry": 30.51,
+      "stop": 28.07,
+      "target": 36.61
+    },
+    {
+      "ticker": "GE",
+      "name": "GE Aerospace",
+      "sector": "Industrials",
+      "signal": "STRONG BUY",
+      "score": 92.2,
+      "grade": "A",
+      "thesis": "GE Aerospace at new highs with RS confirmed and TradingView agreement (BUY, 14/3/9) \u2014 but RSI 91 is an extreme overbought reading that tempers the enthusiasm.",
+      "strengths": [
+        "RS at new high",
+        "VCP confirmed",
+        "24.7% revenue growth, aerospace demand cycle"
+      ],
+      "risks": [
+        "RSI 91 \u2014 as overbought as anything in the scan",
+        "Expensive at 43.6x forward earnings"
+      ],
+      "watch": [
+        "Do not chase; wait for a pullback"
+      ],
+      "entry": 377.52,
+      "stop": 347.32,
+      "target": 453.02
+    },
+    {
+      "ticker": "JPM",
+      "name": "JP Morgan Chase & Co.",
+      "sector": "Financial Services",
+      "signal": "STRONG BUY",
+      "score": 92.6,
+      "grade": "A",
+      "thesis": "JPMorgan near new highs with TradingView's top rating (STRONG_BUY, 15/1/10) \u2014 the flagship confirmation for the financials leadership group.",
+      "strengths": [
+        "TV Strong Buy",
+        "VCP confirmed",
+        "Sector-leading franchise"
+      ],
+      "risks": [
+        "RSI 68",
+        "Mega-cap size limits upside torque vs. smaller regionals"
+      ],
+      "watch": [
+        "Bank earnings season"
+      ],
+      "entry": 334.47,
+      "stop": 307.71,
+      "target": 401.36
+    },
+    {
+      "ticker": "CAT",
+      "name": "Caterpillar, Inc.",
+      "sector": "Industrials",
+      "signal": "WATCH",
+      "score": 92.1,
+      "grade": "A",
+      "thesis": "Caterpillar is still 9.5% below its 52-week high and TradingView is split down the middle (NEUTRAL, 9 buy/7 sell) \u2014 worth watching for a cleaner setup, not chasing here.",
+      "strengths": [
+        "VCP forming",
+        "22% revenue growth",
+        "Infrastructure/AI-capex tailwind"
+      ],
+      "risks": [
+        "TV neutral \u2014 mixed technical read",
+        "RS not yet at highs",
+        "Expensive at ~32x forward"
+      ],
+      "watch": [
+        "Needs RS to confirm at new highs before upgrading"
+      ],
+      "entry": 963.53,
+      "stop": 886.45,
+      "target": 1156.24
+    },
+    {
+      "ticker": "TSM",
+      "name": "Taiwan Semiconductor Manufactur",
+      "sector": "Technology",
+      "signal": "WATCH",
+      "score": 92.4,
+      "grade": "A",
+      "thesis": "TSM is 9% off its highs with TradingView dead-even (NEUTRAL, 8/8/10) \u2014 hold the position, but this isn't a fresh-money add until the chart tightens further. We already hold this name.",
+      "strengths": [
+        "35% revenue growth",
+        "AI/foundry demand secular tailwind"
+      ],
+      "risks": [
+        "TV split neutral",
+        "Geopolitical/Taiwan risk is an ever-present tail risk"
+      ],
+      "watch": [
+        "Needs to reclaim and hold new highs"
+      ],
+      "entry": 434.16,
+      "stop": 399.43,
+      "target": 520.99
+    },
+    {
+      "ticker": "GLW",
+      "name": "Corning Incorporated",
+      "sector": "Technology",
+      "signal": "WATCH",
+      "score": 92.4,
+      "grade": "A",
+      "thesis": "Corning is still 23% below its high despite a strong VCP \u2014 TradingView's neutral read (8/8/10) reflects the market's own indecision; a basing name, not a breakout yet. We already hold this name.",
+      "strengths": [
+        "VCP forming",
+        "AI-datacenter optical demand"
+      ],
+      "risks": [
+        "TV neutral",
+        "Most extended-from-high name on this list"
+      ],
+      "watch": [
+        "Needs a confirmed RS new high before upgrading to Strong Buy"
+      ],
+      "entry": 196.79,
+      "stop": 181.05,
+      "target": 236.15
+    },
+    {
+      "ticker": "RL",
+      "name": "Ralph Lauren Corporation",
+      "sector": "Consumer Cyclical",
+      "signal": "WATCH",
+      "score": 93.5,
+      "grade": "A",
+      "thesis": "Ralph Lauren's VCP is intact but it's 3.6% off highs and RS hasn't confirmed yet; TradingView agrees directionally (BUY, 12/4/10) but the setup isn't fully resolved.",
+      "strengths": [
+        "VCP confirmed",
+        "Luxury pricing power",
+        "16.6% revenue growth"
+      ],
+      "risks": [
+        "RS not at high yet",
+        "Discretionary spending is sensitive to consumer health"
+      ],
+      "watch": [
+        "Needs an RS new high to confirm"
+      ],
+      "entry": 398.22,
+      "stop": 366.36,
+      "target": 477.86
+    },
+    {
+      "ticker": "FR",
+      "name": "First Industrial Realty Trust, ",
+      "sector": "Real Estate",
+      "signal": "WATCH",
+      "score": 93.4,
+      "grade": "A",
+      "thesis": "First Industrial Realty is close to highs (-2.3%) with TradingView agreement (BUY, 11/6/9), one tier below the cleanest REIT breakouts (TRNO/PSA) on RS confirmation.",
+      "strengths": [
+        "VCP confirmed",
+        "Industrial logistics demand",
+        "TV buy-tilt"
+      ],
+      "risks": [
+        "RS not confirmed at high yet",
+        "More sell votes (6) than the top-tier REIT picks"
+      ],
+      "watch": [
+        "RS confirmation"
+      ],
+      "entry": 62.4,
+      "stop": 57.41,
+      "target": 74.88
+    },
+    {
+      "ticker": "KO",
+      "name": "Coca-Cola Company (The)",
+      "sector": "Consumer Defensive",
+      "signal": "WATCH",
+      "score": 90.8,
+      "grade": "A-",
+      "thesis": "Coca-Cola is at highs with a clean VCP but has no TradingView coverage this run to cross-check \u2014 treat as a steady, lower-beta defensive add rather than a breakout trade.",
+      "strengths": [
+        "VCP confirmed",
+        "At highs",
+        "Defensive stability, 12% revenue growth"
+      ],
+      "risks": [
+        "RS not confirmed at high",
+        "Low beta means limited upside torque"
+      ],
+      "watch": [
+        "RS confirmation"
+      ],
+      "entry": 84.14,
+      "stop": 77.41,
+      "target": 100.97
+    },
+    {
+      "ticker": "IAC",
+      "name": "IAC Inc.",
+      "sector": "Communication Services",
+      "signal": "WATCH",
+      "score": 92.6,
+      "grade": "A",
+      "thesis": "IAC is technically at highs with a VCP, but revenue is actually contracting (-12.2% YoY) \u2014 the chart looks better than the fundamentals here, so size small.",
+      "strengths": [
+        "VCP confirmed",
+        "At highs",
+        "Cheap 16x forward P/E"
+      ],
+      "risks": [
+        "Revenue contracting -12.2% YoY \u2014 a real fundamental red flag despite the clean chart",
+        "No TV coverage this run"
+      ],
+      "watch": [
+        "Needs revenue growth to stabilize before treating this as more than a technical trade"
+      ],
+      "entry": 46.75,
+      "stop": 43.01,
+      "target": 56.1
+    },
+    {
+      "ticker": "LIN",
+      "name": "Linde plc",
+      "sector": "Basic Materials",
+      "signal": "WATCH",
+      "score": 90.2,
+      "grade": "A-",
+      "thesis": "Linde is at highs with a clean VCP, rounding out sector diversification into industrial gases; no TradingView coverage this run.",
+      "strengths": [
+        "VCP confirmed",
+        "At highs",
+        "Steady 8% revenue growth, defensive industrial-gas moat"
+      ],
+      "risks": [
+        "RS not confirmed at high",
+        "RSI 68 \u2014 some near-term extension"
+      ],
+      "watch": [
+        "RS confirmation"
+      ],
+      "entry": 546.64,
+      "stop": 502.91,
+      "target": 655.97
+    },
+    {
+      "ticker": "LNG",
+      "name": "Cheniere Energy, Inc.",
+      "sector": "Energy",
+      "signal": "WATCH",
+      "score": 90.1,
+      "grade": "A-",
+      "thesis": "Cheniere Energy is still 17% below its high \u2014 the best setup in the energy sector this scan produced, but it needs to close the gap to the highs before it's a Strong Buy; no TV coverage this run.",
+      "strengths": [
+        "VCP confirmed",
+        "24% revenue growth",
+        "Cheap 12.6x forward P/E",
+        "LNG export demand tailwind amid Middle East supply-risk headlines"
+      ],
+      "risks": [
+        "Most extended-from-high name in the energy sleeve",
+        "Energy is the most macro-news-sensitive sector right now"
+      ],
+      "watch": [
+        "Oil/LNG price action amid ongoing Middle East supply disruption"
+      ],
+      "entry": 245.97,
+      "stop": 226.29,
+      "target": 295.16
+    }
+  ]
+}
