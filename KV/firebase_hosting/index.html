@@ -1221,9 +1221,9 @@ body.sidebar-open .nav-scrim{display:block;}
     <div class="auth-logo"><span class="spark" id="authSpark"></span> Sparks Finance</div>
     <div class="auth-sub">AI-powered stock intelligence &amp; portfolio tracking</div>
     <div class="auth-tabs">
-      <button type="button" class="auth-tab active" data-panel="signin" onclick="showPanel('signin')">Sign In</button>
-      <button type="button" class="auth-tab" data-panel="signup" onclick="showPanel('signup')">Create Account</button>
-      <button type="button" class="auth-tab" data-panel="reset" onclick="showPanel('reset')">Reset Password</button>
+      <button type="button" class="auth-tab active" data-panel="signin" onclick="showPanel('signin')">Sign in</button>
+      <button type="button" class="auth-tab" data-panel="signup" onclick="showPanel('signup')">Create account</button>
+      <button type="button" class="auth-tab" data-panel="reset" onclick="showPanel('reset')">Reset password</button>
     </div>
     <div id="googleAuthBlock">
       <button type="button" class="google-btn" onclick="signInWithGoogle()"><span class="g-ico"><svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span> Continue with Google</button>
@@ -1235,7 +1235,7 @@ body.sidebar-open .nav-scrim{display:block;}
       <label>Password</label>
       <div class="pw-wrap"><input type="password" id="siPass" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doSignIn()"/><button type="button" class="pw-toggle" onclick="togglePw('siPass',this)" aria-label="Show password">Show</button></div>
       <label class="auth-check"><input type="checkbox" id="siRemember" checked/> <span>Keep me signed in</span></label>
-      <button type="button" class="auth-btn" id="siBtn" onclick="doSignIn()">Sign In</button>
+      <button type="button" class="auth-btn" id="siBtn" onclick="doSignIn()">Sign in</button>
       <div class="auth-row"><a class="auth-link" onclick="showPanel('reset')">Forgot password?</a></div>
       <div class="auth-err" id="siErr"></div>
     </div>
@@ -1247,7 +1247,7 @@ body.sidebar-open .nav-scrim{display:block;}
       <div class="auth-strength"><span id="suStrengthBar"></span></div>
       <label>Confirm password</label>
       <div class="pw-wrap"><input type="password" id="suPass2" placeholder="Re-enter password" autocomplete="new-password" onkeydown="if(event.key==='Enter')doSignUp()"/><button type="button" class="pw-toggle" onclick="togglePw('suPass2',this)" aria-label="Show password">Show</button></div>
-      <button type="button" class="auth-btn" id="suBtn" onclick="doSignUp()">Create Account</button>
+      <button type="button" class="auth-btn" id="suBtn" onclick="doSignUp()">Create account</button>
       <div class="auth-sub" style="margin-top:8px">After creating your account you'll set up or join an organization.</div>
       <div class="auth-err" id="suErr"></div>
     </div>
@@ -1259,7 +1259,7 @@ body.sidebar-open .nav-scrim{display:block;}
         <label>Verification code</label>
         <div class="cap-row"><canvas id="capCanvas" class="cap-canvas" width="150" height="46" aria-hidden="true"></canvas><button type="button" class="cap-refresh" onclick="drawCaptcha()" title="New characters" aria-label="New characters">↻</button></div>
         <input id="capInput" placeholder="Type the characters above" autocomplete="off" autocapitalize="characters" spellcheck="false" onkeydown="if(event.key==='Enter')sendResetCode()"/>
-        <button type="button" class="auth-btn" id="rstBtn" onclick="sendResetCode()">Send Code</button>
+        <button type="button" class="auth-btn" id="rstBtn" onclick="sendResetCode()">Send code</button>
         <div class="auth-row"><a class="auth-link" onclick="sendResetLink()">Email me a reset link instead</a></div>
         <div class="auth-row"><a class="auth-link" onclick="showPanel('signin')">← Back to Sign In</a></div>
         <div class="auth-err" id="rstErr"></div>
@@ -1276,7 +1276,7 @@ body.sidebar-open .nav-scrim{display:block;}
         </div>
         <label>New password</label>
         <div class="pw-wrap"><input type="password" id="rstNewPass" placeholder="At least 6 characters" autocomplete="new-password" onkeydown="if(event.key==='Enter')verifyResetCode()"/><button type="button" class="pw-toggle" onclick="togglePw('rstNewPass',this)" aria-label="Show password">Show</button></div>
-        <button type="button" class="auth-btn" id="rstVerifyBtn" onclick="verifyResetCode()">Reset Password</button>
+        <button type="button" class="auth-btn" id="rstVerifyBtn" onclick="verifyResetCode()">Reset password</button>
         <div class="auth-row"><a class="auth-link" onclick="resendResetCode()">Resend code</a> · <a class="auth-link" onclick="resetBackToEmail()">change email</a></div>
         <div class="auth-err" id="rst2Err"></div>
       </div>
@@ -1357,7 +1357,7 @@ body.sidebar-open .nav-scrim{display:block;}
           <div id="homeDashboard"></div>
         </div>
         <div id="tab-cards" class="tab-panel">
-          <div class="page-title">Top Picks</div>
+          <div class="page-title">Top picks</div>
           <div class="pf-picks-sub" id="picksSub" title="Top Picks are generated by the scan engine and refresh automatically whenever a new scan is published.">Refreshes automatically with each new scan.</div>
           <div class="sum-bar">
             <div class="scard sg"><div class="snum" id="cSB">—</div><div class="slbl">Strong Buy</div></div>
@@ -1383,7 +1383,7 @@ body.sidebar-open .nav-scrim{display:block;}
               <button class="pf-btn pf-btn-outline" title="Edit this portfolio's name & description" onclick="openModal('editPf')">Edit</button>
               <button class="pf-btn pf-btn-danger" title="Delete this portfolio and all its holdings & transactions" onclick="deletePortfolio(currentPfId)">Delete</button>
               <input id="newPfName" class="pf-select" style="flex:1 1 180px;min-width:140px;" placeholder="Name a new portfolio (e.g. Long-term)…" title="Create a separate portfolio to group holdings (e.g. Long-term, Swing trades, Retirement)" onkeydown="if(event.key==='Enter')addPortfolioInline()" autocomplete="off"/>
-              <button class="pf-btn pf-btn-primary" onclick="addPortfolioInline()"><span class="i-plus"></span> Add Portfolio</button>
+              <button class="pf-btn pf-btn-primary" onclick="addPortfolioInline()"><span class="i-plus"></span> Add portfolio</button>
             </div>
             <div class="cc-seg" id="pfViewSeg" style="margin:4px 2px 10px;"></div>
             <div id="pfHoldingsWrap">
@@ -1418,14 +1418,14 @@ body.sidebar-open .nav-scrim{display:block;}
             <select id="wlSelect" class="pf-select" onchange="switchWL(this.value)"></select>
             <button class="pf-btn pf-btn-outline" title="Rename this watchlist" onclick="openModal('renameWL')">Rename</button>
             <button class="pf-btn pf-btn-outline" onclick="openBulkAdd('wl')"><span class="i-plus"></span> Bulk add</button>
-            <button class="pf-btn pf-btn-outline" onclick="openModal('newWL')"><span class="i-plus"></span> New Watchlist</button>
+            <button class="pf-btn pf-btn-outline" onclick="openModal('newWL')"><span class="i-plus"></span> New watchlist</button>
           </div>
           <div id="wlBody"></div>
         </div>
         <div id="tab-useralerts" class="tab-panel">
           <div class="page-title">Alerts</div>
           <div class="pf-toolbar">
-            <button class="pf-btn pf-btn-primary" onclick="openModal('newAlert')"><span class="i-plus"></span> New Alert</button>
+            <button class="pf-btn pf-btn-primary" onclick="openModal('newAlert')"><span class="i-plus"></span> New alert</button>
           </div>
           <div id="userAlertsBody"></div>
         </div>
@@ -1459,9 +1459,9 @@ body.sidebar-open .nav-scrim{display:block;}
         </div>
         <div id="tab-discovery" class="tab-panel"><div class="page-title">Discovery</div><div id="discoveryContent"></div></div>
         <div id="tab-earnings" class="tab-panel"><div class="page-title">Earnings</div><div id="earningsContent"></div></div>
-        <div id="tab-health" class="tab-panel"><div class="page-title">Portfolio Health</div><div class="pf-toolbar"><select id="healthPfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div><div id="healthContent"></div></div>
+        <div id="tab-health" class="tab-panel"><div class="page-title">Portfolio health</div><div class="pf-toolbar"><select id="healthPfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div><div id="healthContent"></div></div>
         <div id="tab-catalysts" class="tab-panel"><div class="page-title">Catalysts</div><div id="catalystsContent"></div></div>
-        <div id="tab-loansdash" class="tab-panel"><div class="page-title">Loans &amp; Notes — Dashboard</div><div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Totals, interest and payment reminders for the currently selected company.</div><div id="loansDashBody"></div></div>
+        <div id="tab-loansdash" class="tab-panel"><div class="page-title">Loans &amp; Notes — dashboard</div><div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Totals, interest and payment reminders for the currently selected company.</div><div id="loansDashBody"></div></div>
         <div id="tab-members" class="tab-panel">
           <div class="page-title">Members</div>
           <div class="pf-toolbar">
@@ -1471,16 +1471,16 @@ body.sidebar-open .nav-scrim{display:block;}
           <div id="membersBody"></div>
         </div>
         <div id="tab-orgsettings" class="tab-panel">
-          <div class="page-title">Organization Settings</div>
+          <div class="page-title">Organization settings</div>
           <div id="orgSettingsBody"></div>
         </div>
         <div id="tab-orgdash" class="tab-panel">
-          <div class="page-title">Organization Dashboard</div>
+          <div class="page-title">Organization dashboard</div>
           <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Consolidated view across every company in this organization. Visible to Org Admins & Super Admins.</div>
           <div id="orgDashBody"></div>
         </div>
         <div id="tab-platform" class="tab-panel">
-          <div class="page-title">All Organizations</div>
+          <div class="page-title">All organizations</div>
           <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Platform super-admin view — every access to an org's details is logged.</div>
           <div id="platformBody"></div>
         </div>
@@ -1501,7 +1501,7 @@ body.sidebar-open .nav-scrim{display:block;}
           <div class="page-title">Notifications</div>
           <div class="pf-toolbar">
             <button class="pf-btn pf-btn-primary" id="enablePushBtn" onclick="registerForPush(true)"><span class="i-bell"></span> Enable notifications</button>
-            <button class="pf-btn pf-btn-outline" id="installBtn" style="display:none" onclick="promptInstall()"><span class="i-spark"></span> Add to Home</button>
+            <button class="pf-btn pf-btn-outline" id="installBtn" style="display:none" onclick="promptInstall()"><span class="i-spark"></span> Add to home</button>
             <span id="pushStatus" style="font-size:12px;color:var(--text-3);align-self:center;"></span>
             <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);cursor:pointer;margin-left:auto;"><input type="checkbox" id="notifUnreadOnly" onchange="toggleNotifUnreadOnly(this.checked)"> Show unread only</label>
             <button class="pf-btn pf-btn-outline" onclick="markAllNotifsRead()">✉ Mark all as read</button>
@@ -1522,7 +1522,7 @@ body.sidebar-open .nav-scrim{display:block;}
         <div id="tab-market" class="tab-panel">
           <div class="page-title">News</div>
           <div class="news-top">
-            <div class="cc-seg" id="newsSeg"><button data-v="market" class="active" onclick="setNewsView('market')">Market News</button><button data-v="stock" onclick="setNewsView('stock')">Stock News</button></div>
+            <div class="cc-seg" id="newsSeg"><button data-v="market" class="active" onclick="setNewsView('market')">Market news</button><button data-v="stock" onclick="setNewsView('stock')">Stock news</button></div>
             <div class="ac-wrap" style="flex:1;max-width:340px;"><input type="text" id="newsSearchInput" class="modal-input" placeholder="News for a ticker — e.g. AAPL, NVDA" oninput="acFilter(this,'newsAC','news')" onkeydown="acKey(event,'newsAC','news')" autocomplete="off"/><div id="newsAC" class="ac-list" style="display:none"></div></div>
             <button class="pf-btn pf-btn-primary" onclick="newsSearch()">Get news</button>
             <button class="pf-btn pf-btn-outline" id="newsBackBtn" style="display:none" onclick="document.getElementById('newsSearchInput').value='';renderNewsTab()">← Back</button>
@@ -1541,10 +1541,10 @@ body.sidebar-open .nav-scrim{display:block;}
             <input id="scrEps" type="number" placeholder="Min EPS growth %" aria-label="Minimum EPS growth percent" title="Minimum year-over-year EPS growth %." oninput="applyFilter('epsMin', this.value===''?null:+this.value)"/>
             <input id="scrRev" type="number" placeholder="Min revenue growth %" aria-label="Minimum revenue growth percent" title="Minimum year-over-year revenue growth %." oninput="applyFilter('revMin', this.value===''?null:+this.value)"/>
             <input id="scrPe" type="number" placeholder="Max forward P/E" aria-label="Maximum forward P/E" title="Maximum forward P/E (lower = cheaper valuation)." oninput="applyFilter('peMax', this.value===''?null:+this.value)"/>
-            <button id="chipNearHigh" class="scr-chip" title="Stocks trading within ~10% of their 52-week high" onclick="toggleChip(this,'nearHigh')">Near 52w High</button>
+            <button id="chipNearHigh" class="scr-chip" title="Stocks trading within ~10% of their 52-week high" onclick="toggleChip(this,'nearHigh')">Near 52w high</button>
             <button id="chipCatalyst" class="scr-chip" title="Stocks with a recent news catalyst or breaking story" onclick="toggleChip(this,'hasCatalyst')">Catalyst</button>
             <button id="chipSqueeze" class="scr-chip" title="Volatility-squeeze setups (a tight range that may expand soon)" onclick="toggleChip(this,'squeeze')">Squeeze</button>
-            <button id="chipAi" class="scr-chip" title="Companies with meaningful AI exposure" onclick="toggleChip(this,'aiExposure')">AI Exposure</button>
+            <button id="chipAi" class="scr-chip" title="Companies with meaningful AI exposure" onclick="toggleChip(this,'aiExposure')">AI exposure</button>
             <span class="scr-divider"></span>
             <div class="scr-presets">
               <button class="pf-btn pf-btn-outline" title="High EPS &amp; revenue growth" onclick="applyPreset('growth')">Growth</button>
@@ -1576,7 +1576,7 @@ body.sidebar-open .nav-scrim{display:block;}
             <th class="xcol xcol-rev" onclick="st('rev_growth')" title="Year-over-year revenue growth">Rev%</th>
             <th class="xcol xcol-pe" onclick="st('fwd_pe')" title="Forward price-to-earnings ratio">P/E</th>
             <th class="xcol xcol-analyst" onclick="st('analyst_rating')" title="Wall Street analyst consensus rating">Analyst</th>
-            <th class="xcol xcol-mcap" onclick="st('market_cap_b')" title="Market capitalization">Mkt Cap</th>
+            <th class="xcol xcol-mcap" onclick="st('market_cap_b')" title="Market capitalization">Mkt cap</th>
             <th class="xcol xcol-sector" onclick="st('sector')">Sector</th>
             <th class="xcol-sm" onclick="st('days_to_earnings')" title="Days until the next earnings report">Earn</th>
             <th onclick="st('pct_from_high')" title="Percent below the 52-week high (closer to 0 = nearer its high)">vsHi%</th><th onclick="st('rr_ratio')" title="Risk-to-reward ratio of the setup (2.5:1 = 2.5× upside vs downside)">R:R</th>
@@ -1585,7 +1585,7 @@ body.sidebar-open .nav-scrim{display:block;}
         </div>
         <!-- Charts tab retired — its graphs moved to Research (Factor radar), Portfolio (analytics panel) and Explore (market analytics). Block kept commented for easy restore.
         <div id="tab-chart" class="tab-panel">
-          <div class="page-title">Charts &amp; Analysis</div>
+          <div class="page-title">Charts &amp; analysis</div>
           <div class="chart-controls">
             <div class="cc-row">
               <div class="cc-ticker">
@@ -1738,20 +1738,20 @@ const NAV = [
   { tab: 'assistant', label: 'AI Assistant', icon: 'sparkles' },
   { cat: 'Trading' },
   { sec: 'Discover' },
-  { tab: 'cards', label: 'Top Picks', icon: 'spark' },
+  { tab: 'cards', label: 'Top picks', icon: 'spark' },
   { tab: 'explore', label: 'Explore', icon: 'compass' },
   // { tab: 'summary', label: 'AI Summary', icon: 'sparkles' },   // hidden for now
   { tab: 'research', label: 'Research', icon: 'flask' },
   { tab: 'recommend', label: 'Recommendations', icon: 'target' },
   // { tab: 'discovery', label: 'Discovery', icon: 'compass' },   // hidden for now
   { tab: 'table', label: 'Screener', icon: 'table' },
-  { sec: 'My Lists' },
+  { sec: 'My lists' },
   { tab: 'portfolio', label: 'Portfolio', icon: 'briefcase' },
   { tab: 'watchlist', label: 'Watchlist', icon: 'eye' },
   { tab: 'useralerts', label: 'Alerts', icon: 'bell' },
   // { tab: 'health', label: 'Health', icon: 'activity' },   // hidden for now
   { sec: 'Markets' },
-  { tab: 'market', label: 'Market News', icon: 'newspaper' },
+  { tab: 'market', label: 'Market news', icon: 'newspaper' },
   { tab: 'earnings', label: 'Earnings', icon: 'calendar' },
   { tab: 'premarket', label: 'Notifications', icon: 'bell' },
   // { tab: 'catalysts', label: 'Catalysts', icon: 'spark' },   // hidden for now
@@ -1760,21 +1760,21 @@ const NAV = [
   { sec: 'Manage' },
   { tab: 'loansdash', label: 'Dashboard', icon: 'data' },
   { tab: 'loans', label: 'Loans & Notes', icon: 'file' },
-  { cat: 'More Modules' },
+  { cat: 'More modules' },
   { sec: 'Coming soon' },
-  { tab: 'm_ap', label: 'Accounts Payable', icon: 'file' },
-  { tab: 'm_ar', label: 'Accounts Receivable', icon: 'file' },
+  { tab: 'm_ap', label: 'Accounts payable', icon: 'file' },
+  { tab: 'm_ar', label: 'Accounts receivable', icon: 'file' },
   { tab: 'm_invoices', label: 'Invoices', icon: 'file' },
   { tab: 'm_banking', label: 'Banking', icon: 'data' },
-  { tab: 'm_cash', label: 'Cash Management', icon: 'data' },
+  { tab: 'm_cash', label: 'Cash management', icon: 'data' },
   { cat: 'Organization' },
   { sec: 'Manage' },
-  { tab: 'orgdash', label: 'Org Dashboard', icon: 'data' },
+  { tab: 'orgdash', label: 'Org dashboard', icon: 'data' },
   { tab: 'members', label: 'Members', icon: 'users' },
   { tab: 'orgsettings', label: 'Settings', icon: 'briefcase' },
   { cat: 'Platform' },
   { sec: 'Super-admin' },
-  { tab: 'platform', label: 'All Organizations', icon: 'data' }
+  { tab: 'platform', label: 'All organizations', icon: 'data' }
 ];
 // Collapsible categories: each { cat } becomes a .nav-group whose header toggles it. Absent/false in
 // _navExpanded = collapsed, so it's empty on load ⇒ every category starts collapsed each login.
@@ -1918,7 +1918,7 @@ async function _adminCall(fn, body) {
   return d;
 }
 function roleBadge(role) { return '<span class="badge ' + (role === 'admin' ? 'badge-red' : 'badge-gray') + '">' + escHtml(role || 'user') + '</span>'; }
-function _permBadge(v) { const m = { delete: ['Delete', 'badge-red'], update: ['Create/Update', 'badge-blue'], read: ['Read', 'badge-green'] }; const b = m[v]; return b ? '<span class="badge ' + b[1] + '">' + b[0] + '</span>' : '<span class="ht-sub">—</span>'; }
+function _permBadge(v) { const m = { delete: ['Full access', 'badge-red'], update: ['View & edit', 'badge-blue'], read: ['View only', 'badge-green'] }; const b = m[v]; return b ? '<span class="badge ' + b[1] + '">' + b[0] + '</span>' : '<span class="ht-sub">—</span>'; }
 function setAdminRoleFilter(v) { _adminRoleFilter = v; renderAdminTable(); }
 async function renderAdmin() {
   if (!isAdminClient()) { sw('home'); return; }
@@ -2113,18 +2113,18 @@ async function renderOrgDashboard() {
 }
 function renderSoon(name) {
   const map = {
-    m_ap:       { label: 'Accounts Payable',    desc: 'Track vendor bills and outgoing payments, schedule due dates, and see exactly what your company owes at a glance.' },
-    m_ar:       { label: 'Accounts Receivable', desc: 'Monitor customer balances, keep on top of what is owed to your company, and stay ahead with built-in aging and reminders.' },
+    m_ap:       { label: 'Accounts payable',    desc: 'Track vendor bills and outgoing payments, schedule due dates, and see exactly what your company owes at a glance.' },
+    m_ar:       { label: 'Accounts receivable', desc: 'Monitor customer balances, keep on top of what is owed to your company, and stay ahead with built-in aging and reminders.' },
     m_invoices: { label: 'Invoices',            desc: 'Create, send, and track professional invoices end to end — from draft to paid — with clear status tracking and downloadable records.' },
     m_banking:  { label: 'Banking',             desc: 'Connect and reconcile your company bank accounts, categorize transactions, and keep every balance in sync with your books.' },
-    m_cash:     { label: 'Cash Management',     desc: 'See your consolidated cash position across accounts, forecast inflows and outflows, and plan liquidity with confidence.' }
+    m_cash:     { label: 'Cash management',     desc: 'See your consolidated cash position across accounts, forecast inflows and outflows, and plan liquidity with confidence.' }
   };
   const m = map[name] || { label: 'Module', desc: 'This module is planned for a future release.' };
   const t = document.getElementById('soonTitle'); if (t) t.textContent = m.label;
   const b = document.getElementById('soonBody'); if (b) b.innerHTML = emptyState('box', m.label + ' is coming soon', m.desc + ' It will be available to every company in this organization once released, with the same role-based access as Trading and Loans & Notes.');
 }
 function _permSelect(id, cur) {
-  const opts = [['none', 'No access'], ['read', 'Read only'], ['update', 'Create / Update'], ['delete', 'Delete (+ Create/Update)']];
+  const opts = [['none', 'No access'], ['read', 'View only'], ['update', 'View & edit'], ['delete', 'Full access (incl. delete)']];
   return '<select id="' + id + '" class="modal-input">' + opts.map(o => '<option value="' + o[0] + '"' + (o[0] === (cur || 'none') ? ' selected' : '') + '>' + o[1] + '</option>').join('') + '</select>';
 }
 function userFormModal(u) {
@@ -5282,8 +5282,8 @@ function _renderHoldingsUI() {
     '<th title="Number of shares you hold (summed across all lots)">Qty</th>' +
     '<th class="ht-sortable' + act('today') + '" onclick="pfSort(\'today\')" title="Gain/loss so far in today\'s session">Today' + ind('today') + '</th>' +
     '<th class="ht-sortable' + act('pct_total') + '" onclick="pfSort(\'pct_total\')" title="Total gain/loss since purchase (% of cost basis)">Total gain' + ind('pct_total') + '</th>' +
-    '<th title="Price return year-to-date on this position ($ and %)">YTD Return</th>' +
-    '<th title="Dividends received year-to-date (since purchase) × shares">YTD Dividend</th>' +
+    '<th title="Price return year-to-date on this position ($ and %)">YTD return</th>' +
+    '<th title="Dividends received year-to-date (since purchase) × shares">YTD dividend</th>' +
     '<th title="Where price sits in its 52-week range, with a buy/sell recommendation — click to open Research">52-week range &amp; rec.</th>' +
     '<th class="ht-sortable' + act('value') + '" onclick="pfSort(\'value\')" title="Current market value of the position">Value' + ind('value') + '</th>' +
     '<th title="Your private notes on this position — saved automatically">Notes</th>' +
@@ -5533,7 +5533,7 @@ function renderWatchlistTab() {
       '</tr>';
   }).join('');
   const table = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
-    '<th class="ht-sym">Ticker</th><th>Company</th><th>Price</th><th>$ Chg</th><th>% Chg</th><th>Sector</th><th title="From market-cap tier (small caps = higher risk)">Risk</th><th>52w High</th><th>52w Low</th><th title="Analyst consensus rating">Analyst</th><th title="TradingView technical rating">TV Rating</th><th>Notes</th><th>Status</th><th>Actions</th>' +
+    '<th class="ht-sym">Ticker</th><th>Company</th><th>Price</th><th>$ Chg</th><th>% Chg</th><th>Sector</th><th title="From market-cap tier (small caps = higher risk)">Risk</th><th>52w high</th><th>52w low</th><th title="Analyst consensus rating">Analyst</th><th title="TradingView technical rating">TV rating</th><th>Notes</th><th>Status</th><th>Actions</th>' +
     '</tr></thead><tbody>' + rows + '</tbody></table></div>';
   el.innerHTML = head + table;
   // Background hydrate prices, 52w ranges, and profiles (sector/market-cap) — then re-render once.
@@ -6281,7 +6281,7 @@ function recListTickers() {
 }
 function renderRecList() {
   const el = document.getElementById('recommendContent'); if (!el) return;
-  const seg = '<div class="cc-seg rec-seg"><button class="' + (_recScope === 'all' ? 'active' : '') + '" onclick="setRecScope(\'all\')">Top Picks</button><button class="' + (_recScope === 'my' ? 'active' : '') + '" onclick="setRecScope(\'my\')">My stocks</button></div>';
+  const seg = '<div class="cc-seg rec-seg"><button class="' + (_recScope === 'all' ? 'active' : '') + '" onclick="setRecScope(\'all\')">Top picks</button><button class="' + (_recScope === 'my' ? 'active' : '') + '" onclick="setRecScope(\'my\')">My stocks</button></div>';
   const tickers = recListTickers();
   if (!tickers.length) {
     const msg = _recScope === 'my'
