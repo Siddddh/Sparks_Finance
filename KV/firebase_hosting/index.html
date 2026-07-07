@@ -835,7 +835,9 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .modal-price-hint{font-size:11px;color:var(--text-3);font-weight:500;}
 .modal-input{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:8px;font-size:14px;outline:none;background:var(--bg);color:var(--text);font-family:inherit;}
 .modal-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
-.modal-footer{display:flex;gap:10px;margin-top:24px;justify-content:flex-end;}
+.modal-footer{display:flex;gap:10px;margin-top:24px;justify-content:flex-end;align-items:center;flex-wrap:wrap;}
+.modal-footer .modal-btn-danger-outline{margin-right:auto;}
+.modal-danger-row{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:flex-start;}
 .modal-btn{padding:9px 20px;border-radius:24px;font-size:14px;font-weight:500;border:none;cursor:pointer;font-family:inherit;}
 .modal-btn-primary{background:var(--blue);color:#fff;}[data-theme="dark"] .modal-btn-primary{color:#202124;}.modal-btn-primary:hover{background:var(--blue-hover);}
 .modal-btn-cancel{background:none;color:var(--blue);}.modal-btn-cancel:hover{background:var(--blue-soft);}
@@ -1505,6 +1507,15 @@ body.sidebar-open .nav-scrim{display:block;}
             <button class="pf-btn pf-btn-outline" onclick="markAllNotifsRead()">✉ Mark all as read</button>
           </div>
           <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Your alerts, digests, breaking news, plus live updates for your holdings, the market &amp; Explore — all in one place.</div>
+          <div id="emailPrefsRow" class="pf-filter-note" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-bottom:12px;">
+            <span style="font-weight:600;color:var(--text-2);">📧 Email me:</span>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);cursor:pointer;"><input type="checkbox" data-epref="premarket" onchange="saveEmailPrefs()"> Pre-market brief</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);cursor:pointer;"><input type="checkbox" data-epref="loans" onchange="saveEmailPrefs()"> Loan reminders</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);cursor:pointer;"><input type="checkbox" data-epref="news" onchange="saveEmailPrefs()"> Market news</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);cursor:pointer;"><input type="checkbox" data-epref="topPicks" onchange="saveEmailPrefs()"> Top picks</label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);cursor:pointer;"><input type="checkbox" data-epref="breaking" onchange="saveEmailPrefs()"> Breaking news</label>
+            <span style="color:var(--text-3);font-size:12px;flex-basis:100%;">Account &amp; security emails are always sent, to your account address.</span>
+          </div>
           <div class="screen-bar" id="notifFilters" style="margin-bottom:12px;"></div>
           <div id="premarketBody"></div>
         </div>
@@ -3019,6 +3030,7 @@ function enterApp(user) {
   subscribeUserDoc();             // keep _myOrgs fresh for the switcher
   registerForPush(false);
   asstSyncFromCloud();
+  try { setTimeout(showNotifBanner, 3000); } catch (e) {}
   setTimeout(() => tourWelcome(), 1800);
 }
 let _userDocUnsub = null;
@@ -3103,14 +3115,40 @@ function _hubInviteCard(iv) {
     '<div class="hub-card-foot"><span class="hub-date">from ' + escHtml(iv.invitedByEmail || '') + '</span><button type="button" class="modal-btn modal-btn-primary" style="padding:6px 16px" onclick="acceptInviteBtn(\'' + iv.inviteId + '\')">Join</button></div></div>';
 }
 function _hubPersonalCta() { return '<button type="button" class="hub-card hub-card-cta" onclick="enterPersonal()"><div class="hub-card-top"><span class="hub-logo" style="background:var(--green)">' + ic('briefcase', 20) + '</span><div class="hub-card-h"><div class="hub-card-name">Personal workspace</div><div class="hub-card-sub">Just you — Trading + Loans & Notes</div></div></div><div class="hub-modules">' + _hubModuleBadges() + '</div></button>'; }
-// A super-admin oversight card for someone else's personal workspace — enters it directly (no company drill-down).
+// A super-admin oversight card for someone else's personal workspace — enters it directly (no company
+// drill-down), plus a Manage action (grant/revoke modules, remove workspace) for super-admins.
 function _hubPersonalOrgCard(o) {
   const disabled = !o.companyId;
   const open = disabled ? '' : ' onclick="enterWorkspace(\'' + o.orgId + '\',\'' + o.companyId + '\')" onkeydown="if(event.key===\'Enter\')enterWorkspace(\'' + o.orgId + '\',\'' + o.companyId + '\')"';
+  const manage = o.companyId ? '<div class="hub-card-actions"><button type="button" class="hub-mini-btn" onclick="event.stopPropagation();managePersonalWorkspace(\'' + o.orgId + '\',\'' + o.companyId + '\')" title="Manage module access or remove this workspace">Manage</button></div>' : '';
   return '<div class="hub-card' + (disabled ? ' hub-card-inactive' : '') + '" role="button" tabindex="0"' + open + '>' +
     '<div class="hub-card-top"><span class="hub-logo" style="background:' + _hubColor(o.name) + '">' + escHtml(_avatarInitial(o.ownerEmail || o.name)) + '</span>' +
     '<div class="hub-card-h"><div class="hub-card-name">' + escHtml(o.ownerEmail || o.name) + '</div><div class="hub-card-sub">Personal workspace</div></div>' +
-    '<span class="badge badge-blue">personal</span></div></div>';
+    '<span class="badge badge-blue">personal</span></div>' + manage + '</div>';
+}
+// Super-admin: manage a personal workspace (module access via companyUpdateMember, remove via updateOrganization).
+let _mpOrg = null, _mpCompany = null, _mpMember = null;
+async function managePersonalWorkspace(orgId, companyId) {
+  _mpOrg = orgId; _mpCompany = companyId; _mpMember = null;
+  try {
+    const d = await _adminCall('companyListMembers', { orgId, companyId });
+    const members = d.members || [];
+    _mpMember = members.find(m => m.role === 'admin') || members[0] || null;   // the owner is the sole member
+  } catch (e) { try { pmToast('Could not load workspace: ' + (e.message || e)); } catch (_) {} return; }
+  openModal('managePersonal');
+}
+async function saveManagePersonal() {
+  if (!_mpMember || !_mpMember.uid) return;
+  const perms = {}; MODULES.forEach(mo => { const el = document.getElementById('mp_' + mo.id); if (el) perms[mo.id] = el.value; });
+  const btn = document.getElementById('mpSaveBtn'); authBusy(btn, true, 'Saving…');
+  try { await _adminCall('companyUpdateMember', { orgId: _mpOrg, companyId: _mpCompany, uid: _mpMember.uid, perms }); closeModal(); try { pmToast('Access updated — the owner has been emailed.'); } catch (e) {} await renderHub(auth.currentUser); }
+  catch (e) { authBusy(btn, false); try { pmToast('Could not update access: ' + (e.message || e)); } catch (_) {} }
+}
+async function removePersonalWorkspace() {
+  const who = (_mpMember && _mpMember.email) || 'this user';
+  if (!confirm('Remove ' + who + '’s personal workspace? Their data is retained but no longer accessible, and they will be emailed.')) return;
+  try { await _adminCall('updateOrganization', { orgId: _mpOrg, delete: true }); closeModal(); try { pmToast('Workspace removed — the owner has been emailed.'); } catch (e) {} await renderHub(auth.currentUser); }
+  catch (e) { try { pmToast('Could not remove workspace: ' + (e.message || e)); } catch (_) {} }
 }
 function _hubRenderOrgCards() {
   const grid = document.getElementById('hubGrid'); if (!grid) return;
@@ -5788,8 +5826,24 @@ function markAllNotifsRead() {
 }
 function setNotifFilter(k) { notifFilter = k; renderNotifications(); }
 function toggleNotifUnreadOnly(c) { _notifUnreadOnly = !!c; renderNotifications(); }
+// Per-user email preferences (users/{uid}.emailPrefs). Default ON; 'account'/security mail always sends.
+async function loadEmailPrefs() {
+  if (!UID) return;
+  let prefs = {};
+  try { const d = await db.collection('users').doc(UID).get(); prefs = (d.exists && d.data().emailPrefs) || {}; } catch (e) {}
+  document.querySelectorAll('#emailPrefsRow input[data-epref]').forEach(el => { el.checked = prefs[el.getAttribute('data-epref')] !== false; });
+}
+function saveEmailPrefs() {
+  if (!UID) return;
+  const prefs = {};
+  document.querySelectorAll('#emailPrefsRow input[data-epref]').forEach(el => { prefs[el.getAttribute('data-epref')] = el.checked; });
+  db.collection('users').doc(UID).set({ emailPrefs: prefs }, { merge: true })
+    .then(() => { try { pmToast('Email preferences saved'); } catch (e) {} })
+    .catch(() => { try { pmToast('Could not save email preferences'); } catch (_) {} });
+}
 function renderNotifications() {
   const el = document.getElementById('premarketBody'); if (!el) return;
+  loadEmailPrefs();
   const btn = document.getElementById('enablePushBtn');
   if (btn && messaging && typeof Notification !== 'undefined' && Notification.permission === 'granted') { btn.disabled = true; btn.style.opacity = '.6'; pushStatusMsg('Notifications on ✓'); }
   refreshDerivedNotifs();
@@ -6810,9 +6864,18 @@ function openModal(type) {
     box.innerHTML = '<div class="modal-title">Manage organization</div>' +
       '<label class="modal-label">Organization name</label><input id="eoName" class="modal-input" placeholder="e.g. Sparks Group" onkeydown="if(event.key===\'Enter\')saveOrgBtn()"/>' +
       '<label class="modal-label">Industry / type <span class="modal-price-hint">optional</span></label><input id="eoIndustry" class="modal-input" placeholder="e.g. Real Estate"/>' +
-      '<div class="modal-footer" style="justify-content:space-between"><button class="modal-btn modal-btn-danger-outline" onclick="deleteOrgBtn()">Delete organization</button>' +
-      '<span><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" id="eoSaveBtn" onclick="saveOrgBtn()">Save changes</button></span></div>';
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" id="eoSaveBtn" onclick="saveOrgBtn()">Save changes</button></div>' +
+      '<div class="modal-danger-row"><button class="modal-btn modal-btn-danger-outline" onclick="deleteOrgBtn()">Delete organization</button></div>';
     setTimeout(() => { fillEditOrg(); const i = document.getElementById('eoName'); if (i) i.focus(); }, 0);
+  } else if (type === 'managePersonal') {
+    const m = _mpMember || {}; const perms = m.perms || {};
+    const rows = MODULES.map(mo => '<label class="modal-label">' + escHtml(mo.label) + ' access</label>' + _permSelect('mp_' + mo.id, perms[mo.id])).join('');
+    box.innerHTML = '<div class="modal-title">Manage personal workspace</div>' +
+      '<div class="modal-price-hint" style="margin-bottom:10px">' + escHtml(m.email || 'Owner') + ' — choose which modules this user can access. Saving emails the owner about the change.</div>' +
+      (m.uid ? rows : '<div class="pf-filter-note">This workspace has no owner member to manage.</div>') +
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>' +
+      (m.uid ? '<button class="modal-btn modal-btn-primary" id="mpSaveBtn" onclick="saveManagePersonal()">Save access</button>' : '') + '</div>' +
+      '<div class="modal-danger-row"><button class="modal-btn modal-btn-danger-outline" onclick="removePersonalWorkspace()">Remove workspace</button></div>';
   } else if (type === 'inviteMember' || type === 'editMember') {
     box.innerHTML = memberFormModal(type === 'editMember' ? 'edit' : 'invite');
     setTimeout(() => { const i = document.getElementById(type === 'editMember' ? 'mRole' : 'mEmail'); if (i) i.focus(); }, 0);
@@ -7055,6 +7118,28 @@ function showInstallBanner() {
   document.getElementById('bannerInstall').onclick = promptInstall;
   document.getElementById('bannerDismiss').onclick = () => { lsSet('sparks-install-dismissed', '1'); bar.remove(); };
 }
+
+// Persistent (per-session) prompt to turn on browser push. Browser push REQUIRES Notification permission
+// (Web Push standard) — it can't be bypassed — but in-app notifications + email digests work without it.
+// Shows when logged in, push is supported, and permission isn't granted; reappears next session if dismissed.
+function showNotifBanner() {
+  if (!UID || !messaging || typeof Notification === 'undefined') return;
+  const existing = document.getElementById('notifBanner');
+  if (Notification.permission === 'granted') { if (existing) existing.remove(); return; }
+  if (existing) return;
+  try { if (sessionStorage.getItem('sparks-notif-dismissed') === '1') return; } catch (e) {}
+  const above = document.getElementById('installBanner') ? 56 : 0;
+  const bar = document.createElement('div');
+  bar.id = 'notifBanner';
+  bar.style.cssText = 'position:fixed;left:0;right:0;bottom:' + above + 'px;z-index:9997;background:var(--surface-2,#1f2430);color:var(--text,#fff);border-top:1px solid var(--border,#333);display:flex;align-items:center;gap:12px;padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom));font-size:13px;box-shadow:0 -4px 20px rgba(0,0,0,.18);';
+  bar.innerHTML = '<span style="flex:1;">🔔 Turn on notifications for market alerts &amp; reminders. In-app alerts and email still work without this.</span>' +
+    '<button id="notifBannerEnable" style="background:var(--blue,#1a73e8);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-weight:600;cursor:pointer;">Enable</button>' +
+    '<button id="notifBannerDismiss" style="background:transparent;color:var(--text-2,#aaa);border:none;cursor:pointer;font-size:18px;line-height:1;padding:4px;" title="Not now">×</button>';
+  document.body.appendChild(bar);
+  document.getElementById('notifBannerEnable').onclick = async () => { try { await registerForPush(true); } catch (e) {} if (Notification.permission === 'granted') bar.remove(); };
+  document.getElementById('notifBannerDismiss').onclick = () => { try { sessionStorage.setItem('sparks-notif-dismissed', '1'); } catch (e) {} bar.remove(); };
+}
+window.addEventListener('focus', () => { try { showNotifBanner(); } catch (e) {} });
 
 function promptInstall() {
   if (isIOS()) { showIOSInstructions(); return; }
