@@ -121,6 +121,65 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px;border:1px solid var(--border);border-radius:24px;background:var(--bg);color:var(--text);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s,box-shadow .15s,border-color .15s;}
 .google-btn:hover{background:var(--surface-hover);box-shadow:var(--shadow);}
 .google-btn .g-ico{display:inline-flex;}
+.org-switcher{max-width:180px;padding:7px 10px;border:1px solid var(--border);border-radius:20px;font-size:13px;font-weight:500;background:var(--surface-2);color:var(--text);cursor:pointer;font-family:inherit;}
+@media(max-width:768px){.org-switcher{max-width:130px;font-size:16px;}}
+.ob-invite{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--border);}
+/* Workspace hub (post-login org picker) */
+#orgHub{position:fixed;inset:0;background:var(--bg);z-index:8000;display:flex;flex-direction:column;overflow-y:auto;}
+#orgHub.hidden{display:none;}
+.hub-header{display:flex;align-items:center;justify-content:space-between;padding:0 22px;min-height:var(--nav-h);border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:2;}
+.hub-header-right{display:flex;align-items:center;gap:12px;}
+.hub-body{max-width:1080px;width:100%;margin:0 auto;padding:34px 22px 60px;}
+.hub-title{font-family:'Google Sans','Roboto',sans-serif;font-size:30px;font-weight:700;color:var(--text);letter-spacing:-.5px;}
+.hub-sub{font-size:14px;color:var(--text-2);margin-top:4px;}
+.hub-controls{display:flex;gap:12px;align-items:center;margin:22px 0 18px;flex-wrap:wrap;}
+.hub-search{flex:1 1 280px;min-width:200px;display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:0 12px;color:var(--text-3);transition:border-color .15s,box-shadow .15s;}
+.hub-search input{flex:1;border:none;background:none;outline:none;color:var(--text);font-size:14px;font-family:inherit;padding:11px 0;}
+.hub-search:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
+.hub-sort{padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-2);color:var(--text);font-size:13px;font-family:inherit;cursor:pointer;}
+.hub-view button{display:inline-flex;align-items:center;}
+.hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+.hub-grid.hub-list{grid-template-columns:1fr;}
+.hub-card{text-align:left;background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:14px;cursor:pointer;font-family:inherit;color:var(--text);transition:border-color .15s,box-shadow .15s,transform .1s;}
+.hub-card:hover{border-color:var(--blue);box-shadow:var(--shadow-lg);}
+.hub-card:active{transform:translateY(1px);}
+.hub-card-top{display:flex;align-items:center;gap:12px;}
+.hub-logo{width:46px;height:46px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px;flex-shrink:0;}
+[data-theme="dark"] .hub-logo{color:#202124;}
+.hub-card-h{flex:1;min-width:0;}
+.hub-card-name{font-size:16px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hub-card-sub{font-size:12px;color:var(--text-3);margin-top:2px;}
+.hub-modules{display:flex;flex-wrap:wrap;gap:6px;}
+.hub-card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;}
+.hub-avs{display:flex;}
+.hub-av{width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;border:2px solid var(--surface-2);margin-left:-8px;}
+.hub-av:first-child{margin-left:0;}
+.hub-av-more{background:var(--surface-hover);color:var(--text-2);}
+.hub-date{font-size:11px;color:var(--text-3);white-space:nowrap;}
+.hub-card-create{align-items:center;justify-content:center;text-align:center;border-style:dashed;color:var(--text-2);min-height:158px;}
+.hub-card-create:hover{color:var(--blue);}
+.hub-create-plus{width:46px;height:46px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border);}
+.hub-card-cta{border-style:dashed;}
+.hub-invite{cursor:default;border-color:var(--blue);}
+.hub-empty{grid-column:1/-1;padding:34px;text-align:center;color:var(--text-3);font-size:14px;}
+.hub-section-title{margin:26px 0 12px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-2);}
+.hub-back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;padding:0 0 10px;}
+.hub-back:hover{color:var(--blue);}
+.hub-card-note{align-items:flex-start;justify-content:center;text-align:left;border-style:dashed;cursor:default;gap:4px;}
+.hub-card-note .hub-card-name{white-space:normal;}
+body:not(.is-orgadmin) .navitem[data-nav="orgdash"]{display:none;}
+.hub-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.hub-manage-btn{flex-shrink:0;margin-top:4px;}
+.hub-card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px;padding-top:10px;border-top:1px solid var(--border);}
+.hub-mini-btn{padding:5px 10px;font-size:12px;font-weight:600;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text-2);cursor:pointer;font-family:inherit;transition:background .15s,color .15s,border-color .15s;}
+.hub-mini-btn:hover{background:var(--surface-hover);color:var(--text);}
+.hub-mini-danger:hover{border-color:var(--red);color:var(--red);}
+.hub-card-inactive{opacity:.6;}
+.hub-card-inactive .hub-logo{filter:grayscale(.6);}
+.modal-btn-danger-outline{background:none;border:1px solid var(--red);color:var(--red);transition:background .15s,color .15s;}
+.modal-btn-danger-outline:hover{background:var(--red-soft);}
+.hub-card:focus-visible,.hub-mini-btn:focus-visible,.hub-back:focus-visible,.hub-sort:focus-visible,.hub-manage-btn:focus-visible,.org-switcher:focus-visible{outline:2px solid var(--blue-soft);outline-offset:2px;}
+@media(max-width:600px){.hub-grid{grid-template-columns:1fr;}.hub-title{font-size:24px;}}
 .auth-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--text-3);font-size:11px;}
 .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border);}
 .pw-wrap{position:relative;}
@@ -262,6 +321,22 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .nav-cat-chev{color:var(--text-3);transition:transform .18s ease;flex-shrink:0;}
 .nav-group.collapsed .nav-cat-chev{transform:rotate(-90deg);}
 .nav-group.collapsed .nav-cat-items{display:none;}
+/* RBAC UI gating (server rules are the real boundary): hide create (primary) at read-only, and
+   delete (danger) below the delete level, within each module's tabs. */
+body[data-perm-stocks="read"] #tab-portfolio .pf-btn-primary,
+body[data-perm-stocks="read"] #tab-portfolio #addHoldingRow,
+body[data-perm-stocks="read"] #tab-watchlist .pf-btn-primary,
+body[data-perm-stocks="read"] #tab-useralerts .pf-btn-primary{display:none !important;}
+body[data-perm-stocks="read"] #tab-portfolio .pf-btn-danger,
+body[data-perm-stocks="update"] #tab-portfolio .pf-btn-danger,
+body[data-perm-stocks="read"] #tab-watchlist .pf-btn-danger,
+body[data-perm-stocks="update"] #tab-watchlist .pf-btn-danger,
+body[data-perm-stocks="read"] #tab-useralerts .pf-btn-danger,
+body[data-perm-stocks="update"] #tab-useralerts .pf-btn-danger{display:none !important;}
+body[data-perm-loans="read"] #tab-loans .pf-btn-primary,
+body[data-perm-loans="read"] #tab-loansdash .pf-btn-primary{display:none !important;}
+body[data-perm-loans="read"] #tab-loans .pf-btn-danger,
+body[data-perm-loans="update"] #tab-loans .pf-btn-danger{display:none !important;}
 .navitem{display:flex;align-items:center;gap:14px;padding:9px 12px;border-radius:0 24px 24px 0;font-size:14px;font-weight:500;color:var(--text-2);cursor:pointer;transition:background .15s,color .15s;border-left:3px solid transparent;margin-bottom:1px;}
 .navitem .ic{color:var(--text-3);transition:color .15s;}
 .navitem:hover{background:var(--surface-hover);color:var(--text);}
@@ -907,8 +982,23 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .loan-field{background:var(--surface-2);padding:12px 15px;}
 .loan-field-l{font-size:10px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
 .loan-field-v{font-size:14px;color:var(--text);font-weight:600;}
-.loan-notes{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.5;white-space:pre-line;}
+.loan-notes{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.5;}
 .loan-notes .loan-field-l{margin-bottom:6px;}
+.loan-notes-body{word-break:break-word;overflow-wrap:anywhere;}
+.loan-notes-body p{margin:0 0 8px;}.loan-notes-body p:last-child{margin-bottom:0;}
+.loan-notes-body ul,.loan-notes-body ol{margin:4px 0 8px;padding-left:22px;}
+.loan-notes-body a{color:var(--blue);text-decoration:none;}.loan-notes-body a:hover{text-decoration:underline;}
+/* Rich-text notes editor (loan form) */
+.rich-toolbar{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:6px;}
+.rich-btn{min-width:30px;height:30px;padding:0 8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text-2);font-size:13px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .12s,color .12s;}
+.rich-btn:hover{background:var(--surface-3,var(--border));color:var(--text);}
+.rich-btn:active{transform:translateY(1px);}
+.rich-sep{width:1px;height:20px;background:var(--border);margin:0 3px;}
+.rich-editor{min-height:84px;max-height:240px;overflow-y:auto;background:var(--input-bg,var(--surface-2));border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:14px;color:var(--text);line-height:1.5;font-family:inherit;outline:none;}
+.rich-editor:focus{border-color:var(--blue);}
+.rich-editor:empty:before{content:attr(data-ph);color:var(--text-3);pointer-events:none;}
+.rich-editor p{margin:0 0 8px;}.rich-editor p:last-child{margin-bottom:0;}
+.rich-editor ul,.rich-editor ol{margin:4px 0 8px;padding-left:22px;}
 .loan-docs{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px;}
 .loan-docs .loan-field-l{margin-bottom:6px;}
 .loan-doc-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
@@ -1130,7 +1220,7 @@ body.sidebar-open .nav-scrim{display:block;}
     <div class="auth-sub">AI-powered stock intelligence &amp; portfolio tracking</div>
     <div class="auth-tabs">
       <button type="button" class="auth-tab active" data-panel="signin" onclick="showPanel('signin')">Sign In</button>
-      <button type="button" class="auth-tab" data-panel="signup" onclick="showPanel('signup')">Sign Up</button>
+      <button type="button" class="auth-tab" data-panel="signup" onclick="showPanel('signup')">Create Account</button>
       <button type="button" class="auth-tab" data-panel="reset" onclick="showPanel('reset')">Reset Password</button>
     </div>
     <div id="googleAuthBlock">
@@ -1152,12 +1242,11 @@ body.sidebar-open .nav-scrim{display:block;}
       <input type="email" id="suEmail" placeholder="you@example.com" autocomplete="email"/>
       <label>Password</label>
       <div class="pw-wrap"><input type="password" id="suPass" placeholder="At least 6 characters" autocomplete="new-password" oninput="authStrength()"/><button type="button" class="pw-toggle" onclick="togglePw('suPass',this)" aria-label="Show password">Show</button></div>
-      <div class="auth-strength"><div class="auth-strength-bar" id="suStrengthBar"></div></div>
-      <div class="auth-hint" id="suHint">Use at least 6 characters.</div>
+      <div class="auth-strength"><span id="suStrengthBar"></span></div>
       <label>Confirm password</label>
       <div class="pw-wrap"><input type="password" id="suPass2" placeholder="Re-enter password" autocomplete="new-password" onkeydown="if(event.key==='Enter')doSignUp()"/><button type="button" class="pw-toggle" onclick="togglePw('suPass2',this)" aria-label="Show password">Show</button></div>
       <button type="button" class="auth-btn" id="suBtn" onclick="doSignUp()">Create Account</button>
-      <div class="auth-consent">By creating an account you agree to our <a class="auth-link" onclick="showLegal('terms')">Terms</a> &amp; <a class="auth-link" onclick="showLegal('privacy')">Privacy Policy</a>.</div>
+      <div class="auth-sub" style="margin-top:8px">After creating your account you'll set up or join an organization.</div>
       <div class="auth-err" id="suErr"></div>
     </div>
     <div id="authFormReset" class="auth-form">
@@ -1165,7 +1254,7 @@ body.sidebar-open .nav-scrim{display:block;}
         <div class="auth-reset-info">Enter your account email and we’ll send a 6-digit code to reset your password.</div>
         <label>Email</label>
         <input type="email" id="rstEmail" placeholder="you@example.com" autocomplete="email" onkeydown="if(event.key==='Enter')sendResetCode()"/>
-        <label>Verification</label>
+        <label>Verification code</label>
         <div class="cap-row"><canvas id="capCanvas" class="cap-canvas" width="150" height="46" aria-hidden="true"></canvas><button type="button" class="cap-refresh" onclick="drawCaptcha()" title="New characters" aria-label="New characters">↻</button></div>
         <input id="capInput" placeholder="Type the characters above" autocomplete="off" autocapitalize="characters" spellcheck="false" onkeydown="if(event.key==='Enter')sendResetCode()"/>
         <button type="button" class="auth-btn" id="rstBtn" onclick="sendResetCode()">Send Code</button>
@@ -1194,6 +1283,20 @@ body.sidebar-open .nav-scrim{display:block;}
   </div>
 </div>
 
+<!-- Onboarding (signed in but no organization yet) -->
+<!-- Workspace hub (post-login landing: pick / create / join a workspace) -->
+<div id="orgHub" class="hidden">
+  <header class="hub-header">
+    <div class="nav-brand"><span class="spark"></span> Sparks Finance</div>
+    <div class="hub-header-right">
+      <button class="icon-btn" id="hubTheme" onclick="toggleTheme()" title="Toggle theme"></button>
+      <span class="user-badge" id="hubUserBadge"></span>
+      <button class="sign-out-btn" onclick="doSignOut()">Sign out</button>
+    </div>
+  </header>
+  <div class="hub-body" id="hubBody"></div>
+</div>
+
 <!-- Modal overlay -->
 <div id="modalOverlay" class="modal-overlay hidden" onclick="if(event.target===this)closeModal()">
   <div class="modal-box" id="modalBox"></div>
@@ -1218,6 +1321,7 @@ body.sidebar-open .nav-scrim{display:block;}
       <button class="icon-btn" id="notifBellBtn" onclick="toggleNotifPanel()" title="Notifications" aria-label="Notifications"><span class="i-bell"></span><span class="notif-dot" id="notifBellBadge" style="display:none"></span></button>
       <button class="icon-btn asst-nav-btn" id="asstNavBtn" onclick="asstPopToggle()" title="Ask the AI analyst" aria-label="AI Assistant"></button>
       <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle theme"></button>
+      <select id="orgSwitcher" class="org-switcher" onchange="onOrgSwitch(this.value)" title="Switch organization" style="display:none"></select>
       <span class="user-badge" id="userBadge"></span>
       <button class="sign-out-btn" onclick="doSignOut()">Sign out</button>
     </div>
@@ -1274,18 +1378,21 @@ body.sidebar-open .nav-scrim{display:block;}
           <div id="pfContent">
             <div class="pf-toolbar">
               <select id="pfSelect" class="pf-select" onchange="switchPf(this.value)"></select>
-              <button class="pf-btn pf-btn-outline" title="Rename this portfolio" onclick="openModal('renamePf')">Rename</button>
+              <button class="pf-btn pf-btn-outline" title="Edit this portfolio's name & description" onclick="openModal('editPf')">Edit</button>
+              <button class="pf-btn pf-btn-danger" title="Delete this portfolio and all its holdings & transactions" onclick="deletePortfolio(currentPfId)">Delete</button>
               <input id="newPfName" class="pf-select" style="flex:1 1 180px;min-width:140px;" placeholder="Name a new portfolio (e.g. Long-term)…" title="Create a separate portfolio to group holdings (e.g. Long-term, Swing trades, Retirement)" onkeydown="if(event.key==='Enter')addPortfolioInline()" autocomplete="off"/>
-              <button class="pf-btn pf-btn-outline" onclick="addPortfolioInline()"><span class="i-plus"></span> Add Portfolio</button>
+              <button class="pf-btn pf-btn-primary" onclick="addPortfolioInline()"><span class="i-plus"></span> Add Portfolio</button>
             </div>
+            <div class="cc-seg" id="pfViewSeg" style="margin:4px 2px 10px;"></div>
+            <div id="pfHoldingsWrap">
             <div class="pf-hint" style="font-size:12px;color:var(--text-3);margin:2px 2px 6px;">Add a holding below — enter the ticker, how many shares you own, and your average buy price per share.</div>
             <div class="pf-toolbar" id="addHoldingRow">
               <div class="ac-wrap" style="flex:2 1 150px;min-width:120px;position:relative;">
                 <input id="inlineHoldingTicker" class="pf-select" style="width:100%;" placeholder="Stock ticker (e.g. AAPL)" title="The stock symbol you bought" oninput="acFilter(this,'inlineHoldingAC','addHoldingInline')" onkeydown="acKey(event,'inlineHoldingAC','addHoldingInline')" onchange="autofillBuyPriceInline(this.value)" autocomplete="off"/>
                 <div id="inlineHoldingAC" class="ac-list" style="display:none"></div>
               </div>
-              <input id="inlineHoldingQty" class="pf-select" type="number" placeholder="Shares owned" title="Number of shares you hold" style="flex:1 1 90px;min-width:80px;"/>
-              <input id="inlineHoldingPrice" class="pf-select" type="number" step="0.01" placeholder="Avg buy price / share ($)" title="Your average purchase price per share — auto-fills from the live price if left blank" style="flex:1 1 150px;min-width:120px;"/>
+              <input id="inlineHoldingQty" class="pf-select" type="number" placeholder="Number of shares" aria-label="Number of shares" title="Number of shares you hold" style="flex:1 1 90px;min-width:80px;"/>
+              <input id="inlineHoldingPrice" class="pf-select" type="text" inputmode="decimal" data-ccy placeholder="Avg buy price / share ($)" title="Your average purchase price per share — auto-fills from the live price if left blank" style="flex:1 1 150px;min-width:120px;"/>
               <input id="inlineHoldingDate" class="pf-select" type="date" title="Date you bought — used for holding period and YTD figures" style="flex:1 1 140px;min-width:120px;"/>
               <button class="pf-btn pf-btn-primary" onclick="addHoldingInline()"><span class="i-plus"></span> Add holding</button>
               <button class="pf-btn pf-btn-outline" title="Paste many tickers at once" onclick="openBulkAdd('pf')"><span class="i-plus"></span> Bulk add</button>
@@ -1299,6 +1406,8 @@ body.sidebar-open .nav-scrim{display:block;}
             <div id="pfLookupCard"></div>
             <div id="pfBody"></div>
             <div id="pfChartsPanel"></div>
+            </div>
+            <div id="pfTxnWrap" style="display:none"></div>
           </div>
         </div>
         <div id="tab-watchlist" class="tab-panel">
@@ -1350,7 +1459,33 @@ body.sidebar-open .nav-scrim{display:block;}
         <div id="tab-earnings" class="tab-panel"><div class="page-title">Earnings</div><div id="earningsContent"></div></div>
         <div id="tab-health" class="tab-panel"><div class="page-title">Portfolio Health</div><div class="pf-toolbar"><select id="healthPfSelect" class="pf-select" onchange="setReportPf(this.value)"></select></div><div id="healthContent"></div></div>
         <div id="tab-catalysts" class="tab-panel"><div class="page-title">Catalysts</div><div id="catalystsContent"></div></div>
-        <div id="tab-loansdash" class="tab-panel"><div class="page-title">Loans &amp; Notes — Dashboard</div><div id="loansDashBody"></div></div>
+        <div id="tab-loansdash" class="tab-panel"><div class="page-title">Loans &amp; Notes — Dashboard</div><div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Totals, interest and payment reminders for the currently selected company.</div><div id="loansDashBody"></div></div>
+        <div id="tab-members" class="tab-panel">
+          <div class="page-title">Members</div>
+          <div class="pf-toolbar">
+            <button class="pf-btn pf-btn-primary" id="orgInviteBtn" onclick="openModal('inviteMember')"><span class="i-plus"></span> Invite member</button>
+          </div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Invite people to this company and set each member's per-module access. Changes apply immediately.</div>
+          <div id="membersBody"></div>
+        </div>
+        <div id="tab-orgsettings" class="tab-panel">
+          <div class="page-title">Organization Settings</div>
+          <div id="orgSettingsBody"></div>
+        </div>
+        <div id="tab-orgdash" class="tab-panel">
+          <div class="page-title">Organization Dashboard</div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Consolidated view across every company in this organization. Visible to Org Admins & Super Admins.</div>
+          <div id="orgDashBody"></div>
+        </div>
+        <div id="tab-platform" class="tab-panel">
+          <div class="page-title">All Organizations</div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Platform super-admin view — every access to an org's details is logged.</div>
+          <div id="platformBody"></div>
+        </div>
+        <div id="tab-soon" class="tab-panel">
+          <div class="page-title" id="soonTitle">Coming soon</div>
+          <div id="soonBody"></div>
+        </div>
         <div id="tab-loans" class="tab-panel">
           <div class="page-title">Loans &amp; Notes</div>
           <div class="pf-toolbar">
@@ -1390,11 +1525,11 @@ body.sidebar-open .nav-scrim{display:block;}
             <select id="scrSignal" onchange="applyFilter('signal', this.value)"><option value="">All signals</option><option value="STRONG BUY">Strong Buy</option><option value="WATCH">Watch</option><option value="WEAK">Weak</option></select>
             <select id="scrSector" onchange="applyFilter('sector', this.value)"><option value="">All sectors</option></select>
             <select id="scrMcap" onchange="applyFilter('mcapBucket', this.value)"><option value="">Any cap</option><option value="small">Small (&lt;$2B)</option><option value="mid">Mid ($2–10B)</option><option value="large">Large ($10–200B)</option><option value="mega">Mega (&gt;$200B)</option></select>
-            <input id="scrRsiMin" type="number" placeholder="RSI≥" title="Minimum RSI (0–100). Typical momentum range: 50–70." oninput="applyFilter('rsiMin', this.value===''?null:+this.value)"/>
-            <input id="scrRsiMax" type="number" placeholder="RSI≤" title="Maximum RSI (0–100). Use ~70–80 to avoid overbought names." oninput="applyFilter('rsiMax', this.value===''?null:+this.value)"/>
-            <input id="scrEps" type="number" placeholder="EPS%≥" title="Minimum year-over-year EPS growth %." oninput="applyFilter('epsMin', this.value===''?null:+this.value)"/>
-            <input id="scrRev" type="number" placeholder="Rev%≥" title="Minimum year-over-year revenue growth %." oninput="applyFilter('revMin', this.value===''?null:+this.value)"/>
-            <input id="scrPe" type="number" placeholder="P/E≤" title="Maximum forward P/E (lower = cheaper valuation)." oninput="applyFilter('peMax', this.value===''?null:+this.value)"/>
+            <input id="scrRsiMin" type="number" placeholder="Min RSI (0–100)" aria-label="Minimum RSI" title="Minimum RSI (0–100). Typical momentum range: 50–70." oninput="applyFilter('rsiMin', this.value===''?null:+this.value)"/>
+            <input id="scrRsiMax" type="number" placeholder="Max RSI (0–100)" aria-label="Maximum RSI" title="Maximum RSI (0–100). Use ~70–80 to avoid overbought names." oninput="applyFilter('rsiMax', this.value===''?null:+this.value)"/>
+            <input id="scrEps" type="number" placeholder="Min EPS growth %" aria-label="Minimum EPS growth percent" title="Minimum year-over-year EPS growth %." oninput="applyFilter('epsMin', this.value===''?null:+this.value)"/>
+            <input id="scrRev" type="number" placeholder="Min revenue growth %" aria-label="Minimum revenue growth percent" title="Minimum year-over-year revenue growth %." oninput="applyFilter('revMin', this.value===''?null:+this.value)"/>
+            <input id="scrPe" type="number" placeholder="Max forward P/E" aria-label="Maximum forward P/E" title="Maximum forward P/E (lower = cheaper valuation)." oninput="applyFilter('peMax', this.value===''?null:+this.value)"/>
             <button id="chipNearHigh" class="scr-chip" title="Stocks trading within ~10% of their 52-week high" onclick="toggleChip(this,'nearHigh')">Near 52w High</button>
             <button id="chipCatalyst" class="scr-chip" title="Stocks with a recent news catalyst or breaking story" onclick="toggleChip(this,'hasCatalyst')">Catalyst</button>
             <button id="chipSqueeze" class="scr-chip" title="Volatility-squeeze setups (a tight range that may expand soon)" onclick="toggleChip(this,'squeeze')">Squeeze</button>
@@ -1527,6 +1662,7 @@ const ICON_PATHS = {
   menu:'<line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>',
   chevdown:'<polyline points="6 9 12 15 18 9"/>',
   chevup:'<polyline points="18 15 12 9 6 15"/>',
+  chevleft:'<polyline points="15 18 9 12 15 6"/>',
   x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
   plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
   box:'<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>',
@@ -1535,7 +1671,8 @@ const ICON_PATHS = {
   bot:'<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/>',
   data:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
   target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6"/>',
-  file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>'
+  file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>',
+  users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'
 };
 function ic(name, size, cls) {
   size = size || 18; cls = cls || '';
@@ -1588,7 +1725,7 @@ const NAV = [
   { sec: '' },
   { tab: 'home', label: 'Home', icon: 'home' },
   { tab: 'assistant', label: 'AI Assistant', icon: 'sparkles' },
-  { cat: 'Stocks & Trading' },
+  { cat: 'Trading' },
   { sec: 'Discover' },
   { tab: 'cards', label: 'Top Picks', icon: 'spark' },
   { tab: 'explore', label: 'Explore', icon: 'compass' },
@@ -1611,7 +1748,22 @@ const NAV = [
   { cat: 'Loans & Notes' },
   { sec: 'Manage' },
   { tab: 'loansdash', label: 'Dashboard', icon: 'data' },
-  { tab: 'loans', label: 'Loans & Notes', icon: 'file' }
+  { tab: 'loans', label: 'Loans & Notes', icon: 'file' },
+  { cat: 'More Modules' },
+  { sec: 'Coming soon' },
+  { tab: 'm_ap', label: 'Accounts Payable', icon: 'file' },
+  { tab: 'm_ar', label: 'Accounts Receivable', icon: 'file' },
+  { tab: 'm_invoices', label: 'Invoices', icon: 'file' },
+  { tab: 'm_banking', label: 'Banking', icon: 'data' },
+  { tab: 'm_cash', label: 'Cash Management', icon: 'data' },
+  { cat: 'Organization' },
+  { sec: 'Manage' },
+  { tab: 'orgdash', label: 'Org Dashboard', icon: 'data' },
+  { tab: 'members', label: 'Members', icon: 'users' },
+  { tab: 'orgsettings', label: 'Settings', icon: 'briefcase' },
+  { cat: 'Platform' },
+  { sec: 'Super-admin' },
+  { tab: 'platform', label: 'All Organizations', icon: 'data' }
 ];
 // Collapsible categories: each { cat } becomes a .nav-group whose header toggles it. Absent/false in
 // _navExpanded = collapsed, so it's empty on load ⇒ every category starts collapsed each login.
@@ -1663,6 +1815,376 @@ function revealNavCatFor(tabName) {
     g.classList.remove('collapsed');
     const h = g.querySelector('.nav-cat'); if (h) h.setAttribute('aria-expanded', 'true');
   }
+}
+
+// ═══════════════════════ RBAC (client) ═══════════════════════
+// Real enforcement lives in Firestore/Storage rules (custom claims). This gates the UI for a clean
+// experience + friendly blocks; the server denies anything the UI misses. Owner emails are always
+// full admins. Scalable: add a module to MODULES + _MOD_TABS and it's gated everywhere.
+const CF_BASE = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/';
+const OWNER_EMAILS_CLIENT = ['sean@txsparks.com', 'ravi@txsparks.com'];
+const MODULES = [
+  { id: 'stocks', cat: 'Trading', label: 'Trading' },
+  { id: 'loans', cat: 'Loans & Notes', label: 'Loans & Notes' }
+];
+const _MOD_TABS = {
+  stocks: ['cards', 'explore', 'research', 'recommend', 'table', 'portfolio', 'watchlist', 'useralerts', 'market', 'earnings', 'premarket'],
+  loans: ['loansdash', 'loans']
+};
+let _role = 'user', _perms = {}, _permsUnsub = null;
+// ── Active organization (multi-tenant scope) ──
+// ACTIVE_ORG scopes ALL business data. Membership {role, perms} comes from organizations/{orgId}/members/{uid};
+// owner emails are PLATFORM super-admins (full access to any org). _myOrgs mirrors users/{uid}.orgs for the switcher.
+let ACTIVE_ORG = null, ACTIVE_COMPANY = null, _myOrgs = {}, _orgName = '', _companyName = '';
+function orgRef() { return db.collection('organizations').doc(ACTIVE_ORG); }
+// Financial data is scoped to the active COMPANY (organizations/{org}/companies/{company}/…).
+function companyRef() { return orgRef().collection('companies').doc(ACTIVE_COMPANY); }
+function pfCol() { return companyRef().collection('portfolios'); }
+function holdingsCol(pfId) { return companyRef().collection('holdings').doc(pfId).collection('lots'); }
+function txnCol(pfId) { return companyRef().collection('transactions').doc(pfId).collection('txns'); }
+function wlCol() { return companyRef().collection('watchlists'); }
+function alertsCol() { return companyRef().collection('alerts'); }
+function loansCol() { return companyRef().collection('loans'); }
+function loanStoragePath(loanId, fname) { return 'orgs/' + ACTIVE_ORG + '/companies/' + ACTIVE_COMPANY + '/loans/' + loanId + '/' + fname; }
+function isPlatformAdmin() { try { const u = auth.currentUser; return !!u && u.emailVerified && OWNER_EMAILS_CLIENT.includes(((u.email || '')).toLowerCase()); } catch (e) { return false; } }
+function _ownerEmailNow() { return isPlatformAdmin(); }   // back-compat alias
+function isAdminClient() { return isPlatformAdmin() || _role === 'owner' || _role === 'admin'; }
+function _lvl(m) { const v = _perms && _perms[m]; return v === 'delete' ? 3 : v === 'update' ? 2 : v === 'read' ? 1 : 0; }
+function canRead(m) { return isAdminClient() || _lvl(m) >= 1; }
+function canWrite(m) { return isAdminClient() || _lvl(m) >= 2; }
+function canDelete(m) { return isAdminClient() || _lvl(m) >= 3; }
+function moduleForTab(tab) { for (const m in _MOD_TABS) { if (_MOD_TABS[m].indexOf(tab) >= 0) return m; } return null; }
+function moduleForCat(cat) { const e = MODULES.find(x => x.cat === cat); return e ? e.id : null; }
+// UX guard used by write functions; returns false + toast when the level is insufficient.
+function permGuard(m, need) {
+  const ok = need === 'delete' ? canDelete(m) : (need === 'read' ? canRead(m) : canWrite(m));
+  if (!ok) { try { pmToast("You don't have permission to do that."); } catch (e) {} }
+  return ok;
+}
+// Load this user's role/perms for the ACTIVE company from its membership doc (live) — the same doc the
+// Firestore rules read. Platform super-admins and Org Admins are forced to full access.
+function _isOrgAdminNow() { return isPlatformAdmin() || !!(_myOrgs[ACTIVE_ORG] && _myOrgs[ACTIVE_ORG].orgAdmin); }
+function loadPermsAndGate() {
+  if (_permsUnsub) { try { _permsUnsub(); } catch (e) {} _permsUnsub = null; }
+  if (!UID || !ACTIVE_ORG || !ACTIVE_COMPANY) { _role = 'user'; _perms = {}; try { applyPermissions(); } catch (e) {} return; }
+  const forceFull = () => { if (_isOrgAdminNow()) { _role = 'admin'; _perms = { stocks: 'delete', loans: 'delete' }; return true; } return false; };
+  _permsUnsub = companyRef().collection('members').doc(UID).onSnapshot(doc => {
+    if (!forceFull()) { const d = (doc && doc.exists) ? (doc.data() || {}) : {}; _role = d.role || 'member'; _perms = d.perms || {}; }
+    applyPermissions();
+  }, () => { forceFull(); applyPermissions(); });
+}
+function applyPermissions() {
+  const b = document.body;
+  b.classList.toggle('is-orgadmin', _isOrgAdminNow());   // Org Dashboard nav item is CSS-gated to org admins
+  MODULES.forEach(m => b.setAttribute('data-perm-' + m.id, isAdminClient() ? 'delete' : ['none', 'read', 'update', 'delete'][_lvl(m.id)]));
+  b.classList.toggle('is-admin', isAdminClient());
+  // Hide modules the user can't read; hide Administration unless admin.
+  document.querySelectorAll('.nav-group').forEach(g => {
+    const cat = g.getAttribute('data-cat');
+    let show = true;
+    if (cat === 'Administration' || cat === 'Organization') show = !!ACTIVE_ORG;   // org tools; per-action gating is inside
+    else if (cat === 'Platform') show = isPlatformAdmin();
+    else { const mid = moduleForCat(cat); if (mid) show = canRead(mid); }
+    g.style.display = show ? '' : 'none';
+  });
+  // Bounce off a now-forbidden active tab.
+  const act = document.querySelector('.navitem.active'), t = act && act.getAttribute('data-nav');
+  if (t && t !== 'home' && t !== 'assistant') {
+    const mid = moduleForTab(t);
+    const forbidden = (t === 'admin') ? !isAdminClient() : (mid && !canRead(mid));
+    if (forbidden) sw('home');
+  }
+}
+
+// ── Admin console (User Management) → admin-guarded Cloud Functions ──
+let _adminUsers = [], _adminRoleFilter = 'all', _userEditUid = null;
+async function _adminCall(fn, body) {
+  const tok = auth.currentUser ? await auth.currentUser.getIdToken() : null;
+  if (!tok) throw new Error('not_signed_in');
+  const r = await fetch(CF_BASE + fn, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + tok }, body: JSON.stringify(body || {}) });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok || d.error) throw new Error(d.error || ('http_' + r.status));
+  return d;
+}
+function roleBadge(role) { return '<span class="badge ' + (role === 'admin' ? 'badge-red' : 'badge-gray') + '">' + escHtml(role || 'user') + '</span>'; }
+function _permBadge(v) { const m = { delete: ['Delete', 'badge-red'], update: ['Create/Update', 'badge-blue'], read: ['Read', 'badge-green'] }; const b = m[v]; return b ? '<span class="badge ' + b[1] + '">' + b[0] + '</span>' : '<span class="ht-sub">—</span>'; }
+function setAdminRoleFilter(v) { _adminRoleFilter = v; renderAdminTable(); }
+async function renderAdmin() {
+  if (!isAdminClient()) { sw('home'); return; }
+  const el = document.getElementById('adminBody'); if (!el) return;
+  const seg = document.getElementById('adminRoleSeg');
+  if (seg) seg.innerHTML = [['all', 'All'], ['admin', 'Admins'], ['user', 'Users']].map(f => '<button class="' + (_adminRoleFilter === f[0] ? 'active' : '') + '" onclick="setAdminRoleFilter(\'' + f[0] + '\')">' + f[1] + '</button>').join('');
+  el.innerHTML = '<div class="pf-filter-note">Loading users…</div>';
+  try {
+    const d = await _adminCall('adminListUsers');
+    _adminUsers = (d.users || []).sort((a, b) => (a.email || '').localeCompare(b.email || ''));
+  } catch (e) { el.innerHTML = emptyState('users', "Couldn't load users", 'Admins only — and the admin Cloud Functions must be deployed. (' + escHtml(String(e.message || e)) + ')'); return; }
+  renderAdminTable();
+}
+function renderAdminTable() {
+  const el = document.getElementById('adminBody'); if (!el) return;
+  let view = _adminUsers.slice();
+  if (_adminRoleFilter !== 'all') view = view.filter(u => (u.role || 'user') === _adminRoleFilter);
+  if (!view.length) { el.innerHTML = emptyState('users', 'No users', 'Click "Add user" to create the first account.'); return; }
+  const modCols = MODULES.map(m => '<th>' + escHtml(m.label) + '</th>').join('');
+  const rows = view.map(u => {
+    const perms = u.perms || {};
+    const permCells = MODULES.map(m => '<td>' + _permBadge(perms[m.id]) + '</td>').join('');
+    const viewBtn = '<button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="viewUserPortfolios(\'' + u.uid + '\')">Portfolios</button> ';
+    const actions = viewBtn + (u.owner
+      ? '<span class="ht-sub" title="Permanent owner-admin">' + ic('check', 14) + ' Owner</span>'
+      : '<button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="editUser(\'' + u.uid + '\')">Edit</button> ' +
+        '<button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="toggleUserDisabled(\'' + u.uid + '\')">' + (u.disabled ? 'Enable' : 'Disable') + '</button> ' +
+        '<button class="pf-btn pf-btn-danger" title="Delete user" onclick="deleteUser(\'' + u.uid + '\')">' + ic('x', 16) + '</button>');
+    return '<tr' + (u.disabled ? ' style="opacity:.55"' : '') + '>' +
+      '<td class="ht-sym"><div><div class="holding-ticker">' + escHtml(u.email || u.uid) + '</div><div class="ht-sub">' + (u.owner ? 'Owner' : (u.disabled ? 'Disabled' : 'Active')) + '</div></div></td>' +
+      '<td>' + roleBadge(u.role) + '</td>' + permCells +
+      '<td style="white-space:nowrap">' + actions + '</td></tr>';
+  }).join('');
+  el.innerHTML = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
+    '<th class="ht-sym">User</th><th>Role</th>' + modCols + '<th></th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+}
+function editUser(uid) { _userEditUid = uid; openModal('editUser'); }
+// ── Organization management (Members / Settings / Platform) — via the org Cloud Functions ──
+let _orgMembers = [], _orgInvites = [], _orgCanManage = false, _memberEditUid = null, _orgIsPersonal = false, _orgCanInvite = false;
+function roleRankC(r) { return r === 'owner' ? 3 : r === 'admin' ? 2 : 1; }
+function orgRoleBadge(r) { const m = { owner: ['Owner', 'badge-red'], admin: ['Admin', 'badge-blue'], member: ['Member', 'badge-gray'] }; const b = m[r] || m.member; return '<span class="badge ' + b[1] + '">' + b[0] + '</span>'; }
+async function renderOrgMembers() {
+  const el = document.getElementById('membersBody'); if (!el) return;
+  if (!ACTIVE_ORG || !ACTIVE_COMPANY) { el.innerHTML = emptyState('users', 'No company selected', ''); return; }
+  el.innerHTML = '<div class="pf-filter-note">Loading members…</div>';
+  try {
+    const d = await _adminCall('companyListMembers', { orgId: ACTIVE_ORG, companyId: ACTIVE_COMPANY });
+    _orgMembers = (d.members || []).sort((a, b) => roleRankC(b.role) - roleRankC(a.role) || (a.email || '').localeCompare(b.email || ''));
+    _orgInvites = d.invites || [];
+    _orgCanManage = !!d.canManage;
+    _orgIsPersonal = !!d.personal;
+    // Personal workspaces: only a platform super-admin may add members (enforced by companyInvite CF).
+    _orgCanInvite = _orgCanManage && (!_orgIsPersonal || d.callerRole === 'platform');
+  } catch (e) { el.innerHTML = emptyState('users', "Couldn't load members", escHtml(String(e.message || e)) + ' — the org Cloud Functions must be deployed.'); return; }
+  const btn = document.getElementById('orgInviteBtn'); if (btn) btn.style.display = _orgCanInvite ? '' : 'none';
+  renderMembersTable();
+}
+function renderMembersTable() {
+  const el = document.getElementById('membersBody'); if (!el) return;
+  if (!_orgMembers.length && !_orgInvites.length) {
+    el.innerHTML = emptyState('users', 'No members yet', _orgCanInvite
+      ? 'Invite your first teammate to this company and choose which modules they can access.'
+      : 'No one has been added to this company yet.');
+    return;
+  }
+  const personalNote = (_orgIsPersonal && !_orgCanInvite)
+    ? '<div class="pf-filter-note" style="margin-bottom:10px">This is a personal workspace — members can only be added by a platform administrator.</div>'
+    : '';
+  const modCols = MODULES.map(m => '<th>' + escHtml(m.label) + '</th>').join('');
+  const rows = _orgMembers.map(u => {
+    const perms = u.perms || {};
+    const permCells = MODULES.map(m => '<td>' + ((u.role === 'owner' || u.role === 'admin') ? '<span class="badge badge-blue">Full</span>' : _permBadge(perms[m.id])) + '</td>').join('');
+    let actions = '';
+    if (_orgCanManage) {
+      actions += '<button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="editMember(\'' + u.uid + '\')">Edit</button> ';
+      if (u.uid !== UID) actions += '<button class="pf-btn pf-btn-danger" title="Remove member" onclick="removeMember(\'' + u.uid + '\',\'' + escHtml(u.email || '') + '\')">' + ic('x', 16) + '</button>';
+    }
+    return '<tr><td class="ht-sym"><div><div class="holding-ticker">' + escHtml(u.email || u.uid) + (u.uid === UID ? ' <span class="ht-sub">(you)</span>' : '') + '</div></div></td><td>' + orgRoleBadge(u.role) + '</td>' + permCells + '<td style="white-space:nowrap">' + actions + '</td></tr>';
+  }).join('');
+  const inviteDivider = _orgInvites.length
+    ? '<tr class="members-section-row"><td colspan="' + (MODULES.length + 3) + '" class="ht-sub" style="padding-top:14px;font-weight:600;color:var(--text-2)">Pending invitations</td></tr>'
+    : '';
+  const invRows = inviteDivider + _orgInvites.map(iv => '<tr style="opacity:.6"><td class="ht-sym"><div><div class="holding-ticker">' + escHtml(iv.emailLower || '') + '</div><div class="ht-sub">invited · pending</div></div></td><td>' + orgRoleBadge(iv.role) + '</td>' + MODULES.map(() => '<td class="ht-sub">—</td>').join('') + '<td></td></tr>').join('');
+  el.innerHTML = personalNote + '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Member</th><th>Role</th>' + modCols + '<th></th></tr></thead><tbody>' + rows + invRows + '</tbody></table></div>';
+}
+function editMember(uid) { _memberEditUid = uid; openModal('editMember'); }
+async function removeMember(uid, email) {
+  if (!confirm('Remove ' + (email || 'this member') + ' from the company?')) return;
+  try { await _adminCall('companyRemoveMember', { orgId: ACTIVE_ORG, companyId: ACTIVE_COMPANY, uid }); try { pmToast('Member removed'); } catch (e) {} renderOrgMembers(); }
+  catch (e) { try { pmToast({ last_admin: "You can't remove the last admin.", forbidden: 'You do not have permission.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {} }
+}
+function memberFormModal(kind) {
+  const isEdit = kind === 'edit';
+  const u = isEdit ? (_orgMembers.find(x => x.uid === _memberEditUid) || {}) : {};
+  const permRows = MODULES.map(m => '<label class="modal-label">' + escHtml(m.label) + '</label>' + _permSelect('mperm_' + m.id, (u.perms || {})[m.id])).join('');
+  const roleSel = '<label class="modal-label">Role</label><select id="mRole" class="modal-input"><option value="member"' + (u.role !== 'admin' ? ' selected' : '') + '>Member (module access below)</option><option value="admin"' + (u.role === 'admin' ? ' selected' : '') + '>Company Admin (manage members + full access)</option></select>';
+  return '<div class="modal-title">' + (isEdit ? 'Edit member' : 'Invite member') + '</div>' +
+    (isEdit
+      ? '<label class="modal-label">Email</label><input class="modal-input" value="' + escHtml(u.email || '') + '" disabled/>'
+      : '<label class="modal-label">Email</label><input id="mEmail" class="modal-input" type="email" placeholder="person@example.com" autocomplete="off"/>') +
+    roleSel +
+    '<div class="modal-price-hint" style="margin:10px 0 2px">Per-module access (applies when role is Member; owners/admins get full access)</div>' + permRows +
+    '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitMember(\'' + kind + '\')">' + (isEdit ? 'Save' : 'Send invite') + '</button></div>';
+}
+async function submitMember(kind) {
+  const g = x => { const e = document.getElementById(x); return e ? e.value : ''; };
+  const role = g('mRole') || 'member';
+  const perms = {}; MODULES.forEach(m => perms[m.id] = g('mperm_' + m.id) || 'none');
+  try {
+    if (kind === 'edit') { await _adminCall('companyUpdateMember', { orgId: ACTIVE_ORG, companyId: ACTIVE_COMPANY, uid: _memberEditUid, role, perms }); try { pmToast('Member updated'); } catch (e) {} }
+    else {
+      const email = g('mEmail').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { try { pmToast('Enter a valid email'); } catch (e) {} return; }
+      await _adminCall('companyInvite', { orgId: ACTIVE_ORG, companyId: ACTIVE_COMPANY, email, role, perms }); try { pmToast('Invitation sent to ' + email); } catch (e) {}
+    }
+    closeModal(); renderOrgMembers();
+  } catch (e) { try { pmToast({ already_member: 'That person is already a member.', last_admin: "You can't demote the last admin.", forbidden: 'You do not have permission.', personal_locked: 'Members of a personal workspace can only be added by a platform administrator.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {} }
+}
+function renderOrgSettings() {
+  const el = document.getElementById('orgSettingsBody'); if (!el) return;
+  const canManage = isPlatformAdmin() || _role === 'owner';
+  const name = (_myOrgs[ACTIVE_ORG] && _myOrgs[ACTIVE_ORG].name) || _orgName || '';
+  el.innerHTML = '<div class="loan-notes" style="max-width:540px"><div class="loan-field-l">Organization name</div>' +
+    '<input id="orgNameInput" class="modal-input" aria-label="Organization name" placeholder="e.g. Acme Capital" value="' + escHtml(name) + '"' + (canManage ? '' : ' disabled') + '/>' +
+    (canManage ? '<div style="margin-top:10px"><button class="pf-btn pf-btn-primary" onclick="saveOrgSettings()">Save</button></div>' : '<div class="ht-sub" style="margin-top:8px">Only an owner can change settings.</div>') +
+    '</div><div class="loan-notes" style="max-width:540px;margin-top:14px"><div class="loan-field-l">Your role</div><div>' + orgRoleBadge(_role) + '</div></div>';
+}
+async function saveOrgSettings() {
+  const name = (document.getElementById('orgNameInput').value || '').trim();
+  if (!name) { try { pmToast('Enter a name'); } catch (e) {} return; }
+  try { await _adminCall('orgUpdateSettings', { orgId: ACTIVE_ORG, name }); try { pmToast('Saved'); } catch (e) {} location.reload(); }
+  catch (e) { try { pmToast({ forbidden: 'Only an owner can rename the organization.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {} }
+}
+async function renderPlatform() {
+  const el = document.getElementById('platformBody'); if (!el) return;
+  if (!isPlatformAdmin()) { el.innerHTML = emptyState('users', 'Platform admins only', ''); return; }
+  el.innerHTML = '<div class="pf-filter-note">Loading organizations…</div>';
+  try {
+    const d = await _adminCall('platformListOrgs');
+    const orgs = (d.orgs || []).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    if (!orgs.length) { el.innerHTML = emptyState('data', 'No organizations yet', ''); return; }
+    const rows = orgs.map(o => '<tr><td class="ht-sym"><div><div class="holding-ticker">' + escHtml(o.name || o.orgId) + '</div><div class="ht-sub">' + escHtml(o.orgId) + '</div></div></td><td>' + escHtml(o.createdByEmail || '—') + '</td><td>' + (o.memberCount || 0) + '</td><td>' + escHtml(o.plan || 'free') + '</td></tr>').join('');
+    el.innerHTML = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Organization</th><th>Created by</th><th>Members</th><th>Plan</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+  } catch (e) { el.innerHTML = emptyState('data', "Couldn't load organizations", escHtml(String(e.message || e))); }
+}
+// Consolidated Organization Dashboard — aggregates Trading + Loans across ALL companies (org-admin/super-admin only).
+function _odCard(label, val) { return '<div class="dash-card"><div class="dash-mini-label">' + escHtml(label) + '</div><div style="font-size:26px;font-weight:700;color:var(--text);margin-top:4px">' + val + '</div></div>'; }
+async function renderOrgDashboard() {
+  const el = document.getElementById('orgDashBody'); if (!el) return;
+  if (!_isOrgAdminNow() || !ACTIVE_ORG) { el.innerHTML = emptyState('data', 'Org Admins only', 'Consolidated financials are visible to Org Admins and Super Admins.'); return; }
+  el.innerHTML = '<div class="pf-filter-note">Consolidating companies…</div>';
+  let companies = [];
+  try { const d = await _adminCall('orgListCompanies', { orgId: ACTIVE_ORG }); companies = (d.companies || []).filter(c => c.active !== false); }
+  catch (e) { el.innerHTML = emptyState('data', "Couldn't load companies", escHtml(String(e.message || e))); return; }
+  if (!companies.length) {
+    el.innerHTML = emptyState('briefcase', 'No active companies yet', 'Add your first company to this organization to see consolidated portfolio value, loans, and users across the whole organization here.') +
+      '<div style="text-align:center;margin-top:14px"><button class="pf-btn pf-btn-primary" onclick="backToHub()">Go to Workspace Hub</button></div>';
+    return;
+  }
+  let totMembers = 0, totPortfolio = 0, totInvested = 0, totOutstanding = 0, totLent = 0, totBorrowed = 0, totHoldings = 0, totLoans = 0;
+  const rows = [];
+  for (const c of companies) {
+    totMembers += c.memberCount || 0;
+    let coVal = 0, coInv = 0, coHold = 0, coOut = 0, coLoans = 0;
+    const coRef = db.collection('organizations').doc(ACTIVE_ORG).collection('companies').doc(c.companyId);
+    try {
+      const pfs = await coRef.collection('portfolios').get();
+      for (const pd of pfs.docs) {
+        const lots = await coRef.collection('holdings').doc(pd.id).collection('lots').get();
+        lots.docs.forEach(ld => { const h = ld.data() || {}; const qty = parseFloat(h.qty) || 0, bp = parseFloat(h.buy_price) || 0; coInv += qty * bp; const le = liveEntry(h.ticker), sd = scanStockFor(h.ticker); const px = (le && le.price) || (sd && parseFloat(sd.price)) || bp; coVal += qty * px; coHold++; });
+      }
+    } catch (e) {}
+    try { const lns = await coRef.collection('loans').get(); lns.docs.forEach(ld => { const l = ld.data() || {}; coLoans++; coOut += loanOutstanding(l); if (l.type === 'lent') totLent += loanNum(l.principal); else totBorrowed += loanNum(l.principal); }); } catch (e) {}
+    totPortfolio += coVal; totInvested += coInv; totHoldings += coHold; totOutstanding += coOut; totLoans += coLoans;
+    rows.push({ name: c.name, members: c.memberCount || 0, portfolio: coVal, holdings: coHold, loans: coLoans, outstanding: coOut });
+  }
+  const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' +
+    _odCard('Companies', String(companies.length)) + _odCard('Total users', String(totMembers)) +
+    _odCard('Total portfolio value', dollarFmt(totPortfolio)) + _odCard('Total loans outstanding', dollarFmt(totOutstanding)) + '</div>';
+  const mini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
+    _dashMini('Invested (cost basis)', dollarFmt(totInvested), '') +
+    _dashMini('Unrealized P&L', dollarFmt(totPortfolio - totInvested), (totPortfolio - totInvested) >= 0 ? 'gain' : 'loss') +
+    _dashMini('Total holdings', String(totHoldings), '') + _dashMini('Total loans', String(totLoans), '') +
+    _dashMini('Lent (owed to org)', dollarFmt(totLent), 'gain') + _dashMini('Borrowed (org owes)', dollarFmt(totBorrowed), 'loss') + '</div>';
+  const placeholders = '<div class="dash-section"><div class="dash-section-title">Consolidated finance modules (coming soon)</div><div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
+    ['Accounts Receivable', 'Accounts Payable', 'Outstanding Invoices', 'Cash Position'].map(t => _dashMini(t, '<span class="ht-sub">Coming soon</span>', '')).join('') + '</div></div>';
+  const tbl = '<div class="dash-section"><div class="dash-section-title">Company performance</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Company</th><th>Members</th><th>Holdings</th><th>Portfolio value</th><th>Loans</th><th>Outstanding</th></tr></thead><tbody>' +
+    (rows.length ? rows.map(r => '<tr><td class="ht-sym"><div class="holding-ticker">' + escHtml(r.name) + '</div></td><td>' + r.members + '</td><td>' + r.holdings + '</td><td>' + dollarFmt(r.portfolio) + '</td><td>' + r.loans + '</td><td>' + dollarFmt(r.outstanding) + '</td></tr>').join('') : '<tr><td colspan="6" class="ht-sub" style="padding:16px">No companies yet.</td></tr>') +
+    '</tbody></table></div></div>';
+  el.innerHTML = hero + mini + placeholders + tbl + '<div class="rng-advice-note">Portfolio values use the latest available prices; figures are informational, not financial advice.</div>';
+}
+function renderSoon(name) {
+  const map = {
+    m_ap:       { label: 'Accounts Payable',    desc: 'Track vendor bills and outgoing payments, schedule due dates, and see exactly what your company owes at a glance.' },
+    m_ar:       { label: 'Accounts Receivable', desc: 'Monitor customer balances, keep on top of what is owed to your company, and stay ahead with built-in aging and reminders.' },
+    m_invoices: { label: 'Invoices',            desc: 'Create, send, and track professional invoices end to end — from draft to paid — with clear status tracking and downloadable records.' },
+    m_banking:  { label: 'Banking',             desc: 'Connect and reconcile your company bank accounts, categorize transactions, and keep every balance in sync with your books.' },
+    m_cash:     { label: 'Cash Management',     desc: 'See your consolidated cash position across accounts, forecast inflows and outflows, and plan liquidity with confidence.' }
+  };
+  const m = map[name] || { label: 'Module', desc: 'This module is planned for a future release.' };
+  const t = document.getElementById('soonTitle'); if (t) t.textContent = m.label;
+  const b = document.getElementById('soonBody'); if (b) b.innerHTML = emptyState('box', m.label + ' is coming soon', m.desc + ' It will be available to every company in this organization once released, with the same role-based access as Trading and Loans & Notes.');
+}
+function _permSelect(id, cur) {
+  const opts = [['none', 'No access'], ['read', 'Read only'], ['update', 'Create / Update'], ['delete', 'Delete (+ Create/Update)']];
+  return '<select id="' + id + '" class="modal-input">' + opts.map(o => '<option value="' + o[0] + '"' + (o[0] === (cur || 'none') ? ' selected' : '') + '>' + o[1] + '</option>').join('') + '</select>';
+}
+function userFormModal(u) {
+  u = u || {};
+  const isEdit = !!u.uid, v = x => escHtml(x == null ? '' : x);
+  const permRows = MODULES.map(m => '<label class="modal-label">' + escHtml(m.label) + '</label>' + _permSelect('uperm_' + m.id, (u.perms || {})[m.id])).join('');
+  return '<div class="modal-title">' + (isEdit ? 'Edit user' : 'Add user') + '</div>' +
+    (isEdit
+      ? '<label class="modal-label">Email</label><input class="modal-input" value="' + v(u.email) + '" disabled/>'
+      : '<label class="modal-label">Email</label><input id="uEmail" class="modal-input" type="email" placeholder="user@example.com" autocomplete="off"/>' +
+        '<label class="modal-label">Temporary password <span class="modal-price-hint">min 6 chars — share securely; the user can reset it</span></label><input id="uPass" class="modal-input" type="text" placeholder="e.g. Welcome123" autocomplete="off"/>') +
+    '<label class="modal-label">Role</label><select id="uRole" class="modal-input"><option value="user"' + (u.role !== 'admin' ? ' selected' : '') + '>User</option><option value="admin"' + (u.role === 'admin' ? ' selected' : '') + '>Admin (full access + user management)</option></select>' +
+    '<div class="modal-price-hint" style="margin:10px 0 2px">Per-module access</div>' + permRows +
+    '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitUser(' + (isEdit ? '\'' + u.uid + '\'' : 'null') + ')">' + (isEdit ? 'Save' : 'Create user') + '</button></div>';
+}
+async function submitUser(uid) {
+  const g = x => { const e = document.getElementById(x); return e ? e.value : ''; };
+  const role = g('uRole') === 'admin' ? 'admin' : 'user';
+  const perms = {}; MODULES.forEach(m => perms[m.id] = g('uperm_' + m.id) || 'none');
+  try {
+    if (uid) { await _adminCall('adminUpdateUser', { uid, role, perms }); pmToast('User updated — applies on their next sign-in'); }
+    else {
+      const email = g('uEmail').trim(), password = g('uPass');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { pmToast('Enter a valid email'); return; }
+      if ((password || '').length < 6) { pmToast('Password must be at least 6 characters'); return; }
+      await _adminCall('adminCreateUser', { email, password, role, perms }); pmToast('User created');
+    }
+    closeModal(); renderAdmin();
+  } catch (e) {
+    pmToast({ email_exists: 'That email already has an account.', forbidden: 'Admins only.', owner_protected: "Owner accounts can't be changed.", weak_password: 'Password too short.', invalid_email: 'Invalid email.' }[String(e.message)] || ('Failed: ' + String(e.message || e)));
+  }
+}
+async function toggleUserDisabled(uid) {
+  const u = _adminUsers.find(x => x.uid === uid); if (!u) return;
+  try { await _adminCall('adminUpdateUser', { uid, role: u.role, perms: u.perms, disabled: !u.disabled }); pmToast(u.disabled ? 'User enabled' : 'User disabled'); renderAdmin(); }
+  catch (e) { pmToast({ owner_protected: "Owner accounts can't be changed." }[String(e.message)] || ('Failed: ' + String(e.message || e))); }
+}
+async function deleteUser(uid) {
+  const u = _adminUsers.find(x => x.uid === uid);
+  if (!confirm('Delete ' + ((u && u.email) || 'this user') + "? This permanently removes their account.")) return;
+  try { await _adminCall('adminDeleteUser', { uid }); pmToast('User deleted'); renderAdmin(); }
+  catch (e) { pmToast({ owner_protected: "Owner accounts can't be deleted.", cannot_delete_self: "You can't delete your own account." }[String(e.message)] || ('Failed: ' + String(e.message || e))); }
+}
+// Read-only admin view of a user's portfolios (holdings + transactions), fetched via the audited
+// adminGetUserPortfolio function. Rendered into #adminBody with a back button. All fields escaped.
+async function viewUserPortfolios(uid) {
+  if (!isAdminClient()) return;
+  const el = document.getElementById('adminBody'); if (!el) return;
+  const known = _adminUsers.find(x => x.uid === uid);
+  el.innerHTML = '<div class="pf-filter-note">Loading ' + escHtml((known && known.email) || uid) + '’s portfolios…</div>';
+  let d;
+  try { d = await _adminCall('adminGetUserPortfolio', { uid }); }
+  catch (e) { el.innerHTML = '<button class="pf-btn pf-btn-outline" onclick="renderAdmin()">← Back to users</button>' + emptyState('users', "Couldn't load portfolios", escHtml(String(e.message || e))); return; }
+  const pfs = d.portfolios || [];
+  let html = '<div class="rec-head"><button class="rec-back" onclick="renderAdmin()">← Back to users</button>' +
+    '<div style="margin-top:8px"><div class="rec-head-tkr">' + escHtml(d.email || (known && known.email) || uid) + '</div>' +
+    '<div class="rec-head-name">Read-only admin view · this access is logged</div></div></div>';
+  if (!pfs.length) { el.innerHTML = html + emptyState('briefcase', 'No portfolios', 'This user has no portfolios yet.'); return; }
+  pfs.forEach(pf => {
+    const merged = {};
+    (pf.holdings || []).forEach(h => { const t = (h.ticker || '').toUpperCase(); if (!t) return; const q = parseFloat(h.qty) || 0, bp = parseFloat(h.buy_price) || 0; if (!merged[t]) merged[t] = { ticker: t, qty: 0, cost: 0 }; merged[t].qty += q; merged[t].cost += q * bp; });
+    const hRows = Object.values(merged).map(m => '<tr><td class="ht-sym">' + escHtml(m.ticker) + '</td><td>' + (Math.round(m.qty * 1e4) / 1e4) + '</td><td>$' + (m.qty > 0 ? (m.cost / m.qty) : 0).toFixed(2) + '</td><td>' + dollarFmt(m.cost) + '</td></tr>').join('');
+    const txns = (pf.transactions || []).slice().sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+    let realized = 0, div = 0; txns.forEach(t => { if (t.type === 'sell') realized += (+t.realized || 0); if (t.type === 'dividend') div += (+t.amount || 0); });
+    const tRows = txns.slice(0, 50).map(t => { const badge = t.type === 'buy' ? '<span class="badge badge-green">Buy</span>' : t.type === 'sell' ? '<span class="badge badge-red">Sell</span>' : '<span class="badge badge-blue">Div</span>'; const detail = t.type === 'dividend' ? dollarFmt(+t.amount || 0) : ((Math.round((+t.qty || 0) * 1e4) / 1e4) + ' @ $' + (+t.price || 0).toFixed(2)); return '<tr><td>' + escHtml(fmtDate(t.date)) + '</td><td>' + badge + '</td><td class="ht-sym">' + escHtml(t.ticker || '—') + '</td><td>' + detail + '</td></tr>'; }).join('');
+    html += '<div class="dash-section"><div class="dash-section-title">' + escHtml(pf.name) + (pf.description ? ' <span class="ht-sub">· ' + escHtml(pf.description) + '</span>' : '') + '</div>' +
+      (hRows ? '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Ticker</th><th>Qty</th><th>Avg cost</th><th>Cost basis</th></tr></thead><tbody>' + hRows + '</tbody></table></div>' : '<div class="ht-sub">No holdings.</div>') +
+      (txns.length ? '<div class="ht-sub" style="margin:10px 0 4px">Transactions — Realized ' + (realized >= 0 ? '+' : '') + dollarFmt(realized) + ' · Dividends ' + dollarFmt(div) + '</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th>Date</th><th>Type</th><th class="ht-sym">Ticker</th><th>Qty / Amount</th></tr></thead><tbody>' + tRows + '</tbody></table></div>' : '') +
+      '</div>';
+  });
+  el.innerHTML = html;
 }
 
 // ── Firebase ──
@@ -1822,6 +2344,47 @@ function age2str(h) { return h < 1 ? '<1h ago' : Math.round(h) + 'h ago'; }
 function signalCls(sig) { const s = (sig || '').replace(' ', ''); return s === 'STRONGBUY' ? 'sc-SB' : s === 'WATCH' ? 'sc-W' : 'sc-K'; }
 function dollarFmt(v) { if (v == null || isNaN(v)) return '—'; const abs = Math.abs(v); const s = v < 0 ? '-' : ''; if (abs >= 1e6) return s + '$' + (abs / 1e6).toFixed(2) + 'M'; if (abs >= 1e3) return s + '$' + (abs / 1e3).toFixed(1) + 'K'; return s + '$' + abs.toFixed(2); }
 function pctFmt(v, dec = 1) { if (v == null || isNaN(v)) return '—'; return (v >= 0 ? '+' : '') + v.toFixed(dec) + '%'; }
+
+// ── Live U.S. currency input formatting ─────────────────────────────────────
+// Every USD amount input is type=text + data-ccy; ONE delegated listener formats it as the user types
+// ($1,234.56, en-US grouping regardless of browser locale) and normalizes on blur. Precision is 2 decimals
+// for cent amounts but allows up to 6 so legitimate sub-cent / fractional-share prices (e.g. $0.0034) aren't
+// destroyed. Read paths must use ccyParse/ccyNum (bare parseFloat can't cope with the "$" and commas).
+function ccyParse(v) { return parseFloat(String(v == null ? '' : v).replace(/[^0-9.]/g, '')); } // "$1,234.56" -> 1234.56 (NaN if none)
+function ccyNum(v) { const n = ccyParse(v); return isFinite(n) ? n : 0; }
+function ccyDisplay(n) { if (n === '' || n == null) return ''; const x = typeof n === 'number' ? n : Number(String(n).replace(/[^0-9.\-]/g, '')); return isFinite(x) ? '$' + x.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 }) : ''; }
+// As-you-type transform: keep digits + a single dot, drop leading zeros, group the integer part, cap the
+// fraction at 2 digits WITHOUT forcing trailing zeros (so "12." and "12.5" survive); blur normalizes to 2dp.
+function ccyLiveFormat(str) {
+  let s = String(str == null ? '' : str).replace(/[^0-9.]/g, '');
+  if (s === '') return '';
+  const dot = s.indexOf('.');
+  let intPart = dot === -1 ? s : s.slice(0, dot);
+  const frac = dot === -1 ? '' : s.slice(dot + 1).replace(/\./g, '').slice(0, 6); // up to 6dp so sub-cent / fractional prices survive
+  intPart = intPart.replace(/^0+(?=\d)/, '');
+  const intFmt = intPart === '' ? '' : intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // string grouping — exact at any length, no MAX_SAFE_INTEGER rounding, locale-proof
+  return '$' + intFmt + (dot === -1 ? '' : '.' + frac);
+}
+// Reformat an input in place, preserving the caret by counting digits to its left.
+function _ccyReformat(el) {
+  const before = el.value;
+  const caret = el.selectionStart == null ? before.length : el.selectionStart;
+  const digitsBefore = (before.slice(0, caret).match(/\d/g) || []).length;
+  const after = ccyLiveFormat(before);
+  if (after === before) return;
+  el.value = after;
+  let pos;
+  if (digitsBefore <= 0) { pos = after.charAt(0) === '$' ? 1 : 0; }
+  else { let seen = 0; pos = after.length; for (let i = 0; i < after.length; i++) { const c = after.charCodeAt(i); if (c >= 48 && c <= 57) { seen++; if (seen >= digitsBefore) { pos = i + 1; break; } } } }
+  try { el.setSelectionRange(pos, pos); } catch (e) {}
+}
+if (typeof document !== 'undefined' && !window._ccyBound) {
+  window._ccyBound = true;
+  // Delegation on document covers every present + future [data-ccy] input (modals built as HTML strings,
+  // dynamically generated placeholder rows) from one place — uniform across all modules.
+  document.addEventListener('input', function (e) { const t = e.target; if (t && t.matches && t.matches('input[data-ccy]')) _ccyReformat(t); });
+  document.addEventListener('focusout', function (e) { const t = e.target; if (t && t.matches && t.matches('input[data-ccy]')) { const n = ccyParse(t.value); t.value = isFinite(n) ? ccyDisplay(n) : ''; } });
+}
 function todayStr() { return new Date().toISOString().slice(0, 10); }
 function daysHeld(buyDate) { if (!buyDate) return 0; const d = new Date(buyDate); const now = new Date(); return Math.max(0, Math.round((now - d) / 864e5)); }
 function daysHeldStr(buyDate) { const d = daysHeld(buyDate); if (d < 30) return d + 'd'; if (d < 365) return Math.round(d / 30) + 'mo'; return (d / 365).toFixed(1) + 'yr'; }
@@ -2158,6 +2721,7 @@ function acSelect(sym, listId, context) {
   else if (context === 'portfolio') { pfSearch(sym); }
   else if (context === 'bulkAdd') { bulkAddChip(sym); const inp = document.getElementById('bulkTickerInput'); if (inp) inp.focus(); }
   else if (context === 'recommend') { document.getElementById('recInput').value = sym; runRecommend(); }
+  else if (context === 'txn') { const i = document.getElementById('txnTicker'); if (i) i.value = sym; }
 }
 function acClose(listId) { const el = document.getElementById(listId); if (el) el.style.display = 'none'; }
 function acKey(e, listId, context) {
@@ -2187,13 +2751,13 @@ async function autofillBuyPrice(sym) {
   if (hint) hint.textContent = 'Fetching price…';
   const sd = scanStockFor(sym);
   if (sd && sd.price != null) {
-    if (bp && !bp.value) bp.value = (+sd.price).toFixed(2);
+    if (bp && !bp.value) bp.value = ccyDisplay(+sd.price);
     if (hint) hint.innerHTML = 'Last: <b>$' + (+sd.price).toFixed(2) + '</b>';
   }
   await fetchLivePrices([sym]);
   const e = liveEntry(sym);
   if (e && e.price != null) {
-    if (bp && (!bp.value || (sd && bp.value === (+sd.price).toFixed(2)))) bp.value = e.price.toFixed(2);
+    if (bp && (!bp.value || (sd && bp.value === ccyDisplay(+sd.price)))) bp.value = ccyDisplay(e.price);
     const chg = e.changePct || 0;
     const cls = chg > 0 ? 'pos' : chg < 0 ? 'neg' : 'neu';
     if (hint) hint.innerHTML = 'Live: <b>$' + e.price.toFixed(2) + '</b> <span class="' + cls + '">' + (chg ? pctFmt(chg, 2) : '') + '</span>';
@@ -2205,7 +2769,7 @@ function showPanel(panel) {
   try {
     ['signin','signup','reset'].forEach(p => { const f = document.getElementById('authForm' + p.charAt(0).toUpperCase() + p.slice(1)); if (f) f.classList.toggle('active', p === panel); });
     document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.panel === panel));
-    const g = document.getElementById('googleAuthBlock'); if (g) g.style.display = panel === 'reset' ? 'none' : '';
+    const g = document.getElementById('googleAuthBlock'); if (g) g.style.display = (panel === 'signin' || panel === 'signup') ? '' : 'none';   // Google available for sign in + sign up
     const s1 = document.getElementById('resetStep1'), s2 = document.getElementById('resetStep2'); if (s1 && s2) { s1.style.display = ''; s2.style.display = 'none'; }
     if (panel === 'reset') { try { drawCaptcha(); } catch (e) {} const _ci = document.getElementById('capInput'); if (_ci) _ci.value = ''; }
     ['siErr','suErr','rstErr','rst2Err'].forEach(id => { const e = document.getElementById(id); if (e) { e.textContent = ''; e.style.color = ''; } });
@@ -2243,6 +2807,9 @@ function authBusy(btn, on, busyText) {
 function togglePw(id, btn) { const i = document.getElementById(id); if (!i) return; const show = i.type === 'password'; i.type = show ? 'text' : 'password'; if (btn) { btn.textContent = show ? 'Hide' : 'Show'; btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password'); } }
 async function applyPersistence(remember) { try { await auth.setPersistence(remember ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION); } catch (e) {} }
 async function signInWithGoogle() {
+  // Google sign-in is enabled, but access is GATED at auth-state time (see isProvisionedUser): only owner
+  // emails or accounts an admin has provisioned (a users/{uid} record with role/perms) are let in — any
+  // other Google account is immediately signed out. This keeps the admin-only provisioning model intact.
   const ae = document.querySelector('.auth-form.active .auth-err'); if (ae) { ae.style.color = ''; ae.textContent = ''; }
   const btn = document.querySelector('.google-btn'); authBusy(btn, true, 'Connecting…');
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -2275,6 +2842,8 @@ async function doSignIn() {
   authBusy(btn, false);
 }
 async function doSignUp() {
+  // Open self-service signup (SaaS): create the account, then routeAfterAuth() sends them to onboarding
+  // (create an organization or accept a pending invite).
   const email = document.getElementById('suEmail').value.trim();
   const pass = document.getElementById('suPass').value;
   const pass2 = document.getElementById('suPass2').value;
@@ -2417,22 +2986,338 @@ function hideLoading() {
 }
 
 auth.getRedirectResult().catch(e => { const c = (e && e.code) || ''; if (c && c !== 'auth/no-auth-event') { try { pmToast(authErrMsg(e)); } catch (_) {} } });
-auth.onAuthStateChanged(user => {
-  if (user) {
-    UID = user.uid;
-    document.getElementById('authPanel').classList.add('hidden');
-    document.getElementById('userBadge').textContent = user.email;
-    setLoading('Loading scan data…');
-    initScanListener();
-    initClaudeHoldingsListener();   // per-holding calls from Claude (claude_holdings/{uid})
-    initUserListeners();
-    registerForPush(false);   // silently refresh token if permission already granted
-    asstSyncFromCloud();      // load this account's saved AI chats from Firestore (cross-login/device)
-    setTimeout(() => tourWelcome(), 1800);  // first-visit welcome popup → invites the tour (replay via the ? button)
+
+// ── SaaS onboarding router ──
+// After auth: load the user's org index (users/{uid}.orgs). ≥1 org → enter the shell on the active org;
+// 0 orgs → onboarding (create an organization or accept a pending invite). Real users are never signed out.
+async function routeAfterAuth(user) {
+  UID = user.uid;
+  let orgs = {};
+  try { const d = await db.collection('users').doc(user.uid).get(); if (d.exists) { orgs = (d.data() || {}).orgs || {}; } } catch (e) {}
+  _myOrgs = orgs || {};
+  _hubUser = user;
+  // Mid-session continuity: sf_ws = "orgId::companyId" → refresh returns to that company workspace.
+  let ws = null; try { ws = sessionStorage.getItem('sf_ws'); } catch (e) {}
+  if (ws && ws.indexOf('::') > 0) {
+    const parts = ws.split('::'); const o = parts[0], c = parts[1];
+    if (o && c) { ACTIVE_ORG = o; ACTIVE_COMPANY = c; _orgName = (_myOrgs[o] && _myOrgs[o].name) || ''; const cos = (_myOrgs[o] && _myOrgs[o].companies) || {}; _companyName = (cos[c] && cos[c].name) || ''; enterApp(user); return; }
+  }
+  // Fresh login → always land on the workspace hub (Organizations → Companies), never on the login screen.
+  ACTIVE_ORG = null; ACTIVE_COMPANY = null; _hubOrgId = null;
+  try { await renderHub(user); } catch (e) {}
+}
+function enterApp(user) {
+  const _hub = document.getElementById('orgHub'); if (_hub) _hub.classList.add('hidden');
+  document.getElementById('authPanel').classList.add('hidden');
+  document.getElementById('app').style.display = '';
+  document.getElementById('userBadge').textContent = user.email;
+  try { renderOrgSwitcher(); } catch (e) {}
+  setLoading('Loading…');
+  initScanListener();
+  initClaudeHoldingsListener();
+  initUserListeners();            // includes loadPermsAndGate() (now company-scoped)
+  subscribeUserDoc();             // keep _myOrgs fresh for the switcher
+  registerForPush(false);
+  asstSyncFromCloud();
+  setTimeout(() => tourWelcome(), 1800);
+}
+let _userDocUnsub = null;
+function subscribeUserDoc() {
+  if (_userDocUnsub) { try { _userDocUnsub(); } catch (e) {} _userDocUnsub = null; }
+  if (!UID) return;
+  _userDocUnsub = db.collection('users').doc(UID).onSnapshot(d => {
+    _myOrgs = (d.exists && d.data() && d.data().orgs) || {};
+    try { renderOrgSwitcher(); } catch (e) {}
+  }, () => {});
+}
+// ── Workspace hub (post-login: Organizations → Companies drill-down) ──
+let _hubUser = null, _hubOrgId = null, _hubOrgList = [], _hubInvites = [], _hubCoData = { companies: [], canManage: false }, _hubPersonalOrgs = [];
+function _avatarInitial(s) { return ((s || '?').trim().charAt(0) || '?').toUpperCase(); }
+function _hubColor(seed) { const c = ['#ff7a1a', '#21d27c', '#ff5c7a', '#5b8cff', '#c07cff', '#ffb020', '#12b5cb']; let h = 0; const s = String(seed || ''); for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return c[h % c.length]; }
+function _hubModuleBadges() { return '<span class="badge badge-blue">Trading</span> <span class="badge badge-green">Loans &amp; Notes</span>'; }
+function _persistActive(orgId, companyId) {
+  try { localStorage.setItem('sf_active_org', orgId); } catch (e) {}
+  try { if (companyId) sessionStorage.setItem('sf_ws', orgId + '::' + companyId); } catch (e) {}
+  try { return db.collection('users').doc(UID).set({ activeOrg: orgId, activeCompany: companyId || null }, { merge: true }); } catch (e) { return Promise.resolve(); }
+}
+function _hubShowHub(user) {
+  document.getElementById('authPanel').classList.add('hidden');
+  document.getElementById('app').style.display = 'none';
+  const l = document.getElementById('loading'); if (l) { l.classList.add('hidden'); l.style.display = 'none'; }
+  const hub = document.getElementById('orgHub'); if (hub) hub.classList.remove('hidden');
+  const ub = document.getElementById('hubUserBadge'); if (ub) ub.textContent = (user && user.email) || '';
+  const th = document.getElementById('hubTheme'); if (th) th.innerHTML = ic(document.documentElement.getAttribute('data-theme') === 'dark' ? 'sun' : 'moon', 18);
+}
+async function renderHub(user) {
+  if (user) _hubUser = user;
+  _hubShowHub(_hubUser);
+  if (_hubOrgId) return renderCompanyLevel();
+  return renderOrgLevel();
+}
+// Level 1 — Organizations the user can enter/manage (Super Admin sees all orgs).
+async function renderOrgLevel() {
+  const body = document.getElementById('hubBody');
+  body.innerHTML = '<div class="hub-title">Select workspace</div><div class="hub-sub">Open your personal workspace or an organization you belong to.</div>' +
+    '<div class="hub-controls"><div class="hub-search">' + ic('search', 16) + '<input id="hubSearch" type="text" placeholder="Search organizations…" oninput="_hubFilter()" autocomplete="off"/></div></div>' +
+    '<div id="hubGrid" class="hub-grid"></div><div id="hubPersonalWrap"></div>';
+  const grid = document.getElementById('hubGrid'); grid.innerHTML = '<div class="hub-empty">Loading…</div>';
+  const superAdmin = isPlatformAdmin();
+  let orgs = [], personalOrgs = [];
+  const myEmail = ((auth.currentUser && auth.currentUser.email) || '').toLowerCase();
+  if (superAdmin) {
+    // Super-admins see every org. Personal workspaces are split into their own section (oversight)
+    // so they don't clutter the team-org grid; a team org drills into its companies as usual.
+    try {
+      const d = await _adminCall('platformListOrgs');
+      (d.orgs || []).forEach(o => {
+        if (o.personal) { if ((o.createdByEmail || '').toLowerCase() !== myEmail) personalOrgs.push({ orgId: o.orgId, name: o.name || 'Personal', companyId: o.defaultCompany || null, ownerEmail: o.createdByEmail || '' }); }
+        else orgs.push({ orgId: o.orgId, name: o.name || 'Organization', sub: (o.industry ? o.industry + ' · ' : '') + (o.memberCount || 0) + ' member' + ((o.memberCount === 1) ? '' : 's'), memberCount: o.memberCount || 0, admin: true });
+      });
+    } catch (e) {}
   } else {
-    UID = null;
+    // Regular users only see their own orgs. Their personal workspace is entered via the "Personal
+    // workspace" card (below), so it's excluded from the team-org grid — they never see anyone else's.
+    Object.keys(_myOrgs || {}).forEach(id => {
+      const info = _myOrgs[id] || {};
+      if (info.personal) return;
+      const cos = info.companies || {};
+      orgs.push({ orgId: id, name: info.name || 'Organization', sub: info.orgAdmin ? 'Organization admin' : (Object.keys(cos).length + ' compan' + (Object.keys(cos).length === 1 ? 'y' : 'ies')), memberCount: 0, admin: !!info.orgAdmin });
+    });
+  }
+  _hubOrgList = orgs;
+  _hubPersonalOrgs = personalOrgs;
+  try { const d = await _adminCall('listMyInvites'); _hubInvites = d.invites || []; } catch (e) { _hubInvites = []; }
+  _hubRenderOrgCards();
+}
+function _hubOrgCard(o) {
+  return '<button type="button" class="hub-card" onclick="hubOpenOrg(\'' + o.orgId + '\')">' +
+    '<div class="hub-card-top"><span class="hub-logo" style="background:' + _hubColor(o.name) + '">' + escHtml(_avatarInitial(o.name)) + '</span>' +
+    '<div class="hub-card-h"><div class="hub-card-name">' + escHtml(o.name) + '</div><div class="hub-card-sub">' + escHtml(o.sub) + '</div></div>' +
+    (o.admin ? '<span class="badge badge-blue">admin</span>' : '') + '</div>' +
+    '<div class="hub-card-foot"><span class="hub-date">' + ic('briefcase', 14) + ' Open companies</span></div></button>';
+}
+function _hubInviteCard(iv) {
+  const label = iv.companyName ? (iv.companyName + ' · ' + (iv.orgName || '')) : (iv.orgName || 'Organization');
+  return '<div class="hub-card hub-invite"><div class="hub-card-top"><span class="hub-logo" style="background:' + _hubColor(iv.companyName || iv.orgName) + '">' + escHtml(_avatarInitial(iv.companyName || iv.orgName)) + '</span>' +
+    '<div class="hub-card-h"><div class="hub-card-name">' + escHtml(label) + '</div><div class="hub-card-sub">Invitation · ' + escHtml(iv.role || 'member') + '</div></div></div>' +
+    '<div class="hub-card-foot"><span class="hub-date">from ' + escHtml(iv.invitedByEmail || '') + '</span><button type="button" class="modal-btn modal-btn-primary" style="padding:6px 16px" onclick="acceptInviteBtn(\'' + iv.inviteId + '\')">Join</button></div></div>';
+}
+function _hubPersonalCta() { return '<button type="button" class="hub-card hub-card-cta" onclick="enterPersonal()"><div class="hub-card-top"><span class="hub-logo" style="background:var(--green)">' + ic('briefcase', 20) + '</span><div class="hub-card-h"><div class="hub-card-name">Personal workspace</div><div class="hub-card-sub">Just you — Trading + Loans & Notes</div></div></div><div class="hub-modules">' + _hubModuleBadges() + '</div></button>'; }
+// A super-admin oversight card for someone else's personal workspace — enters it directly (no company drill-down).
+function _hubPersonalOrgCard(o) {
+  const disabled = !o.companyId;
+  const open = disabled ? '' : ' onclick="enterWorkspace(\'' + o.orgId + '\',\'' + o.companyId + '\')" onkeydown="if(event.key===\'Enter\')enterWorkspace(\'' + o.orgId + '\',\'' + o.companyId + '\')"';
+  return '<div class="hub-card' + (disabled ? ' hub-card-inactive' : '') + '" role="button" tabindex="0"' + open + '>' +
+    '<div class="hub-card-top"><span class="hub-logo" style="background:' + _hubColor(o.name) + '">' + escHtml(_avatarInitial(o.ownerEmail || o.name)) + '</span>' +
+    '<div class="hub-card-h"><div class="hub-card-name">' + escHtml(o.ownerEmail || o.name) + '</div><div class="hub-card-sub">Personal workspace</div></div>' +
+    '<span class="badge badge-blue">personal</span></div></div>';
+}
+function _hubRenderOrgCards() {
+  const grid = document.getElementById('hubGrid'); if (!grid) return;
+  const q = ((document.getElementById('hubSearch') || {}).value || '').trim().toLowerCase();
+  let orgs = _hubOrgList.slice();
+  if (q) orgs = orgs.filter(o => (o.name || '').toLowerCase().includes(q));
+  let html = '';
+  if (!q) _hubInvites.forEach(iv => { html += _hubInviteCard(iv); });
+  if (!q) html += _hubPersonalCta();
+  orgs.forEach(o => { html += _hubOrgCard(o); });
+  if (!q) {
+    if (isPlatformAdmin()) html += '<button type="button" class="hub-card hub-card-create" onclick="openModal(\'newOrg\')"><span class="hub-create-plus">' + ic('plus', 22) + '</span><div class="hub-card-name">Create organization</div><div class="hub-card-sub">Spin up a new organization for a team.</div></button>';
+    else html += '<div class="hub-card hub-card-note"><div class="hub-card-name">Need a team organization?</div><div class="hub-card-sub">Contact your Sparks administrator to be added to one.</div></div>';
+  }
+  grid.innerHTML = html || '<div class="hub-empty">No organizations match “' + escHtml(q) + '”.</div>';
+  // Super-admin only: everyone else's personal workspaces, in their own labeled section.
+  const pw = document.getElementById('hubPersonalWrap');
+  if (pw) {
+    let ppl = _hubPersonalOrgs.slice();
+    if (q) ppl = ppl.filter(o => (o.name || '').toLowerCase().includes(q) || (o.ownerEmail || '').toLowerCase().includes(q));
+    pw.innerHTML = ppl.length
+      ? '<div class="hub-section-title">Personal workspaces <span class="ht-sub">(' + ppl.length + ')</span></div><div class="hub-grid">' + ppl.map(_hubPersonalOrgCard).join('') + '</div>'
+      : '';
+  }
+}
+// Level 2 — Companies within the opened org.
+async function hubOpenOrg(orgId) { _hubOrgId = orgId; await renderCompanyLevel(); }
+function hubBackToOrgs() { _hubOrgId = null; renderOrgLevel(); }
+async function renderCompanyLevel() {
+  const orgId = _hubOrgId; const info = _myOrgs[orgId] || {};
+  const orgName = info.name || (_hubOrgList.find(o => o.orgId === orgId) || {}).name || 'Organization';
+  const superAdmin = isPlatformAdmin();
+  const body = document.getElementById('hubBody');
+  body.innerHTML = '<button type="button" class="hub-back" onclick="hubBackToOrgs()">' + ic('chevleft', 14) + ' All organizations</button>' +
+    '<div class="hub-head-row"><div><div class="hub-title">' + escHtml(orgName) + '</div><div class="hub-sub">Select a company to open its workspace' + (superAdmin ? ', or manage this organization' : '') + '.</div></div>' +
+    (superAdmin ? '<button type="button" class="pf-btn pf-btn-outline hub-manage-btn" onclick="openModal(\'editOrg\')">' + ic('briefcase', 14) + ' Manage organization</button>' : '') + '</div>' +
+    '<div class="hub-controls"><div class="hub-search">' + ic('search', 16) + '<input id="hubSearch" type="text" placeholder="Search companies by name…" oninput="_hubFilter()" autocomplete="off"/></div></div>' +
+    '<div id="hubGrid" class="hub-grid"></div>';
+  const grid = document.getElementById('hubGrid'); grid.innerHTML = '<div class="hub-empty">Loading companies…</div>';
+  const superOrAdmin = superAdmin || !!info.orgAdmin;
+  let companies = [], canManage = false;
+  if (superOrAdmin) {
+    try { const d = await _adminCall('orgListCompanies', { orgId }); companies = (d.companies || []).map(c => ({ companyId: c.companyId, name: c.name || 'Company', memberCount: c.memberCount || 0, active: c.active !== false })); canManage = true; } catch (e) {}
+  } else {
+    const cos = info.companies || {}; companies = Object.keys(cos).map(cid => ({ companyId: cid, name: (cos[cid] && cos[cid].name) || 'Company', memberCount: 0, role: (cos[cid] && cos[cid].role) || 'member', active: true }));
+  }
+  _hubCoData = { companies, canManage };
+  _hubRenderCompanyCards();
+}
+function _hubFindCo(cid) { return (_hubCoData.companies || []).find(c => c.companyId === cid) || {}; }
+function _hubCompanyCard(c, canManage) {
+  const inactive = c.active === false;
+  const actions = canManage ? '<div class="hub-card-actions">' +
+    '<button type="button" class="hub-mini-btn" onclick="event.stopPropagation();editCompany(\'' + c.companyId + '\')" title="Rename company">Rename</button>' +
+    '<button type="button" class="hub-mini-btn" onclick="event.stopPropagation();toggleCompanyActive(\'' + c.companyId + '\')" title="' + (inactive ? 'Reactivate this company' : 'Deactivate (members lose access)') + '">' + (inactive ? 'Activate' : 'Deactivate') + '</button>' +
+    '<button type="button" class="hub-mini-btn hub-mini-danger" onclick="event.stopPropagation();deleteCompany(\'' + c.companyId + '\')" title="Delete company">Delete</button>' +
+    '</div>' : '';
+  return '<div class="hub-card' + (inactive ? ' hub-card-inactive' : '') + '" role="button" tabindex="0" onclick="enterWorkspace(\'' + _hubOrgId + '\',\'' + c.companyId + '\')" onkeydown="if(event.key===\'Enter\')enterWorkspace(\'' + _hubOrgId + '\',\'' + c.companyId + '\')">' +
+    '<div class="hub-card-top"><span class="hub-logo" style="background:' + _hubColor(c.name) + '">' + escHtml(_avatarInitial(c.name)) + '</span>' +
+    '<div class="hub-card-h"><div class="hub-card-name">' + escHtml(c.name) + '</div><div class="hub-card-sub">' + (inactive ? 'Deactivated' : (c.memberCount ? (c.memberCount + ' member' + (c.memberCount === 1 ? '' : 's')) : 'Company workspace')) + '</div></div>' +
+    (c.role === 'admin' ? '<span class="badge badge-blue">admin</span>' : '') + '</div>' +
+    '<div class="hub-modules">' + _hubModuleBadges() + '</div>' + actions + '</div>';
+}
+function _hubRenderCompanyCards() {
+  const grid = document.getElementById('hubGrid'); if (!grid) return;
+  const q = ((document.getElementById('hubSearch') || {}).value || '').trim().toLowerCase();
+  let cos = _hubCoData.companies.slice();
+  if (q) cos = cos.filter(c => (c.name || '').toLowerCase().includes(q));
+  cos.sort((a, b) => (a.active === false ? 1 : 0) - (b.active === false ? 1 : 0) || (a.name || '').localeCompare(b.name || ''));
+  let html = cos.map(c => _hubCompanyCard(c, _hubCoData.canManage)).join('');
+  if (!q && _hubCoData.canManage) {
+    html += '<button type="button" class="hub-card hub-card-create" onclick="openModal(\'newCompany\')"><span class="hub-create-plus">' + ic('plus', 22) + '</span><div class="hub-card-name">Create company</div><div class="hub-card-sub">Add a company to this organization</div></button>';
+    if (isPlatformAdmin()) html += '<button type="button" class="hub-card hub-card-cta" onclick="openModal(\'orgAdmins\')"><div class="hub-card-top"><span class="hub-logo" style="background:var(--blue)">' + ic('users', 20) + '</span><div class="hub-card-h"><div class="hub-card-name">Organization admins</div><div class="hub-card-sub">Grant a teammate admin access across every company in this organization.</div></div></div></button>';
+  }
+  grid.innerHTML = html || '<div class="hub-empty">' + (q ? 'No companies match “' + escHtml(q) + '”.' : 'No companies yet — create the first one.') + '</div>';
+}
+let _editCompanyId = null;
+function editCompany(cid) { _editCompanyId = cid; openModal('editCompany'); }
+async function saveCompanyBtn() {
+  const name = (document.getElementById('ecName').value || '').trim();
+  if (!name) { try { pmToast('Enter a company name'); } catch (e) {} return; }
+  const btn = document.getElementById('ecSaveBtn'); authBusy(btn, true, 'Saving…');
+  try { await _adminCall('updateCompany', { orgId: _hubOrgId, companyId: _editCompanyId, name }); closeModal(); try { pmToast('Company updated'); } catch (e) {} await renderHub(auth.currentUser); }
+  catch (e) { authBusy(btn, false); try { pmToast('Could not update company: ' + (e.message || e)); } catch (_) {} }
+}
+async function toggleCompanyActive(cid) {
+  const c = _hubFindCo(cid); const willActivate = c.active === false;
+  if (!willActivate && !confirm('Deactivate “' + (c.name || 'this company') + '”? Its members lose access to all data until it is reactivated.')) return;
+  try { await _adminCall('updateCompany', { orgId: _hubOrgId, companyId: cid, active: willActivate }); try { pmToast(willActivate ? 'Company activated' : 'Company deactivated'); } catch (e) {} await renderHub(auth.currentUser); }
+  catch (e) { try { pmToast('Failed: ' + (e.message || e)); } catch (_) {} }
+}
+async function deleteCompany(cid) {
+  const c = _hubFindCo(cid);
+  if (!confirm('Delete “' + (c.name || 'this company') + '”? It is deactivated and hidden; its data is retained but no longer accessible.')) return;
+  try { await _adminCall('updateCompany', { orgId: _hubOrgId, companyId: cid, delete: true }); try { pmToast('Company deleted'); } catch (e) {} await renderHub(auth.currentUser); }
+  catch (e) { try { pmToast('Failed: ' + (e.message || e)); } catch (_) {} }
+}
+async function fillEditOrg() {
+  const nameEl = document.getElementById('eoName'), indEl = document.getElementById('eoIndustry');
+  const nm = (_hubOrgList.find(o => o.orgId === _hubOrgId) || {}).name || (_myOrgs[_hubOrgId] && _myOrgs[_hubOrgId].name) || '';
+  if (nameEl && !nameEl.value) nameEl.value = nm;
+  try { const d = await orgRefById(_hubOrgId).get(); if (d.exists) { const o = d.data() || {}; if (nameEl) nameEl.value = o.name || nm; if (indEl) indEl.value = o.industry || ''; } } catch (e) {}
+}
+function orgRefById(id) { return db.collection('organizations').doc(id); }
+async function saveOrgBtn() {
+  const name = (document.getElementById('eoName').value || '').trim();
+  const industry = (document.getElementById('eoIndustry').value || '').trim();
+  if (!name) { try { pmToast('Enter an organization name'); } catch (e) {} return; }
+  const btn = document.getElementById('eoSaveBtn'); authBusy(btn, true, 'Saving…');
+  try { await _adminCall('updateOrganization', { orgId: _hubOrgId, name, industry }); closeModal(); try { pmToast('Organization updated'); } catch (e) {} await renderHub(auth.currentUser); }
+  catch (e) { authBusy(btn, false); try { pmToast('Could not update organization: ' + (e.message || e)); } catch (_) {} }
+}
+async function deleteOrgBtn() {
+  const nm = (_hubOrgList.find(o => o.orgId === _hubOrgId) || {}).name || 'this organization';
+  if (!confirm('Delete “' + nm + '”? The organization and all its companies are deactivated and hidden. Data is retained but inaccessible.')) return;
+  try { await _adminCall('updateOrganization', { orgId: _hubOrgId, delete: true }); closeModal(); try { pmToast('Organization deleted'); } catch (e) {} _hubOrgId = null; await renderHub(auth.currentUser); }
+  catch (e) { try { pmToast('Failed: ' + (e.message || e)); } catch (_) {} }
+}
+function _hubFilter() { if (_hubOrgId) _hubRenderCompanyCards(); else _hubRenderOrgCards(); }
+function enterWorkspace(orgId, companyId) {
+  if (!orgId || !companyId) return;
+  ACTIVE_ORG = orgId; ACTIVE_COMPANY = companyId;
+  _orgName = (_myOrgs[orgId] && _myOrgs[orgId].name) || (_hubOrgList.find(o => o.orgId === orgId) || {}).name || (_hubPersonalOrgs.find(o => o.orgId === orgId) || {}).name || '';
+  const cos = (_myOrgs[orgId] && _myOrgs[orgId].companies) || {};
+  _companyName = (cos[companyId] && cos[companyId].name) || ((_hubCoData.companies.find(c => c.companyId === companyId) || {}).name) || '';
+  _persistActive(orgId, companyId);
+  enterApp(auth.currentUser);
+}
+async function enterPersonal() {
+  try {
+    const d = await _adminCall('ensurePersonalOrg');
+    if (d.orgId && d.companyId) { await _persistActive(d.orgId, d.companyId); location.reload(); }
+    else { try { pmToast('Could not open your personal workspace.'); } catch (_) {} }
+  } catch (e) { try { pmToast('Could not open your personal workspace: ' + (e.message || e)); } catch (_) {} }
+}
+function backToHub() { try { sessionStorage.removeItem('sf_ws'); } catch (e) {} location.reload(); }
+async function createOrgBtn() {
+  const name = (document.getElementById('obOrgName').value || '').trim();
+  if (!name) { try { pmToast('Enter an organization name'); } catch (e) {} return; }
+  const industry = (document.getElementById('obIndustry') ? document.getElementById('obIndustry').value : '').trim();
+  const btn = document.getElementById('obCreateBtn'); authBusy(btn, true, 'Creating…');
+  try {
+    const d = await _adminCall('createOrganization', { name, industry });   // super-admin only
+    closeModal();
+    _hubOrgId = d.orgId;                                                     // drill into the new org to add a company
+    await renderHub(auth.currentUser);
+  } catch (e) { authBusy(btn, false); try { pmToast('Could not create organization: ' + ({ forbidden: 'Only a Super Admin can create organizations.' }[String(e.message)] || (e.message || e))); } catch (_) {} }
+}
+async function createCompanyBtn() {
+  const name = (document.getElementById('obCompanyName').value || '').trim();
+  if (!name) { try { pmToast('Enter a company name'); } catch (e) {} return; }
+  const btn = document.getElementById('obCoCreateBtn'); authBusy(btn, true, 'Creating…');
+  try { await _adminCall('createCompany', { orgId: _hubOrgId, name }); closeModal(); await renderHub(auth.currentUser); }
+  catch (e) { authBusy(btn, false); try { pmToast('Could not create company: ' + (e.message || e)); } catch (_) {} }
+}
+async function assignOrgAdminBtn() {
+  const email = (document.getElementById('oaEmail').value || '').trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { try { pmToast('Enter a valid email'); } catch (e) {} return; }
+  try { await _adminCall('assignOrgAdmin', { orgId: _hubOrgId, email }); try { pmToast('Org admin assigned'); } catch (e) {} openModal('orgAdmins'); }
+  catch (e) { try { pmToast({ user_not_found: 'That user must sign up first.', forbidden: 'Super Admins only.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {} }
+}
+async function acceptInviteBtn(inviteId) {
+  try {
+    const d = await _adminCall('acceptInvite', { inviteId });
+    if (d.orgId && d.companyId) { try { sessionStorage.setItem('sf_ws', d.orgId + '::' + d.companyId); } catch (e) {} try { await db.collection('users').doc(UID).set({ activeOrg: d.orgId, activeCompany: d.companyId }, { merge: true }); } catch (e) {} }
+    location.reload();
+  } catch (e) {
+    if (String(e.message) === 'email_not_verified') {
+      try { if (auth.currentUser && auth.currentUser.sendEmailVerification) await auth.currentUser.sendEmailVerification(); } catch (_) {}
+      try { pmToast('Please verify your email first — we just sent a verification link. Open it, then click Join again.'); } catch (_) {}
+      return;
+    }
+    try { pmToast('Could not join: ' + ({ email_mismatch: 'This invite is for a different email.', invite_used: 'This invite was already used.', invite_expired: 'This invite has expired.' }[String(e.message)] || (e.message || e))); } catch (_) {}
+  }
+}
+// Company switcher (within the active org) + All workspaces.
+function renderOrgSwitcher() {
+  const el = document.getElementById('orgSwitcher'); if (!el) return;
+  if (!ACTIVE_ORG || !ACTIVE_COMPANY) { el.style.display = 'none'; return; }
+  el.style.display = '';
+  const cos = (_myOrgs[ACTIVE_ORG] && _myOrgs[ACTIVE_ORG].companies) || {};
+  const ids = Object.keys(cos);
+  let opts = ids.length
+    ? ids.map(cid => '<option value="co::' + cid + '"' + (cid === ACTIVE_COMPANY ? ' selected' : '') + '>' + escHtml((cos[cid] && cos[cid].name) || 'Company') + '</option>').join('')
+    : '<option value="co::' + ACTIVE_COMPANY + '" selected>' + escHtml(_companyName || 'Company') + '</option>';
+  el.innerHTML = opts + '<option value="__hub__">All workspaces…</option>';
+}
+function onOrgSwitch(v) {
+  if (v === '__hub__') { try { renderOrgSwitcher(); } catch (e) {} backToHub(); return; }
+  if (v && v.indexOf('co::') === 0) { const cid = v.slice(4); if (cid && cid !== ACTIVE_COMPANY) { _persistActive(ACTIVE_ORG, cid); location.reload(); } }
+}
+
+auth.onAuthStateChanged(async user => {
+  if (user) {
+    try { await routeAfterAuth(user); } catch (e) { try { pmToast('Sign-in error: ' + ((e && e.message) || e)); } catch (_) {} }
+  } else {
+    UID = null; ACTIVE_ORG = null; _myOrgs = {};
     if (loansUnsub) { try { loansUnsub(); } catch (e) {} loansUnsub = null; }
+    if (_permsUnsub) { try { _permsUnsub(); } catch (e) {} _permsUnsub = null; }
+    if (_userDocUnsub) { try { _userDocUnsub(); } catch (e) {} _userDocUnsub = null; }
+    if (holdingsUnsub) { try { holdingsUnsub(); } catch (e) {} holdingsUnsub = null; }
+    if (transactionsUnsub) { try { transactionsUnsub(); } catch (e) {} transactionsUnsub = null; }
+    _role = 'user'; _perms = {}; try { applyPermissions(); } catch (e) {}
     loans = []; _loanView = 'list'; _loanId = null;
+    holdings = []; transactions = []; holdingsByPortfolio = {}; currentPfId = null; _pfView = 'holdings';
+    const _hub = document.getElementById('orgHub'); if (_hub) _hub.classList.add('hidden');
+    try { sessionStorage.removeItem('sf_ws'); } catch (e) {}
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('loading').style.display = 'none';
     document.getElementById('app').style.display = 'none';
@@ -2461,6 +3346,7 @@ function initUserListeners() {
   db.collection('ai_reports').doc(UID).collection('reports').orderBy('date', 'desc').limit(1).onSnapshot(snap => {
     if (!snap.empty) { summaryData = snap.docs[0].data(); if (document.getElementById('tab-summary').classList.contains('active')) loadSummary(); }
   }, () => {});
+  loadPermsAndGate();
   loadPortfolioData();
   loadWatchlistData();
   loadUserAlerts();
@@ -3402,7 +4288,7 @@ async function gatherUserHoldings(scope) {
       // (e.g. an ad-blocker interfering with Firestore) can never hang the whole report.
       try {
         const snap = await Promise.race([
-          db.collection('holdings').doc(UID).collection(pf.id).get(),
+          holdingsCol(pf.id).get(),
           new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000))
         ]);
         docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -3740,19 +4626,25 @@ async function loadHomeNews(syms) {
 // ── Portfolio ──
 function loadPortfolioData() {
   if (!UID) return;
-  db.collection('portfolios').doc(UID).collection('list').onSnapshot(snap => {
+  pfCol().onSnapshot(snap => {
     portfolios = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     syncReportSelectors();
     const _dEl = document.getElementById('inlineHoldingDate'); if (_dEl && !_dEl.value) _dEl.value = todayStr();
     const sel = document.getElementById('pfSelect');
     sel.innerHTML = '<option value="all">All portfolios</option>' + portfolios.map(p => '<option value="' + p.id + '">' + (p.name || p.id) + '</option>').join('');
     if (!portfolios.length) {
+      if (holdingsUnsub) { try { holdingsUnsub(); } catch (e) {} holdingsUnsub = null; }
+      if (transactionsUnsub) { try { transactionsUnsub(); } catch (e) {} transactionsUnsub = null; }
+      holdings = []; transactions = []; currentPfId = null;
       document.getElementById('pfBody').innerHTML = emptyState('briefcase', 'No portfolios yet', 'Create your first portfolio to track holdings');
+      const _tw = document.getElementById('pfTxnWrap'); if (_tw) _tw.innerHTML = '';
       return;
     }
-    if (!currentPfId || !portfolios.find(p => p.id === currentPfId)) currentPfId = portfolios[0].id;
+    // Preserve the "All portfolios" aggregate scope across list edits (rename/description/notes).
+    if (currentPfId !== 'all' && (!currentPfId || !portfolios.find(p => p.id === currentPfId))) currentPfId = portfolios[0].id;
     sel.value = currentPfId;
-    loadHoldings(currentPfId);
+    if (currentPfId === 'all') { loadAllHoldings(); loadTransactions('all'); }
+    else { loadHoldings(currentPfId); loadTransactions(currentPfId); }
   });
 }
 let _pfAllScope = false;   // true = "All portfolios" aggregate (read-only) view
@@ -3766,6 +4658,7 @@ function switchPf(pfId) {
     holdings = holdingsByPortfolio[pfId] || [];   // instant render from cache; listener refreshes
     loadHoldings(pfId);
   }
+  loadTransactions(currentPfId);
   // Summary & Health aggregate ALL portfolios — refresh them if the user is viewing them.
   if (document.getElementById('tab-summary').classList.contains('active')) loadSummary();
   if (document.getElementById('tab-health').classList.contains('active')) loadHealth();
@@ -3777,7 +4670,7 @@ async function loadAllHoldings() {
   for (const pf of (portfolios || [])) {
     let docs = holdingsByPortfolio[pf.id];
     if (!docs) {
-      try { const snap = await Promise.race([db.collection('holdings').doc(UID).collection(pf.id).get(), new Promise((_, rej) => setTimeout(() => rej(new Error('t')), 5000))]); docs = snap.docs.map(d => ({ id: d.id, ...d.data() })); holdingsByPortfolio[pf.id] = docs; } catch (e) { docs = []; }
+      try { const snap = await Promise.race([holdingsCol(pf.id).get(), new Promise((_, rej) => setTimeout(() => rej(new Error('t')), 5000))]); docs = snap.docs.map(d => ({ id: d.id, ...d.data() })); holdingsByPortfolio[pf.id] = docs; } catch (e) { docs = []; }
     }
     docs.forEach(h => out.push(h));
   }
@@ -3786,17 +4679,188 @@ async function loadAllHoldings() {
 }
 function createPortfolio(name) {
   if (!UID || !name) return Promise.resolve(null);
-  return db.collection('portfolios').doc(UID).collection('list').add({ name, created: new Date().toISOString() });
+  if (!permGuard('stocks', 'write')) return Promise.resolve(null);
+  return pfCol().add({ name, created: new Date().toISOString() });
 }
 // Per-ticker portfolio notes live on the portfolio list doc (`notes` map) since holdings are multi-lot per ticker.
 function pfNoteFor(pfId, t) { const p = (portfolios || []).find(x => x.id === pfId); const n = (p && p.notes) || {}; return n[(t || '').toUpperCase()] || n[t] || ''; }
 function setPfNote(pfId, t, v) {
   if (!UID || !pfId || pfId === 'all') return;
-  db.collection('portfolios').doc(UID).collection('list').doc(pfId).update(new firebase.firestore.FieldPath('notes', (t || '').toUpperCase()), v == null ? '' : String(v)).catch(() => {});
+  if (!permGuard('stocks', 'write')) return;
+  pfCol().doc(pfId).update(new firebase.firestore.FieldPath('notes', (t || '').toUpperCase()), v == null ? '' : String(v)).catch(() => {});
 }
 function renamePortfolio(pfId, name) {
   name = (name || '').trim(); if (!UID || !pfId || !name || pfId === 'all') return;
-  db.collection('portfolios').doc(UID).collection('list').doc(pfId).update({ name }).catch(() => {});
+  if (!permGuard('stocks', 'write')) return;
+  pfCol().doc(pfId).update({ name }).catch(() => {});
+}
+// Edit name + optional description (Edit-portfolio modal).
+function updatePortfolioMeta(pfId, fields) {
+  if (!UID || !pfId || pfId === 'all') return;
+  if (!permGuard('stocks', 'write')) return;
+  const upd = {};
+  if (fields && fields.name != null) { const n = String(fields.name).trim(); if (n) upd.name = n; }
+  if (fields && fields.description != null) upd.description = String(fields.description).trim();
+  if (!Object.keys(upd).length) { closeModal(); return; }
+  pfCol().doc(pfId).update(upd).catch(() => {});
+  closeModal();
+}
+// Delete a portfolio + cascade its holdings and transactions.
+async function deletePortfolio(pfId) {
+  if (!UID || !pfId || pfId === 'all') { try { pmToast('Pick a specific portfolio to delete'); } catch (e) {} return; }
+  if (!permGuard('stocks', 'delete')) return;
+  const nm = portfolioNameById(pfId) || 'this portfolio';
+  if (!confirm('Delete "' + nm + '" and ALL its holdings & transactions? This cannot be undone.')) return;
+  // Errors propagate so we DON'T delete the parent list doc if the sub-collections failed (which
+  // would strand orphaned holdings/transactions). Only remove the portfolio after the cascade succeeds.
+  const chunkDelete = async (colRef) => {
+    const docs = (await colRef.get()).docs;
+    for (let i = 0; i < docs.length; i += 450) { const batch = db.batch(); docs.slice(i, i + 450).forEach(d => batch.delete(d.ref)); await batch.commit(); }
+  };
+  try {
+    await chunkDelete(holdingsCol(pfId));
+    await chunkDelete(txnCol(pfId));
+    await pfCol().doc(pfId).delete();
+  } catch (e) { try { pmToast('Could not fully delete the portfolio — nothing was removed, please retry'); } catch (e2) {} return; }
+  if (holdingsUnsub) { try { holdingsUnsub(); } catch (e) {} holdingsUnsub = null; }
+  if (transactionsUnsub) { try { transactionsUnsub(); } catch (e) {} transactionsUnsub = null; }
+  try { delete holdingsByPortfolio[pfId]; } catch (e) {}
+  currentPfId = null;   // loadPortfolioData's onSnapshot picks the first remaining portfolio or shows the empty state
+  try { pmToast('Portfolio "' + nm + '" deleted'); } catch (e) {}
+}
+
+// ═══════════════════════ Transactions ledger (Stocks module) ═══════════════════════
+// Additive log on top of the holdings engine: Buy adds a lot, Sell consumes lots FIFO + records
+// realized gain, Dividend is log-only. transactions/{uid}/{pfId}/{txnId}.
+let transactions = [], transactionsUnsub = null, _pfView = 'holdings';
+function setPfView(v) {
+  _pfView = (v === 'transactions') ? 'transactions' : 'holdings';
+  const seg = document.getElementById('pfViewSeg');
+  if (seg) seg.innerHTML = [['holdings', 'Holdings'], ['transactions', 'Transactions']].map(f => '<button class="' + (_pfView === f[0] ? 'active' : '') + '" onclick="setPfView(\'' + f[0] + '\')">' + f[1] + '</button>').join('');
+  const hw = document.getElementById('pfHoldingsWrap'), tw = document.getElementById('pfTxnWrap');
+  if (hw) hw.style.display = _pfView === 'transactions' ? 'none' : '';
+  if (tw) tw.style.display = _pfView === 'transactions' ? '' : 'none';
+  if (_pfView === 'transactions') renderTransactions(); else renderHoldingsTable();
+}
+function loadTransactions(pfId) {
+  if (transactionsUnsub) { try { transactionsUnsub(); } catch (e) {} transactionsUnsub = null; }
+  if (!UID || !pfId || pfId === 'all') { transactions = []; if (_pfView === 'transactions') renderTransactions(); return; }
+  transactionsUnsub = txnCol(pfId).onSnapshot(snap => {
+    transactions = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (_pfView === 'transactions' && currentPfId === pfId) renderTransactions();
+  }, () => {});
+}
+// Sell: consume lots FIFO (oldest buy_date first) AND write the sell ledger entry ATOMICALLY in a
+// Firestore transaction (auto-retries on concurrent lot changes — prevents over-sell / lost updates /
+// phantom entries). Returns { realized } on success or { error } (nothing is written on error).
+async function _sellFifo(pfId, ticker, qtySold, sellPrice, txnPayload) {
+  const holdCol = holdingsCol(pfId);
+  const txnRef = txnCol(pfId).doc();
+  let lotIds;
+  try { lotIds = (await holdCol.where('ticker', '==', ticker).get()).docs.map(d => d.id); }
+  catch (e) { try { lotIds = (await holdCol.get()).docs.filter(d => ((d.data().ticker || '').toUpperCase() === ticker)).map(d => d.id); } catch (e2) { return { error: 'Could not read holdings' }; } }
+  try {
+    const realized = await db.runTransaction(async t => {
+      const lots = [];
+      for (const id of lotIds) { const s = await t.get(holdCol.doc(id)); if (s.exists) { const d = s.data(); const q = parseFloat(d.qty) || 0; if (q > 0) lots.push({ id, qty: q, buy_price: parseFloat(d.buy_price) || 0, buy_date: d.buy_date || '' }); } }
+      const held = lots.reduce((a, l) => a + l.qty, 0);
+      if (qtySold > held + 1e-9) throw { _short: held };
+      lots.sort((a, b) => String(a.buy_date).localeCompare(String(b.buy_date)));
+      let rem = qtySold, r = 0;
+      for (const l of lots) { if (rem <= 1e-9) break; const take = Math.min(l.qty, rem); r += (sellPrice - l.buy_price) * take; rem -= take; const ref = holdCol.doc(l.id); if (take >= l.qty - 1e-9) t.delete(ref); else t.update(ref, { qty: l.qty - take }); }
+      t.set(txnRef, Object.assign({ realized: r }, txnPayload));
+      return r;
+    });
+    return { realized };
+  } catch (e) {
+    if (e && typeof e._short === 'number') return { error: 'You only hold ' + (Math.round(e._short * 1e4) / 1e4) + ' shares of ' + ticker };
+    return { error: 'Could not record the sale — please retry' };
+  }
+}
+async function recordTransaction() {
+  if (currentPfId === 'all' || !currentPfId) { try { pmToast('Pick a specific portfolio'); } catch (e) {} return; }
+  if (!permGuard('stocks', 'write')) return;
+  const g = id => { const e = document.getElementById(id); return e ? e.value : ''; };
+  const type = g('txnType'), ticker = _recTk(g('txnTicker')), date = g('txnDate') || todayStr(), note = g('txnNote').trim();
+  const col = txnCol(currentPfId);
+  const created = new Date().toISOString();
+  if (type === 'dividend') {
+    const amount = ccyParse(g('txnAmount'));
+    if (!(amount > 0)) { try { pmToast('Enter a dividend amount'); } catch (e) {} return; }
+    try { await col.add({ type: 'dividend', ticker: ticker || '', amount, date, note, created }); } catch (e) { try { pmToast('Could not record — please retry'); } catch (e2) {} return; }
+    try { pmToast('Dividend recorded'); } catch (e) {}
+  } else {
+    if (!ticker) { try { pmToast('Enter a ticker'); } catch (e) {} return; }
+    const qty = parseFloat(g('txnQty')), price = ccyParse(g('txnPrice'));
+    if (!(qty > 0)) { try { pmToast('Enter the number of shares'); } catch (e) {} return; }
+    if (!(price >= 0)) { try { pmToast('Enter a price'); } catch (e) {} return; }
+    if (type === 'sell') {
+      const res = await _sellFifo(currentPfId, ticker, qty, price, { type: 'sell', ticker, qty, price, date, note, created });
+      if (res.error) { try { pmToast(res.error); } catch (e) {} return; }
+      try { pmToast('Sell recorded — realized ' + (res.realized >= 0 ? '+' : '') + dollarFmt(res.realized)); } catch (e) {}
+    } else {
+      // Buy: write the ledger entry + the holding lot atomically (reusing the lot doc shape).
+      try {
+        const batch = db.batch();
+        batch.set(col.doc(), { type: 'buy', ticker, qty, price, date, note, created });
+        batch.set(holdingsCol(currentPfId).doc(), { ticker, qty, buy_price: price, buy_date: date, added: created });
+        await batch.commit();
+      } catch (e) { try { pmToast('Could not record — please retry'); } catch (e2) {} return; }
+      try { pmToast('Buy recorded'); } catch (e) {}
+    }
+  }
+  closeModal();
+}
+function deleteTransaction(id) {
+  if (!UID || currentPfId === 'all' || !currentPfId) return;
+  if (!permGuard('stocks', 'delete')) return;
+  if (!confirm('Delete this transaction entry? (Your current holdings are not changed.)')) return;
+  txnCol(currentPfId).doc(id).delete().catch(() => {});
+}
+function txnFormModal() {
+  return '<div class="modal-title">Add transaction</div>' +
+    '<label class="modal-label">Type</label><select id="txnType" class="modal-input" onchange="onTxnTypeChange()"><option value="buy">Buy</option><option value="sell">Sell</option><option value="dividend">Dividend</option></select>' +
+    '<label class="modal-label">Ticker</label><div class="ac-wrap"><input id="txnTicker" class="modal-input" placeholder="e.g. AAPL" autocomplete="off" oninput="acFilter(this,\'txnAC\',\'txn\')" onkeydown="acKey(event,\'txnAC\',\'txn\')"/><div id="txnAC" class="ac-list" style="display:none"></div></div>' +
+    '<div id="txnQtyPrice">' +
+    '<label class="modal-label">Number of shares</label><input id="txnQty" class="modal-input" type="number" step="any" min="0" placeholder="e.g. 10"/>' +
+    '<label class="modal-label" id="txnPriceLbl">Price per share ($)</label><input id="txnPrice" class="modal-input" type="text" inputmode="decimal" data-ccy placeholder="$190.00"/>' +
+    '</div>' +
+    '<div id="txnAmtWrap" style="display:none"><label class="modal-label">Dividend amount ($)</label><input id="txnAmount" class="modal-input" type="text" inputmode="decimal" data-ccy placeholder="$12.50"/></div>' +
+    '<label class="modal-label">Date</label><input id="txnDate" class="modal-input" type="date" value="' + todayStr() + '"/>' +
+    '<label class="modal-label">Note <span class="modal-price-hint">optional</span></label><input id="txnNote" class="modal-input" placeholder="Optional note (e.g. reason for trade)"/>' +
+    '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="recordTransaction()">Add</button></div>';
+}
+function onTxnTypeChange() {
+  const t = (document.getElementById('txnType') || {}).value || 'buy';
+  const qp = document.getElementById('txnQtyPrice'), amt = document.getElementById('txnAmtWrap'), pl = document.getElementById('txnPriceLbl');
+  if (qp) qp.style.display = (t === 'dividend') ? 'none' : '';
+  if (amt) amt.style.display = (t === 'dividend') ? '' : 'none';
+  if (pl) pl.textContent = (t === 'sell') ? 'Sell price / share ($)' : 'Price / share ($)';
+}
+function renderTransactions() {
+  const el = document.getElementById('pfTxnWrap'); if (!el) return;
+  if (currentPfId === 'all' || !currentPfId) { el.innerHTML = '<div class="pf-filter-note">Select a specific portfolio to view its transactions.</div>'; return; }
+  const canW = canWrite('stocks');
+  const addBtn = canW ? '<div class="pf-toolbar"><button class="pf-btn pf-btn-primary" onclick="openModal(\'addTxn\')"><span class="i-plus"></span> Add transaction</button></div>' : '';
+  const txns = (transactions || []).slice().sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')) || String(b.created || '').localeCompare(String(a.created || '')));
+  let realized = 0, dividends = 0;
+  txns.forEach(t => { if (t.type === 'sell') realized += (+t.realized || 0); if (t.type === 'dividend') dividends += (+t.amount || 0); });
+  const header = '<div class="pf-header"><div class="pf-total-label">Transactions · ' + escHtml(portfolioNameById(currentPfId) || '') + '</div>' +
+    '<div class="pf-chips">' +
+    '<span class="pf-chip ' + (realized >= 0 ? 'green' : 'red') + '">Realized ' + (realized >= 0 ? '+' : '') + dollarFmt(realized) + '</span>' +
+    '<span class="pf-chip neutral">Dividend income ' + dollarFmt(dividends) + '</span>' +
+    '<span class="pf-chip neutral">' + txns.length + (txns.length === 1 ? ' entry' : ' entries') + '</span>' +
+    '</div></div>';
+  if (!txns.length) { el.innerHTML = addBtn + header + emptyState('data', 'No transactions yet', 'Record a Buy, Sell or Dividend to build this portfolio\'s history.'); return; }
+  const rows = txns.map(t => {
+    const badge = t.type === 'buy' ? '<span class="badge badge-green">Buy</span>' : t.type === 'sell' ? '<span class="badge badge-red">Sell</span>' : '<span class="badge badge-blue">Dividend</span>';
+    const detail = t.type === 'dividend' ? dollarFmt(+t.amount || 0) : ((Math.round((+t.qty || 0) * 1e4) / 1e4) + ' @ $' + (+t.price || 0).toFixed(2));
+    const realC = (t.type === 'sell') ? ((+t.realized >= 0) ? 'pos' : 'neg') : '';
+    const real = (t.type === 'sell') ? ((+t.realized >= 0 ? '+' : '') + dollarFmt(+t.realized || 0)) : '<span class="ht-sub">—</span>';
+    const del = canDelete('stocks') ? '<button class="pf-btn pf-btn-danger" title="Delete entry" onclick="deleteTransaction(\'' + t.id + '\')">' + ic('x', 16) + '</button>' : '';
+    return '<tr><td>' + escHtml(fmtDate(t.date)) + '</td><td>' + badge + '</td><td class="ht-sym">' + escHtml(t.ticker || '—') + '</td><td>' + detail + '</td><td class="' + realC + '">' + real + '</td><td>' + (t.note ? escHtml(t.note) : '') + '</td><td style="white-space:nowrap">' + del + '</td></tr>';
+  }).join('');
+  el.innerHTML = addBtn + header + '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th>Date</th><th>Type</th><th class="ht-sym">Ticker</th><th>Qty / Amount</th><th>Realized</th><th>Note</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div>';
 }
 // Inline "add portfolio" row (replaces the old modal). Auto-selects the new portfolio so
 // the user immediately lands on it ready to add holdings.
@@ -3812,7 +4876,7 @@ function loadHoldings(pfId) {
   if (!UID || !pfId) return;
   // Tear down the previous portfolio's listener so listeners don't accumulate/race.
   if (holdingsUnsub) { holdingsUnsub(); holdingsUnsub = null; }
-  holdingsUnsub = db.collection('holdings').doc(UID).collection(pfId).onSnapshot(snap => {
+  holdingsUnsub = holdingsCol(pfId).onSnapshot(snap => {
     const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     holdingsByPortfolio[pfId] = docs;           // per-portfolio cache (never overwritten across portfolios)
     if (pfId === currentPfId) {
@@ -3823,11 +4887,13 @@ function loadHoldings(pfId) {
 }
 function addHolding(pfId, ticker, qty, buyPrice, buyDate) {
   if (!UID || !pfId) return;
-  return db.collection('holdings').doc(UID).collection(pfId).add({ ticker: ticker.toUpperCase(), qty: parseFloat(qty), buy_price: parseFloat(buyPrice), buy_date: buyDate || todayStr(), added: new Date().toISOString() });
+  if (!permGuard('stocks', 'write')) return;
+  return holdingsCol(pfId).add({ ticker: ticker.toUpperCase(), qty: parseFloat(qty), buy_price: (typeof buyPrice === 'number' ? buyPrice : ccyParse(buyPrice)), buy_date: buyDate || todayStr(), added: new Date().toISOString() });
 }
 function removeHolding(pfId, holdingId) {
   if (!UID || !pfId || !holdingId) return;
-  db.collection('holdings').doc(UID).collection(pfId).doc(holdingId).delete();
+  if (!permGuard('stocks', 'delete')) return;
+  holdingsCol(pfId).doc(holdingId).delete();
 }
 function renderPortfolioTab() { renderHoldingsTable(); }
 // ── Inline add-holding row (replaces the modal) ──
@@ -3840,7 +4906,7 @@ async function addHoldingInline() {
   const qty = parseFloat(q && q.value);
   if (!ticker) { if (t) t.focus(); return; }
   if (!(qty > 0)) { if (q) q.focus(); return; }
-  let price = parseFloat(p && p.value);
+  let price = ccyParse(p && p.value);
   if (isNaN(price)) { const le = liveEntry(ticker), sd = scanStockFor(ticker); price = (le && le.price) || (sd && parseFloat(sd.price)) || 0; }
   // Capture any existing lots of this ticker BEFORE the write so we can confirm the blend.
   const existing = (holdings || []).filter(h => h.ticker === ticker);
@@ -3872,7 +4938,7 @@ async function autofillBuyPriceInline(sym) {
   if (le && le.price) px = le.price;
   else if (sd && parseFloat(sd.price)) px = parseFloat(sd.price);
   if (px == null) { try { await fetchLivePrices([sym]); const l2 = liveEntry(sym); if (l2 && l2.price) px = l2.price; } catch (e) {} }
-  if (px != null && !bp.value) bp.value = (+px).toFixed(2);
+  if (px != null && !bp.value) bp.value = ccyDisplay(+px);
 }
 
 // Always fetch live prices AND full-coverage 52-week ranges for every holding so P&L,
@@ -4145,7 +5211,7 @@ function _renderHoldingsUI() {
         '<td class="ht-sym"><div class="ht-symcell"><div class="holding-logo" style="background:' + logoColor(e.ticker) + '">' + e.ticker.slice(0, 2) + '</div>' +
         '<div><a class="holding-ticker" style="cursor:pointer" onclick="goResearch(\'' + e.ticker + '\')">' + e.ticker + '</a><div class="holding-name" title="' + escHtml(name) + '">' + escHtml(name) + '</div>' +
         '<div class="ht-sub" style="color:var(--amber)">Fill in details →</div></div></div></td>' +
-        '<td><input class="ph-input ph-price" type="number" step="0.01" min="0" inputmode="decimal" placeholder="' + pricePh + '" onkeydown="if(event.key===\'Enter\')savePlaceholderHolding(\'' + e.lotId + '\',\'' + e.ticker + '\')"/></td>' +
+        '<td><input class="ph-input ph-price" type="text" inputmode="decimal" data-ccy placeholder="' + pricePh + '" onkeydown="if(event.key===\'Enter\')savePlaceholderHolding(\'' + e.lotId + '\',\'' + e.ticker + '\')"/></td>' +
         '<td><input class="ph-input ph-qty" type="number" step="any" min="0" inputmode="decimal" placeholder="Qty" onkeydown="if(event.key===\'Enter\')savePlaceholderHolding(\'' + e.lotId + '\',\'' + e.ticker + '\')"/></td>' +
         '<td>' + dash + '</td><td>' + dash + '</td><td>' + dash + '</td><td>' + dash + '</td>' +
         '<td class="ht-52"><div class="ht-52meta">—</div></td>' +
@@ -4211,18 +5277,20 @@ function attachDualScroll(container) {
 // Remove an entire merged position (all lots of a ticker) from a portfolio.
 function removeHoldingTicker(pfId, ticker) {
   if (!UID || !pfId || !ticker || pfId === 'all') return;
+  if (!permGuard('stocks', 'delete')) return;
   const lots = (holdings || []).filter(h => h.ticker === ticker);
   if (!lots.length) return;
   if (lots.length > 1 && !confirm('Remove all ' + lots.length + ' lots of ' + ticker + ' from this portfolio?')) return;
   const batch = db.batch();
-  lots.forEach(l => batch.delete(db.collection('holdings').doc(UID).collection(pfId).doc(l.id)));
+  lots.forEach(l => batch.delete(holdingsCol(pfId).doc(l.id)));
   batch.commit().catch(() => {});
   if (pfSearchFilter === ticker) pfSearchClear();
 }
 // Update a single holding lot (used to complete a bulk-added placeholder).
 function updateHolding(pfId, lotId, fields) {
   if (!UID || !pfId || pfId === 'all' || !lotId) return Promise.resolve();
-  return db.collection('holdings').doc(UID).collection(pfId).doc(lotId).update(fields).catch(() => {});
+  if (!permGuard('stocks', 'write')) return Promise.resolve();
+  return holdingsCol(pfId).doc(lotId).update(fields).catch(() => {});
 }
 // Read the inline editors on a placeholder row and turn it into a real holding.
 async function savePlaceholderHolding(lotId, ticker) {
@@ -4231,7 +5299,7 @@ async function savePlaceholderHolding(lotId, ticker) {
   if (!tr) return;
   const qEl = tr.querySelector('.ph-qty'), pEl = tr.querySelector('.ph-price'), dEl = tr.querySelector('.ph-date');
   const qty = parseFloat(qEl && qEl.value);
-  let price = parseFloat(pEl && pEl.value);
+  let price = ccyParse(pEl && pEl.value);
   if (isNaN(price)) { const le = liveEntry(ticker), sd = scanStockFor(ticker); price = (le && le.price) || (sd && parseFloat(sd.price)) || NaN; }
   if (!(qty > 0)) { try { pmToast('Enter the number of shares for ' + ticker); } catch (e) {} if (qEl) { qEl.classList.add('ph-bad'); qEl.focus(); } return; }
   if (!(price > 0)) { try { pmToast('Enter your buy price for ' + ticker); } catch (e) {} if (pEl) { pEl.classList.add('ph-bad'); pEl.focus(); } return; }
@@ -4313,7 +5381,7 @@ function pfQuickAdd(sym) {
 // ── Watchlist ──
 function loadWatchlistData() {
   if (!UID) return;
-  db.collection('watchlists').doc(UID).collection('list').onSnapshot(snap => {
+  wlCol().onSnapshot(snap => {
     watchlists = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     updateWLSelect();
     renderWatchlistTab();
@@ -4328,22 +5396,25 @@ function updateWLSelect() {
 function switchWL(wlId) { currentWLId = wlId; renderWatchlistTab(); }
 function createWatchlist(name) {
   if (!UID || !name) return;
-  db.collection('watchlists').doc(UID).collection('list').add({ name, tickers: [], created: new Date().toISOString() });
+  if (!permGuard('stocks', 'write')) return;
+  wlCol().add({ name, tickers: [], created: new Date().toISOString() });
 }
 function addTickerToWL(wlId, ticker) {
   if (!UID || !wlId || !ticker) return;
+  if (!permGuard('stocks', 'write')) return;
   const wl = watchlists.find(w => w.id === wlId);
   if (!wl) return;
   const tickers = [...new Set([...(wl.tickers || []), ticker.toUpperCase()])];
-  db.collection('watchlists').doc(UID).collection('list').doc(wlId).update({ tickers });
+  wlCol().doc(wlId).update({ tickers });
 }
 function removeTickerFromWL(wlId, ticker) {
   if (!UID || !wlId) return;
+  if (!permGuard('stocks', 'write')) return;
   const wl = watchlists.find(w => w.id === wlId);
   if (!wl) return;
   const t = (ticker || '').toUpperCase();
   const tickers = (wl.tickers || []).filter(x => x !== ticker && x !== t);
-  const ref = db.collection('watchlists').doc(UID).collection('list').doc(wlId);
+  const ref = wlCol().doc(wlId);
   // Drop the row AND its per-ticker meta. FieldPath keeps a dotted ticker (e.g. BRK.B) as one literal key.
   ref.update({ tickers }).then(() => ref.update(new firebase.firestore.FieldPath('meta', t), firebase.firestore.FieldValue.delete()).catch(() => {})).catch(() => {});
 }
@@ -4352,15 +5423,18 @@ const WL_STATUSES = ['Watching', 'Bought', 'Sold', 'Avoid', 'Under review'];
 function wlMetaFor(wl, t) { const m = (wl && wl.meta) || {}; return m[(t || '').toUpperCase()] || m[t] || {}; }
 function setWLNote(wlId, t, v) {
   if (!UID || !wlId) return;
-  db.collection('watchlists').doc(UID).collection('list').doc(wlId).update(new firebase.firestore.FieldPath('meta', (t || '').toUpperCase(), 'notes'), v == null ? '' : String(v)).catch(() => {});
+  if (!permGuard('stocks', 'write')) return;
+  wlCol().doc(wlId).update(new firebase.firestore.FieldPath('meta', (t || '').toUpperCase(), 'notes'), v == null ? '' : String(v)).catch(() => {});
 }
 function setWLStatus(wlId, t, v) {
   if (!UID || !wlId) return;
-  db.collection('watchlists').doc(UID).collection('list').doc(wlId).update(new firebase.firestore.FieldPath('meta', (t || '').toUpperCase(), 'status'), v || 'Watching').catch(() => {});
+  if (!permGuard('stocks', 'write')) return;
+  wlCol().doc(wlId).update(new firebase.firestore.FieldPath('meta', (t || '').toUpperCase(), 'status'), v || 'Watching').catch(() => {});
 }
 function renameWatchlist(wlId, name) {
   name = (name || '').trim(); if (!UID || !wlId || !name) return;
-  db.collection('watchlists').doc(UID).collection('list').doc(wlId).update({ name }).catch(() => {});
+  if (!permGuard('stocks', 'write')) return;
+  wlCol().doc(wlId).update({ name }).catch(() => {});
 }
 // Risk level from market-cap tier (≥10B Low · 2–10B Medium · <2B High); new listings bump up one notch.
 function riskTier(t) {
@@ -4439,7 +5513,7 @@ function renderWatchlistTab() {
 // ── User Alerts ──
 function loadUserAlerts() {
   if (!UID) return;
-  db.collection('alerts').doc(UID).collection('list').onSnapshot(snap => {
+  alertsCol().onSnapshot(snap => {
     userAlerts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderUserAlerts();
   });
@@ -4457,12 +5531,19 @@ function onAlertCondChange() {
   const lbl = document.getElementById('alertValLabel');
   const hint = document.getElementById('alertValHint');
   const show = (on) => { [val, lbl, hint].forEach(e => { if (e) e.style.display = on ? '' : 'none'; }); };
-  if (cond === 'news') { show(false); if (val) val.value = ''; return; }
+  if (cond === 'news') { show(false); if (val) { val.value = ''; val.removeAttribute('data-ccy'); } return; }
   show(true);
-  if (cond === 'price_above') { lbl.textContent = 'Target price ($)'; val.placeholder = 'e.g. 200'; hint.textContent = 'Notify me when the price rises to or above this level.'; }
-  else if (cond === 'price_below') { lbl.textContent = 'Target price ($)'; val.placeholder = 'e.g. 180'; hint.textContent = 'Notify me when the price falls to or below this level.'; }
+  const isPrice = (cond === 'price_above' || cond === 'price_below');
+  if (cond === 'price_above') { lbl.textContent = 'Target price ($)'; val.placeholder = '$200.00'; hint.textContent = 'Notify me when the price rises to or above this level.'; }
+  else if (cond === 'price_below') { lbl.textContent = 'Target price ($)'; val.placeholder = '$180.00'; hint.textContent = 'Notify me when the price falls to or below this level.'; }
   else if (cond === 'pct_above') { lbl.textContent = '% change above (up by)'; val.placeholder = 'e.g. 5'; hint.textContent = "Notify me when the stock is up by at least this % on the day."; }
   else if (cond === 'pct_below') { lbl.textContent = '% change below (down by)'; val.placeholder = 'e.g. 5'; hint.textContent = "Notify me when the stock is down by at least this % on the day."; }
+  // Price conditions are USD → live currency formatting; % conditions revert to a plain number.
+  if (val) {
+    const n = ccyParse(val.value);
+    if (isPrice) { val.setAttribute('data-ccy', '1'); val.value = isFinite(n) ? ccyDisplay(n) : ''; }
+    else { val.removeAttribute('data-ccy'); val.value = isFinite(n) ? String(n) : ''; }
+  }
 }
 function submitAlert() {
   const ticker = document.getElementById('alertTicker').value;
@@ -4473,6 +5554,7 @@ function submitAlert() {
 }
 function createAlert(ticker, condition, value, note) {
   if (!UID) return false;
+  if (!permGuard('stocks', 'write')) return false;
   ticker = (ticker || '').trim().toUpperCase();
   if (!ticker) { researchShake(document.getElementById('alertTicker')); return false; }
   if (condition !== 'news') {
@@ -4481,7 +5563,7 @@ function createAlert(ticker, condition, value, note) {
     if (condition === 'pct_above' || condition === 'pct_below') num = Math.abs(num);   // store the magnitude; direction is the condition
     value = String(num);
   } else { value = ''; }
-  db.collection('alerts').doc(UID).collection('list').add({ ticker, condition, value, note: (note || '').trim(), created: new Date().toISOString() });
+  alertsCol().add({ ticker, condition, value, note: (note || '').trim(), created: new Date().toISOString() });
   return true;
 }
 // Human-readable description of an alert condition for the alert card.
@@ -4498,7 +5580,8 @@ function alertCondLabel(cond, value) {
 }
 function deleteAlert(alertId) {
   if (!UID) return;
-  db.collection('alerts').doc(UID).collection('list').doc(alertId).delete();
+  if (!permGuard('stocks', 'delete')) return;
+  alertsCol().doc(alertId).delete();
 }
 
 // ── Web push registration (FCM) ──
@@ -5320,25 +6403,143 @@ function loanNextPayment(l) {
 function loanStatusBadge(s) { const m = { active: ['Active', 'badge-green'], closed: ['Closed', 'badge-gray'], paid_off: ['Paid off', 'badge-blue'], defaulted: ['Defaulted', 'badge-red'] }; const b = m[s] || m.active; return '<span class="badge ' + b[1] + '">' + b[0] + '</span>'; }
 function loanTypeBadge(t) { return t === 'lent' ? '<span class="badge badge-blue">Lent</span>' : '<span class="badge badge-yellow">Borrowed</span>'; }
 
+// ── Next-payment auto-fill ──
+// Calendar-aware default: step the start date forward by exactly one payment interval so users
+// get a sensible Next-payment date the moment they pick a frequency, still fully editable.
+// Month-based intervals clamp overflow (Jan 31 + 1mo → Feb 28/29). one-time/unknown → blank.
+function _loanDefaultNextPay(startStr, freq) {
+  if (!startStr || !freq || freq === 'one-time') return '';
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(startStr);
+  if (!m) return '';
+  const y = +m[1], mo = +m[2] - 1, d = +m[3];
+  const base = new Date(y, mo, d); if (isNaN(base.getTime())) return '';
+  const addDays = { weekly: 7, biweekly: 14 }[freq];
+  const addMonths = { monthly: 1, quarterly: 3, semiannual: 6, annually: 12 }[freq];
+  if (!addDays && !addMonths) return '';
+  const pad = (n) => String(n).padStart(2, '0');
+  const fmt = (dt) => dt.getFullYear() + '-' + pad(dt.getMonth() + 1) + '-' + pad(dt.getDate());
+  // Step forward by whole intervals (≥1, so a payment never lands on the start date) to the first date
+  // today-or-later — matching the app's forward-stepping loanNextPayment(), so editing an old recurring
+  // loan proposes the next FUTURE due date rather than a long-past one. Calendar-aware month math keeps
+  // the day-of-month (clamping Jan 31 + 1mo → Feb 28/29); each k is computed from base so nothing drifts.
+  const tm = /^(\d{4})-(\d{2})-(\d{2})$/.exec(_etToday());
+  const today = tm ? new Date(+tm[1], +tm[2] - 1, +tm[3]) : base;
+  let last = null;
+  for (let k = 1; k <= 6000; k++) {
+    const dt = new Date(base.getTime());
+    if (addDays) { dt.setDate(d + addDays * k); }
+    else { dt.setMonth(mo + addMonths * k); if (dt.getDate() !== d) dt.setDate(0); }
+    last = dt;
+    if (dt.getTime() >= today.getTime()) return fmt(dt);
+  }
+  return last ? fmt(last) : '';
+}
+// Populate #loanNextPay from start + frequency, but only when the field is empty or still holds an
+// auto-filled value (data-auto). A user-typed date (which clears data-auto via oninput) is preserved.
+function syncLoanNextPay() {
+  const s = document.getElementById('loanStart'), f = document.getElementById('loanFreq'), np = document.getElementById('loanNextPay');
+  if (!s || !f || !np) return;
+  if (np.getAttribute('data-cleared') === '1') return;          // user deliberately blanked it — keep it empty
+  if (np.value && np.getAttribute('data-auto') !== '1') return; // user typed a specific date — preserve it
+  const def = _loanDefaultNextPay(s.value, f.value);
+  if (def) { np.value = def; np.setAttribute('data-auto', '1'); np.removeAttribute('data-cleared'); }
+}
+// #loanNextPay edit handler: a manual edit drops the auto flag; an intentional clear records data-cleared so a
+// later start/frequency change does NOT silently re-populate the field the user meant to leave blank.
+function _loanNextPayEdited(el) { el.removeAttribute('data-auto'); if (el.value) el.removeAttribute('data-cleared'); else el.setAttribute('data-cleared', '1'); }
+
+// ── Rich-text notes (WYSIWYG, sanitized on save + render to prevent stored XSS) ──
+// Rebuild the HTML from scratch through a tag/attribute whitelist: only formatting elements survive,
+// every attribute is dropped except an http(s) href on <a> (forced to safe target/rel), and
+// script/style-class elements are dropped content-and-all. Never trust stored note HTML unsanitized.
+// Inline-style formatting (font-weight / font-style / text-decoration) → the equivalent semantic tags.
+// Lets _sanitizeRich recover bold/italic/underline that some engines (styleWithCSS, WebKit) or pasted
+// content express as <span style=…>, WITHOUT ever letting a style attribute through — output stays
+// attribute-free (reads the parsed .style object; never copies the raw attribute).
+function _styleTags(el) {
+  const st = el.style, out = [];
+  if (!st) return out;
+  const fw = (st.fontWeight || '').toLowerCase();
+  if (fw === 'bold' || fw === 'bolder' || parseInt(fw, 10) >= 600) out.push('B');
+  const fs = (st.fontStyle || '').toLowerCase();
+  if (fs === 'italic' || fs === 'oblique') out.push('I');
+  const td = ((st.textDecorationLine || st.textDecoration) || '').toLowerCase();
+  if (td.indexOf('underline') !== -1) out.push('U');
+  return out;
+}
+function _sanitizeRich(html) {
+  if (!html) return '';
+  const ALLOWED = { B: 1, STRONG: 1, I: 1, EM: 1, U: 1, UL: 1, OL: 1, LI: 1, BR: 1, P: 1, DIV: 1, SPAN: 1, A: 1 };
+  const DROP = { SCRIPT: 1, STYLE: 1, IFRAME: 1, OBJECT: 1, EMBED: 1, NOSCRIPT: 1, TEMPLATE: 1, LINK: 1, META: 1 };
+  const src = document.createElement('div');
+  src.innerHTML = String(html);
+  function clean(node, out) {
+    for (let ch = node.firstChild; ch; ch = ch.nextSibling) {
+      if (ch.nodeType === 3) { out.appendChild(document.createTextNode(ch.nodeValue)); continue; }
+      if (ch.nodeType !== 1) continue;
+      const tag = (ch.tagName || '').toUpperCase(); // normalize: SVG/MathML foreign elements have lower/mixed-case tagName
+      if (DROP[tag]) continue;
+      let mount = out;
+      if (ALLOWED[tag]) {                            // keep the element itself (fresh, attribute-free)
+        const fresh = document.createElement(tag);
+        if (tag === 'A') {
+          const href = ch.getAttribute('href') || '';
+          if (/^https?:\/\//i.test(href)) { fresh.setAttribute('href', href); fresh.setAttribute('target', '_blank'); fresh.setAttribute('rel', 'noopener noreferrer'); }
+        }
+        out.appendChild(fresh); mount = fresh;
+      }                                              // unknown tag: unwrapped (children lifted into `out`)
+      const wraps = _styleTags(ch);                  // recover style-implied bold/italic/underline as tags
+      for (let i = 0; i < wraps.length; i++) { const w = document.createElement(wraps[i]); mount.appendChild(w); mount = w; }
+      clean(ch, mount);
+    }
+  }
+  const dst = document.createElement('div');
+  clean(src, dst);
+  if (dst.textContent.length > 10000) return escHtml(dst.textContent.slice(0, 10000)); // pathological input: fall back to plain text
+  return dst.innerHTML;
+}
+function _richValue(id) { const e = document.getElementById(id); return _sanitizeRich(e ? e.innerHTML : ''); }
+// Toolbar action — onmousedown + preventDefault keeps the caret/selection inside the editable. Pin
+// styleWithCSS off so bold/italic/underline emit tag-based markup (<b>/<i>/<u>) the whitelist keeps,
+// rather than <span style=…> (which _sanitizeRich now also recovers, but tags are the clean path).
+function _rich(e, cmd) { e.preventDefault(); try { document.execCommand('styleWithCSS', false, false); } catch (err) {} try { document.execCommand(cmd, false, null); } catch (err) {} }
+// Build the notes editor markup. `isHtml` (from the stored notesFormat marker) decides how to seed content:
+// rich HTML is re-sanitized; legacy/plain notes are escaped (newlines→<br>). No content-sniffing — a plain
+// note that merely contains "<" is never misread as markup.
+function _richEditorHtml(id, initial, ph, isHtml) {
+  const raw = initial == null ? '' : String(initial);
+  const init = isHtml ? _sanitizeRich(raw) : escHtml(raw).replace(/\n/g, '<br>');
+  return '<div class="rich-toolbar">' +
+    '<button type="button" class="rich-btn" title="Bold" onmousedown="_rich(event,\'bold\')"><b>B</b></button>' +
+    '<button type="button" class="rich-btn" title="Italic" onmousedown="_rich(event,\'italic\')"><i>I</i></button>' +
+    '<button type="button" class="rich-btn" title="Underline" onmousedown="_rich(event,\'underline\')"><span style="text-decoration:underline">U</span></button>' +
+    '<span class="rich-sep"></span>' +
+    '<button type="button" class="rich-btn" title="Bulleted list" onmousedown="_rich(event,\'insertUnorderedList\')">&#8226;&nbsp;List</button>' +
+    '<button type="button" class="rich-btn" title="Numbered list" onmousedown="_rich(event,\'insertOrderedList\')">1.&nbsp;List</button>' +
+    '</div>' +
+    '<div id="' + id + '" class="rich-editor" contenteditable="true" data-ph="' + escHtml(ph || '') + '">' + init + '</div>';
+}
+
 // ── Firestore CRUD (mirrors alerts/{uid}/list) ──
 function loadLoans() {
   if (!UID) return;
   if (loansUnsub) { try { loansUnsub(); } catch (e) {} }
-  loansUnsub = db.collection('loans').doc(UID).collection('list').onSnapshot(snap => {
+  loansUnsub = loansCol().onSnapshot(snap => {
     loans = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     if (document.getElementById('tab-loans').classList.contains('active')) renderLoans();
     if (document.getElementById('tab-loansdash').classList.contains('active')) renderLoansDash();
     try { refreshDerivedNotifs(); } catch (e) {}
   }, () => {});
 }
-function createLoan(fields) { if (!UID) return Promise.resolve(null); return db.collection('loans').doc(UID).collection('list').add({ ...fields, created: new Date().toISOString(), updated: new Date().toISOString() }); }
-function updateLoan(id, fields) { if (!UID || !id) return Promise.resolve(); return db.collection('loans').doc(UID).collection('list').doc(id).update({ ...fields, updated: new Date().toISOString() }).catch(() => {}); }
+function createLoan(fields) { if (!UID) return Promise.resolve(null); if (!permGuard('loans', 'write')) return Promise.resolve(null); return loansCol().add({ ...fields, created: new Date().toISOString(), updated: new Date().toISOString() }); }
+function updateLoan(id, fields) { if (!UID || !id) return Promise.resolve(); if (!permGuard('loans', 'write')) return Promise.resolve(); return loansCol().doc(id).update({ ...fields, updated: new Date().toISOString() }).catch(() => {}); }
 async function deleteLoan(id) {
   if (!UID || !id) return;
+  if (!permGuard('loans', 'delete')) return;
   const l = loans.find(x => x.id === id);
   if (!confirm('Delete "' + (l ? loanTitle(l) : 'this loan') + '" and its documents? This cannot be undone.')) return;
   if (l && storage && (l.documents || []).length) { for (const d of l.documents) { if (d.path) { try { await storage.ref(d.path).delete(); } catch (e) {} } } }
-  await db.collection('loans').doc(UID).collection('list').doc(id).delete().catch(() => {});
+  await loansCol().doc(id).delete().catch(() => {});
   if (_loanId === id) { _loanView = 'list'; _loanId = null; }
   try { pmToast('Loan deleted'); } catch (e) {}
   renderLoans();
@@ -5352,39 +6553,37 @@ function loanFormModal(l) {
   return '<div class="modal-title">' + (l.id ? 'Edit loan / note' : 'New loan / note') + '</div>' +
     '<label class="modal-label">Loan / note name or reference</label><input id="loanName" class="modal-input" value="' + v(l.name) + '" placeholder="e.g. Acme promissory note #2024-1"/>' +
     '<label class="modal-label">Type</label><select id="loanType" class="modal-input">' + _opt([['borrowed', 'Borrowed (I owe)'], ['lent', 'Lent (owed to me)']], l.type || 'borrowed') + '</select>' +
-    '<label class="modal-label">Borrower name</label><input id="loanBorrower" class="modal-input" value="' + v(l.borrower) + '" placeholder="Who owes the money"/>' +
-    '<label class="modal-label">Lender name</label><input id="loanLender" class="modal-input" value="' + v(l.lender) + '" placeholder="Who provided the money"/>' +
-    '<label class="modal-label">Principal amount ($)</label><input id="loanPrincipal" class="modal-input" type="number" step="0.01" min="0" value="' + v(l.principal) + '" placeholder="e.g. 25000"/>' +
+    '<label class="modal-label">Borrower name</label><input id="loanBorrower" class="modal-input" value="' + v(l.borrower) + '" placeholder="Borrower&#39;s full name or entity"/>' +
+    '<label class="modal-label">Lender name</label><input id="loanLender" class="modal-input" value="' + v(l.lender) + '" placeholder="Lender&#39;s full name or entity"/>' +
+    '<label class="modal-label">Principal amount ($)</label><input id="loanPrincipal" class="modal-input" type="text" inputmode="decimal" data-ccy value="' + escHtml(ccyDisplay(l.principal)) + '" placeholder="$25,000.00"/>' +
     '<label class="modal-label">Interest rate (% annual)</label><input id="loanRate" class="modal-input" type="number" step="0.01" min="0" value="' + v(l.rate) + '" placeholder="e.g. 6.5"/>' +
-    '<label class="modal-label">Current outstanding balance ($) <span class="modal-price-hint">defaults to principal</span></label><input id="loanOutstanding" class="modal-input" type="number" step="0.01" min="0" value="' + v(l.outstanding) + '" placeholder="e.g. 20000"/>' +
-    '<label class="modal-label">Loan start date</label><input id="loanStart" class="modal-input" type="date" value="' + v(l.startDate || todayStr()) + '"/>' +
+    '<label class="modal-label">Current outstanding balance ($) <span class="modal-price-hint">defaults to principal</span></label><input id="loanOutstanding" class="modal-input" type="text" inputmode="decimal" data-ccy value="' + escHtml(ccyDisplay(l.outstanding)) + '" placeholder="$20,000.00"/>' +
+    '<label class="modal-label">Loan start date</label><input id="loanStart" class="modal-input" type="date" value="' + v(l.startDate || todayStr()) + '" onchange="syncLoanNextPay()"/>' +
     '<label class="modal-label">Maturity date</label><input id="loanMaturity" class="modal-input" type="date" value="' + v(l.maturityDate) + '"/>' +
-    '<label class="modal-label">Payment frequency</label><select id="loanFreq" class="modal-input">' + _opt(LOAN_FREQS, l.paymentFreq || 'monthly') + '</select>' +
-    '<label class="modal-label">Next payment date <span class="modal-price-hint">optional — auto if blank</span></label><input id="loanNextPay" class="modal-input" type="date" value="' + v(l.nextPaymentDate) + '"/>' +
-    '<label class="modal-label">Insurance renewal date <span class="modal-price-hint">optional</span></label><input id="loanInsurance" class="modal-input" type="date" value="' + v(l.insuranceRenewalDate) + '"/>' +
+    '<label class="modal-label">Payment frequency</label><select id="loanFreq" class="modal-input" onchange="syncLoanNextPay()">' + _opt(LOAN_FREQS, l.paymentFreq || 'monthly') + '</select>' +
+    '<label class="modal-label">Next payment date <span class="modal-price-hint">auto-set from the frequency — edit if needed</span></label><input id="loanNextPay" class="modal-input" type="date" value="' + v(l.nextPaymentDate) + '" oninput="_loanNextPayEdited(this)"/>' +
     '<label class="modal-label">Status</label><select id="loanStatus" class="modal-input">' + _opt(LOAN_STATUSES, l.status || 'active') + '</select>' +
-    '<label class="modal-label">Notes &amp; comments</label><textarea id="loanNotes" class="modal-input" style="min-height:70px;resize:vertical;font-family:inherit;" placeholder="Terms, collateral, context…">' + v(l.notes) + '</textarea>' +
+    '<label class="modal-label">Notes &amp; comments</label>' + _richEditorHtml('loanNotes', l.notes, 'Terms, collateral, context…', l.notesFormat === 'html') +
     '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitLoan(' + (l.id ? '\'' + l.id + '\'' : 'null') + ')">' + (l.id ? 'Save' : 'Create') + '</button></div>';
 }
 function submitLoan(id) {
   const g = (x) => { const e = document.getElementById(x); return e ? e.value : ''; };
-  const principal = parseFloat(g('loanPrincipal'));
+  const principal = ccyParse(g('loanPrincipal'));
   if (!(principal > 0)) { try { pmToast('Enter a principal amount greater than 0'); } catch (e) {} const p = document.getElementById('loanPrincipal'); if (p) p.focus(); return; }
   const fields = {
     name: g('loanName').trim(), type: g('loanType') || 'borrowed',
     borrower: g('loanBorrower').trim(), lender: g('loanLender').trim(),
     principal, rate: loanNum(g('loanRate')),
-    outstanding: g('loanOutstanding') === '' ? null : loanNum(g('loanOutstanding')),
+    outstanding: g('loanOutstanding').trim() === '' ? null : ccyNum(g('loanOutstanding')),
     startDate: g('loanStart') || null, maturityDate: g('loanMaturity') || null,
     paymentFreq: g('loanFreq') || 'monthly', nextPaymentDate: g('loanNextPay') || null,
-    insuranceRenewalDate: g('loanInsurance') || null,
-    status: g('loanStatus') || 'active', notes: g('loanNotes').trim()
+    status: g('loanStatus') || 'active', notes: _richValue('loanNotes'), notesFormat: 'html'
   };
   if (id) updateLoan(id, fields).then(() => { try { pmToast('Loan updated'); } catch (e) {} });
   else createLoan(fields).then(() => { try { pmToast('Loan added'); } catch (e) {} });
   closeModal();
 }
-function editLoan(id) { _loanEditId = id; openModal('editLoan'); }
+function editLoan(id) { if (!permGuard('loans', 'write')) return; _loanEditId = id; openModal('editLoan'); }
 
 // ── Records list + filter ──
 function setLoanFilter(k) { _loanFilter = k; renderLoans(); }
@@ -5454,10 +6653,10 @@ function renderLoanDetail(id) {
     field('Maturity date', l.maturityDate ? fmtDate(l.maturityDate) + (dm != null ? ' <span class="ht-sub">(' + (dm < 0 ? Math.abs(dm) + 'd ago' : 'in ' + dm + 'd') + ')</span>' : '') : '—') +
     field('Payment frequency', escHtml((LOAN_FREQS.find(f => f[0] === l.paymentFreq) || [, '—'])[1])) +
     field('Next payment', np ? '<span class="' + (overdue ? 'neg' : '') + '">' + fmtDate(np) + (dp != null ? ' (' + (dp < 0 ? Math.abs(dp) + 'd overdue' : (dp === 0 ? 'today' : 'in ' + dp + 'd')) + ')' : '') + '</span>' : '—') +
-    field('Insurance renewal', l.insuranceRenewalDate ? fmtDate(l.insuranceRenewalDate) : '—') +
     field('Status', loanStatusBadge(l.status)) +
     '</div>';
-  const notes = l.notes ? '<div class="loan-notes"><div class="loan-field-l">Notes &amp; comments</div><div>' + escHtml(l.notes) + '</div></div>' : '';
+  const notesHtml = l.notes ? (l.notesFormat === 'html' ? _sanitizeRich(String(l.notes)) : escHtml(String(l.notes)).replace(/\n/g, '<br>')) : '';
+  const notes = notesHtml ? '<div class="loan-notes"><div class="loan-field-l">Notes &amp; comments</div><div class="loan-notes-body">' + notesHtml + '</div></div>' : '';
   el.innerHTML = head + grid + notes + _loanDocsHtml(l) + '<div class="rng-advice-note">Interest figures are annualized estimates (principal × rate) — informational only, not financial advice.</div>';
 }
 
@@ -5475,28 +6674,30 @@ function _loanDocsHtml(l) {
 }
 async function uploadLoanDoc(loanId, file) {
   if (!file || !UID) return;
+  if (!permGuard('loans', 'write')) return;
   if (!storage) { try { pmToast('Enable Firebase Storage to upload documents'); } catch (e) {} return; }
   if (file.size > 25 * 1024 * 1024) { try { pmToast('File too large (max 25 MB)'); } catch (e) {} return; }
   const safe = file.name.replace(/[^A-Za-z0-9._-]/g, '_').slice(0, 120);
-  const path = 'loans/' + UID + '/' + loanId + '/' + Date.now() + '_' + safe;
+  const path = loanStoragePath(loanId, Date.now() + '_' + safe);
   try {
     try { pmToast('Uploading ' + file.name + '…'); } catch (e) {}
     const ref = storage.ref(path);
     await ref.put(file);
     const url = await ref.getDownloadURL();
     const meta = { name: file.name, path, url, size: file.size, type: file.type || '', uploaded: new Date().toISOString() };
-    await db.collection('loans').doc(UID).collection('list').doc(loanId).update({ documents: firebase.firestore.FieldValue.arrayUnion(meta), updated: new Date().toISOString() });
+    await loansCol().doc(loanId).update({ documents: firebase.firestore.FieldValue.arrayUnion(meta), updated: new Date().toISOString() });
     try { pmToast('Uploaded ' + file.name); } catch (e) {}
     if (_loanView === 'detail' && _loanId === loanId) renderLoanDetail(loanId);
   } catch (e) { try { pmToast('Upload failed: ' + ((e && e.message) || 'error')); } catch (e2) {} }
 }
 async function deleteLoanDoc(loanId, idx) {
   if (!UID) return;
+  if (!permGuard('loans', 'delete')) return;
   const l = loans.find(x => x.id === loanId); if (!l) return;
   const doc = (l.documents || [])[idx]; if (!doc) return;
   if (!confirm('Delete document "' + doc.name + '"?')) return;
   if (storage && doc.path) { try { await storage.ref(doc.path).delete(); } catch (e) {} }
-  await db.collection('loans').doc(UID).collection('list').doc(loanId).update({ documents: firebase.firestore.FieldValue.arrayRemove(doc), updated: new Date().toISOString() }).catch(() => {});
+  await loansCol().doc(loanId).update({ documents: firebase.firestore.FieldValue.arrayRemove(doc), updated: new Date().toISOString() }).catch(() => {});
   try { pmToast('Document removed'); } catch (e) {}
 }
 
@@ -5529,16 +6730,15 @@ function renderLoansDash() {
     if (l.status === 'closed' || l.status === 'paid_off') closed++; else active++;
   });
   const net = lent - borrowed;
-  const overdue = [], upPay = [], upMat = [], upIns = [];
+  const overdue = [], upPay = [], upMat = [];
   loans.forEach(l => {
     if (!loanIsActive(l)) return;
-    const np = loanNextPayment(l), dp = daysUntil(np), dm = daysUntil(l.maturityDate), di = daysUntil(l.insuranceRenewalDate);
+    const np = loanNextPayment(l), dp = daysUntil(np), dm = daysUntil(l.maturityDate);
     if (dp != null && dp < 0) overdue.push({ l, d: dp });
     else if (dp != null && dp <= 14) upPay.push({ l, d: dp });
     if (dm != null && dm >= 0 && dm <= 30) upMat.push({ l, d: dm });
-    if (di != null && di >= 0 && di <= 30) upIns.push({ l, d: di });
   });
-  overdue.sort((a, b) => a.d - b.d); upPay.sort((a, b) => a.d - b.d); upMat.sort((a, b) => a.d - b.d); upIns.sort((a, b) => a.d - b.d);
+  overdue.sort((a, b) => a.d - b.d); upPay.sort((a, b) => a.d - b.d); upMat.sort((a, b) => a.d - b.d);
   const hero = '<div class="dash-hero">' +
     '<div class="dash-card dash-hero-main" style="background:linear-gradient(135deg,var(--blue),var(--blue-hover))"><div class="dlabel">Total borrowed (you owe)</div><div class="dval">' + dollarFmt(borrowed) + '</div><div class="dsub">Across ' + nB + ' note' + (nB === 1 ? '' : 's') + '</div></div>' +
     '<div class="dash-card dash-hero-main" style="background:linear-gradient(135deg,var(--green),#0a8f5b)"><div class="dlabel">Total lent (owed to you)</div><div class="dval">' + dollarFmt(lent) + '</div><div class="dsub">Across ' + nL + ' note' + (nL === 1 ? '' : 's') + '</div></div>' +
@@ -5546,8 +6746,8 @@ function renderLoansDash() {
   const mini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
     _dashMini('Outstanding balance', dollarFmt(outstanding), '') +
     _dashMini('Net position', (net >= 0 ? '+' : '-') + dollarFmt(Math.abs(net)), net >= 0 ? 'gain' : 'loss') +
-    _dashMini('Interest income /yr', dollarFmt(intIncome), 'gain') +
-    _dashMini('Interest expense /yr', dollarFmt(intExpense), 'loss') +
+    _dashMini('Annual interest income', dollarFmt(intIncome), 'gain') +
+    _dashMini('Annual interest expense', dollarFmt(intExpense), 'loss') +
     _dashMini('Active loans', String(active), '') +
     _dashMini('Closed loans', String(closed), '') +
     _dashMini('Overdue payments', String(overdue.length), overdue.length ? 'loss' : '') +
@@ -5556,7 +6756,6 @@ function renderLoansDash() {
     _loanDashSection('Overdue & defaults', overdue, true) +
     _loanDashSection('Upcoming payments (14 days)', upPay, false) +
     _loanDashSection('Upcoming maturities (30 days)', upMat, false, 'maturity') +
-    _loanDashSection('Insurance renewals (30 days)', upIns, false, 'insurance') +
     '<div class="rng-advice-note">Interest figures are annualized estimates (principal × rate) — informational only, not financial advice.</div>';
 }
 
@@ -5576,8 +6775,6 @@ function _loanReminders() {
     }
     const dm = daysUntil(l.maturityDate);
     if (dm != null && dm >= 0 && dm <= 7) out.push({ key: 'loan:' + l.id + ':mat:' + l.maturityDate, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: Date.now(), title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + fmtDate(l.maturityDate) + '.' });
-    const di = daysUntil(l.insuranceRenewalDate);
-    if (di != null && di >= 0 && di <= 14) out.push({ key: 'loan:' + l.id + ':ins:' + l.insuranceRenewalDate, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: Date.now(), title: 'Insurance renewal in ' + di + 'd — ' + title0, body: 'Insurance renewal due ' + fmtDate(l.insuranceRenewalDate) + '.' });
   });
   return out;
 }
@@ -5585,17 +6782,51 @@ function _loanReminders() {
 function openModal(type) {
   const box = document.getElementById('modalBox');
   document.getElementById('modalOverlay').classList.remove('hidden');
-  if (type === 'newLoan' || type === 'editLoan') {
+  if (type === 'newUser' || type === 'editUser') {
+    const u = (type === 'editUser') ? (_adminUsers.find(x => x.uid === _userEditUid) || null) : null;
+    box.innerHTML = userFormModal(u);
+    setTimeout(() => { const i = document.getElementById(u ? 'uRole' : 'uEmail'); if (i) i.focus(); }, 0);
+  } else if (type === 'newOrg') {
+    box.innerHTML = '<div class="modal-title">New organization</div><label class="modal-label">Organization name</label><input id="obOrgName" class="modal-input" placeholder="e.g. Acme Capital" onkeydown="if(event.key===\'Enter\')createOrgBtn()"/>' +
+      '<label class="modal-label">Industry / type <span class="modal-price-hint">optional</span></label><input id="obIndustry" class="modal-input" placeholder="e.g. Real Estate" onkeydown="if(event.key===\'Enter\')createOrgBtn()"/>' +
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" id="obCreateBtn" onclick="createOrgBtn()">Create organization</button></div>';
+    setTimeout(() => { const i = document.getElementById('obOrgName'); if (i) i.focus(); }, 0);
+  } else if (type === 'newCompany') {
+    box.innerHTML = '<div class="modal-title">New company</div><label class="modal-label">Company name</label><input id="obCompanyName" class="modal-input" placeholder="e.g. TX Sparks Construction" onkeydown="if(event.key===\'Enter\')createCompanyBtn()"/>' +
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" id="obCoCreateBtn" onclick="createCompanyBtn()">Create company</button></div>';
+    setTimeout(() => { const i = document.getElementById('obCompanyName'); if (i) i.focus(); }, 0);
+  } else if (type === 'orgAdmins') {
+    box.innerHTML = '<div class="modal-title">Organization admins</div>' +
+      '<div class="modal-price-hint" style="margin-bottom:8px">Org admins can access every company in this organization. The person must already have a Sparks account.</div>' +
+      '<label class="modal-label">Email</label><input id="oaEmail" class="modal-input" type="email" placeholder="admin@example.com" onkeydown="if(event.key===\'Enter\')assignOrgAdminBtn()"/>' +
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Close</button><button class="modal-btn modal-btn-primary" onclick="assignOrgAdminBtn()">Assign org admin</button></div>';
+    setTimeout(() => { const i = document.getElementById('oaEmail'); if (i) i.focus(); }, 0);
+  } else if (type === 'editCompany') {
+    const c = _hubFindCo(_editCompanyId);
+    box.innerHTML = '<div class="modal-title">Rename company</div><label class="modal-label">Company name</label><input id="ecName" class="modal-input" placeholder="e.g. TX Sparks Construction" value="' + escHtml(c.name || '') + '" onkeydown="if(event.key===\'Enter\')saveCompanyBtn()"/>' +
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" id="ecSaveBtn" onclick="saveCompanyBtn()">Save changes</button></div>';
+    setTimeout(() => { const i = document.getElementById('ecName'); if (i) { i.focus(); i.select(); } }, 0);
+  } else if (type === 'editOrg') {
+    box.innerHTML = '<div class="modal-title">Manage organization</div>' +
+      '<label class="modal-label">Organization name</label><input id="eoName" class="modal-input" placeholder="e.g. Sparks Group" onkeydown="if(event.key===\'Enter\')saveOrgBtn()"/>' +
+      '<label class="modal-label">Industry / type <span class="modal-price-hint">optional</span></label><input id="eoIndustry" class="modal-input" placeholder="e.g. Real Estate"/>' +
+      '<div class="modal-footer" style="justify-content:space-between"><button class="modal-btn modal-btn-danger-outline" onclick="deleteOrgBtn()">Delete organization</button>' +
+      '<span><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" id="eoSaveBtn" onclick="saveOrgBtn()">Save changes</button></span></div>';
+    setTimeout(() => { fillEditOrg(); const i = document.getElementById('eoName'); if (i) i.focus(); }, 0);
+  } else if (type === 'inviteMember' || type === 'editMember') {
+    box.innerHTML = memberFormModal(type === 'editMember' ? 'edit' : 'invite');
+    setTimeout(() => { const i = document.getElementById(type === 'editMember' ? 'mRole' : 'mEmail'); if (i) i.focus(); }, 0);
+  } else if (type === 'newLoan' || type === 'editLoan') {
     const l = (type === 'editLoan') ? (loans.find(x => x.id === _loanEditId) || null) : null;
     box.innerHTML = loanFormModal(l);
-    setTimeout(() => { const i = document.getElementById('loanName'); if (i) i.focus(); }, 0);
+    setTimeout(() => { syncLoanNextPay(); const i = document.getElementById('loanName'); if (i) i.focus(); }, 0);
   } else if (type === 'newPf') {
     box.innerHTML = '<div class="modal-title">New portfolio</div><label class="modal-label">Portfolio name</label><input id="newPfName" class="modal-input" placeholder="e.g. Growth Portfolio"/><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="createPortfolio(document.getElementById(\'newPfName\').value);closeModal()">Create</button></div>';
   } else if (type === 'addHolding') {
     box.innerHTML = '<div class="modal-title">Add holding</div>' +
       '<label class="modal-label">Ticker</label><div class="ac-wrap"><input id="holdingTicker" class="modal-input" placeholder="e.g. AAPL" oninput="acFilter(this,\'holdingAC\',\'addHolding\')" onkeydown="acKey(event,\'holdingAC\',\'addHolding\')" onchange="autofillBuyPrice(this.value)" onblur="autofillBuyPrice(this.value)" autocomplete="off"/><div id="holdingAC" class="ac-list" style="display:none"></div></div>' +
       '<label class="modal-label">Quantity</label><input id="holdingQty" class="modal-input" type="number" placeholder="e.g. 10"/>' +
-      '<label class="modal-label">Buy price ($) <span class="modal-price-hint" id="holdingPriceHint"></span></label><input id="holdingBuyPrice" class="modal-input" type="number" step="0.01" placeholder="e.g. 150.00"/>' +
+      '<label class="modal-label">Buy price ($) <span class="modal-price-hint" id="holdingPriceHint"></span></label><input id="holdingBuyPrice" class="modal-input" type="text" inputmode="decimal" data-ccy placeholder="$150.00"/>' +
       '<label class="modal-label">Buy date</label><input id="holdingBuyDate" class="modal-input" type="date" value="' + todayStr() + '"/>' +
       '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>' +
       '<button class="modal-btn modal-btn-primary" onclick="addHolding(currentPfId,document.getElementById(\'holdingTicker\').value,document.getElementById(\'holdingQty\').value,document.getElementById(\'holdingBuyPrice\').value,document.getElementById(\'holdingBuyDate\').value);closeModal()">Add</button></div>';
@@ -5611,17 +6842,24 @@ function openModal(type) {
       '<label class="modal-label">Condition</label><select id="alertCond" class="modal-input" onchange="onAlertCondChange()"><option value="price_above">Price above ($)</option><option value="price_below">Price below ($)</option><option value="pct_above">% change above (up by)</option><option value="pct_below">% change below (down by)</option><option value="news">Breaking news</option></select>' +
       '<label class="modal-label" id="alertValLabel">Target price ($)</label><input id="alertVal" class="modal-input" type="text" inputmode="decimal" placeholder="e.g. 200"/>' +
       '<div class="modal-price-hint" id="alertValHint" style="margin:-2px 0 0;">Notify me when the price reaches this level.</div>' +
-      '<label class="modal-label">Note (optional)</label><input id="alertNote" class="modal-input" placeholder=""/>' +
+      '<label class="modal-label">Note (optional)</label><input id="alertNote" class="modal-input" placeholder="Optional note (e.g. why you&#39;re watching this level)"/>' +
       '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitAlert()">Create</button></div>';
     setTimeout(onAlertCondChange, 0);
   } else if (type === 'renameWL') {
     const wl = watchlists.find(w => w.id === currentWLId);
     box.innerHTML = '<div class="modal-title">Rename watchlist</div><label class="modal-label">Name</label><input id="renameWLName" class="modal-input" value="' + escHtml((wl && wl.name) || '') + '"/><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="renameWatchlist(currentWLId,document.getElementById(\'renameWLName\').value);closeModal()">Save</button></div>';
     setTimeout(() => { const i = document.getElementById('renameWLName'); if (i) { i.focus(); i.select(); } }, 0);
-  } else if (type === 'renamePf') {
+  } else if (type === 'renamePf' || type === 'editPf') {
     const pf = portfolios.find(p => p.id === currentPfId);
-    box.innerHTML = '<div class="modal-title">Rename portfolio</div><label class="modal-label">Name</label><input id="renamePfName" class="modal-input" value="' + escHtml((pf && pf.name) || '') + '"/><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="renamePortfolio(currentPfId,document.getElementById(\'renamePfName\').value);closeModal()">Save</button></div>';
-    setTimeout(() => { const i = document.getElementById('renamePfName'); if (i) { i.focus(); i.select(); } }, 0);
+    if (!pf) { closeModal(); try { pmToast('Pick a specific portfolio first'); } catch (e) {} return; }
+    box.innerHTML = '<div class="modal-title">Edit portfolio</div>' +
+      '<label class="modal-label">Name</label><input id="editPfName" class="modal-input" value="' + escHtml(pf.name || '') + '"/>' +
+      '<label class="modal-label">Description <span class="modal-price-hint">optional</span></label><textarea id="editPfDesc" class="modal-input" style="min-height:60px;resize:vertical;font-family:inherit;" placeholder="e.g. Long-term retirement holdings">' + escHtml(pf.description || '') + '</textarea>' +
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="updatePortfolioMeta(currentPfId,{name:document.getElementById(\'editPfName\').value,description:document.getElementById(\'editPfDesc\').value})">Save</button></div>';
+    setTimeout(() => { const i = document.getElementById('editPfName'); if (i) { i.focus(); i.select(); } }, 0);
+  } else if (type === 'addTxn') {
+    box.innerHTML = txnFormModal();
+    setTimeout(() => { onTxnTypeChange(); const i = document.getElementById('txnTicker'); if (i) i.focus(); }, 0);
   } else if (type === 'bulkAdd') {
     const label = _bulkTarget === 'pf' ? 'portfolio' : 'watchlist';
     box.innerHTML = '<div class="modal-title">Bulk add to ' + label + '</div>' +
@@ -5695,6 +6933,7 @@ function renderBulkChips() {
   }
 }
 async function bulkAddSubmit() {
+  if (!permGuard('stocks', 'write')) { try { closeModal(); } catch (e) {} return; }
   // Fold any text still sitting in the input into chips first.
   const inp = document.getElementById('bulkTickerInput');
   if (inp && inp.value.trim()) inp.value.split(/[\s,;]+/).forEach(tok => { if (tok.trim()) bulkAddChip(tok); });
@@ -5705,7 +6944,7 @@ async function bulkAddSubmit() {
     const held = new Set((holdings || []).map(h => (h.ticker || '').toUpperCase()));
     const toAdd = all.filter(x => !held.has(x));
     if (!toAdd.length) { try { pmToast('All of those are already in this portfolio'); } catch (e) {} closeModal(); return; }
-    const col = db.collection('holdings').doc(UID).collection(currentPfId);
+    const col = holdingsCol(currentPfId);
     for (let i = 0; i < toAdd.length; i += 450) {   // Firestore batch cap is 500
       const batch = db.batch();
       toAdd.slice(i, i + 450).forEach(tk => batch.set(col.doc(), { ticker: tk, qty: 0, buy_price: 0, buy_date: todayStr(), added: new Date().toISOString() }));
@@ -5716,7 +6955,7 @@ async function bulkAddSubmit() {
     if (!currentWLId) { try { pmToast('Create a watchlist first'); } catch (e) {} return; }
     const wl = watchlists.find(w => w.id === currentWLId); if (!wl) { closeModal(); return; }
     const tickers = [...new Set([...(wl.tickers || []), ...all])];
-    await db.collection('watchlists').doc(UID).collection('list').doc(currentWLId).update({ tickers }).catch(() => {});
+    await wlCol().doc(currentWLId).update({ tickers }).catch(() => {});
     try { pmToast('Added ' + all.length + ' ticker' + (all.length === 1 ? '' : 's') + ' to ' + (wl.name || 'watchlist')); } catch (e) {}
   }
   closeModal();
@@ -5724,9 +6963,17 @@ async function bulkAddSubmit() {
 
 // ── Tab switcher (sidebar) ──
 function sw(name) {
+  // RBAC guard: block navigation to a module the user can't read; platform tab is super-admin only;
+  // org tools require an active org.
+  try {
+    if (name === 'platform' && !isPlatformAdmin()) { name = 'home'; }
+    else if (name === 'orgdash' && !_isOrgAdminNow()) { name = 'home'; }
+    else if ((name === 'members' || name === 'orgsettings') && !ACTIVE_ORG) { name = 'home'; }
+    else { const _m = moduleForTab(name); if (_m && !canRead(_m)) { try { pmToast("You don't have access to that module."); } catch (e) {} name = 'home'; } }
+  } catch (e) {}
   document.querySelectorAll('.navitem').forEach(el => el.classList.toggle('active', el.getAttribute('data-nav') === name));
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  const panel = document.getElementById('tab-' + name);
+  const panel = document.getElementById('tab-' + (name.indexOf('m_') === 0 ? 'soon' : name));
   if (panel) panel.classList.add('active');
   try { revealNavCatFor(name); } catch (e) {}   // open the category holding the active tab
   document.body.classList.remove('sidebar-open');
@@ -5737,7 +6984,7 @@ function sw(name) {
   if (name === 'market') renderNewsTab();
   if (name === 'research') enterResearch();
   if (name === 'recommend') enterRecommend();
-  if (name === 'portfolio') renderHoldingsTable();
+  if (name === 'portfolio') setPfView(_pfView);
   if (name === 'watchlist') renderWatchlistTab();
   if (name === 'useralerts') renderUserAlerts();
   if (name === 'premarket') renderNotifications();
@@ -5748,6 +6995,11 @@ function sw(name) {
   if (name === 'catalysts') renderCatalysts();
   if (name === 'loansdash') renderLoansDash();
   if (name === 'loans') renderLoans();
+  if (name === 'members') renderOrgMembers();
+  if (name === 'orgsettings') renderOrgSettings();
+  if (name === 'orgdash') renderOrgDashboard();
+  if (name === 'platform') renderPlatform();
+  if (name.indexOf('m_') === 0) renderSoon(name);
 }
 
 // ── Click outside autocomplete ──
@@ -6257,6 +7509,7 @@ function initNavHeightSync() {
 // ── Boot ──
 injectStaticIcons();
 buildSidebar();
+try { applyPermissions(); } catch (e) {}
 initPWA();
 initNavHeightSync();
 </script>
