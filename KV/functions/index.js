@@ -135,39 +135,129 @@ async function getHolidayToday(date, key) {
   }
 }
 
-// ── Per-user ticker gathering ───────────────────────────────────────────────
+// ── Company-tier fan-out helpers ────────────────────────────────────────────
+// Financial data now lives under organizations/{o}/companies/{c}/… while notifications,
+// FCM tokens and alert-dedup state stay per-uid. These helpers walk every LIVE company
+// (skipping soft-deleted / deactivated orgs+companies), map its members → recipients, and
+// gather its tickers, so the scheduled jobs operate on the company tier and notify the
+// right people. Company data is shared among its members, so a job reads the whole
+// company's book and delivers to every member with access to the relevant module.
 
-async function getUserTickers(db, uid) {
-  const tickers = new Set();
-
-  // Holdings live under holdings/{uid}/{portfolioId}/{holdingId}; iterate every
-  // portfolio subcollection of the user's holdings doc.
-  try {
-    const portfolioCols = await db.collection('holdings').doc(uid).listCollections();
-    for (const col of portfolioCols) {
-      const snap = await col.get();
-      snap.forEach(doc => {
-        const t = (doc.get('ticker') || '').toUpperCase();
-        if (t) tickers.add(t);
-      });
+// All live (not soft-deleted / not deactivated) org→company pairs.
+async function listLiveCompanies(db) {
+  const out = [];
+  let orgsSnap;
+  try { orgsSnap = await db.collection('organizations').get(); }
+  catch (e) { logger.warn('Organization list failed', { error: String(e) }); return out; }
+  for (const orgDoc of orgsSnap.docs) {
+    const org = orgDoc.data() || {};
+    if (org.deleted === true || org.active === false) continue;
+    let coSnap;
+    try { coSnap = await orgDoc.ref.collection('companies').get(); } catch (e) { continue; }
+    for (const coDoc of coSnap.docs) {
+      const co = coDoc.data() || {};
+      if (co.deleted === true || co.active === false) continue;
+      out.push({ orgId: orgDoc.id, companyId: coDoc.id, coRef: coDoc.ref, name: co.name || 'Company', modules: co.modules || {} });
     }
-  } catch (e) {
-    logger.warn('Holdings read failed', { uid, error: String(e) });
   }
+  return out;
+}
 
-  // Watchlists: watchlists/{uid}/list/{id} each carry a tickers[] array.
-  try {
-    const wl = await db.collection('watchlists').doc(uid).collection('list').get();
-    wl.forEach(doc => {
-      (doc.get('tickers') || []).forEach(t => {
-        if (t) tickers.add(String(t).toUpperCase());
-      });
+// Member uids of a company allowed to receive notifications for `moduleKey` ('stocks'|'loans'):
+// company admins see everything; members need a non-'none' perm on that module.
+async function companyModuleUids(coRef, moduleKey) {
+  const out = [];
+  let memSnap;
+  try { memSnap = await coRef.collection('members').get(); } catch (e) { return out; }
+  memSnap.forEach(m => {
+    const md = m.data() || {};
+    const perm = md.perms && md.perms[moduleKey];
+    if (md.role === 'admin' || (perm && perm !== 'none')) out.push(m.id);
+  });
+  return out;
+}
+
+// Index every member uid → the live companies they belong to (with role/perms), so
+// per-user jobs (digest, intraday) can union a user's accessible tickers across companies.
+async function buildMembershipIndex(db) {
+  const byUid = {};   // uid -> [{ orgId, companyId, coRef, role, perms }]
+  for (const c of await listLiveCompanies(db)) {
+    let memSnap;
+    try { memSnap = await c.coRef.collection('members').get(); } catch (e) { continue; }
+    memSnap.forEach(m => {
+      const md = m.data() || {};
+      (byUid[m.id] = byUid[m.id] || []).push({ orgId: c.orgId, companyId: c.companyId, coRef: c.coRef, role: md.role, perms: md.perms || {} });
     });
-  } catch (e) {
-    logger.warn('Watchlist read failed', { uid, error: String(e) });
   }
+  return byUid;
+}
 
+// A user's companies where they hold the given module (admin OR non-'none' perm).
+function companiesWithModule(memberships, moduleKey) {
+  return (memberships || []).filter(m => m.role === 'admin' || (m.perms[moduleKey] && m.perms[moduleKey] !== 'none'));
+}
+
+// Union of tickers from the given companies' holdings (holdings/{pfId}/lots) and, when
+// `includeWatchlists` is true, their watchlists. Intraday price-move alerts pass false
+// (holdings only); the pre-market digest passes true (holdings + watched tickers).
+async function tickersForCompanies(coRefs, includeWatchlists = true) {
+  const tickers = new Set();
+  for (const coRef of coRefs) {
+    try {
+      const pfRefs = await coRef.collection('holdings').listDocuments();
+      for (const pfRef of pfRefs) {
+        const lots = await pfRef.collection('lots').get();
+        lots.forEach(d => { const t = (d.get('ticker') || '').toUpperCase(); if (t) tickers.add(t); });
+      }
+    } catch (e) { logger.warn('Company holdings read failed', { company: coRef.path, error: String(e) }); }
+    if (includeWatchlists) {
+      try {
+        const wl = await coRef.collection('watchlists').get();
+        wl.forEach(d => (d.get('tickers') || []).forEach(t => { if (t) tickers.add(String(t).toUpperCase()); }));
+      } catch (e) { logger.warn('Company watchlist read failed', { company: coRef.path, error: String(e) }); }
+    }
+  }
   return tickers;
+}
+
+// Per-uid delivery sink. Caches FCM tokens + the day's alert-dedup state, accumulates
+// notifications across every company a user belongs to, then flushes ONCE (single state
+// write, no double-fire). statePrefix '' → alert_state/{uid}; 'ua_'/'loan_' → prefixed.
+function makeSink(db, messaging, statePrefix, date, summary) {
+  const users = {};   // uid -> { tokens, stateRef, fired:Set, queue:[{doc, push, data}] }
+  async function load(uid) {
+    if (users[uid]) return users[uid];
+    let tokens = [];
+    try { const u = await db.collection('users').doc(uid).get(); tokens = Array.isArray(u.get('fcmTokens')) ? u.get('fcmTokens') : []; } catch (e) {}
+    const stateRef = db.collection('alert_state').doc((statePrefix || '') + uid);
+    let fired = new Set();
+    try { const s = await stateRef.get(); const st = s.exists ? s.data() : {}; if (st.date === date) fired = new Set(st.keys || []); } catch (e) {}
+    return (users[uid] = { tokens, stateRef, fired, queue: [] });
+  }
+  return {
+    async fired(uid) { return (await load(uid)).fired; },          // Set — test/add dedup keys
+    async hasTokens(uid) { return (await load(uid)).tokens.length > 0; },
+    async enqueue(uid, doc, push, data) { (await load(uid)).queue.push({ doc, push, data }); },
+    async flush() {
+      for (const uid of Object.keys(users)) {
+        const u = users[uid];
+        for (const item of u.queue) {
+          try { await db.collection('notifications').doc(uid).collection('list').add(item.doc); if (summary && 'notified' in summary) summary.notified++; }
+          catch (e) { logger.error('notif write failed', { uid, error: String(e) }); }
+          if (u.tokens.length && item.push) {
+            try {
+              const resp = await messaging.sendEachForMulticast({ tokens: u.tokens, notification: item.push, data: item.data || {}, webpush: { fcmOptions: { link: '/' } } });
+              if (summary && 'sent' in summary) summary.sent += resp.successCount;
+              const dead = [];
+              resp.responses.forEach((r, i) => { if (!r.success) { const c = r.error && r.error.code; if (c === 'messaging/registration-token-not-registered' || c === 'messaging/invalid-registration-token' || c === 'messaging/invalid-argument') dead.push(u.tokens[i]); } });
+              if (dead.length) { await db.collection('users').doc(uid).set({ fcmTokens: admin.firestore.FieldValue.arrayRemove(...dead) }, { merge: true }); u.tokens = u.tokens.filter(t => !dead.includes(t)); }
+            } catch (e) { logger.error('FCM send failed', { uid, error: String(e) }); }
+          }
+        }
+        try { await u.stateRef.set({ date, keys: [...u.fired] }); } catch (e) {}
+      }
+    }
+  };
 }
 
 // ── Digest composition ────────────────────────────────────────────────────────
@@ -232,22 +322,27 @@ async function runPremarket(key) {
   const earningsByTicker = new Map(earnings.map(e => [e.ticker, e]));
   logger.info('Calendar pulled', { date, earnings: earnings.length, macro: macro.length, holiday: holiday && holiday.name });
 
-  // Recipients = users with at least one registered FCM token.
+  // Recipients = users with a registered FCM token who belong to ≥1 company with the
+  // Trading module. Tickers for the digest are the union of that user's accessible
+  // companies' holdings + watchlists (company data is shared among its members).
+  const membership = await buildMembershipIndex(db);
   const usersSnap = await db.collection('users').get();
   const recipients = [];
   usersSnap.forEach(doc => {
     const tokens = doc.get('fcmTokens');
-    if (Array.isArray(tokens) && tokens.length) recipients.push({ uid: doc.id, tokens });
+    if (!(Array.isArray(tokens) && tokens.length)) return;
+    const stockCos = companiesWithModule(membership[doc.id], 'stocks');
+    if (stockCos.length) recipients.push({ uid: doc.id, tokens, coRefs: stockCos.map(c => c.coRef) });
   });
 
   const summary = { date, users: recipients.length, sent: 0, failed: 0, skipped: 0, prunedTokens: 0 };
 
-  for (const { uid, tokens } of recipients) {
-    // Match today's earnings to this user's own tickers (skip the matching on a
+  for (const { uid, tokens, coRefs } of recipients) {
+    // Match today's earnings to this user's company tickers (skip the matching on a
     // closed-market day — the digest is just the holiday notice).
     let userEarnings = [];
     if (!(holiday && holiday.closed)) {
-      const userTickers = await getUserTickers(db, uid);
+      const userTickers = await tickersForCompanies(coRefs);
       userEarnings = [...userTickers]
         .filter(t => earningsByTicker.has(t))
         .map(t => earningsByTicker.get(t));
@@ -809,31 +904,27 @@ exports.getRecommend = onRequest(
 const MARKET_MOVE_PCT = 1.0;
 const STOCK_MOVE_PCT = 5.0;
 
-async function getHoldingTickers(db, uid) {
-  const tickers = new Set();
-  try {
-    const cols = await db.collection('holdings').doc(uid).listCollections();
-    for (const col of cols) {
-      const snap = await col.get();
-      snap.forEach(d => { const t = (d.get('ticker') || '').toUpperCase(); if (t) tickers.add(t); });
-    }
-  } catch (e) { logger.warn('Holdings read failed (intraday)', { uid, error: String(e) }); }
-  return tickers;
-}
-
 async function runIntraday(key) {
   const db = admin.firestore();
   const messaging = admin.messaging();
   const date = todayInET();
 
+  // Recipients = users with a registered FCM token who belong to ≥1 company with the
+  // Trading module; each user's watched tickers are the union of their companies' holdings.
+  const membership = await buildMembershipIndex(db);
   const usersSnap = await db.collection('users').get();
   const recipients = [];
-  usersSnap.forEach(doc => { const tokens = doc.get('fcmTokens'); if (Array.isArray(tokens) && tokens.length) recipients.push({ uid: doc.id, tokens }); });
+  usersSnap.forEach(doc => {
+    const tokens = doc.get('fcmTokens');
+    if (!(Array.isArray(tokens) && tokens.length)) return;
+    const stockCos = companiesWithModule(membership[doc.id], 'stocks');
+    if (stockCos.length) recipients.push({ uid: doc.id, tokens, coRefs: stockCos.map(c => c.coRef) });
+  });
 
-  // Unique tickers across everyone's holdings + SPY (market proxy).
+  // Unique tickers across every recipient's company holdings + SPY (market proxy).
   const allTickers = new Set(['SPY']);
   const userTickers = {};
-  for (const { uid } of recipients) { const t = await getHoldingTickers(db, uid); userTickers[uid] = t; t.forEach(x => allTickers.add(x)); }
+  for (const { uid, coRefs } of recipients) { const t = await tickersForCompanies(coRefs, false); userTickers[uid] = t; t.forEach(x => allTickers.add(x)); }
 
   let earningsSet = new Set();
   try { earningsSet = new Set((await getEarningsToday(date, key)).map(e => e.ticker)); } catch (e) {}
@@ -969,13 +1060,7 @@ async function runUserAlerts(key) {
   const db = admin.firestore();
   const messaging = admin.messaging();
   const date = todayInET();
-
-  // Discover owners from the alerts collection itself, NOT the users collection: a user who
-  // sets an alert may not have a users/{uid} doc yet (that's only created when push is enabled),
-  // and their in-app alerts must still fire. listDocuments() returns a ref for every uid that
-  // has an alerts/{uid}/list subcollection, even if the parent doc has no fields.
-  const alertOwners = await db.collection('alerts').listDocuments();
-  const summary = { date, usersWithAlerts: 0, checked: 0, fired: 0, sent: 0 };
+  const summary = { date, companies: 0, checked: 0, notified: 0, sent: 0 };
 
   const quoteCache = {};
   async function getQuote(sym) {
@@ -985,21 +1070,19 @@ async function runUserAlerts(key) {
     quoteCache[sym] = q; return q;
   }
 
-  for (const ownerRef of alertOwners) {
-    const uid = ownerRef.id;
-    let alertsSnap;
-    try { alertsSnap = await ownerRef.collection('list').get(); } catch (e) { continue; }
-    if (alertsSnap.empty) continue;
-    summary.usersWithAlerts++;
+  // Alerts are now company data (organizations/{o}/companies/{c}/alerts) shared by the company's
+  // members. Evaluate each alert once, then deliver to every member with Trading access. Dedup is
+  // per-uid and company-scoped so a member in several companies isn't cross-fired, and the same
+  // crossed threshold pings each recipient once per day.
+  const sink = makeSink(db, messaging, 'ua_', date, summary);
 
-    let tokens = [];
-    try { const udoc = await db.collection('users').doc(uid).get(); tokens = Array.isArray(udoc.get('fcmTokens')) ? udoc.get('fcmTokens') : []; } catch (e) {}
-    const stateRef = db.collection('alert_state').doc('ua_' + uid);
-    let state = {};
-    try { const s = await stateRef.get(); state = s.exists ? s.data() : {}; } catch (e) {}
-    if (state.date !== date) state = { date, keys: [] };
-    const fired = new Set(state.keys || []);
-    const toNotify = [];
+  for (const co of await listLiveCompanies(db)) {
+    let alertsSnap;
+    try { alertsSnap = await co.coRef.collection('alerts').get(); } catch (e) { continue; }
+    if (alertsSnap.empty) continue;
+    const uids = await companyModuleUids(co.coRef, 'stocks');
+    if (!uids.length) continue;
+    summary.companies++;
 
     for (const adoc of alertsSnap.docs) {
       const a = adoc.data(); summary.checked++;
@@ -1007,58 +1090,49 @@ async function runUserAlerts(key) {
       const cond = a.condition || a.type;
       if (!ticker || !cond) continue;
 
+      let payload = null;   // { dedupKey, title, body, url, pct }
       if (cond === 'news') {
         let rows = [];
         try { rows = (await finnhubGet('/company-news', { symbol: ticker, from: date, to: date }, key)) || []; } catch (e) {}
         rows.sort((x, y) => (y.datetime || 0) - (x.datetime || 0));
         const top = rows[0];
         if (top && top.id != null) {
-          const k = 'uanews:' + adoc.id + ':' + top.id;
-          if (!fired.has(k)) {
-            fired.add(k);
-            toNotify.push({ ticker, pct: null, url: top.url || '',
-              title: `News: ${ticker} — ${String(top.headline || 'new headline').slice(0, 80)}`,
-              body: `${String(top.summary || top.headline || '').slice(0, 220)} (${top.source || 'news'})` + (a.note ? ' — Note: ' + a.note : '') });
-          }
+          payload = {
+            dedupKey: 'uanews:' + co.companyId + ':' + adoc.id + ':' + top.id,
+            title: `News: ${ticker} — ${String(top.headline || 'new headline').slice(0, 80)}`,
+            body: `${String(top.summary || top.headline || '').slice(0, 220)} (${top.source || 'news'})` + (a.note ? ' — Note: ' + a.note : ''),
+            url: top.url || '', pct: null
+          };
         }
-        continue;
+      } else {
+        const q = await getQuote(ticker);
+        if (q && _alertTriggered(cond, a.value, q)) {
+          const t = _alertText(cond, _alertNum(a.value), ticker, q);
+          payload = {
+            dedupKey: 'ua:' + co.companyId + ':' + adoc.id,   // one notification per alert per day
+            title: t.title, body: a.note ? t.body + ' — Note: ' + a.note : t.body,
+            url: '', pct: q.dp != null ? q.dp : null
+          };
+        }
       }
+      if (!payload) continue;
 
-      const k = 'ua:' + adoc.id;          // one notification per price/percent alert per day
-      if (fired.has(k)) continue;
-      const q = await getQuote(ticker);
-      if (!q) continue;
-      if (_alertTriggered(cond, a.value, q)) {
-        fired.add(k);
-        const t = _alertText(cond, _alertNum(a.value), ticker, q);
-        toNotify.push({ ticker, pct: q.dp != null ? q.dp : null, url: '', title: t.title, body: a.note ? t.body + ' — Note: ' + a.note : t.body });
-      }
-    }
-
-    for (const n of toNotify) {
-      try {
-        await db.collection('notifications').doc(uid).collection('list').add({
-          date, type: 'user_alert', title: n.title, body: n.body, ticker: n.ticker || null,
-          pct: n.pct, url: n.url || null, read: false, status: 'sent',
-          data: { type: 'user_alert', url: n.url || '' },
-          createdAt: admin.firestore.FieldValue.serverTimestamp()
-        });
-        summary.fired++;
-      } catch (e) { logger.error('user-alert notif write failed', { uid, error: String(e) }); }
-      if (tokens.length) {
-        try {
-          const resp = await messaging.sendEachForMulticast({ tokens, notification: { title: n.title, body: pushBody(n.body) }, data: { type: 'user_alert', url: String(n.url || '') }, webpush: { fcmOptions: { link: '/' } } });
-          summary.sent += resp.successCount;
-          const dead = [];
-          resp.responses.forEach((r, i) => { if (!r.success) { const c = r.error && r.error.code; if (c === 'messaging/registration-token-not-registered' || c === 'messaging/invalid-registration-token' || c === 'messaging/invalid-argument') dead.push(tokens[i]); } });
-          if (dead.length) await db.collection('users').doc(uid).set({ fcmTokens: admin.firestore.FieldValue.arrayRemove(...dead) }, { merge: true });
-        } catch (e) { logger.error('user-alert FCM failed', { uid, error: String(e) }); }
+      for (const uid of uids) {
+        const fired = await sink.fired(uid);
+        if (fired.has(payload.dedupKey)) continue;
+        fired.add(payload.dedupKey);
+        await sink.enqueue(uid,
+          { date, type: 'user_alert', title: payload.title, body: payload.body, ticker, pct: payload.pct,
+            url: payload.url || null, orgId: co.orgId, companyId: co.companyId, company: co.name,
+            read: false, status: 'sent', data: { type: 'user_alert', url: payload.url || '' },
+            createdAt: admin.firestore.FieldValue.serverTimestamp() },
+          { title: payload.title, body: pushBody(payload.body) },
+          { type: 'user_alert', url: String(payload.url || '') });
       }
     }
-
-    try { await stateRef.set({ date, keys: [...fired] }); } catch (e) {}
   }
 
+  await sink.flush();
   logger.info('User-alerts run complete', summary);
   return summary;
 }
@@ -1080,10 +1154,10 @@ exports.runUserAlertsNow = onRequest(
   }
 );
 
-// ── Loan & note reminders (payment / maturity / insurance milestones) ─────────
+// ── Loan & note reminders (payment / maturity milestones) ─────────
 // Daily scan of every user's loans/{uid}/list; writes a `loan_reminder` notification (+ FCM push)
-// for payments due within 5 days or overdue, maturities within 7 days, and insurance renewals
-// within 14 days. Deduped per user/day via alert_state/loan_{uid} so each milestone pings once/day.
+// for payments due within 5 days or overdue, and maturities within 7 days.
+// Deduped per user/day via alert_state/loan_{uid} so each milestone pings once/day.
 // (The web app also derives these same reminders client-side; this delivers push when it's closed.)
 const _FREQ_DAYS_FN = { weekly: 7, biweekly: 14, monthly: 30, quarterly: 91, semiannual: 182, annually: 365 };
 function _dUntil(dateStr, todayStr) {
@@ -1108,65 +1182,59 @@ async function runLoanReminders() {
   const db = admin.firestore();
   const messaging = admin.messaging();
   const date = todayInET();
-  const owners = await db.collection('loans').listDocuments();
-  const summary = { date, owners: 0, reminders: 0, sent: 0 };
+  const summary = { date, companies: 0, notified: 0, sent: 0 };
 
-  for (const ownerRef of owners) {
-    const uid = ownerRef.id;
+  // Loans are company data (organizations/{o}/companies/{c}/loans) shared by the company's members.
+  // Each payment / maturity milestone is delivered to every member with Loans & Notes access, deduped
+  // per-uid + company + milestone so each recipient is pinged once per day.
+  const sink = makeSink(db, messaging, 'loan_', date, summary);
+
+  for (const co of await listLiveCompanies(db)) {
     let snap;
-    try { snap = await ownerRef.collection('list').get(); } catch (e) { continue; }
+    try { snap = await co.coRef.collection('loans').get(); } catch (e) { continue; }
     if (snap.empty) continue;
-    summary.owners++;
-
-    let tokens = [];
-    try { const udoc = await db.collection('users').doc(uid).get(); tokens = Array.isArray(udoc.get('fcmTokens')) ? udoc.get('fcmTokens') : []; } catch (e) {}
-    const stateRef = db.collection('alert_state').doc('loan_' + uid);
-    let state = {};
-    try { const s = await stateRef.get(); state = s.exists ? s.data() : {}; } catch (e) {}
-    if (state.date !== date) state = { date, keys: [] };
-    const fired = new Set(state.keys || []);
-    const toNotify = [];
+    const uids = await companyModuleUids(co.coRef, 'loans');
+    if (!uids.length) continue;
+    summary.companies++;
 
     for (const d of snap.docs) {
       const l = d.data(); if (!_loanActive(l)) continue;
       const title0 = _loanTitleFn(l);
+      const events = [];   // { dedupSuffix, rkey, title, body }
       const np = _loanNextPay(l, date), dp = _dUntil(np, date);
       if (dp != null && dp <= 5 && dp >= -14) {   // stop pushing after ~2 weeks overdue (still shown in-app)
-        const key = 'pay:' + d.id + ':' + np;
-        if (!fired.has(key)) {
-          fired.add(key); const overdue = dp < 0;
-          // Title matches the client-derived reminder so the feed collapses the two into one.
-          toNotify.push({ rkey: 'loan:' + d.id + ':pay:' + np, loanId: d.id, title: (overdue ? 'OVERDUE payment — ' : 'Payment due soon — ') + title0, body: (overdue ? 'A payment on this note was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'A payment on this note is due today' : 'A payment on this note is due in ' + dp + ' day(s)')) + '.' });
-        }
+        const overdue = dp < 0;
+        // Title matches the client-derived reminder so the feed collapses the two into one.
+        events.push({ dedupSuffix: 'pay:' + d.id + ':' + np, rkey: 'loan:' + d.id + ':pay:' + np,
+          title: (overdue ? 'OVERDUE payment — ' : 'Payment due soon — ') + title0,
+          body: (overdue ? 'A payment on this note was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'A payment on this note is due today' : 'A payment on this note is due in ' + dp + ' day(s)')) + '.' });
       }
       const dm = _dUntil(l.maturityDate, date);
-      if (dm != null && dm >= 0 && dm <= 7) { const key = 'mat:' + d.id + ':' + l.maturityDate; if (!fired.has(key)) { fired.add(key); toNotify.push({ rkey: 'loan:' + d.id + ':mat:' + l.maturityDate, loanId: d.id, title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + l.maturityDate + '.' }); } }
-      const di = _dUntil(l.insuranceRenewalDate, date);
-      if (di != null && di >= 0 && di <= 14) { const key = 'ins:' + d.id + ':' + l.insuranceRenewalDate; if (!fired.has(key)) { fired.add(key); toNotify.push({ rkey: 'loan:' + d.id + ':ins:' + l.insuranceRenewalDate, loanId: d.id, title: 'Insurance renewal in ' + di + 'd — ' + title0, body: 'An insurance renewal for this note is due ' + l.insuranceRenewalDate + '.' }); } }
-    }
+      if (dm != null && dm >= 0 && dm <= 7) {
+        events.push({ dedupSuffix: 'mat:' + d.id + ':' + l.maturityDate, rkey: 'loan:' + d.id + ':mat:' + l.maturityDate,
+          title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + l.maturityDate + '.' });
+      }
+      if (!events.length) continue;
 
-    for (const n of toNotify) {
-      try {
-        await db.collection('notifications').doc(uid).collection('list').add({
-          date, type: 'loan_reminder', title: n.title, body: n.body, ticker: null, url: null,
-          rkey: n.rkey || null, loanId: n.loanId || null,
-          read: false, status: 'sent', data: { type: 'loan_reminder' },
-          createdAt: admin.firestore.FieldValue.serverTimestamp()
-        });
-        summary.reminders++;
-      } catch (e) { logger.error('loan-reminder notif write failed', { uid, error: String(e) }); }
-      if (tokens.length) {
-        try {
-          const resp = await messaging.sendEachForMulticast({ tokens, notification: { title: n.title, body: pushBody(n.body) }, data: { type: 'loan_reminder' }, webpush: { fcmOptions: { link: '/' } } });
-          summary.sent += resp.successCount;
-          const dead = [];
-          resp.responses.forEach((r, i) => { if (!r.success) { const c = r.error && r.error.code; if (c === 'messaging/registration-token-not-registered' || c === 'messaging/invalid-registration-token' || c === 'messaging/invalid-argument') dead.push(tokens[i]); } });
-          if (dead.length) await db.collection('users').doc(uid).set({ fcmTokens: admin.firestore.FieldValue.arrayRemove(...dead) }, { merge: true });
-        } catch (e) { logger.error('loan-reminder FCM failed', { uid, error: String(e) }); }
+      for (const uid of uids) {
+        const fired = await sink.fired(uid);
+        for (const ev of events) {
+          const key = co.companyId + ':' + ev.dedupSuffix;
+          if (fired.has(key)) continue;
+          fired.add(key);
+          await sink.enqueue(uid,
+            { date, type: 'loan_reminder', title: ev.title, body: ev.body, ticker: null, url: null,
+              rkey: ev.rkey, loanId: d.id, orgId: co.orgId, companyId: co.companyId, company: co.name,
+              read: false, status: 'sent', data: { type: 'loan_reminder' },
+              createdAt: admin.firestore.FieldValue.serverTimestamp() },
+            { title: ev.title, body: pushBody(ev.body) },
+            { type: 'loan_reminder' });
+        }
       }
     }
-    try { await stateRef.set({ date, keys: [...fired] }); } catch (e) {}
   }
+
+  await sink.flush();
   logger.info('Loan-reminders run complete', summary);
   return summary;
 }
@@ -1675,6 +1743,8 @@ exports.verifyOtp = onRequest(
       const newPassword = String((req.body && req.body.newPassword) || '');
       if (!email || !/^\d{6}$/.test(code)) { res.status(400).json({ error: 'bad_request' }); return; }
       if (newPassword.length < 6) { res.status(400).json({ error: 'weak_password' }); return; }
+      // Owner (super-admin) accounts can't be reset via self-service OTP — reset them out-of-band.
+      if (typeof isOwnerEmail === 'function' && isOwnerEmail(email)) { res.status(403).json({ error: 'owner_reset_disabled' }); return; }
       const db = admin.firestore();
       const ref = db.collection('otp').doc(otpKey(email));
       const snap = await ref.get();
@@ -1693,3 +1763,722 @@ exports.verifyOtp = onRequest(
     }
   }
 );
+
+// ── User Management & RBAC (admin-guarded) ────────────────────────────────────
+// Real enforcement lives in Firestore/Storage rules via custom claims; these endpoints are the
+// ONLY way to create/delete accounts and set role/permissions. Every call verifies the caller's
+// Firebase ID token and requires admin (an owner email, or a role:admin custom claim).
+const OWNER_EMAILS = ['sean@txsparks.com', 'ravi@txsparks.com'];   // permanent super-admins (keep in sync with firestore.rules + client)
+const RBAC_MODULES = ['stocks', 'loans'];                          // keep in sync with the client MODULES registry
+const PERM_LEVELS = ['none', 'read', 'update', 'delete'];
+function isOwnerEmail(email) { return OWNER_EMAILS.includes((email || '').toLowerCase()); }
+// Platform super-admin: an owner email whose address is VERIFIED. Requiring email_verified prevents an
+// attacker from self-registering an owner email via public signup (unverified) and seizing platform admin.
+function isPlatformOwner(tok) { return !!tok && tok.email_verified === true && isOwnerEmail(tok.email); }
+function cleanPerms(p) {
+  const out = {};
+  RBAC_MODULES.forEach(m => { const v = p && p[m]; out[m] = PERM_LEVELS.includes(v) ? v : 'none'; });
+  return out;
+}
+// Verify the caller's ID token; return the decoded token IFF they're an admin, else null.
+async function verifyAdmin(req) {
+  const m = /^Bearer (.+)$/.exec(req.get('Authorization') || '');
+  if (!m) return null;
+  // checkRevoked=true so a demoted/disabled admin's token stops working immediately (we revoke on change).
+  let tok; try { tok = await admin.auth().verifyIdToken(m[1], true); } catch (e) { return null; }
+  const email = (tok.email || '').toLowerCase();
+  if (!((tok.email_verified === true && isOwnerEmail(email)) || tok.role === 'admin')) return null;
+  try { const u = await admin.auth().getUser(tok.uid); if (u.disabled) return null; } catch (e) { return null; }
+  return tok;
+}
+function _callerIsOwner(caller) { return isOwnerEmail(((caller && caller.email) || '').toLowerCase()); }
+// Set a user's role+perms as custom claims (what the rules read) AND mirror to users/{uid} for the console/UI.
+async function applyRole(uid, email, role, perms, extra) {
+  const claims = { role: role === 'admin' ? 'admin' : 'user', perms: cleanPerms(perms) };
+  await admin.auth().setCustomUserClaims(uid, claims);
+  await admin.firestore().collection('users').doc(uid).set(Object.assign(
+    { email: (email || '').toLowerCase(), role: claims.role, perms: claims.perms, updated: Date.now() },
+    extra || {}), { merge: true });
+}
+
+exports.adminListUsers = onRequest(
+  { region: 'us-central1', cors: true },
+  async (req, res) => {
+    if (!(await verifyAdmin(req))) { res.status(403).json({ error: 'forbidden' }); return; }
+    try {
+      const db = admin.firestore();
+      const docs = {};
+      (await db.collection('users').get()).forEach(d => { docs[d.id] = d.data(); });
+      const list = await admin.auth().listUsers(1000);
+      const users = list.users.map(u => {
+        const doc = docs[u.uid] || {}, claims = u.customClaims || {}, owner = isOwnerEmail(u.email);
+        return {
+          uid: u.uid, email: u.email || '', owner, disabled: !!u.disabled,
+          role: owner ? 'admin' : (claims.role || doc.role || 'user'),
+          perms: owner ? cleanPerms({ stocks: 'delete', loans: 'delete' }) : cleanPerms(claims.perms || doc.perms),
+          created: (u.metadata && u.metadata.creationTime) || null,
+          lastSignIn: (u.metadata && u.metadata.lastSignInTime) || null
+        };
+      });
+      res.json({ ok: true, users });
+    } catch (e) { logger.error('adminListUsers failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
+  }
+);
+
+exports.adminCreateUser = onRequest(
+  { region: 'us-central1', cors: true },
+  async (req, res) => {
+    const caller = await verifyAdmin(req);
+    if (!caller) { res.status(403).json({ error: 'forbidden' }); return; }
+    try {
+      const email = String((req.body && req.body.email) || '').trim().toLowerCase();
+      const password = String((req.body && req.body.password) || '');
+      const role = (req.body && req.body.role) === 'admin' ? 'admin' : 'user';
+      const perms = (req.body && req.body.perms) || {};
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { res.status(400).json({ error: 'invalid_email' }); return; }
+      if (password.length < 6) { res.status(400).json({ error: 'weak_password' }); return; }
+      // Owner emails are reserved — only an owner may create/bootstrap another owner account.
+      if (isOwnerEmail(email) && !_callerIsOwner(caller)) { res.status(403).json({ error: 'owner_reserved' }); return; }
+      // Only owners may grant the admin role (admins can manage users, not mint other admins).
+      if (role === 'admin' && !_callerIsOwner(caller)) { res.status(403).json({ error: 'admin_grant_requires_owner' }); return; }
+      const user = await admin.auth().createUser({ email, password, emailVerified: false });
+      await applyRole(user.uid, email, role, perms, { created: Date.now(), createdBy: caller.email || caller.uid });
+      res.json({ ok: true, uid: user.uid });
+    } catch (e) {
+      if ((e && e.code) === 'auth/email-already-exists') { res.status(409).json({ error: 'email_exists' }); return; }
+      logger.error('adminCreateUser failed', { error: String(e) });
+      res.status(500).json({ error: 'create_failed' });
+    }
+  }
+);
+
+exports.adminUpdateUser = onRequest(
+  { region: 'us-central1', cors: true },
+  async (req, res) => {
+    const caller = await verifyAdmin(req);
+    if (!caller) { res.status(403).json({ error: 'forbidden' }); return; }
+    try {
+      const uid = String((req.body && req.body.uid) || '');
+      if (!uid) { res.status(400).json({ error: 'uid_required' }); return; }
+      const target = await admin.auth().getUser(uid);
+      if (isOwnerEmail(target.email)) { res.status(403).json({ error: 'owner_protected' }); return; }   // owners can't be demoted/disabled
+      const role = (req.body && req.body.role) === 'admin' ? 'admin' : 'user';
+      const targetIsAdmin = !!(target.customClaims && target.customClaims.role === 'admin');
+      // Only owners may grant admin OR modify an existing admin (prevents admin-tier lateral escalation/lockout).
+      if ((role === 'admin' || targetIsAdmin) && !_callerIsOwner(caller)) { res.status(403).json({ error: 'admin_grant_requires_owner' }); return; }
+      const perms = (req.body && req.body.perms) || {};
+      const hasDisabled = req.body && typeof req.body.disabled === 'boolean';
+      if (hasDisabled) await admin.auth().updateUser(uid, { disabled: req.body.disabled });
+      await applyRole(uid, target.email, role, perms, hasDisabled ? { disabled: req.body.disabled } : {});
+      try { await admin.auth().revokeRefreshTokens(uid); } catch (e) {}   // invalidate the target's existing tokens so role/perm/disable changes apply immediately
+      res.json({ ok: true });
+    } catch (e) { logger.error('adminUpdateUser failed', { error: String(e) }); res.status(500).json({ error: 'update_failed' }); }
+  }
+);
+
+exports.adminDeleteUser = onRequest(
+  { region: 'us-central1', cors: true },
+  async (req, res) => {
+    const caller = await verifyAdmin(req);
+    if (!caller) { res.status(403).json({ error: 'forbidden' }); return; }
+    try {
+      const uid = String((req.body && req.body.uid) || '');
+      if (!uid) { res.status(400).json({ error: 'uid_required' }); return; }
+      if (uid === caller.uid) { res.status(400).json({ error: 'cannot_delete_self' }); return; }
+      const target = await admin.auth().getUser(uid);
+      if (isOwnerEmail(target.email)) { res.status(403).json({ error: 'owner_protected' }); return; }
+      const targetIsAdmin = !!(target.customClaims && target.customClaims.role === 'admin');
+      if (targetIsAdmin && !_callerIsOwner(caller)) { res.status(403).json({ error: 'admin_delete_requires_owner' }); return; }
+      await admin.auth().deleteUser(uid);
+      await admin.firestore().collection('users').doc(uid).delete().catch(() => {});
+      res.json({ ok: true });
+    } catch (e) { logger.error('adminDeleteUser failed', { error: String(e) }); res.status(500).json({ error: 'delete_failed' }); }
+  }
+);
+
+// Read-only, audit-logged admin view of ANOTHER user's portfolios (holdings + transactions). This is
+// the ONLY cross-user data path — Firestore rules keep clients strictly per-uid; access is mediated
+// here (admin-guarded) and every view is logged to admin_audit.
+exports.adminGetUserPortfolio = onRequest(
+  { region: 'us-central1', cors: true },
+  async (req, res) => {
+    const caller = await verifyAdmin(req);
+    if (!caller) { res.status(403).json({ error: 'forbidden' }); return; }
+    try {
+      const uid = String((req.body && req.body.uid) || '');
+      if (!uid) { res.status(400).json({ error: 'uid_required' }); return; }
+      const db = admin.firestore();
+      const pfSnap = await db.collection('portfolios').doc(uid).collection('list').get();
+      const portfolios = [];
+      for (const pd of pfSnap.docs) {
+        const pf = pd.data() || {};
+        let holdings = [], transactions = [];
+        try { holdings = (await db.collection('holdings').doc(uid).collection(pd.id).get()).docs.map(d => ({ id: d.id, ...d.data() })); } catch (e) {}
+        try { transactions = (await db.collection('transactions').doc(uid).collection(pd.id).get()).docs.map(d => ({ id: d.id, ...d.data() })); } catch (e) {}
+        portfolios.push({ id: pd.id, name: pf.name || pd.id, description: pf.description || '', notes: pf.notes || {}, holdings, transactions });
+      }
+      let targetEmail = '';
+      try { targetEmail = (await admin.auth().getUser(uid)).email || ''; } catch (e) {}
+      // Audit is a hard precondition: if the log write fails, do NOT serve the cross-user data.
+      await db.collection('admin_audit').add({ adminUid: caller.uid, adminEmail: caller.email || '', targetUid: uid, targetEmail, action: 'view_portfolio', at: admin.firestore.FieldValue.serverTimestamp() });
+      res.json({ ok: true, uid, email: targetEmail, portfolios });
+    } catch (e) { logger.error('adminGetUserPortfolio failed', { error: String(e) }); res.status(500).json({ error: 'read_failed' }); }
+  }
+);
+
+// ══════════════ Organizations / multi-tenant SaaS ══════════════
+// Membership docs (organizations/{orgId}/members/{uid}) are the permission source of truth — the
+// Firestore rules read them via get(). These CFs (Admin SDK) are the ONLY writer of memberships, so a
+// member can never self-escalate. Owner emails (isOwnerEmail) are PLATFORM super-admins above every org.
+const ORG_ROLES = ['member', 'admin', 'owner'];
+function roleRank(r) { const i = ORG_ROLES.indexOf(r); return i < 0 ? 0 : i; }
+// Verify the caller's ID token; return the decoded token for ANY enabled signed-in user, else null.
+async function verifyAuthed(req) {
+  const m = /^Bearer (.+)$/.exec(req.get('Authorization') || '');
+  if (!m) return null;
+  let tok; try { tok = await admin.auth().verifyIdToken(m[1], true); } catch (e) { return null; }
+  try { const u = await admin.auth().getUser(tok.uid); if (u.disabled) return null; } catch (e) { return null; }
+  return tok;
+}
+// Returns { tok, member, isPlatform } iff the caller is a member of orgId with role >= minRole
+// (platform admins always pass), else null.
+async function verifyOrgRole(req, orgId, minRole) {
+  const tok = await verifyAuthed(req);
+  if (!tok || !orgId) return null;
+  const isPlatform = isPlatformOwner(tok);
+  let member = null;
+  try { const d = await admin.firestore().doc('organizations/' + orgId + '/members/' + tok.uid).get(); if (d.exists) member = d.data(); } catch (e) {}
+  if (isPlatform) return { tok, member, isPlatform: true };
+  if (!member) return null;
+  if (roleRank(member.role) < roleRank(minRole || 'member')) return null;
+  return { tok, member, isPlatform: false };
+}
+function _callerOwnsOrg(auth) { return !!(auth && (auth.isPlatform || (auth.member && auth.member.role === 'owner'))); }
+// Write/merge a membership doc AND maintain the user's org index (users/{uid}.orgs map for the switcher).
+async function setMembership(orgId, uid, email, role, perms, orgName, extra) {
+  const db = admin.firestore();
+  const r = ORG_ROLES.includes(role) ? role : 'member';
+  await db.doc('organizations/' + orgId + '/members/' + uid).set(Object.assign(
+    { email: (email || '').toLowerCase(), role: r, perms: cleanPerms(perms), updatedAt: Date.now() }, extra || {}), { merge: true });
+  await db.collection('users').doc(uid).set({ email: (email || '').toLowerCase(), orgs: { [orgId]: { name: orgName || '', role: r } } }, { merge: true });
+}
+async function _orgName(orgId) { try { const d = await admin.firestore().collection('organizations').doc(orgId).get(); return (d.exists && d.data().name) || ''; } catch (e) { return ''; } }
+
+// Legacy org create — now Super-Admin-only (top-down governance). Team orgs are created via
+// createOrganization; solo users get a Personal workspace via ensurePersonalOrg.
+exports.createOrg = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!isPlatformOwner(tok)) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const name = String((req.body && req.body.name) || '').trim().slice(0, 80);
+    if (!name) { res.status(400).json({ error: 'name_required' }); return; }
+    const industry = String((req.body && req.body.industry) || '').trim().slice(0, 40);
+    const db = admin.firestore();
+    const ref = db.collection('organizations').doc();
+    // `personal` is set ONLY by ensurePersonalOrg (kept idempotent); a normal createOrg is never personal.
+    await ref.set({ name, industry, personal: false, createdBy: tok.uid, createdByEmail: (tok.email || '').toLowerCase(), createdAt: Date.now(), plan: 'free' });
+    await setMembership(ref.id, tok.uid, tok.email, 'owner', { stocks: 'delete', loans: 'delete' }, name, { joinedAt: Date.now(), invitedBy: tok.uid });
+    res.json({ ok: true, orgId: ref.id, name });
+  } catch (e) { logger.error('createOrg failed', { error: String(e) }); res.status(500).json({ error: 'create_failed' }); }
+});
+
+// Solo "Personal workspace": idempotently return (or create) the caller's own personal org so the hub's
+// "Continue solo" never spawns duplicates. A personal org is a normal one-member org flagged personal:true.
+exports.ensurePersonalOrg = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!tok) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const db = admin.firestore();
+    const udoc = await db.collection('users').doc(tok.uid).get();
+    const orgs = (udoc.exists && udoc.data() && udoc.data().orgs) || {};
+    for (const oid of Object.keys(orgs)) {
+      try { const od = await db.collection('organizations').doc(oid).get(); if (od.exists && od.data().personal === true && od.data().createdBy === tok.uid) { res.json({ ok: true, orgId: oid, companyId: od.data().defaultCompany || null, name: od.data().name || 'Personal' }); return; } } catch (e) {}
+    }
+    // New personal org with a single default company that holds the data (company is the data tier).
+    const ref = db.collection('organizations').doc();
+    const coRef = ref.collection('companies').doc();
+    await ref.set({ name: 'Personal', industry: '', personal: true, active: true, defaultCompany: coRef.id, createdBy: tok.uid, createdByEmail: (tok.email || '').toLowerCase(), createdAt: Date.now(), plan: 'free' });
+    await coRef.set({ name: 'Personal', active: true, modules: { stocks: true, loans: true }, createdBy: tok.uid, createdAt: Date.now() });
+    await setCompanyMembership(ref.id, coRef.id, tok.uid, tok.email, 'admin', { stocks: 'delete', loans: 'delete' }, 'Personal', 'Personal', { joinedAt: Date.now() });
+    // Denormalize personal:true onto the user's org index so the hub can render it as a single
+    // "Personal workspace" entry (a member can't read the org doc directly to learn this).
+    await db.collection('users').doc(tok.uid).set({ orgs: { [ref.id]: { personal: true } } }, { merge: true });
+    res.json({ ok: true, orgId: ref.id, companyId: coRef.id, name: 'Personal' });
+  } catch (e) { logger.error('ensurePersonalOrg failed', { error: String(e) }); res.status(500).json({ error: 'create_failed' }); }
+});
+
+// Owner/admin invites a person by email. Invites live in a top-level `invites` collection (only
+// single-field auto-indexes needed). Granting owner/admin requires the caller to be an owner.
+exports.orgInvite = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || '');
+  const auth = await verifyOrgRole(req, orgId, 'admin');
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const email = String((req.body && req.body.email) || '').trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { res.status(400).json({ error: 'invalid_email' }); return; }
+    const role = ORG_ROLES.includes(req.body && req.body.role) ? req.body.role : 'member';
+    if ((role === 'owner' || role === 'admin') && !_callerOwnsOrg(auth)) { res.status(403).json({ error: 'grant_requires_owner' }); return; }
+    const db = admin.firestore();
+    const already = await db.collection('organizations').doc(orgId).collection('members').where('email', '==', email).limit(1).get();
+    if (!already.empty) { res.status(409).json({ error: 'already_member' }); return; }
+    const orgName = await _orgName(orgId);
+    const inv = { orgId, emailLower: email, role, perms: cleanPerms((req.body && req.body.perms) || {}), status: 'pending', invitedBy: auth.tok.uid, invitedByEmail: (auth.tok.email || '').toLowerCase(), orgName, createdAt: Date.now(), expiresAt: Date.now() + 30 * 864e5 };
+    const existing = await db.collection('invites').where('emailLower', '==', email).get();
+    const dupe = existing.docs.find(d => { const v = d.data(); return v.orgId === orgId && v.status === 'pending'; });
+    if (dupe) { await dupe.ref.set(inv, { merge: true }); res.json({ ok: true, inviteId: dupe.id, updated: true }); return; }
+    const ref = await db.collection('invites').add(inv);
+    res.json({ ok: true, inviteId: ref.id });
+  } catch (e) { logger.error('orgInvite failed', { error: String(e) }); res.status(500).json({ error: 'invite_failed' }); }
+});
+
+// The signed-in user's own pending invites (matched by their verified email).
+exports.listMyInvites = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!tok) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    // Only a VERIFIED email is trusted as identity — otherwise an attacker who registered someone else's
+    // (unverified) invited address could enumerate/claim their invites.
+    if (tok.email_verified !== true) { res.json({ ok: true, invites: [] }); return; }
+    const email = (tok.email || '').toLowerCase();
+    if (!email) { res.json({ ok: true, invites: [] }); return; }
+    const snap = await admin.firestore().collection('invites').where('emailLower', '==', email).get();
+    const now = Date.now();
+    const invites = snap.docs.map(d => ({ inviteId: d.id, ...d.data() }))
+      .filter(v => v.status === 'pending' && !(v.expiresAt && v.expiresAt < now))
+      .map(v => ({ inviteId: v.inviteId, orgId: v.orgId, companyId: v.companyId || null, orgName: v.orgName || '', companyName: v.companyName || '', role: v.role, invitedByEmail: v.invitedByEmail || '' }));
+    res.json({ ok: true, invites });
+  } catch (e) { logger.error('listMyInvites failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
+});
+
+// The invited user accepts — creates their membership with EXACTLY the invited role/perms.
+exports.acceptInvite = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!tok) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    // Require a verified email: acceptance is authorized by email match, so an unverified account that
+    // registered the invitee's address must NOT be able to claim the invite.
+    if (tok.email_verified !== true) { res.status(403).json({ error: 'email_not_verified' }); return; }
+    const inviteId = String((req.body && req.body.inviteId) || '');
+    if (!inviteId) { res.status(400).json({ error: 'bad_request' }); return; }
+    const email = (tok.email || '').toLowerCase();
+    const db = admin.firestore();
+    const invRef = db.collection('invites').doc(inviteId);
+    const inv = await invRef.get();
+    if (!inv.exists) { res.status(404).json({ error: 'invite_not_found' }); return; }
+    const iv = inv.data();
+    if (iv.status !== 'pending') { res.status(409).json({ error: 'invite_used' }); return; }
+    if ((iv.emailLower || '') !== email) { res.status(403).json({ error: 'email_mismatch' }); return; }
+    if (iv.expiresAt && iv.expiresAt < Date.now()) { res.status(410).json({ error: 'invite_expired' }); return; }
+    // Company invite → create a company membership (role admin|member) and return the company context.
+    if (iv.companyId) {
+      const orgNm = (await _orgName(iv.orgId)) || iv.orgName || '';
+      const coNm = (await _companyName(iv.orgId, iv.companyId)) || iv.companyName || '';
+      let coRole = iv.role === 'admin' ? 'admin' : 'member';
+      // Authority freshness (mirrors the org branch): only confer company-admin if the inviter is STILL a
+      // platform owner, an org admin, or a company admin of this company — else a since-demoted/removed
+      // inviter could pre-provision surviving admin access. Downgrade to member otherwise.
+      if (coRole === 'admin') {
+        let inviterOk = OWNER_EMAILS.includes((iv.invitedByEmail || '').toLowerCase());
+        if (!inviterOk && iv.invitedBy) { try { const oa = await db.doc('organizations/' + iv.orgId + '/orgAdmins/' + iv.invitedBy).get(); inviterOk = oa.exists; } catch (e) {} }
+        if (!inviterOk && iv.invitedBy) { try { const cm = await db.doc('organizations/' + iv.orgId + '/companies/' + iv.companyId + '/members/' + iv.invitedBy).get(); inviterOk = cm.exists && cm.data().role === 'admin'; } catch (e) {} }
+        if (!inviterOk) coRole = 'member';
+      }
+      await setCompanyMembership(iv.orgId, iv.companyId, tok.uid, email, coRole, iv.perms, orgNm, coNm, { joinedAt: Date.now(), invitedBy: iv.invitedBy || null });
+      await invRef.set({ status: 'accepted', acceptedAt: Date.now(), acceptedUid: tok.uid, grantedRole: coRole }, { merge: true });
+      res.json({ ok: true, orgId: iv.orgId, companyId: iv.companyId, name: orgNm });
+      return;
+    }
+    // Authority freshness: only confer owner/admin if the inviter is STILL an owner (or platform owner).
+    // Otherwise downgrade to member — a since-demoted/removed inviter can't pre-provision privilege.
+    let grantRole = iv.role || 'member';
+    if (grantRole === 'owner' || grantRole === 'admin') {
+      let inviterOk = OWNER_EMAILS.includes((iv.invitedByEmail || '').toLowerCase());
+      if (!inviterOk && iv.invitedBy) { try { const im = await db.doc('organizations/' + iv.orgId + '/members/' + iv.invitedBy).get(); inviterOk = im.exists && im.data().role === 'owner'; } catch (e) {} }
+      if (!inviterOk) grantRole = 'member';
+    }
+    const orgName = (await _orgName(iv.orgId)) || iv.orgName || '';
+    await setMembership(iv.orgId, tok.uid, email, grantRole, iv.perms, orgName, { joinedAt: Date.now(), invitedBy: iv.invitedBy || null });
+    await invRef.set({ status: 'accepted', acceptedAt: Date.now(), acceptedUid: tok.uid, grantedRole: grantRole }, { merge: true });
+    res.json({ ok: true, orgId: iv.orgId, name: orgName });
+  } catch (e) { logger.error('acceptInvite failed', { error: String(e) }); res.status(500).json({ error: 'accept_failed' }); }
+});
+
+// Roster for an org (any member); pending invites + manage flag only for owner/admin.
+exports.orgListMembers = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || (req.query && req.query.orgId) || '');
+  const auth = await verifyOrgRole(req, orgId, 'member');
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const db = admin.firestore();
+    const members = (await db.collection('organizations').doc(orgId).collection('members').get()).docs.map(d => ({ uid: d.id, ...d.data() }));
+    const canManage = _callerOwnsOrg(auth) || (auth.member && auth.member.role === 'admin');
+    let invites = [];
+    if (canManage) {
+      const snap = await db.collection('invites').where('orgId', '==', orgId).get();
+      invites = snap.docs.map(d => ({ inviteId: d.id, ...d.data() })).filter(v => v.status === 'pending');
+    }
+    res.json({ ok: true, members, invites, canManage: !!canManage, callerRole: auth.isPlatform ? 'platform' : (auth.member && auth.member.role) });
+  } catch (e) { logger.error('orgListMembers failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
+});
+
+// Change a member's role/perms. Owner/admin only; touching an owner/admin (or granting one) needs owner;
+// the last owner cannot be demoted.
+exports.orgUpdateMember = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || '');
+  const auth = await verifyOrgRole(req, orgId, 'admin');
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const uid = String((req.body && req.body.uid) || '');
+    if (!uid) { res.status(400).json({ error: 'uid_required' }); return; }
+    const db = admin.firestore();
+    const memRef = db.collection('organizations').doc(orgId).collection('members').doc(uid);
+    const ownersQ = db.collection('organizations').doc(orgId).collection('members').where('role', '==', 'owner');
+    // Transaction: read the member doc + owner set and write the new role atomically, so a concurrent
+    // demotion of another owner cannot leave the org with zero owners (TOCTOU).
+    let newRoleOut;
+    await db.runTransaction(async (t) => {
+      const memDoc = await t.get(memRef);
+      if (!memDoc.exists) throw { code: 'not_member' };
+      const cur = memDoc.data();
+      const newRole = ORG_ROLES.includes(req.body && req.body.role) ? req.body.role : cur.role;
+      if ((cur.role === 'owner' || cur.role === 'admin' || newRole === 'owner' || newRole === 'admin') && !_callerOwnsOrg(auth)) throw { code: 'requires_owner' };
+      if (cur.role === 'owner' && newRole !== 'owner') { const owners = await t.get(ownersQ); if (owners.size <= 1) throw { code: 'last_owner' }; }
+      t.set(memRef, { email: cur.email, role: newRole, perms: cleanPerms((req.body && req.body.perms) || cur.perms || {}), updatedAt: Date.now() }, { merge: true });
+      newRoleOut = newRole;
+    });
+    await db.collection('users').doc(uid).set({ orgs: { [orgId]: { name: await _orgName(orgId), role: newRoleOut } } }, { merge: true });
+    res.json({ ok: true });
+  } catch (e) {
+    if (e && e.code) { res.status(e.code === 'last_owner' ? 409 : (e.code === 'not_member' ? 404 : 403)).json({ error: e.code }); return; }
+    logger.error('orgUpdateMember failed', { error: String(e) }); res.status(500).json({ error: 'update_failed' });
+  }
+});
+
+// Remove a member (admin removes others; anyone may remove themselves = leave). Removing an owner/admin
+// needs owner; the last owner cannot leave/be removed.
+exports.orgRemoveMember = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || '');
+  const auth = await verifyOrgRole(req, orgId, 'member');
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const uid = String((req.body && req.body.uid) || '');
+    if (!uid) { res.status(400).json({ error: 'uid_required' }); return; }
+    const db = admin.firestore();
+    const memRef = db.collection('organizations').doc(orgId).collection('members').doc(uid);
+    const ownersQ = db.collection('organizations').doc(orgId).collection('members').where('role', '==', 'owner');
+    const isSelf = uid === auth.tok.uid;
+    const callerManages = _callerOwnsOrg(auth) || (auth.member && auth.member.role === 'admin');
+    // Transaction: check the last-owner invariant against the owner set and delete atomically.
+    let removed = false;
+    await db.runTransaction(async (t) => {
+      const memDoc = await t.get(memRef);
+      if (!memDoc.exists) return;
+      const cur = memDoc.data();
+      if (!isSelf && !callerManages) throw { code: 'forbidden' };
+      if (!isSelf && (cur.role === 'owner' || cur.role === 'admin') && !_callerOwnsOrg(auth)) throw { code: 'requires_owner' };
+      if (cur.role === 'owner') { const owners = await t.get(ownersQ); if (owners.size <= 1) throw { code: 'last_owner' }; }
+      t.delete(memRef); removed = true;
+    });
+    if (removed) await db.collection('users').doc(uid).set({ orgs: { [orgId]: admin.firestore.FieldValue.delete() } }, { merge: true });
+    res.json({ ok: true });
+  } catch (e) {
+    if (e && e.code) { res.status(e.code === 'last_owner' ? 409 : 403).json({ error: e.code }); return; }
+    logger.error('orgRemoveMember failed', { error: String(e) }); res.status(500).json({ error: 'remove_failed' });
+  }
+});
+
+// Rename an org (owner only).
+exports.orgUpdateSettings = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || '');
+  const auth = await verifyOrgRole(req, orgId, 'owner');
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const name = String((req.body && req.body.name) || '').trim().slice(0, 80);
+    if (!name) { res.status(400).json({ error: 'name_required' }); return; }
+    const db = admin.firestore();
+    await db.collection('organizations').doc(orgId).set({ name }, { merge: true });
+    // refresh the denormalized name in every member's users/{uid}.orgs index
+    const members = await db.collection('organizations').doc(orgId).collection('members').get();
+    const batch = db.batch();
+    members.forEach(d => batch.set(db.collection('users').doc(d.id), { orgs: { [orgId]: { name } } }, { merge: true }));
+    await batch.commit();
+    res.json({ ok: true });
+  } catch (e) { logger.error('orgUpdateSettings failed', { error: String(e) }); res.status(500).json({ error: 'update_failed' }); }
+});
+
+// ── Platform super-admin (owner emails): cross-org console, audited ──
+exports.platformListOrgs = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!isPlatformOwner(tok)) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const snap = await admin.firestore().collection('organizations').get();
+    const orgs = [];
+    for (const d of snap.docs) {
+      const o = d.data() || {};
+      let memberCount = 0; try { memberCount = (await d.ref.collection('members').get()).size; } catch (e) {}
+      orgs.push({ orgId: d.id, name: o.name || '', createdByEmail: o.createdByEmail || '', createdAt: o.createdAt || null, plan: o.plan || 'free', memberCount, personal: o.personal === true, industry: o.industry || '', defaultCompany: o.defaultCompany || null });
+    }
+    res.json({ ok: true, orgs });
+  } catch (e) { logger.error('platformListOrgs failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
+});
+exports.platformGetOrg = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!isPlatformOwner(tok)) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const orgId = String((req.body && req.body.orgId) || '');
+    if (!orgId) { res.status(400).json({ error: 'orgId_required' }); return; }
+    const db = admin.firestore();
+    const orgDoc = await db.collection('organizations').doc(orgId).get();
+    if (!orgDoc.exists) { res.status(404).json({ error: 'not_found' }); return; }
+    const members = (await db.collection('organizations').doc(orgId).collection('members').get()).docs.map(d => ({ uid: d.id, ...d.data() }));
+    await db.collection('platform_audit').add({ adminUid: tok.uid, adminEmail: (tok.email || '').toLowerCase(), targetOrg: orgId, action: 'view_org', at: admin.firestore.FieldValue.serverTimestamp() });
+    res.json({ ok: true, org: Object.assign({ orgId }, orgDoc.data()), members });
+  } catch (e) { logger.error('platformGetOrg failed', { error: String(e) }); res.status(500).json({ error: 'read_failed' }); }
+});
+
+// ══════════════ Company tier (Super Admin → Org → Company → Admin → Member) ══════════════
+// Financial data lives under organizations/{o}/companies/{c}/… Company members are the permission source
+// of truth (rules read them via get()); org admins (organizations/{o}/orgAdmins/{uid}) see ALL companies
+// in their org; platform owners (Super Admins) see everything. Orgs/companies/org-admins are provisioned
+// TOP-DOWN — createOrganization/assignOrgAdmin require a Super Admin.
+async function _uidByEmail(email) { try { const u = await admin.auth().getUserByEmail((email || '').toLowerCase()); return u ? u.uid : null; } catch (e) { return null; } }
+async function _companyName(orgId, cid) { try { const d = await admin.firestore().doc('organizations/' + orgId + '/companies/' + cid).get(); return (d.exists && d.data().name) || ''; } catch (e) { return ''; } }
+// Org-admin (or platform) gate.
+async function verifyOrgAdmin(req, orgId) {
+  const tok = await verifyAuthed(req); if (!tok || !orgId) return null;
+  if (isPlatformOwner(tok)) return { tok, isPlatform: true, orgAdmin: true };
+  try { const d = await admin.firestore().doc('organizations/' + orgId + '/orgAdmins/' + tok.uid).get(); if (d.exists) return { tok, isPlatform: false, orgAdmin: true }; } catch (e) {}
+  return null;
+}
+// Company-role gate: platform + org-admin get full access; else the caller's company member role must be >= minRole.
+async function verifyCompanyRole(req, orgId, companyId, minRole) {
+  const tok = await verifyAuthed(req); if (!tok || !orgId || !companyId) return null;
+  if (isPlatformOwner(tok)) return { tok, isPlatform: true, orgAdmin: true, member: null };
+  try { const oa = await admin.firestore().doc('organizations/' + orgId + '/orgAdmins/' + tok.uid).get(); if (oa.exists) return { tok, isPlatform: false, orgAdmin: true, member: null }; } catch (e) {}
+  let member = null;
+  try { const d = await admin.firestore().doc('organizations/' + orgId + '/companies/' + companyId + '/members/' + tok.uid).get(); if (d.exists) member = d.data(); } catch (e) {}
+  if (!member) return null;
+  if ((minRole === 'admin') && member.role !== 'admin') return null;
+  return { tok, isPlatform: false, orgAdmin: false, member };
+}
+function _coCanManage(auth) { return !!(auth && (auth.isPlatform || auth.orgAdmin || (auth.member && auth.member.role === 'admin'))); }
+// Write a company membership + maintain users/{uid}.orgs[orgId].companies[cid] (deep-merge, non-clobbering).
+async function setCompanyMembership(orgId, companyId, uid, email, role, perms, orgName, companyName, extra) {
+  const db = admin.firestore();
+  const r = (role === 'admin') ? 'admin' : 'member';
+  await db.doc('organizations/' + orgId + '/companies/' + companyId + '/members/' + uid).set(Object.assign(
+    { email: (email || '').toLowerCase(), role: r, perms: cleanPerms(perms), updatedAt: Date.now() }, extra || {}), { merge: true });
+  await db.collection('users').doc(uid).set({ email: (email || '').toLowerCase(), orgs: { [orgId]: { name: orgName || '', companies: { [companyId]: { name: companyName || '', role: r } } } } }, { merge: true });
+}
+
+// ── Super Admin: organizations ──
+exports.createOrganization = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!isPlatformOwner(tok)) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const name = String((req.body && req.body.name) || '').trim().slice(0, 80);
+    if (!name) { res.status(400).json({ error: 'name_required' }); return; }
+    const industry = String((req.body && req.body.industry) || '').trim().slice(0, 40);
+    const db = admin.firestore();
+    const ref = db.collection('organizations').doc();
+    await ref.set({ name, industry, active: true, personal: false, createdBy: tok.uid, createdByEmail: (tok.email || '').toLowerCase(), createdAt: Date.now(), plan: 'free' });
+    res.json({ ok: true, orgId: ref.id, name });
+  } catch (e) { logger.error('createOrganization failed', { error: String(e) }); res.status(500).json({ error: 'create_failed' }); }
+});
+exports.updateOrganization = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!isPlatformOwner(tok)) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const orgId = String((req.body && req.body.orgId) || '');
+    if (!orgId) { res.status(400).json({ error: 'orgId_required' }); return; }
+    const patch = {};
+    if (req.body && typeof req.body.name === 'string' && req.body.name.trim()) patch.name = req.body.name.trim().slice(0, 80);
+    if (req.body && typeof req.body.industry === 'string') patch.industry = req.body.industry.trim().slice(0, 40);
+    if (req.body && typeof req.body.active === 'boolean') patch.active = req.body.active;   // deactivate/reactivate
+    if (req.body && req.body.delete === true) { patch.active = false; patch.deleted = true; patch.deletedAt = Date.now(); }
+    if (!Object.keys(patch).length) { res.status(400).json({ error: 'nothing_to_update' }); return; }
+    await admin.firestore().collection('organizations').doc(orgId).set(patch, { merge: true });
+    res.json({ ok: true });
+  } catch (e) { logger.error('updateOrganization failed', { error: String(e) }); res.status(500).json({ error: 'update_failed' }); }
+});
+// Assign / remove an Org Administrator (Super Admin only). User must already have an account.
+exports.assignOrgAdmin = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!isPlatformOwner(tok)) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const orgId = String((req.body && req.body.orgId) || '');
+    const email = String((req.body && req.body.email) || '').trim().toLowerCase();
+    if (!orgId || !email) { res.status(400).json({ error: 'bad_request' }); return; }
+    const uid = await _uidByEmail(email);
+    if (!uid) { res.status(404).json({ error: 'user_not_found' }); return; }
+    const db = admin.firestore();
+    const orgName = await _orgName(orgId);
+    await db.doc('organizations/' + orgId + '/orgAdmins/' + uid).set({ email, role: 'org_admin', addedBy: tok.uid, addedAt: Date.now() }, { merge: true });
+    await db.collection('users').doc(uid).set({ email, orgs: { [orgId]: { name: orgName, orgAdmin: true } } }, { merge: true });
+    res.json({ ok: true, uid });
+  } catch (e) { logger.error('assignOrgAdmin failed', { error: String(e) }); res.status(500).json({ error: 'assign_failed' }); }
+});
+exports.removeOrgAdmin = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!isPlatformOwner(tok)) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const orgId = String((req.body && req.body.orgId) || ''), uid = String((req.body && req.body.uid) || '');
+    if (!orgId || !uid) { res.status(400).json({ error: 'bad_request' }); return; }
+    const db = admin.firestore();
+    await db.doc('organizations/' + orgId + '/orgAdmins/' + uid).delete();
+    await db.collection('users').doc(uid).set({ orgs: { [orgId]: { orgAdmin: false } } }, { merge: true });
+    res.json({ ok: true });
+  } catch (e) { logger.error('removeOrgAdmin failed', { error: String(e) }); res.status(500).json({ error: 'remove_failed' }); }
+});
+
+// ── Org Admin + Super Admin: companies ──
+exports.createCompany = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || '');
+  const auth = await verifyOrgAdmin(req, orgId);
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const name = String((req.body && req.body.name) || '').trim().slice(0, 80);
+    if (!name) { res.status(400).json({ error: 'name_required' }); return; }
+    const ref = admin.firestore().collection('organizations').doc(orgId).collection('companies').doc();
+    await ref.set({ name, active: true, modules: { stocks: true, loans: true }, createdBy: auth.tok.uid, createdAt: Date.now() });
+    res.json({ ok: true, companyId: ref.id, name });
+  } catch (e) { logger.error('createCompany failed', { error: String(e) }); res.status(500).json({ error: 'create_failed' }); }
+});
+exports.updateCompany = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || '');
+  const auth = await verifyOrgAdmin(req, orgId);
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const companyId = String((req.body && req.body.companyId) || '');
+    if (!companyId) { res.status(400).json({ error: 'companyId_required' }); return; }
+    const patch = {};
+    if (req.body && typeof req.body.name === 'string' && req.body.name.trim()) patch.name = req.body.name.trim().slice(0, 80);
+    if (req.body && typeof req.body.active === 'boolean') patch.active = req.body.active;
+    if (req.body && req.body.modules && typeof req.body.modules === 'object') patch.modules = { stocks: !!req.body.modules.stocks, loans: !!req.body.modules.loans };
+    if (req.body && req.body.delete === true) { patch.active = false; patch.deleted = true; patch.deletedAt = Date.now(); }
+    if (!Object.keys(patch).length) { res.status(400).json({ error: 'nothing_to_update' }); return; }
+    await admin.firestore().doc('organizations/' + orgId + '/companies/' + companyId).set(patch, { merge: true });
+    res.json({ ok: true });
+  } catch (e) { logger.error('updateCompany failed', { error: String(e) }); res.status(500).json({ error: 'update_failed' }); }
+});
+// List all companies in an org (org-admin/super-admin) with member counts — powers the org console + dashboard.
+exports.orgListCompanies = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || (req.query && req.query.orgId) || '');
+  const auth = await verifyOrgAdmin(req, orgId);
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const db = admin.firestore();
+    const snap = await db.collection('organizations').doc(orgId).collection('companies').get();
+    const companies = [];
+    for (const d of snap.docs) {
+      const c = d.data() || {};
+      let memberCount = 0; try { memberCount = (await d.ref.collection('members').get()).size; } catch (e) {}
+      companies.push({ companyId: d.id, name: c.name || '', active: c.active !== false, modules: c.modules || { stocks: true, loans: true }, memberCount, createdAt: c.createdAt || null });
+    }
+    const orgAdmins = (await db.collection('organizations').doc(orgId).collection('orgAdmins').get()).docs.map(d => ({ uid: d.id, ...d.data() }));
+    res.json({ ok: true, companies, orgAdmins });
+  } catch (e) { logger.error('orgListCompanies failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
+});
+
+// ── Company Admin: members ──
+exports.companyListMembers = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || (req.query && req.query.orgId) || '');
+  const companyId = String((req.body && req.body.companyId) || (req.query && req.query.companyId) || '');
+  const auth = await verifyCompanyRole(req, orgId, companyId, 'member');
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const db = admin.firestore();
+    const members = (await db.doc('organizations/' + orgId + '/companies/' + companyId).collection('members').get()).docs.map(d => ({ uid: d.id, ...d.data() }));
+    const canManage = _coCanManage(auth);
+    let orgSnap = null; try { orgSnap = await db.doc('organizations/' + orgId).get(); } catch (e) {}
+    const personal = !!(orgSnap && orgSnap.exists && orgSnap.data().personal === true);
+    let invites = [];
+    if (canManage) { const snap = await db.collection('invites').where('orgId', '==', orgId).get(); invites = snap.docs.map(d => ({ inviteId: d.id, ...d.data() })).filter(v => v.status === 'pending' && v.companyId === companyId); }
+    res.json({ ok: true, members, invites, canManage, personal, callerRole: auth.isPlatform ? 'platform' : (auth.orgAdmin ? 'org_admin' : (auth.member && auth.member.role)) });
+  } catch (e) { logger.error('companyListMembers failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
+});
+// Invite someone to a company (company admin / org-admin / super-admin). Reuses the top-level invites collection.
+exports.companyInvite = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || '');
+  const companyId = String((req.body && req.body.companyId) || '');
+  const auth = await verifyCompanyRole(req, orgId, companyId, 'admin');
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  // Personal workspaces (personal:true) are member-managed ONLY by platform super-admins — the workspace
+  // owner (a company admin) and org-admins cannot add members. Everyone else invites as usual.
+  try {
+    const _org = await admin.firestore().doc('organizations/' + orgId).get();
+    if (_org.exists && _org.data().personal === true && !auth.isPlatform) { res.status(403).json({ error: 'personal_locked' }); return; }
+  } catch (e) {}
+  try {
+    const email = String((req.body && req.body.email) || '').trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { res.status(400).json({ error: 'invalid_email' }); return; }
+    const role = (req.body && req.body.role) === 'admin' ? 'admin' : 'member';
+    const db = admin.firestore();
+    const already = await db.doc('organizations/' + orgId + '/companies/' + companyId).collection('members').where('email', '==', email).limit(1).get();
+    if (!already.empty) { res.status(409).json({ error: 'already_member' }); return; }
+    const orgName = await _orgName(orgId), companyName = await _companyName(orgId, companyId);
+    const inv = { orgId, companyId, emailLower: email, role, perms: cleanPerms((req.body && req.body.perms) || {}), status: 'pending', invitedBy: auth.tok.uid, invitedByEmail: (auth.tok.email || '').toLowerCase(), orgName, companyName, createdAt: Date.now(), expiresAt: Date.now() + 30 * 864e5 };
+    const existing = await db.collection('invites').where('emailLower', '==', email).get();
+    const dupe = existing.docs.find(d => { const v = d.data(); return v.orgId === orgId && v.companyId === companyId && v.status === 'pending'; });
+    if (dupe) { await dupe.ref.set(inv, { merge: true }); res.json({ ok: true, inviteId: dupe.id, updated: true }); return; }
+    const ref = await db.collection('invites').add(inv);
+    res.json({ ok: true, inviteId: ref.id });
+  } catch (e) { logger.error('companyInvite failed', { error: String(e) }); res.status(500).json({ error: 'invite_failed' }); }
+});
+exports.companyUpdateMember = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || ''), companyId = String((req.body && req.body.companyId) || '');
+  const auth = await verifyCompanyRole(req, orgId, companyId, 'admin');
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const uid = String((req.body && req.body.uid) || '');
+    if (!uid) { res.status(400).json({ error: 'uid_required' }); return; }
+    const uidBody = uid;
+    const db = admin.firestore();
+    const memRef = db.doc('organizations/' + orgId + '/companies/' + companyId + '/members/' + uid);
+    const adminsQ = db.doc('organizations/' + orgId + '/companies/' + companyId).collection('members').where('role', '==', 'admin');
+    let outRole = 'member';
+    // Transaction: read member + admin set and write the new role atomically, so a concurrent demotion of
+    // another admin can't leave the company with zero admins (TOCTOU).
+    await db.runTransaction(async (t) => {
+      const memDoc = await t.get(memRef);
+      if (!memDoc.exists) throw { code: 'not_member' };
+      const cur = memDoc.data();
+      const newRole = (req.body && req.body.role) === 'admin' ? 'admin' : ((req.body && req.body.role) === 'member' ? 'member' : cur.role);
+      if (cur.role === 'admin' && newRole !== 'admin') { const admins = await t.get(adminsQ); if (admins.size <= 1) throw { code: 'last_admin' }; }
+      t.set(memRef, { email: cur.email, role: newRole, perms: cleanPerms((req.body && req.body.perms) || cur.perms || {}), updatedAt: Date.now() }, { merge: true });
+      outRole = newRole;
+    });
+    await db.collection('users').doc(uidBody).set({ orgs: { [orgId]: { companies: { [companyId]: { name: await _companyName(orgId, companyId), role: outRole } } } } }, { merge: true });
+    res.json({ ok: true });
+  } catch (e) {
+    if (e && e.code) { res.status(e.code === 'last_admin' ? 409 : (e.code === 'not_member' ? 404 : 403)).json({ error: e.code }); return; }
+    logger.error('companyUpdateMember failed', { error: String(e) }); res.status(500).json({ error: 'update_failed' });
+  }
+});
+exports.companyRemoveMember = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || ''), companyId = String((req.body && req.body.companyId) || '');
+  const auth = await verifyCompanyRole(req, orgId, companyId, 'member');
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const uid = String((req.body && req.body.uid) || '');
+    if (!uid) { res.status(400).json({ error: 'uid_required' }); return; }
+    const isSelf = uid === auth.tok.uid;
+    if (!isSelf && !_coCanManage(auth)) { res.status(403).json({ error: 'forbidden' }); return; }
+    const db = admin.firestore();
+    const memRef = db.doc('organizations/' + orgId + '/companies/' + companyId + '/members/' + uid);
+    const adminsQ = db.doc('organizations/' + orgId + '/companies/' + companyId).collection('members').where('role', '==', 'admin');
+    let removed = false;
+    // Transaction: last-admin check + delete atomically (mirrors orgRemoveMember).
+    await db.runTransaction(async (t) => {
+      const memDoc = await t.get(memRef);
+      if (!memDoc.exists) return;
+      if (memDoc.data().role === 'admin') { const admins = await t.get(adminsQ); if (admins.size <= 1) throw { code: 'last_admin' }; }
+      t.delete(memRef); removed = true;
+    });
+    if (removed) await db.collection('users').doc(uid).set({ orgs: { [orgId]: { companies: { [companyId]: admin.firestore.FieldValue.delete() } } } }, { merge: true });
+    res.json({ ok: true });
+  } catch (e) {
+    if (e && e.code) { res.status(e.code === 'last_admin' ? 409 : 403).json({ error: e.code }); return; }
+    logger.error('companyRemoveMember failed', { error: String(e) }); res.status(500).json({ error: 'remove_failed' });
+  }
+});
