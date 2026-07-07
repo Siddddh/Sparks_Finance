@@ -1,11 +1,25 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    // Loan/note supporting documents — owner-only, under loans/{uid}/...
-    // Reads/writes require the signed-in user to own the path; uploads capped at 25 MB.
-    match /loans/{uid}/{allPaths=**} {
-      allow read: if request.auth != null && request.auth.uid == uid;
-      allow write: if request.auth != null && request.auth.uid == uid
+    // Loan documents live under orgs/{orgId}/companies/{companyId}/loans/... — access is gated by the
+    // caller's COMPANY membership (read from Firestore, the same doc the Firestore rules use). Org Admins
+    // (organizations/{o}/orgAdmins/{uid}) and platform owners (Super Admins) get full access.
+    function isPlatformAdminS() { return request.auth != null && request.auth.token.email_verified == true && request.auth.token.email in ['sean@txsparks.com', 'ravi@txsparks.com']; }
+    function orgAdminPathS(o) { return /databases/(default)/documents/organizations/$(o)/orgAdmins/$(request.auth.uid); }
+    function isOrgAdminS(o) { return isPlatformAdminS() || (request.auth != null && firestore.exists(orgAdminPathS(o))); }
+    function coMemPath(o, c) { return /databases/(default)/documents/organizations/$(o)/companies/$(c)/members/$(request.auth.uid); }
+    function coMemExists(o, c) { return request.auth != null && firestore.exists(coMemPath(o, c)); }
+    function coMemDoc(o, c) { return firestore.get(coMemPath(o, c)).data; }
+    function coAdminS(o, c) { return isOrgAdminS(o) || (coMemExists(o, c) && coMemDoc(o, c).role == 'admin'); }
+    function coLoansPerm(o, c) { return (coMemExists(o, c) && ('perms' in coMemDoc(o, c)) && ('loans' in coMemDoc(o, c).perms)) ? coMemDoc(o, c).perms.loans : 'none'; }
+    function coPath(o, c) { return /databases/(default)/documents/organizations/$(o)/companies/$(c); }
+    function coLiveS(o, c) { return firestore.exists(coPath(o, c)) && firestore.get(coPath(o, c)).data.get('active', true) == true && firestore.get(coPath(o, c)).data.get('deleted', false) != true; }
+
+    match /orgs/{orgId}/companies/{companyId}/loans/{allPaths=**} {
+      allow read: if request.auth != null && coLiveS(orgId, companyId)
+        && (coAdminS(orgId, companyId) || coLoansPerm(orgId, companyId) in ['read', 'update', 'delete']);
+      allow write: if request.auth != null && coLiveS(orgId, companyId)
+        && (coAdminS(orgId, companyId) || (request.resource == null ? coLoansPerm(orgId, companyId) == 'delete' : coLoansPerm(orgId, companyId) in ['update', 'delete']))
         && (request.resource == null || request.resource.size < 25 * 1024 * 1024);
     }
   }
