@@ -931,8 +931,15 @@ async function runIntraday(key) {
 
   // Unique tickers across every recipient's company holdings + SPY (market proxy).
   const allTickers = new Set(['SPY']);
-  const userTickers = {};
+  const userTickers = {}, userWatch = {};
   for (const { uid, coRefs } of recipients) { const t = await tickersForCompanies(coRefs, false); userTickers[uid] = t; t.forEach(x => allTickers.add(x)); }
+  // Also each user's WATCHED (non-held) tickers, for watchlist-move pushes (higher threshold to limit noise).
+  for (const { uid, coRefs } of recipients) {
+    const held = userTickers[uid] || new Set();
+    const w = new Set(); (await tickersForCompanies(coRefs, true)).forEach(x => { if (!held.has(x)) w.add(x); });
+    userWatch[uid] = w; w.forEach(x => allTickers.add(x));
+  }
+  const WATCH_MOVE_PCT = 4.0;
 
   let earningsSet = new Set();
   try { earningsSet = new Set((await getEarningsToday(date, key)).map(e => e.ticker)); } catch (e) {}
@@ -984,6 +991,19 @@ async function runIntraday(key) {
         alerts.push({ type: 'earnings_alert', ticker: t, pct: null,
           title: `${t} reports earnings today`,
           body: `${t} reports earnings today. Earnings can cause a large overnight gap up or down, so decide your plan in advance: hold through the report (higher risk and reward), trim your position to cut exposure, or set a protective stop. Avoid opening a fresh full position right before the announcement.` });
+      }
+    }
+
+    // Watched (non-held) tickers making a notable move — a lighter-touch heads-up than a holding move.
+    for (const t of (userWatch[uid] || new Set())) {
+      const q = quotes[t];
+      if (q && Math.abs(q.dp) >= WATCH_MOVE_PCT) {
+        const dir = q.dp >= 0 ? 'up' : 'down';
+        if (!fired.has('wmove:' + t + ':' + dir)) {
+          fired.add('wmove:' + t + ':' + dir);
+          const mv = Math.abs(q.dp).toFixed(1);
+          alerts.push({ type: 'watchlist_move', ticker: t, pct: q.dp, title: `${t} ${dir} ${mv}% today`, body: `${t} on your watchlist is ${dir} ${mv}% today, trading around $${q.price.toFixed(2)}. It's not a holding — review whether the move changes your thesis before acting.` });
+        }
       }
     }
 
@@ -1800,7 +1820,9 @@ async function sendEmailSendGrid(to, subject, html, key) {
       personalizations: [{ to: [{ email: to }] }],
       from: { email: MAIL_FROM_EMAIL, name: MAIL_FROM_NAME },
       subject: String(subject || 'Sparks Finance'),
-      content: [{ type: 'text/html', value: html }]
+      // text/plain MUST precede text/html (SendGrid orders by increasing preference). Both parts present
+      // → clients render the HTML but don't clip/collapse the message behind a "…".
+      content: [{ type: 'text/plain', value: _htmlToText(html) || String(subject || 'Sparks Finance') }, { type: 'text/html', value: html }]
     })
   });
   if (!r.ok) { const t = await r.text().catch(() => ''); throw new Error('sendgrid ' + r.status + ': ' + t.slice(0, 200)); }
@@ -1808,6 +1830,18 @@ async function sendEmailSendGrid(to, subject, html, key) {
 }
 
 function _mailEsc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+// Plain-text alternative from the HTML — sending BOTH parts prevents Gmail from clipping/collapsing
+// the message (HTML-only transactional mail is more likely to be trimmed behind a "…").
+function _htmlToText(html) {
+  return String(html || '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '').replace(/<head[\s\S]*?<\/head>/gi, '')
+    .replace(/<a[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi, '$2 ($1)')
+    .replace(/<\/(p|div|tr|table|h[1-6]|li)>/gi, '\n').replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
+    .replace(/[ \t]{2,}/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+}
+function _permLevelLabel(v) { return { none: 'No access', read: 'View only', update: 'View & edit', delete: 'Full access' }[v] || 'No access'; }
 
 // One themed, responsive, table-based, inline-CSS email card. Matches the app: Inter, #1a73e8 accent.
 function emailShell({ title, preheader, bodyHtml, ctaText, ctaUrl, footerNote }) {
@@ -1816,7 +1850,8 @@ function emailShell({ title, preheader, bodyHtml, ctaText, ctaUrl, footerNote })
     : '';
   return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"></head>' +
     '<body style="margin:0;padding:0;background:#f1f3f4;">' +
-    '<span style="display:none!important;opacity:0;color:transparent;height:0;width:0;overflow:hidden">' + _mailEsc(preheader || title || '') + '</span>' +
+    '<span style="display:none!important;opacity:0;color:transparent;height:0;width:0;overflow:hidden">' + _mailEsc(preheader || title || '') +
+    '&#8203;&#847;&nbsp;&#847;&#8203;'.repeat(20) + '</span>' +
     '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f3f4;padding:24px 12px;font-family:Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif"><tr><td align="center">' +
     '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border:1px solid #e6e8eb;border-radius:16px;overflow:hidden">' +
     '<tr><td style="padding:22px 28px;border-bottom:1px solid #eef0f2"><span style="font-size:19px;font-weight:800;color:#1a73e8;letter-spacing:-.3px">⚡ Sparks Finance</span></td></tr>' +
@@ -1851,13 +1886,16 @@ function mailInvite({ orgName, companyName, role, inviterEmail }) {
       bodyHtml: (inviterEmail ? _mailEsc(inviterEmail) + ' invited you' : 'You’ve been invited') + ' to join <b>' + where + '</b> as <b>' + _mailEsc(role || 'member') + '</b>. Sign in and open your Workspace Hub to accept.',
       ctaText: 'Accept invitation', ctaUrl: APP_URL }) };
 }
-function mailModuleAccess({ workspace, granted, revoked }) {
-  const parts = [];
-  if (granted && granted.length) parts.push('<b>Access granted:</b> ' + granted.map(_mailEsc).join(', '));
-  if (revoked && revoked.length) parts.push('<b>Access removed:</b> ' + revoked.map(_mailEsc).join(', '));
-  return { subject: 'Your module access changed — ' + (workspace || 'Sparks Finance'),
-    html: emailShell({ title: 'Your access was updated', preheader: 'Module access changed in ' + workspace,
-      bodyHtml: 'An administrator updated your access in <b>' + _mailEsc(workspace) + '</b>.<br><br>' + (parts.join('<br>') || 'Your module access was reviewed.'),
+// changes: [{ module, level }] — one row per module whose access level actually changed.
+function mailModuleAccess({ workspace, changes }) {
+  const list = changes || [];
+  const rows = list.map(c => '<tr><td style="padding:6px 16px 6px 0;color:#202124;font-weight:600">' + _mailEsc(c.module) + '</td>' +
+    '<td style="padding:6px 0;color:#3c4043">' + _mailEsc(c.level) + '</td></tr>').join('');
+  const summary = list.map(c => c.module + ' → ' + c.level).join(', ');
+  return { subject: 'Your access in ' + (workspace || 'Sparks Finance') + ' was updated' + (summary ? ' (' + summary + ')' : ''),
+    html: emailShell({ title: 'Your access was updated', preheader: summary || ('Module access changed in ' + workspace),
+      bodyHtml: 'An administrator updated your module access in <b>' + _mailEsc(workspace) + '</b>:' +
+        (rows ? '<table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:12px;border-collapse:collapse;font-size:14px">' + rows + '</table>' : ' your access was reviewed.'),
       ctaText: 'Open Sparks Finance', ctaUrl: APP_URL }) };
 }
 function mailRoleChange({ workspace, role }) {
@@ -1936,7 +1974,7 @@ exports.sendTestEmailNow = onRequest(
     if (!to) { res.status(400).json({ error: 'to_required — pass &to=you@example.com' }); return; }
     const samples = {
       invite: mailInvite({ orgName: 'Sparks Group', companyName: 'TX Sparks Construction', role: 'member', inviterEmail: 'sean@txsparks.com' }),
-      module: mailModuleAccess({ workspace: 'Personal', granted: ['Trading'], revoked: ['Loans & Notes'] }),
+      module: mailModuleAccess({ workspace: 'Personal', changes: [{ module: 'Trading', level: 'Full access' }, { module: 'Loans & Notes', level: 'View only' }] }),
       account: mailAccountAction({ title: 'Your account was updated', message: 'An administrator updated your Sparks Finance account settings.' }),
       digest: mailDigest({ subject: 'Your pre-market brief', title: 'Pre-market brief', intro: 'Here’s what matters before the open.', items: [{ title: 'AAPL reports earnings today', body: 'After close · consensus EPS $2.10', url: APP_URL }, { title: 'CPI data at 8:30 AM ET', body: 'High-impact macro print.' }], tab: 'premarket' })
     };
@@ -1973,7 +2011,7 @@ exports.sendOtp = onRequest(
   }
 );
 exports.verifyOtp = onRequest(
-  { region: 'us-central1', cors: true },
+  { region: 'us-central1', cors: true, secrets: [SENDGRID_API_KEY] },
   async (req, res) => {
     try {
       const email = String((req.body && req.body.email) || '').trim().toLowerCase();
@@ -1994,6 +2032,7 @@ exports.verifyOtp = onRequest(
       const user = await admin.auth().getUserByEmail(email);
       await admin.auth().updateUser(user.uid, { password: newPassword, emailVerified: true });
       await ref.delete().catch(() => {});
+      await mailUser(admin.firestore(), user.uid, 'account', mailAccountAction({ title: 'Your password was changed', message: 'Your Sparks Finance password was just reset. If this wasn’t you, contact an administrator immediately.' }), SENDGRID_API_KEY.value());
       res.json({ ok: true });
     } catch (e) {
       logger.error('verifyOtp failed', { error: String(e) });
@@ -2064,7 +2103,7 @@ exports.adminListUsers = onRequest(
 );
 
 exports.adminCreateUser = onRequest(
-  { region: 'us-central1', cors: true },
+  { region: 'us-central1', cors: true, secrets: [SENDGRID_API_KEY] },
   async (req, res) => {
     const caller = await verifyAdmin(req);
     if (!caller) { res.status(403).json({ error: 'forbidden' }); return; }
@@ -2081,6 +2120,7 @@ exports.adminCreateUser = onRequest(
       if (role === 'admin' && !_callerIsOwner(caller)) { res.status(403).json({ error: 'admin_grant_requires_owner' }); return; }
       const user = await admin.auth().createUser({ email, password, emailVerified: false });
       await applyRole(user.uid, email, role, perms, { created: Date.now(), createdBy: caller.email || caller.uid });
+      await mailUser(admin.firestore(), user.uid, 'account', mailAccountAction({ title: 'Your Sparks Finance account is ready', message: 'An administrator created a Sparks Finance account for ' + email + '. Sign in at ' + APP_URL + ' with the password you were given, then change it after signing in.' }), SENDGRID_API_KEY.value());
       res.json({ ok: true, uid: user.uid });
     } catch (e) {
       if ((e && e.code) === 'auth/email-already-exists') { res.status(409).json({ error: 'email_exists' }); return; }
@@ -2091,7 +2131,7 @@ exports.adminCreateUser = onRequest(
 );
 
 exports.adminUpdateUser = onRequest(
-  { region: 'us-central1', cors: true },
+  { region: 'us-central1', cors: true, secrets: [SENDGRID_API_KEY] },
   async (req, res) => {
     const caller = await verifyAdmin(req);
     if (!caller) { res.status(403).json({ error: 'forbidden' }); return; }
@@ -2109,13 +2149,19 @@ exports.adminUpdateUser = onRequest(
       if (hasDisabled) await admin.auth().updateUser(uid, { disabled: req.body.disabled });
       await applyRole(uid, target.email, role, perms, hasDisabled ? { disabled: req.body.disabled } : {});
       try { await admin.auth().revokeRefreshTokens(uid); } catch (e) {}   // invalidate the target's existing tokens so role/perm/disable changes apply immediately
+      // Notify the target (before responding). Disable/enable → status note; else role + module summary.
+      const cp = cleanPerms(perms);
+      const built = hasDisabled
+        ? mailAccountAction({ title: req.body.disabled ? 'Your account was disabled' : 'Your account was re-enabled', message: req.body.disabled ? 'Your Sparks Finance account has been disabled by an administrator. Contact your administrator with any questions.' : 'Your Sparks Finance account has been re-enabled — you can sign in again at ' + APP_URL + '.' })
+        : mailAccountAction({ title: 'Your account was updated', message: 'An administrator updated your Sparks Finance account. Role: ' + role + ' · Trading: ' + _permLevelLabel(cp.stocks) + ' · Loans & Notes: ' + _permLevelLabel(cp.loans) + '.' });
+      await mailUser(admin.firestore(), uid, 'account', built, SENDGRID_API_KEY.value());
       res.json({ ok: true });
     } catch (e) { logger.error('adminUpdateUser failed', { error: String(e) }); res.status(500).json({ error: 'update_failed' }); }
   }
 );
 
 exports.adminDeleteUser = onRequest(
-  { region: 'us-central1', cors: true },
+  { region: 'us-central1', cors: true, secrets: [SENDGRID_API_KEY] },
   async (req, res) => {
     const caller = await verifyAdmin(req);
     if (!caller) { res.status(403).json({ error: 'forbidden' }); return; }
@@ -2127,10 +2173,12 @@ exports.adminDeleteUser = onRequest(
       if (isOwnerEmail(target.email)) { res.status(403).json({ error: 'owner_protected' }); return; }
       const targetIsAdmin = !!(target.customClaims && target.customClaims.role === 'admin');
       if (targetIsAdmin && !_callerIsOwner(caller)) { res.status(403).json({ error: 'admin_delete_requires_owner' }); return; }
+      const delEmail = target.email || null;   // capture before deletion (users doc/email is gone after)
       await admin.auth().deleteUser(uid);
       await admin.firestore().collection('users').doc(uid).delete().catch(() => {});
+      if (delEmail) await mailTo(delEmail, mailAccountAction({ title: 'Your Sparks Finance account was removed', message: 'Your Sparks Finance account has been deleted by an administrator. Contact your administrator with any questions.' }), SENDGRID_API_KEY.value());
       res.json({ ok: true });
-    } catch (e) { logger.error('adminDeleteUser failed', { error: String(e) }); res.status(500).json({ error: 'delete_failed' }); }
+    } catch (e) { logger.error('adminDeleteUser failed', { error: String(e) }); try { res.status(500).json({ error: 'delete_failed' }); } catch (_) {} }
   }
 );
 
@@ -2254,6 +2302,9 @@ exports.orgInvite = onRequest({ region: 'us-central1', cors: true, secrets: [SEN
   try {
     const email = String((req.body && req.body.email) || '').trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { res.status(400).json({ error: 'invalid_email' }); return; }
+    // Platform super-admins (owner emails) already have full access to every org/company; they must NOT
+    // be added as ordinary members. Their only membership is their own self-served Personal workspace.
+    if (isOwnerEmail(email)) { res.status(400).json({ error: 'owner_is_platform_admin' }); return; }
     const role = ORG_ROLES.includes(req.body && req.body.role) ? req.body.role : 'member';
     if ((role === 'owner' || role === 'admin') && !_callerOwnsOrg(auth)) { res.status(403).json({ error: 'grant_requires_owner' }); return; }
     const db = admin.firestore();
@@ -2302,6 +2353,8 @@ exports.acceptInvite = onRequest({ region: 'us-central1', cors: true, secrets: [
     const inviteId = String((req.body && req.body.inviteId) || '');
     if (!inviteId) { res.status(400).json({ error: 'bad_request' }); return; }
     const email = (tok.email || '').toLowerCase();
+    // Defense in depth: a platform super-admin never becomes an org/company member (they already have full access).
+    if (isOwnerEmail(email)) { res.status(403).json({ error: 'owner_is_platform_admin' }); return; }
     const db = admin.firestore();
     const invRef = db.collection('invites').doc(inviteId);
     const inv = await invRef.get();
@@ -2366,7 +2419,7 @@ exports.orgListMembers = onRequest({ region: 'us-central1', cors: true }, async 
 
 // Change a member's role/perms. Owner/admin only; touching an owner/admin (or granting one) needs owner;
 // the last owner cannot be demoted.
-exports.orgUpdateMember = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+exports.orgUpdateMember = onRequest({ region: 'us-central1', cors: true, secrets: [SENDGRID_API_KEY] }, async (req, res) => {
   const orgId = String((req.body && req.body.orgId) || '');
   const auth = await verifyOrgRole(req, orgId, 'admin');
   if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
@@ -2378,28 +2431,36 @@ exports.orgUpdateMember = onRequest({ region: 'us-central1', cors: true }, async
     const ownersQ = db.collection('organizations').doc(orgId).collection('members').where('role', '==', 'owner');
     // Transaction: read the member doc + owner set and write the new role atomically, so a concurrent
     // demotion of another owner cannot leave the org with zero owners (TOCTOU).
-    let newRoleOut;
+    let newRoleOut, oldRole, oldPerms = {}, newPerms = {};
     await db.runTransaction(async (t) => {
       const memDoc = await t.get(memRef);
       if (!memDoc.exists) throw { code: 'not_member' };
       const cur = memDoc.data();
+      oldRole = cur.role; oldPerms = cur.perms || {};
       const newRole = ORG_ROLES.includes(req.body && req.body.role) ? req.body.role : cur.role;
       if ((cur.role === 'owner' || cur.role === 'admin' || newRole === 'owner' || newRole === 'admin') && !_callerOwnsOrg(auth)) throw { code: 'requires_owner' };
       if (cur.role === 'owner' && newRole !== 'owner') { const owners = await t.get(ownersQ); if (owners.size <= 1) throw { code: 'last_owner' }; }
-      t.set(memRef, { email: cur.email, role: newRole, perms: cleanPerms((req.body && req.body.perms) || cur.perms || {}), updatedAt: Date.now() }, { merge: true });
+      newPerms = cleanPerms((req.body && req.body.perms) || cur.perms || {});
+      t.set(memRef, { email: cur.email, role: newRole, perms: newPerms, updatedAt: Date.now() }, { merge: true });
       newRoleOut = newRole;
     });
-    await db.collection('users').doc(uid).set({ orgs: { [orgId]: { name: await _orgName(orgId), role: newRoleOut } } }, { merge: true });
+    const orgName = await _orgName(orgId);
+    await db.collection('users').doc(uid).set({ orgs: { [orgId]: { name: orgName, role: newRoleOut } } }, { merge: true });
+    // Email the member about any module-level change, else a role change (before responding — gen-2 CPU throttle).
+    const changes = MODULE_KEYS.filter(m => (newPerms[m.id] || 'none') !== (oldPerms[m.id] || 'none')).map(m => ({ module: m.label, level: _permLevelLabel(newPerms[m.id] || 'none') }));
+    const key = SENDGRID_API_KEY.value();
+    if (changes.length) await mailUser(db, uid, 'account', mailModuleAccess({ workspace: orgName, changes }), key);
+    else if (newRoleOut !== oldRole) await mailUser(db, uid, 'account', mailRoleChange({ workspace: orgName, role: newRoleOut }), key);
     res.json({ ok: true });
   } catch (e) {
     if (e && e.code) { res.status(e.code === 'last_owner' ? 409 : (e.code === 'not_member' ? 404 : 403)).json({ error: e.code }); return; }
-    logger.error('orgUpdateMember failed', { error: String(e) }); res.status(500).json({ error: 'update_failed' });
+    logger.error('orgUpdateMember failed', { error: String(e) }); try { res.status(500).json({ error: 'update_failed' }); } catch (_) {}
   }
 });
 
 // Remove a member (admin removes others; anyone may remove themselves = leave). Removing an owner/admin
 // needs owner; the last owner cannot leave/be removed.
-exports.orgRemoveMember = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+exports.orgRemoveMember = onRequest({ region: 'us-central1', cors: true, secrets: [SENDGRID_API_KEY] }, async (req, res) => {
   const orgId = String((req.body && req.body.orgId) || '');
   const auth = await verifyOrgRole(req, orgId, 'member');
   if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
@@ -2423,10 +2484,12 @@ exports.orgRemoveMember = onRequest({ region: 'us-central1', cors: true }, async
       t.delete(memRef); removed = true;
     });
     if (removed) await db.collection('users').doc(uid).set({ orgs: { [orgId]: admin.firestore.FieldValue.delete() } }, { merge: true });
+    // Notify (before responding) only when an admin removed SOMEONE ELSE (not a self-leave).
+    if (removed && !isSelf) await mailUser(db, uid, 'account', mailMemberRemoved({ workspace: await _orgName(orgId) }), SENDGRID_API_KEY.value());
     res.json({ ok: true });
   } catch (e) {
     if (e && e.code) { res.status(e.code === 'last_owner' ? 409 : 403).json({ error: e.code }); return; }
-    logger.error('orgRemoveMember failed', { error: String(e) }); res.status(500).json({ error: 'remove_failed' });
+    logger.error('orgRemoveMember failed', { error: String(e) }); try { res.status(500).json({ error: 'remove_failed' }); } catch (_) {}
   }
 });
 
@@ -2458,8 +2521,18 @@ exports.platformListOrgs = onRequest({ region: 'us-central1', cors: true }, asyn
     const orgs = [];
     for (const d of snap.docs) {
       const o = d.data() || {};
-      let memberCount = 0; try { memberCount = (await d.ref.collection('members').get()).size; } catch (e) {}
-      orgs.push({ orgId: d.id, name: o.name || '', createdByEmail: o.createdByEmail || '', createdAt: o.createdAt || null, plan: o.plan || 'free', memberCount, personal: o.personal === true, industry: o.industry || '', defaultCompany: o.defaultCompany || null });
+      // People live at the COMPANY tier; the org-tier `members` subcollection is usually empty.
+      // So the true member count = distinct UIDs across org-tier members + every company's members,
+      // and we also surface how many companies the org has.
+      let companyCount = 0; const uids = new Set();
+      try {
+        const cosSnap = await d.ref.collection('companies').get();
+        companyCount = cosSnap.size;
+        try { (await d.ref.collection('members').get()).forEach(m => uids.add(m.id)); } catch (e) {}
+        const memberSnaps = await Promise.all(cosSnap.docs.map(c => c.ref.collection('members').get().catch(() => null)));
+        memberSnaps.forEach(ms => { if (ms) ms.forEach(m => uids.add(m.id)); });
+      } catch (e) {}
+      orgs.push({ orgId: d.id, name: o.name || '', createdByEmail: o.createdByEmail || '', createdAt: o.createdAt || null, plan: o.plan || 'free', memberCount: uids.size, companyCount, personal: o.personal === true, industry: o.industry || '', defaultCompany: o.defaultCompany || null });
     }
     res.json({ ok: true, orgs });
   } catch (e) { logger.error('platformListOrgs failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
@@ -2675,6 +2748,8 @@ exports.companyInvite = onRequest({ region: 'us-central1', cors: true, secrets: 
   try {
     const email = String((req.body && req.body.email) || '').trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { res.status(400).json({ error: 'invalid_email' }); return; }
+    // Platform super-admins (owner emails) already have full access to every org/company; never add them as members.
+    if (isOwnerEmail(email)) { res.status(400).json({ error: 'owner_is_platform_admin' }); return; }
     const role = (req.body && req.body.role) === 'admin' ? 'admin' : 'member';
     const db = admin.firestore();
     const already = await db.doc('organizations/' + orgId + '/companies/' + companyId).collection('members').where('email', '==', email).limit(1).get();
@@ -2717,12 +2792,13 @@ exports.companyUpdateMember = onRequest({ region: 'us-central1', cors: true, sec
     });
     const companyName = await _companyName(orgId, companyId);
     await db.collection('users').doc(uidBody).set({ orgs: { [orgId]: { companies: { [companyId]: { name: companyName, role: outRole } } } } }, { merge: true });
-    // Notify the member BEFORE responding: module-access summary if perms changed; else a role-change note.
-    const has = v => v === 'read' || v === 'update' || v === 'delete';
-    const granted = MODULE_KEYS.filter(m => has(newPerms[m.id]) && !has(oldPerms[m.id])).map(m => m.label);
-    const revoked = MODULE_KEYS.filter(m => !has(newPerms[m.id]) && has(oldPerms[m.id])).map(m => m.label);
+    // Notify the member BEFORE responding. Detect ANY per-module LEVEL change (none↔read↔update↔delete),
+    // not just access on/off — e.g. Full access → View only must still email the user.
+    const changes = MODULE_KEYS
+      .filter(m => (newPerms[m.id] || 'none') !== (oldPerms[m.id] || 'none'))
+      .map(m => ({ module: m.label, level: _permLevelLabel(newPerms[m.id] || 'none') }));
     const key = SENDGRID_API_KEY.value();
-    if (granted.length || revoked.length) await mailUser(db, uidBody, 'account', mailModuleAccess({ workspace: companyName, granted, revoked }), key);
+    if (changes.length) await mailUser(db, uidBody, 'account', mailModuleAccess({ workspace: companyName, changes }), key);
     else if (outRole !== oldRole) await mailUser(db, uidBody, 'account', mailRoleChange({ workspace: companyName, role: outRole }), key);
     res.json({ ok: true });
   } catch (e) {
