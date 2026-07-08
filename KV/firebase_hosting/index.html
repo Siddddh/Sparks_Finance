@@ -141,8 +141,8 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
 .hub-grid.hub-list{grid-template-columns:1fr;}
 .hub-card{text-align:left;background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:14px;cursor:pointer;font-family:inherit;color:var(--text);transition:border-color .15s,box-shadow .15s,transform .1s;}
-.hub-card:hover{border-color:var(--blue);box-shadow:var(--shadow-lg);}
-.hub-card:active{transform:translateY(1px);}
+.hub-card:hover{border-color:var(--blue);box-shadow:var(--shadow-lg);transform:translateY(-2px);}
+.hub-card:active{transform:translateY(0);}
 .hub-card-top{display:flex;align-items:center;gap:12px;}
 .hub-logo{width:46px;height:46px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px;flex-shrink:0;}
 [data-theme="dark"] .hub-logo{color:#202124;}
@@ -163,6 +163,31 @@ a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
 .hub-invite{cursor:default;border-color:var(--blue);}
 .hub-empty{grid-column:1/-1;padding:34px;text-align:center;color:var(--text-3);font-size:14px;}
 .hub-section-title{margin:26px 0 12px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-2);}
+/* ── Workspace switcher (navbar) ── */
+.wsw{position:relative;display:inline-block;}
+.wsw-trigger{display:flex;align-items:center;gap:8px;max-width:230px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:5px 10px 5px 6px;cursor:pointer;font-family:inherit;color:var(--text);transition:border-color .15s,background .15s;}
+.wsw-trigger:hover{border-color:var(--blue);}
+.wsw-trigger:focus-visible{outline:2px solid var(--blue-soft);outline-offset:2px;}
+.wsw-logo{width:26px;height:26px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12px;flex-shrink:0;}
+[data-theme="dark"] .wsw-logo{color:#202124;}
+.wsw-labels{display:flex;flex-direction:column;align-items:flex-start;min-width:0;line-height:1.2;}
+.wsw-co{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
+.wsw-org{font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
+.wsw-chev{color:var(--text-3);flex-shrink:0;transition:transform .18s;}
+.wsw.open .wsw-chev{transform:rotate(180deg);}
+.wsw-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:260px;max-width:340px;max-height:72vh;overflow-y:auto;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow-lg);z-index:1600;padding:6px;animation:asstPopIn .14s ease;}
+.wsw-menu.hidden{display:none;}
+.wsw-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);padding:9px 10px 4px;}
+.wsw-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:none;border-radius:8px;padding:8px 10px;cursor:pointer;font-family:inherit;color:var(--text);font-size:13px;transition:background .12s;}
+.wsw-item:hover{background:var(--surface-hover);}
+.wsw-item.active{background:var(--blue-soft);color:var(--blue);}
+.wsw-item .wsw-logo{width:24px;height:24px;font-size:11px;}
+.wsw-item-main{flex:1;min-width:0;}
+.wsw-item-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500;}
+.wsw-item-sub{font-size:11px;color:var(--text-3);text-transform:capitalize;}
+.wsw-check{color:var(--blue);flex-shrink:0;}
+.wsw-div{height:1px;background:var(--border);margin:6px 4px;}
+.wsw-foot{color:var(--text-2);font-weight:600;}
 .hub-back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;padding:0 0 10px;}
 .hub-back:hover{color:var(--blue);}
 .hub-card-note{align-items:flex-start;justify-content:center;text-align:left;border-style:dashed;cursor:default;gap:4px;}
@@ -180,6 +205,18 @@ body:not(.is-orgadmin) .navitem[data-nav="orgdash"]{display:none;}
 .modal-btn-danger-outline:hover{background:var(--red-soft);}
 .hub-card:focus-visible,.hub-mini-btn:focus-visible,.hub-back:focus-visible,.hub-sort:focus-visible,.hub-manage-btn:focus-visible,.org-switcher:focus-visible{outline:2px solid var(--blue-soft);outline-offset:2px;}
 @media(max-width:600px){.hub-grid{grid-template-columns:1fr;}.hub-title{font-size:24px;}}
+/* ── Hub polish: elegant cards + platform "All organizations" overview table ── */
+.hub-logo{box-shadow:0 1px 2px rgba(0,0,0,.12),inset 0 0 0 1px rgba(255,255,255,.10);}
+.hub-grid,#hubAllOrgsWrap,#hubPersonalWrap{animation:hubFadeIn .34s cubic-bezier(.22,1,.36,1);}
+@keyframes hubFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+.hub-orgtable{margin-bottom:26px;border:1px solid var(--border);border-radius:14px;overflow:auto;max-height:440px;background:var(--surface-2);}
+.hub-orgtable table.hold-table{margin:0;width:100%;}
+.hub-orgtable thead th{position:sticky;top:0;background:var(--surface-2);z-index:1;white-space:nowrap;}
+.hub-orgtable tbody tr{transition:background .12s;}
+.hub-orgtable tbody tr:hover{background:var(--surface-hover);}
+.hold-table th.ht-num,.hold-table td.ht-num{text-align:right;white-space:nowrap;}
+.hub-tag-personal{margin-left:7px;vertical-align:middle;text-transform:none;font-weight:600;}
+@media (prefers-reduced-motion:reduce){.hub-grid,#hubAllOrgsWrap,#hubPersonalWrap{animation:none;}.hub-card,.hub-card:hover,.hub-card:active{transition:none;transform:none;}}
 .auth-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--text-3);font-size:11px;}
 .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border);}
 .pw-wrap{position:relative;}
@@ -609,12 +646,25 @@ td.pos,.ht-pos{color:var(--green);}td.neg,.ht-neg{color:var(--red);}
 .wl-ticker-chip .rm{cursor:pointer;color:var(--text-3);display:flex;align-items:center;justify-content:center;padding:6px;margin:-6px -4px -6px 0;border-radius:50%;}.wl-ticker-chip .rm:hover{color:var(--red);background:var(--surface-hover);}
 
 /* ════════ Alerts ════════ */
-.alert-crd{background:var(--surface-2);border-radius:12px;border:1px solid var(--border);padding:14px 18px;border-left:3px solid var(--blue);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.alert-crd{background:var(--surface-2);border-radius:10px;border:1px solid var(--border);border-left:2px solid var(--blue);padding:9px 14px;margin-bottom:7px;max-width:640px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .alert-body{flex:1;min-width:0;}
-.alert-tkr{font-size:16px;font-weight:700;margin-bottom:2px;color:var(--text);}
-.alert-cond{font-size:12px;color:var(--text-2);}
-.alert-del{background:none;color:var(--red);border:1px solid var(--border);border-radius:24px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:500;font-family:inherit;}
-.alert-del:hover{background:var(--red-soft);}
+.alert-tkr{font-size:14px;font-weight:700;color:var(--text);}
+.alert-cond{font-size:12px;color:var(--text-2);margin-top:1px;}
+.alert-actions{display:flex;gap:6px;flex-shrink:0;}
+.alert-edit,.alert-del{background:none;border:1px solid var(--border);border-radius:16px;padding:4px 12px;font-size:12px;cursor:pointer;font-weight:500;font-family:inherit;color:var(--text-2);}
+.alert-edit:hover{background:var(--blue-soft);color:var(--blue);border-color:var(--blue);}
+.alert-del{color:var(--red);}
+.alert-del:hover{background:var(--red-soft);border-color:var(--red);}
+/* Firing ("triggered") alerts surfaced at the top of the Alerts tab, reusing the notification rows. */
+.alert-sec-hd{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-3);margin:2px 0 10px;display:flex;align-items:center;gap:8px;max-width:640px;}
+.alert-sec-cnt{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:11px;padding:0 7px;color:var(--text-2);font-weight:700;}
+.alert-live-dot{width:8px;height:8px;border-radius:50%;background:var(--red,#e5484d);flex-shrink:0;animation:alertPulse 1.9s ease-out infinite;}
+@keyframes alertPulse{0%{box-shadow:0 0 0 0 rgba(229,72,77,.55)}70%{box-shadow:0 0 0 7px rgba(229,72,77,0)}100%{box-shadow:0 0 0 0 rgba(229,72,77,0)}}
+.alert-fired-list{max-width:640px;margin-bottom:22px;}
+.alert-fired-list .notif-row{border:1px solid var(--border);border-left:2px solid var(--red);border-radius:10px;margin-bottom:7px;background:var(--surface-2);}
+.alert-fired-enter{animation:alertFiredIn .34s cubic-bezier(.22,1,.36,1);}
+@keyframes alertFiredIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.alert-live-dot,.alert-fired-enter{animation:none!important;}}
 
 /* ════════ Research ════════ */
 .research-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
@@ -1323,7 +1373,7 @@ body.sidebar-open .nav-scrim{display:block;}
       <button class="icon-btn" id="notifBellBtn" onclick="toggleNotifPanel()" title="Notifications" aria-label="Notifications"><span class="i-bell"></span><span class="notif-dot" id="notifBellBadge" style="display:none"></span></button>
       <button class="icon-btn asst-nav-btn" id="asstNavBtn" onclick="asstPopToggle()" title="Ask the AI analyst" aria-label="AI Assistant"></button>
       <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle theme"></button>
-      <select id="orgSwitcher" class="org-switcher" onchange="onOrgSwitch(this.value)" title="Switch organization" style="display:none"></select>
+      <div id="orgSwitcher" class="wsw" style="display:none"></div>
       <span class="user-badge" id="userBadge"></span>
       <button class="sign-out-btn" onclick="doSignOut()">Sign out</button>
     </div>
@@ -1425,7 +1475,7 @@ body.sidebar-open .nav-scrim{display:block;}
         <div id="tab-useralerts" class="tab-panel">
           <div class="page-title">Alerts</div>
           <div class="pf-toolbar">
-            <button class="pf-btn pf-btn-primary" onclick="openModal('newAlert')"><span class="i-plus"></span> New alert</button>
+            <button class="pf-btn pf-btn-primary" onclick="newAlertModal()"><span class="i-plus"></span> New alert</button>
           </div>
           <div id="userAlertsBody"></div>
         </div>
@@ -2036,7 +2086,7 @@ async function submitMember(kind) {
       await _adminCall('companyInvite', { orgId: ACTIVE_ORG, companyId: ACTIVE_COMPANY, email, role, perms }); try { pmToast('Invitation sent to ' + email); } catch (e) {}
     }
     closeModal(); renderOrgMembers();
-  } catch (e) { try { pmToast({ already_member: 'That person is already a member.', last_admin: "You can't demote the last admin.", forbidden: 'You do not have permission.', personal_locked: 'Members of a personal workspace can only be added by a platform administrator.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {} }
+  } catch (e) { try { pmToast({ already_member: 'That person is already a member.', last_admin: "You can't demote the last admin.", forbidden: 'You do not have permission.', personal_locked: 'Members of a personal workspace can only be added by a platform administrator.', owner_is_platform_admin: 'Super-admins already have full access to every workspace — they can’t be added as a member.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {} }
 }
 function renderOrgSettings() {
   const el = document.getElementById('orgSettingsBody'); if (!el) return;
@@ -2053,16 +2103,34 @@ async function saveOrgSettings() {
   try { await _adminCall('orgUpdateSettings', { orgId: ACTIVE_ORG, name }); try { pmToast('Saved'); } catch (e) {} location.reload(); }
   catch (e) { try { pmToast({ forbidden: 'Only an owner can rename the organization.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {} }
 }
+// Shared platform "All organizations" overview table — used by both the in-app Platform tab and the
+// hub landing page. Columns: Organization (name + id + Personal chip) · Created by · Companies · Members · Plan.
+function _orgTableHtml(orgs, q) {
+  let list = (orgs || []).slice().sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  const qq = (q || '').trim().toLowerCase();
+  if (qq) list = list.filter(o => (o.name || '').toLowerCase().includes(qq) || (o.createdByEmail || '').toLowerCase().includes(qq) || (o.orgId || '').toLowerCase().includes(qq));
+  if (!list.length) return '<div class="hub-empty">' + (qq ? 'No organizations match “' + escHtml(qq) + '”.' : 'No organizations yet.') + '</div>';
+  const rows = list.map(o => {
+    // Personal orgs' stored name often already ends in "(Personal)"; strip it since we show a chip.
+    const nm = o.personal ? String(o.name || o.orgId).replace(/\s*\(personal\)\s*$/i, '') : (o.name || o.orgId);
+    return '<tr>' +
+    '<td class="ht-sym"><div><div class="holding-ticker">' + escHtml(nm) + (o.personal ? ' <span class="badge badge-gray hub-tag-personal">Personal</span>' : '') + '</div><div class="ht-sub">' + escHtml(o.orgId) + '</div></div></td>' +
+    '<td>' + escHtml(o.createdByEmail || '—') + '</td>' +
+    '<td class="ht-num">' + (o.companyCount || 0) + '</td>' +
+    '<td class="ht-num">' + (o.memberCount || 0) + '</td>' +
+    '<td>' + escHtml(o.plan || 'free') + '</td></tr>';
+  }).join('');
+  return '<div class="hub-orgtable"><table class="hold-table"><thead><tr><th class="ht-sym">Organization</th><th>Created by</th><th class="ht-num">Companies</th><th class="ht-num">Members</th><th>Plan</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+}
 async function renderPlatform() {
   const el = document.getElementById('platformBody'); if (!el) return;
   if (!isPlatformAdmin()) { el.innerHTML = emptyState('users', 'Platform admins only', ''); return; }
   el.innerHTML = '<div class="pf-filter-note">Loading organizations…</div>';
   try {
     const d = await _adminCall('platformListOrgs');
-    const orgs = (d.orgs || []).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    const orgs = d.orgs || [];
     if (!orgs.length) { el.innerHTML = emptyState('data', 'No organizations yet', ''); return; }
-    const rows = orgs.map(o => '<tr><td class="ht-sym"><div><div class="holding-ticker">' + escHtml(o.name || o.orgId) + '</div><div class="ht-sub">' + escHtml(o.orgId) + '</div></div></td><td>' + escHtml(o.createdByEmail || '—') + '</td><td>' + (o.memberCount || 0) + '</td><td>' + escHtml(o.plan || 'free') + '</td></tr>').join('');
-    el.innerHTML = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Organization</th><th>Created by</th><th>Members</th><th>Plan</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+    el.innerHTML = _orgTableHtml(orgs);
   } catch (e) { el.innerHTML = emptyState('data', "Couldn't load organizations", escHtml(String(e.message || e))); }
 }
 // Consolidated Organization Dashboard — aggregates Trading + Loans across ALL companies (org-admin/super-admin only).
@@ -3043,7 +3111,7 @@ function subscribeUserDoc() {
   }, () => {});
 }
 // ── Workspace hub (post-login: Organizations → Companies drill-down) ──
-let _hubUser = null, _hubOrgId = null, _hubOrgList = [], _hubInvites = [], _hubCoData = { companies: [], canManage: false }, _hubPersonalOrgs = [];
+let _hubUser = null, _hubOrgId = null, _hubOrgList = [], _hubInvites = [], _hubCoData = { companies: [], canManage: false }, _hubPersonalOrgs = [], _hubAllOrgs = [];
 function _avatarInitial(s) { return ((s || '?').trim().charAt(0) || '?').toUpperCase(); }
 function _hubColor(seed) { const c = ['#ff7a1a', '#21d27c', '#ff5c7a', '#5b8cff', '#c07cff', '#ffb020', '#12b5cb']; let h = 0; const s = String(seed || ''); for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return c[h % c.length]; }
 function _hubModuleBadges() { return '<span class="badge badge-blue">Trading</span> <span class="badge badge-green">Loans &amp; Notes</span>'; }
@@ -3071,7 +3139,7 @@ async function renderOrgLevel() {
   const body = document.getElementById('hubBody');
   body.innerHTML = '<div class="hub-title">Select workspace</div><div class="hub-sub">Open your personal workspace or an organization you belong to.</div>' +
     '<div class="hub-controls"><div class="hub-search">' + ic('search', 16) + '<input id="hubSearch" type="text" placeholder="Search organizations…" oninput="_hubFilter()" autocomplete="off"/></div></div>' +
-    '<div id="hubGrid" class="hub-grid"></div><div id="hubPersonalWrap"></div>';
+    '<div id="hubGrid" class="hub-grid"></div><div id="hubAllOrgsWrap"></div><div id="hubPersonalWrap"></div>';
   const grid = document.getElementById('hubGrid'); grid.innerHTML = '<div class="hub-empty">Loading…</div>';
   const superAdmin = isPlatformAdmin();
   let orgs = [], personalOrgs = [];
@@ -3081,9 +3149,10 @@ async function renderOrgLevel() {
     // so they don't clutter the team-org grid; a team org drills into its companies as usual.
     try {
       const d = await _adminCall('platformListOrgs');
+      _hubAllOrgs = d.orgs || [];   // full list powers the embedded platform overview table below
       (d.orgs || []).forEach(o => {
         if (o.personal) { if ((o.createdByEmail || '').toLowerCase() !== myEmail) personalOrgs.push({ orgId: o.orgId, name: o.name || 'Personal', companyId: o.defaultCompany || null, ownerEmail: o.createdByEmail || '' }); }
-        else orgs.push({ orgId: o.orgId, name: o.name || 'Organization', sub: (o.industry ? o.industry + ' · ' : '') + (o.memberCount || 0) + ' member' + ((o.memberCount === 1) ? '' : 's'), memberCount: o.memberCount || 0, admin: true });
+        else orgs.push({ orgId: o.orgId, name: o.name || 'Organization', sub: _hubCountsSub(o.industry, o.companyCount, o.memberCount), memberCount: o.memberCount || 0, admin: true });
       });
     } catch (e) {}
   } else {
@@ -3101,11 +3170,19 @@ async function renderOrgLevel() {
   try { const d = await _adminCall('listMyInvites'); _hubInvites = d.invites || []; } catch (e) { _hubInvites = []; }
   _hubRenderOrgCards();
 }
+// Compact "Industry · N companies · M members" subtitle, shared by org cards for consistency.
+function _hubCountsSub(industry, companyCount, memberCount) {
+  const cc = companyCount || 0, mc = memberCount || 0, parts = [];
+  if (industry) parts.push(industry);
+  parts.push(cc + ' compan' + (cc === 1 ? 'y' : 'ies'));
+  parts.push(mc + ' member' + (mc === 1 ? '' : 's'));
+  return parts.join(' · ');
+}
 function _hubOrgCard(o) {
   return '<button type="button" class="hub-card" onclick="hubOpenOrg(\'' + o.orgId + '\')">' +
     '<div class="hub-card-top"><span class="hub-logo" style="background:' + _hubColor(o.name) + '">' + escHtml(_avatarInitial(o.name)) + '</span>' +
     '<div class="hub-card-h"><div class="hub-card-name">' + escHtml(o.name) + '</div><div class="hub-card-sub">' + escHtml(o.sub) + '</div></div>' +
-    (o.admin ? '<span class="badge badge-blue">admin</span>' : '') + '</div>' +
+    (o.admin ? '<span class="badge badge-blue">Admin</span>' : '') + '</div>' +
     '<div class="hub-card-foot"><span class="hub-date">' + ic('briefcase', 14) + ' Open companies</span></div></button>';
 }
 function _hubInviteCard(iv) {
@@ -3124,7 +3201,7 @@ function _hubPersonalOrgCard(o) {
   return '<div class="hub-card' + (disabled ? ' hub-card-inactive' : '') + '" role="button" tabindex="0"' + open + '>' +
     '<div class="hub-card-top"><span class="hub-logo" style="background:' + _hubColor(o.name) + '">' + escHtml(_avatarInitial(o.ownerEmail || o.name)) + '</span>' +
     '<div class="hub-card-h"><div class="hub-card-name">' + escHtml(o.ownerEmail || o.name) + '</div><div class="hub-card-sub">Personal workspace</div></div>' +
-    '<span class="badge badge-blue">personal</span></div>' + manage + '</div>';
+    '<span class="badge badge-blue">Personal</span></div>' + manage + '</div>';
 }
 // Super-admin: manage a personal workspace (module access via companyUpdateMember, remove via updateOrganization).
 let _mpOrg = null, _mpCompany = null, _mpMember = null;
@@ -3150,6 +3227,14 @@ async function removePersonalWorkspace() {
   try { await _adminCall('updateOrganization', { orgId: _mpOrg, delete: true }); closeModal(); try { pmToast('Workspace removed — the owner has been emailed.'); } catch (e) {} await renderHub(auth.currentUser); }
   catch (e) { try { pmToast('Could not remove workspace: ' + (e.message || e)); } catch (_) {} }
 }
+// Super-admin platform overview, embedded on the hub landing page above the personal-workspaces
+// section. Reuses the shared org table and honors the live hub search box.
+function _hubRenderAllOrgs() {
+  const wrap = document.getElementById('hubAllOrgsWrap'); if (!wrap) return;
+  if (!isPlatformAdmin() || !(_hubAllOrgs || []).length) { wrap.innerHTML = ''; return; }
+  const q = ((document.getElementById('hubSearch') || {}).value || '').trim().toLowerCase();
+  wrap.innerHTML = '<div class="hub-section-title">All organizations <span class="ht-sub" style="text-transform:none;font-weight:600;">(platform overview)</span></div>' + _orgTableHtml(_hubAllOrgs, q);
+}
 function _hubRenderOrgCards() {
   const grid = document.getElementById('hubGrid'); if (!grid) return;
   const q = ((document.getElementById('hubSearch') || {}).value || '').trim().toLowerCase();
@@ -3164,6 +3249,7 @@ function _hubRenderOrgCards() {
     else html += '<div class="hub-card hub-card-note"><div class="hub-card-name">Need a team organization?</div><div class="hub-card-sub">Contact your Sparks administrator to be added to one.</div></div>';
   }
   grid.innerHTML = html || '<div class="hub-empty">No organizations match “' + escHtml(q) + '”.</div>';
+  _hubRenderAllOrgs();   // super-admin platform overview table (above personal workspaces)
   // Super-admin only: everyone else's personal workspaces, in their own labeled section.
   const pw = document.getElementById('hubPersonalWrap');
   if (pw) {
@@ -3209,7 +3295,7 @@ function _hubCompanyCard(c, canManage) {
   return '<div class="hub-card' + (inactive ? ' hub-card-inactive' : '') + '" role="button" tabindex="0" onclick="enterWorkspace(\'' + _hubOrgId + '\',\'' + c.companyId + '\')" onkeydown="if(event.key===\'Enter\')enterWorkspace(\'' + _hubOrgId + '\',\'' + c.companyId + '\')">' +
     '<div class="hub-card-top"><span class="hub-logo" style="background:' + _hubColor(c.name) + '">' + escHtml(_avatarInitial(c.name)) + '</span>' +
     '<div class="hub-card-h"><div class="hub-card-name">' + escHtml(c.name) + '</div><div class="hub-card-sub">' + (inactive ? 'Deactivated' : (c.memberCount ? (c.memberCount + ' member' + (c.memberCount === 1 ? '' : 's')) : 'Company workspace')) + '</div></div>' +
-    (c.role === 'admin' ? '<span class="badge badge-blue">admin</span>' : '') + '</div>' +
+    (c.role === 'admin' ? '<span class="badge badge-blue">Admin</span>' : '') + '</div>' +
     '<div class="hub-modules">' + _hubModuleBadges() + '</div>' + actions + '</div>';
 }
 function _hubRenderCompanyCards() {
@@ -3324,21 +3410,65 @@ async function acceptInviteBtn(inviteId) {
     try { pmToast('Could not join: ' + ({ email_mismatch: 'This invite is for a different email.', invite_used: 'This invite was already used.', invite_expired: 'This invite has expired.' }[String(e.message)] || (e.message || e))); } catch (_) {}
   }
 }
-// Company switcher (within the active org) + All workspaces.
+// Elegant workspace switcher: shows the active company + org, and a grouped menu of every
+// organization → company the user belongs to, plus "All workspaces…" (and Create for super-admins).
 function renderOrgSwitcher() {
   const el = document.getElementById('orgSwitcher'); if (!el) return;
   if (!ACTIVE_ORG || !ACTIVE_COMPANY) { el.style.display = 'none'; return; }
   el.style.display = '';
-  const cos = (_myOrgs[ACTIVE_ORG] && _myOrgs[ACTIVE_ORG].companies) || {};
-  const ids = Object.keys(cos);
-  let opts = ids.length
-    ? ids.map(cid => '<option value="co::' + cid + '"' + (cid === ACTIVE_COMPANY ? ' selected' : '') + '>' + escHtml((cos[cid] && cos[cid].name) || 'Company') + '</option>').join('')
-    : '<option value="co::' + ACTIVE_COMPANY + '" selected>' + escHtml(_companyName || 'Company') + '</option>';
-  el.innerHTML = opts + '<option value="__hub__">All workspaces…</option>';
+  const activeCo = _companyName || ((_myOrgs[ACTIVE_ORG] && _myOrgs[ACTIVE_ORG].companies && _myOrgs[ACTIVE_ORG].companies[ACTIVE_COMPANY] || {}).name) || 'Workspace';
+  const activeOrgNm = _orgName || (_myOrgs[ACTIVE_ORG] && _myOrgs[ACTIVE_ORG].name) || '';
+  // Organizations to list: everything the user belongs to, plus the active one (super-admin oversight).
+  const orgIds = Object.keys(_myOrgs || {});
+  if (ACTIVE_ORG && orgIds.indexOf(ACTIVE_ORG) < 0) orgIds.unshift(ACTIVE_ORG);
+  let menu = '';
+  orgIds.forEach(oid => {
+    const info = _myOrgs[oid] || {};
+    const cos = info.companies || {};
+    let cids = Object.keys(cos);
+    if (oid === ACTIVE_ORG && cids.indexOf(ACTIVE_COMPANY) < 0) cids = cids.concat(ACTIVE_COMPANY);   // ensure active shows
+    if (!cids.length) return;
+    menu += '<div class="wsw-sec">' + escHtml(info.name || activeOrgNm || 'Organization') + (info.orgAdmin ? ' · admin' : '') + '</div>';
+    cids.forEach(cid => {
+      const nm = (cos[cid] && cos[cid].name) || (oid === ACTIVE_ORG && cid === ACTIVE_COMPANY ? activeCo : '') || 'Workspace';
+      const role = (cos[cid] && cos[cid].role) || '';
+      const active = (oid === ACTIVE_ORG && cid === ACTIVE_COMPANY);
+      menu += '<button type="button" class="wsw-item' + (active ? ' active' : '') + '" onclick="switchWorkspace(\'' + oid + '\',\'' + cid + '\')">' +
+        '<span class="wsw-logo" style="background:' + _hubColor(nm) + '">' + escHtml(_avatarInitial(nm)) + '</span>' +
+        '<span class="wsw-item-main"><div class="wsw-item-name">' + escHtml(nm) + '</div>' + (role ? '<div class="wsw-item-sub">' + escHtml(role) + '</div>' : '') + '</span>' +
+        (active ? ic('check', 16, 'wsw-check') : '') + '</button>';
+    });
+  });
+  menu += '<div class="wsw-div"></div>';
+  if (typeof isPlatformAdmin === 'function' && isPlatformAdmin()) menu += '<button type="button" class="wsw-item wsw-foot" onclick="closeWsw();openModal(\'newOrg\')">' + ic('plus', 15) + ' New organization</button>';
+  menu += '<button type="button" class="wsw-item wsw-foot" onclick="closeWsw();backToHub()">' + ic('briefcase', 15) + ' All workspaces…</button>';
+  el.innerHTML =
+    '<button type="button" class="wsw-trigger" onclick="toggleWsw(event)" title="Switch workspace">' +
+      '<span class="wsw-logo" style="background:' + _hubColor(activeCo) + '">' + escHtml(_avatarInitial(activeCo)) + '</span>' +
+      '<span class="wsw-labels"><span class="wsw-co">' + escHtml(activeCo) + '</span>' + (activeOrgNm && activeOrgNm !== activeCo ? '<span class="wsw-org">' + escHtml(activeOrgNm) + '</span>' : '') + '</span>' +
+      ic('chevdown', 15, 'wsw-chev') +
+    '</button>' +
+    '<div class="wsw-menu hidden" id="wswMenu">' + menu + '</div>';
 }
-function onOrgSwitch(v) {
-  if (v === '__hub__') { try { renderOrgSwitcher(); } catch (e) {} backToHub(); return; }
-  if (v && v.indexOf('co::') === 0) { const cid = v.slice(4); if (cid && cid !== ACTIVE_COMPANY) { _persistActive(ACTIVE_ORG, cid); location.reload(); } }
+function toggleWsw(e) {
+  if (e) e.stopPropagation();
+  const w = document.getElementById('orgSwitcher'), m = document.getElementById('wswMenu'); if (!w || !m) return;
+  if (!m.classList.contains('hidden')) { closeWsw(); return; }
+  m.classList.remove('hidden'); w.classList.add('open');
+  setTimeout(() => document.addEventListener('click', _wswOutside), 0);
+  document.addEventListener('keydown', _wswEsc);
+}
+function closeWsw() {
+  const w = document.getElementById('orgSwitcher'), m = document.getElementById('wswMenu');
+  if (m) m.classList.add('hidden'); if (w) w.classList.remove('open');
+  document.removeEventListener('click', _wswOutside); document.removeEventListener('keydown', _wswEsc);
+}
+function _wswOutside(e) { const w = document.getElementById('orgSwitcher'); if (w && !w.contains(e.target)) closeWsw(); }
+function _wswEsc(e) { if (e.key === 'Escape') closeWsw(); }
+function switchWorkspace(orgId, companyId) {
+  closeWsw();
+  if (orgId === ACTIVE_ORG && companyId === ACTIVE_COMPANY) return;   // already here
+  _persistActive(orgId, companyId); location.reload();               // clean re-scope
 }
 
 auth.onAuthStateChanged(async user => {
@@ -5549,6 +5679,7 @@ function renderWatchlistTab() {
 }
 
 // ── User Alerts ──
+let _editAlertId = null;   // set while editing an existing alert; null = creating a new one
 function loadUserAlerts() {
   if (!UID) return;
   alertsCol().onSnapshot(snap => {
@@ -5557,9 +5688,41 @@ function loadUserAlerts() {
   });
 }
 function renderUserAlerts() {
-  const el = document.getElementById('userAlertsBody');
-  if (!userAlerts.length) { el.innerHTML = emptyState('bell', 'No alerts set', 'Create price or news alerts for your tickers'); return; }
-  el.innerHTML = userAlerts.map(a => '<div class="alert-crd"><div class="alert-body"><div class="alert-tkr">' + escHtml(a.ticker || '—') + '</div><div class="alert-cond">' + escHtml(alertCondLabel(a.condition || a.type, a.value)) + '</div>' + (a.note ? '<div style="font-size:11px;color:var(--text-3);margin-top:2px;">' + escHtml(a.note) + '</div>' : '') + '</div><button class="alert-del" onclick="deleteAlert(\'' + a.id + '\')">Delete</button></div>').join('');
+  const el = document.getElementById('userAlertsBody'); if (!el) return;
+  // Rules the user has configured (Edit / Delete). Empty state only when there are NO rules AND nothing firing.
+  const rulesHtml = userAlerts.length
+    ? '<div class="alert-sec-hd">Your alert rules <span class="alert-sec-cnt">' + userAlerts.length + '</span></div>' +
+      userAlerts.map(a => '<div class="alert-crd"><div class="alert-body"><div class="alert-tkr">' + escHtml(a.ticker || '—') + '</div><div class="alert-cond">' + escHtml(alertCondLabel(a.condition || a.type, a.value)) + '</div>' + (a.note ? '<div style="font-size:11px;color:var(--text-3);margin-top:2px;">' + escHtml(a.note) + '</div>' : '') + '</div><div class="alert-actions"><button class="alert-edit" onclick="editAlert(\'' + a.id + '\')">Edit</button><button class="alert-del" onclick="deleteAlert(\'' + a.id + '\')">Delete</button></div></div>').join('')
+    : '';
+  el.innerHTML = '<div id="triggeredAlerts"></div><div id="alertRulesSection">' + rulesHtml + '</div>';
+  renderTriggeredAlerts(true);
+  // Warm live quotes for alert tickers so the client-side evaluation can actually fire on this tab
+  // (server-fired `user_alert` notifications show regardless; this covers the live-eval path too).
+  try {
+    const need = [...new Set((userAlerts || []).map(a => (a.ticker || '').toUpperCase()).filter(Boolean))].filter(t => !liveEntry(t));
+    if (need.length) fetchLivePrices(need).then(() => refreshDerivedNotifs()).catch(() => {});
+  } catch (e) {}
+}
+// The alerts that are currently FIRING, surfaced at the top of the Alerts tab as rich, clickable rows
+// (same enriched detail as the notification center). Re-renders only when the firing set changes, so the
+// 90s derived-notif refresh doesn't re-animate the list. `force` re-renders after a full tab repaint.
+let _firedAlertSig = '';
+function renderTriggeredAlerts(force) {
+  const host = document.getElementById('triggeredAlerts'); if (!host) return;
+  const fired = buildNotifFeed().filter(it => it.cat === 'alert');
+  const sig = fired.map(f => f.key + (f.read ? '1' : '0')).join('|');
+  if (!force && sig === _firedAlertSig) return;   // nothing new fired → leave it (and its entrance animation) alone
+  _firedAlertSig = sig;
+  // If nothing is firing, show a friendly "all clear" note only when the user has rules; otherwise the
+  // rules section's own empty state below covers it.
+  if (!fired.length) {
+    host.innerHTML = userAlerts.length
+      ? '<div class="alert-sec-hd">Triggered alerts</div><div class="pf-filter-note" style="max-width:640px;margin-bottom:22px;">No alerts are firing right now — you\'ll see them here (and get notified) the moment one triggers.</div>'
+      : emptyState('bell', 'No alerts set', 'Create price or news alerts for your tickers, and any that trigger will appear here.');
+    return;
+  }
+  host.innerHTML = '<div class="alert-sec-hd"><span class="alert-live-dot"></span>Triggered alerts <span class="alert-sec-cnt">' + fired.length + '</span></div>' +
+    '<div class="alert-fired-list' + (_reduceMotion ? '' : ' alert-fired-enter') + '">' + fired.map(notifRowHtml).join('') + '</div>';
 }
 // Adapt the value field to the chosen condition (label, placeholder, hint, visibility).
 function onAlertCondChange() {
@@ -5588,8 +5751,11 @@ function submitAlert() {
   const condition = document.getElementById('alertCond').value;
   const value = document.getElementById('alertVal').value;
   const note = document.getElementById('alertNote').value;
-  if (createAlert(ticker, condition, value, note)) closeModal();
+  const ok = _editAlertId ? updateAlert(_editAlertId, ticker, condition, value, note) : createAlert(ticker, condition, value, note);
+  if (ok) { _editAlertId = null; closeModal(); }
 }
+function newAlertModal() { _editAlertId = null; openModal('newAlert'); }
+function editAlert(id) { _editAlertId = id; openModal('newAlert'); }
 function createAlert(ticker, condition, value, note) {
   if (!UID) return false;
   if (!permGuard('stocks', 'write')) return false;
@@ -5604,6 +5770,21 @@ function createAlert(ticker, condition, value, note) {
   alertsCol().add({ ticker, condition, value, note: (note || '').trim(), created: new Date().toISOString() });
   return true;
 }
+// Update an existing alert. Numeric conditions revalidate; legacy/event conditions keep their value as-is.
+function updateAlert(id, ticker, condition, value, note) {
+  if (!UID || !id) return false;
+  if (!permGuard('stocks', 'write')) return false;
+  ticker = (ticker || '').trim().toUpperCase();
+  if (!ticker) { researchShake(document.getElementById('alertTicker')); return false; }
+  if (['price_above', 'price_below', 'pct_above', 'pct_below'].includes(condition)) {
+    let num = parseFloat(String(value || '').replace(/[^0-9.\-]/g, ''));
+    if (!isFinite(num)) { researchShake(document.getElementById('alertVal')); return false; }
+    if (condition === 'pct_above' || condition === 'pct_below') num = Math.abs(num);
+    value = String(num);
+  } else if (condition === 'news') { value = ''; }
+  alertsCol().doc(id).update({ ticker, condition, value: value || '', note: (note || '').trim() });
+  return true;
+}
 // Human-readable description of an alert condition for the alert card.
 function alertCondLabel(cond, value) {
   switch (cond) {
@@ -5612,8 +5793,13 @@ function alertCondLabel(cond, value) {
     case 'pct_above': return 'Up ' + value + '%+ on the day';
     case 'pct_below': return 'Down ' + value + '%+ on the day';
     case 'pct_change': return 'Moves ' + value + '%+ on the day';
+    case 'price_rise_pct': return 'Up ' + (value || '') + '%+ on the day';
+    case 'price_momentum': return 'Price momentum';
+    case 'analyst_upgrade': return 'Analyst upgrade';
+    case 'near_52w_high': return 'Near 52-week high';
     case 'news': return 'Breaking news';
-    default: return (cond || 'Alert') + (value ? ' · ' + value : '');
+    // Graceful fallback for any other stored condition: snake_case → sentence case.
+    default: return ((cond || 'Alert').replace(/_/g, ' ').replace(/^./, c => c.toUpperCase())) + (value ? ' · ' + value : '');
   }
 }
 function deleteAlert(alertId) {
@@ -5688,6 +5874,18 @@ function loadNotifications() {
 // Read-state for client-derived items (server items use their Firestore `read`): a localStorage key set.
 function _notifSeen() { try { return new Set(JSON.parse(localStorage.getItem('notifSeenKeys') || '[]')); } catch (e) { return new Set(); } }
 function _addNotifSeen(keys) { try { const s = _notifSeen(); keys.forEach(k => s.add(k)); localStorage.setItem('notifSeenKeys', JSON.stringify([...s].slice(-600))); } catch (e) {} }
+// Stable first-seen timestamp for client-derived notifs: derived feeds rebuild every ~90s, so stamping
+// Date.now() each rebuild made everything read "1m ago". This caches a fixed ms per notif key (localStorage),
+// so a derived item keeps the time it first appeared (news passes its real publish time as the preferred ts).
+let _derivedTsMap = null;
+function _derivedTs(key, preferredTs) {
+  if (!_derivedTsMap) { try { _derivedTsMap = JSON.parse(localStorage.getItem('notifTsSeen') || '{}') || {}; } catch (e) { _derivedTsMap = {}; } }
+  if (_derivedTsMap[key]) return _derivedTsMap[key];
+  const ts = preferredTs || Date.now();
+  _derivedTsMap[key] = ts;
+  try { const keys = Object.keys(_derivedTsMap); if (keys.length > 700) { const trimmed = {}; keys.sort((a, b) => _derivedTsMap[b] - _derivedTsMap[a]).slice(0, 600).forEach(k => trimmed[k] = _derivedTsMap[k]); _derivedTsMap = trimmed; } localStorage.setItem('notifTsSeen', JSON.stringify(_derivedTsMap)); } catch (e) {}
+  return ts;
+}
 function _notifTs(n) {
   if (n.createdAt && n.createdAt.seconds) return n.createdAt.seconds * 1000;
   if (n.createdAt && typeof n.createdAt.toMillis === 'function') { try { return n.createdAt.toMillis(); } catch (e) {} }
@@ -5700,11 +5898,12 @@ function _dayLabel(ts) {
   const y = new Date(now); y.setDate(y.getDate() - 1); if (sd(d) === sd(y)) return 'Yesterday';
   return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 }
-function _notifIcon(cat) { return { portfolio: 'briefcase', alert: 'bell', breaking: 'spark', market: 'newspaper', earnings: 'calendar', explore: 'compass', reminder: 'file', macro: 'bell' }[cat] || 'bell'; }
+function _notifIcon(cat) { return { portfolio: 'briefcase', alert: 'bell', watchlist: 'eye', breaking: 'spark', market: 'newspaper', earnings: 'calendar', explore: 'compass', reminder: 'file', macro: 'bell' }[cat] || 'bell'; }
 const NOTIF_CATS = [
   { key: 'all', label: 'All' },
   { key: 'portfolio', label: 'Portfolio' },
   { key: 'alert', label: 'My alerts' },
+  { key: 'watchlist', label: 'Watchlist' },
   { key: 'breaking', label: 'Breaking' },
   { key: 'market', label: 'Market' },
   { key: 'earnings', label: 'Earnings' },
@@ -5715,6 +5914,7 @@ const NOTIF_CATS = [
 function notifCategory(n) {
   const t = n.type || '';
   if (t === 'user_alert') return 'alert';
+  if (t === 'watchlist_move') return 'watchlist';
   if (t === 'price_move') return 'portfolio';
   if (t === 'market_move') return 'market';
   if (t === 'earnings_alert') return 'earnings';
@@ -5723,7 +5923,7 @@ function notifCategory(n) {
   return 'macro';   // premarket_digest + anything else
 }
 function notifBadge(cat) {
-  const map = { portfolio: ['Portfolio', 'badge-blue'], alert: ['My alert', 'badge-blue'], breaking: ['Breaking', 'badge-red'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], explore: ['Explore', 'badge-green'], reminder: ['Reminder', 'badge-yellow'], macro: ['Digest', 'badge-gray'] };
+  const map = { portfolio: ['Portfolio', 'badge-blue'], alert: ['My alert', 'badge-blue'], watchlist: ['Watchlist', 'badge-green'], breaking: ['Breaking', 'badge-red'], market: ['Market', 'badge-yellow'], earnings: ['Earnings', 'badge-green'], explore: ['Explore', 'badge-green'], reminder: ['Reminder', 'badge-yellow'], macro: ['Digest', 'badge-gray'] };
   const m = map[cat] || ['Alert', 'badge-gray'];
   return '<span class="badge ' + m[1] + '">' + m[0] + '</span>';
 }
@@ -5747,15 +5947,42 @@ async function refreshDerivedNotifs() {
     try { if (UID) held = [...new Set((await gatherUserHoldings('all')).map(h => h.ticker).filter(Boolean))]; } catch (e) {}
     const day = new Date().toISOString().slice(0, 10);
     const movers = [];
-    held.forEach(t => { const e = liveEntry(t), c = e && e.changePct; if (c != null && Math.abs(c) >= 0.25) movers.push({ key: 'mv:' + t + ':' + day, cat: 'portfolio', ticker: t, pct: c, title: t + ' ' + (c >= 0 ? '+' : '') + c.toFixed(2) + '% today', body: 'Your holding ' + t + ' is ' + (c >= 0 ? 'up' : 'down') + ' ' + Math.abs(c).toFixed(2) + '% so far today.', ts: Date.now() }); });
+    held.forEach(t => { const e = liveEntry(t), c = e && e.changePct; if (c != null && Math.abs(c) >= 0.25) movers.push({ key: 'mv:' + t + ':' + day, cat: 'portfolio', ticker: t, pct: c, title: t + ' ' + (c >= 0 ? '+' : '') + c.toFixed(2) + '% today', body: 'Your holding ' + t + ' is ' + (c >= 0 ? 'up' : 'down') + ' ' + Math.abs(c).toFixed(2) + '% so far today.', ts: _derivedTs('mv:' + t + ':' + day) }); });
     movers.sort((a, b) => Math.abs(b.pct) - Math.abs(a.pct));
+    // Live-evaluate the user's own alerts against current prices, so a triggered alert appears in the
+    // "My alerts" tab immediately (no waiting for the 15-min server job). Collapses with the server twin.
+    const alerts = [];
+    (userAlerts || []).forEach(a => {
+      const cond = a.condition || a.type, ticker = (a.ticker || '').toUpperCase();
+      if (!ticker || cond === 'news') return;   // news alerts need a server-side headline fetch
+      const e = liveEntry(ticker); if (!e || e.price == null) return;
+      const v = parseFloat(String(a.value || '').replace(/[^0-9.\-]/g, '')); if (!isFinite(v)) return;
+      const px = e.price, dp = (e.changePct != null ? e.changePct : null);
+      let hit = false;
+      if (cond === 'price_above') hit = px >= v;
+      else if (cond === 'price_below') hit = px <= v;
+      else if (cond === 'pct_above') hit = dp != null && dp >= v;
+      else if (cond === 'pct_below') hit = dp != null && dp <= -v;
+      if (!hit) return;
+      const key = 'al:' + a.id + ':' + day;
+      const dpTxt = dp != null ? (' (' + (dp >= 0 ? '+' : '') + dp.toFixed(2) + '% today)') : '';
+      alerts.push({ key, cat: 'alert', ticker, pct: dp, title: ticker + ' · ' + alertCondLabel(cond, a.value),
+        body: ticker + ' is at ' + dollarFmt(px) + dpTxt + ' — your alert "' + alertCondLabel(cond, a.value) + '" has triggered.' + (a.note ? ' Note: ' + a.note : ''),
+        alert: { condition: cond, value: v, note: a.note || '', price: px }, ts: _derivedTs(key) });
+    });
+    // Watched (non-held) tickers with a notable daily move → "Watchlist" tab. Capped to limit noise.
+    const heldSet = new Set(held);
+    const watchTix = [...new Set((watchlists || []).flatMap(w => (w.tickers || []).map(t => (t || '').toUpperCase())).filter(Boolean))].filter(t => !heldSet.has(t));
+    let watch = [];
+    watchTix.forEach(t => { const e = liveEntry(t), c = e && e.changePct; if (c != null && Math.abs(c) >= 3) { const key = 'wl:' + t + ':' + day; watch.push({ key, cat: 'watchlist', ticker: t, pct: c, title: t + ' ' + (c >= 0 ? '+' : '') + c.toFixed(2) + '% today', body: 'On your watchlist — ' + t + ' is ' + (c >= 0 ? 'up' : 'down') + ' ' + Math.abs(c).toFixed(2) + '% so far today.', ts: _derivedTs(key) }); } });
+    watch.sort((a, b) => Math.abs(b.pct) - Math.abs(a.pct)); watch = watch.slice(0, 8);
     const explore = [];
     try {
       const stocks = (D && D.stocks) || [], wc = stocks.map(s => ({ s, chg: _expChange(s.ticker) })).filter(x => x.chg != null);
       if (wc.length) {
         const g = wc.slice().sort((a, b) => b.chg - a.chg)[0], l = wc.slice().sort((a, b) => a.chg - b.chg)[0];
-        if (g && g.chg > 0) explore.push({ key: 'ex:g:' + day, cat: 'explore', ticker: g.s.ticker, title: 'Top mover today: ' + g.s.ticker + ' +' + g.chg.toFixed(1) + '%', body: (g.s.name || g.s.ticker) + ' leads the scan universe today.', ts: Date.now() });
-        if (l && l.chg < 0 && l.s.ticker !== (g && g.s.ticker)) explore.push({ key: 'ex:l:' + day, cat: 'explore', ticker: l.s.ticker, title: 'Biggest decliner: ' + l.s.ticker + ' ' + l.chg.toFixed(1) + '%', body: (l.s.name || l.s.ticker) + ' is down the most today.', ts: Date.now() });
+        if (g && g.chg > 0) explore.push({ key: 'ex:g:' + day, cat: 'explore', ticker: g.s.ticker, title: 'Top mover today: ' + g.s.ticker + ' +' + g.chg.toFixed(1) + '%', body: (g.s.name || g.s.ticker) + ' leads the scan universe today.', ts: _derivedTs('ex:g:' + day) });
+        if (l && l.chg < 0 && l.s.ticker !== (g && g.s.ticker)) explore.push({ key: 'ex:l:' + day, cat: 'explore', ticker: l.s.ticker, title: 'Biggest decliner: ' + l.s.ticker + ' ' + l.chg.toFixed(1) + '%', body: (l.s.name || l.s.ticker) + ' is down the most today.', ts: _derivedTs('ex:l:' + day) });
       }
     } catch (e) {}
     if (Date.now() - _lastNotifNewsAt > 300000) {
@@ -5763,16 +5990,18 @@ async function refreshDerivedNotifs() {
       try {
         const d = await fetch(GETNEWS_API + (held.length ? '?symbols=' + encodeURIComponent(held.slice(0, 8).join(',')) : '')).then(r => r.json());
         const ns = [];
-        (d.portfolio || []).slice(0, 12).forEach(n => ns.push({ key: 'pn:' + (n.url || n.title), cat: 'portfolio', ticker: (n.tickers || [])[0] || '', title: n.title || '', body: n.summary || '', url: n.url || '', ts: (n.datetime ? n.datetime * 1000 : Date.now()) }));
-        (d.market || []).slice(0, 8).forEach(n => ns.push({ key: 'mn:' + (n.url || n.title), cat: 'market', ticker: (n.tickers || [])[0] || '', title: n.title || '', body: n.summary || '', url: n.url || '', ts: (n.datetime ? n.datetime * 1000 : Date.now()) }));
+        (d.portfolio || []).slice(0, 12).forEach(n => ns.push({ key: 'pn:' + (n.url || n.title), cat: 'portfolio', ticker: (n.tickers || [])[0] || '', title: n.title || '', body: n.summary || '', url: n.url || '', ts: _derivedTs('pn:' + (n.url || n.title), n.datetime ? n.datetime * 1000 : Date.now()) }));
+        (d.market || []).slice(0, 8).forEach(n => ns.push({ key: 'mn:' + (n.url || n.title), cat: 'market', ticker: (n.tickers || [])[0] || '', title: n.title || '', body: n.summary || '', url: n.url || '', ts: _derivedTs('mn:' + (n.url || n.title), n.datetime ? n.datetime * 1000 : Date.now()) }));
         _newsNotifs = ns;
       } catch (e) {}
     }
     let reminders = []; try { reminders = _loanReminders(); } catch (e) {}
-    _derivedNotifs = [...movers, ...explore, ..._newsNotifs, ...reminders];
+    _derivedNotifs = [...alerts, ...movers, ...watch, ...explore, ..._newsNotifs, ...reminders];
   } finally { _refreshingNotifs = false; }
   updateNotifBadge();
   const p = document.getElementById('notifPanel'); if (p && !p.classList.contains('hidden')) renderNotifPanel();
+  // Keep the Alerts tab's "Triggered alerts" section live as the firing set changes.
+  const at = document.getElementById('tab-useralerts'); if (at && at.classList.contains('active')) renderTriggeredAlerts();
 }
 function updateNotifBadge() {
   const unread = buildNotifFeed().filter(it => !it.read).length;
@@ -5791,20 +6020,57 @@ function notifRowHtml(it) {
   const t = it.ts ? timeAgo(Math.floor(it.ts / 1000)) : '';
   const pctTxt = (it.pct != null && !isNaN(it.pct)) ? '<span class="' + (it.pct >= 0 ? 'pos' : 'neg') + '" style="font-weight:700;margin-left:6px">' + pctFmt(it.pct) + '</span>' : '';
   const ext = it.url ? '<a class="notif-ext" href="' + escHtml(it.url) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Open story">↗</a>' : '';
-  return '<div class="notif-row' + (it.read ? '' : ' unread') + '" onclick="onNotifClick(\'' + escHtml(it.key) + '\')">' + av +
+  return '<div class="notif-row' + (it.read ? '' : ' unread') + '" onclick="openNotifDetail(\'' + escHtml(it.key) + '\')">' + av +
     '<div class="notif-main"><div class="notif-t">' + escHtml(it.title) + pctTxt + (it.read ? '' : '<span class="notif-udot"></span>') + '</div>' +
     (it.body ? '<div class="notif-b">' + escHtml(it.body) + '</div>' : '') +
     '<div class="notif-meta">' + notifBadge(it.cat) + (t ? '<span>' + t + '</span>' : '') + '</div></div>' + ext + '</div>';
 }
-function onNotifClick(key) {
+// Clicking a notification opens an ENRICHED detail view (what happened + live context + explicit
+// actions) instead of blindly redirecting. Navigation to Research/Loans/article is a deliberate button.
+let _notifDetailIt = null;
+function openNotifDetail(key) {
   const it = buildNotifFeed().find(x => x.key === key); if (!it) return;
   if (it.persisted && it.id) markNotifRead(it.id); else _addNotifSeen([it.key]);
-  if (it.url) window.open(it.url, '_blank', 'noopener');
-  else if (it.loanId) { closeNotifPanel(); sw('loans'); openLoan(it.loanId); }
-  else if (it.ticker) { closeNotifPanel(); goResearch(it.ticker); }
+  _notifDetailIt = it;
+  closeNotifPanel();
+  openModal('notifDetail');
   updateNotifBadge();
-  const p = document.getElementById('notifPanel'); if (p && !p.classList.contains('hidden')) renderNotifPanel();
   if (document.getElementById('tab-premarket').classList.contains('active')) renderNotifications();
+  // Best-effort live-price fetch if we don't have a cached quote for this ticker, then re-render the modal.
+  if (it.ticker && !liveEntry(it.ticker)) {
+    try { fetchLivePrices([it.ticker]).then(() => { const box = document.getElementById('modalBox'); if (_notifDetailIt === it && box && !document.getElementById('modalOverlay').classList.contains('hidden')) box.innerHTML = _notifDetailHtml(it); }).catch(() => {}); } catch (e) {}
+  }
+}
+function _notifDetailHtml(it) {
+  if (!it) return '';
+  const e = it.ticker ? liveEntry(it.ticker) : null;
+  const logo = it.ticker ? stockLogoHtml(it.ticker, 'notif-av') : '<span class="notif-av notif-ic">' + ic(_notifIcon(it.cat), 18) + '</span>';
+  const when = it.ts ? timeAgo(Math.floor(it.ts / 1000)) : '';
+  let quote = '';
+  if (it.ticker && e && e.price != null) {
+    const dp = e.changePct;
+    quote = '<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:12px;">' +
+      '<span style="font-weight:700;font-size:18px">' + dollarFmt(e.price) + '</span>' +
+      (dp != null ? ' <span class="' + (dp >= 0 ? 'pos' : 'neg') + '" style="font-weight:700">' + pctFmt(dp) + ' today</span>' : '') +
+      (e.prev != null ? ' <span class="ht-sub">· prev close ' + dollarFmt(e.prev) + '</span>' : '') + '</div>';
+  } else if (it.ticker) { quote = '<div class="ht-sub" style="margin-bottom:12px">Fetching live price…</div>'; }
+  let extra = '';
+  if (it.alert) {
+    extra = '<div style="margin-top:10px;font-size:13px;color:var(--text-2)"><b>Alert triggered:</b> ' + escHtml(alertCondLabel(it.alert.condition, it.alert.value)) +
+      (it.alert.price != null ? ' — now ' + dollarFmt(it.alert.price) : '') +
+      (it.alert.note ? '<br><span class="ht-sub">Your note: ' + escHtml(it.alert.note) + '</span>' : '') + '</div>';
+  }
+  const acts = [];
+  if (it.url) acts.push('<a class="modal-btn modal-btn-primary" href="' + escHtml(it.url) + '" target="_blank" rel="noopener">Read full article ↗</a>');
+  if (it.ticker) acts.push('<button class="modal-btn ' + (it.url ? 'modal-btn-cancel' : 'modal-btn-primary') + '" onclick="closeModal();goResearch(\'' + escHtml(it.ticker) + '\')">View ' + escHtml(it.ticker) + '</button>');
+  if (it.loanId) acts.push('<button class="modal-btn modal-btn-primary" onclick="closeModal();sw(\'loans\');openLoan(\'' + escHtml(it.loanId) + '\')">View loan</button>');
+  acts.push('<button class="modal-btn modal-btn-cancel" onclick="closeModal()">Close</button>');
+  return '<div class="modal-title" style="display:flex;align-items:center;gap:10px">' + logo + '<span style="flex:1;min-width:0">' + escHtml(it.title) + '</span></div>' +
+    '<div style="display:flex;align-items:center;gap:8px;margin:-6px 0 12px">' + notifBadge(it.cat) + (when ? '<span class="ht-sub">' + when + '</span>' : '') + '</div>' +
+    quote +
+    (it.body ? '<div style="font-size:14px;line-height:1.6;color:var(--text-2);white-space:pre-wrap">' + escHtml(it.body) + '</div>' : '') +
+    extra +
+    '<div class="modal-footer">' + acts.join('') + '</div>';
 }
 function renderNotifPanel() {
   const host = document.getElementById('notifPanelBody'); if (!host) return;
@@ -6823,12 +7089,12 @@ function _loanReminders() {
     const np = loanNextPayment(l), dp = daysUntil(np);
     if (dp != null && dp <= 5 && dp >= -14) {   // stop nagging after ~2 weeks overdue (still shown on the dashboard)
       const overdue = dp < 0;
-      out.push({ key: 'loan:' + l.id + ':pay:' + np, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: Date.now(),
+      out.push({ key: 'loan:' + l.id + ':pay:' + np, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: _derivedTs('loan:' + l.id + ':pay:' + np),
         title: (overdue ? 'OVERDUE payment — ' : 'Payment due soon — ') + title0,
         body: (overdue ? 'Payment was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'Payment due today' : 'Payment due in ' + dp + ' day(s)')) + ' · ' + dollarFmt(loanOutstanding(l)) + ' outstanding.' });
     }
     const dm = daysUntil(l.maturityDate);
-    if (dm != null && dm >= 0 && dm <= 7) out.push({ key: 'loan:' + l.id + ':mat:' + l.maturityDate, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: Date.now(), title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + fmtDate(l.maturityDate) + '.' });
+    if (dm != null && dm >= 0 && dm <= 7) out.push({ key: 'loan:' + l.id + ':mat:' + l.maturityDate, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: _derivedTs('loan:' + l.id + ':mat:' + l.maturityDate), title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + fmtDate(l.maturityDate) + '.' });
   });
   return out;
 }
@@ -6876,6 +7142,8 @@ function openModal(type) {
       '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>' +
       (m.uid ? '<button class="modal-btn modal-btn-primary" id="mpSaveBtn" onclick="saveManagePersonal()">Save access</button>' : '') + '</div>' +
       '<div class="modal-danger-row"><button class="modal-btn modal-btn-danger-outline" onclick="removePersonalWorkspace()">Remove workspace</button></div>';
+  } else if (type === 'notifDetail') {
+    box.innerHTML = _notifDetailHtml(_notifDetailIt);
   } else if (type === 'inviteMember' || type === 'editMember') {
     box.innerHTML = memberFormModal(type === 'editMember' ? 'edit' : 'invite');
     setTimeout(() => { const i = document.getElementById(type === 'editMember' ? 'mRole' : 'mEmail'); if (i) i.focus(); }, 0);
@@ -6900,14 +7168,27 @@ function openModal(type) {
       '<label class="modal-label">Ticker</label><div class="ac-wrap"><input id="wlTickerInput" class="modal-input" placeholder="e.g. NVDA" oninput="acFilter(this,\'wlAC\',\'addWL\')" onkeydown="acKey(event,\'wlAC\',\'addWL\')" autocomplete="off"/><div id="wlAC" class="ac-list" style="display:none"></div></div>' +
       '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="addTickerToWL(currentWLId,document.getElementById(\'wlTickerInput\').value);closeModal()">Add</button></div>';
   } else if (type === 'newAlert') {
-    box.innerHTML = '<div class="modal-title">New alert</div>' +
+    const ed = _editAlertId ? (userAlerts.find(a => a.id === _editAlertId) || null) : null;
+    const curCond = ed ? (ed.condition || ed.type || 'price_above') : 'price_above';
+    const std = ['price_above', 'price_below', 'pct_above', 'pct_below', 'news'];
+    let condOpts = '<option value="price_above">Price above ($)</option><option value="price_below">Price below ($)</option><option value="pct_above">% change above (up by)</option><option value="pct_below">% change below (down by)</option><option value="news">Breaking news</option>';
+    if (ed && !std.includes(curCond)) condOpts = '<option value="' + escHtml(curCond) + '" selected>' + escHtml(alertCondLabel(curCond, ed.value)) + '</option>' + condOpts;
+    box.innerHTML = '<div class="modal-title">' + (ed ? 'Edit alert' : 'New alert') + '</div>' +
       '<label class="modal-label">Ticker</label><div class="ac-wrap"><input id="alertTicker" class="modal-input" placeholder="e.g. TSLA" oninput="acFilter(this,\'alertAC\',\'alert\')" onkeydown="acKey(event,\'alertAC\',\'alert\')" autocomplete="off"/><div id="alertAC" class="ac-list" style="display:none"></div></div>' +
-      '<label class="modal-label">Condition</label><select id="alertCond" class="modal-input" onchange="onAlertCondChange()"><option value="price_above">Price above ($)</option><option value="price_below">Price below ($)</option><option value="pct_above">% change above (up by)</option><option value="pct_below">% change below (down by)</option><option value="news">Breaking news</option></select>' +
+      '<label class="modal-label">Condition</label><select id="alertCond" class="modal-input" onchange="onAlertCondChange()">' + condOpts + '</select>' +
       '<label class="modal-label" id="alertValLabel">Target price ($)</label><input id="alertVal" class="modal-input" type="text" inputmode="decimal" placeholder="e.g. 200"/>' +
       '<div class="modal-price-hint" id="alertValHint" style="margin:-2px 0 0;">Notify me when the price reaches this level.</div>' +
       '<label class="modal-label">Note (optional)</label><input id="alertNote" class="modal-input" placeholder="Optional note (e.g. why you&#39;re watching this level)"/>' +
-      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitAlert()">Create</button></div>';
-    setTimeout(onAlertCondChange, 0);
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitAlert()">' + (ed ? 'Save changes' : 'Create') + '</button></div>';
+    setTimeout(() => {
+      if (ed) {
+        const tk = document.getElementById('alertTicker'); if (tk) tk.value = ed.ticker || '';
+        const cs = document.getElementById('alertCond'); if (cs) cs.value = curCond;
+        const vv = document.getElementById('alertVal'); if (vv) vv.value = (ed.value != null ? String(ed.value) : '');
+        const nt = document.getElementById('alertNote'); if (nt) nt.value = ed.note || '';
+      }
+      onAlertCondChange();
+    }, 0);
   } else if (type === 'renameWL') {
     const wl = watchlists.find(w => w.id === currentWLId);
     box.innerHTML = '<div class="modal-title">Rename watchlist</div><label class="modal-label">Name</label><input id="renameWLName" class="modal-input" value="' + escHtml((wl && wl.name) || '') + '"/><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="renameWatchlist(currentWLId,document.getElementById(\'renameWLName\').value);closeModal()">Save</button></div>';
@@ -6935,7 +7216,7 @@ function openModal(type) {
     setTimeout(() => { renderBulkChips(); const t = document.getElementById('bulkTickerInput'); if (t) t.focus(); }, 0);
   }
 }
-function closeModal() { document.getElementById('modalOverlay').classList.add('hidden'); }
+function closeModal() { _editAlertId = null; document.getElementById('modalOverlay').classList.add('hidden'); }
 function openBulkAdd(target) { _bulkTarget = target; _bulkChips = []; openModal('bulkAdd'); }
 // Parse a free-form paste into unique, cleaned tickers; flag which are recognized vs unknown (still added).
 function parseBulkTickers(raw) {
