@@ -1,0 +1,154 @@
+{
+  "scan_date": "2026-07-13",
+  "scan_time_et": "08:00 AM ET (pre-open)",
+  "market": {
+    "state": "UPTREND — cautious open",
+    "advice": "Trend is healthy underneath: SPY above its 50-day, ~70% of names above their MA50, VIX calm at 16.4. But futures are pointing lower pre-open on fresh US-Iran escalation and Strait of Hormuz risk lifting oil. Respect the uptrend, but let the open settle before chasing — favor clean bases over extended names, keep stops honest, and note energy is the one group the geopolitics is helping."
+  },
+  "picks": [
+    { "ticker": "NTRS", "signal": "STRONG BUY", "score": 94, "grade": "A", "entry": 183.55, "stop": 168.87, "target": 220.26,
+      "thesis": "Northern Trust broke to a new 52-week high out of a tight VCP base with relative strength at the highs — a clean, un-extended leadership move in financials. TradingView agrees (BUY).",
+      "strengths": ["New high on a tight VCP base", "RS line at highs, +21% 3-mo momentum", "Rising-rate/AUC tailwind for trust & custody"],
+      "risks": ["Q2 earnings in ~9 days — size accordingly", "RSI 72 is warm but not extended"] },
+
+    { "ticker": "CROX", "signal": "STRONG BUY", "score": 94, "grade": "A", "entry": 132.78, "stop": 122.16, "target": 159.34,
+      "thesis": "Crocs cleared to a new high with RSI still only mid-range (59) — plenty of room before overbought. TradingView independently rates it STRONG BUY, so quant, technicals and a second opinion all line up.",
+      "strengths": ["Fresh breakout, RSI 59 leaves runway", "+33% 3-mo momentum", "TV STRONG BUY confirmation"],
+      "risks": ["HEYDUDE brand still the soft spot", "Consumer-discretionary sensitivity if the tape turns risk-off"] },
+
+    { "ticker": "ANET", "signal": "STRONG BUY", "score": 94, "grade": "A", "entry": 186.96, "stop": 172.00, "target": 224.35,
+      "thesis": "Arista broke out with RSI 59 — the cleanest large-cap AI-networking setup on the board, not chasing. The AI data-center buildout is a direct revenue tailwind. TV: BUY.",
+      "strengths": ["New high, un-extended (RSI 59)", "AI/cloud back-end networking demand", "RS at highs"],
+      "risks": ["Hyperscaler capex is lumpy", "Earnings ~23 days out"] },
+
+    { "ticker": "MNST", "signal": "STRONG BUY", "score": 94, "grade": "A", "entry": 97.39, "stop": 89.60, "target": 116.87,
+      "thesis": "Monster is right at a 52-week high out of a tight base — a defensive-consumer leader working while the tape is jittery. TV: BUY.",
+      "strengths": ["At new highs, tight VCP", "Energy-drink category leader, pricing power", "Low-beta ballast for a risk-off open"],
+      "risks": ["RSI 71.6 approaching warm", "FX headwind on international"] },
+
+    { "ticker": "GWW", "signal": "STRONG BUY", "score": 94, "grade": "A", "entry": 1375.76, "stop": 1265.70, "target": 1650.91,
+      "thesis": "Grainger broke out with RSI a cool 52 — an industrial-distribution compounder making new highs without being extended. TV: BUY.",
+      "strengths": ["New high, RSI only 52", "Durable MRO distribution moat", "RS at highs"],
+      "risks": ["High absolute share price — position-size carefully", "Earnings ~22 days out"] },
+
+    { "ticker": "LQDA", "signal": "STRONG BUY", "score": 94, "grade": "A", "entry": 77.93, "stop": 71.70, "target": 93.52,
+      "thesis": "Liquidia is the momentum outlier — +102% 3-mo — riding the YUTREPIA approval and PAH commercialization, and it broke out with RSI still only 62. TV: BUY. Higher-risk small-cap biotech; keep it a smaller line.",
+      "strengths": ["+102% 3-mo momentum, RS strong", "YUTREPIA (treprostinil) commercial ramp", "TV BUY confirmation"],
+      "risks": ["Small-cap biotech volatility", "Litigation/competitive dynamics in PAH", "Earnings ~30 days out"] },
+
+    { "ticker": "MET", "signal": "STRONG BUY", "score": 93, "grade": "A", "entry": 91.65, "stop": 84.32, "target": 109.98,
+      "thesis": "MetLife is at a new high with RS at the highs — an insurance leader benefiting from higher-for-longer yields on its investment book. TV: BUY.",
+      "strengths": ["New high, RS at highs", "Rate tailwind for spread income", "+25% 3-mo momentum"],
+      "risks": ["RSI 66 warm", "Earnings ~24 days out"] },
+
+    { "ticker": "BKH", "signal": "STRONG BUY", "score": 93, "grade": "A", "entry": 75.21, "stop": 69.19, "target": 90.25,
+      "thesis": "Black Hills is a utility breakout that TradingView independently rates STRONG BUY — a defensive, income-y name catching a bid as the tape gets nervous. Both our scan and TV align.",
+      "strengths": ["TV STRONG BUY confirmation", "Regulated-utility defensiveness", "Clean VCP base"],
+      "risks": ["Rate-sensitive if yields spike on the oil move", "Low 3-mo momentum (+2.9%)"] },
+
+    { "ticker": "LLY", "signal": "STRONG BUY", "score": 93, "grade": "A", "entry": 1188.58, "stop": 1093.49, "target": 1426.30,
+      "thesis": "Eli Lilly is basing tightly just 3.8% off its high with RSI 65 — the mega-cap GLP-1 leader (Zepbound/Mounjaro) remains a secular grower. TV: BUY.",
+      "strengths": ["Incretin franchise still scaling", "Tight base near highs", "+27% 3-mo momentum"],
+      "risks": ["Very high share price — size carefully", "GLP-1 competitive/pricing headlines", "Earnings ~23 days out"] },
+
+    { "ticker": "FFIV", "signal": "STRONG BUY", "score": 93, "grade": "A", "entry": 430.39, "stop": 395.96, "target": 516.47,
+      "thesis": "F5 broke out on the strongest 3-mo momentum in large-cap networking (+48%) — application delivery/security demand is real. TV: BUY. RSI 74 is the one caution.",
+      "strengths": ["+48% 3-mo momentum, new high", "App security/traffic-management tailwind"],
+      "risks": ["RSI 73.9 — extended, prefer a pullback entry", "Earnings ~15 days out"] },
+
+    { "ticker": "TRNO", "signal": "STRONG BUY", "score": 93, "grade": "A", "entry": 69.40, "stop": 63.85, "target": 83.28,
+      "thesis": "Terreno Realty made a new high and TradingView independently rates it STRONG BUY — an industrial-REIT with pristine coastal logistics assets. Scan + TV agree.",
+      "strengths": ["TV STRONG BUY confirmation", "New high, high-demand infill logistics", "RSI 75 strong (watch)"],
+      "risks": ["RSI 75 is warm", "Rate-sensitive REIT if yields jump on oil"] },
+
+    { "ticker": "FTNT", "signal": "STRONG BUY", "score": 93, "grade": "A", "entry": 157.51, "stop": 144.91, "target": 189.01,
+      "thesis": "Fortinet is basing 3.8% off its high with +105% 3-mo momentum and a strong FCF cyber model. TV: BUY. A held name that is also a top setup — conviction on both sides.",
+      "strengths": ["+105% 3-mo momentum", "Cybersecurity secular demand, high FCF", "Tight base near highs"],
+      "risks": ["Firewall refresh cycle timing", "Earnings ~17 days out"] },
+
+    { "ticker": "GE", "signal": "STRONG BUY", "score": 92, "grade": "A", "entry": 359.27, "stop": 330.53, "target": 431.12,
+      "thesis": "GE Aerospace broke out with RSI only 52 — aftermarket/services demand is a durable engine. Clean setup, but earnings are only ~3 days out, so treat this as an after-the-print name.",
+      "strengths": ["New high, un-extended (RSI 52)", "Aerospace aftermarket moat"],
+      "risks": ["Earnings in ~3 days — event risk is high", "Wait for the print or keep it small"] },
+
+    { "ticker": "EW", "signal": "STRONG BUY", "score": 92, "grade": "A", "entry": 92.21, "stop": 84.83, "target": 110.65,
+      "thesis": "Edwards Lifesciences is basing near highs (RSI 64) — structural-heart/TAVR leader with a clean chart. TV: BUY.",
+      "strengths": ["Tight base, RSI 64", "TAVR + structural-heart growth"],
+      "risks": ["Earnings ~11 days out", "Med-device competitive dynamics"] },
+
+    { "ticker": "CTVA", "signal": "STRONG BUY", "score": 92, "grade": "A", "entry": 85.68, "stop": 78.83, "target": 102.82,
+      "thesis": "Corteva is the ag/materials diversifier here — a breakout TradingView independently rates STRONG BUY. Seeds & crop-protection with pricing power; scan + TV agree.",
+      "strengths": ["TV STRONG BUY confirmation", "Ag-input pricing power", "Sector diversification vs a tech-heavy list"],
+      "risks": ["RSI 73 warm", "Farm-income/commodity cyclicality"] },
+
+    { "ticker": "NVDA", "signal": "STRONG BUY", "score": 92, "grade": "A", "entry": 210.96, "stop": 194.08, "target": 253.15,
+      "thesis": "Nvidia pulled back ~10% from its high and RSI reset to 50 — an un-extended re-entry on the AI bellwether. TradingView independently rates it STRONG BUY, so the reset looks like a base, not a breakdown. A held name.",
+      "strengths": ["RSI reset to 50, ~10% off high (un-extended)", "TV STRONG BUY confirmation", "AI data-center demand intact"],
+      "risks": ["China export-policy headlines", "Highest-weight AI name — moves the whole tape"] },
+
+    { "ticker": "KO", "signal": "STRONG BUY", "score": 91, "grade": "A", "entry": 83.49, "stop": 76.81, "target": 100.19,
+      "thesis": "Coca-Cola breakout that TradingView independently rates STRONG BUY — a defensive-consumer anchor for a nervous open. Scan + TV agree.",
+      "strengths": ["TV STRONG BUY confirmation", "Low-beta defensive ballast", "Near highs, RSI 66"],
+      "risks": ["FX translation drag", "Low growth — this is ballast, not a mover"] },
+
+    { "ticker": "ABNB", "signal": "STRONG BUY", "score": 91, "grade": "A", "entry": 148.62, "stop": 136.73, "target": 178.34,
+      "thesis": "Airbnb broke out with RSI only 58 and TradingView independently rates it STRONG BUY — travel/consumer momentum with room to run. Scan + TV agree.",
+      "strengths": ["TV STRONG BUY confirmation", "RSI 58 — un-extended", "Strong FCF travel platform"],
+      "risks": ["Consumer-travel cyclicality", "Regulatory headlines in key cities"] },
+
+    { "ticker": "CSCO", "signal": "STRONG BUY", "score": 91, "grade": "A", "entry": 121.31, "stop": 111.61, "target": 145.57,
+      "thesis": "Cisco broke out with RSI 53 and +48% 3-mo momentum — an AI-networking/security re-rating, and TradingView independently rates it STRONG BUY. Un-extended and confirmed.",
+      "strengths": ["TV STRONG BUY confirmation", "RSI 53, +48% 3-mo momentum", "AI order backlog + Splunk"],
+      "risks": ["Enterprise IT spend cyclicality", "Earnings ~31 days out"] },
+
+    { "ticker": "TRGP", "signal": "STRONG BUY", "score": 91, "grade": "A", "entry": 273.35, "stop": 251.48, "target": 328.02,
+      "thesis": "Targa Resources is the timely energy pick — a midstream breakout as the Iran/Hormuz escalation lifts oil. Permian NGL volumes are the growth engine. TV: BUY.",
+      "strengths": ["Energy tailwind on the geopolitical bid", "Permian NGL volume growth", "Near highs, RSI 62"],
+      "risks": ["Commodity/volume sensitivity if oil reverses", "Leverage typical of midstream"] },
+
+    { "ticker": "EOG", "signal": "STRONG BUY", "score": 79, "grade": "B+", "entry": 134.10, "stop": 123.37, "target": 160.92,
+      "thesis": "EOG is a second energy line with direct leverage to the oil move — a low-cost E&P basing near a breakout (RSI 57). The Hormuz risk premium is the near-term catalyst. TV: BUY.",
+      "strengths": ["Direct crude leverage into the oil spike", "Low-cost premium acreage, strong balance sheet", "TV BUY"],
+      "risks": ["Oil is the whole thesis — reverses if the conflict de-escalates", "Lower score than the leaders"] },
+
+    { "ticker": "AAPL", "signal": "STRONG BUY", "score": 91, "grade": "A", "entry": 315.32, "stop": 290.09, "target": 378.38,
+      "thesis": "Apple is right at a new high (only 0.3% off) with RS at the highs — the most widely held name across the book, working cleanly. TV: BUY.",
+      "strengths": ["At new highs, RS at highs", "Services record + iPhone cycle", "Mega-cap stability"],
+      "risks": ["China demand headlines", "Earnings ~18 days out"] },
+
+    { "ticker": "TRV", "signal": "WATCH", "score": 92, "grade": "A-", "entry": 338.92, "stop": 311.81, "target": 406.70,
+      "thesis": "Travelers is a strong setup that TradingView rates STRONG BUY — but earnings are only ~4 days out and RSI is 77. Watch for the print, then act; don't chase into the event.",
+      "strengths": ["TV STRONG BUY", "P&C pricing/rate tailwind", "RS at highs"],
+      "risks": ["Earnings in ~4 days", "RSI 76.7 — extended"] },
+
+    { "ticker": "IIPR", "signal": "WATCH", "score": 93, "grade": "A", "entry": 64.44, "stop": 59.28, "target": 77.33,
+      "thesis": "Innovative Industrial Properties is a top-scoring REIT breakout (TV STRONG BUY) but RSI 82 is severely overbought — wait for a pullback to the breakout level rather than chasing.",
+      "strengths": ["TV STRONG BUY", "New high, +30% 3-mo momentum"],
+      "risks": ["RSI 82.2 — very extended", "Cannabis-tenant concentration risk"] },
+
+    { "ticker": "CSX", "signal": "WATCH", "score": 92, "grade": "A-", "entry": 49.41, "stop": 45.46, "target": 59.29,
+      "thesis": "CSX broke to a new high but RSI 82.7 is overbought — a great rail setup that's gotten ahead of itself. Let it digest toward the breakout band before entering. Earnings ~10 days out.",
+      "strengths": ["New high, RS at highs", "Rail volume/pricing recovery"],
+      "risks": ["RSI 82.7 — overbought", "Earnings ~10 days out"] },
+
+    { "ticker": "PGNY", "signal": "WATCH", "score": 92, "grade": "B+", "entry": 30.65, "stop": 28.20, "target": 36.78,
+      "thesis": "Progyny has explosive +88% 3-mo momentum but RSI 89 is at a screaming extreme — pure momentum, not a low-risk entry. Watch for a controlled pullback; this is a high-volatility name.",
+      "strengths": ["+88% 3-mo momentum, RS at highs", "Fertility-benefits niche leader"],
+      "risks": ["RSI 89.3 — parabolic, high reversal risk", "Small-cap, client-concentration"] },
+
+    { "ticker": "GS", "signal": "WATCH", "score": 72, "grade": "B", "entry": 1055.18, "stop": 970.77, "target": 1266.22,
+      "thesis": "Goldman reports earnings TOMORROW (d2e=1) — held across three accounts here. Don't add into the print; RSI 40 shows it's already soft. Let the report clear, then reassess.",
+      "strengths": ["Trading/IB fee-recovery optionality", "Held broadly — high relevance"],
+      "risks": ["Earnings in ~1 day — binary event", "RSI 40, momentum fading"] },
+
+    { "ticker": "HOOD", "signal": "WATCH", "score": 74, "grade": "B", "entry": 111.97, "stop": 103.01, "target": 134.36,
+      "thesis": "Robinhood still sits 27% below its high but is rebuilding (+62% 3-mo, TV BUY). A held name that's basing, not breaking out — watch for a reclaim of the base high before adding.",
+      "strengths": ["+62% 3-mo momentum, TV BUY", "Crypto/options volume leverage"],
+      "risks": ["Still 27% below highs — not a breakout yet", "High beta to retail risk appetite"] },
+
+    { "ticker": "SNOW", "signal": "WATCH", "score": 72, "grade": "B", "entry": 261.45, "stop": 240.53, "target": 313.74,
+      "thesis": "Snowflake is 7% off its high with +116% 3-mo momentum but RSI 72 is warm — a held AI-data name that's extended near-term. TV: BUY. Prefer a pullback to add.",
+      "strengths": ["+116% 3-mo momentum, TV BUY", "AI/data-cloud consumption growth"],
+      "risks": ["RSI 72 — extended", "Valuation rich; consumption-model variability"] }
+  ]
+}
