@@ -1,427 +1,111 @@
 {
-  "date": "2026-07-08",
+  "date": "2026-07-13",
   "users": {
     "9U3EMCIBlyYATLhh9YLnfYwKgpC2": {
       "holdings": [
-        {
-          "ticker": "AAPL",
-          "action": "HOLD",
-          "why": "STRONG BUY signal (score 90.1), just 1.4% off the 52-week high, TV BUY (15/3/8) confirms. Clean core holding, no red flags."
-        },
-        {
-          "ticker": "ALAB",
-          "action": "HOLD",
-          "why": "STRONG BUY quant score (84.4) but TV is NEUTRAL (8/9/9) and the stock is 20.7% off its high -- the two signals aren't fully aligned. Hold, don't add until TV firms up."
-        },
-        {
-          "ticker": "AMD",
-          "action": "WATCH",
-          "why": "Quant STRONG BUY (83.4) but TV is split NEUTRAL (8/8/10), RSI a moderate 45.3, 11.2% off the high. Semis are the one soft spot in an otherwise strong tape -- hold, don't chase."
-        },
-        {
-          "ticker": "APLD",
-          "action": "SELL",
-          "why": "WEAK signal (score 47.6), TV outright STRONG_SELL (1/17/8), RSI has collapsed to 8.1 and the stock is 38.1% off its high. The most technically broken name in the book -- trim aggressively, don't average down."
-        },
-        {
-          "ticker": "APP",
-          "action": "HOLD",
-          "why": "WATCH signal but TV BUY (13/3/10) is a positive independent read despite being 28% off the high. Hold; not a name to add to at this extension from the recent top."
-        },
-        {
-          "ticker": "DRAM",
-          "action": "WATCH",
-          "why": "WEAK signal (score 50.6); this is a very recently listed/thin-history name and TradingView could not resolve a rating at all. No independent cross-check available -- treat as a small, thesis-only position until more trading history builds."
-        },
-        {
-          "ticker": "GOOGL",
-          "action": "HOLD",
-          "why": "WATCH signal (score 65.5) but TV BUY (14/2/10) is a solid independent read. 8.8% off the high; hold."
-        },
-        {
-          "ticker": "GS",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 85.5), TV BUY confirms. Financials remain the market's strongest-led group tonight; hold/add."
-        },
-        {
-          "ticker": "HOOD",
-          "action": "WATCH",
-          "why": "WEAK quant signal (47.8) but TV is surprisingly bullish, BUY (14/3/9) -- a genuine divergence. Hold small and watch for the quant score to catch up, or fade if TV's read proves wrong."
-        },
-        {
-          "ticker": "INTC",
-          "action": "TRIM",
-          "why": "WEAK signal (score 27.3), TV SELL (4/13/9), 21.7% off the high. Turnaround thesis hasn't shown up in the technicals yet -- consider trimming."
-        },
-        {
-          "ticker": "IREN",
-          "action": "TRIM",
-          "why": "WEAK signal (score 39.7), TV SELL (2/15/9), RSI a very weak 19.9. Bitcoin-miner/datacenter volatility hitting this one hard -- trim into any bounce."
-        },
-        {
-          "ticker": "LRCX",
-          "action": "WATCH",
-          "why": "Quant STRONG BUY (84.1) but TV disagrees sharply, rating it SELL (6/12/8) -- semiconductor-equipment names are broadly out of favor on TV's independent read tonight despite decent quant scores. Hold, don't add."
-        },
-        {
-          "ticker": "LUNR",
-          "action": "SELL",
-          "why": "WEAK signal (score 28.1), TV outright STRONG_SELL (1/17/8), RSI 20.8, 60.9% off the high. One of the most broken charts in any of the books -- reduce exposure."
-        },
-        {
-          "ticker": "MSFT",
-          "action": "WATCH",
-          "why": "WEAK quant signal (34.8) but TV is NEUTRAL rather than bearish (7/9/10), so this isn't a red flag -- more a case of mega-cap tech being out of favor in tonight's financials/healthcare-led tape. Hold the core position."
-        },
-        {
-          "ticker": "MU",
-          "action": "WATCH",
-          "why": "Quant STRONG BUY (87.9) but TV is NEUTRAL/split (8/9/9), 22.7% off the high -- memory/semis are the one pocket of genuine disagreement between the quant score and the independent technical read tonight. Hold, don't add."
-        },
-        {
-          "ticker": "NVDA",
-          "action": "WATCH",
-          "why": "WATCH signal (score 66.7) and TV is bearish (SELL, 5/11/10) despite the AI-buildout narrative -- 16.5% off the high with RSI a soft 33.5. This is part of the broader chip-sector pullback flagged in tonight's market read ('chip sector takes it on the chin'); hold the core position, don't add into the weakness yet."
-        },
-        {
-          "ticker": "ORCL",
-          "action": "TRIM",
-          "why": "WEAK signal (score 44.7), TV SELL, RSI has collapsed to 7.1 and the stock is 56.5% off its high -- one of the most technically damaged large-caps in any of the books. Don't average down; consider trimming into any relief bounce."
-        },
-        {
-          "ticker": "PLTR",
-          "action": "WATCH",
-          "why": "WEAK quant signal (36.7) but TV is bullish (BUY, 11/6/9) -- a genuine divergence worth watching rather than acting on immediately. Hold, don't add until the two signals converge."
-        },
-        {
-          "ticker": "QBTS",
-          "action": "SELL",
-          "why": "WEAK signal (score 25.1), TV outright STRONG_SELL (1/16/9). Quantum-computing speculative names remain the weakest cohort across all the books scanned -- reduce exposure."
-        },
-        {
-          "ticker": "QLD",
-          "action": "TRIM",
-          "why": "WEAK signal (score 52.8), TV SELL. This is a 2x-leveraged Nasdaq-100 ETF -- it's amplifying the QQQ-below-its-50-day weakness flagged in tonight's market read. Consider trimming the leveraged tech exposure specifically."
-        },
-        {
-          "ticker": "RBRK",
-          "action": "HOLD",
-          "why": "WATCH signal (score 65.3), TV BUY (14/7/5), but RSI 83.0 is quite extended. Hold, take partial profits into strength rather than adding here."
-        },
-        {
-          "ticker": "RGTI",
-          "action": "SELL",
-          "why": "WEAK signal (score 31.6), TV outright STRONG_SELL (0/16/10), RSI 21.0, 70.6% off the high -- the most damaged chart of any holding across all the books. Reduce exposure."
-        },
-        {
-          "ticker": "RKLB",
-          "action": "SELL",
-          "why": "WEAK signal (score 27.0), TV STRONG_SELL, RSI 32.8, 44.5% off the high. Space/launch speculative names are broadly out of favor; consider trimming."
-        },
-        {
-          "ticker": "SMCI",
-          "action": "TRIM",
-          "why": "WEAK signal (score 43.6), TV SELL, 56.8% off the high. Server-supply-chain volatility continues; trim into any bounce."
-        },
-        {
-          "ticker": "SNDK",
-          "action": "TRIM",
-          "why": "WEAK signal (score 39.0), TV SELL, 30.7% off the high. Storage/memory pricing cycle weakness; trim."
-        },
-        {
-          "ticker": "SNOW",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 75.8), TV BUY confirms. Cloud-data-platform demand intact; hold."
-        },
-        {
-          "ticker": "SSO",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 85.1), TV BUY. This is a 2x-leveraged S&P 500 ETF -- it's benefiting from tonight's broad, healthy-breadth uptrend (67% of stocks above their 50-day, VIX calm at 16.1). Hold; leveraged exposure amplifies both the current uptrend and any reversal."
-        },
-        {
-          "ticker": "TSLA",
-          "action": "WATCH",
-          "why": "WEAK signal (score 49.2), TV SELL (6/11/9), RSI a soft 47.7. No independent confirmation of strength here; hold the core position, don't add."
-        },
-        {
-          "ticker": "TSM",
-          "action": "WATCH",
-          "why": "Quant STRONG BUY (90.0) but TV disagrees sharply, rating it SELL (6/10/10) -- the same semiconductor divergence pattern showing up across NVDA/MU/AMAT/LRCX tonight. Hold the core position, don't add until the technical read firms up."
-        },
-        {
-          "ticker": "VRT",
-          "action": "TRIM",
-          "why": "WEAK signal (score 49.1), TV SELL. Data-center-cooling infrastructure name caught in the broader tech/semi pullback; consider trimming."
-        }
+        { "ticker": "AAPL", "action": "HOLD", "why": "STRONG BUY (91), at new highs vs your ~$200 cost — a big winner working cleanly. Let it run; only trim to manage position size." },
+        { "ticker": "ALAB", "action": "HOLD", "why": "STRONG BUY (84) and far above your ~$76 cost. It's ~14% off its high after a huge run — hold the core, consider trimming a slice to lock gains." },
+        { "ticker": "AMD", "action": "HOLD", "why": "STRONG BUY (87), well above your ~$265 cost. AI/data-center demand intact; hold the winner." },
+        { "ticker": "APLD", "action": "TRIM", "why": "WEAK (39), below your ~$46 cost, -37% from high, RSI 10.7 oversold and TradingView says SELL. Momentum is broken — trim into any bounce and tighten your stop." },
+        { "ticker": "APP", "action": "HOLD", "why": "WATCH (64), still above your ~$423 cost but -31% off its high and TV NEUTRAL. Hold, but no adds until it stabilizes and reclaims its base." },
+        { "ticker": "DRAM", "action": "HOLD", "why": "WEAK (49) and a recent listing with limited history, modestly above your ~$45 cost. Keep it small until a real base forms." },
+        { "ticker": "GOOGL", "action": "HOLD", "why": "WATCH (62), above your ~$215 cost but soft near-term (RSI 42, TV SELL). A core mega-cap to hold; wait for momentum to turn before adding." },
+        { "ticker": "GS", "action": "HOLD", "why": "Earnings TOMORROW — don't add into the print. You're well above your ~$670 cost; hold through the report, then reassess." },
+        { "ticker": "HOOD", "action": "HOLD", "why": "WATCH (74), above your ~$91 cost with +62% 3-mo momentum and TV BUY, but still 27% below its high. Hold; add only on a base-high reclaim." },
+        { "ticker": "INTC", "action": "TRIM", "why": "WEAK (31), RSI 33, TV SELL — but you're well above your ~$45 cost. Trim to bank the gain while momentum is negative." },
+        { "ticker": "IREN", "action": "REDUCE", "why": "WEAK (38), below your ~$45 cost, -46% from high, TV STRONG_SELL. Only 1 share, but the trend is broken — reduce/exit." },
+        { "ticker": "LRCX", "action": "HOLD", "why": "WATCH (72), above your ~$289 cost. Semicap leader consolidating; hold, watch for a base breakout to add." },
+        { "ticker": "LUNR", "action": "REDUCE", "why": "WEAK (34), below your ~$20 cost, -65% from high, RSI 22, TV STRONG_SELL. Deep downtrend — reduce and redeploy." },
+        { "ticker": "MSFT", "action": "HOLD", "why": "WEAK (51) near-term and TV SELL, but above your ~$345 cost and a core mega-cap. Hold; no adds until momentum recovers." },
+        { "ticker": "MU", "action": "HOLD", "why": "WATCH (70), enormous gain vs your ~$245 cost, -19% off high after a big run. Hold the winner; trimming a portion is reasonable." },
+        { "ticker": "NVDA", "action": "ADD", "why": "STRONG BUY (92), TV STRONG_BUY, RSI reset to 50 ~10% off its high — an un-extended re-entry above your ~$165 cost. Adding on the reset is favorable." },
+        { "ticker": "ORCL", "action": "REDUCE", "why": "WEAK (30), -57% from high, RSI 12.5, TV STRONG_SELL. Still above your ~$100 cost, but momentum has collapsed — reduce." },
+        { "ticker": "PLTR", "action": "WATCH", "why": "WEAK (32), roughly at your ~$120 cost, -39% from high, TV SELL. Hold small / watch — needs to rebuild a base before adding." },
+        { "ticker": "QBTS", "action": "TRIM", "why": "WEAK (25), -55% from high, TV SELL — but a ~4x gain vs your ~$4.66 cost. Trim aggressively to lock the win; quantum names are highly speculative." },
+        { "ticker": "QLD", "action": "HOLD", "why": "WATCH (74), above your ~$51 cost. Leveraged QQQ — fine to hold while the market's in an uptrend, but leverage cuts both ways if the tape rolls over." },
+        { "ticker": "RBRK", "action": "HOLD", "why": "STRONG BUY (78), TV BUY, +93% 3-mo momentum, above your ~$56 cost. Hold; add on a clean base breakout." },
+        { "ticker": "RGTI", "action": "TRIM", "why": "WEAK (27), -71% from high, TV SELL — but a big gain vs your ~$6 cost. Trim to bank gains; speculative quantum name." },
+        { "ticker": "RKLB", "action": "HOLD", "why": "WEAK (32) near-term and -46% off high, but a ~4x gain vs your ~$21 cost. Hold the core, consider trimming a slice; long-term space thesis intact." },
+        { "ticker": "SMCI", "action": "WATCH", "why": "WEAK (42), -53% from high, TV SELL, small gain vs your ~$23 cost. Hold small / watch — high-volatility name that needs to prove a bottom." },
+        { "ticker": "SNDK", "action": "HOLD", "why": "WATCH (67), TV BUY, +125% 3-mo momentum and far above your ~$450 cost. Hold the winner." },
+        { "ticker": "SNOW", "action": "HOLD", "why": "WATCH (72), TV BUY, above your ~$240 cost but RSI 72 (warm). Hold; add on a pullback rather than here." },
+        { "ticker": "SSO", "action": "HOLD", "why": "STRONG BUY (89), above your ~$44 cost. Leveraged S&P — fine while the uptrend holds; mind the leverage on a risk-off open." },
+        { "ticker": "TSLA", "action": "HOLD", "why": "WATCH (68), TV BUY, slightly below your ~$439 cost and -17% off high. Hold; wait for a base reclaim before adding." },
+        { "ticker": "TSM", "action": "HOLD", "why": "STRONG BUY (87) but earnings in ~3 days and TV NEUTRAL. Huge gain vs your ~$175 cost — hold through the print, don't add into it." },
+        { "ticker": "VRT", "action": "HOLD", "why": "WEAK (52) near-term but a massive gain vs your ~$16 cost and TV BUY. Hold the long-term AI-infrastructure winner; only 1 share." }
       ]
     },
     "9XYERwojDqZYyeKV2ajvWQig8Bh2": {
       "holdings": [
-        {
-          "ticker": "AAPL",
-          "action": "HOLD",
-          "why": "STRONG BUY signal (score 90.1), just 1.4% off the 52-week high, TV BUY (15/3/8) confirms. Clean core holding, no red flags."
-        }
+        { "ticker": "AAPL", "action": "HOLD", "why": "STRONG BUY (91), at new highs above your ~$250 cost — working cleanly. Hold; adding on strength is reasonable given the fresh breakout." }
       ]
     },
     "H0Wv2PLzKzR0JwanHqUssGUsmMl1": {
       "holdings": [
-        {
-          "ticker": "AMKR",
-          "action": "TRIM",
-          "why": "WEAK signal (score 40.4), TV outright SELL (4/14/8), 30.2% off the high. One of the weaker names in the book -- consider trimming into any bounce."
-        },
-        {
-          "ticker": "COCO",
-          "action": "TRIM",
-          "why": "WEAK signal (score 46.3), TV SELL (5/13/8), RSI a very weak 18.1. Technically broken; trim into strength."
-        },
-        {
-          "ticker": "DELL",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 90.0), TV BUY (15/2/9) confirms. AI-server demand story remains intact even 10.4% off the high; hold/add-to-winner."
-        },
-        {
-          "ticker": "DIOD",
-          "action": "TRIM",
-          "why": "WEAK signal (score 26.9), TV SELL (3/13/10), 25.4% off the high. Analog-semi weakness; trim."
-        },
-        {
-          "ticker": "DOCN",
-          "action": "WATCH",
-          "why": "WEAK signal (score 47.3), TV NEUTRAL, RSI a soft 28.1, 24.4% off the high. Cloud-infrastructure demand hasn't translated into technical strength here -- hold small, don't add."
-        },
-        {
-          "ticker": "FLEX",
-          "action": "WATCH",
-          "why": "WATCH signal (score 64.2) but TV disagrees, rating it SELL (5/13/8). Contract-manufacturing exposure without independent technical confirmation -- hold, don't add."
-        },
-        {
-          "ticker": "FTNT",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 94.1), TV BUY (13/5/8) -- also today's top-scored Technology pick. Hold/add; the cleanest security name in the book."
-        },
-        {
-          "ticker": "GLW",
-          "action": "WATCH",
-          "why": "WATCH signal (score 60.4) but TV rates it an outright SELL (4/12/10) despite a technically clean VCP pattern. This is a real disagreement -- hold existing, don't add until TV improves."
-        },
-        {
-          "ticker": "GOOGL",
-          "action": "HOLD",
-          "why": "WATCH signal (score 65.5) but TV BUY (14/2/10) is a solid independent read. 8.8% off the high; hold."
-        },
-        {
-          "ticker": "ICHR",
-          "action": "HOLD",
-          "why": "WATCH signal (score 64.2), TV NEUTRAL. No strong signal either way -- hold as-is."
-        },
-        {
-          "ticker": "LLY",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 93.6), TV STRONG_BUY (16/0/10) -- also today's top Healthcare pick with the largest EPS acceleration (+170% YoY) of any large-cap scanned. Hold/add as a core position."
-        },
-        {
-          "ticker": "LQDA",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 94.8) -- the single highest-scored setup in today's entire scan, TV STRONG_BUY (16/1/9) confirms. Hold/add; see today's research brief for the full thesis."
-        },
-        {
-          "ticker": "LUV",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 91.4), TV BUY confirms. Airlines showing rare strength; hold."
-        },
-        {
-          "ticker": "MXL",
-          "action": "TRIM",
-          "why": "WEAK signal (score 34.3), TV SELL, 33% off the high. Analog-semi weakness continues; trim."
-        },
-        {
-          "ticker": "NTAP",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 91.7), TV BUY (15/2/9). Storage/data-infrastructure demand intact; hold/add."
-        },
-        {
-          "ticker": "PRTH",
-          "action": "HOLD",
-          "why": "WATCH signal (score 63.2), TV BUY confirms. Hold as-is."
-        },
-        {
-          "ticker": "SWBI",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 88.7), TV BUY confirms. Hold."
-        }
+        { "ticker": "AMKR", "action": "REDUCE", "why": "WEAK (49), below your ~$83 cost, RSI 34, TV SELL. Semiconductor packaging is out of favor near-term — reduce or tighten the stop." },
+        { "ticker": "COCO", "action": "HOLD", "why": "STRONG BUY (81), TV BUY, RSI 29.9 oversold near your ~$79 cost. A strong name pulling back into support — hold; nibbling on the oversold dip is reasonable." },
+        { "ticker": "DELL", "action": "HOLD", "why": "STRONG BUY (89), TV BUY, +145% 3-mo momentum, just above your ~$417 cost. Hold; add on a clean base breakout." },
+        { "ticker": "DIOD", "action": "REDUCE", "why": "WEAK (41), below your ~$123 cost, RSI 30, TV SELL. Downtrend — reduce or set a firm stop." },
+        { "ticker": "DOCN", "action": "REDUCE", "why": "WEAK (37), well below your ~$180 cost, -28% from high, TV SELL. Momentum broken — cut or reduce and reassess." },
+        { "ticker": "FLEX", "action": "WATCH", "why": "WEAK (43), below your ~$152 cost, TV SELL. Hold small / watch for a base — no adds while momentum is negative." },
+        { "ticker": "FTNT", "action": "ADD", "why": "STRONG BUY (93), TV BUY, +105% 3-mo momentum, above your ~$145 cost — a top setup on the board. Adding on strength or a shallow dip is favorable." },
+        { "ticker": "GLW", "action": "HOLD", "why": "STRONG BUY (77), roughly at your ~$189 cost, -25% off high, TV NEUTRAL. Hold; wait for confirmation before adding." },
+        { "ticker": "GOOGL", "action": "HOLD", "why": "WATCH (62), near your ~$364 cost, soft near-term (TV SELL). Core mega-cap — hold; add only when momentum turns." },
+        { "ticker": "ICHR", "action": "HOLD", "why": "STRONG BUY (78), TV BUY, above your ~$86 cost. Semicap recovery play — hold; add on a base breakout." },
+        { "ticker": "LLY", "action": "HOLD", "why": "STRONG BUY (93), TV BUY, near your ~$1,162 cost and basing 4% off its high. Hold the GLP-1 leader; earnings ~23 days out." },
+        { "ticker": "LQDA", "action": "HOLD", "why": "STRONG BUY (94), TV BUY, +102% 3-mo momentum, above your ~$75 cost — top-scoring pick. Hold; keep the position sized for biotech volatility." },
+        { "ticker": "LUV", "action": "HOLD", "why": "STRONG BUY (92), TV BUY, above your ~$43 cost. Airline turnaround working — hold; add on a base breakout." },
+        { "ticker": "MXL", "action": "HOLD", "why": "STRONG BUY (86), +341% 3-mo momentum snapping back, slightly below your ~$100 cost, TV NEUTRAL. Hold — the recovery is strong but it's still 29% off its high." },
+        { "ticker": "NTAP", "action": "HOLD", "why": "STRONG BUY (89), TV BUY, +77% 3-mo momentum, above your ~$159 cost. Hold; add on a clean breakout." },
+        { "ticker": "PRTH", "action": "HOLD", "why": "WATCH (64), TV BUY, roughly at your ~$7.38 cost. Hold; small-cap payments name — needs a base breakout to add." },
+        { "ticker": "SWBI", "action": "HOLD", "why": "STRONG BUY (83), TV STRONG_BUY, near your ~$16 cost. Both our scan and TradingView agree — hold; add on a base breakout." }
       ]
     },
     "RWaiB5nNl5TjiWamTOEMb8tgVgQ2": {
       "holdings": [
-        {
-          "ticker": "AAPL",
-          "action": "HOLD",
-          "why": "STRONG BUY signal (score 90.1), just 1.4% off the 52-week high, TV BUY (15/3/8) confirms. Clean core holding, no red flags."
-        },
-        {
-          "ticker": "GS",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 85.5), TV BUY confirms. Financials remain the market's strongest-led group tonight; hold/add."
-        },
-        {
-          "ticker": "MNST",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 93.5), TV BUY (13/3/10) -- also today's top Consumer Defensive pick with real growth (+26.9% revenue). Hold/add."
-        },
-        {
-          "ticker": "SPCX",
-          "action": "HOLD",
-          "why": "New listing (IPO) -- too little trading history for the quant scan or TradingView to rate meaningfully yet. This is a thesis-driven hold (Falcon 9 launch dominance + Starlink scale-up), not a technically-timed one; don't size off the current thin-data signals. See today's research brief."
-        },
-        {
-          "ticker": "TSLA",
-          "action": "WATCH",
-          "why": "WEAK signal (score 49.2), TV SELL (6/11/9), RSI a soft 47.7. No independent confirmation of strength here; hold the core position, don't add."
-        }
+        { "ticker": "AAPL", "action": "HOLD", "why": "STRONG BUY (91), at new highs above your ~$240 cost. Hold the winner; adding on the fresh breakout is reasonable." },
+        { "ticker": "GS", "action": "HOLD", "why": "Earnings TOMORROW — don't add into the print. Well above your ~$800 cost; hold through the report, then reassess." },
+        { "ticker": "MNST", "action": "HOLD", "why": "STRONG BUY (94), TV BUY, at new highs above your ~$80 cost — a defensive leader working. Hold; add on strength." },
+        { "ticker": "SPCX", "action": "HOLD", "why": "NEW LISTING, below your ~$161 cost, weak early signals (TV STRONG_SELL) as post-IPO price discovery plays out. Hold a small, thesis-driven position (Starlink/launch franchise); don't average down aggressively into the volatility." },
+        { "ticker": "TSLA", "action": "HOLD", "why": "WATCH (68), TV BUY, well above your ~$250 cost. Hold; -17% off high, so wait for a base reclaim before adding." }
       ]
     },
     "Upr1qGqvOZVTbZIazl3fVapJAWt1": {
       "holdings": [
-        {
-          "ticker": "AAPL",
-          "action": "HOLD",
-          "why": "STRONG BUY signal (score 90.1), just 1.4% off the 52-week high, TV BUY (15/3/8) confirms. Clean core holding, no red flags."
-        }
+        { "ticker": "AAPL", "action": "HOLD", "why": "STRONG BUY (91), at new highs above your ~$259 cost — working cleanly. Hold; adding on the breakout is reasonable." }
       ]
     },
     "WwfbUgQdviVtfrB3BBzR25joqbv2": {
       "holdings": [
-        {
-          "ticker": "AAPL",
-          "action": "HOLD",
-          "why": "STRONG BUY signal (score 90.1), just 1.4% off the 52-week high, TV BUY (15/3/8) confirms. Clean core holding, no red flags."
-        },
-        {
-          "ticker": "AMAT",
-          "action": "WATCH",
-          "why": "Quant STRONG BUY (90.1) but TV rates it NEUTRAL (7/10/9) and it's 23.3% off its high -- part of the broader semiconductor-equipment weakness. Hold existing, don't add."
-        },
-        {
-          "ticker": "AMZN",
-          "action": "HOLD",
-          "why": "WATCH signal (score 73.5) but TV BUY (13/3/10) is constructive. 10.5% off the high with room to re-accelerate; hold."
-        },
-        {
-          "ticker": "COIN",
-          "action": "TRIM",
-          "why": "WEAK signal (score 25.1), TV SELL (6/11/9), 61% off its high. One of the weakest names in any of the books -- reduce exposure."
-        },
-        {
-          "ticker": "DLR",
-          "action": "WATCH",
-          "why": "WATCH signal (score 63.3) and TV disagrees more bearishly than the quant score, rating it SELL (5/15/6). Data-center REIT story is real, but the independent technical read says be patient."
-        },
-        {
-          "ticker": "DTE",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 91.0), TV STRONG_BUY (16/0/10) -- also one of today's Top Picks. Data-center power-demand tailwind; hold/add."
-        },
-        {
-          "ticker": "EOG",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 79.2), TV BUY confirms. Energy exposure with a constructive technical read; hold."
-        },
-        {
-          "ticker": "FICO",
-          "action": "HOLD",
-          "why": "WATCH signal (score 66.7) but TV BUY is constructive. 30.8% off the high, RSI 68.5 -- hold, no urgency to add."
-        },
-        {
-          "ticker": "GS",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 85.5), TV BUY confirms. Financials remain the market's strongest-led group tonight; hold/add."
-        },
-        {
-          "ticker": "HWM",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 92.4), TV BUY (14/2/10) -- also today's top Industrials pick. EPS +71.4% YoY is the strongest growth number in the industrial group; hold/add."
-        },
-        {
-          "ticker": "INTC",
-          "action": "TRIM",
-          "why": "WEAK signal (score 27.3), TV SELL (4/13/9), 21.7% off the high. Turnaround thesis hasn't shown up in the technicals yet -- consider trimming."
-        },
-        {
-          "ticker": "IRM",
-          "action": "WATCH",
-          "why": "WATCH signal (score 65.2) but TV disagrees, rating it SELL (4/13/9). Hold existing, don't add until the independent read improves."
-        },
-        {
-          "ticker": "KIM",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 89.6), TV BUY confirms. REIT strength continues broadly; hold."
-        },
-        {
-          "ticker": "MNST",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 93.5), TV BUY (13/3/10) -- also today's top Consumer Defensive pick with real growth (+26.9% revenue). Hold/add."
-        },
-        {
-          "ticker": "MSFT",
-          "action": "WATCH",
-          "why": "WEAK quant signal (34.8) but TV is NEUTRAL rather than bearish (7/9/10), so this isn't a red flag -- more a case of mega-cap tech being out of favor in tonight's financials/healthcare-led tape. Hold the core position."
-        },
-        {
-          "ticker": "NVDA",
-          "action": "WATCH",
-          "why": "WATCH signal (score 66.7) and TV is bearish (SELL, 5/11/10) despite the AI-buildout narrative -- 16.5% off the high with RSI a soft 33.5. This is part of the broader chip-sector pullback flagged in tonight's market read ('chip sector takes it on the chin'); hold the core position, don't add into the weakness yet."
-        },
-        {
-          "ticker": "NXPI",
-          "action": "TRIM",
-          "why": "WEAK signal (score 45.6), TV SELL, RSI a weak 33.1. Auto/industrial semi demand soft; consider trimming."
-        },
-        {
-          "ticker": "SIRI",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 89.3), TV BUY (15/5/6) -- but RSI 89.2 is the most extended reading in today's entire scan (see today's Top Picks, tiered WATCH there for this reason). If holding a runner here, consider taking partial profits rather than adding."
-        },
-        {
-          "ticker": "SNDK",
-          "action": "TRIM",
-          "why": "WEAK signal (score 39.0), TV SELL, 30.7% off the high. Storage/memory pricing cycle weakness; trim."
-        },
-        {
-          "ticker": "SPCX",
-          "action": "HOLD",
-          "why": "New listing (IPO) -- too little trading history for the quant scan or TradingView to rate meaningfully yet. This is a thesis-driven hold (Falcon 9 launch dominance + Starlink scale-up), not a technically-timed one; don't size off the current thin-data signals. See today's research brief."
-        },
-        {
-          "ticker": "SPG",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 92.8), TV STRONG_BUY (15/1/10) -- also today's top Real Estate pick. Hold/add; the cleanest large-cap REIT setup in tonight's scan."
-        },
-        {
-          "ticker": "TSLA",
-          "action": "WATCH",
-          "why": "WEAK signal (score 49.2), TV SELL (6/11/9), RSI a soft 47.7. No independent confirmation of strength here; hold the core position, don't add."
-        },
-        {
-          "ticker": "WDC",
-          "action": "TRIM",
-          "why": "WEAK signal (score 45.6), TV SELL, 28.7% off the high. Storage-pricing-cycle weakness continues; trim."
-        }
+        { "ticker": "AAPL", "action": "HOLD", "why": "STRONG BUY (91), at new highs above your ~$250 cost. Hold the winner." },
+        { "ticker": "AMAT", "action": "HOLD", "why": "STRONG BUY (77), TV BUY, +51% 3-mo momentum, ~4x your ~$140 cost. Hold the semicap winner." },
+        { "ticker": "AMZN", "action": "HOLD", "why": "STRONG BUY (87), TV BUY, roughly at your ~$250 cost. Hold; add on a clean base breakout." },
+        { "ticker": "COIN", "action": "WATCH", "why": "WEAK (26), -62% from high, TV SELL, but above your ~$80 cost. Hold small / watch — high-beta crypto proxy that needs to bottom before adding." },
+        { "ticker": "DLR", "action": "WATCH", "why": "Position shows 0 shares — no active exposure. On the watchlist: WEAK (56), TV SELL near-term. Wait for a base before re-entering." },
+        { "ticker": "DTE", "action": "HOLD", "why": "STRONG BUY (91), TV BUY, well above your ~$100 cost. Defensive utility working in a nervous tape — hold." },
+        { "ticker": "EOG", "action": "ADD", "why": "STRONG BUY (79), TV BUY, and a massive gain vs your ~$11 cost. Direct oil leverage into the Hormuz risk premium — a timely energy position; adding a small tranche is reasonable." },
+        { "ticker": "FICO", "action": "HOLD", "why": "WEAK (51) near-term, -33% off high, RSI 75.6, TV BUY — above your ~$760 cost. Hold; the trend cooled after a big run, so no adds here." },
+        { "ticker": "GS", "action": "HOLD", "why": "Earnings TOMORROW — don't add into the print. Huge gain vs your ~$140 cost; hold through the report." },
+        { "ticker": "HWM", "action": "WATCH", "why": "Position shows 0 shares — no active exposure. Note: HWM scans STRONG BUY (91) but TV NEUTRAL and RSI 41; a re-entry candidate on a clean base." },
+        { "ticker": "INTC", "action": "TRIM", "why": "WEAK (31), RSI 33, TV SELL — but well above your ~$44 cost. Trim to bank the gain while momentum is negative." },
+        { "ticker": "IRM", "action": "REDUCE", "why": "WEAK (43), well below your ~$232 cost, TV NEUTRAL. The position is underwater with weak momentum — reduce or set a firm stop and reassess." },
+        { "ticker": "KIM", "action": "WATCH", "why": "Position shows 0 shares — no active exposure. Note: KIM scans STRONG BUY (93) but TV NEUTRAL; a REIT re-entry candidate on a pullback." },
+        { "ticker": "MNST", "action": "HOLD", "why": "STRONG BUY (94), TV BUY, at new highs, slightly above your ~$93 cost. Hold the defensive leader." },
+        { "ticker": "MSFT", "action": "WATCH", "why": "Position shows 0 shares — no active exposure. MSFT is WEAK (51)/TV SELL near-term; wait for momentum to turn before re-entering this core mega-cap." },
+        { "ticker": "NVDA", "action": "HOLD", "why": "STRONG BUY (92), TV STRONG_BUY, RSI reset to 50 — but below your ~$280 cost. Hold; the reset is constructive, and averaging a small amount here is defensible given the STRONG BUY/TV alignment." },
+        { "ticker": "NXPI", "action": "HOLD", "why": "WEAK (47) near-term, TV BUY, roughly at your ~$285 cost. Hold; auto/industrial semis need a base before adding." },
+        { "ticker": "SIRI", "action": "HOLD", "why": "STRONG BUY (88), TV BUY, RSI 75 — recovering strongly but still well below your ~$80 cost. Hold as the turnaround plays out; no adds while extended." },
+        { "ticker": "SNDK", "action": "HOLD", "why": "WATCH (67), TV BUY, +125% 3-mo momentum. Hold the memory/storage momentum name." },
+        { "ticker": "SPCX", "action": "HOLD", "why": "NEW LISTING, below your ~$204 cost, weak early signals (TV STRONG_SELL) during post-IPO price discovery. Hold a small thesis-driven position; don't average down into the volatility." },
+        { "ticker": "SPG", "action": "WATCH", "why": "Position shows 0 shares — no active exposure. SPG scans STRONG BUY (92) but TV NEUTRAL; a mall-REIT re-entry candidate on a pullback." },
+        { "ticker": "TSLA", "action": "HOLD", "why": "WATCH (68), TV BUY, roughly at your ~$400 cost. Hold; wait for a base reclaim before adding." },
+        { "ticker": "WDC", "action": "HOLD", "why": "STRONG BUY (85), +70% 3-mo momentum, above your ~$500 cost, TV NEUTRAL. Hold the storage-cycle winner; watch the TV NEUTRAL as a note of caution." }
       ]
     },
     "XywlmmAEAhN9JBDkYQnagsBIkCf1": {
       "holdings": [
-        {
-          "ticker": "BTC-USD",
-          "action": "WATCH",
-          "why": "WEAK signal (score 24.9), TV NEUTRAL, 48.9% off its high. Crypto remains the most speculative, least-confirmed asset in any of these books -- size accordingly."
-        },
-        {
-          "ticker": "GS",
-          "action": "HOLD",
-          "why": "STRONG BUY (score 85.5), TV BUY confirms. Financials remain the market's strongest-led group tonight; hold/add."
-        }
+        { "ticker": "BTC-USD", "action": "HOLD", "why": "Bitcoin isn't in the equity scan, so no technical grade here — but it sits far above your ~$1,000 cost. Hold as a strategic allocation; size it for crypto's volatility and mind the risk-off, oil-driven tape today." },
+        { "ticker": "GS", "action": "HOLD", "why": "Earnings TOMORROW — don't add into the print. Well above your ~$500 cost; hold through the report, then reassess." }
       ]
     }
   }
