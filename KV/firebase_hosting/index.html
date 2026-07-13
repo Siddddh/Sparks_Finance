@@ -217,6 +217,43 @@ body:not(.is-orgadmin) .navitem[data-nav="orgdash"]{display:none;}
 .hold-table th.ht-num,.hold-table td.ht-num{text-align:right;white-space:nowrap;}
 .hub-tag-personal{margin-left:7px;vertical-align:middle;text-transform:none;font-weight:600;}
 @media (prefers-reduced-motion:reduce){.hub-grid,#hubAllOrgsWrap,#hubPersonalWrap{animation:none;}.hub-card,.hub-card:hover,.hub-card:active{transition:none;transform:none;}}
+/* ── Post-login mode chooser (Personal vs Organization) + screen transitions ── */
+#modeGate{position:fixed;inset:0;background:radial-gradient(130% 85% at 50% -12%,var(--surface-hover),var(--bg) 58%);z-index:8000;display:flex;flex-direction:column;overflow-y:auto;}
+#modeGate.hidden{display:none;}
+.mode-wrap{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;max-width:960px;}
+.mode-head{text-align:center;margin-bottom:34px;}
+.mode-grid{display:grid;grid-template-columns:repeat(2,minmax(300px,1fr));gap:24px;}
+/* Per-card accent → clear green (personal) vs orange (organization) contrast in both themes */
+.mode-personal{--mc:var(--green);--mcs:var(--green-soft);}
+.mode-team{--mc:var(--amber);--mcs:var(--amber-soft);}
+.mode-card{position:relative;text-align:left;background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:34px 32px;min-height:clamp(340px,50vh,440px);display:flex;flex-direction:column;gap:15px;cursor:pointer;font-family:inherit;color:var(--text);overflow:hidden;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease,border-color .2s ease;}
+.mode-card::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,var(--mcs),transparent 46%);opacity:.5;transition:opacity .3s ease;pointer-events:none;}
+.mode-card:hover{transform:translateY(-8px);border-color:var(--mc);box-shadow:0 0 0 1px var(--mc),0 24px 50px -22px rgba(0,0,0,.6);}
+.mode-card:hover::before{opacity:1;}
+.mode-card:active{transform:translateY(-3px);}
+.mode-card:focus-visible{outline:2px solid var(--mc);outline-offset:3px;}
+.mode-icon{width:58px;height:58px;border-radius:15px;display:inline-flex;align-items:center;justify-content:center;color:#fff;background:var(--mc);flex-shrink:0;box-shadow:0 8px 20px -8px var(--mc);position:relative;z-index:1;transition:transform .3s cubic-bezier(.22,1,.36,1);}
+[data-theme="dark"] .mode-icon{color:#0e1116;}
+.mode-card:hover .mode-icon{transform:scale(1.08) rotate(-4deg);}
+.mode-title{font-family:'Google Sans','Roboto',sans-serif;font-size:23px;font-weight:700;position:relative;z-index:1;}
+.mode-desc{font-size:14px;line-height:1.6;color:var(--text-2);position:relative;z-index:1;}
+.mode-tags{display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:1;}
+.mode-tag{font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:20px;background:var(--mcs);color:var(--mc);}
+.mode-note{font-size:12.5px;line-height:1.5;color:var(--text-3);border-top:1px solid var(--border-soft);padding-top:12px;position:relative;z-index:1;}
+.mode-cta{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--mc);margin-top:auto;position:relative;z-index:1;}
+.mode-arrow{display:inline-block;transition:transform .3s cubic-bezier(.22,1,.36,1);font-size:16px;}
+.mode-card:hover .mode-arrow{transform:translateX(6px);}
+@media(max-width:720px){.mode-grid{grid-template-columns:1fr;}.mode-card{min-height:0;padding:26px;}.mode-wrap{justify-content:flex-start;padding-top:24px;}.mode-title{font-size:21px;}}
+/* Screen + card entrance transitions (clearly visible) + a quick leave fade */
+@keyframes screenIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+@keyframes modeCardIn{from{opacity:0;transform:translateY(26px) scale(.965);}to{opacity:1;transform:none;}}
+.screen-in{animation:screenIn .42s cubic-bezier(.22,1,.36,1);}
+.mode-head.screen-in{animation:screenIn .5s cubic-bezier(.22,1,.36,1);}
+.screen-leaving{opacity:0!important;transform:translateY(-8px);transition:opacity .18s ease,transform .18s ease;}
+.stagger-mode>*{opacity:0;animation:modeCardIn .6s cubic-bezier(.22,1,.36,1) forwards;}
+.stagger-mode>*:nth-child(1){animation-delay:.1s;}
+.stagger-mode>*:nth-child(2){animation-delay:.22s;}
+@media (prefers-reduced-motion:reduce){.mode-card,.mode-card:hover,.mode-card:active,.mode-icon,.mode-card:hover .mode-icon{transition:none;transform:none;}.screen-in,.mode-head.screen-in,.stagger-mode>*{animation:none;}.stagger-mode>*{opacity:1;}.screen-leaving{transition:none;transform:none;}.mode-arrow,.mode-card:hover .mode-arrow{transform:none;}}
 .auth-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--text-3);font-size:11px;}
 .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border);}
 .pw-wrap{position:relative;}
@@ -1347,6 +1384,19 @@ body.sidebar-open .nav-scrim{display:block;}
     </div>
   </header>
   <div class="hub-body" id="hubBody"></div>
+</div>
+
+<!-- Post-login mode chooser: Personal plan vs Team/Organization plan -->
+<div id="modeGate" class="hidden">
+  <header class="hub-header">
+    <div class="nav-brand"><span class="spark"></span> Sparks Finance</div>
+    <div class="hub-header-right">
+      <button class="icon-btn" id="mgTheme" onclick="toggleTheme()" title="Toggle theme"></button>
+      <span class="user-badge" id="mgUserBadge"></span>
+      <button class="sign-out-btn" onclick="doSignOut()">Sign out</button>
+    </div>
+  </header>
+  <div class="hub-body mode-wrap" id="modeGateBody"></div>
 </div>
 
 <!-- Modal overlay -->
@@ -3081,14 +3131,15 @@ async function routeAfterAuth(user) {
     const parts = ws.split('::'); const o = parts[0], c = parts[1];
     if (o && c) { ACTIVE_ORG = o; ACTIVE_COMPANY = c; _orgName = (_myOrgs[o] && _myOrgs[o].name) || ''; const cos = (_myOrgs[o] && _myOrgs[o].companies) || {}; _companyName = (cos[c] && cos[c].name) || ''; enterApp(user); return; }
   }
-  // Fresh login → always land on the workspace hub (Organizations → Companies), never on the login screen.
-  ACTIVE_ORG = null; ACTIVE_COMPANY = null; _hubOrgId = null;
-  try { await renderHub(user); } catch (e) {}
+  // Fresh login → land on the "choose your mode" page (Personal vs Organization), never the login screen.
+  ACTIVE_ORG = null; ACTIVE_COMPANY = null; _hubOrgId = null; _hubMode = 'team';
+  try { showModeGate(user); } catch (e) {}
 }
 function enterApp(user) {
   const _hub = document.getElementById('orgHub'); if (_hub) _hub.classList.add('hidden');
+  const _mg = document.getElementById('modeGate'); if (_mg) _mg.classList.add('hidden');
   document.getElementById('authPanel').classList.add('hidden');
-  document.getElementById('app').style.display = '';
+  const _appEl = document.getElementById('app'); _appEl.style.display = ''; _screenIn(_appEl);
   document.getElementById('userBadge').textContent = user.email;
   try { renderOrgSwitcher(); } catch (e) {}
   setLoading('Loading…');
@@ -3111,7 +3162,7 @@ function subscribeUserDoc() {
   }, () => {});
 }
 // ── Workspace hub (post-login: Organizations → Companies drill-down) ──
-let _hubUser = null, _hubOrgId = null, _hubOrgList = [], _hubInvites = [], _hubCoData = { companies: [], canManage: false }, _hubPersonalOrgs = [], _hubAllOrgs = [];
+let _hubUser = null, _hubOrgId = null, _hubOrgList = [], _hubInvites = [], _hubCoData = { companies: [], canManage: false }, _hubPersonalOrgs = [], _hubAllOrgs = [], _hubMode = 'team';
 function _avatarInitial(s) { return ((s || '?').trim().charAt(0) || '?').toUpperCase(); }
 function _hubColor(seed) { const c = ['#ff7a1a', '#21d27c', '#ff5c7a', '#5b8cff', '#c07cff', '#ffb020', '#12b5cb']; let h = 0; const s = String(seed || ''); for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return c[h % c.length]; }
 function _hubModuleBadges() { return '<span class="badge badge-blue">Trading</span> <span class="badge badge-green">Loans &amp; Notes</span>'; }
@@ -3123,10 +3174,70 @@ function _persistActive(orgId, companyId) {
 function _hubShowHub(user) {
   document.getElementById('authPanel').classList.add('hidden');
   document.getElementById('app').style.display = 'none';
+  const mg = document.getElementById('modeGate'); if (mg) mg.classList.add('hidden');
   const l = document.getElementById('loading'); if (l) { l.classList.add('hidden'); l.style.display = 'none'; }
   const hub = document.getElementById('orgHub'); if (hub) hub.classList.remove('hidden');
   const ub = document.getElementById('hubUserBadge'); if (ub) ub.textContent = (user && user.email) || '';
   const th = document.getElementById('hubTheme'); if (th) th.innerHTML = ic(document.documentElement.getAttribute('data-theme') === 'dark' ? 'sun' : 'moon', 18);
+  _screenIn(hub);
+}
+// ── Post-login "choose your mode" page (Personal plan vs Team/Organization plan) ──
+function _screenIn(el) { if (!el || _reduceMotion) return; el.classList.remove('screen-in'); void el.offsetWidth; el.classList.add('screen-in'); }
+// Quick fade-out of the current screen, then run done() (which shows the next screen with its own entrance).
+function _leaveScreen(sel, done) {
+  const el = document.querySelector(sel);
+  if (!el || _reduceMotion) { if (el) el.classList.add('hidden'); done(); return; }
+  el.classList.add('screen-leaving');
+  setTimeout(() => { el.classList.add('hidden'); el.classList.remove('screen-leaving'); done(); }, 170);
+}
+function showModeGate(user) {
+  if (user) _hubUser = user;
+  document.getElementById('authPanel').classList.add('hidden');
+  document.getElementById('app').style.display = 'none';
+  const hub = document.getElementById('orgHub'); if (hub) hub.classList.add('hidden');
+  const l = document.getElementById('loading'); if (l) { l.classList.add('hidden'); l.style.display = 'none'; }
+  const gate = document.getElementById('modeGate'); if (gate) gate.classList.remove('hidden');
+  const ub = document.getElementById('mgUserBadge'); if (ub) ub.textContent = (_hubUser && _hubUser.email) || '';
+  const th = document.getElementById('mgTheme'); if (th) th.innerHTML = ic(document.documentElement.getAttribute('data-theme') === 'dark' ? 'sun' : 'moon', 18);
+  renderModeGate();
+  _screenIn(gate);
+}
+function renderModeGate() {
+  const body = document.getElementById('modeGateBody'); if (!body) return;
+  const superAdmin = isPlatformAdmin();
+  const first = ((_hubUser && _hubUser.email) || '').split('@')[0];
+  const personalNote = superAdmin ? '<div class="mode-note">As an administrator, you can also review and manage other members’ personal workspaces here.</div>' : '';
+  const tag = (t) => '<span class="mode-tag">' + t + '</span>';
+  body.innerHTML =
+    '<div class="mode-head screen-in"><div class="hub-title">Welcome' + (first ? ', ' + escHtml(first) : '') + '</div>' +
+    '<div class="hub-sub">How would you like to work today? Pick a space to continue.</div></div>' +
+    '<div class="mode-grid stagger-mode">' +
+      '<div class="mode-card mode-personal" role="button" tabindex="0" aria-label="Open personal workspace" onclick="chooseMode(\'personal\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();chooseMode(\'personal\');}">' +
+        '<span class="mode-icon">' + ic('briefcase', 27) + '</span>' +
+        '<div class="mode-title">Personal</div>' +
+        '<div class="mode-desc">Your own private workspace. Track your portfolio, watchlists, price alerts, and loans &amp; notes — visible only to you.</div>' +
+        '<div class="mode-tags">' + tag('Portfolio') + tag('Watchlists') + tag('Alerts') + tag('Loans &amp; notes') + '</div>' +
+        personalNote +
+        '<div class="mode-cta">Open personal workspace <span class="mode-arrow">&rarr;</span></div>' +
+      '</div>' +
+      '<div class="mode-card mode-team" role="button" tabindex="0" aria-label="Open organization" onclick="chooseMode(\'team\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();chooseMode(\'team\');}">' +
+        '<span class="mode-icon">' + ic('users', 27) + '</span>' +
+        '<div class="mode-title">Organization</div>' +
+        '<div class="mode-desc">A shared company workspace for your team. Collaborate on portfolios and loans, with members, roles, and organization settings.</div>' +
+        '<div class="mode-tags">' + tag('Shared portfolios') + tag('Members') + tag('Roles') + tag('Settings') + '</div>' +
+        '<div class="mode-cta">Open organization <span class="mode-arrow">&rarr;</span></div>' +
+      '</div>' +
+    '</div>';
+}
+// Personal → personal workspace (super-admins get the personal oversight view). Organization → org picker.
+function chooseMode(mode) {
+  if (mode === 'personal') {
+    if (isPlatformAdmin()) { _hubMode = 'personal'; _hubOrgId = null; _leaveScreen('#modeGate', () => renderHub(_hubUser)); }
+    else { enterPersonal(); }
+    return;
+  }
+  _hubMode = 'team'; _hubOrgId = null;
+  _leaveScreen('#modeGate', () => renderHub(_hubUser));
 }
 async function renderHub(user) {
   if (user) _hubUser = user;
@@ -3137,8 +3248,15 @@ async function renderHub(user) {
 // Level 1 — Organizations the user can enter/manage (Super Admin sees all orgs).
 async function renderOrgLevel() {
   const body = document.getElementById('hubBody');
-  body.innerHTML = '<div class="hub-title">Select workspace</div><div class="hub-sub">Open your personal workspace or an organization you belong to.</div>' +
-    '<div class="hub-controls"><div class="hub-search">' + ic('search', 16) + '<input id="hubSearch" type="text" placeholder="Search organizations…" oninput="_hubFilter()" autocomplete="off"/></div></div>' +
+  const isPersonal = _hubMode === 'personal';
+  const title = isPersonal ? 'Personal' : 'Organizations';
+  const sub = isPersonal
+    ? (isPlatformAdmin() ? 'Open your personal workspace, or review a team member’s.' : 'Open your personal workspace.')
+    : 'Open a company workspace or manage your organizations.';
+  const searchPh = isPersonal ? 'Search personal workspaces…' : 'Search organizations…';
+  body.innerHTML = '<button type="button" class="hub-back" onclick="showModeGate(_hubUser)">' + ic('chevleft', 14) + ' Modes</button>' +
+    '<div class="hub-title">' + title + '</div><div class="hub-sub">' + sub + '</div>' +
+    '<div class="hub-controls"><div class="hub-search">' + ic('search', 16) + '<input id="hubSearch" type="text" placeholder="' + searchPh + '" oninput="_hubFilter()" autocomplete="off"/></div></div>' +
     '<div id="hubGrid" class="hub-grid"></div><div id="hubAllOrgsWrap"></div><div id="hubPersonalWrap"></div>';
   const grid = document.getElementById('hubGrid'); grid.innerHTML = '<div class="hub-empty">Loading…</div>';
   const superAdmin = isPlatformAdmin();
@@ -3238,27 +3356,44 @@ function _hubRenderAllOrgs() {
 function _hubRenderOrgCards() {
   const grid = document.getElementById('hubGrid'); if (!grid) return;
   const q = ((document.getElementById('hubSearch') || {}).value || '').trim().toLowerCase();
+  const allWrap = document.getElementById('hubAllOrgsWrap');
+  const pw = document.getElementById('hubPersonalWrap');
+
+  // ── Personal mode: the user's own personal workspace + (super-admin) other members' personal workspaces.
+  if (_hubMode === 'personal') {
+    grid.innerHTML = q ? '' : _hubPersonalCta();
+    if (allWrap) allWrap.innerHTML = '';
+    if (pw) {
+      let ppl = _hubPersonalOrgs.slice();
+      if (q) ppl = ppl.filter(o => (o.name || '').toLowerCase().includes(q) || (o.ownerEmail || '').toLowerCase().includes(q));
+      pw.innerHTML = ppl.length
+        ? '<div class="hub-section-title">Team members’ personal workspaces <span class="ht-sub">(' + ppl.length + ')</span></div><div class="hub-grid">' + ppl.map(_hubPersonalOrgCard).join('') + '</div>'
+        : (isPlatformAdmin() && !q ? '<div class="hub-empty" style="margin-top:4px">No other personal workspaces yet.</div>' : '');
+    }
+    return;
+  }
+
+  // ── Team / Organization mode.
+  if (pw) pw.innerHTML = '';   // no personal-workspace oversight on the team view
+  const teamOrgs = Object.keys(_myOrgs || {}).filter(id => !(_myOrgs[id] && _myOrgs[id].personal));
+  const notEnrolled = !isPlatformAdmin() && !teamOrgs.length;
+  if (notEnrolled) {
+    grid.innerHTML = '<div class="hub-empty" style="max-width:540px;margin:6px auto 0;">' +
+      emptyState('users', 'You’re not in an organization yet', 'Ask your administrator to add you to one. Once you’re added, it’ll appear here.') +
+      '<div style="text-align:center;color:var(--text-3);font-size:12.5px;margin-top:-6px">Signed in as ' + escHtml((_hubUser && _hubUser.email) || '') + '</div>' +
+      '<div style="text-align:center;margin-top:16px"><button type="button" class="pf-btn pf-btn-outline" onclick="showModeGate(_hubUser)">' + ic('chevleft', 14) + ' Back to modes</button></div>' +
+      '</div>';
+    if (allWrap) allWrap.innerHTML = '';
+    return;
+  }
   let orgs = _hubOrgList.slice();
   if (q) orgs = orgs.filter(o => (o.name || '').toLowerCase().includes(q));
   let html = '';
   if (!q) _hubInvites.forEach(iv => { html += _hubInviteCard(iv); });
-  if (!q) html += _hubPersonalCta();
   orgs.forEach(o => { html += _hubOrgCard(o); });
-  if (!q) {
-    if (isPlatformAdmin()) html += '<button type="button" class="hub-card hub-card-create" onclick="openModal(\'newOrg\')"><span class="hub-create-plus">' + ic('plus', 22) + '</span><div class="hub-card-name">Create organization</div><div class="hub-card-sub">Spin up a new organization for a team.</div></button>';
-    else html += '<div class="hub-card hub-card-note"><div class="hub-card-name">Need a team organization?</div><div class="hub-card-sub">Contact your Sparks administrator to be added to one.</div></div>';
-  }
+  if (!q && isPlatformAdmin()) html += '<button type="button" class="hub-card hub-card-create" onclick="openModal(\'newOrg\')"><span class="hub-create-plus">' + ic('plus', 22) + '</span><div class="hub-card-name">Create organization</div><div class="hub-card-sub">Spin up a new organization for a team.</div></button>';
   grid.innerHTML = html || '<div class="hub-empty">No organizations match “' + escHtml(q) + '”.</div>';
-  _hubRenderAllOrgs();   // super-admin platform overview table (above personal workspaces)
-  // Super-admin only: everyone else's personal workspaces, in their own labeled section.
-  const pw = document.getElementById('hubPersonalWrap');
-  if (pw) {
-    let ppl = _hubPersonalOrgs.slice();
-    if (q) ppl = ppl.filter(o => (o.name || '').toLowerCase().includes(q) || (o.ownerEmail || '').toLowerCase().includes(q));
-    pw.innerHTML = ppl.length
-      ? '<div class="hub-section-title">Personal workspaces <span class="ht-sub">(' + ppl.length + ')</span></div><div class="hub-grid">' + ppl.map(_hubPersonalOrgCard).join('') + '</div>'
-      : '';
-  }
+  _hubRenderAllOrgs();   // super-admin platform overview table
 }
 // Level 2 — Companies within the opened org.
 async function hubOpenOrg(orgId) { _hubOrgId = orgId; await renderCompanyLevel(); }
@@ -3485,6 +3620,7 @@ auth.onAuthStateChanged(async user => {
     loans = []; _loanView = 'list'; _loanId = null;
     holdings = []; transactions = []; holdingsByPortfolio = {}; currentPfId = null; _pfView = 'holdings';
     const _hub = document.getElementById('orgHub'); if (_hub) _hub.classList.add('hidden');
+    const _mg = document.getElementById('modeGate'); if (_mg) _mg.classList.add('hidden');
     try { sessionStorage.removeItem('sf_ws'); } catch (e) {}
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('loading').style.display = 'none';
