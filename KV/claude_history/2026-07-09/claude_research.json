@@ -1,0 +1,228 @@
+{
+  "date": "2026-07-09",
+  "analyses": [
+    {
+      "ticker": "LQDA", "name": "Liquidia Corporation",
+      "signal": "STRONG BUY",
+      "verdict": "Highest-scoring setup in the entire scan (94.8) — a small-cap biotech whose commercial ramp for Yutrepia is finally showing up in the tape after years of patent litigation overhang.",
+      "financials": {
+        "period": "FY2025 (approximate, last full fiscal year)",
+        "summary": "Liquidia is early in its commercial transition: for most of its history revenue came from licensing/legal-settlement income tied to its patent dispute with United Therapeutics, not product sales. FY2025 is the first year with Yutrepia (inhaled treprostinil) generating real prescription revenue following FDA approval and the resolution of the long-running IP litigation. Reported revenue growth looks enormous in percentage terms because it's off a near-zero base — the scan shows +4,159% YoY — but the absolute dollar base is still small, so the stock is being priced on the ramp trajectory, not trailing earnings.",
+        "highlights": ["FDA approval and commercial launch of Yutrepia for pulmonary arterial hypertension (PAH) and PH-ILD", "Multi-year patent litigation with United Therapeutics substantially resolved, removing the biggest legal overhang", "EPS still negative — pre-profitability commercial-stage biotech", "Revenue growth off a very small base — don't extrapolate the percentage directly"]
+      },
+      "accomplishments": ["Won FDA approval for Yutrepia after a multi-year regulatory and legal fight", "Resolved core patent litigation with United Therapeutics", "Began commercial launch and payer-access buildout for Yutrepia in the PAH/PH-ILD market"],
+      "journey_52w": {
+        "summary": "The past year has been the inflection point for Liquidia: after years of being defined by litigation risk, the stock re-rated once Yutrepia cleared its final regulatory and legal hurdles and began shipping. The chart reflects that — a multi-month VCP base with the RS line only recently pushing to new highs as the commercial story displaces the legal-risk story.",
+        "milestones": [
+          {"label": "2025", "note": "Yutrepia FDA approval and litigation resolution with United Therapeutics"},
+          {"label": "Mid-2025 onward", "note": "Commercial launch ramp — payer coverage and prescriber adoption building"},
+          {"label": "Recent months", "note": "Stock forming a tight VCP base with volume drying up — technical base-building alongside the commercial ramp"}
+        ]
+      },
+      "critical": {
+        "risks": ["Still unprofitable — the investment case depends entirely on the Yutrepia ramp continuing", "Small-cap biotech — thin analyst coverage, can be volatile on any single data point or payer decision", "Competitive PAH/PH-ILD market with an entrenched incumbent (United Therapeutics) that just settled litigation, not necessarily competition"],
+        "catalysts": ["Continued prescription/payer-coverage ramp updates for Yutrepia", "Potential label expansion or new indication data", "Forward earnings in ~35 days per the scan — first real read on commercial traction"],
+        "watch": ["Quarter-over-quarter prescription growth trendlines", "Gross-to-net pricing dynamics as payer coverage broadens", "Any renewed litigation risk from competitors"],
+        "valuation": "Forward P/E of ~14x looks cheap for the growth story, but that multiple is not yet meaningful given the company is early in translating approval into steady-state earnings — treat it as a story stock being re-rated on execution, not a value name."
+      }
+    },
+    {
+      "ticker": "BK", "name": "The Bank of New York Mellon",
+      "signal": "STRONG BUY",
+      "verdict": "The world's largest custodian bank, compounding steadily on record assets under custody and expense discipline — a lower-drama way to own the financials theme.",
+      "financials": {
+        "period": "FY2024 (last full fiscal year)",
+        "summary": "BNY Mellon's model is fee-based (custody, asset servicing, markets, wealth) rather than balance-sheet-driven like a traditional bank, which makes it less rate-sensitive and more scale-sensitive. FY2024 revenue grew mid-single-digits with assets under custody/administration reaching record levels, and EPS grew faster than revenue as management continued to run the expense base tightly and return capital via buybacks.",
+        "highlights": ["Assets under custody and administration at or near record highs (multi-trillion-dollar scale)", "EPS growth outpacing revenue growth — operating leverage from expense discipline", "Continued share buybacks reducing share count", "Fee income (not just net interest income) is the primary growth driver"]
+      },
+      "accomplishments": ["Record assets under custody/administration", "Continued investment in platform modernization (its 'Pershing X' and digital-asset custody initiatives)", "Sustained double-digit EPS growth on a mega-cap bank base"],
+      "journey_52w": {
+        "summary": "BK has been one of the steadier compounders in financials over the past year, re-rating as investors rewarded the fee-based, capital-light custody model relative to balance-sheet-heavy regional banks. The stock has made a series of higher highs with shallow pullbacks, culminating in the current tight VCP base right into an upcoming earnings report.",
+        "milestones": [
+          {"label": "Past year", "note": "Steady EPS beats driven by expense discipline and fee growth"},
+          {"label": "Ongoing", "note": "Continued buyback execution supporting per-share growth"},
+          {"label": "Now", "note": "Entering earnings (in ~7 days) from a tight technical base near all-time highs"}
+        ]
+      },
+      "critical": {
+        "risks": ["Earnings in 7 days is a binary catalyst — a soft AUC/AUA print or guidance miss could break the base", "Market-driven fee income means a sharp equity/bond market drawdown would pressure revenue", "Valuation has re-rated — less margin of safety than a year ago"],
+        "catalysts": ["Earnings report in ~7 days", "Continued buyback authorization usage", "Any incremental AUC/AUA records reported intra-quarter"],
+        "watch": ["Net new business/asset flows into custody and wealth", "Expense ratio trend — the core lever behind EPS growth", "Fed rate path — affects net interest income on client cash balances"],
+        "valuation": "Forward P/E near 14x is reasonable for a mega-cap financial with EPS growing over 40% YoY per the scan — not expensive relative to growth, though bank multiples can compress fast in a risk-off environment."
+      }
+    },
+    {
+      "ticker": "FTNT", "name": "Fortinet, Inc.",
+      "signal": "STRONG BUY",
+      "verdict": "Cybersecurity platform leader converting its SASE/Unified-platform strategy into durable double-digit growth and industry-leading margins.",
+      "financials": {
+        "period": "FY2024 (last full fiscal year)",
+        "summary": "Fortinet grew revenue at a low-double-digit rate with billings growth reaccelerating as its Secure SD-WAN and Unified SASE offerings gained share, alongside its legacy firewall (Security Fabric) business. Profitability remains a standout in the security software group — Fortinet runs meaningfully higher operating margins than most of its SaaS-security peers because of its integrated hardware+software model and scale.",
+        "highlights": ["Revenue +20% YoY per the scan's fundamentals data", "EPS +29% YoY — margin expansion alongside growth", "SASE and cloud security bookings growing faster than the legacy firewall business", "High free-cash-flow generation relative to peers, funding buybacks"]
+      },
+      "accomplishments": ["Continued to take share in the Unified SASE category against both legacy network-security vendors and newer SASE-native competitors", "Sustained industry-leading operating margins while still growing revenue double digits", "Ongoing platform consolidation strategy (Fortinet Security Fabric) resonating with enterprise customers looking to cut vendor count"],
+      "journey_52w": {
+        "summary": "FTNT has been a steady relative-strength leader over the past year as enterprises consolidate security spend onto fewer platforms — a dynamic that favors scaled players like Fortinet over point-solution vendors. The stock built a multi-month base and has recently pushed the RS line to new highs, a sign of accelerating institutional interest into what is historically a seasonally strong back-half-of-year setup for security budgets.",
+        "milestones": [
+          {"label": "Past year", "note": "Billings growth reaccelerated as SASE adoption broadened"},
+          {"label": "Recent quarters", "note": "Margin expansion continued despite growth investment"},
+          {"label": "Now", "note": "RS line pushing to new highs — leadership within the software/security group"}
+        ]
+      },
+      "critical": {
+        "risks": ["Forward P/E of ~46x prices in continued double-digit growth — any deceleration would compress the multiple hard", "Increasingly competitive SASE category with well-funded pure-play competitors", "Federal/public-sector budget cycles can create lumpy quarter-to-quarter bookings"],
+        "catalysts": ["No earnings report for ~22 days — clean technical runway before the next print", "Continued SASE/cloud bookings mix shift", "Potential new product cycle announcements (AI-driven security features)"],
+        "watch": ["Billings growth rate trend (leading indicator ahead of revenue)", "SASE bookings as % of total — the core re-rating driver", "Operating margin trajectory as competition intensifies"],
+        "valuation": "Priced at a premium (~46x forward earnings) to the broader market but roughly in line with best-in-class security software peers given its growth + margin combination."
+      }
+    },
+    {
+      "ticker": "LLY", "name": "Eli Lilly and Company",
+      "signal": "STRONG BUY",
+      "verdict": "The GLP-1 obesity/diabetes franchise (Mounjaro/Zepbound) continues to drive the fastest large-cap pharma growth in the market, and the technical setup confirms institutions are still accumulating.",
+      "financials": {
+        "period": "FY2024 (last full fiscal year)",
+        "summary": "Lilly's revenue and earnings growth have been extraordinary by large-pharma standards, driven almost entirely by tirzepatide (marketed as Mounjaro for diabetes and Zepbound for obesity). The scan shows EPS +170% and revenue +56% YoY, reflecting continued capacity expansion finally catching up with demand that has outstripped supply for several years. Lilly has been investing heavily in manufacturing capacity to meet that demand and to support its emerging oral GLP-1 pipeline (orforglipron).",
+        "highlights": ["Revenue +56% YoY per the scan, driven by Mounjaro/Zepbound", "EPS +170% YoY — operating leverage as manufacturing scales", "Continued heavy capex on manufacturing capacity to relieve supply constraints", "Oral GLP-1 (orforglipron) pipeline progressing as a potential next leg of growth"]
+      },
+      "accomplishments": ["Scaled tirzepatide manufacturing capacity meaningfully to reduce years of supply shortages", "Advanced its oral GLP-1 candidate (orforglipron) through late-stage trials", "Maintained pricing power and payer coverage expansion for Zepbound despite competitive pressure from Novo Nordisk's Wegovy/Ozempic franchise"],
+      "journey_52w": {
+        "summary": "Lilly has spent the past year proving the GLP-1 growth story isn't just a supply story but a durable demand story — as capacity has come online, the market has rewarded continued upside to already-high expectations. The stock's RS line sits at new highs, and the current VCP base is forming despite a recent negative news-flow blip, which is the main thing to monitor over the next few weeks.",
+        "milestones": [
+          {"label": "Past year", "note": "Continued capacity expansion easing Mounjaro/Zepbound supply constraints"},
+          {"label": "Ongoing", "note": "Oral GLP-1 (orforglipron) trial readouts progressing toward a potential filing"},
+          {"label": "Recent", "note": "A negative news-flow item flagged by the scan — worth checking before adding into the print"}
+        ]
+      },
+      "critical": {
+        "risks": ["Recent news flow flagged as slightly negative by the scan — verify before sizing up", "Increasing competition from Novo Nordisk and emerging oral/next-gen obesity drugs from other pharma players", "Valuation and expectations are both very high — any growth deceleration would hit the multiple hard", "Political/pricing risk around GLP-1 drug pricing remains a persistent overhang for the group"],
+        "catalysts": ["Earnings in ~28 days", "Continued oral GLP-1 (orforglipron) trial data readouts", "Further capacity expansion updates easing supply constraints"],
+        "watch": ["Zepbound/Mounjaro prescription volume trends", "Any compounding-pharmacy or generic-competition headlines", "Orforglipron regulatory timeline"],
+        "valuation": "Forward P/E of ~27x is a premium to the market but reasonable relative to a company still growing revenue at 50%+ — the risk is more in expectations than in the multiple itself."
+      }
+    },
+    {
+      "ticker": "DELL", "name": "Dell Technologies Inc.",
+      "signal": "STRONG BUY",
+      "verdict": "AI-server demand (Infrastructure Solutions Group) is driving the strongest fundamental print in this entire recommendation list, with TradingView giving it a near-unanimous bullish technical read.",
+      "financials": {
+        "period": "FY2025 (fiscal year ended ~Jan/Feb 2025)",
+        "summary": "Dell's AI-optimized server business (within its Infrastructure Solutions Group) has become the dominant growth driver, with backlog and shipments both scaling rapidly as hyperscalers and enterprises build out AI compute capacity. The scan shows EPS +283% and revenue +88% YoY — an extraordinary print reflecting both the AI server ramp and easier prior-year comps in the PC business (Client Solutions Group), which has also been recovering.",
+        "highlights": ["Revenue +88% YoY per the scan, led by AI server demand", "EPS +283% YoY — extreme operating leverage on the AI hardware ramp", "AI-optimized server backlog remains a key metric to track each quarter", "PC (Client Solutions Group) demand also recovering alongside the AI story"]
+      },
+      "accomplishments": ["Scaled AI server shipments meaningfully as a top supplier to hyperscale and enterprise AI buildouts", "Continued PC market share resilience during the broader commercial refresh cycle", "Strong free cash flow generation funding continued capital returns to shareholders"],
+      "journey_52w": {
+        "summary": "Dell has been re-rated over the past year from a legacy hardware company to a primary beneficiary of AI infrastructure capex, with the stock's momentum (134% over 3 months per the scan) reflecting that shift. TradingView's near-unanimous bullish read (15 buy / 1 sell) suggests broad technical confirmation of the fundamental story, even though the stock is still 7% off its 52-week high and hasn't fully confirmed relative-strength leadership yet.",
+        "milestones": [
+          {"label": "Past year", "note": "AI server backlog and bookings scaled materially"},
+          {"label": "Recent quarters", "note": "PC segment demand recovery added a second growth leg alongside AI servers"},
+          {"label": "Now", "note": "Extreme 3-month momentum (+134%) — watch for consolidation after such a fast move"}
+        ]
+      },
+      "critical": {
+        "risks": ["Momentum this extreme (134% in 3 months) raises mean-reversion risk on any AI-capex-spending headline", "AI server margins are typically thinner than legacy enterprise hardware — watch gross margin trend as the mix shifts", "Hyperscaler capex plans can shift quickly and are concentrated among a handful of large customers"],
+        "catalysts": ["Earnings in ~58 days", "Ongoing AI server backlog updates", "Potential capital-return (buyback/dividend) announcements"],
+        "watch": ["AI server backlog growth quarter over quarter", "Gross margin trend as AI-server mix increases", "Client Solutions Group (PC) demand trajectory"],
+        "valuation": "Forward P/E of ~20x looks reasonable relative to the growth rate shown, but is highly dependent on the AI server cycle continuing — this isn't a name to hold through a hyperscaler capex slowdown headline without a plan."
+      }
+    },
+    {
+      "ticker": "FR", "name": "First Industrial Realty Trust",
+      "signal": "STRONG BUY",
+      "verdict": "A well-run industrial/logistics-warehouse REIT showing one of the cleanest technical setups in the entire scan, backed by real occupancy and rent-growth fundamentals.",
+      "financials": {
+        "period": "FY2024 (last full fiscal year)",
+        "summary": "First Industrial owns and develops logistics/warehouse properties, a category that has benefited from e-commerce and supply-chain-reshoring demand even as broader commercial real estate has struggled. FY2024 saw continued high occupancy and positive re-leasing spreads (new leases signed at meaningfully higher rents than expiring ones), with EPS growth (+200% per the scan) reflecting both operating performance and likely gain-on-sale/development income that can be lumpy for REITs.",
+        "highlights": ["EPS +200% YoY per the scan — check for one-time gains typical of REIT development/disposition activity", "Revenue +10% YoY — solid, more representative of the core leasing business", "High-quality logistics/warehouse portfolio benefiting from e-commerce and supply-chain demand", "Active development pipeline in target coastal and Sun Belt logistics markets"]
+      },
+      "accomplishments": ["Maintained high occupancy across its industrial portfolio amid a broader industrial real estate slowdown in some markets", "Continued positive re-leasing spreads — new leases signed above expiring rents", "Advanced its development pipeline in supply-constrained logistics submarkets"],
+      "journey_52w": {
+        "summary": "FR has quietly built one of the tightest technical bases in the scan over the past several months, with today's volume surge (1.6x average) suggesting the base may be resolving. REITs broadly have been out of favor with higher-for-longer rate expectations, which makes FR's relative resilience and RS trend worth watching closely, even though the RS line hasn't fully confirmed new highs yet.",
+        "milestones": [
+          {"label": "Past year", "note": "Occupancy held up and re-leasing spreads stayed positive despite a choppier industrial real estate backdrop"},
+          {"label": "Recent", "note": "5-contraction VCP base formed with today's volume surge (1.6x average) as a potential base-resolution signal"}
+        ]
+      },
+      "critical": {
+        "risks": ["RS line still -5% off its high — hasn't yet proven outright market leadership", "REITs are rate-sensitive; a hawkish shift in Fed expectations would pressure the whole sector including FR", "EPS growth headline (+200%) likely includes one-time items — don't extrapolate it as a recurring run-rate"],
+        "catalysts": ["Earnings in ~15 days", "Continued positive re-leasing spread reports", "Any easing in the rate outlook, which would be a broad tailwind for REIT multiples"],
+        "watch": ["Same-store NOI growth trend", "Occupancy rate and re-leasing spread each quarter", "Interest-rate expectations, given REIT sensitivity to the discount rate"],
+        "valuation": "Forward P/E (FFO-equivalent context matters more for REITs) of ~35x is on the higher side historically for an industrial REIT — priced for continued above-average rent growth."
+      }
+    },
+    {
+      "ticker": "MO", "name": "Altria Group, Inc.",
+      "signal": "STRONG BUY",
+      "verdict": "A classic defensive-income name delivering the strongest TradingView technical confirmation (STRONG_BUY) of any pick on this list, powered by pricing power and its smoke-free product transition.",
+      "financials": {
+        "period": "FY2024 (last full fiscal year)",
+        "summary": "Altria's core cigarette business continues to see volume declines, but the company has consistently offset that with pricing increases and share buybacks, driving EPS growth (+106% per the scan, likely aided by comparisons and buyback-driven share count reduction) even as top-line revenue growth stays modest. Altria's smoke-free portfolio (on! nicotine pouches, NJOY vapor products) continues to be the key growth vector the market is watching for a longer-term transition story.",
+        "highlights": ["EPS +106% YoY per the scan — largely pricing power and buyback-driven given flat-to-declining cigarette volumes", "on! nicotine pouch category continuing to grow share in the broader oral nicotine market", "NJOY vapor integration ongoing as the company's FDA-authorized e-vapor entry", "Consistent capital returns via dividends and buybacks — a hallmark of the stock's income appeal"]
+      },
+      "accomplishments": ["Continued to grow on! oral nicotine pouch volume and market share", "Sustained one of the highest dividend yields among large-cap consumer staples", "Managed the structural cigarette volume decline profitably through pricing discipline"],
+      "journey_52w": {
+        "summary": "MO has been a steady, low-beta performer over the past year, appealing to investors seeking income and stability rather than growth. The stock's slow-and-steady uptrend (10.6% 3-month momentum, per the scan) reflects that character — this is not a breakout name, but TradingView's near-unanimous STRONG_BUY technical read (16 buy / 1 sell) suggests the trend is broadly confirmed across timeframes and indicators.",
+        "milestones": [
+          {"label": "Past year", "note": "Continued pricing actions offset cigarette volume declines"},
+          {"label": "Ongoing", "note": "on! nicotine pouch share gains continued"},
+          {"label": "Now", "note": "TradingView's strongest technical read (STRONG_BUY, 16/1) of any name in this report"}
+        ]
+      },
+      "critical": {
+        "risks": ["Structural, permanent decline in cigarette smoking volumes is the core long-term risk to the business model", "Regulatory risk (FDA menthol ban proposals, flavor restrictions on vapor products) is a persistent overhang", "Litigation risk, though historically well-managed by the company"],
+        "catalysts": ["Earnings in ~22 days", "Continued on! and NJOY volume/share updates", "Dividend increase announcements, typical for this name"],
+        "watch": ["Cigarette volume decline rate vs. pricing offset", "on! and NJOY category share trends", "Any regulatory action on menthol or flavored nicotine products"],
+        "valuation": "Forward P/E of ~12x with a high dividend yield is classic defensive-value pricing — cheap on an earnings basis, reflecting the market's discount for the structurally declining core business."
+      }
+    },
+    {
+      "ticker": "EOG", "name": "EOG Resources, Inc.",
+      "signal": "STRONG BUY",
+      "verdict": "A disciplined E&P operator with the same top-tier TradingView STRONG_BUY confirmation as Altria, offering diversification into commodity/energy exposure within the STRONG BUY tier.",
+      "financials": {
+        "period": "FY2024 (last full fiscal year)",
+        "summary": "EOG is known for capital discipline relative to peers in the shale E&P space — prioritizing free cash flow and returns over pure production growth. FY2024 EPS grew roughly 40% and revenue about 16% per the scan, reflecting a combination of production growth in its core Permian and Eagle Ford positions and commodity price dynamics. EOG has consistently directed a large share of free cash flow to shareholders via base dividends, special dividends, and buybacks.",
+        "highlights": ["EPS +40% YoY, revenue +16% YoY per the scan", "Continued capital discipline — production growth funded within cash flow rather than through leverage", "History of returning free cash flow via base + special dividends and buybacks", "Core acreage positions in the Permian and Eagle Ford remain low-cost relative to peers"]
+      },
+      "accomplishments": ["Maintained one of the lowest breakeven cost structures among large-cap E&P peers", "Continued a multi-year track record of returning a high percentage of free cash flow to shareholders", "Sustained production growth in core basins without meaningfully increasing leverage"],
+      "journey_52w": {
+        "summary": "EOG's stock has moved largely with the energy sector and oil-price sentiment over the past year rather than on company-specific catalysts, which is typical for E&P names. The scan shows flat 3-month momentum and the stock still 7.5% off its 52-week high, meaning it needs commodity-price cooperation (or a company-specific catalyst) to break out — but TradingView's STRONG_BUY read suggests the technical picture is already turning constructive ahead of that.",
+        "milestones": [
+          {"label": "Past year", "note": "Continued disciplined capital allocation and shareholder returns amid choppy oil prices"},
+          {"label": "Recent", "note": "Stock still consolidating -7.5% off its 52-week high despite the strong TV technical read"}
+        ]
+      },
+      "critical": {
+        "risks": ["Direct exposure to oil and natural gas price volatility — a macro/commodity risk more than a company-specific one", "Flat 3-month momentum means the setup needs a catalyst (earnings or commodity move) to break out", "OPEC+ supply decisions and global demand shifts are outside management's control"],
+        "catalysts": ["Earnings in ~28 days", "Any OPEC+ supply announcements or global demand data surprises", "Continued special dividend or buyback announcements"],
+        "watch": ["Oil and natural gas price trends", "Production guidance updates each quarter", "Capital allocation mix between growth capex and shareholder returns"],
+        "valuation": "Forward P/E of ~9x is inexpensive on an absolute basis, typical for the E&P group, and reflects the market's discount for commodity-price cyclicality rather than a company-specific concern."
+      }
+    },
+    {
+      "ticker": "AMD", "name": "Advanced Micro Devices, Inc.",
+      "signal": "WATCH",
+      "verdict": "Genuinely split verdict: the scan's fundamentals and momentum are excellent, but TradingView's technical oscillators rate it NEUTRAL — worth a deep dive given one user currently holds a position.",
+      "financials": {
+        "period": "FY2024 (last full fiscal year)",
+        "summary": "AMD's Data Center segment, powered by its MI300-series AI accelerators and EPYC server CPUs, has become the primary growth engine, with the scan showing EPS +91% and revenue +38% YoY. The Client (consumer PC) segment has also been recovering, while Gaming and Embedded segments have been comparative laggards as those end-markets normalize post-pandemic.",
+        "highlights": ["Revenue +38% YoY, EPS +91% YoY per the scan", "Data Center segment (MI300 AI GPUs, EPYC CPUs) is the primary growth driver", "Client segment (consumer PCs) also recovering", "Gaming and Embedded segments comparatively weaker, acting as a drag on blended growth"]
+      },
+      "accomplishments": ["Scaled MI300-series AI accelerator shipments as the most credible alternative to Nvidia in AI training/inference hardware", "Continued EPYC server CPU share gains against Intel in the data center", "Sustained PC client market share resilience"],
+      "journey_52w": {
+        "summary": "AMD has been one of the most volatile large-cap AI-adjacent names over the past year, with the stock's 123% 3-month momentum (per the scan) reflecting enthusiasm for its AI accelerator roadmap, but also leaving it -10.9% off its 52-week high — meaning the recent surge hasn't yet reclaimed prior leadership levels. This gap between strong momentum and TradingView's NEUTRAL oscillator read is the central tension in the current setup.",
+        "milestones": [
+          {"label": "Past year", "note": "MI300-series AI accelerator ramp became the dominant narrative for the stock"},
+          {"label": "Recent", "note": "123% 3-month momentum — one of the fastest moves in this entire report"},
+          {"label": "Now", "note": "TradingView rates NEUTRAL (8 buy / 8 sell / 10 neutral) despite the scan's STRONG BUY signal — a genuine cross-check disagreement"}
+        ]
+      },
+      "critical": {
+        "risks": ["TradingView's NEUTRAL rating directly contradicts the scan's bullish signal — this is the clearest scan-vs-TV split among held positions", "AI-accelerator market share against Nvidia remains the key uncertainty — AMD is the clear #2, not the leader", "-10.9% off 52-week high despite the strong momentum suggests the move hasn't fully confirmed new leadership yet", "Momentum this extreme (123% in 3 months) raises mean-reversion risk"],
+        "catalysts": ["Earnings in ~28 days", "MI300-successor roadmap updates and any hyperscaler design-win announcements", "EPYC server share-gain data points"],
+        "watch": ["Data Center segment revenue growth and AI accelerator mix specifically", "Any updates on AI GPU supply/demand balance versus Nvidia", "TradingView rating changes on subsequent refreshes — a flip to BUY would resolve the current disagreement bullishly"],
+        "valuation": "Forward P/E of ~39x is a premium reflecting AI-accelerator growth expectations — priced for AMD to keep taking real share in AI compute, not just participate in the category."
+      }
+    }
+  ]
+}
