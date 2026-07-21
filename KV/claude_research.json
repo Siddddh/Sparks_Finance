@@ -1,364 +1,244 @@
 {
-  "date": "2026-07-14",
+  "date": "2026-07-21",
   "analyses": [
     {
-      "ticker": "FTNT",
-      "name": "Fortinet, Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "The strongest technical setup on the board — a new-high cybersecurity leader working while high-beta tech breaks. TV BUY confirms.",
+      "ticker": "WERN", "name": "Werner Enterprises, Inc.", "signal": "STRONG BUY",
+      "verdict": "Top-scoring, cleanest breakout in the scan — a truckload carrier at fresh 52-week highs as the freight cycle turns up; TradingView independently rates it Strong Buy.",
       "financials": {
-        "period": "Last full fiscal year (FY ended Dec 2025)",
-        "summary": "Fortinet remains a rare software-plus-hardware security vendor that is both high-growth and durably profitable. Revenue is split between product (its FortiGate appliances/firewalls) and a faster-growing, higher-margin service/subscription stream (FortiGuard security services and support), with billings and deferred revenue the key forward tells. Operating margins run among the best in security software and free cash flow conversion is strong.",
-        "highlights": [
-          "Revenue in the ~$6-7B range, high-single/low-double-digit YoY growth",
-          "Service revenue now the majority of the mix — recurring and high-margin",
-          "GAAP operating margin in the mid-20s%, non-GAAP well above",
-          "Robust free cash flow funding buybacks; net cash balance sheet",
-          "Billings growth the metric to watch as the forward demand signal"
-        ]
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Werner is a truckload and logistics carrier whose results track the freight cycle. Coming off a multi-year freight recession, revenue has begun re-accelerating (+13.6% in the latest period) as spot and contract rates firm, while cost discipline in the fleet and logistics segments supports operating-margin recovery. Balance sheet remains conservative for the sector.",
+        "highlights": ["Revenue re-accelerating, +13.6% YoY as freight rates firm", "Operating margin recovering off cyclical trough", "Dedicated/Truckload volumes stabilizing", "Conservative leverage relative to peers", "Forward P/E ~21.7 — reasonable for an up-cycle entry"]
       },
-      "accomplishments": [
-        "Established leadership in unified SASE and secure networking, converging firewall + SD-WAN + cloud security",
-        "Sustained one of the best margin profiles in the security-software group",
-        "Expanded OT/operational-technology security, a fast-growing adjacency"
-      ],
+      "accomplishments": ["Fresh 52-week price highs on expanding volume", "Grew dedicated-fleet contracts through the freight downturn", "Continued technology/telematics investment to lift asset utilization"],
       "journey_52w": {
-        "summary": "A powerful re-rating over the past year: the stock roughly doubled off its base (+104% over three months alone) as firewall-refresh demand reaccelerated and the SASE story took hold, carrying it to fresh 52-week highs even as the broader semiconductor complex sold off on Middle East tensions.",
+        "summary": "Spent much of the past year basing while the freight recession bottomed, then broke out to new highs in mid-2026 as rate indicators inflected — one of the first transports to reclaim highs, signaling cycle leadership.",
         "milestones": [
-          { "label": "Late 2025", "note": "Firewall refresh cycle reaccelerates; billings inflect higher" },
-          { "label": "Q1 2026", "note": "SASE/unified security momentum drives guidance higher" },
-          { "label": "Jul 2026", "note": "Breaks to a new 52-week high, RSI a controlled 64 — un-extended leadership" }
+          {"label": "H2 2025", "note": "Extended base-building as freight rates troughed"},
+          {"label": "Q2 2026", "note": "Rate indicators inflect; stock begins RS leadership vs transports"},
+          {"label": "Jul 2026", "note": "Breaks to fresh 52-week highs on a textbook VCP with volume"}
         ]
       },
       "critical": {
-        "risks": ["Earnings in ~17 days — a high-multiple name reacts hard to any billings miss", "Product (appliance) demand is lumpier than services", "Tech-tape guilt-by-association if the semi selloff broadens"],
-        "catalysts": ["Firewall refresh cycle", "SASE/OT security cross-sell", "Continued margin expansion"],
-        "watch": ["Billings and deferred-revenue growth", "Product vs service mix", "RSI staying below overbought on the breakout"],
-        "valuation": "Premium multiple justified by best-in-class margins + reaccelerating growth; the risk is the multiple itself into earnings."
+        "risks": ["Q2 earnings in ~8 days — gap risk into the print", "Small-cap trucking is highly economically sensitive", "A stalling freight recovery would undercut the thesis"],
+        "catalysts": ["Freight-rate acceleration and tightening capacity", "Earnings beat + constructive rate/diesel commentary"],
+        "watch": ["Hold above the ~$46 breakout pivot", "Spot vs contract rate spread", "Diesel/fuel-surcharge commentary"],
+        "valuation": "~21.7x forward — fair for an early-cycle freight recovery with re-accelerating revenue."
       }
     },
     {
-      "ticker": "NTRS",
-      "name": "Northern Trust Corporation",
-      "signal": "STRONG BUY",
-      "verdict": "Clean new 52-week high out of a tight VCP base with RS at the highs — the cleanest financials leadership setup. TV BUY confirms.",
+      "ticker": "FRT", "name": "Federal Realty Investment Trust", "signal": "STRONG BUY",
+      "verdict": "Blue-chip shopping-center REIT and rare Dividend King breaking to new highs with RSI only 54 — the un-extended income breakout this tape rewards.",
       "financials": {
-        "period": "Last full fiscal year (FY ended Dec 2025)",
-        "summary": "Northern Trust is a trust bank whose earnings lean on fee income (asset servicing and wealth management) plus net interest income on its balance sheet. Higher-for-longer rates lift NII, while assets under custody/administration (AUC/A) and assets under management drive the fee engine. Capital return via buybacks and a steady dividend is a core part of the story.",
-        "highlights": [
-          "EPS growth strong (scan shows ~43% EPS growth), revenue +14%",
-          "Forward P/E only ~15 — inexpensive for the quality",
-          "Fee income (custody + wealth) the durable base; NII the rate kicker",
-          "AUC/A in the trillions — scale moat in asset servicing",
-          "Consistent buyback + dividend"
-        ]
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Federal Realty owns premium, high-barrier open-air retail and mixed-use centers in affluent coastal markets. Revenue grew ~10% on record leased occupancy and positive rent spreads, with FFO per share (the REIT cash-flow metric) advancing and the dividend raised again — extending one of the longest consecutive-increase streaks in the market.",
+        "highlights": ["Revenue +10.3% YoY on record occupancy", "EPS +152% YoY (off a normalized base)", "58+ consecutive years of dividend increases (Dividend King)", "Positive leasing spreads on renewals", "Forward P/E ~40.8 (use FFO, not P/E, for REITs)"]
       },
-      "accomplishments": [
-        "Grew AUC/A to record levels on market appreciation and net new business",
-        "Improved operating leverage as expense discipline met higher fee + NII",
-        "Maintained a fortress capital position with steady shareholder returns"
-      ],
+      "accomplishments": ["Achieved record leased occupancy across the portfolio", "Extended its multi-decade dividend-increase streak", "Advanced mixed-use densification projects (residential + retail)"],
       "journey_52w": {
-        "summary": "A steady, un-hyped climb to new highs: the stock rode the higher-for-longer rate backdrop and a recovering fee base, building three tight contractions into a VCP base before breaking out this week with its relative-strength line already at the highs.",
+        "summary": "Lagged during the high-rate stretch, then turned up as the market began pricing rate cuts and rotating into income — climbing steadily to new 52-week highs by mid-2026.",
         "milestones": [
-          { "label": "H2 2025", "note": "NII benefits from elevated rates; fee income recovers with markets" },
-          { "label": "Q1 2026", "note": "Operating leverage improves; guidance constructive" },
-          { "label": "Jul 2026", "note": "Breaks to a new 52-week high out of a tight VCP base" }
+          {"label": "Late 2025", "note": "Pressured with the REIT complex on elevated long yields"},
+          {"label": "Q2 2026", "note": "Rate-cut expectations spark income rotation into REITs"},
+          {"label": "Jul 2026", "note": "Breaks to new highs; RSI 54 signals room to run"}
         ]
       },
       "critical": {
-        "risks": ["Q2 earnings in ~9 days — a near-term catalyst either way", "A sharp rate cut cycle would compress NII", "Market drawdown hits fee income"],
-        "catalysts": ["Q2 earnings", "Continued AUC/A growth", "Buyback pace"],
-        "watch": ["Net interest income trajectory", "Fee-income growth and AUC/A flows", "Expense discipline / operating leverage"],
-        "valuation": "~15x forward earnings is cheap for a scale trust bank at new highs — valuation is a support, not a risk."
+        "risks": ["Earnings in ~10 days", "A back-up in long yields would pressure the whole REIT rally", "Consumer/retail-tenant sensitivity in a downturn"],
+        "catalysts": ["Continued rate-cut pricing", "FFO guidance raise; occupancy/rent-spread strength"],
+        "watch": ["10-year yield direction", "Hold above the breakout pivot", "Same-store NOI and leasing spreads"],
+        "valuation": "Premium REIT multiple justified by portfolio quality and the Dividend King record; judge on FFO/AFFO rather than GAAP P/E."
       }
     },
     {
-      "ticker": "MET",
-      "name": "MetLife, Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "New high with RS at the highs; TV independently rates it STRONG BUY. A rate-levered insurance leader in the group the tape is rewarding.",
+      "ticker": "CVS", "name": "CVS Health Corporation", "signal": "STRONG BUY",
+      "verdict": "A genuine turnaround breakout — AT new highs with +42% three-month momentum, EPS +63%, on a cheap 12.8x multiple; TradingView confirms Buy.",
       "financials": {
-        "period": "Last full fiscal year (FY ended Dec 2025)",
-        "summary": "MetLife is a diversified life insurer earning a spread on a large, high-quality investment portfolio plus fee income from group benefits and asset management (MetLife Investment Management). Higher-for-longer rates lift new-money yields on the investment book, expanding spread income, while the group-benefits franchise provides steady, recession-resilient earnings.",
-        "highlights": [
-          "Revenue base in the ~$70B+ range with strong spread income",
-          "+24% 3-month price momentum into a new high",
-          "Group benefits — steady, defensive premium base",
-          "Rising investment yields expanding net spread",
-          "Aggressive buyback shrinking the share count"
-        ]
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "CVS is an integrated health company spanning retail pharmacy, the Caremark PBM, and Aetna insurance. After a rough stretch of elevated medical costs in the Aetna business, results stabilized: revenue grew mid-single digits and EPS rebounded sharply (+63%) as medical-loss ratios improved and the pharmacy/PBM segments delivered steady cash flow.",
+        "highlights": ["Revenue +6.1% YoY", "EPS +63% YoY on Aetna cost normalization", "Forward P/E ~12.8 — cheap for the earnings rebound", "Strong pharmacy + PBM cash generation", "Deleveraging progress"]
       },
-      "accomplishments": [
-        "Grew MetLife Investment Management (asset-management) AUM as a fee engine",
-        "Sustained best-in-class group-benefits margins",
-        "Returned substantial capital via buybacks and a growing dividend"
-      ],
+      "accomplishments": ["Restored Aetna medical-loss ratio toward target", "Executed cost-out / restructuring across retail footprint", "Rebuilt investor confidence with consecutive guidance beats"],
       "journey_52w": {
-        "summary": "A methodical grind to new highs as the higher-for-longer rate regime kept lifting investment income and buybacks compounded per-share value; the defensive rotation of the past sessions accelerated the move.",
+        "summary": "One of the year's best turnaround stories — bottomed after the medical-cost scare, then re-rated steadily as each quarter confirmed the Aetna fix, closing the year at fresh 52-week highs.",
         "milestones": [
-          { "label": "H2 2025", "note": "New-money yields lift spread income" },
-          { "label": "Q1 2026", "note": "Group benefits + investment income drive an earnings beat" },
-          { "label": "Jul 2026", "note": "Prints a fresh 52-week high, RS at the highs" }
+          {"label": "Late 2025", "note": "Depressed on Aetna medical-cost overruns"},
+          {"label": "H1 2026", "note": "Sequential MLR improvement rebuilds confidence"},
+          {"label": "Jul 2026", "note": "Reclaims and prints new 52-week highs (+42% in 3 months)"}
         ]
       },
       "critical": {
-        "risks": ["Earnings ~24 days out", "A fast rate-cut cycle would compress spread income", "Credit losses if the economy rolls over"],
-        "catalysts": ["Elevated reinvestment yields", "Buyback pace", "Group-benefits growth"],
-        "watch": ["Net investment spread", "Variable investment income", "Book-value-per-share growth"],
-        "valuation": "Trades at a modest multiple of book/earnings for a diversified insurer — reasonable at new highs given the rate tailwind."
+        "risks": ["Earnings in ~15 days", "PBM/insurance policy and regulatory headline risk", "Any renewed uptick in medical costs"],
+        "catalysts": ["Continued MLR improvement", "PBM reform clarity; guidance raise"],
+        "watch": ["Aetna medical-loss-ratio trend", "Hold the breakout", "Star-ratings / Medicare Advantage commentary"],
+        "valuation": "12.8x forward is inexpensive versus the earnings-recovery trajectory — the re-rating has room if the Aetna fix holds."
       }
     },
     {
-      "ticker": "BIIB",
-      "name": "Biogen Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "The cleanest large-cap healthcare setup — RSI 57, only 3.5% off its high, so early not extended. TV BUY.",
+      "ticker": "DVA", "name": "DaVita Inc.", "signal": "STRONG BUY",
+      "verdict": "Dialysis leader breaking out just 1% off highs with EPS +43% on a cheap ~13.6x multiple — defensive-growth where money is rotating.",
       "financials": {
-        "period": "Last full fiscal year (FY ended Dec 2025)",
-        "summary": "Biogen is a neuroscience-focused biotech whose legacy multiple-sclerosis franchise provides a large, high-margin (but slowly eroding) cash base, while newer launches — chiefly Leqembi (Alzheimer's, with Eisai) and the SMA/rare-disease portfolio — are the growth swing factors. The market is watching whether new-product ramp can offset MS erosion and turn the top line back to growth.",
-        "highlights": [
-          "Revenue in the ~$9-10B range, inflecting as new launches scale",
-          "High gross margins typical of biotech",
-          "Leqembi (Alzheimer's) the key growth catalyst",
-          "Strong free cash flow funding pipeline + buybacks",
-          "+18% 3-month momentum as the growth narrative firms"
-        ]
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "DaVita operates one of the two dominant U.S. dialysis networks. It's a steady, cash-generative business: revenue grew mid-single digits (+6%) on treatment-volume and rate gains, while aggressive buybacks amplified EPS growth (+43%). Free cash flow funds continued share reduction.",
+        "highlights": ["Revenue +6.0% YoY", "EPS +43% YoY, amplified by buybacks", "Forward P/E ~13.6 — cheap defensive-growth", "Consistent, high free-cash-flow conversion", "Shrinking share count"]
       },
-      "accomplishments": [
-        "Scaled the Leqembi Alzheimer's launch with partner Eisai — a landmark disease-modifying therapy",
-        "Diversified beyond MS into rare disease and immunology via pipeline and M&A",
-        "Maintained disciplined cost structure to protect margins during the MS transition"
-      ],
+      "accomplishments": ["Sustained treatment-volume recovery post-pandemic", "Continued aggressive share repurchases", "Expanded integrated-kidney-care value-based arrangements"],
       "journey_52w": {
-        "summary": "A recovery year: after the multi-year drift on MS erosion, the stock based and then turned up as Leqembi's commercial ramp and pipeline optionality reframed the story from decline to re-acceleration, carrying it back toward 52-week highs.",
+        "summary": "Ground higher through the year on the buyback-driven EPS story and defensive appeal, breaking to new highs by mid-2026 as investors sought steady healthcare compounders.",
         "milestones": [
-          { "label": "2025", "note": "Leqembi launch scales; MS erosion moderates" },
-          { "label": "Q1 2026", "note": "New-product revenue offsets legacy decline" },
-          { "label": "Jul 2026", "note": "Within 3.5% of its high, RSI a controlled 57 — early in the move" }
+          {"label": "H2 2025", "note": "Steady volume recovery, ongoing buybacks"},
+          {"label": "H1 2026", "note": "Defensive rotation lifts healthcare"},
+          {"label": "Jul 2026", "note": "VCP breakout to new highs, 1% off high"}
         ]
       },
       "critical": {
-        "risks": ["Earnings ~16 days out", "MS-franchise erosion could outpace new launches", "Alzheimer's reimbursement/uptake execution risk"],
-        "catalysts": ["Leqembi ramp", "Pipeline read-outs", "Possible M&A"],
-        "watch": ["Leqembi net sales trajectory", "MS revenue decline rate", "Pipeline data catalysts"],
-        "valuation": "Inexpensive on earnings for a large-cap biotech — the debate is durability of the turnaround, not the multiple."
+        "risks": ["Earnings in ~16 days", "Reimbursement/regulatory changes to dialysis rates", "Payor-mix (commercial vs government) shifts"],
+        "catalysts": ["Continued buyback + volume growth", "Value-based care contribution"],
+        "watch": ["Treatment-volume trend", "Commercial-mix commentary", "Hold above the pivot"],
+        "valuation": "~13.6x forward is cheap for a durable, cash-generative leader compounding EPS in the 20s%+ via buybacks."
       }
     },
     {
-      "ticker": "CVS",
-      "name": "CVS Health Corporation",
-      "signal": "STRONG BUY",
-      "verdict": "New high on a +37% 3-month turnaround; TV rates it STRONG BUY. A defensive healthcare re-rating.",
+      "ticker": "EOG", "name": "EOG Resources, Inc.", "signal": "STRONG BUY",
+      "verdict": "Best-in-class E&P with the timeliest macro tailwind on the board — U.S.-Iran conflict and Hormuz disruption are bidding oil; cheap at 9.6x, TV rates it Strong Buy.",
       "financials": {
-        "period": "Last full fiscal year (FY ended Dec 2025)",
-        "summary": "CVS Health is an integrated healthcare company spanning retail pharmacy, a pharmacy-benefit manager (Caremark), and health insurance (Aetna). The story of the past year has been margin recovery in the Aetna/medical-benefits segment after elevated utilization pressured earnings, alongside steady PBM and pharmacy cash flows. It's a high-revenue, lower-margin business where medical-loss-ratio trends drive the stock.",
-        "highlights": [
-          "Revenue enormous (~$370B+ scale) across pharmacy, PBM and insurance",
-          "+37% 3-month momentum as the margin-recovery narrative took hold",
-          "Aetna medical-loss-ratio the swing factor on earnings",
-          "Strong operating cash flow supporting the dividend + deleveraging",
-          "TV STRONG BUY — technicals confirm the fundamental turn"
-        ]
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "EOG is a premier low-cost shale producer known for capital discipline and high returns on capital. Revenue grew ~15.6% on production growth and firmer realized prices, generating substantial free cash flow that funds a growing base dividend plus special dividends and buybacks. Among the lowest breakeven costs in U.S. shale.",
+        "highlights": ["Revenue +15.6% YoY", "EPS +39.6% YoY", "Forward P/E ~9.6 — cheap even before the oil bid", "Best-in-class breakevens and returns on capital", "Base + special dividends plus buybacks"]
       },
-      "accomplishments": [
-        "Executed a margin-recovery plan in the health-benefits segment after utilization spikes",
-        "Integrated care-delivery assets (clinics/home health) into the model",
-        "Maintained scale leadership across pharmacy and PBM"
-      ],
+      "accomplishments": ["Expanded premium/double-premium drilling inventory", "Grew production while lowering per-unit costs", "Returned significant capital via specials and repurchases"],
       "journey_52w": {
-        "summary": "A striking round trip from pessimism to leadership: the stock was left for dead on medical-cost overruns, then re-rated sharply (+37% in three months) as management demonstrated the benefits margin was recovering, breaking out to a new high just as investors sought defensive healthcare.",
+        "summary": "Traded with crude for much of the year, then firmed as Middle East risk premium built — now a VCP just 4% off highs as the Iran conflict and Hormuz shipping disruption bid oil.",
         "milestones": [
-          { "label": "Early 2025", "note": "Medical-cost pressure and guidance cuts pressure the stock" },
-          { "label": "Late 2025", "note": "Cost-trend management shows margin stabilization" },
-          { "label": "Jul 2026", "note": "Breaks to a new high, RSI 65 — healthy, not extended" }
+          {"label": "H2 2025", "note": "Range-bound with oil; capital returns support the floor"},
+          {"label": "Jul 2026", "note": "U.S.-Iran strikes (10th night) + Hormuz disruption lift crude"},
+          {"label": "Jul 2026", "note": "VCP near highs; TV flips to Strong Buy"}
         ]
       },
       "critical": {
-        "risks": ["Earnings ~23 days out", "Medical-loss-ratio could re-spike", "PBM regulatory/legislative headline risk", "High debt load"],
-        "catalysts": ["Continued benefits-margin recovery", "PBM contract retention", "Deleveraging progress"],
-        "watch": ["Aetna medical-loss ratio", "PBM/Caremark trends", "Guidance credibility"],
-        "valuation": "Still inexpensive on normalized earnings despite the run — the re-rating has room if margin recovery holds."
+        "risks": ["A sudden Iran ceasefire could unwind the oil bid quickly", "Earnings in ~15 days", "Commodity-price cyclicality"],
+        "catalysts": ["Sustained oil strength on Hormuz/supply risk", "Special dividend / buyback announcements"],
+        "watch": ["Crude price and Strait of Hormuz shipping headlines", "Production/cost guidance", "Hold above the base"],
+        "valuation": "9.6x forward with top-tier breakevens — the cheapest quality energy setup here, with optionality on a sustained oil bid."
       }
     },
     {
-      "ticker": "LLY",
-      "name": "Eli Lilly and Company",
-      "signal": "STRONG BUY",
-      "verdict": "Mega-cap GLP-1 leader basing ~4% off its high with RSI 64 — the premier secular grower in healthcare. TV BUY.",
+      "ticker": "FTNT", "name": "Fortinet, Inc.", "signal": "STRONG BUY",
+      "verdict": "The standout tech name while mega-cap semis correct — tight VCP 4% off highs, rev +20%, EPS +29%, riding a secular firewall-refresh cycle; TV confirms Buy. (Held position.)",
       "financials": {
-        "period": "Last full fiscal year (FY ended Dec 2025)",
-        "summary": "Eli Lilly's story is dominated by its incretin franchise — Mounjaro (diabetes) and Zepbound (obesity), both tirzepatide — which is scaling into one of the largest drug categories in history, alongside a broad pipeline (Alzheimer's, immunology, oncology). Revenue growth is exceptional for a mega-cap pharma, and the constraint has been manufacturing capacity rather than demand.",
-        "highlights": [
-          "Revenue growing rapidly (well into double digits) on incretin volume",
-          "Zepbound/Mounjaro the largest growth driver in pharma",
-          "+28% 3-month momentum, tight base near all-time highs",
-          "Massive capacity expansion to meet GLP-1 demand",
-          "High margins and reinvestment into a deep pipeline"
-        ]
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Fortinet is a network-security leader with a hardware+software model centered on its FortiGate firewalls and an expanding SASE/security-operations software portfolio. Revenue grew ~20% with EPS +29%, driven by a firewall-refresh cycle and strong software/services attach; margins and free cash flow are among the best in security.",
+        "highlights": ["Revenue +20.1% YoY", "EPS +28.6% YoY", "Industry-leading operating margins and FCF", "Firewall-refresh cycle + SASE/SecOps software growth", "Forward P/E ~46.8 — premium for durable growth"]
       },
-      "accomplishments": [
-        "Built the leading incretin (GLP-1/GIP) franchise for diabetes and obesity",
-        "Expanded manufacturing capacity aggressively to relieve supply constraints",
-        "Advanced an oral GLP-1 and next-gen obesity candidates through the pipeline"
-      ],
+      "accomplishments": ["Rode the multi-year firewall hardware-refresh cycle", "Expanded unified SASE and security-operations platforms", "Sustained best-in-class margins in cybersecurity"],
       "journey_52w": {
-        "summary": "A year of secular-growth leadership punctuated by volatility around competitive and pricing headlines; the stock consolidated its enormous multi-year gains into a tight base just below its highs, with RSI resetting to a healthy 64 — a constructive pause, not a breakdown.",
+        "summary": "Powerful year — a +94% three-month run took it from base to just below highs as cybersecurity emerged as the defensive-growth pocket investors rotated into while semis corrected.",
         "milestones": [
-          { "label": "2025", "note": "Zepbound/Mounjaro scale; capacity constraints ease" },
-          { "label": "Q1 2026", "note": "Pipeline read-outs (oral GLP-1, next-gen obesity) advance" },
-          { "label": "Jul 2026", "note": "Tight base ~4% off the high, RSI 64 — coiling" }
+          {"label": "H2 2025", "note": "Firewall-refresh cycle re-accelerates billings"},
+          {"label": "Q2 2026", "note": "Cybersecurity leadership as money rotates from semis"},
+          {"label": "Jul 2026", "note": "Tight VCP 4% off highs after a +94% 3-month move"}
         ]
       },
       "critical": {
-        "risks": ["Very high share price — size carefully", "GLP-1 competitive intensity (Novo and new entrants)", "Pricing/reimbursement and compounding headlines", "Earnings ~23 days out"],
-        "catalysts": ["Oral GLP-1 progress", "Label/indication expansions", "Continued capacity ramp"],
-        "watch": ["Incretin script trends and share vs Novo", "Pipeline data", "Capacity/supply commentary"],
-        "valuation": "Premium multiple, but justified by the growth rate and category size — a high-quality-growth core holding."
+        "risks": ["Earnings in ~9 days into an extended +94% run — gap risk", "Rich ~47x forward multiple", "Refresh-cycle demand could normalize"],
+        "catalysts": ["Continued firewall-refresh + SASE billings growth", "Beat-and-raise print"],
+        "watch": ["Volume on any push through prior highs", "Product-refresh and billings commentary", "Hold above the VCP pivot"],
+        "valuation": "~47x forward is full, but justified by 20%+ growth, elite margins and secular demand; the risk is multiple compression on any billings wobble."
       }
     },
     {
-      "ticker": "MNST",
-      "name": "Monster Beverage Corporation",
-      "signal": "STRONG BUY",
-      "verdict": "At a 52-week high out of a tight base — a defensive-consumer leader working while the tape is nervous. TV BUY.",
+      "ticker": "BAC", "name": "Bank of America Corporation", "signal": "STRONG BUY",
+      "verdict": "Money-center bank breaking to new highs on the financials rotation — rev +21%, EPS +36%, 11.5x, with earnings already out (clean runway); TV confirms Buy.",
       "financials": {
-        "period": "Last full fiscal year (FY ended Dec 2025)",
-        "summary": "Monster is a pure-play energy-drink company with category-leading share, high gross margins, pricing power, and a net-cash balance sheet. Growth comes from international expansion, innovation (new flavors/formats), and price/mix, with the Coca-Cola distribution relationship providing global reach. Aluminum/freight costs and FX are the main margin swing factors.",
-        "highlights": [
-          "Revenue growing high-single/low-double digits on price + international",
-          "Best-in-class gross margins for a beverage company",
-          "Net-cash balance sheet, consistent buybacks",
-          "+29% 3-month momentum into a new high",
-          "Low-beta ballast — exactly what a jittery tape wants"
-        ]
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Bank of America is a diversified money-center bank with leading consumer, wealth (Merrill) and markets franchises. Revenue grew ~21% and EPS +36% on net-interest-income tailwinds, capital-markets recovery and disciplined credit. Strong capital return via dividends and buybacks; credit costs remain contained.",
+        "highlights": ["Revenue +21.4% YoY", "EPS +36.0% YoY", "Forward P/E ~11.5 — inexpensive", "NII tailwind + trading/IB recovery", "Robust capital return; contained credit costs"]
       },
-      "accomplishments": [
-        "Sustained global energy-drink category leadership",
-        "Expanded international distribution via the Coca-Cola system",
-        "Held premium margins through cost inflation via pricing power"
-      ],
+      "accomplishments": ["Grew net interest income as the rate curve steepened", "Capital-markets rebound lifted trading and investment-banking fees", "Passed stress tests; raised dividend and repurchased shares"],
       "journey_52w": {
-        "summary": "A steady, low-drama climb to new highs: Monster kept compounding on international growth and pricing, and its defensive, low-beta profile drew flows as investors rotated out of high-beta tech into consumer staples over the past sessions.",
+        "summary": "Part of the financials rotation that led the tape in mid-2026 — climbed to fresh highs as investors moved from stretched tech into cheap, well-capitalized banks with a steepening curve.",
         "milestones": [
-          { "label": "2025", "note": "International expansion and pricing drive revenue growth" },
-          { "label": "Q1 2026", "note": "Margins recover as input costs normalize" },
-          { "label": "Jul 2026", "note": "Sits at a 52-week high out of a tight base" }
+          {"label": "Late 2025", "note": "Curve steepening improves NII outlook"},
+          {"label": "Q2 2026", "note": "Financials rotation gathers pace"},
+          {"label": "Jul 2026", "note": "Breaks to new 52-week highs; earnings just reported"}
         ]
       },
       "critical": {
-        "risks": ["RSI 66 warming", "FX headwind on international revenue", "Aluminum/freight cost inflation", "Earnings ~25 days out"],
-        "catalysts": ["International volume growth", "New-product/flavor innovation", "Buyback"],
-        "watch": ["International volume trends", "Gross-margin trajectory", "Price/mix vs volume balance"],
-        "valuation": "Premium staple multiple, but earned by growth + margins; a defensive-growth ballast holding."
+        "risks": ["Levered to the yield curve and credit cycle", "Follows the broad-market tape closely", "Commercial-real-estate exposure"],
+        "catalysts": ["Continued NII growth and buybacks", "Further capital-markets recovery"],
+        "watch": ["Net interest income trend", "Hold the breakout pivot", "Credit-cost / reserve commentary"],
+        "valuation": "11.5x forward is cheap for a franchise growing EPS in the mid-30s% with strong capital return and no imminent earnings risk (~85 days out)."
       }
     },
     {
-      "ticker": "EOG",
-      "name": "EOG Resources, Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "The energy pick the tape is handing you — Hormuz risk is lifting oil and TV independently rates it STRONG BUY.",
+      "ticker": "MO", "name": "Altria Group, Inc.", "signal": "STRONG BUY",
+      "verdict": "Deep-defensive at new highs (0% off), RSI 52, 12.7x — a high-yield anchor for a risk-off tape; TV rates it Strong Buy.",
       "financials": {
-        "period": "Last full fiscal year (FY ended Dec 2025)",
-        "summary": "EOG is a premier low-cost US shale E&P known for capital discipline, high-return 'premium' drilling inventory, and a fortress balance sheet. Earnings and cash flow track oil/gas prices, but EOG's low breakeven and shareholder-return framework (base + special dividends and buybacks) make it a best-in-class way to own the commodity with less balance-sheet risk.",
-        "highlights": [
-          "Low-cost premium drilling inventory — high returns at modest oil prices",
-          "Net-cash or near-net-cash balance sheet — rare for an E&P",
-          "Base + special dividends and buybacks return most free cash flow",
-          "Directly levered to the oil bid from Strait of Hormuz risk",
-          "TV STRONG BUY — technicals and the macro tailwind align"
-        ]
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Altria is the U.S. tobacco leader (Marlboro) transitioning toward smoke-free (NJOY e-vapor, on! nicotine pouches). Revenue grew low-single digits (+5.3%) with EPS up sharply on pricing power that offsets combustible-volume declines; the model throws off large, steady free cash flow funding a high, growing dividend.",
+        "highlights": ["Revenue +5.3% YoY", "EPS +106% YoY (off normalized base)", "Forward P/E ~12.7 with a high dividend yield", "Pricing power offsets volume declines", "Smoke-free (NJOY / on!) growth optionality"]
       },
-      "accomplishments": [
-        "Maintained one of the lowest cost structures among US shale producers",
-        "Returned the bulk of free cash flow via a disciplined dividend + buyback framework",
-        "Expanded high-return exploration plays while holding capital discipline"
-      ],
+      "accomplishments": ["Grew on! nicotine-pouch volumes strongly", "Advanced NJOY e-vapor distribution and regulatory positioning", "Sustained its long dividend-growth track record"],
       "journey_52w": {
-        "summary": "A largely range-bound year tracking crude, now catching a fresh bid: the renewed US-Iran escalation and the threatened Strait of Hormuz blockade put a geopolitical risk premium back into oil, and EOG — the quality name in the group — is the cleanest beneficiary.",
+        "summary": "A quiet outperformer — the defensive rotation and high yield drove a steady climb to new highs by mid-2026, with RSI still a neutral 52 signaling the move isn't stretched.",
         "milestones": [
-          { "label": "2025", "note": "Capital discipline holds; free cash flow returned to holders" },
-          { "label": "Jul 2026", "note": "US-Iran escalation + Hormuz blockade threat lift oil" },
-          { "label": "Jul 2026", "note": "TV flips to STRONG BUY as energy leads the tape" }
+          {"label": "H2 2025", "note": "Defensive bid on macro uncertainty"},
+          {"label": "H1 2026", "note": "Smoke-free volumes accelerate"},
+          {"label": "Jul 2026", "note": "Prints new highs; RSI 52 leaves room"}
         ]
       },
       "critical": {
-        "risks": ["The oil bid reverses fast if tensions de-escalate", "Earnings ~23 days out", "Energy is headline-driven — volatile"],
-        "catalysts": ["Hormuz/Middle East risk premium in oil", "Shareholder-return announcements", "OPEC supply decisions"],
-        "watch": ["WTI/Brent and the Hormuz situation", "Breakeven and free-cash-flow yield", "Any change to the return framework"],
-        "valuation": "Cheap on free-cash-flow yield; the risk is the commodity, not the multiple — treat as a tactical energy tailwind trade."
+        "risks": ["Earnings in ~9 days", "Secular decline in combustible volumes", "Regulatory/menthol and vapor policy risk"],
+        "catalysts": ["Continued smoke-free volume growth", "Pricing actions; dividend increase"],
+        "watch": ["Smoke-free (NJOY/on!) volume trend", "Combustible volume declines vs pricing", "Hold the pivot"],
+        "valuation": "12.7x forward plus a high, well-covered dividend — an attractive total-return, low-beta anchor while the broad tape is under pressure."
       }
     },
     {
-      "ticker": "ANET",
-      "name": "Arista Networks, Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "The cleanest large-cap AI-networking setup — RSI 54, 3% off its high, base-not-chase even as semis break. TV BUY.",
+      "ticker": "COCO", "name": "The Vita Coco Company, Inc.", "signal": "STRONG BUY",
+      "verdict": "Coconut-water leader in a healthy VCP 12% off highs with +56% three-month momentum, rev +37% — a fast-growing beverage name; TV confirms Buy. (Held / agent-queue.)",
       "financials": {
-        "period": "Last full fiscal year (FY ended Dec 2025)",
-        "summary": "Arista sells high-performance data-center switching/networking built on a single software OS (EOS), with the cloud titans and large enterprises as core customers. The AI back-end buildout — high-speed Ethernet fabrics connecting GPU clusters — is a direct, multi-year revenue tailwind. Gross margins are high for hardware and the balance sheet is net-cash.",
-        "highlights": [
-          "Revenue growing strongly on cloud + AI back-end networking",
-          "High (software-like) gross margins for a networking vendor",
-          "Net-cash balance sheet, consistent free cash flow",
-          "RSI only 54 — un-extended even as the group sold off",
-          "AI Ethernet fabric a direct beneficiary of GPU cluster buildouts"
-        ]
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Vita Coco is the dominant branded coconut-water company, expanding into broader better-for-you beverages. Revenue grew ~37% on strong volume, distribution gains and pricing, with EPS +61% as gross margins benefited from easing shipping/input costs. Asset-light, cash-generative model with a clean balance sheet.",
+        "highlights": ["Revenue +37.3% YoY", "EPS +61.3% YoY on margin expansion", "Category-leading coconut-water share", "Easing freight/input costs lifting gross margin", "Net-cash balance sheet"]
       },
-      "accomplishments": [
-        "Won a large share of hyperscaler data-center switching",
-        "Positioned Ethernet as the fabric of choice for AI back-end networks",
-        "Sustained premium margins on a single-OS software model"
-      ],
+      "accomplishments": ["Expanded retail distribution and shelf space", "Grew branded + private-label mix profitably", "Benefited from normalized ocean-freight costs"],
       "journey_52w": {
-        "summary": "A strong up-year on the AI-networking thesis, with sharp volatility whenever hyperscaler capex expectations wobbled; the stock has pulled back a few percent from its high and reset RSI to 54 — a constructive base while the broader semiconductor complex broke down on Middle East risk.",
+        "summary": "Strong momentum name — rallied on consistent beat-and-raise execution, pulled back into a healthy base, and is now re-emerging with +56% three-month momentum as margins expand. Reports imminently.",
         "milestones": [
-          { "label": "2025", "note": "AI back-end Ethernet demand ramps; cloud capex strong" },
-          { "label": "Q1 2026", "note": "Guidance reflects AI networking momentum" },
-          { "label": "Jul 2026", "note": "Bases 3% off its high, RSI 54 — un-extended entry" }
+          {"label": "H2 2025", "note": "Beat-and-raise quarters on volume + margin gains"},
+          {"label": "H1 2026", "note": "Constructive base after the run"},
+          {"label": "Jul 2026", "note": "VCP re-emergence, +56% 3-month momentum"}
         ]
       },
       "critical": {
-        "risks": ["Guilt-by-association if the semi selloff broadens", "Hyperscaler capex is lumpy and customer-concentrated", "Earnings ~23 days out"],
-        "catalysts": ["AI back-end networking orders", "Cloud capex cycle", "Enterprise campus share gains"],
-        "watch": ["Hyperscaler capex commentary", "Customer concentration", "Gross-margin trajectory"],
-        "valuation": "Premium multiple for premium growth; the un-extended RSI makes the risk/reward favorable versus chasing extended peers."
+        "risks": ["Earnings in ~2 days — high, imminent gap risk", "Single-category concentration; input/freight-cost swings", "Small-cap volatility"],
+        "catalysts": ["Beat-and-raise print", "Distribution wins / new-product traction"],
+        "watch": ["Gross-margin trajectory", "Volume vs pricing mix", "Behavior into/after the print"],
+        "valuation": "Growth multiple supported by 37% revenue growth and margin expansion; the ~2-day earnings window is the near-term swing factor — size accordingly."
       }
     },
     {
-      "ticker": "D",
-      "name": "Dominion Energy, Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "New high with RSI 67; TV rates it STRONG BUY. A regulated utility catching the defensive rotation with a data-center growth kicker.",
+      "ticker": "BTC-USD", "name": "Bitcoin (USD)", "signal": "WATCH",
+      "verdict": "Consolidating well off highs (~47% below) with RSI 63 recovering — a macro/liquidity-driven asset, not a fundamental one; treat as a volatile satellite position. (Agent-queue.)",
       "financials": {
-        "period": "Last full fiscal year (FY ended Dec 2025)",
-        "summary": "Dominion is a regulated electric utility concentrated in Virginia — home to the largest data-center market in the world — giving it an unusual growth angle for a utility: surging power demand from AI/cloud data centers on top of a stable regulated rate base. Earnings are rate-base-and-allowed-return driven; the balance sheet carries typical utility leverage, and the dividend is a core part of the return.",
-        "highlights": [
-          "Regulated rate base in Virginia — the top US data-center market",
-          "Data-center load growth an above-average demand driver for a utility",
-          "Steady allowed-return earnings + a substantial dividend",
-          "New high with RSI 67 as defensives lead",
-          "TV STRONG BUY — technicals confirm the defensive bid"
-        ]
+        "period": "N/A (digital asset — no income statement)",
+        "summary": "Bitcoin has no earnings or cash flows; its value is driven by liquidity conditions, real yields, ETF/institutional flows, the halving-driven supply schedule, and risk appetite. In a risk-off tape with a rising VIX and Middle East conflict, it trades as a high-beta risk asset and can be pressured alongside equities even as some treat it as a long-term store of value.",
+        "highlights": ["No fundamentals — flow- and liquidity-driven", "Currently ~47% off its high — deep in a drawdown", "RSI 63 signals a recovery attempt within the downtrend", "Sensitive to real yields, ETF flows and risk appetite", "Post-halving reduced-supply backdrop as a long-term tailwind"]
       },
-      "accomplishments": [
-        "Positioned its Virginia franchise to serve record data-center power demand",
-        "Advanced large regulated generation/transmission investment (including offshore wind)",
-        "Simplified the business back toward a pure regulated-utility model"
-      ],
+      "accomplishments": ["Spot-ETF access broadened institutional participation", "Post-halving supply issuance stepped down", "Growing corporate/treasury adoption as a reserve asset"],
       "journey_52w": {
-        "summary": "A steady re-rating as investors woke up to the data-center-power growth story layered on a defensive regulated utility; the defensive rotation of the past sessions pushed it to a fresh high as capital sought low-beta income.",
+        "summary": "A volatile round-trip — ran up on ETF-flow optimism, then gave back a large share (~47% off highs) as liquidity tightened and geopolitical risk rose; now attempting to stabilize.",
         "milestones": [
-          { "label": "2025", "note": "Data-center demand narrative drives rate-base growth expectations" },
-          { "label": "Q1 2026", "note": "Regulated investment program on track" },
-          { "label": "Jul 2026", "note": "Prints a new high, RSI 67, as defensives lead" }
+          {"label": "H2 2025", "note": "ETF-driven advance"},
+          {"label": "H1 2026", "note": "Sharp drawdown as risk appetite fades / yields firm"},
+          {"label": "Jul 2026", "note": "Basing attempt; RSI recovering toward 63"}
         ]
       },
       "critical": {
-        "risks": ["Rate-sensitive — a yield spike on the oil move would pressure it", "Regulatory rate-case outcomes", "Large capex program execution", "Earnings ~18 days out"],
-        "catalysts": ["Data-center load growth", "Rate-case approvals", "Offshore-wind project milestones"],
-        "watch": ["Interest-rate direction", "Virginia data-center demand", "Regulatory developments"],
-        "valuation": "Trades around a typical regulated-utility multiple, with the data-center growth angle arguably under-appreciated."
+        "risks": ["Extreme volatility; ~47% drawdowns are normal", "Risk-off / rising-VIX tape can pressure it further", "Regulatory and liquidity shocks"],
+        "catalysts": ["Renewed ETF inflows", "Easing liquidity / falling real yields", "Broad risk-on rotation"],
+        "watch": ["ETF net flows", "Real-yield and DXY direction", "Reclaim of key moving averages"],
+        "valuation": "No intrinsic valuation — position-size as a small, volatile satellite; the setup is a WATCH pending a confirmed base and a return of risk appetite."
       }
     }
   ]
