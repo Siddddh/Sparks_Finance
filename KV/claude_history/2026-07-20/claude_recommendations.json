@@ -1,0 +1,220 @@
+{
+  "scan_date": "2026-07-20",
+  "scan_time_et": "08:00 AM ET",
+  "market": {
+    "state": "UPTREND",
+    "advice": "Pre-open with the uptrend technically intact but two-tier: SPY $748.3 holds above its 50-day (743.6) and is only -1.2% off its high with breadth healthy at 70% above the 50-day, yet QQQ ($704.8) has slipped back below ITS 50-day and VIX is quietly rising (18.1 vs 17.1 five-day). The tape's message is ROTATION, and it's now emphatic: money is leaving mega-cap tech and semis (NVDA, AMD and AMAT all carry a TradingView Sell; MSFT/GOOGL soft) and pouring into financials & insurers, REITs, healthcare/managed-care, energy and defensive staples/industrials — exactly the groups filling the top of today's board. A fresh leg of Middle East tension (pump prices back over $4, yields ticking up) is a tailwind for the energy and financials leadership. Into the open: buy the leadership on clean, un-extended setups (FTNT, AIZ, JPM, UNH, MNST, KIM), keep normal position sizing while the state stays green, don't chase names already overbought (PGNY, CSX, SPGI, XOM all closed hot), and honor stops on the lagging tech/semi complex rather than averaging down. Educational, not financial advice."
+  },
+  "picks": [
+    {
+      "ticker": "FTNT", "signal": "STRONG BUY", "score": 94, "grade": "A+",
+      "entry": 162.18, "stop": 149.2, "target": 194.61,
+      "thesis": "Top scorer on the board and the cleanest large-cap tech setup that isn't a semi: Fortinet sits just -2.8% off its high with RSI a moderate 56, a tight 5-contraction VCP base (3.5%) and huge 3-month momentum (+96%). Cybersecurity is a rare tech pocket the rotation is rewarding, and TradingView independently rates it Buy — confirmation of the breakout.",
+      "strengths": ["Tightest base among the tech leaders (5 contractions, 3.5%)", "RSI only 56 — room to run, not extended", "EPS +29% / revenue +20% with real FCF", "TradingView Buy confirms"],
+      "risks": ["Earnings Jul 30 (~10 days out) — event risk builds into the entry", "A broad tech drawdown would drag it even though fundamentals lead"]
+    },
+    {
+      "ticker": "AIZ", "signal": "STRONG BUY", "score": 94, "grade": "A+",
+      "entry": 276.79, "stop": 254.64, "target": 332.14,
+      "thesis": "Assurant is the textbook rotation name: a specialty insurer -1.2% off its high on a very tight 3-contraction VCP (2.1%), RSI 67, with explosive EPS growth (+91%). Insurance is squarely in the leadership pocket and TradingView agrees with a Buy.",
+      "strengths": ["Very tight VCP base (2.1%) — low-risk entry", "EPS +91% YoY", "Defensive-growth insurer in the leading group", "TradingView Buy"],
+      "risks": ["Earnings Aug 5 (~16 days) approaching", "Catastrophe-loss exposure is the sector's perennial wildcard"]
+    },
+    {
+      "ticker": "JPM", "signal": "STRONG BUY", "score": 92, "grade": "A",
+      "entry": 343.45, "stop": 315.97, "target": 412.14,
+      "thesis": "The megabank leader in a tape rotating hard into financials: JPMorgan is -1.0% off its high with a clean 5-contraction VCP (2.5%), RSI 65, EPS +47% and revenue +30%. Q2 already reported so there is no near-term earnings landmine. TradingView rates it Buy.",
+      "strengths": ["Best-in-class bank at a new-high area, low base risk", "Earnings already behind it (next ~Oct)", "EPS +47% / rev +30%", "TradingView Buy"],
+      "risks": ["A sharp rate move against the yield-curve trade", "Group leadership can rotate quickly if breadth narrows"]
+    },
+    {
+      "ticker": "CFG", "signal": "STRONG BUY", "score": 93, "grade": "A",
+      "entry": 72.23, "stop": 66.46, "target": 86.68,
+      "thesis": "Citizens Financial gives regional-bank leverage to the rotation: -2.9% off its high, RSI 56 (un-extended), EPS +41%, and earnings already reported. TradingView Buy backs the setup.",
+      "strengths": ["Un-extended RSI (56) with room to run", "EPS +41% YoY", "Earnings out of the way", "TradingView Buy"],
+      "risks": ["Base is a touch looser (4.9%) than the tightest names", "Credit/CRE headlines can hit regionals disproportionately"]
+    },
+    {
+      "ticker": "AFL", "signal": "STRONG BUY", "score": 92, "grade": "A",
+      "entry": 124.55, "stop": 114.59, "target": 149.46,
+      "thesis": "Aflac is one of the few names where TradingView independently rates it STRONG BUY — double confirmation. A supplemental-insurance compounder on a tight 3-contraction VCP (2.4%), RSI 64, right in the leading insurance group.",
+      "strengths": ["TradingView STRONG BUY — rare double-confirm", "Tight base (2.4%)", "Steady insurer with buyback support", "Sits in the leadership pocket"],
+      "risks": ["Yen/FX translation exposure (large Japan book)", "Earnings Aug 7 (~18 days)"]
+    },
+    {
+      "ticker": "TRV", "signal": "STRONG BUY", "score": 90, "grade": "A",
+      "entry": 365.45, "stop": 336.21, "target": 438.54,
+      "thesis": "Travelers pairs a fresh-high posture (-1.0% off high) with TradingView's STRONG BUY. P&C insurer with pricing power, EPS +57%, and earnings already reported — clean into a rotation that favors insurers.",
+      "strengths": ["TradingView STRONG BUY confirms", "EPS +57% YoY", "Earnings behind it (~Oct next)", "Leadership-group insurer"],
+      "risks": ["RSI 69 is warm — not overbought but watch chasing", "Catastrophe-loss quarters can whipsaw the group"]
+    },
+    {
+      "ticker": "GS", "signal": "STRONG BUY", "score": 91, "grade": "A",
+      "entry": 1080.87, "stop": 994.4, "target": 1297.04,
+      "thesis": "Goldman Sachs has pulled back a healthy -6.2% off its high into a 4-contraction VCP (2.4%) with RSI 59 — a lower-risk re-entry than the names pinned at new highs. EPS +92%, revenue +42%, earnings already reported, TradingView Buy. Widely held on this platform.",
+      "strengths": ["Constructive pullback, not extended (RSI 59)", "EPS +92% / rev +42%", "Earnings out of the way", "TradingView Buy"],
+      "risks": ["Highest-priced name here — size positions accordingly", "Capital-markets revenue is cyclical if deal flow cools"]
+    },
+    {
+      "ticker": "KIM", "signal": "STRONG BUY", "score": 93, "grade": "A",
+      "entry": 26.19, "stop": 24.09, "target": 31.43,
+      "thesis": "Kimco Realty is the REIT leadership expression: printing a fresh 52-week high yet with RSI only 55 (not extended), a 3-contraction VCP and EPS +29%. Rate-sensitive REITs are catching the rotation bid; TradingView rates it Buy.",
+      "strengths": ["New high with un-extended RSI (55)", "EPS +29% YoY", "Grocery-anchored retail REIT, defensive cash flow", "TradingView Buy"],
+      "risks": ["A back-up in yields would pressure REITs broadly", "Earnings Aug 4 (~15 days)"]
+    },
+    {
+      "ticker": "SPG", "signal": "STRONG BUY", "score": 93, "grade": "A",
+      "entry": 229.6, "stop": 211.23, "target": 275.52,
+      "thesis": "Simon Property Group, the premium-mall REIT, is at a fresh high with RSI a calm 53 and revenue +19%. Best-of-breed REIT riding the rate-sensitive rotation; TradingView Buy. Held on the platform.",
+      "strengths": ["Fresh high, RSI only 53 — lots of runway", "Revenue +19% with a high dividend", "Class-A mall leader", "TradingView Buy"],
+      "risks": ["Yield spikes hit REIT multiples", "Earnings Aug 11 (~22 days)"]
+    },
+    {
+      "ticker": "UNH", "signal": "STRONG BUY", "score": 90, "grade": "A",
+      "entry": 421.2, "stop": 387.5, "target": 505.44,
+      "thesis": "UnitedHealth is the cleanest managed-care recovery: -2.4% off its high, RSI a low 51 (plenty of room), EPS +61%, on a 3-contraction VCP (2.9%). TradingView independently rates it STRONG BUY — double confirmation into the healthcare rotation.",
+      "strengths": ["TradingView STRONG BUY — double-confirm", "RSI 51 leaves major upside room", "EPS +61% YoY", "Managed-care group leadership"],
+      "risks": ["Headline/regulatory risk is elevated for the group", "A large-cap health name — index moves matter"]
+    },
+    {
+      "ticker": "CVS", "signal": "STRONG BUY", "score": 92, "grade": "A",
+      "entry": 107.33, "stop": 98.74, "target": 128.8,
+      "thesis": "CVS Health is right at its high (-0.1%) with RSI 64 and EPS +63% on a tight 4-contraction VCP (2.6%). The healthcare-services turnaround is being rewarded by the rotation; TradingView rates it Buy.",
+      "strengths": ["Tight base (2.6%) at a new-high area", "EPS +63% YoY", "Integrated healthcare turnaround gaining traction", "TradingView Buy"],
+      "risks": ["Earnings Aug 5 (~16 days)", "PBM/regulatory scrutiny is an overhang"]
+    },
+    {
+      "ticker": "HWM", "signal": "STRONG BUY", "score": 93, "grade": "A+",
+      "entry": 276.93, "stop": 254.78, "target": 332.32,
+      "thesis": "Howmet Aerospace is the industrials leader: -2.2% off its high, RSI 59, a tight 5-contraction VCP (2.5%), EPS +71%. Aero/defense demand plus the industrials rotation; TradingView Buy. Held on the platform.",
+      "strengths": ["Tight 5-contraction VCP (2.5%)", "EPS +71% YoY — real aerospace cycle demand", "Un-extended RSI (59)", "TradingView Buy"],
+      "risks": ["Earnings Aug 6 (~17 days)", "Aero supply-chain hiccups are the sector risk"]
+    },
+    {
+      "ticker": "EOG", "signal": "STRONG BUY", "score": 92, "grade": "A",
+      "entry": 138.95, "stop": 127.83, "target": 166.74,
+      "thesis": "EOG Resources is a top-tier E&P catching a real fundamental tailwind: renewed Middle East tension has pump prices back over $4 and oil bid. -5.9% off its high on a deep 6-contraction VCP (2.9%), RSI 63, EPS +40%. TradingView Buy.",
+      "strengths": ["Oil tailwind from Middle East escalation", "6-contraction VCP — well-formed base", "EPS +40% YoY, disciplined low-cost operator", "TradingView Buy"],
+      "risks": ["Oil is the swing factor — a ceasefire could cap the move", "Earnings Aug 5 (~16 days)"]
+    },
+    {
+      "ticker": "FANG", "signal": "STRONG BUY", "score": 90, "grade": "A",
+      "entry": 193.97, "stop": 178.45, "target": 232.76,
+      "thesis": "Diamondback Energy is the Permian pure-play with TradingView's STRONG BUY. -8.7% off its high (constructive base) on a tight 5-contraction VCP (2.5%), RSI 64, riding the same oil tailwind as EOG.",
+      "strengths": ["TradingView STRONG BUY confirms", "Tight 5-contraction VCP (2.5%)", "Low-breakeven Permian operator", "Oil/geopolitical tailwind"],
+      "risks": ["Reported EPS distorted by one-offs — lean on the cash story", "Fully oil-price dependent", "Earnings Aug 4 (~15 days)"]
+    },
+    {
+      "ticker": "DVA", "signal": "STRONG BUY", "score": 94, "grade": "A+",
+      "entry": 236.16, "stop": 217.27, "target": 283.4,
+      "thesis": "DaVita is a co-top scorer: the dialysis leader is essentially at its high (-0.3%) on a tight 3-contraction VCP (2.6%), EPS +44%, cheap at ~14x. Defensive healthcare with buyback-driven EPS — exactly what the rotation wants. TradingView Buy.",
+      "strengths": ["Tight base (2.6%) at the high", "EPS +44% and ~14x forward — cheap defensive growth", "Aggressive buyback compounding", "TradingView Buy"],
+      "risks": ["RSI 71 is warm — avoid chasing far above entry", "Reimbursement/policy risk is the structural overhang", "Earnings Aug 6 (~17 days)"]
+    },
+    {
+      "ticker": "MNST", "signal": "STRONG BUY", "score": 92, "grade": "A",
+      "entry": 97.37, "stop": 89.58, "target": 116.84,
+      "thesis": "Monster Beverage is the cleanest staples-growth setup: RSI only 49 (freshly reset, lots of room), -2.6% off its high on a tight 3-contraction VCP (2.6%), EPS +29% / revenue +27%. Asset-light, net-cash, and squarely defensive-growth. TradingView Buy.",
+      "strengths": ["RSI 49 — among the least-extended leaders", "EPS +29% / rev +27% real growth", "Net-cash balance sheet, Coca-Cola distribution", "TradingView Buy"],
+      "risks": ["Fwd P/E ~38 leaves little room for a growth miss", "Earnings Aug 7 (~18 days)"]
+    },
+    {
+      "ticker": "SBUX", "signal": "STRONG BUY", "score": 92, "grade": "A",
+      "entry": 106.01, "stop": 97.53, "target": 127.21,
+      "thesis": "Starbucks is a consumer turnaround at a new-high area: -2.2% off its high, RSI 55, a tight 4-contraction VCP (2.4%), EPS +33%. The 'back to Starbucks' operational reset is showing up in the tape. TradingView Buy.",
+      "strengths": ["Tight base (2.4%), un-extended RSI (55)", "EPS +33% — turnaround gaining traction", "Global brand with pricing power", "TradingView Buy"],
+      "risks": ["Earnings Jul 30 (~10 days) — the key turnaround check-in", "China same-store trends remain a swing factor"]
+    },
+    {
+      "ticker": "CRWD", "signal": "STRONG BUY", "score": 90, "grade": "A",
+      "entry": 204.69, "stop": 188.31, "target": 245.63,
+      "thesis": "CrowdStrike is the second cybersecurity leader the rotation still rewards: -2.9% off its high, RSI 63, +89% 3-month momentum, revenue +26%. TradingView Buy. The one caveat is valuation — fwd P/E ~131 — so this is a momentum-leader position, not a value one.",
+      "strengths": ["Cybersecurity secular leader, +89% 3-month momentum", "Un-extended RSI (63) despite the run", "Revenue +26% with strong retention", "TradingView Buy"],
+      "risks": ["Fwd P/E ~131 — extremely rich; multiple-compression risk", "Base is looser (6.1%) than the tightest names"]
+    },
+    {
+      "ticker": "PGNY", "signal": "WATCH", "score": 93, "grade": "A-",
+      "entry": 31.52, "stop": 29.0, "target": 37.83,
+      "thesis": "Progyny scores near the top (fertility-benefits, EPS +71%) and TradingView rates it Buy, but RSI 73 and +69% 3-month momentum make it extended here — a strong story to buy on a pullback into the base rather than chase pre-open.",
+      "strengths": ["EPS +71%, high-growth niche leader", "4-contraction VCP (3.1%)", "TradingView Buy"],
+      "risks": ["RSI 73 — overbought, poor risk/reward chasing", "Earnings Aug 7; small-cap volatility"]
+    },
+    {
+      "ticker": "DXCM", "signal": "WATCH", "score": 93, "grade": "A-",
+      "entry": 76.22, "stop": 70.12, "target": 91.46,
+      "thesis": "Dexcom scores well (EPS +92%, RSI 63, TradingView Buy) but is still -14.9% below its high, rebuilding a wide 6-contraction base — a recovery, not a fresh breakout. Watch for it to clear the base before committing.",
+      "strengths": ["EPS +92% YoY, CGM secular growth", "TradingView Buy", "Constructive multi-contraction base"],
+      "risks": ["-14.9% off high — not yet a confirmed breakout", "Earnings Jul 31 (~11 days) is a binary near-term event"]
+    },
+    {
+      "ticker": "SPGI", "signal": "WATCH", "score": 90, "grade": "B+",
+      "entry": 446.89, "stop": 411.14, "target": 536.27,
+      "thesis": "S&P Global is a high-quality compounder and scores 90, but RSI 75 and -15.6% off its high signal a name that's bounced hard within a broken structure — and earnings land Jul 28 (~8 days). Prefer to watch through the print.",
+      "strengths": ["Wide-moat ratings/data franchise", "EPS +33% YoY"],
+      "risks": ["RSI 75 — extended into an earnings event (Jul 28)", "-15.6% off high — still repairing structure"]
+    },
+    {
+      "ticker": "AMZN", "signal": "WATCH", "score": 90, "grade": "B+",
+      "entry": 249.27, "stop": 229.33, "target": 299.12,
+      "thesis": "Amazon still scores 90 (EPS +75%, TradingView Buy) but is -9.4% off its high with 3-month momentum flat — a mega-cap consolidating while the rotation flows elsewhere. Held on the platform; a hold/accumulate-on-strength, not a fresh chase, with earnings Jul 31.",
+      "strengths": ["EPS +75%, AWS + retail margin expansion", "TradingView Buy", "Consolidating, not breaking down"],
+      "risks": ["Flat momentum while money rotates out of mega-cap", "Earnings Jul 31 (~11 days)"]
+    },
+    {
+      "ticker": "DTE", "signal": "WATCH", "score": 90, "grade": "B+",
+      "entry": 149.0, "stop": 137.08, "target": 178.8,
+      "thesis": "DTE Energy screens as a 90 on the quant model (tight utility base), but here's the tension: TradingView rates it only NEUTRAL and RSI is a weak 40 with flat momentum — the technicals disagree with the score. Held on the platform; treat as a defensive hold and watch for the base to firm before adding. Earnings Jul 28.",
+      "strengths": ["Regulated-utility stability, defensive in a rotation", "Tight 4-contraction VCP (2.5%)"],
+      "risks": ["TradingView NEUTRAL and RSI 40 — model and technicals disagree", "Earnings Jul 28 (~8 days); rate-sensitive"]
+    },
+    {
+      "ticker": "COCO", "signal": "WATCH", "score": 88, "grade": "B+",
+      "entry": 74.86, "stop": 68.87, "target": 89.83,
+      "thesis": "Vita Coco scores 88 with strong momentum (+58% 3-month, revenue +37%, TradingView Buy), but it reports earnings in just ~3 days (Jul 23) and sits -10.9% off its high — too much event risk to initiate pre-open. Held on the platform; watch the print.",
+      "strengths": ["Revenue +37%, coconut-water category leader", "TradingView Buy", "Strong 3-month momentum"],
+      "risks": ["Earnings Jul 23 (~3 days) — major binary event", "-10.9% off high; small-cap gap risk"]
+    },
+    {
+      "ticker": "FICO", "signal": "WATCH", "score": 79, "grade": "B",
+      "entry": 1254.98, "stop": 1154.59, "target": 1505.98,
+      "thesis": "Fair Isaac is a wide-moat compounder (EPS +69%, revenue +39%, TradingView Buy) but sits -33.2% below its high in a deep base — a repair, not a breakout — with earnings Jul 30. Held on the platform; watch for a base clear rather than catching the falling knife.",
+      "strengths": ["Monopoly-like scoring franchise, EPS +69%", "TradingView Buy despite the drawdown"],
+      "risks": ["-33.2% off high — deep, unproven base", "Earnings Jul 30 (~10 days); high absolute price"]
+    },
+    {
+      "ticker": "SNOW", "signal": "WATCH", "score": 71, "grade": "B",
+      "entry": 271.25, "stop": 249.55, "target": 325.5,
+      "thesis": "Snowflake is one of the few software names with real momentum (+80% 3-month, revenue +34%, TradingView Buy) and sits just -3.2% off its high, but RSI 69 and only a 2-contraction base make it extended. Held on the platform; a hold, add on a pullback into the base.",
+      "strengths": ["Revenue +34%, AI-data-platform momentum", "TradingView Buy", "Near its high"],
+      "risks": ["RSI 69 + only 2 contractions — extended, loose base", "No GAAP profits yet; rich multiple"]
+    },
+    {
+      "ticker": "NTAP", "signal": "WATCH", "score": 86, "grade": "B+",
+      "entry": 161.65, "stop": 148.72, "target": 193.98,
+      "thesis": "NetApp scores 86 (EPS +23%, +52% 3-month momentum, TradingView Buy) but is -10.5% off its high on a loose 2-contraction base — constructive recovery, not yet a clean breakout. Held on the platform; watch it clear the high before adding.",
+      "strengths": ["Storage/data-infrastructure demand, EPS +23%", "TradingView Buy", "Strong 3-month momentum (+52%)"],
+      "risks": ["-10.5% off high on a loose base (8.5%)", "Enterprise-hardware cyclicality"]
+    },
+    {
+      "ticker": "PLTR", "signal": "WATCH", "score": 74, "grade": "C+",
+      "entry": 134.55, "stop": 123.79, "target": 161.47,
+      "thesis": "Palantir has explosive fundamentals (EPS +325%, revenue +85%) but here's the tension: it's -35% off its high with NEGATIVE 3-month momentum and TradingView rates it only NEUTRAL — the chart and the second opinion both say wait. Held on the platform; hold, do not add until it stabilizes.",
+      "strengths": ["Revenue +85%, EPS +325% — elite growth", "Dominant commercial + government AI positioning"],
+      "risks": ["-35% off high with negative momentum — broken chart", "TradingView NEUTRAL; extreme valuation amplifies downside"]
+    },
+    {
+      "ticker": "LQDA", "signal": "WATCH", "score": 92, "grade": "B+",
+      "entry": 80.69, "stop": 74.24, "target": 96.83,
+      "thesis": "Liquidia scores 92 on a fresh Yutrepia (pulmonary-hypertension) launch ramp (TradingView Buy), but it's up +114% in three months on a wide base — a parabolic small-cap biotech, not a low-risk entry. Held on the platform; hold and trail a stop rather than adding here.",
+      "strengths": ["Commercial launch inflection, revenue ramping fast", "TradingView Buy"],
+      "risks": ["+114% in 3 months — parabolic and extended", "Small-cap biotech: binary catalyst/legal risk; earnings Aug 12"]
+    },
+    {
+      "ticker": "SPCX", "signal": "WATCH", "score": 50, "grade": "NR",
+      "entry": 123.5, "stop": 113.62, "target": 148.2,
+      "thesis": "NEW LISTING — SpaceX, the dominant launch + Starlink franchise, is a compelling long-term story, but be honest about the chart: as a recent IPO it has sold off hard post-listing (-41.6% off its high, RSI a deeply oversold 21, negative 3-month momentum) and TradingView now rates it Sell. The post-IPO valuation reset is playing out. Held on the platform; treat as a thesis-driven, speculative position — the franchise is elite, but the tape is broken, so wait for stabilization / a real base rather than catching the falling knife.",
+      "strengths": ["Category-defining launch + Starlink franchise (the long-term thesis)", "Deeply oversold (RSI 21) — capable of a sharp mean-reversion bounce"],
+      "risks": ["-41.6% off high, negative momentum, TradingView Sell — trend is down", "Newly public: lock-up expiry and valuation-reset volatility; speculative"]
+    }
+  ]
+}
