@@ -1,0 +1,428 @@
+{
+  "date": "2026-07-20",
+  "users": {
+    "9U3EMCIBlyYATLhh9YLnfYwKgpC2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "At/near a new high with a Strong-Buy score and TradingView Buy, but RSI ~88 is extremely overbought — hold the core, don't add here; consider trimming into strength."
+        },
+        {
+          "ticker": "ALAB",
+          "action": "REDUCE",
+          "why": "Broken: -35% off its high, deeply oversold (RSI 29) and TradingView Sell — tighten stops or reduce; not a spot to add."
+        },
+        {
+          "ticker": "AMD",
+          "action": "HOLD",
+          "why": "Powerful +90% 3-month momentum but TradingView Sell and -10% off high in a rotating-out semi group — hold, avoid adding until chip leadership returns."
+        },
+        {
+          "ticker": "APLD",
+          "action": "REDUCE",
+          "why": "Deep downtrend (-43% off high, RSI 25, TradingView Sell) — high risk; reduce or exit."
+        },
+        {
+          "ticker": "APP",
+          "action": "REDUCE",
+          "why": "Broken (-42% off high, negative momentum, TradingView Sell) — reduce and honor stops."
+        },
+        {
+          "ticker": "DRAM",
+          "action": "REDUCE",
+          "why": "Very weak score and -32% off high — speculative; reduce or exit."
+        },
+        {
+          "ticker": "GOOGL",
+          "action": "HOLD",
+          "why": "Great fundamentals (EPS +82%) but -11% off high AND TradingView rates it Sell — a real tension; hold, don't add until it stabilizes."
+        },
+        {
+          "ticker": "GS",
+          "action": "HOLD",
+          "why": "Leading investment bank on a constructive pullback (EPS +92%, TradingView Buy) — a candidate to add on strength / hold."
+        },
+        {
+          "ticker": "HOOD",
+          "action": "HOLD",
+          "why": "-34% off high with TradingView Sell — hold with a stop; no adds until it repairs."
+        },
+        {
+          "ticker": "INTC",
+          "action": "REDUCE",
+          "why": "Very weak (score 14, -29% off high, TradingView Sell) — reduce materially and honor stops."
+        },
+        {
+          "ticker": "IREN",
+          "action": "REDUCE",
+          "why": "Broken (-50% off high, TradingView Sell) — high risk; reduce or exit."
+        },
+        {
+          "ticker": "LRCX",
+          "action": "HOLD",
+          "why": "Semi-cap (-26% off high, TradingView Sell) — hold with a stop; no adds while the group is out of favor."
+        },
+        {
+          "ticker": "LUNR",
+          "action": "REDUCE",
+          "why": "Severely broken (-70% off high, RSI 10, TradingView Sell) — speculative; reduce or exit."
+        },
+        {
+          "ticker": "MSFT",
+          "action": "HOLD",
+          "why": "Mega-cap consolidating -27% off its high with TradingView Neutral — hold the core, no adds until it re-bases."
+        },
+        {
+          "ticker": "MU",
+          "action": "HOLD",
+          "why": "Memory name with big momentum (+100% 3-month) but TradingView Sell and -26% off high — hold with a stop; expect high volatility."
+        },
+        {
+          "ticker": "NVDA",
+          "action": "HOLD",
+          "why": "Still the AI bellwether, but TradingView rates it Sell and it's -12% off high in a rotating-out semi group — hold the core, don't add here."
+        },
+        {
+          "ticker": "ORCL",
+          "action": "REDUCE",
+          "why": "Sharp breakdown (-62% off high, negative momentum, TradingView Sell) — reduce materially and honor stops."
+        },
+        {
+          "ticker": "PLTR",
+          "action": "HOLD",
+          "why": "Elite growth (rev +85%) but the chart is broken -35% off high with negative momentum and TradingView Neutral — hold, don't add until it stabilizes."
+        },
+        {
+          "ticker": "QBTS",
+          "action": "REDUCE",
+          "why": "Quantum name severely broken (-62% off high, RSI 16, TradingView Sell) — highly speculative; reduce or exit."
+        },
+        {
+          "ticker": "QLD",
+          "action": "REDUCE",
+          "why": "2x Nasdaq-100 ETF — leveraged, and with QQQ back below its 50-day plus a TradingView Sell, reduce the leverage / tighten stops."
+        },
+        {
+          "ticker": "RBRK",
+          "action": "HOLD",
+          "why": "Rubrik has strong momentum (rev +39%) but is -19% off high with TradingView Neutral — hold, watch for a base clear."
+        },
+        {
+          "ticker": "RGTI",
+          "action": "REDUCE",
+          "why": "Quantum name -74% off high (RSI 19, TradingView Sell) — highly speculative; reduce or exit."
+        },
+        {
+          "ticker": "RKLB",
+          "action": "REDUCE",
+          "why": "Rocket Lab -55% off high with negative momentum and TradingView Sell — speculative; reduce or exit."
+        },
+        {
+          "ticker": "SMCI",
+          "action": "REDUCE",
+          "why": "Severely broken (-60% off high, TradingView STRONG Sell) — reduce materially and honor stops."
+        },
+        {
+          "ticker": "SNDK",
+          "action": "HOLD",
+          "why": "SanDisk -39% off its high with TradingView Sell — hold with a stop; weak trend, no adds."
+        },
+        {
+          "ticker": "SNOW",
+          "action": "HOLD",
+          "why": "Strong momentum (rev +34%, TradingView Buy) near its highs but RSI ~69 is extended — hold; add on a pullback into the base."
+        },
+        {
+          "ticker": "SSO",
+          "action": "HOLD",
+          "why": "2x S&P 500 ETF — leveraged long; the model is strong but TradingView is Sell and VIX is rising, so hold with modest leverage and trail a stop."
+        },
+        {
+          "ticker": "TSLA",
+          "action": "HOLD",
+          "why": "-22% off high with negative momentum and TradingView Sell — hold the core with a stop; no adds until it repairs."
+        },
+        {
+          "ticker": "TSM",
+          "action": "HOLD",
+          "why": "Foundry leader but caught in the semi rotation-out (TradingView Sell, -14% off high) — hold; no adds here."
+        },
+        {
+          "ticker": "VRT",
+          "action": "HOLD",
+          "why": "Data-center power play cooling (-20% off high, TradingView Sell) — hold with a stop."
+        }
+      ]
+    },
+    "9XYERwojDqZYyeKV2ajvWQig8Bh2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "At/near a new high with a Strong-Buy score and TradingView Buy, but RSI ~88 is extremely overbought — hold the core, don't add here; consider trimming into strength."
+        }
+      ]
+    },
+    "H0Wv2PLzKzR0JwanHqUssGUsmMl1": {
+      "holdings": [
+        {
+          "ticker": "AMKR",
+          "action": "REDUCE",
+          "why": "Weak: -32% off high, negative momentum and TradingView Sell — reduce or tighten stops."
+        },
+        {
+          "ticker": "COCO",
+          "action": "HOLD",
+          "why": "Strong momentum name (revenue +37%, TradingView Buy) but reports earnings in ~3 days (Jul 23) and sits -11% off its high — hold through the print, don't add pre-earnings."
+        },
+        {
+          "ticker": "DELL",
+          "action": "HOLD",
+          "why": "Explosive momentum (+94% 3-month, EPS +283%) but -15% off high and TradingView Neutral — hold, watch for a clean base before adding."
+        },
+        {
+          "ticker": "DIOD",
+          "action": "REDUCE",
+          "why": "Weak (-27% off high, TradingView Sell) — reduce or tighten stops."
+        },
+        {
+          "ticker": "DOCN",
+          "action": "REDUCE",
+          "why": "Weak (-32% off high, TradingView Sell) — reduce or tighten stops."
+        },
+        {
+          "ticker": "FLEX",
+          "action": "REDUCE",
+          "why": "Weak (-25% off high, RSI 24, TradingView Sell) — reduce or tighten stops."
+        },
+        {
+          "ticker": "FTNT",
+          "action": "HOLD",
+          "why": "Today's top pick — cybersecurity leader on a tight base with TradingView Buy; a candidate to add on strength / hold. Earnings Jul 30."
+        },
+        {
+          "ticker": "GLW",
+          "action": "REDUCE",
+          "why": "Very oversold (RSI 13) and -38% off high with TradingView Sell — deep downtrend; reduce and honor stops."
+        },
+        {
+          "ticker": "GOOGL",
+          "action": "HOLD",
+          "why": "Great fundamentals (EPS +82%) but -11% off high AND TradingView rates it Sell — a real tension; hold, don't add until it stabilizes."
+        },
+        {
+          "ticker": "ICHR",
+          "action": "HOLD",
+          "why": "Semi-cap equipment, -24% off high and TradingView Neutral — hold, watch for a base."
+        },
+        {
+          "ticker": "LLY",
+          "action": "HOLD",
+          "why": "Pharma/GLP-1 leader (EPS +170%, TradingView Buy), -5% off high with RSI reset to ~38 — hold, accumulate on strength."
+        },
+        {
+          "ticker": "LQDA",
+          "action": "HOLD",
+          "why": "Launch-ramp biotech up +114% in three months — parabolic; TradingView Buy but extended, so hold and trail a stop rather than chasing adds."
+        },
+        {
+          "ticker": "LUV",
+          "action": "HOLD",
+          "why": "Airline turnaround with improving momentum but -11% off high and TradingView Neutral — hold, watch for confirmation."
+        },
+        {
+          "ticker": "MXL",
+          "action": "HOLD",
+          "why": "MaxLinear -41% off high with a sharp momentum spike but TradingView Sell — hold with a tight stop; high volatility."
+        },
+        {
+          "ticker": "NTAP",
+          "action": "HOLD",
+          "why": "Storage/data-infrastructure demand (EPS +23%, +52% 3-month momentum, TradingView Buy) but -10% off high on a loose base — hold, watch it clear the high before adding."
+        },
+        {
+          "ticker": "PRTH",
+          "action": "HOLD",
+          "why": "Small-cap payments, -20% off high with TradingView Sell — hold with a tight stop."
+        },
+        {
+          "ticker": "SWBI",
+          "action": "HOLD",
+          "why": "Smith & Wesson small-cap near-ish its highs but TradingView Sell — hold with a stop."
+        }
+      ]
+    },
+    "RWaiB5nNl5TjiWamTOEMb8tgVgQ2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "At/near a new high with a Strong-Buy score and TradingView Buy, but RSI ~88 is extremely overbought — hold the core, don't add here; consider trimming into strength."
+        },
+        {
+          "ticker": "GS",
+          "action": "HOLD",
+          "why": "Leading investment bank on a constructive pullback (EPS +92%, TradingView Buy) — a candidate to add on strength / hold."
+        },
+        {
+          "ticker": "MNST",
+          "action": "HOLD",
+          "why": "Cleanest staples-growth setup, RSI reset to ~49 with TradingView Buy — a candidate to add on strength / hold; earnings Aug 7."
+        },
+        {
+          "ticker": "SPCX",
+          "action": "HOLD",
+          "why": "New listing that has sold off hard post-IPO (-42% off high, RSI 21, TradingView Sell) — elite long-term franchise but a broken tape; hold as speculative, wait for stabilization before adding."
+        },
+        {
+          "ticker": "TSLA",
+          "action": "HOLD",
+          "why": "-22% off high with negative momentum and TradingView Sell — hold the core with a stop; no adds until it repairs."
+        }
+      ]
+    },
+    "Upr1qGqvOZVTbZIazl3fVapJAWt1": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "At/near a new high with a Strong-Buy score and TradingView Buy, but RSI ~88 is extremely overbought — hold the core, don't add here; consider trimming into strength."
+        }
+      ]
+    },
+    "WwfbUgQdviVtfrB3BBzR25joqbv2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "At/near a new high with a Strong-Buy score and TradingView Buy, but RSI ~88 is extremely overbought — hold the core, don't add here; consider trimming into strength."
+        },
+        {
+          "ticker": "AMAT",
+          "action": "HOLD",
+          "why": "Semi-cap caught in the rotation out of chips (-24% off high, TradingView Sell) though 3-month momentum is improving — hold with a stop, no adds until it clears its base."
+        },
+        {
+          "ticker": "AMZN",
+          "action": "HOLD",
+          "why": "Still a top-scoring mega-cap (EPS +75%, TradingView Buy) but consolidating -9% off its high — hold, add only on strength; earnings Jul 31."
+        },
+        {
+          "ticker": "COIN",
+          "action": "REDUCE",
+          "why": "Severely broken: -62% off high with a TradingView STRONG Sell — high risk; reduce materially and honor stops."
+        },
+        {
+          "ticker": "DLR",
+          "action": "HOLD",
+          "why": "Data-center REIT pulling back (-13% off high, negative momentum, TradingView Sell) — hold with a stop, no adds for now."
+        },
+        {
+          "ticker": "DTE",
+          "action": "HOLD",
+          "why": "Defensive utility near its highs; the model likes it but TradingView is only Neutral and RSI ~40 is soft — hold as ballast, watch the base to firm; earnings Jul 28."
+        },
+        {
+          "ticker": "EOG",
+          "action": "HOLD",
+          "why": "Top-tier E&P with a real oil tailwind (Middle East), EPS +40% and TradingView Buy — a candidate to add on strength; earnings Aug 5."
+        },
+        {
+          "ticker": "FICO",
+          "action": "HOLD",
+          "why": "Wide-moat compounder (EPS +69%, TradingView Buy) but -33% off its high in a deep base — hold; wait for a base clear before adding; earnings Jul 30."
+        },
+        {
+          "ticker": "GS",
+          "action": "HOLD",
+          "why": "Leading investment bank on a constructive pullback (EPS +92%, TradingView Buy) — a candidate to add on strength / hold."
+        },
+        {
+          "ticker": "HWM",
+          "action": "HOLD",
+          "why": "Industrials leader (EPS +71%, tight base, TradingView Buy) — a candidate to add on strength / hold; earnings Aug 6."
+        },
+        {
+          "ticker": "INTC",
+          "action": "REDUCE",
+          "why": "Very weak (score 14, -29% off high, TradingView Sell) — reduce materially and honor stops."
+        },
+        {
+          "ticker": "IRM",
+          "action": "HOLD",
+          "why": "Storage/data-center REIT near its highs with TradingView Buy — hold; watch RSI ~42 for momentum to turn up before adding."
+        },
+        {
+          "ticker": "KIM",
+          "action": "HOLD",
+          "why": "REIT leader at a fresh high with room (RSI 55) and TradingView Buy — a candidate to add on strength / hold; earnings Aug 4."
+        },
+        {
+          "ticker": "MNST",
+          "action": "HOLD",
+          "why": "Cleanest staples-growth setup, RSI reset to ~49 with TradingView Buy — a candidate to add on strength / hold; earnings Aug 7."
+        },
+        {
+          "ticker": "MSFT",
+          "action": "HOLD",
+          "why": "Mega-cap consolidating -27% off its high with TradingView Neutral — hold the core, no adds until it re-bases."
+        },
+        {
+          "ticker": "NVDA",
+          "action": "HOLD",
+          "why": "Still the AI bellwether, but TradingView rates it Sell and it's -12% off high in a rotating-out semi group — hold the core, don't add here."
+        },
+        {
+          "ticker": "NXPI",
+          "action": "HOLD",
+          "why": "Auto/industrial semi, -18% off high with TradingView Sell — hold with a stop; no adds for now."
+        },
+        {
+          "ticker": "SIRI",
+          "action": "HOLD",
+          "why": "SiriusXM is a top-scorer near its highs with TradingView Buy (value + yield) — hold / add on strength."
+        },
+        {
+          "ticker": "SNDK",
+          "action": "HOLD",
+          "why": "SanDisk -39% off its high with TradingView Sell — hold with a stop; weak trend, no adds."
+        },
+        {
+          "ticker": "SPCX",
+          "action": "HOLD",
+          "why": "New listing that has sold off hard post-IPO (-42% off high, RSI 21, TradingView Sell) — elite long-term franchise but a broken tape; hold as speculative, wait for stabilization before adding."
+        },
+        {
+          "ticker": "SPG",
+          "action": "HOLD",
+          "why": "Best-in-class mall REIT at a fresh high with room and TradingView Buy — a candidate to add on strength / hold; earnings Aug 11."
+        },
+        {
+          "ticker": "TSLA",
+          "action": "HOLD",
+          "why": "-22% off high with negative momentum and TradingView Sell — hold the core with a stop; no adds until it repairs."
+        },
+        {
+          "ticker": "WDC",
+          "action": "HOLD",
+          "why": "Western Digital -33% off high with TradingView Sell — hold with a stop; weak trend, no adds."
+        }
+      ]
+    },
+    "XywlmmAEAhN9JBDkYQnagsBIkCf1": {
+      "holdings": [
+        {
+          "ticker": "BTC-USD",
+          "action": "HOLD",
+          "why": "Not part of the equity scan — manage this crypto position to your own risk framework; the broad read is neutral, so size conservatively."
+        },
+        {
+          "ticker": "GS",
+          "action": "HOLD",
+          "why": "Leading investment bank on a constructive pullback (EPS +92%, TradingView Buy) — a candidate to add on strength / hold."
+        }
+      ]
+    }
+  }
+}
