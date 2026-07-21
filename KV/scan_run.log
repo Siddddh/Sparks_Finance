@@ -1,659 +1,660 @@
 Journal loaded: 0 trades
-[17:35] Fetching market health…
-  Market: UPTREND | VIX: 17.3 | Dist days: 0
-[17:35] Scanning 542 stocks with 20 parallel workers…
-  [1/542] META: 85 STRONG BUY | VCP:True RS@High:False
-  [2/542] TXN: 56 WATCH | VCP:False RS@High:False
-  [3/542] AMAT: 75 STRONG BUY | VCP:False RS@High:False
-  [4/542] CSCO: 90 STRONG BUY | VCP:True RS@High:False
-  [5/542] QCOM: 36 WEAK | VCP:False RS@High:False
-  [6/542] NFLX: 51 WEAK | VCP:False RS@High:False
-  [7/542] AMD: 79 STRONG BUY | VCP:False RS@High:False
-  [8/542] NVDA: 67 WATCH | VCP:True RS@High:False
-  [9/542] GOOGL: 73 WATCH | VCP:True RS@High:False
-  [10/542] TSLA: 61 WATCH | VCP:True RS@High:False
-  [11/542] ADBE: 36 WEAK | VCP:False RS@High:False
-  [12/542] GOOG: 73 WATCH | VCP:True RS@High:False
-  [13/542] PEP: 42 WEAK | VCP:True RS@High:False
-  [14/542] COST: 55 WATCH | VCP:True RS@High:False
-  [15/542] INTU: 79 STRONG BUY | VCP:True RS@High:False
-  [16/542] AVGO: 61 WATCH | VCP:True RS@High:False
-  [17/542] AMZN: 89 STRONG BUY | VCP:True RS@High:False
-  [18/542] AAPL: 91 STRONG BUY | VCP:False RS@High:True
-  [19/542] AMGN: 50 WEAK | VCP:False RS@High:False
-  [20/542] MSFT: 57 WATCH | VCP:False RS@High:False
-  [21/542] ISRG: 59 WATCH | VCP:True RS@High:False
-  [22/542] VRTX: 80 STRONG BUY | VCP:True RS@High:False
-  [23/542] CMCSA: 61 WATCH | VCP:True RS@High:False
-  [24/542] HON: 63 WATCH | VCP:True RS@High:False
-  [25/542] BKNG: 88 STRONG BUY | VCP:True RS@High:False
-  [26/542] MU: 71 WATCH | VCP:False RS@High:False
-  [27/542] ADI: 66 WATCH | VCP:True RS@High:False
-  [28/542] REGN: 80 STRONG BUY | VCP:True RS@High:False
-  [29/542] ABNB: 91 STRONG BUY | VCP:True RS@High:False
-  [30/542] PANW: 55 WEAK | VCP:False RS@High:False
-  [31/542] LRCX: 49 WEAK | VCP:False RS@High:False
-  [32/542] GILD: 77 STRONG BUY | VCP:True RS@High:False
-  [33/542] MELI: 67 WATCH | VCP:True RS@High:False
-  [34/542] SNPS: 42 WEAK | VCP:True RS@High:False
-  [35/542] KLAC: 58 WATCH | VCP:False RS@High:False
-  [36/542] INTC: 25 WEAK | VCP:False RS@High:False
-  [37/542] SBUX: 92 STRONG BUY | VCP:True RS@High:False
-  [38/542] MDLZ: 72 WATCH | VCP:True RS@High:False
-  [39/542] CDNS: 68 WATCH | VCP:True RS@High:False
-  [40/542] ADP: 47 WEAK | VCP:False RS@High:False
-  [41/542] PYPL: 86 STRONG BUY | VCP:True RS@High:False
-  [42/542] CEG: 43 WEAK | VCP:False RS@High:False
-  [43/542] ORLY: 60 WATCH | VCP:True RS@High:False
-  [44/542] CRWD: 84 STRONG BUY | VCP:True RS@High:False
-  [45/542] MRNA: 91 STRONG BUY | VCP:True RS@High:False
-  [46/542] DXCM: 92 STRONG BUY | VCP:True RS@High:False
-  [47/542] NXPI: 46 WEAK | VCP:False RS@High:False
-  [48/542] PAYX: 55 WATCH | VCP:False RS@High:False
-  [49/542] KDP: 90 STRONG BUY | VCP:True RS@High:False
-  [50/542] WDAY: 72 WATCH | VCP:True RS@High:False
-  [51/542] CSX: 92 STRONG BUY | VCP:True RS@High:True
-  [52/542] CTAS: 64 WATCH | VCP:True RS@High:False
-  [53/542] FAST: 66 WATCH | VCP:False RS@High:False
-  [54/542] FTNT: 94 STRONG BUY | VCP:True RS@High:True
-  [55/542] GEHC: 63 WATCH | VCP:True RS@High:False
-  [56/542] PCAR: 78 STRONG BUY | VCP:True RS@High:False
-  [57/542] ROST: 43 WEAK | VCP:False RS@High:False
-  [58/542] MRVL: 33 WEAK | VCP:False RS@High:False
-  [59/542] TTD: 58 WATCH | VCP:False RS@High:False
+[01:35] Fetching market health…
+  Market: UPTREND | VIX: 17.2 | Dist days: 0
+[01:35] Scanning 542 stocks with 20 parallel workers…
+  [1/542] TSLA: 73 WATCH | VCP:True RS@High:False
+  [2/542] QCOM: 42 WEAK | VCP:False RS@High:False
+  [3/542] COST: 74 WATCH | VCP:True RS@High:False
+  [4/542] MSFT: 54 WEAK | VCP:False RS@High:False
+  [5/542] META: 89 STRONG BUY | VCP:True RS@High:False
+  [6/542] PEP: 48 WEAK | VCP:True RS@High:False
+  [7/542] NVDA: 79 STRONG BUY | VCP:True RS@High:False
+  [8/542] AAPL: 91 STRONG BUY | VCP:False RS@High:True
+  [9/542] TXN: 56 WATCH | VCP:False RS@High:False
+  [10/542] AMD: 70 WATCH | VCP:False RS@High:False
+  [11/542] AVGO: 66 WATCH | VCP:True RS@High:False
+  [12/542] AMZN: 79 STRONG BUY | VCP:True RS@High:False
+  [13/542] AMAT: 78 STRONG BUY | VCP:False RS@High:False
+  [14/542] INTU: 80 STRONG BUY | VCP:True RS@High:False
+  [15/542] ADBE: 58 WATCH | VCP:True RS@High:False
+  [16/542] GOOGL: 87 STRONG BUY | VCP:True RS@High:False
+  [17/542] AMGN: 79 STRONG BUY | VCP:False RS@High:False
+  [18/542] CSCO: 65 WATCH | VCP:True RS@High:False
+  [19/542] GOOG: 89 STRONG BUY | VCP:True RS@High:False
+  [20/542] NFLX: 47 WEAK | VCP:False RS@High:False
+  [21/542] REGN: 88 STRONG BUY | VCP:True RS@High:False
+  [22/542] VRTX: 83 STRONG BUY | VCP:False RS@High:False
+  [23/542] KLAC: 66 WATCH | VCP:False RS@High:False
+  [24/542] ISRG: 37 WEAK | VCP:False RS@High:False
+  [25/542] PANW: 89 STRONG BUY | VCP:False RS@High:True
+  [26/542] BKNG: 87 STRONG BUY | VCP:True RS@High:False
+  [27/542] LRCX: 48 WEAK | VCP:False RS@High:False
+  [28/542] HON: 63 WATCH | VCP:True RS@High:False
+  [29/542] ADI: 66 WATCH | VCP:True RS@High:False
+  [30/542] MU: 58 WATCH | VCP:True RS@High:False
+  [31/542] INTC: 31 WEAK | VCP:True RS@High:False
+  [32/542] ABNB: 90 STRONG BUY | VCP:True RS@High:False
+  [33/542] MELI: 56 WATCH | VCP:True RS@High:False
+  [34/542] SNPS: 40 WEAK | VCP:True RS@High:False
+  [35/542] SBUX: 93 STRONG BUY | VCP:True RS@High:False
+  [36/542] CDNS: 73 WATCH | VCP:True RS@High:False
+  [37/542] MDLZ: 93 STRONG BUY | VCP:True RS@High:False
+  [38/542] GILD: 82 STRONG BUY | VCP:True RS@High:False
+  [39/542] CMCSA: 82 STRONG BUY | VCP:True RS@High:False
+  [40/542] ADP: 54 WEAK | VCP:False RS@High:False
+  [41/542] PYPL: 72 WATCH | VCP:True RS@High:False
+  [42/542] CRWD: 88 STRONG BUY | VCP:True RS@High:False
+  [43/542] CEG: 38 WEAK | VCP:False RS@High:False
+  [44/542] ORLY: 66 WATCH | VCP:True RS@High:False
+  [45/542] KDP: 86 STRONG BUY | VCP:True RS@High:False
+  [46/542] MRNA: 88 STRONG BUY | VCP:False RS@High:False
+  [47/542] MRVL: 31 WEAK | VCP:False RS@High:False
+  [48/542] WDAY: 57 WATCH | VCP:False RS@High:False
+  [49/542] DXCM: 94 STRONG BUY | VCP:True RS@High:False
+  [50/542] PCAR: 85 STRONG BUY | VCP:True RS@High:False
+  [51/542] FTNT: 94 STRONG BUY | VCP:True RS@High:False
+  [52/542] PAYX: 65 WATCH | VCP:False RS@High:False
+  [53/542] CSX: 93 STRONG BUY | VCP:True RS@High:True
+  [54/542] TTD: 71 WATCH | VCP:True RS@High:False
+  [55/542] ROST: 87 STRONG BUY | VCP:False RS@High:False
+  [56/542] CTAS: 73 WATCH | VCP:True RS@High:False
+  [57/542] GEHC: 75 STRONG BUY | VCP:True RS@High:False
+  [58/542] FAST: 62 WATCH | VCP:False RS@High:False
+  [59/542] NXPI: 57 WATCH | VCP:False RS@High:False
   [60/542] ODFL: 92 STRONG BUY | VCP:True RS@High:False
-  [61/542] MCHP: 60 WATCH | VCP:True RS@High:False
-  [62/542] CTSH: 67 WATCH | VCP:True RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: ANSS"}}}
-  [63/542] BIIB: 93 STRONG BUY | VCP:True RS@High:False
-  [64/542] EA: 71 WATCH | VCP:False RS@High:False
-  [65/542] ZS: 74 WATCH | VCP:True RS@High:False
-  [66/542] DLTR: 82 STRONG BUY | VCP:True RS@High:False
-  [67/542] TEAM: 63 WATCH | VCP:False RS@High:False
-  [68/542] IDXX: 60 WATCH | VCP:True RS@High:False
-  [69/542] EXC: 67 WATCH | VCP:True RS@High:False
-  [70/542] VRSK: 73 WATCH | VCP:True RS@High:False
-  [71/542] WBD: 72 WATCH | VCP:True RS@High:False
-  [72/542] ILMN: 92 STRONG BUY | VCP:True RS@High:True
-  [73/542] KHC: 82 STRONG BUY | VCP:True RS@High:False
-  [74/542] ON: 53 WEAK | VCP:True RS@High:False
-  [75/542] CCEP: 88 STRONG BUY | VCP:True RS@High:False
-  [76/542] DDOG: 89 STRONG BUY | VCP:True RS@High:False
-  [77/542] CDW: 81 STRONG BUY | VCP:True RS@High:False
+  [61/542] CTSH: 54 WEAK | VCP:False RS@High:False
+  [62/542] EA: 84 STRONG BUY | VCP:False RS@High:False
+  [63/542] BIIB: 88 STRONG BUY | VCP:False RS@High:False
+  [64/542] DLTR: 88 STRONG BUY | VCP:True RS@High:False
+  [65/542] ZS: 63 WATCH | VCP:True RS@High:False
+  [66/542] MCHP: 60 WATCH | VCP:True RS@High:False
+  [67/542] ILMN: 93 STRONG BUY | VCP:True RS@High:True
+  [68/542] ON: 40 WEAK | VCP:True RS@High:False
+  [69/542] VRSK: 73 WATCH | VCP:True RS@High:False
+  [70/542] IDXX: 73 WATCH | VCP:True RS@High:False
+  [71/542] CDW: 77 STRONG BUY | VCP:True RS@High:False
 $ANSS: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [78/542] ANSS: skip (no data)
-  [79/542] FANG: 72 WATCH | VCP:True RS@High:False
-  [80/542] BKR: 62 WATCH | VCP:True RS@High:False
-  [81/542] CSGP: 38 WEAK | VCP:True RS@High:False
-  [82/542] XEL: 80 STRONG BUY | VCP:True RS@High:False
-  [83/542] SIRI: 90 STRONG BUY | VCP:False RS@High:True
-  [84/542] CHTR: 56 WATCH | VCP:False RS@High:False
-  [85/542] MNST: 94 STRONG BUY | VCP:True RS@High:True
-  [86/542] LULU: 57 WATCH | VCP:True RS@High:False
-  [87/542] JD: 55 WEAK | VCP:True RS@High:False
-  [88/542] PDD: 45 WEAK | VCP:False RS@High:False
-  [89/542] JPM: 90 STRONG BUY | VCP:True RS@High:False
-  [90/542] ALGN: 74 WATCH | VCP:True RS@High:False
-  [91/542] GS: 74 WATCH | VCP:False RS@High:False
-  [92/542] BAC: 91 STRONG BUY | VCP:True RS@High:False
-  [93/542] SCHW: 84 STRONG BUY | VCP:True RS@High:False
-  [94/542] SPGI: 81 STRONG BUY | VCP:True RS@High:False
-  [95/542] AXP: 64 WATCH | VCP:False RS@High:False
-  [96/542] CB: 94 STRONG BUY | VCP:True RS@High:False
-  [97/542] BLK: 39 WEAK | VCP:False RS@High:False
-  [98/542] MS: 76 STRONG BUY | VCP:False RS@High:False
-  [99/542] WFC: 64 WATCH | VCP:True RS@High:False
-  [100/542] PGR: 67 WATCH | VCP:True RS@High:False
-  [101/542] TRV: 92 STRONG BUY | VCP:True RS@High:True
+  [72/542] ANSS: skip (no data)
+  [73/542] EXC: 56 WATCH | VCP:False RS@High:False
+  [74/542] KHC: 86 STRONG BUY | VCP:True RS@High:False
+  [75/542] WBD: 61 WATCH | VCP:True RS@High:False
+  [76/542] FANG: 61 WATCH | VCP:True RS@High:False
+  [77/542] CCEP: 93 STRONG BUY | VCP:True RS@High:False
+  [78/542] TEAM: 54 WEAK | VCP:False RS@High:False
+  [79/542] BKR: 68 WATCH | VCP:True RS@High:False
+  [80/542] DDOG: 89 STRONG BUY | VCP:True RS@High:False
+  [81/542] CSGP: 67 WATCH | VCP:True RS@High:False
+  [82/542] SIRI: 91 STRONG BUY | VCP:False RS@High:True
+  [83/542] ALGN: 87 STRONG BUY | VCP:True RS@High:False
+  [84/542] XEL: 72 WATCH | VCP:True RS@High:False
+  [85/542] CHTR: 56 WATCH | VCP:False RS@High:False
+  [86/542] MNST: 94 STRONG BUY | VCP:True RS@High:True
+  [87/542] LULU: 56 WATCH | VCP:True RS@High:False
+  [88/542] PDD: 56 WATCH | VCP:True RS@High:False
+  [89/542] GS: 92 STRONG BUY | VCP:True RS@High:False
+  [90/542] JPM: 92 STRONG BUY | VCP:True RS@High:False
+  [91/542] CB: 87 STRONG BUY | VCP:False RS@High:False
+  [92/542] JD: 49 WEAK | VCP:True RS@High:False
+  [93/542] MS: 79 STRONG BUY | VCP:False RS@High:False
+  [94/542] BAC: 94 STRONG BUY | VCP:True RS@High:True
+  [95/542] SCHW: 79 STRONG BUY | VCP:True RS@High:False
+  [96/542] BLK: 84 STRONG BUY | VCP:True RS@High:False
+  [97/542] WFC: 60 WATCH | VCP:False RS@High:False
+  [98/542] AXP: 63 WATCH | VCP:False RS@High:False
 $MMC: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [102/542] MMC: skip (no data)
-  [103/542] AON: 64 WATCH | VCP:False RS@High:False
-  [104/542] ALL: 78 STRONG BUY | VCP:False RS@High:True
-  [105/542] AFL: 93 STRONG BUY | VCP:True RS@High:False
-  [106/542] BK: skip (no data)
-  [107/542] MET: 93 STRONG BUY | VCP:True RS@High:True
-  [108/542] AIG: 82 STRONG BUY | VCP:True RS@High:False
-  [109/542] HIG: 77 STRONG BUY | VCP:True RS@High:False
-  [110/542] PFG: 93 STRONG BUY | VCP:True RS@High:True
-  [111/542] PRU: 91 STRONG BUY | VCP:True RS@High:False
+  [99/542] MMC: skip (no data)
+  [100/542] SPGI: 88 STRONG BUY | VCP:True RS@High:False
+  [101/542] TRV: 93 STRONG BUY | VCP:True RS@High:True
+  [102/542] PGR: 50 WEAK | VCP:True RS@High:False
+  [103/542] AFL: 94 STRONG BUY | VCP:True RS@High:False
+  [104/542] ALL: 80 STRONG BUY | VCP:False RS@High:False
+$BK: possibly delisted; no price data found  (period=1y)
+  [105/542] BK: skip (no data)
 $DFS: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [112/542] CINF: 87 STRONG BUY | VCP:False RS@High:False
-  [113/542] DFS: skip (no data)
-  [114/542] ICE: 52 WEAK | VCP:False RS@High:False
-  [115/542] CME: 55 WEAK | VCP:False RS@High:False
-  [116/542] MCO: 87 STRONG BUY | VCP:True RS@High:False
-  [117/542] RJF: 86 STRONG BUY | VCP:True RS@High:False
-  [118/542] COF: 76 STRONG BUY | VCP:True RS@High:False
-  [119/542] SYF: 52 WEAK | VCP:False RS@High:False
-  [120/542] TROW: 92 STRONG BUY | VCP:True RS@High:False
-  [121/542] AMP: 90 STRONG BUY | VCP:True RS@High:False
-  [122/542] STT: 90 STRONG BUY | VCP:True RS@High:True
+  [106/542] DFS: skip (no data)
+  [107/542] MET: 92 STRONG BUY | VCP:True RS@High:True
+  [108/542] PFG: 89 STRONG BUY | VCP:False RS@High:True
+  [109/542] HIG: 86 STRONG BUY | VCP:True RS@High:False
+  [110/542] AON: 79 STRONG BUY | VCP:True RS@High:False
+  [111/542] AIG: 86 STRONG BUY | VCP:True RS@High:False
+  [112/542] PRU: 72 WATCH | VCP:False RS@High:False
+  [113/542] RJF: 73 WATCH | VCP:True RS@High:False
+  [114/542] ICE: 59 WATCH | VCP:False RS@High:False
+  [115/542] CINF: 90 STRONG BUY | VCP:True RS@High:False
+  [116/542] AMP: 85 STRONG BUY | VCP:True RS@High:False
+  [117/542] MCO: 67 WATCH | VCP:True RS@High:False
+  [118/542] SYF: 43 WEAK | VCP:False RS@High:False
+  [119/542] COF: 70 WATCH | VCP:True RS@High:False
+  [120/542] TROW: 90 STRONG BUY | VCP:True RS@High:False
+  [121/542] CME: 67 WATCH | VCP:False RS@High:False
+  [122/542] STT: 89 STRONG BUY | VCP:True RS@High:True
   [123/542] NTRS: 94 STRONG BUY | VCP:True RS@High:True
-  [124/542] KEY: 92 STRONG BUY | VCP:True RS@High:False
-  [125/542] FITB: 92 STRONG BUY | VCP:True RS@High:False
-  [126/542] RF: 86 STRONG BUY | VCP:False RS@High:False
-  [127/542] MTB: 74 WATCH | VCP:False RS@High:False
-  [128/542] HBAN: 85 STRONG BUY | VCP:True RS@High:False
-  [129/542] ALLY: 88 STRONG BUY | VCP:True RS@High:False
-  [130/542] C: 77 STRONG BUY | VCP:False RS@High:False
-  [131/542] USB: 89 STRONG BUY | VCP:True RS@High:False
-  [132/542] CFG: 91 STRONG BUY | VCP:True RS@High:False
-  [133/542] PNC: 90 STRONG BUY | VCP:True RS@High:False
-  [134/542] NDAQ: 88 STRONG BUY | VCP:True RS@High:False
-  [135/542] TFC: 90 STRONG BUY | VCP:True RS@High:False
+  [124/542] FITB: 93 STRONG BUY | VCP:True RS@High:True
+  [125/542] RF: 90 STRONG BUY | VCP:False RS@High:True
+  [126/542] KEY: 92 STRONG BUY | VCP:True RS@High:False
+  [127/542] PNC: 92 STRONG BUY | VCP:True RS@High:False
+  [128/542] MTB: 87 STRONG BUY | VCP:False RS@High:True
+  [129/542] HBAN: 90 STRONG BUY | VCP:True RS@High:False
+  [130/542] C: 65 WATCH | VCP:True RS@High:False
+  [131/542] USB: 92 STRONG BUY | VCP:True RS@High:True
+  [132/542] CFG: 93 STRONG BUY | VCP:True RS@High:True
+  [133/542] ALLY: 91 STRONG BUY | VCP:True RS@High:False
+  [134/542] TFC: 92 STRONG BUY | VCP:True RS@High:False
+  [135/542] NDAQ: 72 WATCH | VCP:False RS@High:False
+  [136/542] BRO: 88 STRONG BUY | VCP:True RS@High:False
+  [137/542] FNF: 81 STRONG BUY | VCP:True RS@High:False
+  [138/542] LNC: 59 WATCH | VCP:True RS@High:False
+  [139/542] AIZ: 94 STRONG BUY | VCP:True RS@High:True
+  [140/542] GL: 93 STRONG BUY | VCP:True RS@High:True
+  [141/542] RGA: 81 STRONG BUY | VCP:False RS@High:True
 $RE: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [136/542] RE: skip (no data)
-  [137/542] RGA: 82 STRONG BUY | VCP:False RS@High:False
-  [138/542] FNF: 87 STRONG BUY | VCP:True RS@High:False
-  [139/542] LNC: 78 STRONG BUY | VCP:True RS@High:False
-  [140/542] BRO: 72 WATCH | VCP:True RS@High:False
-  [141/542] GL: 93 STRONG BUY | VCP:True RS@High:True
-  [142/542] UNM: 72 WATCH | VCP:False RS@High:False
-  [143/542] ACGL: 45 WEAK | VCP:False RS@High:False
-  [144/542] AIZ: 92 STRONG BUY | VCP:True RS@High:True
-  [145/542] UNH: 91 STRONG BUY | VCP:True RS@High:True
-  [146/542] WRB: 83 STRONG BUY | VCP:True RS@High:False
-  [147/542] MRK: 88 STRONG BUY | VCP:True RS@High:False
-  [148/542] ABBV: 81 STRONG BUY | VCP:True RS@High:False
-  [149/542] JNJ: 69 WATCH | VCP:False RS@High:False
-  [150/542] ABT: 59 WATCH | VCP:True RS@High:False
-  [151/542] TMO: 72 WATCH | VCP:True RS@High:False
-  [152/542] DHR: 85 STRONG BUY | VCP:True RS@High:False
-  [153/542] LLY: 93 STRONG BUY | VCP:True RS@High:False
-  [154/542] ELV: 91 STRONG BUY | VCP:True RS@High:True
-  [155/542] MDT: 66 WATCH | VCP:True RS@High:False
-  [156/542] BDX: 74 WATCH | VCP:True RS@High:False
-  [157/542] IQV: 49 WEAK | VCP:False RS@High:False
-  [158/542] CI: 72 WATCH | VCP:True RS@High:False
-  [159/542] HUM: 86 STRONG BUY | VCP:True RS@High:True
-  [160/542] BSX: 56 WATCH | VCP:True RS@High:False
-  [161/542] HCA: 64 WATCH | VCP:True RS@High:False
-  [162/542] SYK: 69 WATCH | VCP:True RS@High:False
+  [142/542] RE: skip (no data)
+  [143/542] UNM: 88 STRONG BUY | VCP:False RS@High:False
+  [144/542] WRB: 77 STRONG BUY | VCP:True RS@High:False
+  [145/542] LLY: 93 STRONG BUY | VCP:True RS@High:False
+  [146/542] UNH: 90 STRONG BUY | VCP:True RS@High:False
+  [147/542] JNJ: 69 WATCH | VCP:False RS@High:False
+  [148/542] ACGL: 63 WATCH | VCP:False RS@High:False
+  [149/542] MRK: 88 STRONG BUY | VCP:True RS@High:False
+  [150/542] ABT: 47 WEAK | VCP:False RS@High:False
+  [151/542] ABBV: 66 WATCH | VCP:False RS@High:False
+  [152/542] DHR: 76 STRONG BUY | VCP:True RS@High:False
+  [153/542] TMO: 85 STRONG BUY | VCP:True RS@High:False
+  [154/542] HUM: 86 STRONG BUY | VCP:True RS@High:False
+  [155/542] ELV: 55 WEAK | VCP:True RS@High:False
+  [156/542] CI: 75 STRONG BUY | VCP:True RS@High:False
+  [157/542] MDT: 71 WATCH | VCP:True RS@High:False
+  [158/542] IQV: 47 WEAK | VCP:False RS@High:False
+  [159/542] SYK: 48 WEAK | VCP:False RS@High:False
+  [160/542] BDX: 76 STRONG BUY | VCP:True RS@High:False
 $HOLX: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [163/542] HOLX: skip (no data)
-  [164/542] CVS: 93 STRONG BUY | VCP:True RS@High:True
-  [165/542] ZBH: 68 WATCH | VCP:True RS@High:False
-  [166/542] CNC: 89 STRONG BUY | VCP:False RS@High:True
-  [167/542] MCK: 82 STRONG BUY | VCP:True RS@High:False
-  [168/542] ZTS: 35 WEAK | VCP:True RS@High:False
-  [169/542] CAH: 92 STRONG BUY | VCP:True RS@High:False
-  [170/542] EW: 92 STRONG BUY | VCP:True RS@High:False
-  [171/542] BAX: 84 STRONG BUY | VCP:True RS@High:False
-  [172/542] MTD: 71 WATCH | VCP:True RS@High:False
-  [173/542] WAT: 82 STRONG BUY | VCP:True RS@High:False
-  [174/542] PODD: 88 STRONG BUY | VCP:True RS@High:False
-  [175/542] MOH: 90 STRONG BUY | VCP:True RS@High:False
-  [176/542] HSIC: 90 STRONG BUY | VCP:True RS@High:False
-  [177/542] RMD: 87 STRONG BUY | VCP:True RS@High:False
+  [161/542] HOLX: skip (no data)
+  [162/542] ZBH: 82 STRONG BUY | VCP:True RS@High:False
+  [163/542] ZTS: 50 WEAK | VCP:True RS@High:False
+  [164/542] HCA: 28 WEAK | VCP:False RS@High:False
+  [165/542] BSX: 77 STRONG BUY | VCP:True RS@High:False
+  [166/542] MCK: 86 STRONG BUY | VCP:True RS@High:False
+  [167/542] WAT: 83 STRONG BUY | VCP:True RS@High:False
+  [168/542] MOH: 92 STRONG BUY | VCP:True RS@High:False
+  [169/542] CAH: 89 STRONG BUY | VCP:True RS@High:False
+  [170/542] CNC: 76 STRONG BUY | VCP:False RS@High:False
+  [171/542] CVS: 93 STRONG BUY | VCP:True RS@High:True
+  [172/542] PODD: 86 STRONG BUY | VCP:True RS@High:False
+  [173/542] MTD: 76 STRONG BUY | VCP:True RS@High:False
+  [174/542] RMD: 55 WATCH | VCP:False RS@High:False
+  [175/542] BAX: 84 STRONG BUY | VCP:True RS@High:False
+  [176/542] A: 85 STRONG BUY | VCP:True RS@High:False
+  [177/542] EW: 89 STRONG BUY | VCP:True RS@High:False
 $CTLT: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
   [178/542] CTLT: skip (no data)
-  [179/542] TECH: 80 STRONG BUY | VCP:True RS@High:False
-  [180/542] PGNY: 93 STRONG BUY | VCP:True RS@High:True
-  [181/542] DVA: 92 STRONG BUY | VCP:True RS@High:True
-  [182/542] A: 79 STRONG BUY | VCP:True RS@High:False
-  [183/542] SOLV: 86 STRONG BUY | VCP:True RS@High:False
-  [184/542] XOM: 67 WATCH | VCP:True RS@High:False
-  [185/542] COP: 65 WATCH | VCP:True RS@High:False
-  [186/542] VTRS: 90 STRONG BUY | VCP:True RS@High:False
-  [187/542] CVX: 65 WATCH | VCP:False RS@High:False
-  [188/542] COO: 59 WATCH | VCP:True RS@High:False
+  [179/542] DVA: 93 STRONG BUY | VCP:True RS@High:True
+  [180/542] HSIC: 82 STRONG BUY | VCP:False RS@High:False
+  [181/542] COO: 74 WATCH | VCP:True RS@High:False
+  [182/542] TECH: 90 STRONG BUY | VCP:True RS@High:False
 $CTRA: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [189/542] CTRA: skip (no data)
-$HES: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [190/542] HES: skip (no data)
-  [191/542] SLB: 58 WATCH | VCP:True RS@High:False
-  [192/542] OXY: 85 STRONG BUY | VCP:True RS@High:False
-  [193/542] VLO: 90 STRONG BUY | VCP:True RS@High:True
-  [194/542] EOG: 93 STRONG BUY | VCP:True RS@High:False
-  [195/542] PSX: 86 STRONG BUY | VCP:True RS@High:False
-  [196/542] MPC: 89 STRONG BUY | VCP:True RS@High:True
+  [183/542] CTRA: skip (no data)
+  [184/542] PGNY: 92 STRONG BUY | VCP:True RS@High:True
+  [185/542] SOLV: 75 STRONG BUY | VCP:True RS@High:False
+  [186/542] VTRS: 92 STRONG BUY | VCP:True RS@High:True
 $MRO: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [197/542] MRO: skip (no data)
-  [198/542] DVN: 70 WATCH | VCP:True RS@High:False
-  [199/542] APA: 78 STRONG BUY | VCP:True RS@High:False
-  [200/542] HAL: 80 STRONG BUY | VCP:True RS@High:False
-  [201/542] WMB: 86 STRONG BUY | VCP:True RS@High:False
-  [202/542] OKE: 92 STRONG BUY | VCP:True RS@High:False
-  [203/542] HD: 47 WEAK | VCP:False RS@High:False
-  [204/542] LNG: 89 STRONG BUY | VCP:True RS@High:False
-  [205/542] KMI: 86 STRONG BUY | VCP:True RS@High:False
-  [206/542] EQT: 44 WEAK | VCP:False RS@High:False
-  [207/542] MCD: 46 WEAK | VCP:False RS@High:False
-  [208/542] AES: 67 WATCH | VCP:False RS@High:False
-  [209/542] VST: 47 WEAK | VCP:False RS@High:False
-  [210/542] NRG: 72 WATCH | VCP:True RS@High:False
-  [211/542] LOW: 50 WEAK | VCP:True RS@High:False
-  [212/542] HLT: 83 STRONG BUY | VCP:True RS@High:False
-  [213/542] NKE: 66 WATCH | VCP:True RS@High:False
-  [214/542] TJX: 54 WEAK | VCP:True RS@High:False
-  [215/542] F: 55 WEAK | VCP:True RS@High:False
-  [216/542] TRGP: 92 STRONG BUY | VCP:True RS@High:False
-  [217/542] AZO: 40 WEAK | VCP:True RS@High:False
-  [218/542] MAR: 45 WEAK | VCP:True RS@High:False
-  [219/542] GM: 38 WEAK | VCP:False RS@High:False
-  [220/542] TSCO: 56 WATCH | VCP:True RS@High:False
-  [221/542] EBAY: 91 STRONG BUY | VCP:True RS@High:False
-  [222/542] BBY: 86 STRONG BUY | VCP:True RS@High:False
-  [223/542] ETSY: 70 WATCH | VCP:True RS@High:False
-  [224/542] MGM: 92 STRONG BUY | VCP:True RS@High:False
-  [225/542] RCL: 61 WATCH | VCP:False RS@High:False
-  [226/542] LVS: 76 STRONG BUY | VCP:True RS@High:False
-  [227/542] DRI: 68 WATCH | VCP:True RS@High:False
-  [228/542] CMG: 56 WATCH | VCP:True RS@High:False
-  [229/542] CCL: 30 WEAK | VCP:False RS@High:False
-  [230/542] APTV: 44 WEAK | VCP:True RS@High:False
-  [231/542] DPZ: 77 STRONG BUY | VCP:True RS@High:False
-  [232/542] NVR: 81 STRONG BUY | VCP:True RS@High:False
-  [233/542] WYNN: 39 WEAK | VCP:False RS@High:False
-  [234/542] BWA: 39 WEAK | VCP:False RS@High:False
-  [235/542] YUM: 82 STRONG BUY | VCP:True RS@High:False
-  [236/542] DHI: 39 WEAK | VCP:False RS@High:False
-  [237/542] LEN: 22 WEAK | VCP:True RS@High:False
-  [238/542] PHM: 41 WEAK | VCP:False RS@High:False
-  [239/542] TOL: 34 WEAK | VCP:False RS@High:False
-  [240/542] POOL: 71 WATCH | VCP:True RS@High:False
-  [241/542] HAS: 56 WATCH | VCP:False RS@High:False
-  [242/542] MAT: 55 WEAK | VCP:True RS@High:False
+  [187/542] MRO: skip (no data)
+$HES: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [188/542] HES: skip (no data)
+  [189/542] XOM: 74 WATCH | VCP:True RS@High:False
+  [190/542] COP: 43 WEAK | VCP:False RS@High:False
+  [191/542] OXY: 47 WEAK | VCP:False RS@High:False
+  [192/542] SLB: 62 WATCH | VCP:True RS@High:False
+  [193/542] CVX: 74 WATCH | VCP:False RS@High:False
+  [194/542] EOG: 92 STRONG BUY | VCP:True RS@High:False
+  [195/542] VLO: 80 STRONG BUY | VCP:False RS@High:True
+  [196/542] APA: 75 STRONG BUY | VCP:True RS@High:False
+  [197/542] HAL: 79 STRONG BUY | VCP:True RS@High:False
+  [198/542] PSX: 86 STRONG BUY | VCP:True RS@High:False
+  [199/542] MPC: 85 STRONG BUY | VCP:True RS@High:True
+  [200/542] OKE: 92 STRONG BUY | VCP:True RS@High:False
+  [201/542] DVN: 57 WATCH | VCP:True RS@High:False
+  [202/542] WMB: 83 STRONG BUY | VCP:True RS@High:False
+  [203/542] KMI: 91 STRONG BUY | VCP:True RS@High:False
+  [204/542] LNG: 92 STRONG BUY | VCP:True RS@High:False
+  [205/542] TRGP: 91 STRONG BUY | VCP:True RS@High:False
+  [206/542] NRG: 49 WEAK | VCP:True RS@High:False
+  [207/542] EQT: 38 WEAK | VCP:False RS@High:False
+  [208/542] VST: 37 WEAK | VCP:False RS@High:False
+  [209/542] AES: 76 STRONG BUY | VCP:False RS@High:False
+  [210/542] HD: 43 WEAK | VCP:False RS@High:False
+  [211/542] NKE: 71 WATCH | VCP:True RS@High:False
+  [212/542] LOW: 40 WEAK | VCP:True RS@High:False
+  [213/542] MCD: 53 WEAK | VCP:True RS@High:False
+  [214/542] TJX: 34 WEAK | VCP:False RS@High:False
+  [215/542] MAR: 66 WATCH | VCP:True RS@High:False
+  [216/542] TSCO: 68 WATCH | VCP:True RS@High:False
+  [217/542] GM: 38 WEAK | VCP:False RS@High:False
+  [218/542] F: 89 STRONG BUY | VCP:True RS@High:False
+  [219/542] AZO: 62 WATCH | VCP:True RS@High:False
+  [220/542] BBY: 70 WATCH | VCP:True RS@High:False
+  [221/542] EBAY: 80 STRONG BUY | VCP:True RS@High:False
+  [222/542] HLT: 75 WATCH | VCP:True RS@High:False
+  [223/542] ETSY: 82 STRONG BUY | VCP:True RS@High:True
+  [224/542] RCL: 55 WEAK | VCP:False RS@High:False
+  [225/542] CCL: 29 WEAK | VCP:False RS@High:False
+  [226/542] MGM: 91 STRONG BUY | VCP:True RS@High:False
+  [227/542] LVS: 75 STRONG BUY | VCP:True RS@High:False
+  [228/542] WYNN: 63 WATCH | VCP:True RS@High:False
+  [229/542] DRI: 87 STRONG BUY | VCP:True RS@High:False
+  [230/542] YUM: 85 STRONG BUY | VCP:True RS@High:False
+  [231/542] CMG: 64 WATCH | VCP:True RS@High:False
+  [232/542] DPZ: 80 STRONG BUY | VCP:True RS@High:False
+  [233/542] PHM: 44 WEAK | VCP:False RS@High:False
+  [234/542] BWA: 44 WEAK | VCP:False RS@High:False
+  [235/542] APTV: 28 WEAK | VCP:False RS@High:False
+  [236/542] TOL: 61 WATCH | VCP:False RS@High:False
+  [237/542] VFC: 67 WATCH | VCP:True RS@High:False
+  [238/542] DHI: 31 WEAK | VCP:False RS@High:False
+  [239/542] NCLH: 44 WEAK | VCP:False RS@High:False
+  [240/542] MAT: 76 STRONG BUY | VCP:True RS@High:False
+  [241/542] NVR: 68 WATCH | VCP:True RS@High:False
+  [242/542] LEN: 14 WEAK | VCP:False RS@High:False
+  [243/542] HAS: 57 WATCH | VCP:False RS@High:False
+  [244/542] POOL: 78 STRONG BUY | VCP:True RS@High:False
+  [245/542] CROX: 94 STRONG BUY | VCP:True RS@High:True
+  [246/542] PVH: 77 STRONG BUY | VCP:True RS@High:False
+  [247/542] DECK: 68 WATCH | VCP:True RS@High:False
 $SKX: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [243/542] SKX: skip (no data)
-  [244/542] VFC: 49 WEAK | VCP:True RS@High:False
-  [245/542] CROX: 92 STRONG BUY | VCP:True RS@High:True
-  [246/542] NCLH: 35 WEAK | VCP:False RS@High:False
-  [247/542] PVH: 36 WEAK | VCP:False RS@High:False
-  [248/542] RL: 62 WATCH | VCP:True RS@High:False
-  [249/542] BOOT: 49 WEAK | VCP:False RS@High:False
-  [250/542] DECK: 84 STRONG BUY | VCP:True RS@High:False
-  [251/542] WMT: 30 WEAK | VCP:False RS@High:False
-  [252/542] KO: 92 STRONG BUY | VCP:True RS@High:False
-  [253/542] MO: 92 STRONG BUY | VCP:True RS@High:False
-  [254/542] GIS: 73 WATCH | VCP:True RS@High:False
+  [248/542] SKX: skip (no data)
+  [249/542] RL: 90 STRONG BUY | VCP:True RS@High:False
+  [250/542] BOOT: 43 WEAK | VCP:False RS@High:False
+  [251/542] COLM: 91 STRONG BUY | VCP:True RS@High:False
 $K: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [255/542] K: skip (no data)
-  [256/542] PM: 90 STRONG BUY | VCP:True RS@High:False
-  [257/542] COLM: 87 STRONG BUY | VCP:True RS@High:False
-  [258/542] CL: 70 WATCH | VCP:False RS@High:False
-  [259/542] STZ: 38 WEAK | VCP:False RS@High:False
-  [260/542] PG: 66 WATCH | VCP:True RS@High:False
-  [261/542] HRL: 40 WEAK | VCP:False RS@High:False
-  [262/542] MKC: 80 STRONG BUY | VCP:True RS@High:False
-  [263/542] SJM: 44 WEAK | VCP:False RS@High:False
-  [264/542] CAG: 61 WATCH | VCP:True RS@High:False
-  [265/542] HSY: 74 WATCH | VCP:True RS@High:False
-  [266/542] CPB: 60 WATCH | VCP:True RS@High:False
-  [267/542] CLX: 70 WATCH | VCP:True RS@High:False
-  [268/542] CHD: 87 STRONG BUY | VCP:True RS@High:False
-  [269/542] BG: 60 WATCH | VCP:True RS@High:False
-  [270/542] SFM: 46 WEAK | VCP:True RS@High:False
-  [271/542] CTVA: 92 STRONG BUY | VCP:True RS@High:False
-  [272/542] KMB: 80 STRONG BUY | VCP:True RS@High:False
-  [273/542] TSN: 70 WATCH | VCP:True RS@High:False
-  [274/542] EL: 26 WEAK | VCP:True RS@High:False
-  [275/542] TAP: 74 WATCH | VCP:True RS@High:False
-  [276/542] SYY: 76 STRONG BUY | VCP:True RS@High:False
-  [277/542] MOS: 54 WEAK | VCP:True RS@High:False
-  [278/542] ADM: 72 WATCH | VCP:False RS@High:False
-  [279/542] FMC: 45 WEAK | VCP:True RS@High:False
-  [280/542] CF: 91 STRONG BUY | VCP:True RS@High:False
-  [281/542] COTY: 61 WATCH | VCP:True RS@High:False
-  [282/542] RTX: 86 STRONG BUY | VCP:True RS@High:False
-  [283/542] GE: 88 STRONG BUY | VCP:True RS@High:False
-  [284/542] UNP: 88 STRONG BUY | VCP:False RS@High:True
-  [285/542] BA: 62 WATCH | VCP:True RS@High:False
-  [286/542] ITW: 80 STRONG BUY | VCP:True RS@High:False
-  [287/542] UPS: 89 STRONG BUY | VCP:True RS@High:False
-  [288/542] CAT: 91 STRONG BUY | VCP:True RS@High:False
-  [289/542] EMR: 53 WEAK | VCP:True RS@High:False
-  [290/542] FDX: 68 WATCH | VCP:True RS@High:False
-  [291/542] ETN: 59 WATCH | VCP:True RS@High:False
-  [292/542] NSC: 88 STRONG BUY | VCP:True RS@High:False
-  [293/542] OTIS: 57 WATCH | VCP:False RS@High:False
-  [294/542] DE: 80 STRONG BUY | VCP:True RS@High:False
-  [295/542] GD: 89 STRONG BUY | VCP:True RS@High:False
-  [296/542] NOC: 50 WEAK | VCP:False RS@High:False
-  [297/542] CARR: 60 WATCH | VCP:False RS@High:False
-  [298/542] LMT: 48 WEAK | VCP:False RS@High:False
-  [299/542] ROP: 58 WATCH | VCP:False RS@High:False
-  [300/542] CMI: 57 WATCH | VCP:True RS@High:False
-  [301/542] IR: 58 WATCH | VCP:True RS@High:False
-  [302/542] PH: 60 WATCH | VCP:True RS@High:False
-  [303/542] AME: 89 STRONG BUY | VCP:True RS@High:False
-  [304/542] GWW: 94 STRONG BUY | VCP:True RS@High:True
-  [305/542] SNA: 92 STRONG BUY | VCP:True RS@High:False
-  [306/542] IEX: 89 STRONG BUY | VCP:True RS@High:False
-  [307/542] HWM: 91 STRONG BUY | VCP:True RS@High:False
-  [308/542] TDG: 65 WATCH | VCP:True RS@High:False
-  [309/542] RSG: 73 WATCH | VCP:True RS@High:False
-  [310/542] JCI: 89 STRONG BUY | VCP:True RS@High:False
-  [311/542] WM: 65 WATCH | VCP:True RS@High:False
-  [312/542] XYL: 80 STRONG BUY | VCP:True RS@High:False
-  [313/542] ROK: 91 STRONG BUY | VCP:True RS@High:False
-  [314/542] GNRC: 57 WATCH | VCP:True RS@High:False
-  [315/542] MMM: 64 WATCH | VCP:True RS@High:False
-  [316/542] LHX: 58 WATCH | VCP:True RS@High:False
-  [317/542] DOV: 67 WATCH | VCP:True RS@High:False
-  [318/542] LDOS: 37 WEAK | VCP:False RS@High:False
-  [319/542] CACI: 58 WATCH | VCP:True RS@High:False
-  [320/542] TXT: 74 WATCH | VCP:True RS@High:False
-  [321/542] AXON: 59 WATCH | VCP:False RS@High:False
-  [322/542] HUBG: 89 STRONG BUY | VCP:True RS@High:False
-  [323/542] SAIC: 83 STRONG BUY | VCP:False RS@High:False
-  [324/542] XPO: 92 STRONG BUY | VCP:True RS@High:False
-  [325/542] WERN: 92 STRONG BUY | VCP:True RS@High:True
-  [326/542] CHRW: 87 STRONG BUY | VCP:True RS@High:False
-  [327/542] JBHT: 91 STRONG BUY | VCP:True RS@High:False
-  [328/542] ORCL: 36 WEAK | VCP:False RS@High:False
-  [329/542] SAIA: 49 WEAK | VCP:True RS@High:False
-  [330/542] CRM: 86 STRONG BUY | VCP:True RS@High:False
-  [331/542] ACN: 63 WATCH | VCP:True RS@High:False
-  [332/542] EXPD: 92 STRONG BUY | VCP:True RS@High:False
-  [333/542] HPE: 67 WATCH | VCP:True RS@High:False
-  [334/542] HPQ: 59 WATCH | VCP:True RS@High:False
-  [335/542] IBM: 54 WEAK | VCP:False RS@High:False
-  [336/542] AKAM: 69 WATCH | VCP:True RS@High:False
-  [337/542] MPWR: 51 WEAK | VCP:False RS@High:False
-  [338/542] KEYS: 42 WEAK | VCP:False RS@High:False
-  [339/542] TYL: 55 WEAK | VCP:True RS@High:False
-  [340/542] VRSN: 39 WEAK | VCP:False RS@High:False
-  [341/542] FSLR: 60 WATCH | VCP:True RS@High:False
-  [342/542] SEDG: 36 WEAK | VCP:False RS@High:False
-  [343/542] ENPH: 30 WEAK | VCP:False RS@High:False
-  [344/542] GRMN: 92 STRONG BUY | VCP:True RS@High:False
-  [345/542] GLW: 56 WATCH | VCP:False RS@High:False
-  [346/542] FFIV: 94 STRONG BUY | VCP:True RS@High:True
-  [347/542] ANET: 93 STRONG BUY | VCP:True RS@High:False
-  [348/542] STX: 45 WEAK | VCP:False RS@High:False
-  [349/542] WDC: 74 WATCH | VCP:False RS@High:False
-  [350/542] NTAP: 88 STRONG BUY | VCP:False RS@High:False
-  [351/542] NOW: 86 STRONG BUY | VCP:True RS@High:False
-  [352/542] SMCI: 42 WEAK | VCP:False RS@High:False
-  [353/542] ZBRA: 88 STRONG BUY | VCP:True RS@High:False
-  [354/542] FICO: 81 STRONG BUY | VCP:True RS@High:False
-  [355/542] NEE: 84 STRONG BUY | VCP:True RS@High:False
-  [356/542] SO: 70 WATCH | VCP:False RS@High:False
-  [357/542] DUK: 91 STRONG BUY | VCP:True RS@High:False
-  [358/542] PEG: 87 STRONG BUY | VCP:True RS@High:False
-  [359/542] AEP: 92 STRONG BUY | VCP:True RS@High:False
-  [360/542] AWK: 76 STRONG BUY | VCP:True RS@High:False
-  [361/542] D: 92 STRONG BUY | VCP:True RS@High:True
-  [362/542] SRE: 90 STRONG BUY | VCP:True RS@High:False
-  [363/542] PCG: 88 STRONG BUY | VCP:True RS@High:False
-  [364/542] ES: 78 STRONG BUY | VCP:True RS@High:False
-  [365/542] WEC: 90 STRONG BUY | VCP:True RS@High:False
-  [366/542] DTE: 91 STRONG BUY | VCP:True RS@High:False
-  [367/542] CMS: 92 STRONG BUY | VCP:True RS@High:False
-  [368/542] ETR: 92 STRONG BUY | VCP:True RS@High:False
-  [369/542] CNP: 91 STRONG BUY | VCP:True RS@High:False
-  [370/542] NI: 55 WEAK | VCP:True RS@High:False
-  [371/542] PPL: 83 STRONG BUY | VCP:True RS@High:False
-  [372/542] ATO: 37 WEAK | VCP:False RS@High:False
-  [373/542] AEE: 90 STRONG BUY | VCP:True RS@High:False
-  [374/542] EIX: 90 STRONG BUY | VCP:True RS@High:False
-  [375/542] EVRG: 77 STRONG BUY | VCP:False RS@High:False
-  [376/542] AVA: 89 STRONG BUY | VCP:True RS@High:False
-  [377/542] IDA: 91 STRONG BUY | VCP:True RS@High:False
-  [378/542] POR: 72 WATCH | VCP:True RS@High:False
-  [379/542] OGE: 90 STRONG BUY | VCP:True RS@High:False
-  [380/542] BKH: 92 STRONG BUY | VCP:True RS@High:False
-  [381/542] EQIX: 47 WEAK | VCP:False RS@High:False
-  [382/542] LNT: 86 STRONG BUY | VCP:False RS@High:False
-  [383/542] OTTR: 91 STRONG BUY | VCP:True RS@High:False
-  [384/542] CCI: 47 WEAK | VCP:True RS@High:False
-  [385/542] AMT: 48 WEAK | VCP:False RS@High:False
-  [386/542] VICI: 72 WATCH | VCP:True RS@High:False
-  [387/542] O: 91 STRONG BUY | VCP:True RS@High:False
-  [388/542] PSA: 93 STRONG BUY | VCP:True RS@High:False
-  [389/542] PLD: 76 STRONG BUY | VCP:True RS@High:False
-  [390/542] MAA: 86 STRONG BUY | VCP:True RS@High:False
-  [391/542] SPG: 92 STRONG BUY | VCP:True RS@High:False
-  [392/542] EXR: 83 STRONG BUY | VCP:True RS@High:False
-  [393/542] UDR: 88 STRONG BUY | VCP:False RS@High:False
-  [394/542] EQR: 87 STRONG BUY | VCP:True RS@High:False
-  [395/542] AVB: 90 STRONG BUY | VCP:True RS@High:False
-  [396/542] SUI: 43 WEAK | VCP:False RS@High:False
-  [397/542] ESS: 82 STRONG BUY | VCP:True RS@High:False
-  [398/542] ELS: 82 STRONG BUY | VCP:True RS@High:False
-  [399/542] REXR: 65 WATCH | VCP:False RS@High:False
-  [400/542] NNN: 91 STRONG BUY | VCP:True RS@High:False
-  [401/542] WPC: 86 STRONG BUY | VCP:True RS@High:False
-  [402/542] SBAC: 27 WEAK | VCP:False RS@High:False
-  [403/542] DLR: 55 WEAK | VCP:False RS@High:False
-  [404/542] FR: 94 STRONG BUY | VCP:True RS@High:False
-  [405/542] IRM: 46 WEAK | VCP:False RS@High:False
-  [406/542] BXP: 82 STRONG BUY | VCP:True RS@High:False
-  [407/542] KIM: 88 STRONG BUY | VCP:False RS@High:False
-  [408/542] REG: 92 STRONG BUY | VCP:True RS@High:False
-  [409/542] ARE: 19 WEAK | VCP:False RS@High:False
-  [410/542] VNO: 50 WEAK | VCP:True RS@High:False
-  [411/542] EPRT: 86 STRONG BUY | VCP:True RS@High:False
-  [412/542] TRNO: 92 STRONG BUY | VCP:True RS@High:True
+  [252/542] K: skip (no data)
+  [253/542] PM: 89 STRONG BUY | VCP:True RS@High:False
+  [254/542] MO: 92 STRONG BUY | VCP:True RS@High:False
+  [255/542] STZ: 43 WEAK | VCP:False RS@High:False
+  [256/542] CL: 74 WATCH | VCP:False RS@High:False
+  [257/542] GIS: 74 WATCH | VCP:True RS@High:False
+  [258/542] KO: 93 STRONG BUY | VCP:True RS@High:False
+  [259/542] HRL: 64 WATCH | VCP:False RS@High:False
+  [260/542] WMT: 31 WEAK | VCP:False RS@High:False
+  [261/542] SJM: 81 STRONG BUY | VCP:True RS@High:False
+  [262/542] MKC: 77 STRONG BUY | VCP:True RS@High:False
+  [263/542] CAG: 66 WATCH | VCP:True RS@High:False
+  [264/542] PG: 50 WEAK | VCP:False RS@High:False
+  [265/542] HSY: 65 WATCH | VCP:True RS@High:False
+  [266/542] CHD: 90 STRONG BUY | VCP:True RS@High:False
+  [267/542] CPB: 74 WATCH | VCP:True RS@High:False
+  [268/542] CLX: 72 WATCH | VCP:True RS@High:False
+  [269/542] KMB: 68 WATCH | VCP:True RS@High:False
+  [270/542] EL: 56 WATCH | VCP:True RS@High:False
+  [271/542] TSN: 79 STRONG BUY | VCP:True RS@High:False
+  [272/542] TAP: 82 STRONG BUY | VCP:True RS@High:False
+  [273/542] SFM: 55 WEAK | VCP:True RS@High:False
+  [274/542] ADM: 73 WATCH | VCP:False RS@High:True
+  [275/542] CTVA: 92 STRONG BUY | VCP:True RS@High:False
+  [276/542] SYY: 73 WATCH | VCP:True RS@High:False
+  [277/542] BG: 76 STRONG BUY | VCP:True RS@High:False
+  [278/542] COTY: 49 WEAK | VCP:True RS@High:False
+  [279/542] CF: 89 STRONG BUY | VCP:True RS@High:False
+  [280/542] MOS: 52 WEAK | VCP:True RS@High:False
+  [281/542] FMC: 65 WATCH | VCP:True RS@High:False
+  [282/542] GE: 66 WATCH | VCP:False RS@High:False
+  [283/542] CAT: 79 STRONG BUY | VCP:True RS@High:False
+  [284/542] UPS: 92 STRONG BUY | VCP:True RS@High:False
+  [285/542] BA: 61 WATCH | VCP:True RS@High:False
+  [286/542] UNP: 89 STRONG BUY | VCP:False RS@High:True
+  [287/542] FDX: 84 STRONG BUY | VCP:True RS@High:False
+  [288/542] RTX: 79 STRONG BUY | VCP:True RS@High:False
+  [289/542] ETN: 52 WEAK | VCP:True RS@High:False
+  [290/542] EMR: 54 WEAK | VCP:True RS@High:False
+  [291/542] ITW: 78 STRONG BUY | VCP:True RS@High:False
+  [292/542] DE: 65 WATCH | VCP:True RS@High:False
+  [293/542] NSC: 89 STRONG BUY | VCP:True RS@High:False
+  [294/542] LMT: 52 WEAK | VCP:False RS@High:False
+  [295/542] NOC: 46 WEAK | VCP:False RS@High:False
+  [296/542] ROP: 89 STRONG BUY | VCP:True RS@High:False
+  [297/542] OTIS: 82 STRONG BUY | VCP:True RS@High:False
+  [298/542] CARR: 61 WATCH | VCP:False RS@High:False
+  [299/542] GD: 89 STRONG BUY | VCP:True RS@High:False
+  [300/542] PH: 57 WATCH | VCP:True RS@High:False
+  [301/542] IR: 76 STRONG BUY | VCP:True RS@High:False
+  [302/542] CMI: 58 WATCH | VCP:True RS@High:False
+  [303/542] AME: 71 WATCH | VCP:False RS@High:False
+  [304/542] TDG: 56 WATCH | VCP:True RS@High:False
+  [305/542] HWM: 92 STRONG BUY | VCP:True RS@High:False
+  [306/542] GWW: 93 STRONG BUY | VCP:True RS@High:True
+  [307/542] RSG: 77 STRONG BUY | VCP:True RS@High:False
+  [308/542] SNA: 93 STRONG BUY | VCP:True RS@High:True
+  [309/542] IEX: 95 STRONG BUY | VCP:True RS@High:True
+  [310/542] WM: 84 STRONG BUY | VCP:True RS@High:False
+  [311/542] ROK: 84 STRONG BUY | VCP:False RS@High:False
+  [312/542] JCI: 66 WATCH | VCP:True RS@High:False
+  [313/542] MMM: 40 WEAK | VCP:False RS@High:False
+  [314/542] DOV: 79 STRONG BUY | VCP:True RS@High:False
+  [315/542] XYL: 69 WATCH | VCP:True RS@High:False
+  [316/542] LDOS: 31 WEAK | VCP:False RS@High:False
+  [317/542] LHX: 58 WATCH | VCP:True RS@High:False
+  [318/542] GNRC: 57 WATCH | VCP:True RS@High:False
+  [319/542] TXT: 79 STRONG BUY | VCP:True RS@High:False
+  [320/542] AXON: 66 WATCH | VCP:False RS@High:False
+  [321/542] CACI: 55 WEAK | VCP:True RS@High:False
+  [322/542] SAIC: 84 STRONG BUY | VCP:False RS@High:False
+  [323/542] JBHT: 95 STRONG BUY | VCP:True RS@High:True
+  [324/542] EXPD: 89 STRONG BUY | VCP:True RS@High:True
+  [325/542] CHRW: 89 STRONG BUY | VCP:True RS@High:False
+  [326/542] XPO: 94 STRONG BUY | VCP:True RS@High:False
+  [327/542] WERN: 95 STRONG BUY | VCP:True RS@High:True
+  [328/542] SAIA: 80 STRONG BUY | VCP:True RS@High:False
+  [329/542] HUBG: 89 STRONG BUY | VCP:True RS@High:False
+  [330/542] IBM: 32 WEAK | VCP:False RS@High:False
+  [331/542] CRM: 59 WATCH | VCP:False RS@High:False
+  [332/542] ACN: 59 WATCH | VCP:True RS@High:False
+  [333/542] HPE: 68 WATCH | VCP:True RS@High:False
+  [334/542] ORCL: 33 WEAK | VCP:False RS@High:False
+  [335/542] KEYS: 46 WEAK | VCP:False RS@High:False
+  [336/542] HPQ: 62 WATCH | VCP:True RS@High:False
+  [337/542] AKAM: 65 WATCH | VCP:True RS@High:False
+  [338/542] VRSN: 54 WEAK | VCP:False RS@High:False
+  [339/542] TYL: 75 STRONG BUY | VCP:True RS@High:False
+  [340/542] FSLR: 46 WEAK | VCP:False RS@High:False
+  [341/542] MPWR: 74 WATCH | VCP:True RS@High:False
+  [342/542] ENPH: 42 WEAK | VCP:False RS@High:False
+  [343/542] SEDG: 50 WEAK | VCP:False RS@High:False
+  [344/542] GRMN: 93 STRONG BUY | VCP:True RS@High:False
+  [345/542] FFIV: 93 STRONG BUY | VCP:True RS@High:False
+  [346/542] WDC: 45 WEAK | VCP:False RS@High:False
+  [347/542] STX: 65 WATCH | VCP:True RS@High:False
+  [348/542] GLW: 71 WATCH | VCP:True RS@High:False
+  [349/542] NTAP: 80 STRONG BUY | VCP:False RS@High:False
+  [350/542] ANET: 92 STRONG BUY | VCP:True RS@High:False
+  [351/542] NOW: 62 WATCH | VCP:False RS@High:False
+  [352/542] ZBRA: 79 STRONG BUY | VCP:True RS@High:False
+  [353/542] SMCI: 44 WEAK | VCP:False RS@High:False
+  [354/542] FICO: 83 STRONG BUY | VCP:True RS@High:False
+  [355/542] SO: 82 STRONG BUY | VCP:False RS@High:False
+  [356/542] NEE: 92 STRONG BUY | VCP:True RS@High:False
+  [357/542] DUK: 89 STRONG BUY | VCP:True RS@High:False
+  [358/542] AWK: 81 STRONG BUY | VCP:True RS@High:False
+  [359/542] D: 93 STRONG BUY | VCP:True RS@High:True
+  [360/542] PEG: 69 WATCH | VCP:True RS@High:False
+  [361/542] AEP: 91 STRONG BUY | VCP:True RS@High:False
+  [362/542] SRE: 87 STRONG BUY | VCP:True RS@High:False
+  [363/542] WEC: 90 STRONG BUY | VCP:True RS@High:False
+  [364/542] PCG: 89 STRONG BUY | VCP:True RS@High:False
+  [365/542] ES: 90 STRONG BUY | VCP:True RS@High:False
+  [366/542] DTE: 90 STRONG BUY | VCP:True RS@High:False
+  [367/542] NI: 48 WEAK | VCP:True RS@High:False
+  [368/542] CMS: 90 STRONG BUY | VCP:True RS@High:False
+  [369/542] CNP: 89 STRONG BUY | VCP:True RS@High:False
+  [370/542] ATO: 42 WEAK | VCP:False RS@High:False
+  [371/542] PPL: 81 STRONG BUY | VCP:True RS@High:False
+  [372/542] ETR: 91 STRONG BUY | VCP:True RS@High:False
+  [373/542] EIX: 90 STRONG BUY | VCP:True RS@High:False
+  [374/542] EVRG: 63 WATCH | VCP:False RS@High:False
+  [375/542] AEE: 85 STRONG BUY | VCP:True RS@High:False
+  [376/542] IDA: 92 STRONG BUY | VCP:True RS@High:False
+  [377/542] AVA: 92 STRONG BUY | VCP:True RS@High:False
+  [378/542] LNT: 70 WATCH | VCP:False RS@High:False
+  [379/542] OGE: 91 STRONG BUY | VCP:True RS@High:False
+  [380/542] POR: 90 STRONG BUY | VCP:True RS@High:False
+  [381/542] BKH: 93 STRONG BUY | VCP:True RS@High:False
+  [382/542] AMT: 59 WATCH | VCP:False RS@High:False
+  [383/542] OTTR: 92 STRONG BUY | VCP:True RS@High:False
+  [384/542] EQIX: 56 WATCH | VCP:False RS@High:False
+  [385/542] CCI: 51 WEAK | VCP:True RS@High:False
+  [386/542] PLD: 90 STRONG BUY | VCP:True RS@High:False
+  [387/542] SPG: 93 STRONG BUY | VCP:True RS@High:True
+  [388/542] O: 92 STRONG BUY | VCP:True RS@High:False
+  [389/542] EXR: 89 STRONG BUY | VCP:True RS@High:False
+  [390/542] PSA: 93 STRONG BUY | VCP:True RS@High:False
+  [391/542] MAA: 64 WATCH | VCP:False RS@High:False
+  [392/542] EQR: 92 STRONG BUY | VCP:True RS@High:False
+  [393/542] AVB: 86 STRONG BUY | VCP:True RS@High:False
+  [394/542] UDR: 92 STRONG BUY | VCP:True RS@High:False
+  [395/542] ESS: 91 STRONG BUY | VCP:True RS@High:False
+  [396/542] VICI: 86 STRONG BUY | VCP:True RS@High:False
+  [397/542] ELS: 77 STRONG BUY | VCP:True RS@High:False
+  [398/542] SUI: 72 WATCH | VCP:True RS@High:False
+  [399/542] REXR: 69 WATCH | VCP:False RS@High:False
+  [400/542] WPC: 93 STRONG BUY | VCP:True RS@High:False
+  [401/542] DLR: 54 WEAK | VCP:False RS@High:False
+  [402/542] NNN: 94 STRONG BUY | VCP:True RS@High:True
+  [403/542] FR: 93 STRONG BUY | VCP:True RS@High:True
+  [404/542] IRM: 45 WEAK | VCP:False RS@High:False
+  [405/542] ARE: 22 WEAK | VCP:False RS@High:False
+  [406/542] SBAC: 39 WEAK | VCP:False RS@High:False
+  [407/542] VNO: 44 WEAK | VCP:False RS@High:False
 $MPW: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [413/542] MPW: skip (no data)
-  [414/542] FRT: 89 STRONG BUY | VCP:False RS@High:False
+  [408/542] MPW: skip (no data)
+  [409/542] BXP: 88 STRONG BUY | VCP:True RS@High:False
+  [410/542] KIM: 94 STRONG BUY | VCP:True RS@High:True
+  [411/542] FRT: 94 STRONG BUY | VCP:True RS@High:True
+  [412/542] STAG: 90 STRONG BUY | VCP:True RS@High:False
 $SBA: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [415/542] SBA: skip (no data)
-  [416/542] IIPR: 92 STRONG BUY | VCP:True RS@High:True
-  [417/542] STAG: 92 STRONG BUY | VCP:True RS@High:False
-  [418/542] LIN: 89 STRONG BUY | VCP:True RS@High:False
+  [413/542] REG: 93 STRONG BUY | VCP:True RS@High:False
+  [414/542] SBA: skip (no data)
+  [415/542] COR: 82 STRONG BUY | VCP:True RS@High:False
+  [416/542] EPRT: 87 STRONG BUY | VCP:True RS@High:False
+  [417/542] IIPR: 92 STRONG BUY | VCP:True RS@High:True
+  [418/542] TRNO: 92 STRONG BUY | VCP:True RS@High:True
 $SEE: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
   [419/542] SEE: skip (no data)
-  [420/542] COR: 70 WATCH | VCP:True RS@High:False
-  [421/542] ECL: 87 STRONG BUY | VCP:True RS@High:False
-  [422/542] APD: 77 STRONG BUY | VCP:False RS@High:False
-  [423/542] FCX: 44 WEAK | VCP:False RS@High:False
-  [424/542] CE: 49 WEAK | VCP:True RS@High:False
-  [425/542] NEM: 72 WATCH | VCP:True RS@High:False
-  [426/542] SHW: 82 STRONG BUY | VCP:True RS@High:False
-  [427/542] EMN: 34 WEAK | VCP:False RS@High:False
-  [428/542] AVY: 66 WATCH | VCP:True RS@High:False
-  [429/542] NUE: 81 STRONG BUY | VCP:True RS@High:False
-  [430/542] BALL: 88 STRONG BUY | VCP:True RS@High:False
-  [431/542] RPM: 37 WEAK | VCP:False RS@High:False
-  [432/542] IP: 82 STRONG BUY | VCP:True RS@High:False
-  [433/542] PKG: 88 STRONG BUY | VCP:True RS@High:False
-  [434/542] SON: 93 STRONG BUY | VCP:True RS@High:False
-  [435/542] OLN: 52 WEAK | VCP:True RS@High:False
-  [436/542] ALB: 27 WEAK | VCP:False RS@High:False
-  [437/542] PPG: 60 WATCH | VCP:True RS@High:False
-  [438/542] ASH: 90 STRONG BUY | VCP:True RS@High:False
-  [439/542] VMC: 46 WEAK | VCP:False RS@High:False
-  [440/542] IAC: skip (no data)
-  [441/542] MLM: 50 WEAK | VCP:True RS@High:False
-  [442/542] RS: 86 STRONG BUY | VCP:False RS@High:False
-  [443/542] STLD: 56 WATCH | VCP:False RS@High:False
-$IPG: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [420/542] LIN: 84 STRONG BUY | VCP:True RS@High:False
+  [421/542] APD: 90 STRONG BUY | VCP:True RS@High:False
+  [422/542] FCX: 50 WEAK | VCP:True RS@High:False
+  [423/542] SHW: 46 WEAK | VCP:False RS@High:False
+  [424/542] ECL: 77 STRONG BUY | VCP:True RS@High:False
+  [425/542] NUE: 83 STRONG BUY | VCP:True RS@High:False
+  [426/542] EMN: 61 WATCH | VCP:True RS@High:False
+  [427/542] CE: 52 WEAK | VCP:True RS@High:False
+  [428/542] PPG: 86 STRONG BUY | VCP:True RS@High:False
+  [429/542] NEM: 69 WATCH | VCP:True RS@High:False
+  [430/542] ALB: 29 WEAK | VCP:False RS@High:False
+  [431/542] BALL: 88 STRONG BUY | VCP:True RS@High:False
+  [432/542] PKG: 85 STRONG BUY | VCP:True RS@High:False
+  [433/542] AVY: 46 WEAK | VCP:False RS@High:False
+  [434/542] OLN: 68 WATCH | VCP:True RS@High:False
+  [435/542] SON: 93 STRONG BUY | VCP:True RS@High:False
+  [436/542] IP: 78 STRONG BUY | VCP:True RS@High:False
+  [437/542] RPM: 31 WEAK | VCP:False RS@High:False
+  [438/542] ASH: 94 STRONG BUY | VCP:True RS@High:True
+$IAC: possibly delisted; no price data found  (period=1y)
+  [439/542] IAC: skip (no data)
+  [440/542] MLM: 61 WATCH | VCP:True RS@High:False
 $PARA: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
-  [444/542] IPG: skip (no data)
-  [445/542] PARA: skip (no data)
-  [446/542] VZ: 40 WEAK | VCP:False RS@High:False
-  [447/542] CMC: 70 WATCH | VCP:True RS@High:False
-  [448/542] CLF: 62 WATCH | VCP:True RS@High:False
-  [449/542] DIS: 42 WEAK | VCP:True RS@High:False
-  [450/542] T: 41 WEAK | VCP:False RS@High:False
-  [451/542] NWSA: 66 WATCH | VCP:True RS@High:False
-  [452/542] TTWO: 69 WATCH | VCP:True RS@High:False
-  [453/542] TMUS: 76 STRONG BUY | VCP:True RS@High:False
-  [454/542] MTCH: 92 STRONG BUY | VCP:True RS@High:False
-  [455/542] OMC: 87 STRONG BUY | VCP:True RS@High:False
-  [456/542] UBER: 77 STRONG BUY | VCP:True RS@High:False
-  [457/542] LYFT: 88 STRONG BUY | VCP:True RS@High:False
-  [458/542] SNAP: 42 WEAK | VCP:False RS@High:False
-  [459/542] FOXA: 70 WATCH | VCP:True RS@High:False
-  [460/542] PINS: 40 WEAK | VCP:False RS@High:False
-  [461/542] COIN: 26 WEAK | VCP:False RS@High:False
-  [462/542] RBLX: 73 WATCH | VCP:True RS@High:False
-  [463/542] SPOT: 56 WATCH | VCP:True RS@High:False
-  [464/542] BIDU: 52 WEAK | VCP:True RS@High:False
-  [465/542] SNOW: 72 WATCH | VCP:True RS@High:False
-  [466/542] HOOD: 72 WATCH | VCP:True RS@High:False
-  [467/542] FOX: 67 WATCH | VCP:True RS@High:False
-  [468/542] SHOP: 72 WATCH | VCP:True RS@High:False
-  [469/542] RIVN: 59 WATCH | VCP:False RS@High:False
-  [470/542] SE: 62 WATCH | VCP:True RS@High:False
-  [471/542] PLTR: 71 WATCH | VCP:True RS@High:False
-  [472/542] DOCU: 27 WEAK | VCP:False RS@High:False
-  [473/542] ARM: 48 WEAK | VCP:False RS@High:False
-  [474/542] OKTA: 92 STRONG BUY | VCP:True RS@High:False
-  [475/542] TSM: 51 WEAK | VCP:True RS@High:False
-  [476/542] RKLB: 33 WEAK | VCP:False RS@High:False
-  [477/542] SOUN: 59 WATCH | VCP:True RS@High:False
-  [478/542] IONQ: 36 WEAK | VCP:False RS@High:False
-  [479/542] ASML: 58 WATCH | VCP:False RS@High:False
-  [480/542] NVO: 60 WATCH | VCP:False RS@High:False
-  [481/542] JOBY: 20 WEAK | VCP:False RS@High:False
-  [482/542] CELH: 70 WATCH | VCP:True RS@High:False
-  [483/542] ACHR: 26 WEAK | VCP:False RS@High:False
-  [484/542] LUNR: 35 WEAK | VCP:False RS@High:False
-  [485/542] QBTS: 26 WEAK | VCP:False RS@High:False
-  [486/542] RGTI: 29 WEAK | VCP:False RS@High:False
-  [487/542] SNDK: 35 WEAK | VCP:False RS@High:False
+  [441/542] PARA: skip (no data)
+  [442/542] VMC: 51 WEAK | VCP:False RS@High:False
+  [443/542] STLD: 52 WEAK | VCP:False RS@High:False
+  [444/542] RS: 87 STRONG BUY | VCP:False RS@High:False
+$IPG: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [445/542] IPG: skip (no data)
+  [446/542] DIS: 69 WATCH | VCP:True RS@High:False
+  [447/542] CLF: 51 WEAK | VCP:True RS@High:False
+  [448/542] CMC: 70 WATCH | VCP:True RS@High:False
+  [449/542] VZ: 39 WEAK | VCP:False RS@High:False
+  [450/542] OMC: 82 STRONG BUY | VCP:False RS@High:False
+  [451/542] TMUS: 76 STRONG BUY | VCP:True RS@High:False
+  [452/542] TTWO: 66 WATCH | VCP:True RS@High:False
+  [453/542] T: 32 WEAK | VCP:False RS@High:False
+  [454/542] FOX: 78 STRONG BUY | VCP:True RS@High:False
+  [455/542] FOXA: 86 STRONG BUY | VCP:True RS@High:False
+  [456/542] NWSA: 66 WATCH | VCP:True RS@High:False
+  [457/542] UBER: 76 STRONG BUY | VCP:True RS@High:False
+  [458/542] MTCH: 93 STRONG BUY | VCP:True RS@High:False
+  [459/542] SNAP: 64 WATCH | VCP:True RS@High:False
+  [460/542] LYFT: 88 STRONG BUY | VCP:True RS@High:False
+  [461/542] RBLX: 69 WATCH | VCP:True RS@High:False
+  [462/542] PINS: 41 WEAK | VCP:False RS@High:False
+  [463/542] COIN: 46 WEAK | VCP:True RS@High:False
+  [464/542] SPOT: 67 WATCH | VCP:True RS@High:False
+  [465/542] SHOP: 78 STRONG BUY | VCP:True RS@High:False
+  [466/542] HOOD: 66 WATCH | VCP:True RS@High:False
+  [467/542] BIDU: 50 WEAK | VCP:True RS@High:False
+  [468/542] SE: 59 WATCH | VCP:True RS@High:False
+  [469/542] OKTA: 92 STRONG BUY | VCP:True RS@High:False
+  [470/542] SNOW: 59 WATCH | VCP:True RS@High:False
+  [471/542] RIVN: 66 WATCH | VCP:False RS@High:False
+  [472/542] ARM: 51 WEAK | VCP:False RS@High:False
+  [473/542] TSM: 62 WATCH | VCP:True RS@High:False
+  [474/542] DOCU: 59 WATCH | VCP:True RS@High:False
+  [475/542] PLTR: 63 WATCH | VCP:True RS@High:False
+  [476/542] ASML: 61 WATCH | VCP:False RS@High:False
+  [477/542] RKLB: 37 WEAK | VCP:False RS@High:False
+  [478/542] NVO: 89 STRONG BUY | VCP:True RS@High:False
+  [479/542] SOUN: 68 WATCH | VCP:True RS@High:False
+  [480/542] IONQ: 31 WEAK | VCP:False RS@High:False
+  [481/542] ACHR: 26 WEAK | VCP:False RS@High:False
+  [482/542] JOBY: 40 WEAK | VCP:True RS@High:False
+  [483/542] QBTS: 26 WEAK | VCP:False RS@High:False
+  [484/542] RGTI: 34 WEAK | VCP:True RS@High:False
+  [485/542] LUNR: 32 WEAK | VCP:False RS@High:False
+  [486/542] SNDK: 33 WEAK | VCP:False RS@High:False
+  [487/542] CELH: 64 WATCH | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SPY"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DIA"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SPY"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QQQ"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IWM"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VOO"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VTI"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VEA"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VWO"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QQQ"}}}
-  [488/542] QQQ: 63 WATCH | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: HYG"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SPY"}}}
-  [489/542] SPY: 91 STRONG BUY | VCP:True RS@High:True
+  [488/542] SPY: 91 STRONG BUY | VCP:True RS@High:True
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VEA"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: GLD"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VTI"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QQQ"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VOO"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DIA"}}}
+  [489/542] DIA: 69 WATCH | VCP:False RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VWO"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IWM"}}}
   [490/542] IWM: 86 STRONG BUY | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IEF"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DIA"}}}
-  [491/542] DIA: 68 WATCH | VCP:False RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: GLD"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: LQD"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SLV"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VOO"}}}
-  [492/542] VOO: 92 STRONG BUY | VCP:True RS@High:True
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VEA"}}}
-  [493/542] VEA: 57 WATCH | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VTI"}}}
-  [494/542] VTI: 90 STRONG BUY | VCP:True RS@High:True
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLF"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLK"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: GLD"}}}
+  [491/542] GLD: 24 WEAK | VCP:True RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: TLT"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLV"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLI"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLE"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLC"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VWO"}}}
-  [495/542] VWO: 53 WEAK | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: HYG"}}}
-  [496/542] HYG: 44 WEAK | VCP:False RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SLV"}}}
-  [497/542] SLV: 36 WEAK | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: LQD"}}}
-  [498/542] LQD: 19 WEAK | VCP:False RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: GLD"}}}
-  [499/542] GLD: 23 WEAK | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QQQ"}}}
+  [492/542] QQQ: 63 WATCH | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VTI"}}}
+  [493/542] VTI: 91 STRONG BUY | VCP:True RS@High:True
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IEF"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: LQD"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VOO"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VEA"}}}
+  [494/542] VOO: 91 STRONG BUY | VCP:True RS@High:True
+  [495/542] VEA: 56 WATCH | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLK"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLF"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SLV"}}}
+  [496/542] SLV: 16 WEAK | VCP:False RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: HYG"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VWO"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLE"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLV"}}}
+  [497/542] VWO: 64 WATCH | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: TLT"}}}
+  [498/542] TLT: 23 WEAK | VCP:False RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLC"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLK"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IEF"}}}
+  [499/542] XLK: 50 WEAK | VCP:True RS@High:False
   [500/542] IEF: 18 WEAK | VCP:False RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLI"}}}
-  [501/542] XLI: 82 STRONG BUY | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: LQD"}}}
+  [501/542] LQD: 19 WEAK | VCP:False RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLF"}}}
-  [502/542] XLF: 61 WATCH | VCP:False RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLK"}}}
-  [503/542] XLK: 50 WEAK | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: TLT"}}}
-  [504/542] TLT: 17 WEAK | VCP:False RS@High:False
+  [502/542] XLF: 52 WEAK | VCP:False RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: HYG"}}}
+  [503/542] HYG: 54 WEAK | VCP:False RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLV"}}}
-  [505/542] XLV: 43 WEAK | VCP:False RS@High:False
+  [504/542] XLV: 71 WATCH | VCP:False RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLE"}}}
-  [506/542] XLE: 71 WATCH | VCP:False RS@High:False
+  [505/542] XLE: 64 WATCH | VCP:False RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLU"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLC"}}}
-  [507/542] XLC: 29 WEAK | VCP:False RS@High:False
+  [506/542] XLC: 27 WEAK | VCP:False RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLP"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLY"}}}
-  [508/542] SPCX: 50 WATCH | VCP:False RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XOP"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SMH"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLB"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XBI"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLP"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLI"}}}
+  [507/542] XLI: 83 STRONG BUY | VCP:True RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLU"}}}
-  [509/542] XLP: 84 STRONG BUY | VCP:True RS@High:False
+  [508/542] XLU: 82 STRONG BUY | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLP"}}}
+  [509/542] XLP: 89 STRONG BUY | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLY"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLRE"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IBB"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLY"}}}
-  [510/542] XLY: 54 WEAK | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKK"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKG"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKW"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XOP"}}}
-  [511/542] XOP: 89 STRONG BUY | VCP:True RS@High:False
-  [512/542] ALAB: 81 STRONG BUY | VCP:False RS@High:False
-  [513/542] APLD: 34 WEAK | VCP:False RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLRE"}}}
-  [514/542] XLRE: 87 STRONG BUY | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLB"}}}
-  [515/542] XLB: 47 WEAK | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IBB"}}}
-  [516/542] IBB: 89 STRONG BUY | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: BTC-USD"}}}
-  [517/542] APP: 52 WEAK | VCP:True RS@High:False
-  [518/542] AMKR: 48 WEAK | VCP:False RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XBI"}}}
-  [519/542] XBI: 85 STRONG BUY | VCP:True RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SMH"}}}
-  [520/542] COCO: 82 STRONG BUY | VCP:True RS@High:False
-  [521/542] SMH: 22 WEAK | VCP:False RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLU"}}}
-  [522/542] XLU: 87 STRONG BUY | VCP:True RS@High:False
-  [523/542] DELL: 88 STRONG BUY | VCP:True RS@High:False
+  [510/542] SPCX: 50 WATCH | VCP:False RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLB"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLY"}}}
+  [511/542] XLY: 63 WATCH | VCP:True RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKK"}}}
-  [524/542] ARKK: 53 WEAK | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKW"}}}
-  [525/542] ARKW: 46 WEAK | VCP:True RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKG"}}}
-  [526/542] ARKG: 90 STRONG BUY | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLRE"}}}
+  [512/542] XLRE: 90 STRONG BUY | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XOP"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKW"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XBI"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLB"}}}
+  [513/542] ALAB: 44 WEAK | VCP:False RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IBB"}}}
+  [514/542] XBI: 83 STRONG BUY | VCP:True RS@High:False
+  [515/542] XLB: 51 WEAK | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SMH"}}}
+  [516/542] IBB: 88 STRONG BUY | VCP:True RS@High:False
+  [517/542] AMKR: 48 WEAK | VCP:False RS@High:False
+  [518/542] APLD: 43 WEAK | VCP:False RS@High:False
+  [519/542] SMH: 29 WEAK | VCP:False RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKG"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XOP"}}}
+  [520/542] ARKG: 90 STRONG BUY | VCP:True RS@High:False
+  [521/542] XOP: 73 WATCH | VCP:True RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: BTC-USD"}}}
-  [527/542] BTC-USD: 29 WEAK | VCP:False RS@High:False
-  [528/542] DIOD: 41 WEAK | VCP:False RS@High:False
-  [529/542] DOCN: 35 WEAK | VCP:False RS@High:False
-  [530/542] FLEX: 48 WEAK | VCP:False RS@High:False
+  [522/542] COCO: 82 STRONG BUY | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKW"}}}
+  [523/542] ARKW: 42 WEAK | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKK"}}}
+  [524/542] ARKK: 56 WATCH | VCP:True RS@High:False
+  [525/542] APP: 46 WEAK | VCP:True RS@High:False
+  [526/542] DIOD: 41 WEAK | VCP:False RS@High:False
+  [527/542] DELL: 73 WATCH | VCP:True RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: BTC-USD"}}}
+  [528/542] BTC-USD: 54 WEAK | VCP:True RS@High:False
+  [529/542] DOCN: 40 WEAK | VCP:False RS@High:False
+  [530/542] FLEX: 62 WATCH | VCP:True RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DRAM"}}}
-  [531/542] ICHR: 62 WATCH | VCP:False RS@High:False
-  [532/542] IREN: 39 WEAK | VCP:True RS@High:False
-  [533/542] MXL: 46 WEAK | VCP:False RS@High:False
-  [534/542] SWBI: 87 STRONG BUY | VCP:True RS@High:False
-  [535/542] VRT: 48 WEAK | VCP:False RS@High:False
+  [531/542] ICHR: 55 WEAK | VCP:False RS@High:False
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DRAM"}}}
-  [536/542] DRAM: 17 WEAK | VCP:False RS@High:False
-  [537/542] LQDA: 91 STRONG BUY | VCP:True RS@High:False
-  [538/542] PRTH: 78 STRONG BUY | VCP:True RS@High:False
-  [539/542] LUV: 90 STRONG BUY | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QLD"}}}
-  [540/542] RBRK: 84 STRONG BUY | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QLD"}}}
-  [541/542] QLD: 48 WEAK | VCP:True RS@High:False
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SSO"}}}
-HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SSO"}}}
-  [542/542] SSO: 89 STRONG BUY | VCP:True RS@High:True
-[17:36] Fetching news…
+  [532/542] DRAM: 16 WEAK | VCP:False RS@High:False
+  [533/542] PRTH: 63 WATCH | VCP:True RS@High:False
+  [534/542] RBRK: 76 STRONG BUY | VCP:True RS@High:False
+  [535/542] LQDA: 86 STRONG BUY | VCP:False RS@High:False
+  [536/542] LUV: 85 STRONG BUY | VCP:True RS@High:False
+  [537/542] IREN: 40 WEAK | VCP:True RS@High:False
+  [538/542] MXL: 43 WEAK | VCP:False RS@High:False
+  [539/542] QLD: 36 WEAK | VCP:True RS@High:False
+HTTP Error 401: {"finance":{"result":null,"error":{"code":"Unauthorized","description":"Invalid Crumb"}}}
+HTTP Error 401: {"finance":{"result":null,"error":{"code":"Unauthorized","description":"Invalid Crumb"}}}
+  [540/542] SWBI: 90 STRONG BUY | VCP:True RS@High:False
+HTTP Error 401: {"finance":{"result":null,"error":{"code":"Unauthorized","description":"Invalid Crumb"}}}
+  [541/542] VRT: 51 WEAK | VCP:False RS@High:False
+  [542/542] SSO: 88 STRONG BUY | VCP:True RS@High:True
+[01:35] Fetching news…
 Fetching news for 15 tickers…
-  NTRS
-  FTNT
-  FFIV
+  IEX
+  JBHT
+  WERN
+  FRT
+  AIZ
+  NNN
+  ASH
   MNST
-  CB
-  GWW
-  FR
-  BIIB
-  MET
-  PSA
-  PFG
-  GL
-  LLY
-  PGNY
-  SON
-[17:36] Generating trade theses…
-[17:36] ✓ Saved latest → C:\Users\91635\Desktop\TXsparks\Sparks_Finance\Sparks_Finance\KV\combined_results.json
-  History: 7 day(s) stored → 2026-07-14, 2026-07-13, 2026-07-10, 2026-07-09, 2026-07-08, 2026-07-07, 2026-07-06
-[17:36] Pushing to Firestore…
+  CROX
+  NTRS
+  KIM
+  DXCM
+  AFL
+  XPO
+  FTNT
+[01:35] Generating trade theses…
+[01:35] ✓ Saved latest → C:\Users\91635\Desktop\TXsparks\Sparks_Finance\Sparks_Finance\KV\combined_results.json
+  History: 7 day(s) stored → 2026-07-17, 2026-07-16, 2026-07-15, 2026-07-14, 2026-07-13, 2026-07-10, 2026-07-09
+[01:35] Pushing to Firestore…
   ✓  Pushed → Firestore: scans/latest
-  ✓  Pushed → Firestore: history/2026-07-14
-  ✓  History index: 2026-07-14, 2026-07-13, 2026-07-10, 2026-07-09, 2026-07-08, 2026-07-07, 2026-07-06
+  ✓  Pushed → Firestore: history/2026-07-17
+  ✓  History index: 2026-07-17, 2026-07-16, 2026-07-15, 2026-07-14, 2026-07-13, 2026-07-10, 2026-07-09
