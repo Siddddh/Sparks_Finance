@@ -1,0 +1,218 @@
+{
+  "market": {
+    "state": "UPTREND",
+    "advice": "Broad, healthy uptrend into the open — SPY above its 50-day, breadth 66%, VIX calm at 16. Leadership has rotated toward financials, industrials, healthcare and staples while mega-cap semis consolidate. Normal position sizing is fine, but respect the Middle East / Strait of Hormuz oil headline risk and keep stops honored on extended names."
+  },
+  "picks": [
+    {
+      "ticker": "GOOG", "signal": "STRONG BUY", "score": 94.5, "grade": "A+",
+      "entry": 370.21, "stop": 340.59, "target": 444.25,
+      "thesis": "Cleanest mega-cap setup on the board: tight VCP just 7% off highs with FY EPS +82% and revenue +21.8%, and TradingView independently rates it Strong Buy. Gemini/cloud momentum plus a 25x forward multiple make this the anchor large-cap.",
+      "strengths": ["VCP tightening only -7% from 52w high", "EPS +82% / revenue +21.8% YoY", "TradingView Strong Buy confirms the technical read", "Reasonable 25.4x forward P/E for the growth"],
+      "risks": ["Mega-cap; needs market tailwind to run", "Ad-cycle and AI-capex spend under scrutiny", "Antitrust remedies overhang"]
+    },
+    {
+      "ticker": "FTNT", "signal": "STRONG BUY", "score": 94.5, "grade": "A+",
+      "entry": 164.51, "stop": 151.35, "target": 197.41,
+      "thesis": "Cybersecurity leader breaking out of a tight VCP just 1.4% under its high, EPS +28.6% and revenue +20.1%. TradingView rates it Buy — a clean, un-extended entry right at the pivot.",
+      "strengths": ["Tight base, -1.4% from high", "Durable double-digit growth (rev +20%, EPS +29%)", "RSI 67 — momentum without being parabolic"],
+      "risks": ["48x forward P/E leaves little room for a miss", "Firewall refresh cycle can be lumpy", "Crowded security-software trade"]
+    },
+    {
+      "ticker": "NVDA", "signal": "STRONG BUY", "score": 91.7, "grade": "A",
+      "entry": 212.5, "stop": 195.5, "target": 255.0,
+      "thesis": "The AI-infrastructure bellwether has pulled back ~10% into a constructive VCP with RSI still a healthy 62 — an un-extended re-entry. EPS +214% and revenue +85% remain unmatched, and TradingView agrees with a Strong Buy.",
+      "strengths": ["Pullback to -9.8% offers lower-risk entry", "EPS +214% / revenue +85% YoY", "Only 16.6x forward P/E on hyperscaler demand", "TradingView Strong Buy"],
+      "risks": ["Any hyperscaler capex wobble hits hardest here", "Semi group has been the pullback leader", "Headline/China export sensitivity"]
+    },
+    {
+      "ticker": "AMZN", "signal": "STRONG BUY", "score": 93.2, "grade": "A",
+      "entry": 254.96, "stop": 234.56, "target": 305.95,
+      "thesis": "Off 7% from its high with AWS re-accelerating and retail margins expanding; EPS +74.8% and TradingView rates it Strong Buy. RSI 72 is warm, so scale in rather than chase.",
+      "strengths": ["AWS + advertising margin story intact", "EPS +74.8% YoY", "TradingView Strong Buy"],
+      "risks": ["RSI 72 — slightly extended near-term", "Consumer-spend and capex sensitivity", "Needs mega-cap risk-on to work"]
+    },
+    {
+      "ticker": "AAPL", "signal": "STRONG BUY", "score": 92.6, "grade": "A",
+      "entry": 327.5, "stop": 301.3, "target": 393.0,
+      "thesis": "Sitting at all-time highs with RS at the very top of the tape and a TradingView Strong Buy. The move is extended (RSI 70, at highs), so this is a strength-buy for trend-followers — use the stop.",
+      "strengths": ["At 52-week high, RS 20 (top rank)", "TradingView Strong Buy", "Services mix keeps margins premium"],
+      "risks": ["Extended: RSI 70 at highs, no VCP base", "34x forward P/E is rich vs. 16-22% growth", "Buy-into-strength — honor the stop"]
+    },
+    {
+      "ticker": "LLY", "signal": "STRONG BUY", "score": 93.4, "grade": "A+",
+      "entry": 1156.63, "stop": 1064.1, "target": 1387.96,
+      "thesis": "GLP-1 franchise leader in a calm VCP just 6% off highs with EPS +170% and revenue +55%. RSI 56 means plenty of room to run; TradingView rates it Buy.",
+      "strengths": ["EPS +169.9% / revenue +55.5% YoY", "Un-extended, RSI 56 with a VCP", "Structural obesity/diabetes demand"],
+      "risks": ["High absolute share price / volatility", "GLP-1 competitive and supply headlines", "Any trial or pricing setback moves it hard"]
+    },
+    {
+      "ticker": "HWM", "signal": "STRONG BUY", "score": 94.0, "grade": "A+",
+      "entry": 279.24, "stop": 256.9, "target": 335.09,
+      "thesis": "Aerospace-parts compounder in a picture-perfect VCP 1.4% off highs, EPS +71% on aero-demand strength, RSI a restrained 54, and a TradingView Strong Buy. One of the cleanest industrial setups.",
+      "strengths": ["Tight base near highs, RSI 54 (room to run)", "EPS +71.4% on aerospace super-cycle", "TradingView Strong Buy"],
+      "risks": ["46x forward P/E prices in a lot", "Aero supply-chain / build-rate risk", "Industrial cyclicality"]
+    },
+    {
+      "ticker": "BAC", "signal": "STRONG BUY", "score": 94.4, "grade": "A+",
+      "entry": 61.59, "stop": 56.66, "target": 73.91,
+      "thesis": "Money-center bank breaking to new highs on the financials rotation with EPS +36%, a cheap 11.7x P/E, and a TradingView Strong Buy. Steepening curve and capital-market strength are the tailwinds.",
+      "strengths": ["Breakout to new high, TradingView Strong Buy", "Only 11.7x forward earnings", "EPS +36% / revenue +21% YoY"],
+      "risks": ["RSI ~70 at the breakout — mildly extended", "Rate-path and credit-cycle sensitivity", "Financials rotation must persist"]
+    },
+    {
+      "ticker": "JPM", "signal": "STRONG BUY", "score": 92.5, "grade": "A",
+      "entry": 346.91, "stop": 319.16, "target": 416.29,
+      "thesis": "Best-in-class bank at new highs with EPS +47% and revenue +30%, 14x earnings, and a TradingView Strong Buy. The fortress balance sheet leads the financials move.",
+      "strengths": ["New-high breakout, TradingView Strong Buy", "EPS +46.9% / revenue +30.4%", "14.2x P/E — reasonable for quality"],
+      "risks": ["Macro/credit sensitivity", "Already large — needs group to lead", "Capital-markets revenue can be lumpy"]
+    },
+    {
+      "ticker": "GS", "signal": "STRONG BUY", "score": 89.7, "grade": "A",
+      "entry": 1152.07, "stop": 1059.9, "target": 1382.48,
+      "thesis": "At new highs on a capital-markets and dealmaking rebound: EPS +92%, revenue +42%, 16x earnings, TradingView Strong Buy. Leverage to a reviving IPO/M&A cycle.",
+      "strengths": ["New-high momentum, TradingView Strong Buy", "EPS +92% / revenue +42% YoY", "Direct beneficiary of M&A/IPO reopening"],
+      "risks": ["High absolute price", "Revenue tied to volatile trading/banking cycle", "Rate-shock sensitivity"]
+    },
+    {
+      "ticker": "MS", "signal": "STRONG BUY", "score": 92.2, "grade": "A",
+      "entry": 228.55, "stop": 210.27, "target": 274.26,
+      "thesis": "Wealth-management-heavy franchise at new highs with EPS +32% and a TradingView Strong Buy — steadier earnings mix than the pure trading houses. RSI 60 is un-extended.",
+      "strengths": ["New high with RSI only 60", "Fee-based wealth mix smooths earnings", "TradingView Strong Buy"],
+      "risks": ["Markets-linked fee sensitivity", "17x P/E — fairly valued", "Needs financials leadership to continue"]
+    },
+    {
+      "ticker": "MNST", "signal": "STRONG BUY", "score": 94.0, "grade": "A+",
+      "entry": 97.57, "stop": 89.76, "target": 117.08,
+      "thesis": "Energy-drink grower in a tight VCP right at highs with EPS +29% and revenue +27% — a defensive-growth breakout. TradingView rates it Buy; RSI 62 leaves room.",
+      "strengths": ["VCP at highs, RSI 62", "Rev +27% / EPS +29% — rare for staples", "Defensive ballast if macro wobbles"],
+      "risks": ["37x P/E premium for a beverage name", "Input-cost and FX exposure", "Category competition"]
+    },
+    {
+      "ticker": "KO", "signal": "STRONG BUY", "score": 92.7, "grade": "A",
+      "entry": 82.45, "stop": 75.85, "target": 98.94,
+      "thesis": "Classic defensive leader in a VCP 2% off highs, RSI 57, TradingView Buy — the ballast pick if the Hormuz/oil headlines rattle risk assets. Steady mid-teens EPS growth.",
+      "strengths": ["Low-beta defensive with a clean base", "RSI 57 — plenty of room", "Reliable dividend + pricing power"],
+      "risks": ["Lower upside than growth names", "FX translation drag", "Rate-sensitive as a bond proxy"]
+    },
+    {
+      "ticker": "EOG", "signal": "STRONG BUY", "score": 92.0, "grade": "A",
+      "entry": 137.47, "stop": 126.47, "target": 164.96,
+      "thesis": "Top-tier E&P in a VCP with a very cheap 9.4x P/E and EPS +40% — direct leverage to firmer crude as Strait-of-Hormuz risk keeps a bid under oil. TradingView Buy.",
+      "strengths": ["9.4x P/E, EPS +40% YoY", "Geopolitical oil-price tailwind", "Best-in-class shale economics"],
+      "risks": ["Commodity-price dependent", "A Hormuz de-escalation would cool the trade", "Capital-discipline scrutiny"]
+    },
+    {
+      "ticker": "TRGP", "signal": "STRONG BUY", "score": 91.4, "grade": "A",
+      "entry": 278.16, "stop": 255.91, "target": 333.79,
+      "thesis": "Midstream/NGL infrastructure name breaking out just 1% off highs with EPS +143% and a TradingView Buy — fee-based energy exposure that's less commodity-whippy than E&Ps.",
+      "strengths": ["Near-high breakout, RSI 60", "EPS +143% YoY", "Volume/fee model dampens oil-price swings"],
+      "risks": ["Revenue -10% YoY (mix)", "Rate-sensitive like most midstream", "Volume risk if drilling slows"]
+    },
+    {
+      "ticker": "SPG", "signal": "STRONG BUY", "score": 90.0, "grade": "A",
+      "entry": 222.01, "stop": 204.25, "target": 266.41,
+      "thesis": "Best-of-breed mall REIT in a clean VCP with RSI a low 50 — genuinely un-extended — revenue +19% and a TradingView Buy. The real-estate rotation leader.",
+      "strengths": ["RSI 50, VCP — lots of room", "Revenue +19% YoY", "Highest-quality retail-REIT portfolio"],
+      "risks": ["Rate-path sensitivity", "Consumer-spending dependent", "32.9x P/E is full for a REIT"]
+    },
+    {
+      "ticker": "ANET", "signal": "STRONG BUY", "score": 92.8, "grade": "A",
+      "entry": 171.92, "stop": 158.17, "target": 206.3,
+      "thesis": "AI-networking leader that pulled back 8% into a VCP with RSI 55 — a cleaner entry than the semis. Revenue +35%, EPS +25%, TradingView Buy.",
+      "strengths": ["Un-extended pullback, RSI 55", "Revenue +35% on AI datacenter demand", "TradingView Buy"],
+      "risks": ["Hyperscaler-concentration in the customer base", "38x P/E", "Trades with the AI-capex complex"]
+    },
+    {
+      "ticker": "CVS", "signal": "STRONG BUY", "score": 93.0, "grade": "A",
+      "entry": 105.91, "stop": 97.44, "target": 127.09,
+      "thesis": "Healthcare turnaround breaking out near highs with EPS +63% off a low base and a cheap 12.6x P/E; TradingView Buy. The managed-care recovery pick, tailwinded by UnitedHealth's blowout print.",
+      "strengths": ["EPS +63% turnaround, 12.6x P/E", "Breakout near highs, RSI 63", "Sector sentiment lifted by UNH beat"],
+      "risks": ["MLR/medical-cost trend is the swing factor", "Integration & debt load", "Policy/reimbursement headlines"]
+    },
+    {
+      "ticker": "GWW", "signal": "STRONG BUY", "score": 93.0, "grade": "A",
+      "entry": 1371.44, "stop": 1261.72, "target": 1645.73,
+      "thesis": "Industrial-distribution compounder in a tight VCP 1.5% off highs, RSI 57, TradingView Buy — steady share-gain story with double-digit EPS growth.",
+      "strengths": ["Tight base near highs, RSI 57", "Consistent margin/EPS compounding", "Defensive-industrial ballast"],
+      "risks": ["High absolute share price", "27x P/E for ~mid-teens growth", "Industrial-demand cyclicality"]
+    },
+    {
+      "ticker": "CROX", "signal": "STRONG BUY", "score": 93.9, "grade": "A",
+      "entry": 133.37, "stop": 122.7, "target": 160.04,
+      "thesis": "Deep-value breakout to new highs on a 9.2x P/E with a TradingView Strong Buy — a re-rating candidate if the brand-momentum sticks. RSI 64 is constructive.",
+      "strengths": ["Breakout at highs, TradingView Strong Buy", "Cheap 9.2x P/E", "Strong free-cash-flow / buyback engine"],
+      "risks": ["EPS/revenue slightly negative YoY — execution show-me", "Fashion/brand-cycle risk (HeyDude drag)", "Small/mid-cap volatility"]
+    },
+    {
+      "ticker": "NTRS", "signal": "WATCH", "score": 93.8, "grade": "A-",
+      "entry": 191.13, "stop": 175.84, "target": 229.36,
+      "thesis": "Excellent trust-bank fundamentals (EPS +43%, TradingView Strong Buy) but RSI 82 is deeply overbought at new highs — wait for a pullback or tight flag rather than chase.",
+      "strengths": ["EPS +42.6%, 15.5x P/E", "TradingView Strong Buy", "Quality fee-based franchise"],
+      "risks": ["RSI 82 — very extended", "Chasing here invites a shakeout", "Rate-sensitive"]
+    },
+    {
+      "ticker": "PGNY", "signal": "WATCH", "score": 92.1, "grade": "B+",
+      "entry": 32.34, "stop": 29.75, "target": 38.81,
+      "thesis": "Fertility-benefits grower with EPS +71% and a 14x P/E, but RSI 90 is parabolic — a strong story that needs to digest. Watch for a base rather than buying the vertical.",
+      "strengths": ["EPS +71%, cheap 14.4x P/E", "TradingView Buy", "Niche growth with expanding client base"],
+      "risks": ["RSI 90.5 — parabolic, mean-reversion risk", "Small-cap ($2.5B), client-concentration", "Utilization/employer-budget sensitivity"]
+    },
+    {
+      "ticker": "CSX", "signal": "WATCH", "score": 92.3, "grade": "A-",
+      "entry": 49.43, "stop": 45.48, "target": 59.32,
+      "thesis": "Rail on a strong breakout (EPS +26.5%, TradingView Buy) but RSI 77 is stretched — a good name on a pullback to the pivot. M&A-in-rails chatter adds optionality.",
+      "strengths": ["EPS +26.5%, breakout momentum", "TradingView Buy", "Rail-consolidation optionality"],
+      "risks": ["RSI 77 — overbought", "Freight-volume cyclicality", "Regulatory scrutiny on rail M&A"]
+    },
+    {
+      "ticker": "SNOW", "signal": "WATCH", "score": 60.2, "grade": "B",
+      "entry": 271.87, "stop": 250.12, "target": 326.24,
+      "thesis": "Data-cloud momentum is real (revenue +33.5%, TradingView Buy) and it's only 3% off highs, but RSI 82 and a 101x forward multiple make this a wait-for-the-dip name.",
+      "strengths": ["Revenue +33.5%, AI/data-cloud tailwind", "Near highs, TradingView Buy"],
+      "risks": ["RSI 82 overbought", "101x forward P/E — priced for perfection", "Consumption-model revenue volatility"]
+    },
+    {
+      "ticker": "HOOD", "signal": "WATCH", "score": 81.0, "grade": "B+",
+      "entry": 115.54, "stop": 106.3, "target": 138.65,
+      "thesis": "Strong momentum and a TradingView Strong Buy, but still 24% below its high and rebuilding a base — constructive on a confirmed higher-low, not yet a clean breakout. Crypto/retail-volume leverage cuts both ways.",
+      "strengths": ["TradingView Strong Buy, RSI 68", "Product expansion (crypto, futures, retirement)", "Operating leverage on volume"],
+      "risks": ["Still -24% from high — not a fresh breakout", "Revenue swings with crypto/retail volume", "37.6x P/E"]
+    },
+    {
+      "ticker": "DELL", "signal": "WATCH", "score": 85.0, "grade": "B+",
+      "entry": 412.68, "stop": 379.67, "target": 495.22,
+      "thesis": "AI-server demand is explosive (EPS +282%, revenue +87.5%) but the stock is basing 11% off highs and TradingView rates it only Neutral — the tension is real. Wait for it to reclaim the pivot with the group.",
+      "strengths": ["EPS +282% / revenue +87.5% on AI servers", "Cheap 19x P/E for the growth", "Improving ISG backlog"],
+      "risks": ["TradingView Neutral — technicals lag the story", "AI-server margins are thin", "Basing, not breaking out (RSI 46)"]
+    },
+    {
+      "ticker": "COCO", "signal": "WATCH", "score": 82.4, "grade": "B+",
+      "entry": 74.75, "stop": 68.77, "target": 89.7,
+      "thesis": "Vita Coco has strong growth (revenue +37%, EPS +61%, TradingView Buy) but is 11% off highs with RSI 38 — an oversold pullback in an uptrend. Buy the reclaim of the 50-day, not the falling knife.",
+      "strengths": ["Revenue +37% / EPS +61% YoY", "TradingView Buy, oversold RSI 38", "Coconut-water category leader"],
+      "risks": ["Still below the 50-day — needs to stabilize", "Small-cap ($4.3B), input/shipping costs", "36x P/E"]
+    },
+    {
+      "ticker": "GD", "signal": "WATCH", "score": 92.0, "grade": "A-",
+      "entry": 365.63, "stop": 336.38, "target": 438.76,
+      "thesis": "Defense prime with a solid setup and a geopolitical (Middle East) tailwind, but RSI 74 is extended into the move — prefer a pullback entry. Steady low-teens EPS growth and a strong backlog.",
+      "strengths": ["Defense-budget / geopolitical tailwind", "TradingView Buy, strong backlog visibility", "20x P/E — reasonable for a prime"],
+      "risks": ["RSI 74 — extended", "Program-execution / margin risk", "Budget-cycle dependency"]
+    },
+    {
+      "ticker": "LNG", "signal": "WATCH", "score": 91.6, "grade": "A-",
+      "entry": 255.83, "stop": 235.36, "target": 307.0,
+      "thesis": "Cheniere is the LNG-export leader with a cheap 13x P/E and a Hormuz/energy-security tailwind, but it's 13.6% off highs with RSI 71 — a rebound-in-progress. Confirm the reclaim before sizing up.",
+      "strengths": ["13x P/E, LNG-export moat", "Energy-security tailwind, TradingView Buy", "Long-term contracted cash flows"],
+      "risks": ["-13.6% from high — still repairing", "RSI 71 warm for a name off its highs", "Gas-price and contract-timing sensitivity"]
+    },
+    {
+      "ticker": "LQDA", "signal": "WATCH", "score": 89.4, "grade": "B+",
+      "entry": 77.75, "stop": 71.53, "target": 93.3,
+      "thesis": "Liquidia (Yutrepia PAH launch) has a clean chart just 4.5% off highs and a TradingView Buy, but it's a small-cap specialty-pharma binary — size small and lead with the launch thesis, not the quant score.",
+      "strengths": ["Clean base, RSI 53, TradingView Buy", "Yutrepia commercial ramp underway", "Cheap on future-earnings basis"],
+      "risks": ["Small-cap ($6.9B), launch-execution & IP litigation risk", "Pre-scale profitability", "High single-name volatility"]
+    }
+  ]
+}
