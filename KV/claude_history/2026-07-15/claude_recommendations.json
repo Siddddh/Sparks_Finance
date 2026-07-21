@@ -1,0 +1,154 @@
+{
+  "scan_date": "2026-07-15",
+  "scan_time_et": "Morning recap — US session closed 4:00 PM ET (2026-07-14)",
+  "market": {
+    "state": "UPTREND — broadening, risk-on",
+    "advice": "The US session closed constructively and broader than it has in weeks. SPY finished 751.86 — above its rising 50-day (741) and only ~0.8% off its high — with the VIX calm at 16.4 and FALLING (below its 16.3 five-day), and breadth a moderate-but-healthy 64% of names above their MA50. The catalysts were friendly: cooler-than-feared inflation data and solid bank earnings lifted the S&P and Nasdaq, cybersecurity names surged (IBM-led), NVDA climbed on positive China headlines, and the US-Iran/Strait-of-Hormuz escalation that hammered semis in the prior session eased (Trump dropped the Hormuz-fee plan in favor of Gulf investment deals). That flips the tape from last session's defensive-only bid toward a genuine broadening: financials — especially the big banks into earnings (GS, MS, BAC all rate TradingView Strong Buy) — cybersecurity/enterprise tech, insurers, industrials, healthcare, utilities and REITs are all working together. For the next session: respect and lean into the uptrend, favor clean, un-extended bases over anything already parabolic (OKTA, CSX, PGNY, SNOW are stretched), and keep an eye on the wave of bank earnings landing over the next 1-3 days as the swing factor. Educational, not financial advice."
+  },
+  "picks": [
+    { "ticker": "FTNT", "signal": "STRONG BUY", "score": 93.9, "grade": "A+",
+      "thesis": "Fortinet is the single strongest setup on the board and it's in the group the tape just rewarded — cybersecurity surged into the close. A tight 6-contraction VCP at a fresh 52-week high, RSI a controlled 66, RS line at the highs on a monster +112% 3-month move. TradingView independently rates it STRONG BUY, so quant, technicals and the second opinion all line up.",
+      "strengths": ["New-high breakout, RSI only 66 — not extended", "Tightest VCP contraction just 1.4%", "+112% 3-mo momentum, RS at highs", "Cybersecurity is the leadership group; TV STRONG BUY confirms"],
+      "risks": ["Earnings in ~16 days — a high-multiple name reacts hard to any billings miss", "Guilt-by-association if enterprise-tech spend headlines turn"] },
+
+    { "ticker": "NTRS", "signal": "STRONG BUY", "score": 94.2, "grade": "A+",
+      "thesis": "Northern Trust broke to a fresh 52-week high out of a tight 3-contraction VCP (tightest 3.6%) with its RS line at the highs — a clean custody/trust leader riding the financials bid that cool inflation and strong bank prints just ignited. TradingView rates it STRONG BUY.",
+      "strengths": ["New high on a tight VCP base, RS at highs", "Trust/custody earns more on higher-for-longer rates + rising AUM", "TV STRONG BUY confirmation"],
+      "risks": ["Q2 earnings in ~8 days — a two-way catalyst", "RSI 71 is warm, though not extended"] },
+
+    { "ticker": "HWM", "signal": "STRONG BUY", "score": 93.9, "grade": "A+",
+      "thesis": "Howmet Aerospace is the rare A+ setup that's genuinely un-extended — RSI just 52 and only 2.3% off its high, coiling in a 6-contraction VCP. A best-in-class aerospace-components compounder with structural commercial-aero and defense demand. TradingView agrees at STRONG BUY.",
+      "strengths": ["RSI 52 — lots of runway before overbought", "Tight VCP just below highs", "Structural aero/defense demand; TV STRONG BUY"],
+      "risks": ["Earnings ~23 days out", "Momentum is steadier (+7% 3-mo) than the high-fliers — this is a base trade, not a chase"] },
+
+    { "ticker": "MET", "signal": "STRONG BUY", "score": 93.4, "grade": "A+",
+      "thesis": "MetLife printed a fresh high out of a 4-contraction VCP with RS at the highs and RSI a reasonable 62 — an insurance leader whose investment book earns more the longer rates stay elevated, and it's in the financial-services group the tape is bidding. TradingView: BUY.",
+      "strengths": ["New high, RS at highs, RSI only 62", "+23% 3-mo momentum", "Rate tailwind on spread income; TV BUY confirms"],
+      "risks": ["Earnings ~23 days out", "A sharp equity pullback pressures AUM/variable-annuity marks"] },
+
+    { "ticker": "D", "signal": "STRONG BUY", "score": 93.2, "grade": "A+",
+      "thesis": "Dominion Energy made a fresh high out of a tight VCP with RS at the highs and RSI 68 — a regulated utility catching both the defensive bid and the data-center power-demand theme. TradingView independently rates it STRONG BUY.",
+      "strengths": ["New high, RS at highs, tight base", "Regulated cash flows + data-center load growth", "TV STRONG BUY confirmation"],
+      "risks": ["RSI 68 warming", "Rate-sensitive — a back-up in yields would pressure it", "Earnings ~17 days out"] },
+
+    { "ticker": "DELL", "signal": "STRONG BUY", "score": 92.9, "grade": "A",
+      "thesis": "Dell broke to new-high territory (only 1.8% off) out of a 5-contraction VCP with RS at the highs and RSI a cool 57 — remarkable given a +149% 3-month run, so the base has fully digested the move. The AI-server backlog is the engine and TradingView rates it STRONG BUY.",
+      "strengths": ["RSI 57 despite +149% 3-mo — fully digested", "AI-server/ISG backlog", "No earnings for ~52 days; TV STRONG BUY"],
+      "risks": ["ISG margins are thinner than pure-play compute", "A broad AI-capex scare would hit it hard"] },
+
+    { "ticker": "NTAP", "signal": "STRONG BUY", "score": 92.4, "grade": "A",
+      "thesis": "NetApp is basing just 3.3% off its high out of a 3-contraction VCP with RSI 68 after a +77% 3-month run — enterprise storage leveraged to the AI-data-pipeline build-out. TradingView independently rates it STRONG BUY (16 buy / 0 sell).",
+      "strengths": ["Tight base near highs after strong momentum", "AI-storage/all-flash demand", "TV STRONG BUY, zero sell signals"],
+      "risks": ["RSI 68 warm", "Enterprise IT spend is macro-sensitive"] },
+
+    { "ticker": "CVS", "signal": "STRONG BUY", "score": 92.8, "grade": "A",
+      "thesis": "CVS Health broke to a new high on a powerful +38% 3-month turnaround with RSI a healthy 65 and RS at the highs — a defensive-healthcare re-rating with real momentum. TradingView rates it BUY.",
+      "strengths": ["New high, +38% 3-mo re-rating, RS at highs", "Defensive healthcare with improving margins", "TV BUY confirmation"],
+      "risks": ["PBM/regulatory headline sensitivity", "Earnings ~22 days out"] },
+
+    { "ticker": "MNST", "signal": "STRONG BUY", "score": 94.2, "grade": "A+",
+      "thesis": "Monster Beverage is right at a 52-week high out of a very tight 4-contraction VCP (tightest 2.6%) with RS at the highs — a defensive-consumer leader with pricing power working while the tape broadens. TradingView: BUY.",
+      "strengths": ["At new highs, tight VCP, RS at highs", "Energy-drink category leader, pricing power", "+31% 3-mo, low-beta ballast; TV BUY"],
+      "risks": ["RSI 67 warming", "FX headwind on international volumes", "Earnings ~24 days out"] },
+
+    { "ticker": "KO", "signal": "STRONG BUY", "score": 92.3, "grade": "A",
+      "thesis": "Coca-Cola is basing ~1.4% off its high with RSI a cool 60 — a textbook defensive staple with pricing power and a bulletproof dividend, a steady anchor for a portfolio leaning into more volatile leadership. TradingView: BUY.",
+      "strengths": ["Un-extended (RSI 60), tight base near highs", "Pricing power + defensive ballast", "TV BUY confirmation"],
+      "risks": ["FX drag on overseas volumes", "Earnings ~14 days out"] },
+
+    { "ticker": "GWW", "signal": "STRONG BUY", "score": 93.6, "grade": "A+",
+      "thesis": "W.W. Grainger is basing 1.5% off its high with RSI only 62 and RS at the highs — an industrial-distribution compounder making highs without being extended. TradingView rates it BUY.",
+      "strengths": ["RSI 62 un-extended, RS at highs", "Best-in-class distribution compounder", "TV BUY confirmation"],
+      "risks": ["High share price — size carefully", "Industrial-demand cyclicality; earnings ~21 days out"] },
+
+    { "ticker": "FR", "signal": "STRONG BUY", "score": 93.4, "grade": "A+",
+      "thesis": "First Industrial Realty is basing 0.5% off its high out of a 4-contraction VCP with RSI 62 — an industrial-logistics REIT with durable demand and a rate-relief tailwind if cooling inflation pulls yields lower. TradingView: BUY.",
+      "strengths": ["Tight base right below highs, RSI 62", "Industrial/logistics REIT with pricing power", "Benefits from the cool-inflation, lower-yield narrative; TV BUY"],
+      "risks": ["Rate-sensitive if yields back up", "Earnings ~9 days out"] },
+
+    { "ticker": "KIM", "signal": "STRONG BUY", "score": 87.5, "grade": "A",
+      "thesis": "Kimco Realty is basing 2.6% off its high with RSI a cool 51 — an open-air shopping-center REIT that's the least-extended way to play the rate-relief bid, with TradingView independently rating it STRONG BUY.",
+      "strengths": ["RSI 51 — plenty of room to run", "Grocery-anchored, defensive retail REIT", "TV STRONG BUY confirmation"],
+      "risks": ["Consumer/retail-tenant health", "Earnings ~21 days out"] },
+
+    { "ticker": "AFL", "signal": "STRONG BUY", "score": 93.5, "grade": "A+",
+      "thesis": "Aflac is basing 1.0% off its high out of a tight 3-contraction VCP with RSI a cool 61 — a steady supplemental-insurance compounder riding the financials bid, un-extended and un-hurried. TradingView: BUY.",
+      "strengths": ["RSI 61 un-extended, tight VCP near highs", "Durable supplemental-insurance franchise", "TV BUY confirmation"],
+      "risks": ["Yen/FX translation on Japan book", "Earnings ~24 days out"] },
+
+    { "ticker": "RBRK", "signal": "STRONG BUY", "score": 88.0, "grade": "A",
+      "thesis": "Rubrik is early in its move — 10.6% off its high after a +83% 3-month run, basing in a VCP with RSI 69 — a cyber-resilience/data-security name in the exact group that led the close. TradingView rates it STRONG BUY (17 buy / 0 sell).",
+      "strengths": ["Cybersecurity leadership group; TV STRONG BUY", "Early in the base — room before prior highs", "High-growth data-security secular story"],
+      "risks": ["Still unprofitable/high-multiple — volatile", "10.6% off high means the base isn't complete; wait for the tell"] },
+
+    { "ticker": "EOG", "signal": "STRONG BUY", "score": 91.7, "grade": "A",
+      "thesis": "EOG Resources is basing 7.2% off its high out of a VCP with RSI 55 — a best-in-class shale operator and the portfolio's energy hedge if Middle East supply headlines flare again. TradingView: BUY.",
+      "strengths": ["Low-cost shale leader, strong FCF + dividend", "Energy hedge against geopolitical oil spikes", "RSI 55 un-extended; TV BUY"],
+      "risks": ["Direct oil-price exposure — cuts both ways", "Earnings ~22 days out"] },
+
+    { "ticker": "CTVA", "signal": "STRONG BUY", "score": 92.4, "grade": "A",
+      "thesis": "Corteva is basing 2.1% off its high out of a 4-contraction VCP with RSI 68 — an ag-inputs leader (seed + crop protection) that diversifies the book away from tech and financials. TradingView: BUY.",
+      "strengths": ["Tight base near highs", "Defensive ag-inputs demand, pricing power", "TV BUY confirmation"],
+      "risks": ["Ag-commodity/farm-income cyclicality", "RSI 68 warming; earnings ~17 days out"] },
+
+    { "ticker": "ETR", "signal": "STRONG BUY", "score": 91.9, "grade": "A",
+      "thesis": "Entergy is basing 1.7% off its high out of a VCP with RSI a cool 56 — a Gulf-South regulated utility with heavy industrial/data-center load growth. TradingView independently rates it STRONG BUY (16 buy / 0 sell).",
+      "strengths": ["RSI 56 un-extended, tight base", "Regulated growth + data-center load", "TV STRONG BUY, zero sell signals"],
+      "risks": ["Rate-sensitive", "Storm/regulatory risk in its service territory; earnings ~15 days out"] },
+
+    { "ticker": "STAG", "signal": "STRONG BUY", "score": 91.8, "grade": "A",
+      "thesis": "STAG Industrial is basing right at its high (0.3% off) out of a VCP with RSI 61 — an industrial-REIT compounder with a monthly dividend and a rate-relief tailwind. TradingView rates it STRONG BUY (16 buy / 0 sell).",
+      "strengths": ["Base right below highs, RSI 61", "Industrial REIT, diversified single-tenant book", "TV STRONG BUY confirmation"],
+      "risks": ["Rate-sensitive if yields back up", "Earnings ~15 days out"] },
+
+    { "ticker": "GS", "signal": "WATCH", "score": 90.7, "grade": "A",
+      "thesis": "Goldman Sachs is at its 52-week high with RS at the highs and TradingView rates it STRONG BUY (17 buy / 0 sell) — but earnings are essentially now (0 days), so this is a WATCH into the print, not a fresh entry. Strong bank prints already lifted the group; let GS report before adding.",
+      "strengths": ["At new highs, RS at highs; TV STRONG BUY", "Trading/IB tailwind from the risk-on tape", "+26% 3-mo momentum"],
+      "risks": ["EARNINGS IMMINENT (~0 days) — event risk; don't chase into it", "A sell-the-news reaction after a big run is common"] },
+
+    { "ticker": "MS", "signal": "WATCH", "score": 91.7, "grade": "A",
+      "thesis": "Morgan Stanley is at its high with RS at the highs and TradingView rates it STRONG BUY (17 buy / 0 sell), RSI a cool 52 — a clean setup fundamentally, but earnings land in ~1 day, so watch the reaction rather than entering ahead of it.",
+      "strengths": ["At highs, RSI 52 un-extended; TV STRONG BUY", "Wealth-management annuity + IB rebound"],
+      "risks": ["EARNINGS in ~1 day — event risk", "Wait for the post-print base"] },
+
+    { "ticker": "TRV", "signal": "WATCH", "score": 93.4, "grade": "A+",
+      "thesis": "Travelers is basing 2.0% off its high out of a tight 3-contraction VCP with RS at the highs — an A+ P&C insurer, but earnings are ~3 days out, so treat it as a WATCH into the report. TradingView: BUY.",
+      "strengths": ["Tight VCP near highs, RS at highs", "Hard-market P&C pricing power; TV BUY"],
+      "risks": ["EARNINGS in ~3 days — event risk", "Cat-loss headline sensitivity"] },
+
+    { "ticker": "ELV", "signal": "WATCH", "score": 91.8, "grade": "A",
+      "thesis": "Elevance Health is at its high with RS at the highs on a +38% 3-month move and TradingView rates it STRONG BUY — but earnings are ~1 day out, so it's a WATCH. A managed-care leader that would confirm the healthcare-leadership theme on a clean print.",
+      "strengths": ["At highs, RS at highs; TV STRONG BUY", "Managed-care scale + rebound momentum"],
+      "risks": ["EARNINGS in ~1 day — medical-cost-ratio prints move this hard", "Utilization surprises are the perennial risk"] },
+
+    { "ticker": "OKTA", "signal": "WATCH", "score": 92.6, "grade": "A",
+      "thesis": "Okta is a cybersecurity leader at new highs and TradingView rates it STRONG BUY — but RSI is 80 after a +141% 3-month vertical run, so it's extended. Right group, wrong entry: watch for a pullback or a tight flag rather than chasing.",
+      "strengths": ["Cyber leadership group; TV STRONG BUY (17 buy / 0 sell)", "Identity-security secular demand", "+141% 3-mo momentum"],
+      "risks": ["RSI 80 — extended; chasing invites a sharp shakeout", "High multiple; wait for a proper base"] },
+
+    { "ticker": "CSX", "signal": "WATCH", "score": 92.4, "grade": "A",
+      "thesis": "CSX is at a new high with RS at the highs and TradingView rates it BUY — a rail bellwether confirming the industrial/transport bid — but RSI 83 is very extended, so watch for a rest before entering.",
+      "strengths": ["New high, RS at highs; TV BUY", "Transport strength confirms broadening economy"],
+      "risks": ["RSI 83 — overbought; entry risk is timing", "Volume/freight-rate cyclicality"] },
+
+    { "ticker": "NVDA", "signal": "WATCH", "score": 90.8, "grade": "A",
+      "thesis": "NVIDIA climbed into the close on positive China headlines and sits 10% off its high in a VCP with RSI 61 — the AI bellwether stabilizing as the semi complex recovers. TradingView rates it BUY (16 buy / 1 sell). Watch for the base to complete and reclaim of prior highs.",
+      "strengths": ["AI-compute franchise, China-headline tailwind", "RSI 61, basing rather than extended; TV BUY"],
+      "risks": ["10% off high — base not yet complete", "China-export-policy headline whipsaw cuts both ways"] },
+
+    { "ticker": "AMD", "signal": "WATCH", "score": 89.0, "grade": "A",
+      "thesis": "AMD is only 5.6% off its high after a +115% 3-month run with RSI 55 — the closest of the big semis to reclaiming highs as the group recovers. TradingView rates it BUY. Watch for a new-high breakout to trigger.",
+      "strengths": ["+115% 3-mo, near highs, RSI 55 un-extended", "MI-accelerator share-gain story; TV BUY"],
+      "risks": ["High-beta — moves hard with the semi tape", "Earnings ~22 days out"] },
+
+    { "ticker": "LLY", "signal": "WATCH", "score": 93.2, "grade": "A+",
+      "thesis": "Eli Lilly is basing 6.6% off its high with RSI 57 — the premier GLP-1 secular grower (Zepbound/Mounjaro) — but here the second opinion diverges: TradingView rates it only NEUTRAL (8 buy / 8 sell), reflecting the still-incomplete base. Fundamentally a core holding; technically wait for the base to firm.",
+      "strengths": ["Incretin franchise still scaling — best secular grower in healthcare", "RSI 57, basing after a pullback", "+25% 3-mo"],
+      "risks": ["TV NEUTRAL — technicals not yet confirming the fundamentals", "Very high share price — size carefully", "GLP-1 competitive/pricing headlines; earnings ~22 days out"] },
+
+    { "ticker": "NEE", "signal": "WATCH", "score": 92.3, "grade": "A",
+      "thesis": "NextEra Energy is early — 7.9% off its high in a VCP with RSI 63 — the largest regulated + renewables utility, a rate-relief and power-demand beneficiary. TradingView: BUY. Watch for the base to tighten and clear resistance.",
+      "strengths": ["Regulated + renewables scale, data-center demand", "Rate-relief tailwind if yields ease; TV BUY"],
+      "risks": ["7.9% off high — earlier in its base than the utility leaders", "Rate-sensitive; earnings ~10 days out"] }
+  ]
+}
