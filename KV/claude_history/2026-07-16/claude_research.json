@@ -1,0 +1,235 @@
+{
+  "date": "2026-07-16",
+  "analyses": [
+    {
+      "ticker": "GOOG", "name": "Alphabet Inc.", "signal": "STRONG BUY",
+      "verdict": "The cleanest mega-cap breakout setup — Gemini/cloud momentum with earnings inflecting and a still-reasonable multiple.",
+      "financials": {
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Record year: search held up while Google Cloud swung firmly profitable and AI monetization began flowing through the P&L, driving outsized EPS growth on a still-reasonable valuation.",
+        "highlights": ["Revenue growth ~+21.8% YoY", "EPS growth ~+82% YoY", "Google Cloud sustained profitability and backlog growth", "Forward P/E ~25x — inexpensive for the growth", "Massive operating cash flow funding AI capex + buybacks"]
+      },
+      "accomplishments": ["Gemini model family rolled across Search, Workspace and Cloud", "Cloud reached durable operating profitability", "Continued share repurchases and first-ever/again-growing capital returns", "Custom-silicon (TPU) advantage in AI training/inference"],
+      "journey_52w": {
+        "summary": "Ground higher through the year as the AI narrative shifted from 'threat to search' to 'Gemini is a winner,' with cloud profitability the proof point. Now consolidating in a tight base ~7% off its high.",
+        "milestones": [
+          {"label": "Late 2025", "note": "Cloud profitability and Gemini adoption re-rated the stock"},
+          {"label": "2026 YTD", "note": "New highs, then a tight VCP consolidation into mid-July"}
+        ]
+      },
+      "critical": {
+        "risks": ["Antitrust remedies (search/ad-tech) overhang", "Heavy AI capex pressuring near-term free cash flow", "Ad-cycle sensitivity to the macro"],
+        "catalysts": ["Cloud growth re-acceleration", "Gemini enterprise monetization", "Ad-market strength"],
+        "watch": ["Breakout above the ~$385-390 pivot on volume", "Cloud operating margin trend", "Capex guidance"],
+        "valuation": "~25x forward earnings — undemanding versus ~20%+ revenue and ~80% EPS growth; TradingView independently rates it Strong Buy."
+      }
+    },
+    {
+      "ticker": "NVDA", "name": "NVIDIA Corporation", "signal": "STRONG BUY",
+      "verdict": "AI-infrastructure bellwether pulled back into a buyable base — unmatched growth at a surprisingly modest multiple.",
+      "financials": {
+        "period": "FY2026 (ended Jan 2026)",
+        "summary": "Data-center dominance drove another year of triple-digit earnings growth as hyperscaler and enterprise AI demand outstripped supply; gross margins stayed exceptional.",
+        "highlights": ["Revenue growth ~+85% YoY", "EPS growth ~+214% YoY", "Data-center segment the overwhelming revenue driver", "Forward P/E only ~16.6x", "Best-in-class gross margins (~70%+)"]
+      },
+      "accomplishments": ["Blackwell-generation ramp to volume", "Deepening full-stack (networking, software, CUDA) moat", "Sovereign-AI and enterprise pipeline expansion", "Sustained supply-chain scale-up with TSMC"],
+      "journey_52w": {
+        "summary": "A leadership year with sharp swings — repeated new highs punctuated by ~10-20% capex-fear pullbacks. Currently ~10% off its high in a constructive VCP with RSI ~62.",
+        "milestones": [
+          {"label": "2025", "note": "Blackwell ramp and record data-center revenue"},
+          {"label": "Mid-2026", "note": "Semi group pulled back; NVDA basing near the 50-day"}
+        ]
+      },
+      "critical": {
+        "risks": ["Hyperscaler capex digestion is the key swing factor", "China export-control headlines", "Customer concentration / any demand air-pocket"],
+        "catalysts": ["Next earnings print", "Blackwell/next-gen demand signals", "New hyperscaler and sovereign orders"],
+        "watch": ["Reclaim of the ~$225-230 pivot", "Hyperscaler capex commentary", "Gross-margin trajectory"],
+        "valuation": "~16.6x forward earnings is cheap for +85% revenue growth; TradingView rates it Strong Buy."
+      }
+    },
+    {
+      "ticker": "AMZN", "name": "Amazon.com, Inc.", "signal": "STRONG BUY",
+      "verdict": "AWS re-acceleration plus retail-margin expansion; a warm-but-healthy pullback into a base.",
+      "financials": {
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Operating income surged as AWS re-accelerated and North America retail margins expanded on logistics efficiency and a fast-growing, high-margin advertising business.",
+        "highlights": ["Revenue growth ~+16.6% YoY", "EPS growth ~+74.8% YoY", "AWS re-acceleration + record advertising revenue", "Retail operating-margin expansion", "Strong free-cash-flow inflection"]
+      },
+      "accomplishments": ["AWS AI/Bedrock and custom-silicon (Trainium) traction", "Advertising scaled to a major profit engine", "Regionalized fulfillment lowered cost-to-serve", "Record Prime engagement"],
+      "journey_52w": {
+        "summary": "Steady uptrend on the margin story, now ~7% off its high with RSI ~72. A classic strong-stock pullback rather than a breakdown.",
+        "milestones": [
+          {"label": "2025", "note": "AWS growth re-accelerated; margins inflected higher"},
+          {"label": "2026 YTD", "note": "New highs, then a modest pullback into a base"}
+        ]
+      },
+      "critical": {
+        "risks": ["Consumer-spending sensitivity", "AI-capex intensity at AWS", "RSI ~72 — near-term extended"],
+        "catalysts": ["AWS growth acceleration", "Holiday/retail margin prints", "Advertising momentum"],
+        "watch": ["AWS growth rate", "Retail operating margin", "Reclaim of the high on volume"],
+        "valuation": "~26x forward earnings against +75% EPS growth; TradingView rates it Strong Buy."
+      }
+    },
+    {
+      "ticker": "AAPL", "name": "Apple Inc.", "signal": "STRONG BUY",
+      "verdict": "At all-time highs with top-rank relative strength — a buy-into-strength for trend followers, but extended, so respect the stop.",
+      "financials": {
+        "period": "FY2025 (ended Sep 2025)",
+        "summary": "Record revenue led by Services, which continued to expand margins; iPhone held up and the installed base kept growing, supporting durable cash generation and buybacks.",
+        "highlights": ["Revenue growth ~+16.6% YoY", "EPS growth ~+21.8% YoY", "Services at record, high-margin mix", "Enormous buyback + dividend program", "Forward P/E ~34x — premium"]
+      },
+      "accomplishments": ["Services revenue at all-time high", "Apple-silicon roadmap and on-device AI push", "Record installed base", "Continued industry-leading capital returns"],
+      "journey_52w": {
+        "summary": "Climbed to fresh all-time highs with RS at the top of the tape; currently extended (RSI ~70) at the high rather than basing.",
+        "milestones": [
+          {"label": "2025", "note": "Services strength and AI features drove the re-rating"},
+          {"label": "Mid-2026", "note": "Broke to new all-time highs"}
+        ]
+      },
+      "critical": {
+        "risks": ["Extended (RSI ~70, no base) — pullback risk", "34x P/E rich vs. mid-teens/low-20s growth", "China demand and regulatory exposure"],
+        "catalysts": ["AI feature adoption / new hardware cycle", "Services growth", "Buyback support"],
+        "watch": ["Whether it holds the breakout or pulls back to the 50-day", "iPhone unit trend", "Services margin"],
+        "valuation": "Premium ~34x forward multiple; TradingView rates it Strong Buy — technicals and quant agree, but the entry is extended."
+      }
+    },
+    {
+      "ticker": "LLY", "name": "Eli Lilly and Company", "signal": "STRONG BUY",
+      "verdict": "GLP-1 franchise leader in a calm base with explosive earnings growth and room to run.",
+      "financials": {
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Incretin franchise (tirzepatide) drove revenue up over 50% and EPS up ~170% as manufacturing capacity scaled to meet obesity/diabetes demand.",
+        "highlights": ["Revenue growth ~+55.5% YoY", "EPS growth ~+169.9% YoY", "Incretin/GLP-1 franchise the primary driver", "Massive capacity expansion investments", "Forward P/E ~26x on the growth"]
+      },
+      "accomplishments": ["Scaled tirzepatide supply materially", "Advancing oral GLP-1 and next-gen incretin pipeline", "New indication/label expansions", "Capacity buildout to protect share"],
+      "journey_52w": {
+        "summary": "Volatile but upward, with the obesity TAM debate driving swings; now ~6% off its high in a constructive VCP with RSI ~56 — un-extended.",
+        "milestones": [
+          {"label": "2025", "note": "Record incretin revenue and margin expansion"},
+          {"label": "Mid-2026", "note": "Consolidating just below highs, RSI reset to mid-50s"}
+        ]
+      },
+      "critical": {
+        "risks": ["GLP-1 competitive dynamics (incl. orals and new entrants)", "Supply/pricing and payer headlines", "High absolute price → sharp single-name moves"],
+        "catalysts": ["Oral GLP-1 data/approval", "New indications", "Continued supply ramp"],
+        "watch": ["Breakout above the recent high", "Trial readouts", "Pricing/access news"],
+        "valuation": "~26x forward earnings is reasonable for +55% revenue growth; TradingView rates it Buy."
+      }
+    },
+    {
+      "ticker": "HWM", "name": "Howmet Aerospace Inc.", "signal": "STRONG BUY",
+      "verdict": "Picture-perfect industrial VCP near highs — aerospace super-cycle earnings with a restrained RSI.",
+      "financials": {
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Commercial-aerospace demand and pricing drove strong margin expansion; engine-parts and structures benefited from record build rates and aftermarket strength.",
+        "highlights": ["Revenue growth ~+19.1% YoY", "EPS growth ~+71.4% YoY", "Aerospace/engine-parts demand the driver", "Meaningful margin expansion", "Forward P/E ~46x — premium"]
+      },
+      "accomplishments": ["Record engine-products demand", "Margin expansion on price/mix", "Strong aftermarket/spares growth", "Debt reduction and rising returns"],
+      "journey_52w": {
+        "summary": "A steady leadership uptrend all year; now in a tight VCP just 1.4% off its high with RSI a restrained ~54 — one of the cleanest bases on the board.",
+        "milestones": [
+          {"label": "2025", "note": "Aero build-rate recovery drove earnings higher"},
+          {"label": "Mid-2026", "note": "Tight consolidation just under highs"}
+        ]
+      },
+      "critical": {
+        "risks": ["46x forward P/E prices in continued execution", "Aero supply-chain / build-rate risk", "Industrial cyclicality"],
+        "catalysts": ["Build-rate increases at Boeing/Airbus", "Aftermarket strength", "Margin beats"],
+        "watch": ["Breakout on volume", "Commercial-aero build rates", "Margin trend"],
+        "valuation": "Premium multiple, but justified so far by +71% EPS growth; TradingView rates it Strong Buy."
+      }
+    },
+    {
+      "ticker": "BAC", "name": "Bank of America Corp.", "signal": "STRONG BUY",
+      "verdict": "Money-center bank breaking to new highs on the financials rotation — cheap, with TradingView Strong Buy confirmation.",
+      "financials": {
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Net interest income stabilized and turned higher while capital-markets and wealth revenue grew; credit stayed contained, driving solid EPS growth on an inexpensive valuation.",
+        "highlights": ["Revenue growth ~+21.4% YoY", "EPS growth ~+36% YoY", "NII inflection + capital-markets strength", "Forward P/E only ~11.7x", "Strong capital returns (buybacks + dividend)"]
+      },
+      "accomplishments": ["NII returned to growth", "Trading/IB revenue rebound", "Consumer-deposit franchise resilience", "Capital-return expansion"],
+      "journey_52w": {
+        "summary": "Base-building for much of the year, then a decisive breakout to new highs as the financials group took leadership; RSI ~70 at the breakout.",
+        "milestones": [
+          {"label": "2025", "note": "NII trough and recovery narrative took hold"},
+          {"label": "Mid-2026", "note": "Breakout to new 52-week highs"}
+        ]
+      },
+      "critical": {
+        "risks": ["Rate-path / yield-curve sensitivity", "Credit-cycle normalization", "RSI ~70 — mildly extended at breakout"],
+        "catalysts": ["Steeper curve / NII growth", "Capital-markets reacceleration", "Buyback pace"],
+        "watch": ["Hold above the breakout", "NII guidance", "Credit-cost trend"],
+        "valuation": "~11.7x forward earnings is cheap for a franchise bank; TradingView rates it Strong Buy."
+      }
+    },
+    {
+      "ticker": "JPM", "name": "JPMorgan Chase & Co.", "signal": "STRONG BUY",
+      "verdict": "Best-in-class bank at new highs — fortress balance sheet leading the financials move, reasonably valued.",
+      "financials": {
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Diversified strength across markets, investment banking, and consumer drove double-digit revenue growth and ~47% EPS growth, with industry-leading returns on capital.",
+        "highlights": ["Revenue growth ~+30.4% YoY", "EPS growth ~+46.9% YoY", "Broad-based revenue strength (markets, IB, consumer)", "Forward P/E ~14.2x", "Sector-leading ROTCE"]
+      },
+      "accomplishments": ["Record or near-record net income", "Investment-banking/M&A pipeline rebuild", "Continued share gains across segments", "Robust capital returns"],
+      "journey_52w": {
+        "summary": "Steady uptrend to fresh all-time highs; RSI ~64 leaves room, unlike some more-extended financials.",
+        "milestones": [
+          {"label": "2025", "note": "Diversified earnings strength drove new highs"},
+          {"label": "Mid-2026", "note": "New all-time highs with a healthy RSI"}
+        ]
+      },
+      "critical": {
+        "risks": ["Macro/credit-cycle sensitivity", "Capital-markets revenue can be lumpy", "Regulatory/capital-rule changes"],
+        "catalysts": ["M&A/IPO reopening", "NII resilience", "Buyback expansion"],
+        "watch": ["Hold of the breakout", "IB fee recovery", "Credit trends"],
+        "valuation": "~14x forward earnings — reasonable for the highest-quality US bank; TradingView rates it Strong Buy."
+      }
+    },
+    {
+      "ticker": "EOG", "name": "EOG Resources, Inc.", "signal": "STRONG BUY",
+      "verdict": "Top-tier E&P at a very cheap multiple with a geopolitical oil tailwind — direct leverage to firmer crude.",
+      "financials": {
+        "period": "FY2025 (ended Dec 2025)",
+        "summary": "Low-cost shale economics and disciplined capital allocation drove strong free cash flow and EPS growth; returns to shareholders stayed a priority even at moderate oil prices.",
+        "highlights": ["Revenue growth ~+15.6% YoY", "EPS growth ~+39.6% YoY", "Very low breakeven / high-return acreage", "Forward P/E only ~9.4x", "Strong FCF + shareholder returns"]
+      },
+      "accomplishments": ["Premium-well strategy sustaining top-tier returns", "Consistent dividend growth + special payouts", "Disciplined production growth", "Balance-sheet strength"],
+      "journey_52w": {
+        "summary": "Range-bound with oil, now firming ~8% off its high in a VCP with RSI ~55 as Strait-of-Hormuz risk puts a bid under crude.",
+        "milestones": [
+          {"label": "2025", "note": "Capital-discipline story kept FCF strong through oil swings"},
+          {"label": "Mid-2026", "note": "Firming with geopolitical oil-price support"}
+        ]
+      },
+      "critical": {
+        "risks": ["Commodity-price dependent — a Hormuz de-escalation cools the trade", "Capital-discipline scrutiny", "Cost inflation"],
+        "catalysts": ["Higher crude on Middle East risk", "Shareholder-return announcements", "Production/cost beats"],
+        "watch": ["Crude price action", "Breakout on volume", "Cash-return updates"],
+        "valuation": "~9.4x forward earnings — cheap even before the oil tailwind; TradingView rates it Buy."
+      }
+    },
+    {
+      "ticker": "SPCX", "name": "SpaceX (recent IPO)", "signal": "WATCH",
+      "verdict": "New listing — trade the story (Starlink cash flow + Starship optionality), not the thin quant signals; still repairing post-IPO.",
+      "financials": {
+        "period": "Recent IPO — limited public financials",
+        "summary": "As a newly listed company, reported financials are limited; the investment case rests on Starlink's fast-growing, increasingly cash-generative subscriber business and the launch franchise's dominant market share, with Starship as long-dated optionality. Treat any figures as preliminary until full filings.",
+        "highlights": ["Revenue growth ~+15.4% YoY (early public data — preliminary)", "Starlink subscriber and revenue scaling rapidly", "Dominant global launch cadence/market share", "Valuation extreme on near-term earnings (forward multiple ~150x)"]
+      },
+      "accomplishments": ["Completed IPO (~22 trading days of history)", "Starlink subscriber base scaling globally", "Record launch cadence and reusability milestones", "Starship development progress"],
+      "journey_52w": {
+        "summary": "As a ~3-week-old listing there is no 52-week arc; shares are ~36% off their brief post-IPO high with RSI ~36 — typical post-IPO digestion. Breakout signals (52-week, VCP, RS) won't be meaningful for another 1-2 months.",
+        "milestones": [
+          {"label": "IPO", "note": "Listed ~3 weeks ago; initial pop then pullback"},
+          {"label": "Now", "note": "~36% below the post-IPO high, RSI ~36 — basing"}
+        ]
+      },
+      "critical": {
+        "risks": ["New listing — no TradingView rating yet; thin trading history and lockup dynamics", "Valuation extreme vs. current earnings", "Execution/dilution and capital-intensity risk"],
+        "catalysts": ["Starlink subscriber/ARPU milestones", "Starship progress", "First full public financial disclosures"],
+        "watch": ["First reported quarter as a public company", "Lockup expiry timing", "Whether it can build a base above the IPO range"],
+        "valuation": "Story stock — a ~150x forward multiple means the market is pricing Starlink + Starship optionality, not current earnings. New listing; size accordingly."
+      }
+    }
+  ]
+}
