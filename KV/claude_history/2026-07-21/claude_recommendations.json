@@ -1,0 +1,262 @@
+{
+  "scan_date": "2026-07-21",
+  "scan_time_et": "08:00 AM ET",
+  "market": {
+    "state": "UNDER PRESSURE",
+    "advice": "Risk-off rotation, not risk-off collapse. SPY (742) sits just under its 50-day with a rising-but-still-calm VIX (17.8) and one distribution day; breadth is a healthy 59% because leadership rotated rather than broke. Money is leaving stretched mega-cap tech and semis (NVDA, AMD, MU, ORCL, TSLA all well off highs) and flooding into financials, REITs, industrials/transports, healthcare and — with the U.S.-Iran conflict now in its tenth night of strikes and Strait of Hormuz shipping disrupted — energy. Ceasefire headlines are nudging futures up, but oil is the swing factor. Trade selectively into the open: favor cheap, un-extended value/defensive breakouts sitting AT new highs (A+ only), keep size smaller, and do NOT chase the overbought momentum names into their prints."
+  },
+  "picks": [
+    {
+      "ticker": "WERN", "name": "Werner Enterprises, Inc.", "sector": "Industrials",
+      "signal": "STRONG BUY", "score": 95.1, "grade": "A+",
+      "thesis": "The single cleanest breakout on the board and top score in the scan — Werner is printing fresh 52-week highs on a textbook VCP as freight rates firm and money rotates into transports. TradingView independently rates it STRONG BUY (16 buy / 1 sell), a full confirmation of the technicals.",
+      "strengths": ["Top score 95, VCP + RS at new highs (0% off high)", "Revenue +13.6% as the trucking cycle turns up", "TV confirms: STRONG BUY (16/1)"],
+      "risks": ["Earnings in ~8 days — gap risk into the print", "Small-cap trucking is economically sensitive"],
+      "watch": ["Hold the ~$46 breakout pivot", "Freight-rate & diesel commentary at earnings"],
+      "entry": 46.5, "stop": 43.0, "target": 53.0
+    },
+    {
+      "ticker": "FRT", "name": "Federal Realty Investment Trust", "sector": "Real Estate",
+      "signal": "STRONG BUY", "score": 94.5, "grade": "A+",
+      "thesis": "A blue-chip shopping-center REIT and rare Dividend King breaking to new highs as rates ease and income rotation accelerates. RSI 54 leaves plenty of room to run, and TV agrees with a BUY (15/3).",
+      "strengths": ["Score 94.5, VCP at highs with RSI only 54 (not extended)", "Revenue +10.3%, EPS +152%; Dividend King durability", "TV confirms: BUY (15/3)"],
+      "risks": ["Earnings in ~10 days", "REIT rally unwinds if long yields snap back up"],
+      "watch": ["Hold above the breakout; volume on the push through highs", "10-yr yield direction"],
+      "entry": 126.0, "stop": 118.0, "target": 140.0
+    },
+    {
+      "ticker": "KIM", "name": "Kimco Realty Corporation", "sector": "Real Estate",
+      "signal": "STRONG BUY", "score": 94.2, "grade": "A",
+      "thesis": "Open-air shopping-center REIT sitting right at new highs (-0.3%) with a tight VCP and RSI 53 — the un-extended income breakout the current tape rewards. TV confirms BUY (15/2).",
+      "strengths": ["At highs, VCP, RSI 53 — room to run", "TV confirms: BUY (15/2)", "Rotation into REITs as rates ease"],
+      "risks": ["Earnings in ~14 days", "Rate-sensitive; consumer-facing retail exposure"],
+      "watch": ["Clean hold of the pivot", "Occupancy/leasing spread commentary"],
+      "entry": 26.1, "stop": 24.4, "target": 29.5
+    },
+    {
+      "ticker": "SPG", "name": "Simon Property Group, Inc.", "sector": "Real Estate",
+      "signal": "STRONG BUY", "score": 93.3, "grade": "A",
+      "thesis": "Mall REIT bellwether at new highs (-0.2%) with revenue +19% and a VCP into the breakout. RSI 51 is dead-neutral — no chase required. TV confirms BUY (15/3).",
+      "strengths": ["At highs, RSI 51, VCP", "Revenue +19.3%, EPS +16%", "TV confirms: BUY (15/3)"],
+      "risks": ["Earnings in ~21 days", "Consumer/retail sensitivity"],
+      "watch": ["Hold the pivot", "FFO guidance"],
+      "entry": 229.0, "stop": 214.0, "target": 255.0
+    },
+    {
+      "ticker": "DVA", "name": "DaVita Inc.", "sector": "Healthcare",
+      "signal": "STRONG BUY", "score": 94.0, "grade": "A",
+      "thesis": "Dialysis leader breaking out just 1% off highs with EPS +43% and a cheap 13.6x multiple — defensive-growth exactly where money is rotating. TV confirms BUY (13/3).",
+      "strengths": ["Score 94, VCP + RS at high", "EPS +43%, ~13.6x forward — cheap for the growth", "TV confirms: BUY (13/3)"],
+      "risks": ["Earnings in ~16 days", "Reimbursement/regulatory headline risk"],
+      "watch": ["Hold above the pivot", "Treatment volume trends"],
+      "entry": 235.0, "stop": 219.0, "target": 262.0
+    },
+    {
+      "ticker": "CVS", "name": "CVS Health Corporation", "sector": "Healthcare",
+      "signal": "STRONG BUY", "score": 93.0, "grade": "A",
+      "thesis": "A genuine turnaround breakout — CVS is AT new highs (0% off) with +42% three-month momentum, EPS +63% and a 12.8x multiple. Cheap, defensive and confirmed by TV BUY (14/3).",
+      "strengths": ["At highs, RS at high, VCP", "EPS +63%, momentum +42%, 12.8x forward", "TV confirms: BUY (14/3)"],
+      "risks": ["Earnings in ~15 days", "PBM/insurance policy headline risk"],
+      "watch": ["Hold the breakout", "Aetna medical-loss-ratio commentary"],
+      "entry": 108.0, "stop": 101.0, "target": 122.0
+    },
+    {
+      "ticker": "PFG", "name": "Principal Financial Group, Inc.", "sector": "Financial Services",
+      "signal": "STRONG BUY", "score": 93.9, "grade": "A",
+      "thesis": "Insurer/asset manager breaking out near highs with a 10.9x multiple and enormous EPS normalization (+819% off a depressed base). VCP + RS at high, and TV confirms BUY (11/5).",
+      "strengths": ["Score 93.9, VCP + RS at high, cheap 10.9x", "Financials leadership rotation", "TV confirms: BUY (11/5)"],
+      "risks": ["Earnings in ~7 days — imminent", "Rate-sensitive spread business"],
+      "watch": ["Behavior into/after the print", "AUM flow commentary"],
+      "entry": 112.5, "stop": 105.0, "target": 125.0
+    },
+    {
+      "ticker": "BAC", "name": "Bank of America Corporation", "sector": "Financial Services",
+      "signal": "STRONG BUY", "score": 93.7, "grade": "A",
+      "thesis": "Money-center bank breaking to new highs on the financials rotation with revenue +21%, EPS +36% and an 11.5x multiple. Earnings already out (~85 days to next), so no imminent gap risk. TV confirms BUY (14/3).",
+      "strengths": ["VCP + RS at high, 11.5x forward", "Rev +21%, EPS +36%; no near-term earnings risk", "TV confirms: BUY (14/3)"],
+      "risks": ["Leveraged to the yield curve / credit cycle", "Follows the broad-market tape closely"],
+      "watch": ["Hold the pivot", "Net interest income trend"],
+      "entry": 60.5, "stop": 56.5, "target": 68.0
+    },
+    {
+      "ticker": "USB", "name": "U.S. Bancorp", "sector": "Financial Services",
+      "signal": "STRONG BUY", "score": 93.7, "grade": "A",
+      "thesis": "Super-regional bank at new highs, VCP + RS at high, cheap at 10.9x with revenue +10% and EPS +22%. Earnings ~86 days out means a clean runway. TV confirms BUY (13/4).",
+      "strengths": ["At highs, VCP, 10.9x forward", "No near-term earnings risk", "TV confirms: BUY (13/4)"],
+      "risks": ["Credit-cycle / CRE exposure", "Rate sensitivity"],
+      "watch": ["Hold the breakout", "Deposit-cost trend"],
+      "entry": 63.3, "stop": 59.0, "target": 71.0
+    },
+    {
+      "ticker": "TRV", "name": "The Travelers Companies, Inc.", "sector": "Financial Services",
+      "signal": "STRONG BUY", "score": 92.9, "grade": "A",
+      "thesis": "P&C insurer at fresh highs with EPS +57% and a 12.5x multiple — and the strongest TV rating in the group (STRONG BUY, 17/2). RSI 72 is hot, so buy strength but respect the stop.",
+      "strengths": ["At highs, EPS +57%, 12.5x forward", "TV confirms strongest: STRONG BUY (17/2)", "Earnings ~86 days out"],
+      "risks": ["RSI 72 — somewhat extended near-term", "Catastrophe-loss exposure"],
+      "watch": ["Don't chase a gap; buy pullbacks to the pivot", "Combined-ratio commentary"],
+      "entry": 369.0, "stop": 346.0, "target": 410.0
+    },
+    {
+      "ticker": "EOG", "name": "EOG Resources, Inc.", "sector": "Energy",
+      "signal": "STRONG BUY", "score": 91.9, "grade": "A",
+      "thesis": "Best-in-class E&P with the timeliest macro tailwind on the board — the U.S.-Iran conflict and Strait of Hormuz disruption are bidding oil. EOG is a VCP just 4% off highs, cheap at 9.6x, rev +15%. TV confirms STRONG BUY (16/1).",
+      "strengths": ["Cheapest energy setup, 9.6x, rev +15.6%", "Direct oil-price / Hormuz beneficiary", "TV confirms: STRONG BUY (16/1)"],
+      "risks": ["A sudden Iran ceasefire could unwind the oil bid fast", "Earnings in ~15 days"],
+      "watch": ["Crude and Hormuz shipping headlines", "Hold above the base"],
+      "entry": 141.5, "stop": 132.0, "target": 158.0
+    },
+    {
+      "ticker": "OKE", "name": "ONEOK, Inc.", "sector": "Energy",
+      "signal": "STRONG BUY", "score": 92.4, "grade": "A",
+      "thesis": "Midstream (fee-based, less oil-price-sensitive) breaking out near highs with rev +19.6% and a 15x multiple — an energy exposure with a fat dividend and steadier cash flow than pure E&P. TV confirms BUY (15/2).",
+      "strengths": ["VCP near highs, rev +19.6%, income component", "Fee-based cash flow buffers oil volatility", "TV confirms: BUY (15/2)"],
+      "risks": ["Earnings in ~14 days", "Volume-sensitive to producer activity"],
+      "watch": ["Hold the pivot", "Distributable cash flow guidance"],
+      "entry": 94.0, "stop": 87.5, "target": 105.0
+    },
+    {
+      "ticker": "MO", "name": "Altria Group, Inc.", "sector": "Consumer Defensive",
+      "signal": "STRONG BUY", "score": 92.3, "grade": "A",
+      "thesis": "Deep-defensive at AT new highs (0% off), RSI 52, 12.7x, with the group's second-strongest TV rating (STRONG BUY, 16/1). A high-yield anchor for a risk-off tape.",
+      "strengths": ["At highs, RSI 52 — un-extended, VCP", "12.7x + high dividend; defensive rotation", "TV confirms: STRONG BUY (16/1)"],
+      "risks": ["Earnings in ~9 days", "Secular volume decline in combustibles"],
+      "watch": ["Hold the pivot", "Smoke-free (NJOY/on!) volume trend"],
+      "entry": 75.0, "stop": 70.0, "target": 83.0
+    },
+    {
+      "ticker": "CROX", "name": "Crocs, Inc.", "sector": "Consumer Cyclical",
+      "signal": "STRONG BUY", "score": 93.5, "grade": "A",
+      "thesis": "The cheapest breakout in the scan at 9.3x forward — Crocs is a VCP 2.5% off highs with RSI 63. A value-momentum combination in consumer discretionary that TV confirms BUY (14/5).",
+      "strengths": ["9.3x forward — exceptionally cheap", "VCP near highs, RS at high", "TV confirms: BUY (14/5)"],
+      "risks": ["Earnings in ~9 days", "HEYDUDE brand softness / discretionary demand"],
+      "watch": ["Hold above the pivot into the print", "Wholesale vs DTC mix"],
+      "entry": 136.0, "stop": 126.0, "target": 154.0
+    },
+    {
+      "ticker": "GWW", "name": "W.W. Grainger, Inc.", "sector": "Industrials",
+      "signal": "STRONG BUY", "score": 93.9, "grade": "A",
+      "thesis": "Industrial-distribution compounder in a VCP near highs with rev +10% and EPS +18%. High-quality, steady-grower leadership in the rotating industrials group. TV confirms BUY (11/5).",
+      "strengths": ["VCP + RS at high, durable margins", "Rev +10%, EPS +18%", "TV confirms: BUY (11/5)"],
+      "risks": ["Earnings in ~14 days", "Premium multiple (27x) leaves less cushion"],
+      "watch": ["Hold the base", "Gross-margin & volume commentary"],
+      "entry": 1375.0, "stop": 1285.0, "target": 1520.0
+    },
+    {
+      "ticker": "JBHT", "name": "J.B. Hunt Transport Services, Inc.", "sector": "Industrials",
+      "signal": "STRONG BUY", "score": 93.1, "grade": "A",
+      "thesis": "Intermodal/transport leader breaking out with rev +19% and EPS +46% as the freight cycle turns. VCP + RS at high, earnings ~86 days out (clean runway). TV confirms strongly, BUY (15/1).",
+      "strengths": ["VCP + RS at high, rev +19%, EPS +46%", "No near-term earnings risk", "TV confirms: BUY (15/1)"],
+      "risks": ["Economically sensitive freight demand", "Follows the transports/industrials tape"],
+      "watch": ["Hold the pivot", "Intermodal load growth"],
+      "entry": 291.0, "stop": 272.0, "target": 325.0
+    },
+    {
+      "ticker": "FTNT", "name": "Fortinet, Inc.", "sector": "Technology",
+      "signal": "STRONG BUY", "score": 94.0, "grade": "A",
+      "thesis": "The standout tech name while mega-cap semis correct — a tight VCP just 4% off highs with rev +20%, EPS +29% and a secular firewall-refresh tailwind. Cybersecurity is the defensive-growth pocket money is rotating into. TV confirms BUY (11/5). (Held position.)",
+      "strengths": ["Best-scoring tech name (94), VCP near highs", "Rev +20%, EPS +29%; secular cyber demand", "TV confirms: BUY (11/5)"],
+      "risks": ["3-mo momentum +94% — extended run into earnings in ~9 days", "Rich at ~47x forward"],
+      "watch": ["Volume on the push through prior highs", "Product-refresh cycle commentary"],
+      "entry": 161.0, "stop": 150.0, "target": 180.0
+    },
+    {
+      "ticker": "SIRI", "name": "Sirius XM Holdings Inc.", "sector": "Communication Services",
+      "signal": "STRONG BUY", "score": 92.6, "grade": "A-",
+      "thesis": "Cheap (9x) cash-cow near highs (-2%) with RS at high and RSI 64 — a value/income breakout with defensive characteristics. TV confirms BUY (12/4). (Held position.)",
+      "strengths": ["9x forward, RS at high, near highs", "Steady FCF / capital return", "TV confirms: BUY (12/4)"],
+      "risks": ["Earnings in ~9 days", "Subscriber-growth stagnation is the long-term overhang"],
+      "watch": ["Hold the pivot into the print", "Net subscriber adds"],
+      "entry": 30.7, "stop": 28.6, "target": 34.5
+    },
+    {
+      "ticker": "IIPR", "name": "Innovative Industrial Properties, Inc.", "sector": "Real Estate",
+      "signal": "STRONG BUY", "score": 94.2, "grade": "A-",
+      "thesis": "Cannabis-focused net-lease REIT at new highs with RSI 68 and a cheap 13.4x multiple. High-yield income breakout confirmed by TV BUY (14/3) — but it's a niche, tenant-concentrated name, so size it accordingly.",
+      "strengths": ["At highs, VCP, cheap 13.4x, high yield", "TV confirms: BUY (14/3)"],
+      "risks": ["Tenant-concentration / cannabis-industry credit risk", "Revenue -3.8% — growth has stalled"],
+      "watch": ["Rent-collection / tenant-default headlines", "Hold the pivot"],
+      "entry": 64.5, "stop": 60.0, "target": 73.0
+    },
+    {
+      "ticker": "MNST", "name": "Monster Beverage Corporation", "sector": "Consumer Defensive",
+      "signal": "STRONG BUY", "score": 90.9, "grade": "A-",
+      "thesis": "Energy-drink leader in a VCP 4.5% off highs with RSI 43 — the least-extended defensive-growth name here, with room to run and rev +27%. Note the tension: TV rates it only NEUTRAL (8 buy / 8 sell), so this is a fundamentals-led call awaiting a technical confirmation. (Held position.)",
+      "strengths": ["RSI 43 — lots of room, rev +27%, EPS +29%", "Defensive-growth staple"],
+      "risks": ["TV disagrees: NEUTRAL (8/8) — momentum not yet confirmed", "Earnings in ~17 days"],
+      "watch": ["A push through the pivot to flip TV bullish", "Volume/pricing commentary"],
+      "entry": 95.7, "stop": 89.5, "target": 107.0
+    },
+    {
+      "ticker": "AMZN", "name": "Amazon.com, Inc.", "sector": "Consumer Cyclical",
+      "signal": "STRONG BUY", "score": 90.0, "grade": "A-",
+      "thesis": "The mega-cap holding up best while the rest of big tech corrects — AMZN is only 9% off highs with RSI 63, rev +17%, EPS +75%, backed by AWS re-acceleration and retail margin gains. TV confirms BUY (14/2). (Held position.)",
+      "strengths": ["Relative strength vs the mega-cap group", "Rev +17%, EPS +75%; AWS + margin story", "TV confirms: BUY (14/2)"],
+      "risks": ["Earnings in ~10 days", "Would follow a broad mega-cap flush lower"],
+      "watch": ["AWS growth rate & capex guidance", "Hold above the 50-day"],
+      "entry": 250.5, "stop": 234.0, "target": 278.0
+    },
+    {
+      "ticker": "OKTA", "name": "Okta, Inc.", "sector": "Technology",
+      "signal": "WATCH", "score": 93.4, "grade": "B+",
+      "thesis": "High-scoring identity-security name and TV BUY (14/3), but +96% three-month momentum makes it extended — a WATCH for a pullback or tight continuation base rather than a chase here.",
+      "strengths": ["Score 93, RS at high, secular identity/security demand", "TV confirms: BUY (14/3)"],
+      "risks": ["+96% in 3 months — extended, chase risk", "Earnings ~36 days out"],
+      "watch": ["A pullback to the 21-day / a tight flag", "Volume on any continuation"],
+      "entry": 149.0, "stop": 138.0, "target": 168.0
+    },
+    {
+      "ticker": "LNG", "name": "Cheniere Energy, Inc.", "sector": "Energy",
+      "signal": "WATCH", "score": 91.9, "grade": "B+",
+      "thesis": "LNG exporter with a strong TV rating (STRONG BUY, 16/0) and a clean energy-demand tailwind, but it's 10.6% off highs and RSI 69 — still repairing. Watch for it to reclaim highs before committing.",
+      "strengths": ["Rev +24%, structural LNG-export demand", "TV confirms: STRONG BUY (16/0)"],
+      "risks": ["10.6% off highs — not yet a fresh breakout", "Earnings in ~16 days"],
+      "watch": ["Reclaim of prior highs on volume", "Global gas price / export headlines"],
+      "entry": 266.0, "stop": 248.0, "target": 297.0
+    },
+    {
+      "ticker": "SNOW", "name": "Snowflake Inc.", "sector": "Technology",
+      "signal": "WATCH", "score": 86.9, "grade": "B+",
+      "thesis": "Data-cloud leader near highs (-2%) with rev +33% and +82% three-month momentum — TV even rates it STRONG BUY (16/1). But the RSI-71, big-run profile is extended into a risk-off tape, so treat it as a WATCH/hold rather than a fresh add. (Held position.)",
+      "strengths": ["Near highs, rev +33%, AI/data tailwind", "TV confirms: STRONG BUY (16/1)"],
+      "risks": ["Extended: RSI 71, +82% in 3 months", "Earnings ~37 days out; high multiple"],
+      "watch": ["A pullback to the 21-day for adds", "Consumption/net-revenue-retention trend"],
+      "entry": 275.0, "stop": 256.0, "target": 305.0
+    },
+    {
+      "ticker": "LQDA", "name": "Liquidia Corporation", "sector": "Healthcare",
+      "signal": "WATCH", "score": 89.4, "grade": "B+",
+      "thesis": "Small-cap pulmonary-hypertension name with an explosive +105% three-month run on its Yutrepia launch — near highs (-5%) and TV BUY (12/7). High reward, high volatility; watch/size carefully. (Held position.)",
+      "strengths": ["Yutrepia launch ramp; +105% momentum", "Near highs, TV: BUY (12/7)"],
+      "risks": ["Small-cap biotech volatility; binary catalyst risk", "Very extended after the run"],
+      "watch": ["Yutrepia prescription-uptake data", "Any litigation/patent headlines"],
+      "entry": 77.5, "stop": 71.0, "target": 90.0
+    },
+    {
+      "ticker": "NVDA", "name": "NVIDIA Corporation", "sector": "Technology",
+      "signal": "WATCH", "score": 77.5, "grade": "B",
+      "thesis": "The AI bellwether is 14% off highs and consolidating as semis correct — fundamentals remain elite (rev +85%, EPS +215%) but TV has slipped to NEUTRAL (7/9). A WATCH: hold core, wait for a base and a reclaim of the 50-day before adding. (Held position.)",
+      "strengths": ["Rev +85%, EPS +215% — fundamentals intact", "Only mildly extended; long-term AI leader"],
+      "risks": ["TV disagrees: NEUTRAL (7/9) — momentum has stalled", "-14% off highs, semis under distribution"],
+      "watch": ["Reclaim of the 50-day on volume", "Earnings ~37 days out; hyperscaler capex signals"],
+      "entry": 205.0, "stop": 190.0, "target": 232.0
+    },
+    {
+      "ticker": "PLTR", "name": "Palantir Technologies Inc.", "sector": "Technology",
+      "signal": "WATCH", "score": 85.2, "grade": "B",
+      "thesis": "Explosive fundamentals (rev +85%, EPS +325%) but the chart is stretched — 34% off highs yet RSI 75, and TV rates it only NEUTRAL (10/8). A WATCH into a volatile, richly-valued tape. (Held position.)",
+      "strengths": ["Rev +85%, EPS +325%; AI/government demand", "Best-in-class growth"],
+      "risks": ["TV disagrees: NEUTRAL (10/8); RSI 75 extended", "Extreme valuation — sharp drawdowns"],
+      "watch": ["Earnings in ~14 days", "Commercial-segment growth rate"],
+      "entry": 136.0, "stop": 126.0, "target": 152.0
+    },
+    {
+      "ticker": "GS", "name": "The Goldman Sachs Group, Inc.", "sector": "Financial Services",
+      "signal": "WATCH", "score": 91.9, "grade": "B+",
+      "thesis": "High scan score on the financials rotation (rev +42%, EPS +92%), but 8% off highs and TV is NEUTRAL (10/8) — the base isn't finished. A WATCH: wait for it to reclaim highs like its peers before adding. (Held position.)",
+      "strengths": ["Rev +42%, EPS +92%; financials rotation", "11-14x, capital return"],
+      "risks": ["TV disagrees: NEUTRAL (10/8); 8% off highs", "Trading-revenue volatility"],
+      "watch": ["Reclaim of the pivot on volume", "Follow the BAC/USB group leadership"],
+      "entry": 1058.0, "stop": 985.0, "target": 1180.0
+    }
+  ]
+}
