@@ -1,0 +1,271 @@
+{
+  "scan_date": "2026-07-22",
+  "scan_time_et": "08:00 AM ET",
+  "market": {
+    "state": "UPTREND",
+    "advice": "Healthy, broad tape into the open — normal position sizing. SPY (748) is back above its 50-day with breadth a solid 63% and a calm VIX (17.6). This is a rotation-led uptrend, not a mega-cap melt-up: the leaderboard is dominated by financials (banks + insurers), REITs, industrials/transports, healthcare and energy, while stretched AI/semis (NVDA, AMD, MU, ORCL still 12-60% off highs) base rather than lead. The headline risk is geopolitical — the U.S.-Iran conflict keeps Strait of Hormuz shipping disrupted and oil twitchy, which is exactly why energy (EOG, OKE) is bid. Play the strength that's actually working: buy un-extended breakouts sitting AT new highs in the leading value/defensive groups, respect stops, and don't chase the handful of names already running hot into RSI 75+."
+  },
+  "picks": [
+    {
+      "ticker": "WERN", "name": "Werner Enterprises, Inc.", "sector": "Industrials",
+      "signal": "STRONG BUY", "score": 95.1, "grade": "A+",
+      "thesis": "The single cleanest breakout on the board and the top score in the scan — Werner is at fresh 52-week highs on a textbook 4-contraction VCP as freight rates firm and money rotates into transports. TradingView independently rates it STRONG BUY (16 buy / 1 sell), a full technical confirmation.",
+      "strengths": ["Top score 95, VCP + RS line at new highs (0% off high)", "Revenue +13.6% as the trucking cycle turns up", "TV confirms: STRONG BUY (16/1)"],
+      "risks": ["Earnings Jul 29 (~7 days out) — real gap risk into the print", "Small-cap trucking is economically sensitive"],
+      "watch": ["Hold the ~$47 breakout pivot", "Freight-rate & diesel commentary at earnings"],
+      "entry": 47.29, "stop": 43.51, "target": 56.75
+    },
+    {
+      "ticker": "FRT", "name": "Federal Realty Investment Trust", "sector": "Real Estate",
+      "signal": "STRONG BUY", "score": 94.3, "grade": "A+",
+      "thesis": "Blue-chip shopping-center REIT and rare Dividend King breaking to new highs as rates ease and income rotation accelerates. RSI 62 leaves room to run and TV agrees with a BUY.",
+      "strengths": ["Score 94.3, VCP at highs, RSI 62 (not extended)", "Dividend King durability; EPS +152% off a low base", "Leadership group — REITs are leading the tape"],
+      "risks": ["Earnings Jul 31 (~9 days out)", "REIT bid unwinds if long yields snap back up"],
+      "watch": ["Hold above the pivot; volume on the push through highs", "10-yr yield direction"],
+      "entry": 125.59, "stop": 115.54, "target": 150.71
+    },
+    {
+      "ticker": "KIM", "name": "Kimco Realty Corporation", "sector": "Real Estate",
+      "signal": "STRONG BUY", "score": 94.0, "grade": "A+",
+      "thesis": "Open-air shopping-center REIT sitting right at new highs (-0.1%) with a tight VCP and RSI 62 — the un-extended income breakout this tape rewards. TV confirms BUY (14/3).",
+      "strengths": ["At highs, VCP, RS line at new highs", "TV confirms: BUY (14/3)", "Rotation into REITs as rates ease"],
+      "risks": ["Earnings Aug 4 (~13 days out)", "Rate-sensitive; consumer-facing retail exposure"],
+      "watch": ["Clean hold of the pivot", "Occupancy/leasing-spread commentary"],
+      "entry": 26.10, "stop": 24.01, "target": 31.32
+    },
+    {
+      "ticker": "SPG", "name": "Simon Property Group, Inc.", "sector": "Real Estate",
+      "signal": "STRONG BUY", "score": 93.5, "grade": "A",
+      "thesis": "Mall-REIT bellwether at new highs (-0.8%) with revenue +19% and a VCP into the breakout. RSI 55 is dead-neutral — no chase required. TV confirms BUY (13/4).",
+      "strengths": ["At highs, RSI 55, VCP with RS at high", "Revenue +19.3%, EPS +16%", "TV confirms: BUY (13/4)"],
+      "risks": ["Earnings Aug 11 (~20 days out)", "Consumer/retail sensitivity"],
+      "watch": ["Hold the pivot", "FFO guidance"],
+      "entry": 226.79, "stop": 208.65, "target": 272.15
+    },
+    {
+      "ticker": "AIZ", "name": "Assurant, Inc.", "sector": "Financial Services",
+      "signal": "STRONG BUY", "score": 94.2, "grade": "A+",
+      "thesis": "Specialty insurer breaking out just off highs (-1.5%) on a clean VCP with EPS +91% — insurers are a core piece of the financials leadership and AIZ is one of the highest-quality setups in the group.",
+      "strengths": ["Score 94.2, A+, VCP, RSI 63.5 (room to run)", "EPS +91% — strong fundamental backdrop", "Financials leadership rotation"],
+      "risks": ["Earnings Aug 5 (~14 days out)", "Insurance results are catastrophe-loss sensitive"],
+      "watch": ["Hold the breakout pivot", "Combined-ratio / cat-loss commentary at the print"],
+      "entry": 275.84, "stop": 253.77, "target": 331.01
+    },
+    {
+      "ticker": "DVA", "name": "DaVita Inc.", "sector": "Healthcare",
+      "signal": "STRONG BUY", "score": 94.4, "grade": "A+",
+      "thesis": "Dialysis leader printing new highs (0% off high) with EPS +43% and a cheap multiple — defensive-growth exactly where money is rotating. A high-quality A+ breakout.",
+      "strengths": ["Score 94.4, VCP + RS at new highs", "EPS +43% — cheap for the growth", "Defensive healthcare leadership"],
+      "risks": ["Earnings Aug 5 (~14 days out)", "Reimbursement / regulatory headline risk"],
+      "watch": ["Hold above the pivot", "Treatment-volume trends"],
+      "entry": 237.28, "stop": 218.30, "target": 284.74
+    },
+    {
+      "ticker": "ILMN", "name": "Illumina, Inc.", "sector": "Healthcare",
+      "signal": "STRONG BUY", "score": 93.8, "grade": "A+",
+      "thesis": "Gene-sequencing leader reclaiming new highs (-0.9%) on a VCP as the turnaround takes hold — a clean A+ breakout in the leading healthcare group. RSI 65 still has room.",
+      "strengths": ["Score 93.8, A+, VCP with RS at high", "Sequencing-market dominance; margin recovery underway", "Healthcare leadership"],
+      "risks": ["Earnings Jul 31 (~9 days out) — gap risk", "Competitive pressure in the sequencing market"],
+      "watch": ["Hold the breakout pivot", "Consumables/instrument mix at the print"],
+      "entry": 192.53, "stop": 177.13, "target": 231.04
+    },
+    {
+      "ticker": "LQDA", "name": "Liquidia Corporation", "sector": "Healthcare",
+      "signal": "STRONG BUY", "score": 94.2, "grade": "A",
+      "thesis": "Pulmonary-hypertension biotech at new highs (-0.7%) with YERVI/Yutrepia now commercial — revenue is inflecting hard off a tiny base and TV confirms BUY (15/1). A high-conviction small-cap breakout.",
+      "strengths": ["At highs, VCP, RS line at new highs, RSI 51.5 (un-extended)", "Yutrepia commercial ramp driving explosive revenue growth", "TV confirms: BUY (15/1)"],
+      "risks": ["Small-cap biotech — binary on launch execution & litigation", "Earnings Aug 12 (~21 days out)"],
+      "watch": ["Hold the pivot", "Yutrepia prescription/launch trajectory"],
+      "entry": 80.89, "stop": 74.42, "target": 97.07
+    },
+    {
+      "ticker": "HWM", "name": "Howmet Aerospace Inc.", "sector": "Industrials",
+      "signal": "STRONG BUY", "score": 93.5, "grade": "A+",
+      "thesis": "Aerospace-components leader breaking out just off highs (-1.5%) on a VCP with EPS +71% as the aero cycle runs hot. TradingView independently rates it STRONG BUY (16/1) — a full confirmation of a widely held position.",
+      "strengths": ["Score 93.5, A+, VCP, EPS +71%", "TV confirms: STRONG BUY (16/1)", "Aerospace/defense demand tailwind"],
+      "risks": ["Earnings Aug 6 (~15 days out)", "Rich multiple (fwd P/E ~46) leaves little room for a miss"],
+      "watch": ["Hold the breakout pivot", "Aero build-rate / engine-spares commentary"],
+      "entry": 279.00, "stop": 256.68, "target": 334.80
+    },
+    {
+      "ticker": "XPO", "name": "XPO, Inc.", "sector": "Industrials",
+      "signal": "STRONG BUY", "score": 93.9, "grade": "A+",
+      "thesis": "LTL freight leader in a tight VCP a touch below highs (-6%) with EPS +47% as the freight cycle turns — a second high-quality transports breakout alongside WERN.",
+      "strengths": ["Score 93.9, A+, VCP, EPS +47%", "Transports leadership as freight firms", "Un-extended (RSI 60)"],
+      "risks": ["Earnings Jul 30 (~8 days out)", "Cyclical LTL volumes track the industrial economy"],
+      "watch": ["Push through the pivot on volume", "LTL tonnage / yield commentary at earnings"],
+      "entry": 214.72, "stop": 197.54, "target": 257.66
+    },
+    {
+      "ticker": "JBHT", "name": "J.B. Hunt Transport Services, Inc.", "sector": "Industrials",
+      "signal": "STRONG BUY", "score": 93.1, "grade": "A",
+      "thesis": "Intermodal transport leader breaking out (-1.7% off high) on a VCP with EPS +46% and earnings already behind it (next print ~Oct) — clean setup, no near-term gap risk. RSI 53 is calm.",
+      "strengths": ["Score 93.1, VCP, EPS +46%", "No imminent earnings (Oct) — clean window", "Transports leadership, RSI 53"],
+      "risks": ["Freight demand is economically sensitive", "Intermodal pricing pressure if volumes soften"],
+      "watch": ["Hold above the pivot", "Intermodal volume trends"],
+      "entry": 293.26, "stop": 269.80, "target": 351.91
+    },
+    {
+      "ticker": "USB", "name": "U.S. Bancorp", "sector": "Financial Services",
+      "signal": "STRONG BUY", "score": 93.5, "grade": "A+",
+      "thesis": "Super-regional bank at new highs (-0.5%) on a VCP with EPS +22%, earnings already reported (next ~Oct), riding the financials leadership as the yield curve steepens. Clean, un-extended-enough entry.",
+      "strengths": ["Score 93.5, A+, VCP, at highs", "No near-term earnings (Oct) — clean", "Financials leadership; cheap valuation"],
+      "risks": ["RSI 67 — getting warm", "Rate/credit-cycle sensitivity"],
+      "watch": ["Hold the pivot", "Net-interest-margin and deposit trends"],
+      "entry": 63.71, "stop": 58.61, "target": 76.45
+    },
+    {
+      "ticker": "CFG", "name": "Citizens Financial Group, Inc.", "sector": "Financial Services",
+      "signal": "STRONG BUY", "score": 93.0, "grade": "A",
+      "thesis": "Regional bank in a VCP a hair below highs (-3.2%) with EPS +41%, earnings behind it, RSI 56 — an un-extended way to own the financials leadership without chasing.",
+      "strengths": ["Score 93, VCP, EPS +41%, RSI 56 (room to run)", "No near-term earnings — clean window", "Financials leadership rotation"],
+      "risks": ["Regional-bank credit / CRE exposure", "Rate-cycle sensitivity"],
+      "watch": ["Push through the pivot on volume", "Credit-quality / NIM trends"],
+      "entry": 72.00, "stop": 66.24, "target": 86.40
+    },
+    {
+      "ticker": "FTNT", "name": "Fortinet, Inc.", "sector": "Technology",
+      "signal": "STRONG BUY", "score": 93.3, "grade": "A",
+      "thesis": "Cybersecurity leader in a VCP near highs (-5.2%) with revenue +20% and RSI 54 — the highest-quality tech breakout in the scan and a rare un-extended growth name. TV confirms BUY (12/4).",
+      "strengths": ["Score 93.3, VCP, RSI 54 (un-extended for tech)", "Revenue +20%, durable security demand", "TV confirms: BUY (12/4)"],
+      "risks": ["Earnings Jul 30 (~8 days out) — gap risk", "Firewall refresh cycle can be lumpy"],
+      "watch": ["Push through the pivot on volume", "Billings/product-revenue growth at the print"],
+      "entry": 158.10, "stop": 145.45, "target": 189.72
+    },
+    {
+      "ticker": "SNOW", "name": "Snowflake Inc.", "sector": "Technology",
+      "signal": "STRONG BUY", "score": 85.8, "grade": "A",
+      "thesis": "Data-cloud leader near new highs (-3%) on a VCP with revenue +33% — the strongest large-cap software breakout in the scan and a widely held position. TV confirms BUY (13/3).",
+      "strengths": ["Score 85.8, VCP, RSI 66, near highs", "Revenue +33%; AI/data-warehouse tailwind", "TV confirms: BUY (13/3)"],
+      "risks": ["Premium valuation (fwd P/E ~100) — priced for growth", "Earnings Aug 27 (further out, but a swing print)"],
+      "watch": ["Hold above the pivot", "Product-revenue growth & net-revenue-retention"],
+      "entry": 271.73, "stop": 249.99, "target": 326.08
+    },
+    {
+      "ticker": "SIRI", "name": "Sirius XM Holdings Inc.", "sector": "Communication Services",
+      "signal": "STRONG BUY", "score": 92.7, "grade": "A",
+      "thesis": "SiriusXM near new highs (-3%) with the RS line at new highs and a cheap ~9x multiple — a value/turnaround breakout carrying a big dividend. TV confirms BUY (11/5).",
+      "strengths": ["Score 92.7, RS line at new highs, RSI 58", "Cheap (~9x) with a large dividend yield", "TV confirms: BUY (11/5)"],
+      "risks": ["Earnings Jul 30 (~8 days out)", "Subscriber growth is mature/flattish"],
+      "watch": ["Hold the pivot", "Self-pay net-add and churn trends"],
+      "entry": 30.29, "stop": 27.87, "target": 36.35
+    },
+    {
+      "ticker": "MO", "name": "Altria Group, Inc.", "sector": "Consumer Defensive",
+      "signal": "STRONG BUY", "score": 92.2, "grade": "A",
+      "thesis": "Defensive tobacco name in a VCP near highs (-2.2%) with RSI 54 and a large dividend — classic risk-off leadership as money seeks yield. Un-extended entry.",
+      "strengths": ["Score 92.2, VCP, RSI 54 (room to run)", "High dividend; defensive cash flows", "Consumer-defensive leadership"],
+      "risks": ["Earnings Jul 30 (~8 days out)", "Secular volume declines; regulatory risk"],
+      "watch": ["Hold the pivot", "Pricing power / smoke-free product traction"],
+      "entry": 72.99, "stop": 67.15, "target": 87.59
+    },
+    {
+      "ticker": "CTVA", "name": "Corteva, Inc.", "sector": "Basic Materials",
+      "signal": "STRONG BUY", "score": 92.2, "grade": "A",
+      "thesis": "Ag-science leader breaking out at highs (-0.4%) on a VCP with RSI 58 — a rare materials/ag name leading, benefiting from firm crop-input demand. Clean, un-extended entry.",
+      "strengths": ["At highs, VCP, RSI 58", "Seed + crop-protection duopoly economics", "Broadens the book into materials/ag"],
+      "risks": ["Earnings Jul 31 (~9 days out)", "Ag cycle and crop-price sensitivity"],
+      "watch": ["Hold the breakout pivot", "Seed pricing / crop-protection volume commentary"],
+      "entry": 86.94, "stop": 79.98, "target": 104.33
+    },
+    {
+      "ticker": "SBUX", "name": "Starbucks Corporation", "sector": "Consumer Cyclical",
+      "signal": "STRONG BUY", "score": 92.6, "grade": "A",
+      "thesis": "Turnaround consumer name in a VCP near highs (-3.6%) with RSI 56 and EPS +33% as the reset takes hold — an un-extended way to own improving consumer discretionary.",
+      "strengths": ["Score 92.6, VCP, RSI 56 (room to run)", "EPS +33%; turnaround traction", "Consumer recovery breadth"],
+      "risks": ["Earnings Jul 30 (~8 days out) — gap risk", "China same-store-sales remain a swing factor"],
+      "watch": ["Push through the pivot on volume", "U.S. & China comparable-sales trends at the print"],
+      "entry": 104.45, "stop": 96.09, "target": 125.34
+    },
+    {
+      "ticker": "NNN", "name": "NNN REIT, Inc.", "sector": "Real Estate",
+      "signal": "STRONG BUY", "score": 93.0, "grade": "A",
+      "thesis": "Net-lease REIT breaking out near highs (-1.1%) on a VCP with a durable dividend — another clean income breakout in the leading REIT group as rates ease.",
+      "strengths": ["Score 93, VCP near highs", "Net-lease durability + reliable dividend", "REIT leadership rotation"],
+      "risks": ["Earnings Aug 5 (~14 days out)", "RSI 68 — a touch warm; rate-sensitive"],
+      "watch": ["Hold the pivot", "Occupancy / acquisition-spread commentary"],
+      "entry": 49.05, "stop": 45.13, "target": 58.86
+    },
+    {
+      "ticker": "D", "name": "Dominion Energy, Inc.", "sector": "Utilities",
+      "signal": "STRONG BUY", "score": 92.6, "grade": "A",
+      "thesis": "Regulated utility in a VCP near highs (-2.6%) with RSI 59 — defensive yield leadership plus a data-center-power demand tailwind. Un-extended entry into a defensive uptrend.",
+      "strengths": ["Score 92.6, VCP, RSI 59", "Data-center load growth tailwind for power demand", "Defensive yield leadership"],
+      "risks": ["Earnings Jul 31 (~9 days out)", "Rate-sensitive; regulatory/capex overhang"],
+      "watch": ["Hold the pivot", "Data-center interconnect / rate-case updates"],
+      "entry": 69.85, "stop": 64.26, "target": 83.82
+    },
+    {
+      "ticker": "WPC", "name": "W. P. Carey Inc.", "sector": "Real Estate",
+      "signal": "STRONG BUY", "score": 93.0, "grade": "A",
+      "thesis": "Diversified net-lease REIT breaking out at highs (-0.8%) on a VCP with a high dividend — a third clean REIT breakout confirming the group's leadership.",
+      "strengths": ["Score 93, VCP at highs", "High dividend; diversified net-lease base", "REIT leadership rotation"],
+      "risks": ["Earnings Jul 29 (~7 days out)", "RSI 67 — warm; rate-sensitive"],
+      "watch": ["Hold the pivot", "Rent-escalator / occupancy commentary"],
+      "entry": 75.23, "stop": 69.21, "target": 90.28
+    },
+    {
+      "ticker": "OKE", "name": "ONEOK, Inc.", "sector": "Energy",
+      "signal": "STRONG BUY", "score": 92.2, "grade": "A",
+      "thesis": "Midstream energy name in a VCP near highs (-3.6%) with a big dividend — energy is bid on Hormuz supply risk and midstream offers the exposure with less commodity beta. RSI 64.",
+      "strengths": ["Score 92.2, VCP, RSI 64", "Fee-based midstream cash flows + high dividend", "Energy leadership on geopolitical bid"],
+      "risks": ["Earnings Aug 4 (~13 days out)", "Volume/throughput and commodity-price sensitivity"],
+      "watch": ["Hold the pivot", "NGL volume / integration commentary"],
+      "entry": 91.83, "stop": 84.48, "target": 110.20
+    },
+    {
+      "ticker": "NVDA", "name": "NVIDIA Corporation", "sector": "Technology",
+      "signal": "WATCH", "score": 78.5, "grade": "B+",
+      "thesis": "The AI leader is basing ~12% below its high on a VCP with revenue +85%, and TradingView still rates it STRONG BUY (17/1). But it is NOT at new highs like the day's leaders, so it's a WATCH, not a chase — a reclaim of the pivot with volume flips it to a buy. Note the tension: TV's technicals are very bullish while price action is still repairing.",
+      "strengths": ["TV STRONG BUY (17/1); revenue +85%, cheap on growth (fwd P/E ~16)", "VCP forming; still the AI infrastructure leader", "RSI 56 — plenty of room if it breaks out"],
+      "risks": ["12% off highs — basing, not leading right now", "Rotation is OUT of stretched semis; needs a volume reclaim", "Earnings Aug 27 is a binary swing print"],
+      "watch": ["Reclaim of the ~$207 pivot on above-average volume", "Whether AI/semi rotation turns back on"],
+      "entry": 207.29, "stop": 190.71, "target": 248.75
+    },
+    {
+      "ticker": "AMZN", "name": "Amazon.com, Inc.", "sector": "Consumer Cyclical",
+      "signal": "WATCH", "score": 89.1, "grade": "A",
+      "thesis": "Mega-cap in a VCP but still ~10% below its high with revenue +17% and earnings Jul 31 — constructive, but a basing name into a big print. WATCH for a breakout confirmation rather than buying ahead of earnings. TV confirms BUY (11/5).",
+      "strengths": ["Score 89.1, VCP, RSI 62; AWS + retail margin story", "TV confirms: BUY (11/5)", "Revenue +17%"],
+      "risks": ["10% off highs and earnings Jul 31 — gap risk into a base", "Not yet a fresh-high breakout"],
+      "watch": ["Reaction to Jul 31 earnings", "Reclaim of the pivot / AWS growth re-acceleration"],
+      "entry": 247.55, "stop": 227.75, "target": 297.06
+    },
+    {
+      "ticker": "BAC", "name": "Bank of America Corporation", "sector": "Financial Services",
+      "signal": "WATCH", "score": 93.7, "grade": "A+",
+      "thesis": "High-quality A+ bank breakout at new highs with EPS +36% — but RSI 70.9 is running hot right at the pivot, so it's a WATCH for a pullback-to-support entry rather than a chase. The setup and TV (STRONG BUY territory across banks) are excellent; the timing isn't fresh.",
+      "strengths": ["Score 93.7, A+, at highs, EPS +36%", "Earnings behind it (Oct) — clean window", "Financials leadership"],
+      "risks": ["RSI 70.9 — extended, chasing invites a shakeout", "Rate/credit-cycle sensitivity"],
+      "watch": ["A tight pullback that holds the ~$61 pivot", "Volume on any push higher"],
+      "entry": 61.22, "stop": 56.32, "target": 73.46
+    },
+    {
+      "ticker": "EOG", "name": "EOG Resources, Inc.", "sector": "Energy",
+      "signal": "WATCH", "score": 92.7, "grade": "A",
+      "thesis": "Best-in-class E&P at new highs (-2.8%) on a VCP with a cheap ~10x multiple — a prime beneficiary of the Hormuz oil bid. But RSI 72.9 is hot, so WATCH for a controlled entry rather than chasing the geopolitical spike.",
+      "strengths": ["Score 92.7, VCP, cheap (~10x), EPS +40%", "Energy leadership on Strait-of-Hormuz supply risk", "At new highs"],
+      "risks": ["RSI 73 — extended; oil-price-driven moves reverse fast", "A Mideast ceasefire could unwind the oil premium quickly"],
+      "watch": ["Oil / Hormuz shipping headlines", "A pullback that holds the ~$143 pivot"],
+      "entry": 143.44, "stop": 131.96, "target": 172.13
+    },
+    {
+      "ticker": "COCO", "name": "The Vita Coco Company, Inc.", "sector": "Consumer Defensive",
+      "signal": "WATCH", "score": 92.2, "grade": "A",
+      "thesis": "High-quality coconut-water grower with revenue +37% and TradingView STRONG BUY (16/0) — but earnings are TOMORROW (Jul 23) and RSI is 72, so it's a WATCH into the print, not a fresh entry. Great business, wrong day to chase.",
+      "strengths": ["Score 92.2, VCP, revenue +37%", "TV STRONG BUY (16/0) — strong technical agreement", "Category leader with pricing power"],
+      "risks": ["Earnings TOMORROW (Jul 23) — binary gap risk", "RSI 72 — extended into the print"],
+      "watch": ["Jul 23 earnings reaction", "A clean post-earnings base/breakout to enter"],
+      "entry": 75.89, "stop": 69.82, "target": 91.07
+    },
+    {
+      "ticker": "CROX", "name": "Crocs, Inc.", "sector": "Consumer Cyclical",
+      "signal": "WATCH", "score": 93.4, "grade": "A",
+      "thesis": "Strong consumer breakout near highs (-2.6%) but RSI 72 is hot and EPS growth has turned slightly negative — a WATCH into the Jul 30 print rather than a chase. Wait for the base or a post-earnings entry.",
+      "strengths": ["Score 93.4, VCP, near highs", "Strong free-cash-flow generator; brand momentum", "Consumer-cyclical breadth"],
+      "risks": ["RSI 72 + earnings Jul 30 — extended into a gap risk", "EPS growth slightly negative; HeyDude drag"],
+      "watch": ["Jul 30 earnings reaction", "A pullback that holds the pivot"],
+      "entry": 135.28, "stop": 124.46, "target": 162.34
+    }
+  ]
+}
