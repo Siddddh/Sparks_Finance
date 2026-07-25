@@ -1,0 +1,265 @@
+{
+  "date": "2026-07-23",
+  "analyses": [
+    {
+      "ticker": "BAC",
+      "name": "Bank of America Corporation",
+      "signal": "STRONG BUY",
+      "verdict": "Cleanest large-bank breakout on the board — VCP + pocket pivot, TV BUY, and no earnings for ~12 weeks.",
+      "financials": {
+        "period": "FY2024 (ended Dec 2024)",
+        "summary": "A rate-driven year: net interest income stabilized as deposit costs peaked, while investment banking and trading rebounded. Solid capital return via buybacks and a rising dividend. The live TradingView widget below shows current figures.",
+        "highlights": ["Total revenue (net of interest expense) roughly $100B", "Net income in the ~$27B range", "Trading and IB revenue reaccelerating off 2023 lows", "CET1 capital comfortably above regulatory minimums; buybacks resumed"]
+      },
+      "accomplishments": ["Deposit costs peaked and net interest income inflected back to growth", "Sizable share-repurchase authorization funded by strong capital ratios", "Consumer credit quality held up better than feared through the cycle"],
+      "journey_52w": {
+        "summary": "From rate-fear laggard to rotation leader. The stock spent early in the window under pressure on deposit-beta and CRE worries, then broke higher as the Fed path clarified and capital-markets revenue reaccelerated. Now sitting on a VCP breakout with a pocket pivot.",
+        "milestones": [
+          {"label": "Late 2025", "note": "Base-building as rate-cut expectations firmed"},
+          {"label": "Q1 2026", "note": "Trading/IB rebound lifted estimates"},
+          {"label": "Jul 2026", "note": "VCP breakout, RS pushing to new highs"}
+        ]
+      },
+      "critical": {
+        "risks": ["Long-end rate volatility from the Iran conflict", "Commercial real-estate credit migration", "A hard-landing scenario would pressure loan growth"],
+        "catalysts": ["Capital-markets reacceleration", "Continued buybacks", "Steeper yield curve helping NII"],
+        "watch": ["Net interest income guidance", "Deposit trends", "CRE reserve build"],
+        "valuation": "~11.7x forward earnings — reasonable for a money-center bank with improving returns; earnings ~83 days out removes near-term event risk."
+      }
+    },
+    {
+      "ticker": "DVA",
+      "name": "DaVita Inc.",
+      "signal": "STRONG BUY",
+      "verdict": "Highest composite score on the board (95) — defensive dialysis franchise that is also trending, with +52% 3-month momentum.",
+      "financials": {
+        "period": "FY2024 (ended Dec 2024)",
+        "summary": "Steady, cash-generative dialysis operator. Revenue growth from rate increases and patient census, with margins aided by cost discipline and aggressive share repurchase shrinking the float. Live numbers in the TradingView widget.",
+        "highlights": ["Revenue in the ~$12.8B range", "Double-digit EPS growth aided by heavy buybacks", "Strong, predictable operating cash flow", "Forward P/E ~13.5x"]
+      },
+      "accomplishments": ["Continued to shrink share count materially through buybacks", "Stabilized treatment volumes post-pandemic", "Integrated international expansion"],
+      "journey_52w": {
+        "summary": "A quiet compounder that turned into a momentum name. Steady operational execution plus a shrinking float drove a persistent uptrend, culminating in a clean VCP breakout and a top composite score.",
+        "milestones": [
+          {"label": "H2 2025", "note": "Volumes normalized, buybacks accelerated"},
+          {"label": "2026 YTD", "note": "Momentum built to +52% over three months"},
+          {"label": "Jul 2026", "note": "VCP breakout, TV BUY"}
+        ]
+      },
+      "critical": {
+        "risks": ["Reimbursement/policy headline risk (Medicare rates)", "Earnings in ~13 days", "GLP-1 drugs' long-term impact on kidney-disease progression is a debated overhang"],
+        "catalysts": ["Continued buyback-driven EPS growth", "Commercial-mix improvement", "Integrated Kidney Care contracts"],
+        "watch": ["Treatment volume trends", "Commercial vs. government payer mix", "Earnings print in ~13 days"],
+        "valuation": "~13.5x forward — inexpensive for a defensive compounder with double-digit EPS growth."
+      }
+    },
+    {
+      "ticker": "HWM",
+      "name": "Howmet Aerospace Inc.",
+      "signal": "STRONG BUY",
+      "verdict": "Held. Aerospace/defense supplier riding the airframe cycle AND the new defense bill — TV STRONG_BUY, +71% EPS growth.",
+      "financials": {
+        "period": "FY2024 (ended Dec 2024)",
+        "summary": "Firing on all cylinders: commercial-aerospace build-rate recovery plus defense demand drove strong revenue and outsized margin expansion. Engine-products and fastening segments led. Live figures in the widget.",
+        "highlights": ["Revenue in the ~$7.4B range, up high-teens %", "EPS growth ~71% YoY", "Record segment operating margins", "Raised guidance repeatedly through the year"]
+      },
+      "accomplishments": ["Record margins on engine-spares demand", "Multiple guidance raises", "Dividend increases and buybacks initiated on strong free cash flow"],
+      "journey_52w": {
+        "summary": "One of the cleanest secular uptrends in industrials. Build-rate recovery and aftermarket spares demand produced a steady staircase higher, punctuated by guidance raises; the past year has been a series of orderly bases and breakouts.",
+        "milestones": [
+          {"label": "2025", "note": "Repeated guidance raises on aftermarket strength"},
+          {"label": "Q2 2026", "note": "Margins hit records"},
+          {"label": "Jul 2026", "note": "VCP breakout, TV STRONG_BUY"}
+        ]
+      },
+      "critical": {
+        "risks": ["~46x forward — priced for continued execution", "Earnings ~14 days out", "Commercial-aerospace build-rate hiccups (OEM production issues)"],
+        "catalysts": ["Defense-bill spending", "Engine-spares super-cycle", "Continued margin expansion"],
+        "watch": ["OEM build rates (Boeing/Airbus)", "Aftermarket spares demand", "Earnings in ~14 days"],
+        "valuation": "Premium ~46x forward — justified only if margin/EPS momentum persists; the setup is clean but leaves little room for a miss."
+      }
+    },
+    {
+      "ticker": "GD",
+      "name": "General Dynamics Corporation",
+      "signal": "STRONG BUY",
+      "verdict": "Pure defense prime with direct exposure to the $1T defense bill and an active Middle East conflict — VCP breakout, TV BUY.",
+      "financials": {
+        "period": "FY2024 (ended Dec 2024)",
+        "summary": "Diversified defense/aerospace: Gulfstream business jets, combat systems, marine (submarines), and IT/technologies. Record backlog underpins multi-year revenue visibility. Live numbers in the widget.",
+        "highlights": ["Revenue in the ~$47B range", "Record total backlog providing multi-year visibility", "Steady mid-single-digit-plus revenue growth", "Consistent dividend grower"]
+      },
+      "accomplishments": ["Record backlog across marine and combat systems", "Gulfstream G700 deliveries ramping", "Submarine-build funding reinforced by defense appropriations"],
+      "journey_52w": {
+        "summary": "A steady defensive/geopolitical beneficiary. The stock strengthened as global conflict intensified and defense appropriations grew, forming a tight VCP base before this breakout.",
+        "milestones": [
+          {"label": "2025", "note": "Backlog hit records; Gulfstream deliveries ramped"},
+          {"label": "2026", "note": "Middle East conflict + $1T defense bill lifted the group"},
+          {"label": "Jul 2026", "note": "VCP breakout, RSI 64"}
+        ]
+      },
+      "critical": {
+        "risks": ["Earnings in ~6 days — near-term event risk", "Gulfstream delivery timing lumpiness", "Government-budget/CR risk longer term"],
+        "catalysts": ["$1T defense bill", "Active Middle East conflict lifting defense demand", "Submarine and combat-systems funding"],
+        "watch": ["Earnings in ~6 days", "Gulfstream delivery cadence", "Book-to-bill ratio"],
+        "valuation": "~20x forward — fair for a backlog-rich prime; the earnings print in ~6 days is the key near-term swing factor."
+      }
+    },
+    {
+      "ticker": "LNG",
+      "name": "Cheniere Energy, Inc.",
+      "signal": "STRONG BUY",
+      "verdict": "The cleanest way to play energy security — US LNG export leader, VCP breakout, TV STRONG_BUY, with Hormuz/Red Sea disruption a direct tailwind.",
+      "financials": {
+        "period": "FY2024 (ended Dec 2024)",
+        "summary": "Long-term take-or-pay LNG contracts produce highly visible, fee-like cash flows, supplemented by spot cargo upside when global gas prices spike. Aggressive debt paydown and buybacks. Live figures in the widget.",
+        "highlights": ["Revenue in the ~$15-16B range", "Contracted cash flows provide a stable base", "Sixth+ liquefaction trains and Corpus Christi Stage 3 ramping", "Large buyback + de-leveraging program"]
+      },
+      "accomplishments": ["Corpus Christi Stage 3 trains coming online", "Long-term SPAs signed with European and Asian buyers", "Investment-grade balance sheet achieved via de-leveraging"],
+      "journey_52w": {
+        "summary": "From energy-transition skepticism to energy-security darling. As European buyers locked in US LNG and Middle East shipping routes came under threat, Cheniere's strategic value re-rated; the chart has been a steady uptrend into this breakout.",
+        "milestones": [
+          {"label": "2025", "note": "Stage 3 ramp + new long-term contracts"},
+          {"label": "Jun-Jul 2026", "note": "Hormuz/Red Sea disruption boosted US-LNG strategic premium"},
+          {"label": "Jul 2026", "note": "VCP breakout, TV STRONG_BUY, RSI 73"}
+        ]
+      },
+      "critical": {
+        "risks": ["RSI 73 — extended into the breakout", "Earnings ~14 days out", "Global LNG force-majeure/geopolitical headlines cut both ways", "A 2027 supply glut is a known longer-term overhang"],
+        "catalysts": ["Energy-security demand for US LNG", "Corpus Christi Stage 3 volume ramp", "Continued buybacks"],
+        "watch": ["Global gas spreads (TTF/JKM)", "Contract-signing cadence", "Earnings in ~14 days"],
+        "valuation": "~13.5x forward — undemanding for the contracted-cash-flow profile; the risk is buying an already-extended move."
+      }
+    },
+    {
+      "ticker": "KIM",
+      "name": "Kimco Realty Corporation",
+      "signal": "STRONG BUY",
+      "verdict": "Grocery-anchored open-air-retail REIT breakout — durable income exactly what buyers want as rates ease; TV BUY, RSI 68.",
+      "financials": {
+        "period": "FY2024 (ended Dec 2024)",
+        "summary": "High-occupancy, grocery-anchored shopping-center portfolio generating steady FFO growth from rent escalators and re-leasing spreads. The RPT acquisition added scale. Live figures in the widget.",
+        "highlights": ["FFO per share growing mid-single digits", "Occupancy near record highs (~96%+)", "Strong re-leasing spreads on new/renewal leases", "Well-covered, growing dividend"]
+      },
+      "accomplishments": ["Occupancy pushed to record levels", "Positive re-leasing spreads across the portfolio", "Balance-sheet strength maintained through the rate cycle"],
+      "journey_52w": {
+        "summary": "A rate-sensitive laggard that turned leader. As the market priced in easier policy, high-quality retail REITs re-rated; Kimco's stable, grocery-anchored cash flows and record occupancy drove a clean breakout.",
+        "milestones": [
+          {"label": "2025", "note": "Occupancy and leasing spreads at cycle highs"},
+          {"label": "2026", "note": "REIT rotation as rate-cut odds rose"},
+          {"label": "Jul 2026", "note": "VCP breakout, RS at highs"}
+        ]
+      },
+      "critical": {
+        "risks": ["Rate-sensitive — a back-up in long yields pressures REITs", "Earnings in ~12 days", "Consumer-spending softness would hit tenant health"],
+        "catalysts": ["Rate cuts", "Continued occupancy/spread gains", "Accretive redevelopment"],
+        "watch": ["10-year yield", "Same-property NOI growth", "Earnings in ~12 days"],
+        "valuation": "Reasonable relative to FFO for a best-in-class open-air REIT; the trade is a rates-plus-quality rotation play."
+      }
+    },
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA Corporation",
+      "signal": "STRONG BUY",
+      "verdict": "Held. The one mega-cap tech name still screening clean — VCP breakout, +85% revenue, +214% EPS, and no earnings for ~35 days.",
+      "financials": {
+        "period": "FY2025 (ended Jan 2025)",
+        "summary": "Data-center/AI accelerator demand drove one of the largest revenue and earnings inflections in corporate history, with gross margins in the mid-70s%. The current cycle (Blackwell ramp) extends the run. Live numbers in the widget.",
+        "highlights": ["Revenue +85% YoY (data center the driver)", "EPS +214% YoY", "Gross margin ~75%", "Blackwell platform ramping into strong demand"]
+      },
+      "accomplishments": ["Blackwell architecture ramp", "Data-center revenue at record scale", "Sustained ~75% gross margins despite scale"],
+      "journey_52w": {
+        "summary": "After a sharp mid-cycle shakeout, NVDA rebuilt a tight base and broke out again as Blackwell demand proved durable. It has held up while other mega-cap tech names (GOOGL, ORCL, TSLA) rolled over — a sign it remains the group's true leader.",
+        "milestones": [
+          {"label": "2025", "note": "Blackwell ramp; data-center revenue records"},
+          {"label": "H1 2026", "note": "Base repair after a volatility shakeout"},
+          {"label": "Jul 2026", "note": "VCP breakout, RSI 63, TV BUY"}
+        ]
+      },
+      "critical": {
+        "risks": ["China export-ban headlines (the Moonshot AI chip-access story is topical)", "Crowded ownership — sharp drawdowns when sentiment shifts", "Any hint of AI-capex digestion"],
+        "catalysts": ["Blackwell/next-gen ramp", "Sovereign-AI and hyperscaler capex", "Earnings ~35 days out (positive catalyst potential)"],
+        "watch": ["Hyperscaler capex commentary", "China policy headlines", "Gross-margin trajectory"],
+        "valuation": "~16.5x forward on the scan's estimate looks undemanding for the growth — the debate is durability of AI capex, not the multiple."
+      }
+    },
+    {
+      "ticker": "DELL",
+      "name": "Dell Technologies Inc.",
+      "signal": "STRONG BUY",
+      "verdict": "Held. The value-priced AI-infrastructure play — +106% 3-month momentum, TV STRONG_BUY, earnings ~43 days out.",
+      "financials": {
+        "period": "FY2025 (ended Jan 2025)",
+        "summary": "AI-optimized server demand (ISG) is the growth engine, offsetting a stabilizing PC (CSG) business. Backlog for AI servers built through the year. Margins are thin (hardware) but cash flow and buybacks are healthy. Live figures in the widget.",
+        "highlights": ["AI-server backlog and shipments ramping sharply", "Infrastructure Solutions Group the growth driver", "PC business stabilizing off cyclical lows", "Dividend + buyback capital return"]
+      },
+      "accomplishments": ["Record AI-server backlog", "Enterprise-AI partnerships (reference architectures)", "Returned to revenue growth as ISG accelerated"],
+      "journey_52w": {
+        "summary": "A cyclical value name re-rated into an AI-infrastructure story. As AI-server orders surged, momentum built to +106% over three months and TradingView flipped to STRONG_BUY; the trend is powerful but now extended.",
+        "milestones": [
+          {"label": "2025", "note": "AI-server backlog began building"},
+          {"label": "H1 2026", "note": "ISG revenue acceleration confirmed the thesis"},
+          {"label": "Jul 2026", "note": "TV STRONG_BUY, +106% 3-mo momentum"}
+        ]
+      },
+      "critical": {
+        "risks": ["Extended after a huge run", "Thin hardware margins — mix matters", "AI-server demand concentrated among a few large buyers"],
+        "catalysts": ["Continued AI-server backlog conversion", "PC refresh cycle", "Earnings ~43 days out"],
+        "watch": ["ISG (server) revenue and margin", "AI backlog conversion", "PC demand"],
+        "valuation": "Cheap versus AI peers on a P/E basis, reflecting the low-margin hardware mix; the trade is momentum + re-rating, so respect the extension."
+      }
+    },
+    {
+      "ticker": "LQDA",
+      "name": "Liquidia Corporation",
+      "signal": "WATCH",
+      "verdict": "Held. Screens #1 on momentum (+135% 3-mo) with TV STRONG_BUY on its PAH launch — but a small-cap, single-product pharma to size carefully.",
+      "financials": {
+        "period": "FY2024 (ended Dec 2024)",
+        "summary": "Small-cap specialty pharma transitioning from clinical to commercial. Revenue is inflecting sharply off a low base as its inhaled treprostinil (Yutrepia) for pulmonary arterial/PH-ILD hypertension launches. Still investing heavily; profitability is the next milestone. Live figures in the widget.",
+        "highlights": ["Revenue inflecting off a small base (huge % growth)", "Yutrepia PAH/PH-ILD commercial launch underway", "Cash runway a key focus given launch spend", "Not yet consistently profitable"]
+      },
+      "accomplishments": ["Regulatory clearance and commercial launch of its lead inhaled therapy", "Favorable resolution of key patent litigation overhangs", "Rapid early prescription uptake"],
+      "journey_52w": {
+        "summary": "A binary story that broke the right way. Regulatory and legal overhangs cleared, the launch beat early expectations, and the stock went near-parabolic — a spectacular but high-risk move for a small-cap.",
+        "milestones": [
+          {"label": "Late 2025", "note": "Regulatory/legal clarity achieved"},
+          {"label": "2026", "note": "Launch ramp drove +135% 3-mo momentum"},
+          {"label": "Jul 2026", "note": "TV STRONG_BUY; parabolic, top composite score"}
+        ]
+      },
+      "critical": {
+        "risks": ["Small-cap, single-product concentration", "Parabolic price — high pullback risk", "Execution/reimbursement risk on the launch", "Cash-burn until scaled"],
+        "catalysts": ["Launch-uptake surprises", "Label/indication expansion", "Path to profitability"],
+        "watch": ["Prescription/revenue run-rate", "Cash runway", "Competitive dynamics in inhaled treprostinil"],
+        "valuation": "Hard to anchor on earnings — valued on launch trajectory. Treat as a small, high-beta satellite, not a core position."
+      }
+    },
+    {
+      "ticker": "SPCX",
+      "name": "Space Exploration Technologies (SpaceX)",
+      "signal": "WATCH",
+      "verdict": "NEW LISTING. Own the business, not the chart: dominant launch cadence + Starlink's recurring revenue — but a thin, volatile post-IPO tape.",
+      "financials": {
+        "period": "Pre-IPO / first public disclosures",
+        "summary": "As a newly public company, audited public financials are limited. The investable story is two-fold: (1) the launch business (Falcon 9 reusability + Starship) that dominates global orbital launch, and (2) Starlink, a fast-scaling satellite-broadband business generating growing recurring subscription revenue. Reported figures will populate the widget as disclosures mature.",
+        "highlights": ["Global leader in orbital launch cadence and reusability", "Starlink recurring-revenue subscriber base scaling rapidly", "Vertically integrated cost advantage (Falcon reuse)", "Financials still stabilizing as a public reporter"]
+      },
+      "accomplishments": ["Record annual launch cadence and booster reuse", "Starlink subscriber and coverage expansion (incl. direct-to-cell)", "Starship development progressing toward operational payloads", "Completed its public listing"],
+      "journey_52w": {
+        "summary": "The past year is dominated by the IPO event itself. Shares debuted with heavy enthusiasm, then pulled back roughly 28% as post-listing supply/lockup dynamics and valuation debates set in. RSI 18 reflects a washed-out, still-basing new issue rather than a fundamental deterioration.",
+        "milestones": [
+          {"label": "IPO", "note": "High-profile public debut with strong initial demand"},
+          {"label": "Post-IPO", "note": "~28% pullback off the debut; base still forming"},
+          {"label": "Jul 2026", "note": "RSI 18, thin ratings coverage — expected for a new listing"}
+        ]
+      },
+      "critical": {
+        "risks": ["New listing — thin, volatile, headline-driven trade", "Down ~28% off debut with no base yet", "No reliable analyst estimates/ratings (TV STRONG_SELL is thin-data noise)", "Valuation difficult to anchor", "Lockup/supply dynamics"],
+        "catalysts": ["Starship operational milestones", "Starlink subscriber/ARPU growth and direct-to-cell", "First clean public financial reports", "Index/analyst coverage initiation"],
+        "watch": ["Launch cadence and Starship progress", "Starlink subscriber adds", "First earnings/disclosure as a public company", "Base formation on the chart"],
+        "valuation": "Not anchorable on conventional metrics yet — a long-term, small-sized satellite/launch bet, not a quant setup. Ignore the near-term quant score."
+      }
+    }
+  ]
+}
