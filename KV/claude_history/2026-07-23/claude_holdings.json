@@ -1,0 +1,428 @@
+{
+  "date": "2026-07-23",
+  "users": {
+    "9U3EMCIBlyYATLhh9YLnfYwKgpC2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "STRONG BUY score (89) and TV BUY, but RSI 76 is stretched and earnings land in ~8 days. Hold your core; don't add up here into the print."
+        },
+        {
+          "ticker": "ALAB",
+          "action": "HOLD",
+          "why": "Weak composite (46) despite +70% 3-mo momentum; TV NEUTRAL. Accumulation has stalled — hold with a tighter stop and let it prove itself before adding."
+        },
+        {
+          "ticker": "AMD",
+          "action": "HOLD",
+          "why": "Strong (90) with TV STRONG_BUY and +82% momentum, but earnings hit in ~13 days. Hold the core and consider trimming size into the print; add back on a post-earnings pullback."
+        },
+        {
+          "ticker": "APLD",
+          "action": "TRIM",
+          "why": "Weak (36) with TV SELL — downtrend intact. Reduce exposure and reallocate to a leadership name."
+        },
+        {
+          "ticker": "APP",
+          "action": "TRIM",
+          "why": "Weak (47), TV STRONG_SELL, RSI 14 (deeply oversold on a broken trend). Trim into any relief bounce rather than averaging down."
+        },
+        {
+          "ticker": "DRAM",
+          "action": "TRIM",
+          "why": "Very weak (13) micro-cap. Reduce — the risk/reward doesn't justify the position size."
+        },
+        {
+          "ticker": "GOOGL",
+          "action": "HOLD",
+          "why": "Weak (46), TV SELL, and earnings are today. Among the rolled-over mega-caps — hold through the print, but this is not where new money should go while leadership is elsewhere."
+        },
+        {
+          "ticker": "GS",
+          "action": "BUY",
+          "why": "Clean STRONG BUY (88), TV STRONG_BUY, no earnings for ~82 days — the safe way to press the financials rotation. Add on any dip toward the 50-day."
+        },
+        {
+          "ticker": "HOOD",
+          "action": "HOLD",
+          "why": "Weak (40), TV NEUTRAL, earnings in ~7 days. Hold with a tight stop; needs to reclaim its moving averages to turn actionable."
+        },
+        {
+          "ticker": "INTC",
+          "action": "SELL",
+          "why": "Worst score on the board (9), TV SELL, earnings essentially tomorrow. The trend is broken — exit or sharply reduce and put the capital into a leader."
+        },
+        {
+          "ticker": "IREN",
+          "action": "TRIM",
+          "why": "Weak (20), TV SELL. Downtrend intact — reduce exposure."
+        },
+        {
+          "ticker": "LRCX",
+          "action": "TRIM",
+          "why": "Weak (47), TV SELL, earnings in ~7 days. Broken trend into an event — trim into any bounce."
+        },
+        {
+          "ticker": "LUNR",
+          "action": "TRIM",
+          "why": "Weak (35), TV SELL, momentum -53%. Speculative space name in a clear downtrend — reduce."
+        },
+        {
+          "ticker": "MSFT",
+          "action": "HOLD",
+          "why": "WATCH (64), TV SELL, negative 3-mo momentum, earnings in ~7 days. A lagging mega-cap — hold the core; leadership is elsewhere right now."
+        },
+        {
+          "ticker": "MU",
+          "action": "HOLD",
+          "why": "WATCH (65) but +97% 3-mo momentum and TV BUY. Memory upcycle intact — hold the trend; earnings far out (~63 days)."
+        },
+        {
+          "ticker": "NVDA",
+          "action": "HOLD",
+          "why": "Core AI leader: STRONG BUY (92), TV BUY, clean breakout, no earnings for ~35 days. Hold/add — the one mega-cap tech name still screening clean. Watch China export-ban headlines."
+        },
+        {
+          "ticker": "ORCL",
+          "action": "TRIM",
+          "why": "Weak (28), TV SELL, momentum -33%. Clearly rolled over — trim and rotate into a leadership name."
+        },
+        {
+          "ticker": "PLTR",
+          "action": "HOLD",
+          "why": "Popular AI name, but the data disagrees with the crowd: WATCH (74), TV STRONG_SELL, negative 3-mo momentum. Hold a core if you own it, but consider trimming — this is not a fresh-money buy today."
+        },
+        {
+          "ticker": "QBTS",
+          "action": "TRIM",
+          "why": "Weak (28), TV STRONG_SELL. Speculative quantum name in a downtrend — reduce and bank any remaining gains."
+        },
+        {
+          "ticker": "QLD",
+          "action": "HOLD",
+          "why": "2x leveraged QQQ ETF — weak short-term score (21). Tactical only: the broad uptrend supports holding, but leverage cuts both ways with geopolitical risk elevated. Keep a firm stop."
+        },
+        {
+          "ticker": "RBRK",
+          "action": "HOLD",
+          "why": "Weak (55) but +33% momentum; TV SELL. Hold with a stop; mixed signals — not an add."
+        },
+        {
+          "ticker": "RGTI",
+          "action": "TRIM",
+          "why": "Weak (38), TV STRONG_SELL. Speculative quantum name in a downtrend — reduce."
+        },
+        {
+          "ticker": "RKLB",
+          "action": "HOLD",
+          "why": "Weak (30), RSI 15 (very oversold), TV SELL. Speculative launch name — hold a small position; avoid averaging down into the downtrend."
+        },
+        {
+          "ticker": "SMCI",
+          "action": "HOLD",
+          "why": "WATCH (61) with TV BUY and RSI 60. Hold; a clean breakout would make it a buy, but volatility is high."
+        },
+        {
+          "ticker": "SNDK",
+          "action": "HOLD",
+          "why": "Weak (39) but +63% momentum; TV SELL, earnings in ~14 days. Hold with a stop; mixed — not an add."
+        },
+        {
+          "ticker": "SNOW",
+          "action": "HOLD",
+          "why": "STRONG BUY (86), TV BUY, +72% momentum, RSI 56, no earnings for ~35 days. Constructive — hold/add on a clean higher-low pullback."
+        },
+        {
+          "ticker": "SSO",
+          "action": "HOLD",
+          "why": "2x leveraged S&P 500 ETF. The broad tape is a healthy uptrend, which supports holding, but keep a firm stop — leverage amplifies any geopolitical shock. Tactical, not core."
+        },
+        {
+          "ticker": "TSLA",
+          "action": "HOLD",
+          "why": "Weak (33), TV SELL, broken trend. Hold your core if it's a conviction long, but leadership is clearly elsewhere — don't add here."
+        },
+        {
+          "ticker": "TSM",
+          "action": "HOLD",
+          "why": "Weak short-term score (41), TV NEUTRAL, but a core long-term semi with earnings far out (~84 days). Hold; add on a reclaim of its trend."
+        },
+        {
+          "ticker": "VRT",
+          "action": "HOLD",
+          "why": "Weak (50), TV SELL, earnings in ~6 days. Hold through the print; the AI-power-infrastructure story is intact but the near-term trend is soft."
+        }
+      ]
+    },
+    "9XYERwojDqZYyeKV2ajvWQig8Bh2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "STRONG BUY score (89) and TV BUY, but RSI 76 is stretched and earnings land in ~8 days. Hold your core; don't add up here into the print."
+        }
+      ]
+    },
+    "H0Wv2PLzKzR0JwanHqUssGUsmMl1": {
+      "holdings": [
+        {
+          "ticker": "AMKR",
+          "action": "TRIM",
+          "why": "Weak (44), TV SELL, and earnings in ~5 days. Broken trend into an event — trim into any bounce."
+        },
+        {
+          "ticker": "COCO",
+          "action": "HOLD",
+          "why": "WATCH (61) but +60% 3-mo momentum and TV BUY. Hold the trend; a tight stop protects the gains."
+        },
+        {
+          "ticker": "DELL",
+          "action": "HOLD",
+          "why": "One of the book's best: STRONG BUY (87), TV STRONG_BUY, +106% momentum, no earnings for ~43 days. Let the winner run; add only on a controlled pullback given the extension."
+        },
+        {
+          "ticker": "DIOD",
+          "action": "TRIM",
+          "why": "Weak (35), TV NEUTRAL, no trend. Trim and redeploy into a stronger semi or leadership name."
+        },
+        {
+          "ticker": "DOCN",
+          "action": "HOLD",
+          "why": "Weak composite (48) but +49% momentum and TV BUY — mixed. Hold with a stop; not a fresh-money add."
+        },
+        {
+          "ticker": "FLEX",
+          "action": "TRIM",
+          "why": "Weak (37), TV SELL. Downtrend — trim into strength and rotate to a leader."
+        },
+        {
+          "ticker": "FTNT",
+          "action": "HOLD",
+          "why": "High score (92) and +78% momentum, but TV only NEUTRAL and earnings in ~7 days — quant vs. rating tension. Hold into the print; don't add here."
+        },
+        {
+          "ticker": "GLW",
+          "action": "HOLD",
+          "why": "WATCH (58), RSI 20 (very oversold), TV SELL, earnings in ~5 days. Hold; a snap-back is possible but the trend is weak."
+        },
+        {
+          "ticker": "GOOGL",
+          "action": "HOLD",
+          "why": "Weak (46), TV SELL, and earnings are today. Among the rolled-over mega-caps — hold through the print, but this is not where new money should go while leadership is elsewhere."
+        },
+        {
+          "ticker": "ICHR",
+          "action": "HOLD",
+          "why": "WATCH (64) with +45% momentum and TV BUY. Hold; a clean breakout would make it a buy."
+        },
+        {
+          "ticker": "LLY",
+          "action": "HOLD",
+          "why": "STRONG BUY score (92) on huge GLP-1 growth, but TV NEUTRAL and RSI 44 says it's still basing. Hold the franchise; wait for the base to complete before adding."
+        },
+        {
+          "ticker": "LQDA",
+          "action": "HOLD",
+          "why": "Your biggest momentum winner (+135%, score 95, TV STRONG_BUY) — but a parabolic small-cap single-product pharma. Hold, and take partial profits to lock in gains and de-risk."
+        },
+        {
+          "ticker": "LUV",
+          "action": "HOLD",
+          "why": "STRONG BUY score (85) but TV SELL (rating vs. quant tension) and RSI 36. Hold; watch for the trend to confirm before adding — fuel costs are a headwind with oil up."
+        },
+        {
+          "ticker": "MXL",
+          "action": "HOLD",
+          "why": "Weak score (40) but +156% momentum and TV BUY, with earnings essentially tomorrow. Hold through the print; high-risk, high-reward — keep size modest."
+        },
+        {
+          "ticker": "NTAP",
+          "action": "HOLD",
+          "why": "STRONG BUY (89), TV STRONG_BUY, +51% momentum, RSI 58 (not overbought). AI-storage beneficiary — hold/add."
+        },
+        {
+          "ticker": "PRTH",
+          "action": "HOLD",
+          "why": "Weak (49), TV NEUTRAL micro-cap. Hold with a tight stop; keep the position small."
+        },
+        {
+          "ticker": "SWBI",
+          "action": "HOLD",
+          "why": "WATCH (66) but TV SELL. Hold with a stop; the setup is neutral-to-soft."
+        }
+      ]
+    },
+    "RWaiB5nNl5TjiWamTOEMb8tgVgQ2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "STRONG BUY score (89) and TV BUY, but RSI 76 is stretched and earnings land in ~8 days. Hold your core; don't add up here into the print."
+        },
+        {
+          "ticker": "GS",
+          "action": "BUY",
+          "why": "Clean STRONG BUY (88), TV STRONG_BUY, no earnings for ~82 days — the safe way to press the financials rotation. Add on any dip toward the 50-day."
+        },
+        {
+          "ticker": "MNST",
+          "action": "HOLD",
+          "why": "STRONG BUY (91), TV BUY, RSI 45 — not extended. Defensive consumer growth; hold/add, earnings in ~15 days."
+        },
+        {
+          "ticker": "SPCX",
+          "action": "HOLD",
+          "why": "NEW LISTING (SpaceX) — own the business, not the chart. Down ~28% off its debut with no base yet; ignore the weak quant score. Hold as a small long-term launch/Starlink bet and let the base form."
+        },
+        {
+          "ticker": "TSLA",
+          "action": "HOLD",
+          "why": "Weak (33), TV SELL, broken trend. Hold your core if it's a conviction long, but leadership is clearly elsewhere — don't add here."
+        }
+      ]
+    },
+    "Upr1qGqvOZVTbZIazl3fVapJAWt1": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "STRONG BUY score (89) and TV BUY, but RSI 76 is stretched and earnings land in ~8 days. Hold your core; don't add up here into the print."
+        }
+      ]
+    },
+    "WwfbUgQdviVtfrB3BBzR25joqbv2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "STRONG BUY score (89) and TV BUY, but RSI 76 is stretched and earnings land in ~8 days. Hold your core; don't add up here into the print."
+        },
+        {
+          "ticker": "AMAT",
+          "action": "HOLD",
+          "why": "Neutral setup (72, RSI 34) — basing after a pullback. Hold; a reclaim of the 50-day would turn it constructive."
+        },
+        {
+          "ticker": "AMZN",
+          "action": "HOLD",
+          "why": "STRONG BUY score (89) but TV only NEUTRAL and earnings in ~8 days. Solid long-term hold; wait for the print before adding."
+        },
+        {
+          "ticker": "COIN",
+          "action": "HOLD",
+          "why": "WATCH (62), TV NEUTRAL, negative 3-mo momentum. Hold; needs crypto strength and a higher low to turn actionable."
+        },
+        {
+          "ticker": "DLR",
+          "action": "HOLD",
+          "why": "WATCH (72) but earnings are essentially tomorrow and TV is SELL. Hold through the print; don't add ahead of a binary event."
+        },
+        {
+          "ticker": "DTE",
+          "action": "HOLD",
+          "why": "STRONG BUY (88), TV BUY, early in its move (RSI 46) — but earnings in ~5 days. Hold; add after the print if it holds up."
+        },
+        {
+          "ticker": "EOG",
+          "action": "HOLD",
+          "why": "STRONG BUY (91) riding oil's run and TV BUY, but RSI 76 is extended. Hold for the energy/geopolitical bid; wait for a pullback to add rather than chase."
+        },
+        {
+          "ticker": "FICO",
+          "action": "HOLD",
+          "why": "STRONG BUY (84) but TV NEUTRAL and earnings in ~7 days. Hold through the print; the setup is fine but event risk is near."
+        },
+        {
+          "ticker": "GS",
+          "action": "BUY",
+          "why": "Clean STRONG BUY (88), TV STRONG_BUY, no earnings for ~82 days — the safe way to press the financials rotation. Add on any dip toward the 50-day."
+        },
+        {
+          "ticker": "HWM",
+          "action": "HOLD",
+          "why": "Top-tier holding: STRONG BUY (94), TV STRONG_BUY, defense-bill + aerospace tailwind. Let it run; add on a pullback (earnings ~14 days out)."
+        },
+        {
+          "ticker": "INTC",
+          "action": "SELL",
+          "why": "Worst score on the board (9), TV SELL, earnings essentially tomorrow. The trend is broken — exit or sharply reduce and put the capital into a leader."
+        },
+        {
+          "ticker": "IRM",
+          "action": "HOLD",
+          "why": "WATCH (72) with TV BUY and a steady trend. Hold; constructive but not a fresh breakout."
+        },
+        {
+          "ticker": "KIM",
+          "action": "HOLD",
+          "why": "STRONG BUY (94), TV BUY, REIT-rotation leader with record occupancy. Hold/add; earnings in ~12 days."
+        },
+        {
+          "ticker": "MNST",
+          "action": "HOLD",
+          "why": "STRONG BUY (91), TV BUY, RSI 45 — not extended. Defensive consumer growth; hold/add, earnings in ~15 days."
+        },
+        {
+          "ticker": "MSFT",
+          "action": "HOLD",
+          "why": "WATCH (64), TV SELL, negative 3-mo momentum, earnings in ~7 days. A lagging mega-cap — hold the core; leadership is elsewhere right now."
+        },
+        {
+          "ticker": "NVDA",
+          "action": "HOLD",
+          "why": "Core AI leader: STRONG BUY (92), TV BUY, clean breakout, no earnings for ~35 days. Hold/add — the one mega-cap tech name still screening clean. Watch China export-ban headlines."
+        },
+        {
+          "ticker": "NXPI",
+          "action": "HOLD",
+          "why": "Weak (52), TV NEUTRAL, earnings in ~6 days. Hold through the print; needs to reclaim its trend to turn constructive."
+        },
+        {
+          "ticker": "SIRI",
+          "action": "HOLD",
+          "why": "STRONG BUY score (89) but TV NEUTRAL and earnings in ~7 days. Hold through the print; the value/dividend story is intact."
+        },
+        {
+          "ticker": "SNDK",
+          "action": "HOLD",
+          "why": "Weak (39) but +63% momentum; TV SELL, earnings in ~14 days. Hold with a stop; mixed — not an add."
+        },
+        {
+          "ticker": "SPCX",
+          "action": "HOLD",
+          "why": "NEW LISTING (SpaceX) — own the business, not the chart. Down ~28% off its debut with no base yet; ignore the weak quant score. Hold as a small long-term launch/Starlink bet and let the base form."
+        },
+        {
+          "ticker": "SPG",
+          "action": "HOLD",
+          "why": "STRONG BUY (93), TV BUY, +19% revenue growth, RSI 56 (room to run). REIT-rotation leader — hold/add; earnings ~19 days out."
+        },
+        {
+          "ticker": "TSLA",
+          "action": "HOLD",
+          "why": "Weak (33), TV SELL, broken trend. Hold your core if it's a conviction long, but leadership is clearly elsewhere — don't add here."
+        },
+        {
+          "ticker": "WDC",
+          "action": "HOLD",
+          "why": "Weak (48) but +43% momentum and TV BUY — mixed. Hold with a stop; memory/storage upcycle could reassert."
+        }
+      ]
+    },
+    "XywlmmAEAhN9JBDkYQnagsBIkCf1": {
+      "holdings": [
+        {
+          "ticker": "BTC-USD",
+          "action": "HOLD",
+          "why": "Not part of the equity scan. Treat as a small, high-volatility satellite; hold your allocation and avoid over-sizing given the risk-off geopolitical backdrop."
+        },
+        {
+          "ticker": "GS",
+          "action": "BUY",
+          "why": "Clean STRONG BUY (88), TV STRONG_BUY, no earnings for ~82 days — the safe way to press the financials rotation. Add on any dip toward the 50-day."
+        }
+      ]
+    }
+  }
+}
