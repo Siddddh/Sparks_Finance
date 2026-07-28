@@ -1,265 +1,161 @@
 {
-  "date": "2026-07-24",
+  "date": "2026-07-28",
   "analyses": [
     {
-      "ticker": "HWM",
-      "name": "Howmet Aerospace Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "Best-in-class aerospace-components leader breaking out at all-time highs on a tight VCP — the cleanest A+ setup in the scan.",
-      "financials": {
-        "period": "FY2025 (ended Dec 2025)",
-        "summary": "Howmet's engineered-metal products (engine airfoils, fastening systems, structures, wheels) ride the commercial-aerospace build-rate recovery and record defense demand. Revenue and margins have expanded together as the company flexes pricing on a supply-constrained supply chain, and free cash flow has funded buybacks and a rising dividend.",
-        "highlights": ["Revenue up roughly +19% YoY", "EPS growth ~+71% YoY on operating-margin expansion", "Commercial-aero and defense end-markets both accelerating", "Strong free-cash-flow conversion funding buybacks"]
-      },
-      "accomplishments": ["Engine-airfoil and fastening demand at record levels as Boeing/Airbus build rates recover", "Repeated guidance raises through the year", "Consistent dividend increases and share repurchases"],
-      "journey_52w": {
-        "summary": "One of the market's most persistent leaders over the past year — a steady staircase of higher highs on aero-recovery momentum, with only shallow, tight pullbacks. It now sits at fresh all-time highs after coiling in a multi-week VCP.",
-        "milestones": [
-          {"label": "Late 2025", "note": "Broke out on strong guidance; RS line began leading the market"},
-          {"label": "Q1-Q2 2026", "note": "Continued to make new highs with tight, controlled pullbacks"},
-          {"label": "Jul 2026", "note": "Tight 5-contraction VCP at new highs — coiled for the next leg"}
-        ]
-      },
-      "critical": {
-        "risks": ["Rich ~47x forward P/E leaves little margin for error", "Aug 6 earnings — a guide-down would hit a crowded, extended leader", "Aerospace build-rate slippage or a Boeing production hiccup"],
-        "catalysts": ["Q2 earnings Aug 6", "Continued commercial-aero build-rate increases", "Defense-spending tailwind"],
-        "watch": ["Hold above the MA10/breakout pivot", "RSI staying constructive (not blowing off)", "Volume confirming the breakout"],
-        "valuation": "Premium ~47x forward — priced for continued execution; justified only if the aero cycle keeps compounding EPS."
-      }
+      "ticker": "AAPL", "name": "Apple Inc.", "signal": "STRONG BUY",
+      "verdict": "The one mega-cap still leading — fresh 52-week high and back to the world's most valuable company as the rest of Big Tech corrects.",
+      "financials": {"period": "FY2025 (ended Sep 2025)", "summary": "Record top and bottom line driven by iPhone strength, an all-time Services quarter, and expanding gross margins; free cash flow funded a massive buyback and dividend.",
+        "highlights": ["Revenue growth ~+16.6% YoY", "EPS growth ~+21.8% YoY", "Services at record highs, ~46-47% gross margin", "Fortress balance sheet, aggressive capital return"]},
+      "accomplishments": ["Reclaimed the #1 market-cap spot from Nvidia", "Record Services revenue quarter", "Continued Apple-silicon and on-device AI rollout"],
+      "journey_52w": {"summary": "Round-tripped from a hardware/AI-lag skepticism trough into clear leadership, ending the year at a new high while peers rolled over.",
+        "milestones": [{"label": "Late 2025", "note": "AI-feature and Services momentum re-rated the multiple higher"}, {"label": "Jul 2026", "note": "New 52-week high; passed Nvidia to become most valuable company"}]},
+      "critical": {"risks": ["Fwd P/E ~35 — priced for flawless execution", "China demand and regulatory/App-Store scrutiny", "RSI 72, near-term extended"],
+        "catalysts": ["Next iPhone cycle + AI features", "Services acceleration", "Continued buyback"],
+        "watch": ["Services growth rate", "Gross-margin trajectory", "Holds the 50-day on any pullback"],
+        "valuation": "Premium (~35x fwd) but justified by Services mix and capital return; the market's clear safe-haven within tech."}
     },
     {
-      "ticker": "JPM",
-      "name": "JPMorgan Chase & Co.",
-      "signal": "STRONG BUY",
-      "verdict": "The cleanest large-cap financial leader — at all-time highs, still only ~14x forward, and the safest way to own the risk-off rotation into banks.",
-      "financials": {
-        "period": "FY2025 (ended Dec 2025)",
-        "summary": "JPMorgan posted record net income on strong net interest income, resilient credit, and a rebound in investment-banking and markets revenue. The fortress balance sheet, industry-leading ROTCE, and excess capital give it the most durable earnings power of the megabanks.",
-        "highlights": ["Revenue up ~+30% YoY", "EPS growth ~+47% YoY", "Record net interest income; benign credit costs", "Sector-leading return on tangible common equity"]
-      },
-      "accomplishments": ["Record annual profit; continued market-share gains across IB and markets", "Raised dividend and expanded buyback authorization", "Maintained the strongest capital ratios among peers"],
-      "journey_52w": {
-        "summary": "A relentless leader that has spent most of the year making new highs. Even as the broad market rolled over into 'under pressure', JPM held its uptrend and pushed to fresh all-time highs on a very tight base.",
-        "milestones": [
-          {"label": "H2 2025", "note": "New highs on record earnings and NII strength"},
-          {"label": "2026 YTD", "note": "Relative-strength leadership as money rotated into financials"},
-          {"label": "Jul 2026", "note": "6-contraction VCP, tightest 2.3% — breakout continuation setup"}
-        ]
-      },
-      "critical": {
-        "risks": ["A credit-cycle turn or sharp yield-curve move hits the whole group", "Capital-markets slowdown would pressure IB/markets revenue", "Regulatory/capital-rule changes"],
-        "catalysts": ["Q3 earnings mid-October", "Higher-for-longer rates supporting NII", "Continued buybacks"],
-        "watch": ["Credit-provision trends", "Net interest income guidance", "Hold above the breakout pivot"],
-        "valuation": "~14x forward is inexpensive for record profitability — the value-plus-momentum combination is why it leads."
-      }
+      "ticker": "KIM", "name": "Kimco Realty", "signal": "STRONG BUY",
+      "verdict": "Highest-scored name in the entire universe — open-air retail REIT breaking to new highs as capital rotates into real estate.",
+      "financials": {"period": "FY2025", "summary": "Grocery-anchored, open-air centers delivered strong same-property NOI and FFO growth with high occupancy; disciplined balance sheet.",
+        "highlights": ["EPS/FFO growth ~+29.4% YoY", "Revenue +~4% YoY", "High occupancy in grocery-anchored centers", "Well-covered, growing dividend"]},
+      "accomplishments": ["New 52-week high on the breakout", "Sustained occupancy and rent-spread gains", "Portfolio tilt to necessity/grocery-anchored retail"],
+      "journey_52w": {"summary": "Base-built through the rate-fear period, then broke out as the market rotated from tech into rate-sensitive REITs.",
+        "milestones": [{"label": "H2 2025", "note": "Occupancy and leasing spreads kept climbing"}, {"label": "Jul 2026", "note": "Broke to a new 52-week high, #1 combined score"}]},
+      "critical": {"risks": ["Long-rate re-acceleration pressures the whole group", "RSI 67 on a fresh breakout", "Consumer/retail-tenant health"],
+        "catalysts": ["Fed easing narrative supporting REITs", "Continued leasing-spread gains"],
+        "watch": ["10-year yield", "Same-property NOI", "Dividend-growth cadence"],
+        "valuation": "REIT leadership with the strongest quant profile in the scan; reasonable versus its FFO growth."}
     },
     {
-      "ticker": "AFL",
-      "name": "Aflac Incorporated",
-      "signal": "STRONG BUY",
-      "verdict": "Defensive supplemental-insurance compounder breaking out of a tight base — exactly the low-beta name that works when the tape is under pressure.",
-      "financials": {
-        "period": "FY2025 (ended Dec 2025)",
-        "summary": "Aflac's earnings are anchored by its high-margin Japan and U.S. supplemental-health/life franchises, with a large investment portfolio that benefits from higher rates. Steady premium persistency, disciplined underwriting, and aggressive buybacks drive reliable per-share growth; reported results swing with the yen.",
-        "highlights": ["Revenue up ~+28% YoY", "Sharp EPS rebound YoY", "~16.5x forward P/E — reasonable for a quality insurer", "Consistent buybacks and 40+ years of dividend growth"]
-      },
-      "accomplishments": ["Continued to be a 'Dividend Aristocrat' with decades of increases", "Ongoing large-scale share repurchases shrinking the count", "Stable underwriting margins in both Japan and U.S. segments"],
-      "journey_52w": {
-        "summary": "A quiet, steady advancer — low volatility, shallow pullbacks, and a persistent climb that has quietly delivered relative strength while flashier names corrected. Now breaking out of a 3-contraction base to new highs.",
-        "milestones": [
-          {"label": "2025", "note": "Steady grind higher on buybacks and stable margins"},
-          {"label": "2026 YTD", "note": "Relative-strength leadership as defensives caught a bid"},
-          {"label": "Jul 2026", "note": "Tight VCP breakout, RS line at new highs"}
-        ]
-      },
-      "critical": {
-        "risks": ["Yen weakness pressures reported (USD-translated) results", "Falling rates would eventually crimp investment income", "Japan demographic/persistency headwinds long-term"],
-        "catalysts": ["Q2 earnings Aug 7", "Continued buyback pace", "FX stabilization"],
-        "watch": ["Yen/USD trend", "Hold above the breakout pivot", "Premium persistency rates"],
-        "valuation": "~16.5x forward is fair for a defensive compounder with a fortress balance sheet and heavy buybacks."
-      }
+      "ticker": "MET", "name": "MetLife Inc.", "signal": "STRONG BUY",
+      "verdict": "Life-insurance leader breaking to new highs at a single-digit multiple — the textbook value/financials rotation setup.",
+      "financials": {"period": "FY2025", "summary": "Higher net investment income and disciplined underwriting drove strong earnings; capital return via buybacks and a growing dividend.",
+        "highlights": ["EPS growth ~+35.9% YoY", "Fwd P/E ~8.7", "Rev +~2.7% YoY", "Rising rates lift investment income"]},
+      "accomplishments": ["New 52-week high on a tight base", "Consistent buyback + dividend growth", "Benefiting from the higher-for-longer rate backdrop"],
+      "journey_52w": {"summary": "Steadily re-rated as rates stayed elevated and investors sought cheap, cash-generative financials, ending at a new high.",
+        "milestones": [{"label": "2025", "note": "Net investment income tailwind from higher rates"}, {"label": "Jul 2026", "note": "Broke out to a new 52-week high"}]},
+      "critical": {"risks": ["Credit-spread widening / recession credit losses", "Equity-market drawdown pressures fee income", "Sector is crowded after a big run"],
+        "catalysts": ["Sustained high investment income", "Continued capital return"],
+        "watch": ["Credit trends", "Book-value growth", "Buyback pace"],
+        "valuation": "~8.7x forward — cheap for the EPS growth; core anchor of the financials leadership."}
     },
     {
-      "ticker": "LQDA",
-      "name": "Liquidia Corporation",
-      "signal": "STRONG BUY",
-      "verdict": "The momentum standout of the healthcare complex — +138% over three months on a commercial launch ramp, consolidating at highs.",
-      "financials": {
-        "period": "FY2025 (ended Dec 2025)",
-        "summary": "Liquidia is transitioning from a development-stage to a commercial-stage specialty-pharma company as its inhaled treprostinil therapy for pulmonary hypertension ramps. Revenue is inflecting off a small base at triple-digit growth; the company is still investing heavily in the launch, so profitability is early-stage and cash burn/financing are the watch items.",
-        "highlights": ["Revenue inflecting sharply higher (>+4,000% off a tiny base) as the launch ramps", "Commercial-stage transition underway", "Single-product ramp — high growth, high sensitivity", "~15x forward on optimistic launch assumptions"]
-      },
-      "accomplishments": ["Commercial launch of its lead inhaled pulmonary-hypertension therapy", "Favorable regulatory/legal progress clearing the path to market", "Rapidly scaling prescriber and patient base"],
-      "journey_52w": {
-        "summary": "A breakout small-cap winner — the stock more than doubled over the past year as legal/regulatory overhangs cleared and the launch exceeded expectations. It now sits near 52-week highs after a vertical run, consolidating recent gains.",
-        "milestones": [
-          {"label": "2025", "note": "Regulatory/legal clarity unlocked the commercial opportunity"},
-          {"label": "H1 2026", "note": "Launch ramp beat expectations; +138% over three months"},
-          {"label": "Jul 2026", "note": "Consolidating at highs after a vertical move"}
-        ]
-      },
-      "critical": {
-        "risks": ["Single-product dependence — a launch stumble is a binary risk", "Patent/litigation overhang with treprostinil competitors", "Small-cap volatility and potential dilution/financing needs"],
-        "catalysts": ["Q2 earnings Aug 12 — the key launch-ramp checkpoint", "Continued script/revenue acceleration", "Label/indication expansion"],
-        "watch": ["Prescription trends and net revenue per script", "Cash runway", "Hold of the consolidation range after the parabolic move"],
-        "valuation": "Valuation rests entirely on the launch trajectory — reward is large but so is the binary risk; size accordingly."
-      }
+      "ticker": "HWM", "name": "Howmet Aerospace", "signal": "STRONG BUY",
+      "verdict": "Best earnings acceleration in the leadership group (+71% EPS), coiled just under its high on a tight base — aero/defense super-cycle play.",
+      "financials": {"period": "FY2025", "summary": "Commercial-aero recovery and defense demand drove record revenue and margin expansion; engine-products and fastening segments led.",
+        "highlights": ["EPS growth ~+71.4% YoY", "Revenue +~19.1% YoY", "Margin expansion on aero-demand mix", "Strong FCF and de-leveraging"]},
+      "accomplishments": ["Record revenue on the aero super-cycle", "Multiple margin/guidance raises", "Growing defense backlog"],
+      "journey_52w": {"summary": "One of the strongest industrial trends of the year — steady higher highs on relentless aero demand, now in a tight consolidation near the high.",
+        "milestones": [{"label": "2025", "note": "Repeated earnings beats and raises"}, {"label": "Jul 2026", "note": "Tight VCP just under a new high, RS at high"}]},
+      "critical": {"risks": ["Fwd P/E ~48 — priced for perfection", "Aero build-rate or supply-chain disruption", "TV rates BUY not STRONG BUY"],
+        "catalysts": ["OEM build-rate increases", "Aftermarket/spares demand", "Continued margin expansion"],
+        "watch": ["Boeing/Airbus build rates", "Book-to-bill", "Margin trajectory"],
+        "valuation": "Rich, but the aero cycle and +71% EPS growth support it; leadership-quality industrial."}
     },
     {
-      "ticker": "ILMN",
-      "name": "Illumina, Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "A genuine turnaround completed — Stage-2 uptrend, +57% over three months, breaking to new highs as sequencing demand stabilizes.",
-      "financials": {
-        "period": "FY2025 (ended Dec 2025)",
-        "summary": "Illumina, the dominant DNA-sequencing platform, has moved past its GRAIL distraction and margin trough. With the GRAIL divestiture behind it, management refocused on core sequencing, cost discipline, and the NovaSeq X consumables ramp — stabilizing revenue and driving a margin recovery.",
-        "highlights": ["Revenue growth returning to positive (~+5% YoY)", "EPS recovering as margins rebound and costs normalize", "NovaSeq X installed base driving high-margin consumables", "GRAIL overhang resolved"]
-      },
-      "accomplishments": ["Completed the separation of GRAIL, refocusing on core sequencing", "NovaSeq X placements driving a consumables pull-through", "Restored margin trajectory through cost actions"],
-      "journey_52w": {
-        "summary": "From beaten-down to leader — the stock spent the prior year in the penalty box, then bottomed and reversed hard as the GRAIL overhang cleared and demand stabilized. It's now +57% over three months and breaking to new relative highs.",
-        "milestones": [
-          {"label": "Late 2025", "note": "Bottoming process as GRAIL separation completed"},
-          {"label": "H1 2026", "note": "Sharp recovery on stabilizing sequencing demand"},
-          {"label": "Jul 2026", "note": "Breakout to new highs from a tight base"}
-        ]
-      },
-      "critical": {
-        "risks": ["July 31 earnings — a near-term binary after a big run", "~33x forward is full for a mid-single-digit grower", "Academic/biopharma funding cycle affects instrument demand"],
-        "catalysts": ["Q2 earnings July 31", "NovaSeq X consumables ramp", "New-product/clinical menu expansion"],
-        "watch": ["Consumables pull-through per instrument", "Margin trajectory", "Hold above the breakout after earnings"],
-        "valuation": "~33x forward prices in continued recovery — the turnaround is real but the multiple demands execution."
-      }
+      "ticker": "DVA", "name": "DaVita Inc.", "signal": "STRONG BUY",
+      "verdict": "Cleanest entry among the top names — RSI 53 near a new high, +43% EPS growth, defensive dialysis cash flows.",
+      "financials": {"period": "FY2025", "summary": "Stable treatment volumes, favorable payer mix and cost discipline lifted operating income; heavy buybacks amplified EPS.",
+        "highlights": ["EPS growth ~+43.5% YoY", "Revenue +~6.0% YoY", "Fwd P/E ~13.7", "Aggressive share-count reduction"]},
+      "accomplishments": ["Near a new high with an un-extended RSI", "Consistent buyback-driven EPS growth", "Resilient, recession-defensive demand"],
+      "journey_52w": {"summary": "Ground higher all year on defensive, buyback-heavy compounding; now setting up cleanly near the high.",
+        "milestones": [{"label": "2025", "note": "Steady EPS accretion from buybacks + margin"}, {"label": "Jul 2026", "note": "Basing near new high with RSI 53"}]},
+      "critical": {"risks": ["Reimbursement/policy headlines (Medicare, GLP-1 impact on ESRD)", "Concentrated payer exposure", "Thin-volume whipsaws"],
+        "catalysts": ["Continued buybacks", "Stable treatment growth", "Defensive-rotation demand"],
+        "watch": ["Reimbursement policy", "Treatment volumes", "Payer mix"],
+        "valuation": "~13.7x forward with 40%+ EPS growth — attractive; best risk/reward technical among the leaders."}
     },
     {
-      "ticker": "CVS",
-      "name": "CVS Health Corporation",
-      "signal": "STRONG BUY",
-      "verdict": "Deep-value healthcare turnaround that's working — +36% over three months, EPS +63%, still only ~13x forward.",
-      "financials": {
-        "period": "FY2025 (ended Dec 2025)",
-        "summary": "CVS spans retail pharmacy, the Caremark PBM, and Aetna health insurance. After a rough stretch of elevated medical costs, management reset guidance, tightened Aetna underwriting, and leaned on the integrated model — driving an earnings rebound off a low base. The stock re-rated as investors gained confidence the medical-cost trend is under control.",
-        "highlights": ["Revenue up ~+6% YoY", "EPS rebound ~+63% YoY off a reset base", "Integrated pharmacy/PBM/insurance model", "~12.7x forward — cheap for a healthcare bellwether"]
-      },
-      "accomplishments": ["Reset and then met/beat guidance, rebuilding credibility", "Tightened Aetna underwriting to address the medical-cost trend", "Continued to generate substantial free cash flow"],
-      "journey_52w": {
-        "summary": "A classic value turnaround — the stock washed out on medical-cost fears, based, then ripped +36% over three months as evidence built that the worst was priced in. Now in a Stage-2 uptrend at new relative highs.",
-        "milestones": [
-          {"label": "2025", "note": "Bottomed on elevated-medical-cost concerns"},
-          {"label": "H1 2026", "note": "Earnings stabilization drove a sharp re-rating"},
-          {"label": "Jul 2026", "note": "Tight base at highs; RS line leading"}
-        ]
-      },
-      "critical": {
-        "risks": ["Medical-loss ratio at Aetna remains the key swing factor", "Regulatory/PBM scrutiny", "Aug 5 earnings — guidance is the catalyst"],
-        "catalysts": ["Q2 earnings Aug 5", "Continued medical-cost normalization", "Debt paydown / FCF deployment"],
-        "watch": ["Aetna MLR trend", "Guidance revisions", "Hold above the breakout pivot"],
-        "valuation": "~13x forward is inexpensive if the earnings recovery holds — the re-rating still has room if credibility keeps building."
-      }
+      "ticker": "LLY", "name": "Eli Lilly", "signal": "STRONG BUY",
+      "verdict": "Elite growth (+170% EPS, +55% rev) pulling back to RSI 41 near support — buy the best on weakness.",
+      "financials": {"period": "FY2025", "summary": "GLP-1 franchise (Mounjaro/Zepbound) drove explosive revenue and earnings growth with rapid capacity expansion; margin leverage kicking in.",
+        "highlights": ["EPS growth ~+169.9% YoY", "Revenue +~55.5% YoY", "GLP-1 volume ramp", "Massive capacity investment"]},
+      "accomplishments": ["Global GLP-1/obesity-market leadership", "Repeated capacity expansions to meet demand", "Pipeline breadth beyond incretins"],
+      "journey_52w": {"summary": "Blistering uptrend on GLP-1 demand, then an orderly pullback into a base — RS still at the high while price digests.",
+        "milestones": [{"label": "2025", "note": "GLP-1 revenue kept beating estimates"}, {"label": "Jul 2026", "note": "Pulled back to RSI 41 near support — constructive"}]},
+      "critical": {"risks": ["GLP-1 competition and pricing/coverage headlines", "High absolute price = large dollar swings", "Capacity-execution risk"],
+        "catalysts": ["Oral GLP-1 / new-indication data", "Continued volume ramp", "Margin leverage"],
+        "watch": ["Zepbound/Mounjaro scripts", "Competitive data", "Holds base support"],
+        "valuation": "~27x forward for triple-digit EPS growth — reasonable for the caliber; the premier large-cap growth franchise."}
     },
     {
-      "ticker": "GD",
-      "name": "General Dynamics Corporation",
-      "signal": "STRONG BUY",
-      "verdict": "Defense leader breaking to new highs on a spending + geopolitical tailwind, with TradingView's strongest reading in the entire scan (17 buy / 0 sell).",
-      "financials": {
-        "period": "FY2025 (ended Dec 2025)",
-        "summary": "General Dynamics spans Aerospace (Gulfstream), Combat Systems, Marine (submarines), and Technologies. A record backlog, rising global defense budgets, and the Gulfstream G700 ramp drive steady revenue and EPS growth with strong cash conversion.",
-        "highlights": ["Revenue up ~+10% YoY", "EPS growth ~+12% YoY", "Record total backlog", "Gulfstream G700 deliveries ramping"]
-      },
-      "accomplishments": ["Record backlog across defense segments", "G700 certification and delivery ramp", "Steady dividend growth and buybacks"],
-      "journey_52w": {
-        "summary": "A steady defensive advancer that accelerated as geopolitical tensions escalated. The stock has climbed to new highs, benefiting directly from the same Middle East / defense-spending backdrop pressuring the broad market.",
-        "milestones": [
-          {"label": "2025", "note": "Backlog build and G700 ramp underpinned the uptrend"},
-          {"label": "H1 2026", "note": "Geopolitical escalation accelerated the defense bid"},
-          {"label": "Jul 2026", "note": "New highs; TradingView Strong Buy 17/0"}
-        ]
-      },
-      "critical": {
-        "risks": ["July 29 earnings — imminent; Gulfstream margin/execution is the swing factor", "Budget/continuing-resolution timing risk", "Program cost overruns"],
-        "catalysts": ["Q2 earnings July 29", "Sustained defense-budget growth", "G700 delivery cadence"],
-        "watch": ["Aerospace (Gulfstream) margins", "Book-to-bill", "Hold above the breakout into/after earnings"],
-        "valuation": "~21x forward is reasonable for a record-backlog defensive with a clear geopolitical tailwind."
-      }
+      "ticker": "JPM", "name": "JPMorgan Chase", "signal": "STRONG BUY",
+      "verdict": "Best big-bank at a new high — EPS +47% / rev +30% YoY, still ~14x. The anchor for a financials-led rotation.",
+      "financials": {"period": "FY2025", "summary": "Record net interest income, strong markets/IB fees and benign credit produced record earnings; robust capital returns.",
+        "highlights": ["EPS growth ~+46.9% YoY", "Revenue +~30.4% YoY", "Fwd P/E ~14.4", "Fortress balance sheet, big buyback"]},
+      "accomplishments": ["Record revenue and earnings", "New 52-week high, RS at high", "TV STRONG BUY confirmation"],
+      "journey_52w": {"summary": "Steady leadership all year on record NII and share gains, breaking to new highs as capital rotated into banks.",
+        "milestones": [{"label": "2025", "note": "Record NII and IB/markets fees"}, {"label": "Jul 2026", "note": "New 52-week high, sector leadership"}]},
+      "critical": {"risks": ["Credit normalization / reserve builds", "Sector extended after a strong run", "Capital-markets slowdown"],
+        "catalysts": ["Sustained NII", "IB fee recovery", "Continued buybacks"],
+        "watch": ["Net charge-offs", "NII guidance", "Yield curve"],
+        "valuation": "~14x for record profitability — reasonable; best-in-class franchise leading the group."}
     },
     {
-      "ticker": "DELL",
-      "name": "Dell Technologies Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "The AI-server winner that's still working — EPS +283%, revenue +88%, up +107% over three months; the one high-beta name worth owning in this tape.",
-      "financials": {
-        "period": "FY2026 (ended ~Jan 2026)",
-        "summary": "Dell's Infrastructure Solutions Group (ISG) is riding an enormous AI-server demand wave, with a multi-billion-dollar AI-optimized server backlog. This has more than offset a softer PC (CSG) cycle, driving explosive revenue and EPS growth, though AI-server mix pressures gross margins even as operating profit scales.",
-        "highlights": ["Revenue up ~+88% YoY on AI-server demand", "EPS growth ~+283% YoY", "Large and growing AI-server backlog", "~20x forward — reasonable for the growth rate"]
-      },
-      "accomplishments": ["Multi-billion-dollar AI-optimized server backlog", "Record ISG (server/networking) revenue", "Raised long-term growth and capital-return framework"],
-      "journey_52w": {
-        "summary": "One of the biggest AI-infrastructure winners of the year — the stock more than doubled off its base as AI-server orders exploded. After a vertical run it's now consolidating ~6% below highs as the market debates AI-capex sustainability.",
-        "milestones": [
-          {"label": "2025", "note": "AI-server backlog began inflecting; stock broke out"},
-          {"label": "H1 2026", "note": "+107% over three months on record ISG revenue"},
-          {"label": "Jul 2026", "note": "Consolidating below highs amid 'AI burns cash' rotation"}
-        ]
-      },
-      "critical": {
-        "risks": ["AI-capex sentiment is fragile — 'AI burns cash' headlines pressure the whole complex", "AI-server mix compresses gross margin", "Extended after a huge run — expect volatility"],
-        "catalysts": ["Next earnings (~5 weeks out) and backlog update", "Continued hyperscaler/enterprise AI orders", "PC refresh cycle recovery"],
-        "watch": ["AI-server backlog conversion and margin", "Hold of the consolidation range", "Broad AI-capex sentiment"],
-        "valuation": "~20x forward is undemanding for +80% revenue growth — the debate is durability, not price."
-      }
+      "ticker": "EOG", "name": "EOG Resources", "signal": "STRONG BUY",
+      "verdict": "Top-tier E&P at ~9.5x with +40% EPS growth, basing 5% below its high — the emerging energy leg of the value rotation.",
+      "financials": {"period": "FY2025", "summary": "Low-cost premium-well inventory drove strong free cash flow and returns; disciplined capex with sizable dividends and buybacks.",
+        "highlights": ["EPS growth ~+39.6% YoY", "Revenue +~15.6% YoY", "Fwd P/E ~9.5", "High FCF, best-in-class balance sheet"]},
+      "accomplishments": ["Sustained premium-inventory returns", "Regular special dividends + buybacks", "Low breakeven costs"],
+      "journey_52w": {"summary": "Consolidated with the energy group, now tightening in a VCP as crude stabilizes and defensive/inflation hedges attract flows.",
+        "milestones": [{"label": "2025", "note": "Capital-discipline + shareholder-return model rewarded"}, {"label": "Jul 2026", "note": "Tight base ~5% off high"}]},
+      "critical": {"risks": ["Crude-price dependence", "RS not yet at a new high — group still emerging", "Global-demand/OPEC swings"],
+        "catalysts": ["Crude stabilization/strength", "Continued shareholder returns", "Energy-sector rotation"],
+        "watch": ["WTI price", "Production guidance", "Sector relative strength"],
+        "valuation": "~9.5x with 40% EPS growth and huge FCF — cheap; the highest-quality name to play energy."}
     },
     {
-      "ticker": "MET",
-      "name": "MetLife, Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "Cheap defensive insurer (8.4x forward) breaking out of a tight base — higher-for-longer rates are a tailwind, a rarity in this market.",
-      "financials": {
-        "period": "FY2025 (ended Dec 2025)",
-        "summary": "MetLife is a diversified life-insurance and employee-benefits leader with a large investment portfolio that benefits from elevated interest rates. Group Benefits and Retirement/Income Solutions provide stable spread and fee income; management runs a disciplined buyback program that steadily shrinks the share count.",
-        "highlights": ["EPS growth ~+36% YoY", "Very cheap ~8.4x forward P/E", "Elevated rates lifting net investment income", "Consistent buybacks and dividend growth"]
-      },
-      "accomplishments": ["Sustained large-scale share repurchases", "Stable underwriting/benefit margins", "Growing net investment income on higher reinvestment yields"],
-      "journey_52w": {
-        "summary": "A steady, low-drama advancer that has quietly outperformed as investors sought cheap, rate-sensitive defensives. It's now breaking out of a 4-contraction base to new highs.",
-        "milestones": [
-          {"label": "2025", "note": "Higher rates lifted investment income; EPS re-accelerated"},
-          {"label": "H1 2026", "note": "Relative-strength leadership within financials"},
-          {"label": "Jul 2026", "note": "Tight VCP breakout to new highs"}
-        ]
-      },
-      "critical": {
-        "risks": ["TradingView shows 4 sell signals — momentum less unanimous than the banks", "A sharp drop in rates would crimp investment income", "Credit/spread risk in the investment book"],
-        "catalysts": ["Q2 earnings Aug 6", "Higher-for-longer rate backdrop", "Continued buybacks"],
-        "watch": ["Net investment income trend", "Buyback pace", "Hold above the breakout pivot"],
-        "valuation": "~8.4x forward is genuinely cheap for a quality insurer — a rare value + momentum + rate-tailwind combination."
-      }
+      "ticker": "SIRI", "name": "Sirius XM Holdings", "signal": "STRONG BUY",
+      "verdict": "Berkshire-backed value/turnaround breaking to a new high at ~9x forward — a rare clean breakout among cheap names.",
+      "financials": {"period": "FY2025", "summary": "Stable subscription revenue and strong free cash flow with modest growth; heavy debt but reliable cash generation funds dividends/buybacks.",
+        "highlights": ["EPS growth ~+21.8% YoY", "Revenue +~1.1% YoY (flat)", "Fwd P/E ~9.1", "Strong, predictable FCF"]},
+      "accomplishments": ["New 52-week high on a clean VCP", "Berkshire Hathaway backing", "Consistent free-cash-flow return"],
+      "journey_52w": {"summary": "Bottomed after a long derating, then re-rated as value/FCF names came into favor, breaking out to a new high.",
+        "milestones": [{"label": "2025", "note": "Stabilized subscribers and FCF; Berkshire stake in focus"}, {"label": "Jul 2026", "note": "Broke out to a new 52-week high"}]},
+      "critical": {"risks": ["Flat top line — subscriber growth is the core question", "Secular competition from streaming audio", "High leverage"],
+        "catalysts": ["Subscriber stabilization/growth", "Continued FCF return", "Berkshire sponsorship"],
+        "watch": ["Net subscriber adds", "Churn", "FCF conversion"],
+        "valuation": "~9x FCF-rich value; momentum + low multiple, but growth must inflect for durable upside."}
     },
     {
-      "ticker": "OKE",
-      "name": "ONEOK, Inc.",
-      "signal": "STRONG BUY",
-      "verdict": "Fee-based midstream toll-taker that benefits from the energy-flow spike without direct commodity-price risk; TV Strong Buy, near highs.",
-      "financials": {
-        "period": "FY2025 (ended Dec 2025)",
-        "summary": "ONEOK is a leading natural-gas-liquids, natural-gas gathering/processing, and pipeline operator whose earnings are largely fee-based (volume-driven, not commodity-price-driven). Recent large acquisitions expanded its footprint and drove double-digit EPS growth, funded by durable cash flows that also support a high dividend.",
-        "highlights": ["Revenue up ~+20% YoY", "EPS growth ~+18% YoY", "Largely fee-based, volume-driven cash flows", "High, well-covered dividend; ~15x forward"]
-      },
-      "accomplishments": ["Integrated recent large midstream acquisitions, expanding scale", "Record NGL and gas volumes", "Maintained a high, growing distribution"],
-      "journey_52w": {
-        "summary": "A steady midstream advancer that caught an extra bid as energy came into focus. It sits just ~2% off its highs, benefiting from elevated energy activity while insulated from direct crude-price swings by its fee-based model.",
-        "milestones": [
-          {"label": "2025", "note": "Acquisition integration lifted volumes and EPS"},
-          {"label": "H1 2026", "note": "Energy-flow tailwind supported the uptrend"},
-          {"label": "Jul 2026", "note": "Near highs; TradingView Strong Buy 16/0"}
-        ]
-      },
-      "critical": {
-        "risks": ["Rate-sensitive given the high yield", "Leverage from recent M&A", "Volume risk if drilling activity slows"],
-        "catalysts": ["Q2 earnings Aug 4", "Synergy realization from acquisitions", "Sustained NGL/gas volume growth"],
-        "watch": ["Distribution coverage and leverage", "Volume trends", "Hold near the highs"],
-        "valuation": "~15x forward with a high, covered yield — a defensive, income-plus-growth way to play energy activity."
-      }
+      "ticker": "ETSY", "name": "Etsy Inc.", "signal": "STRONG BUY",
+      "verdict": "Beaten-down e-commerce name reclaiming leadership — breaking out near a new high at ~13x forward with RS at high.",
+      "financials": {"period": "FY2025", "summary": "Sluggish GMS growth but strong margins and free cash flow; disciplined cost control and buybacks lifted per-share value.",
+        "highlights": ["Revenue +~3.1% YoY", "Fwd P/E ~12.9", "High-margin marketplace model", "Robust free cash flow + buybacks"]},
+      "accomplishments": ["Breakout to a new high with RS at high", "Margin/FCF resilience despite soft GMS", "Deep-value re-rating"],
+      "journey_52w": {"summary": "Long base after a multi-year derating, then a decisive breakout as cheap consumer-discretionary names caught a bid.",
+        "milestones": [{"label": "2025", "note": "Cost discipline + buybacks supported the stock through soft GMS"}, {"label": "Jul 2026", "note": "Broke out near a new high, TV STRONG BUY"}]},
+      "critical": {"risks": ["GMS growth still sluggish (+3% rev)", "Discretionary-spend sensitivity", "Active-buyer trends"],
+        "catalysts": ["GMS re-acceleration", "Continued buybacks", "Consumer-discretionary rotation"],
+        "watch": ["GMS growth", "Active buyers", "Take-rate"],
+        "valuation": "~13x with high margins and FCF — cheap turnaround; needs GMS to inflect to sustain the move."}
+    },
+    {
+      "ticker": "NVDA", "name": "NVIDIA Corp.", "signal": "WATCH",
+      "verdict": "Broken leadership — 16% off its high, RSI 50, TradingView SELL amid 'AI-trade fatigue.' Elite company, damaged chart; don't chase, wait for a base.",
+      "financials": {"period": "FY2026 (ended Jan 2026)", "summary": "Still extraordinary data-center/AI growth and margins, but the market is now questioning the durability of AI capex after headlines about a large OpenAI backstop.",
+        "highlights": ["Data-center revenue still dominant", "Very high gross margins", "Growth decelerating off a huge base", "Narrative shifting from 'unstoppable' to 'is capex peaking?'"]},
+      "accomplishments": ["Remains the AI-accelerator standard", "Massive installed-base and software moat (CUDA)", "Blackwell/next-gen ramp"],
+      "journey_52w": {"summary": "From market-cap champion to a sharp correction as the AI trade unwound — briefly overtaken by Apple as most valuable company.",
+        "milestones": [{"label": "2025", "note": "Peaked as the world's most valuable company"}, {"label": "Jul 2026", "note": "Corrected ~16%; TV Sell; passed by Apple"}]},
+      "critical": {"risks": ["AI-capex-durability fears (OpenAI backstop headlines)", "Below 50-day, TV SELL, negative momentum", "High expectations still embedded"],
+        "catalysts": ["Blackwell demand confirmation", "Hyperscaler capex reassurance", "Reclaiming the 50-day"],
+        "watch": ["Reclaim of the 50-day", "Hyperscaler capex commentary", "Stabilizing RS"],
+        "valuation": "Premium AI leader, but technically broken; a hold/trim for owners and a WATCH for new money until the chart repairs."}
+    },
+    {
+      "ticker": "SPCX", "name": "Space Exploration Technologies (SpaceX)", "signal": "WATCH",
+      "verdict": "New listing — the quant signals are thin and washed out (RSI 18, -46% off high), so judge it on the story, not the indicators. High-conviction long-term theme, volatile post-IPO.",
+      "financials": {"period": "N/A (recently public — limited disclosed history)", "summary": "As a newly public, high-growth aerospace name, financials are early/limited; the thesis rests on Starlink's subscriber and revenue ramp plus launch cadence, not trailing statements.",
+        "highlights": ["Starlink subscriber and revenue growth is the core driver", "Dominant global launch cadence (Falcon/Starship)", "Pre-profit, reinvestment-heavy phase", "Valuation driven by private-market marks and IPO momentum"]},
+      "accomplishments": ["Landmark public listing", "Continued Starlink expansion", "Progress on Starship development/reusability"],
+      "journey_52w": {"summary": "Post-IPO round-trip typical of a hot new listing — an initial pop, then a deep pullback (~46% off the high) as the float settles and momentum cools.",
+        "milestones": [{"label": "IPO", "note": "Debuted with heavy momentum and demand"}, {"label": "Jul 2026", "note": "Deep pullback, RSI ~18 — washed out but unproven"}]},
+      "critical": {"risks": ["New listing — no TradingView rating and thin quant history (expected)", "Extreme volatility and lockup/float dynamics", "Pre-profit, funding/valuation sensitivity"],
+        "catalysts": ["Starlink subscriber/revenue milestones", "Starship program milestones", "Post-IPO base-building"],
+        "watch": ["Starlink metrics", "Starship test cadence", "First real base after the IPO shakeout"],
+        "valuation": "Story-driven new listing; size small and treat as a long-term speculative position, not a technical trade."}
     }
   ]
 }
