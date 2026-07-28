@@ -1,0 +1,160 @@
+{
+  "date": "2026-07-28",
+  "scan_date": "2026-07-28",
+  "scan_time_et": "08:00 AM ET (pre-open)",
+  "market": {
+    "state": "UNDER PRESSURE",
+    "advice": "Pre-open read (US open ~9:30 ET): a risk-off rotation, not a broad collapse. SPY ~739 is ~2.4% off its high and back under its 50-day (744) with VIX 18.8 and rising — the index has NOT reclaimed leadership. The damage is concentrated in mega-cap AI/tech: NVDA (-16% off high, TV Sell), TSLA (RSI 17), MU, AMD, AMAT, GOOGL and ORCL are all broken, and headlines about Nvidia's ~$250B OpenAI backstop are feeding 'AI-trade fatigue.' Underneath, money is rotating hard into quality value: financials (MET, PRU, JPM, BAC, ALL), REITs (KIM, SPG, PLD, O), healthcare (DVA, CVS, LLY), industrials/rails (HWM, UNP, NSC), materials (RS, NUE) and staples (CCEP, KO) are printing new highs. Notably, Apple is the one mega-cap still working — a fresh high and back to most-valuable company. Play the tape you're given: lean into A+ value/defensive breakouts at or near new highs, keep size modest, respect stops, and do NOT catch the falling AI knives until they reclaim their 50-day. Only A+ setups until SPY reclaims 744 with a follow-through day."
+  },
+  "picks": [
+    {"ticker": "AAPL", "signal": "STRONG BUY", "score": 94.1, "grade": "A+", "entry": 336.91, "stop": 309.96, "target": 404.29,
+      "thesis": "The lone mega-cap still working — tagged a fresh 52-week high and reclaimed the world's most-valuable-company crown from Nvidia as the AI trade wobbles. Tight VCP, RS at highs.",
+      "strengths": ["New 52-week high, RS at high, textbook VCP", "EPS +21.8% / rev +16.6% YoY", "TradingView agrees: STRONG BUY (17 buy / 1 sell)"],
+      "risks": ["RSI 72 — slightly extended, expect chop", "Fwd P/E ~35 leaves no room for a services miss"]},
+
+    {"ticker": "KIM", "signal": "STRONG BUY", "score": 95.2, "grade": "A+", "entry": 26.38, "stop": 24.27, "target": 31.66,
+      "thesis": "Top-scored name in the entire 542-stock universe. Open-air shopping-center REIT breaking to new highs as capital rotates into rate-sensitive real estate. Clean base, RS at high.",
+      "strengths": ["#1 combined score, at 52-week high", "EPS +29.4% YoY, TV STRONG BUY (16/0)", "REIT leadership is the market's new tape"],
+      "risks": ["RSI 67 on a breakout — give it room", "Rate re-acceleration would pressure the group"]},
+
+    {"ticker": "MET", "signal": "STRONG BUY", "score": 94.6, "grade": "A+", "entry": 95.19, "stop": 87.57, "target": 114.23,
+      "thesis": "Life insurer breaking to new highs on a tight VCP with a single-digit forward multiple — exactly the value/financials profile leading this tape.",
+      "strengths": ["Fwd P/E 8.7, EPS +35.9% YoY", "New high, RS at high, TV STRONG BUY (16/2)", "Rising-rate beneficiary"],
+      "risks": ["Financials are crowded here — watch for rotation exhaustion", "Credit/spread widening is the sector risk"]},
+
+    {"ticker": "PRU", "signal": "STRONG BUY", "score": 94.5, "grade": "A", "entry": 121.89, "stop": 112.14, "target": 146.27,
+      "thesis": "Prudential joins the insurance breakout — new high, cheap at ~8x forward, strong RS. A yield-plus-value anchor for the rotation.",
+      "strengths": ["Fwd P/E 8.3, rev +15.3% YoY", "At 52-week high, TV STRONG BUY (17/0)"],
+      "risks": ["EPS -14.3% YoY — earnings quality is the watch item", "Equity drawdown pressures AUM fees"]},
+
+    {"ticker": "HWM", "signal": "STRONG BUY", "score": 94.6, "grade": "A+", "entry": 287.94, "stop": 264.9, "target": 345.53,
+      "thesis": "Aerospace-components juggernaut with the best earnings acceleration in the leaders (+71% EPS). Coiled just under its high in a tight VCP — defense/aero is a genuine leadership pocket.",
+      "strengths": ["EPS +71.4% / rev +19.1% YoY", "RS at high, tight base", "Aero super-cycle tailwind"],
+      "risks": ["Fwd P/E ~48 — priced for perfection", "TV is BUY not STRONG BUY — momentum not yet unanimous"]},
+
+    {"ticker": "SPG", "signal": "STRONG BUY", "score": 94.2, "grade": "A", "entry": 231.67, "stop": 213.14, "target": 278.0,
+      "thesis": "Mall-REIT bellwether at a new high with RSI still only 58 — breakout with fuel left in the tank. Rev +19% YoY confirms the fundamental turn.",
+      "strengths": ["New high but RSI 58 (room to run)", "EPS +16.4% / rev +19.3% YoY", "TV STRONG BUY (16/0)"],
+      "risks": ["Consumer-spending slowdown is the core risk", "REIT sensitivity to the long end"]},
+
+    {"ticker": "DVA", "signal": "STRONG BUY", "score": 94.2, "grade": "A+", "entry": 236.31, "stop": 217.41, "target": 283.57,
+      "thesis": "Dialysis leader with the cleanest entry among the top names — RSI just 53 near a new high, +43% EPS growth, defensive healthcare cash flows the tape wants.",
+      "strengths": ["RSI 53 = un-extended, best risk/reward setup", "EPS +43.5% YoY, fwd P/E 13.7", "TV BUY, defensive leadership"],
+      "risks": ["Policy/reimbursement headline risk", "Thin-volume days can whip the stop"]},
+
+    {"ticker": "CVS", "signal": "STRONG BUY", "score": 93.9, "grade": "A", "entry": 107.07, "stop": 98.5, "target": 128.48,
+      "thesis": "The turnaround is real — EPS +63% YoY, near a new high on a tight base, cheap at ~13x. Managed-care/pharmacy is defensive leadership in a risk-off tape.",
+      "strengths": ["EPS +63.1% YoY, fwd P/E 12.7", "RS at high, TV BUY", "Value + defensive profile"],
+      "risks": ["Aetna medical-cost trend is the swing factor", "Guidance credibility still rebuilding"]},
+
+    {"ticker": "SIRI", "signal": "STRONG BUY", "score": 93.9, "grade": "A", "entry": 31.22, "stop": 28.72, "target": 37.46,
+      "thesis": "SiriusXM breaking to a new high on a clean VCP at ~9x forward — a rare Berkshire-backed value/turnaround catching a bid while growth unwinds.",
+      "strengths": ["At 52-week high, RS at high, TV STRONG BUY", "Fwd P/E 9.1, EPS +21.8% YoY"],
+      "risks": ["Subscriber growth is flat (rev +1.1%)", "Secular audio competition"]},
+
+    {"ticker": "JPM", "signal": "STRONG BUY", "score": 93.4, "grade": "A+", "entry": 356.2, "stop": 327.7, "target": 427.44,
+      "thesis": "The best big-bank in the group at a new high — EPS +47% / rev +30% YoY, still only ~14x. The anchor position for a financials-led rotation.",
+      "strengths": ["EPS +46.9% / rev +30.4% YoY", "New high, RS at high, TV STRONG BUY", "Best-in-class franchise"],
+      "risks": ["Credit normalization / reserve builds", "Sector is extended after a big run"]},
+
+    {"ticker": "BAC", "signal": "STRONG BUY", "score": 93.7, "grade": "A", "entry": 62.13, "stop": 57.16, "target": 74.56,
+      "thesis": "Bank of America breaking out at ~12x with EPS +36% / rev +21% YoY — more upside beta to the rate/curve trade than JPM at a cheaper multiple.",
+      "strengths": ["New high, RS at high, EPS +36% YoY", "Fwd P/E 11.8"],
+      "risks": ["TV BUY (not STRONG BUY) — confirmation not unanimous", "NIM sensitivity if the curve flattens"]},
+
+    {"ticker": "UNP", "signal": "STRONG BUY", "score": 93.3, "grade": "A", "entry": 299.3, "stop": 275.36, "target": 359.16,
+      "thesis": "Union Pacific leads the rail breakout — RS at high, rev +11.5% YoY. Cyclical-industrial leadership with a fortress moat.",
+      "strengths": ["RS at high, tight VCP, TV BUY", "Rev +11.5% YoY, pricing power"],
+      "risks": ["Freight-volume cyclicality", "Only ~2.6% off high — chase risk"]},
+
+    {"ticker": "NSC", "signal": "STRONG BUY", "score": 93.0, "grade": "A", "entry": 343.35, "stop": 315.88, "target": 412.02,
+      "thesis": "Norfolk Southern joins the rail bid on an efficiency/consolidation narrative — breakout with RS at high, a second way to play the industrials rotation.",
+      "strengths": ["RS at high, TV BUY, rev +11.4% YoY", "Rail-consolidation optionality"],
+      "risks": ["EPS -4.4% YoY — earnings still recovering", "Operating-ratio execution risk"]},
+
+    {"ticker": "ETSY", "signal": "STRONG BUY", "score": 93.4, "grade": "A", "entry": 83.84, "stop": 77.13, "target": 100.61,
+      "thesis": "Beaten-down e-commerce name reclaiming leadership — breaking out near a new high at just ~13x forward with RS at high. A cheap consumer-discretionary turn.",
+      "strengths": ["RS at high, TV STRONG BUY, fwd P/E 12.9", "Deep value in a group few own"],
+      "risks": ["Rev only +3.1% — GMS growth still sluggish", "Discretionary-spend sensitivity"]},
+
+    {"ticker": "CROX", "signal": "STRONG BUY", "score": 93.2, "grade": "A", "entry": 134.54, "stop": 123.78, "target": 161.45,
+      "thesis": "Crocs at ~9x forward with RS at high, breaking out from a long base — classic deep-value momentum the market is rewarding right now.",
+      "strengths": ["Fwd P/E 9.2, RS at high, TV BUY", "Enormous free-cash-flow yield"],
+      "risks": ["Rev -1.7% / EPS -4.2% — growth has stalled", "HeyDude brand drag"]},
+
+    {"ticker": "LLY", "signal": "STRONG BUY", "score": 93.1, "grade": "A+", "entry": 1197.53, "stop": 1101.73, "target": 1437.04,
+      "thesis": "The best growth story that's ALSO in an orderly base — EPS +170% / rev +55% YoY on GLP-1 dominance, pulling back to RSI 41 near support. Buy the best on weakness.",
+      "strengths": ["EPS +169.9% / rev +55.5% YoY — elite", "RSI 41 = constructive pullback entry", "RS at high, TV BUY"],
+      "risks": ["High absolute price = big dollar swings", "GLP-1 competition and pricing headlines"]},
+
+    {"ticker": "RS", "signal": "STRONG BUY", "score": 93.3, "grade": "A", "entry": 404.35, "stop": 372.0, "target": 485.22,
+      "thesis": "Reliance metals-service breaking out with EPS +42% / rev +27% YoY at ~18x — the materials leg of the value rotation, RS at high.",
+      "strengths": ["EPS +42.3% / rev +26.5% YoY", "RS at high, tight VCP, TV BUY"],
+      "risks": ["Steel-price and construction-cycle sensitivity", "Only 2.2% off high"]},
+
+    {"ticker": "EOG", "signal": "STRONG BUY", "score": 92.7, "grade": "A", "entry": 140.31, "stop": 129.09, "target": 168.37,
+      "thesis": "Top-tier E&P at ~9.5x with EPS +40% / rev +16% YoY, basing 5% below its high — energy is quietly rotating up as a defensive/inflation hedge.",
+      "strengths": ["Fwd P/E 9.5, EPS +39.6% YoY", "Tight VCP, TV BUY, best-in-class balance sheet"],
+      "risks": ["Crude-price dependence", "RS not yet at high — group still emerging"]},
+
+    {"ticker": "CCEP", "signal": "STRONG BUY", "score": 92.7, "grade": "A", "entry": 108.7, "stop": 100.0, "target": 130.44,
+      "thesis": "Coca-Cola Europacific Partners — EPS +68% YoY, breaking out near its high on a tight base. Defensive staple with real earnings acceleration; safety is in demand.",
+      "strengths": ["EPS +68.3% YoY, tight VCP, TV STRONG BUY", "Defensive cash flows"],
+      "risks": ["Rev +0.2% — top line is flat (margin-driven)", "FX translation"]},
+
+    {"ticker": "ALL", "signal": "STRONG BUY", "score": 92.8, "grade": "A", "entry": 261.27, "stop": 240.37, "target": 313.52,
+      "thesis": "Allstate at a new high, ~10x forward, EPS normalizing hard off catastrophe lows — P&C insurance is a core rotation leader with pricing power.",
+      "strengths": ["New high, RS at high, TV STRONG BUY", "Fwd P/E 9.9, hard-market pricing"],
+      "risks": ["Catastrophe-loss volatility", "Auto-frequency normalization"]},
+
+    {"ticker": "PLD", "signal": "STRONG BUY", "score": 92.5, "grade": "A", "entry": 147.26, "stop": 135.48, "target": 176.71,
+      "thesis": "Prologis — the logistics-REIT blue chip — breaking out with EPS +85% YoY and RSI only 57. Industrial real estate plus data-center optionality; TV STRONG BUY.",
+      "strengths": ["EPS +85.3% YoY, RSI 57 (room)", "TV STRONG BUY, best-in-class REIT"],
+      "risks": ["Fwd P/E ~43 — rich for a REIT", "Warehouse-demand cyclicality"]},
+
+    {"ticker": "DRI", "signal": "STRONG BUY", "score": 91.9, "grade": "A", "entry": 204.1, "stop": 187.77, "target": 244.92,
+      "thesis": "Darden (Olive Garden/LongHorn) — EPS +36% / rev +14% YoY, RSI 51 basing 5% below its high. Consumer-defensive restaurant leader with a clean risk/reward.",
+      "strengths": ["EPS +36% / rev +13.7% YoY", "RSI 51 = un-extended, TV STRONG BUY"],
+      "risks": ["Consumer traffic softening", "RS not yet at high"]},
+
+    {"ticker": "MAR", "signal": "STRONG BUY", "score": 91.3, "grade": "A", "entry": 383.06, "stop": 352.42, "target": 459.67,
+      "thesis": "Marriott — asset-light lodging compounder, RSI 52 basing under its high with rev +12.6% YoY. Travel demand plus buybacks; TV STRONG BUY.",
+      "strengths": ["RSI 52, TV STRONG BUY, rev +12.6% YoY", "Fee-based, capital-light model"],
+      "risks": ["EPS +1.7% — growth decelerating", "Travel-demand cyclicality"]},
+
+    {"ticker": "NTAP", "signal": "STRONG BUY", "score": 89.7, "grade": "A", "entry": 169.8, "stop": 156.22, "target": 203.76,
+      "thesis": "NetApp is the tech name that DIDN'T break — storage/data-infrastructure holding near its high (only -6%), EPS +23% YoY, TV STRONG BUY. A defensive way to stay in tech.",
+      "strengths": ["EPS +23.4% YoY, only 5.9% off high", "TV STRONG BUY (rare in tech right now)"],
+      "risks": ["Enterprise-IT-spend sensitivity", "Broader tech tape is heavy"]},
+
+    {"ticker": "SNOW", "signal": "STRONG BUY", "score": 89.0, "grade": "A", "entry": 272.92, "stop": 251.09, "target": 327.5,
+      "thesis": "Snowflake is the strongest software growth name still intact — rev +33% YoY, only 2.6% off its high while the rest of tech breaks. AI-data-platform demand is holding.",
+      "strengths": ["Rev +33.5% YoY, RSI 59, only 2.6% off high", "TV BUY, best relative strength in software"],
+      "risks": ["Fwd P/E ~101 — extremely rich, no margin for error", "First to sell if AI-trade fear deepens"]},
+
+    {"ticker": "AMP", "signal": "STRONG BUY", "score": 91.8, "grade": "A", "entry": 538.01, "stop": 494.97, "target": 645.61,
+      "thesis": "Ameriprise — wealth-management compounder at ~10.5x, basing just under its high with RSI 66. Fee-based financials with steady double-digit growth; TV STRONG BUY.",
+      "strengths": ["Fwd P/E 10.5, EPS +11.7% / rev +11.6% YoY", "TV STRONG BUY, high-ROE model"],
+      "risks": ["AUM sensitivity to an equity drawdown", "High share price = wide dollar moves"]},
+
+    {"ticker": "ROST", "signal": "WATCH", "score": 93.6, "grade": "A", "entry": 243.35, "stop": 223.88, "target": 292.02,
+      "thesis": "Ross Stores is a top-scoring, RS-at-high leader — but RSI 80 is deeply overbought right into a new high. Great business; wait for a pullback to add.",
+      "strengths": ["EPS +37% / rev +21% YoY, TV STRONG BUY", "Off-price wins in a soft consumer"],
+      "risks": ["RSI 80.4 — extended, chase risk high", "Any wobble mean-reverts fast from here"]},
+
+    {"ticker": "FRT", "signal": "WATCH", "score": 94.5, "grade": "A", "entry": 127.13, "stop": 116.96, "target": 152.56,
+      "thesis": "Federal Realty at a new high with elite EPS growth — but RSI 73 is hot and fwd P/E ~41 is stretched for a REIT. Strong; let it digest before entering.",
+      "strengths": ["New high, RS at high, EPS +152% YoY", "TV STRONG BUY, premium REIT"],
+      "risks": ["RSI 73 + P/E 41 = extended", "Better entry likely on a pullback to the base"]},
+
+    {"ticker": "NUE", "signal": "WATCH", "score": 92.7, "grade": "B", "entry": 247.86, "stop": 228.03, "target": 297.43,
+      "thesis": "Nucor — EPS +94% YoY and a strong materials trend, but RSI 73 and 6.7% off its high means it's mid-thrust, not at a clean base. Watch for the next tight setup.",
+      "strengths": ["EPS +93.8% / rev +23% YoY", "Steel leadership, TV BUY"],
+      "risks": ["RSI 73, not at a new high — extended within its range", "Steel-price volatility"]},
+
+    {"ticker": "LNG", "signal": "WATCH", "score": 92.5, "grade": "B", "entry": 255.88, "stop": 235.41, "target": 307.06,
+      "thesis": "Cheniere LNG has great fundamentals (rev +24% YoY, ~13x) but is 13.6% below its high and TradingView rates it NEUTRAL — the setup isn't confirmed. Watchlist, not a buy here.",
+      "strengths": ["Rev +24.2% YoY, structural LNG-export demand", "Cheap at ~13x forward"],
+      "risks": ["13.6% off high, RS not at high", "TV NEUTRAL — technicals disagree with the score"]}
+  ]
+}
