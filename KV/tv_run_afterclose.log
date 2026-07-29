@@ -1,0 +1,3 @@
+  Rating 113 equities (+1 crypto) via TradingView…
+  ok  wrote C:\Users\91635\Desktop\TXsparks\Sparks_Finance\Sparks_Finance\KV\tv_ratings.json: 112/114 resolved. Distribution: {'STRONG_BUY': 41, 'BUY': 25, 'NEUTRAL': 4, 'SELL': 34, 'STRONG_SELL': 8}
+  Next: Claude reads tv_ratings.json (cross-check picks), then apply_claude_recommendations.py merges it onto the cards.
