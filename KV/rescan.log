@@ -1,0 +1,821 @@
+﻿Re-scanning 542 tickers with 5 workers (63 forced/low-history)
+  [1/542] NVDA: nodata
+python :   ERR NVDA: Too Many Requests. Rate limited. Try after a while.
+At line:1 char:373
++ ... inance\Sparks_Finance\KV"; python rescan.py --workers 5 *> rescan.log
++                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  ERR NVDA: Too... after a while.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  ERR AAPL: Too Many Requests. Rate limited. Try after a while.
+  [2/542] AAPL: nodata
+  ERR META: Too Many Requests. Rate limited. Try after a while.
+  ERR AMZN: Too Many Requests. Rate limited. Try after a while.
+  [3/542] META: nodata
+  [4/542] AMZN: nodata
+  ERR MSFT: Too Many Requests. Rate limited. Try after a while.
+  [5/542] MSFT: nodata
+  ERR TSLA: Too Many Requests. Rate limited. Try after a while.
+  [6/542] TSLA: nodata
+  ERR AVGO: Too Many Requests. Rate limited. Try after a while.
+  [7/542] AVGO: nodata
+  ERR GOOG: Too Many Requests. Rate limited. Try after a while.
+  [8/542] GOOG: nodata
+  ERR GOOGL: Too Many Requests. Rate limited. Try after a while.
+  [9/542] GOOGL: nodata
+  ERR COST: Too Many Requests. Rate limited. Try after a while.
+  [10/542] COST: nodata
+  ERR INTU: Too Many Requests. Rate limited. Try after a while.
+  [11/542] INTU: nodata
+  ERR AMD: Too Many Requests. Rate limited. Try after a while.
+  [12/542] AMD: nodata
+  ERR NFLX: Too Many Requests. Rate limited. Try after a while.
+  [13/542] NFLX: nodata
+  ERR PEP: Too Many Requests. Rate limited. Try after a while.
+  [14/542] PEP: nodata
+  ERR ADBE: Too Many Requests. Rate limited. Try after a while.
+  [15/542] ADBE: nodata
+  ERR QCOM: Too Many Requests. Rate limited. Try after a while.
+  [16/542] QCOM: nodata
+  ERR AMAT: Too Many Requests. Rate limited. Try after a while.
+  [17/542] AMAT: nodata
+  ERR CSCO: Too Many Requests. Rate limited. Try after a while.
+  [18/542] CSCO: nodata
+  ERR TXN: Too Many Requests. Rate limited. Try after a while.
+  [19/542] TXN: nodata
+  ERR AMGN: Too Many Requests. Rate limited. Try after a while.
+  [20/542] AMGN: nodata
+  ERR HON: Too Many Requests. Rate limited. Try after a while.
+  [21/542] HON: nodata
+  ERR BKNG: Too Many Requests. Rate limited. Try after a while.
+  [22/542] BKNG: nodata
+  ERR ISRG: Too Many Requests. Rate limited. Try after a while.
+  [23/542] ISRG: nodata
+  ERR PANW: Too Many Requests. Rate limited. Try after a while.
+  [24/542] PANW: nodata
+  ERR REGN: Too Many Requests. Rate limited. Try after a while.
+  [25/542] REGN: nodata
+  ERR CMCSA: Too Many Requests. Rate limited. Try after a while.
+  [26/542] CMCSA: nodata
+  ERR VRTX: Too Many Requests. Rate limited. Try after a while.
+  [27/542] VRTX: nodata
+  ERR INTC: Too Many Requests. Rate limited. Try after a while.
+  [28/542] INTC: nodata
+  ERR MU: Too Many Requests. Rate limited. Try after a while.
+  [29/542] MU: nodata
+  ERR ADI: Too Many Requests. Rate limited. Try after a while.
+  [30/542] ADI: nodata
+  ERR LRCX: Too Many Requests. Rate limited. Try after a while.
+  [31/542] LRCX: nodata
+  ERR KLAC: Too Many Requests. Rate limited. Try after a while.
+  [32/542] KLAC: nodata
+  ERR ABNB: Too Many Requests. Rate limited. Try after a while.
+  [33/542] ABNB: nodata
+  ERR MELI: Too Many Requests. Rate limited. Try after a while.
+  [34/542] MELI: nodata
+  ERR MDLZ: Too Many Requests. Rate limited. Try after a while.
+  [35/542] MDLZ: nodata
+  ERR SNPS: Too Many Requests. Rate limited. Try after a while.
+  [36/542] SNPS: nodata
+  ERR SBUX: Too Many Requests. Rate limited. Try after a while.
+  [37/542] SBUX: nodata
+  ERR GILD: Too Many Requests. Rate limited. Try after a while.
+  [38/542] GILD: nodata
+  ERR CEG: Too Many Requests. Rate limited. Try after a while.
+  [39/542] CEG: nodata
+  ERR PYPL: Too Many Requests. Rate limited. Try after a while.
+  [40/542] PYPL: nodata
+  ERR CRWD: Too Many Requests. Rate limited. Try after a while.
+  [41/542] CRWD: nodata
+  ERR ADP: Too Many Requests. Rate limited. Try after a while.
+  [42/542] ADP: nodata
+  ERR CDNS: Too Many Requests. Rate limited. Try after a while.
+  [43/542] CDNS: nodata
+  ERR MRVL: Too Many Requests. Rate limited. Try after a while.
+  [44/542] MRVL: nodata
+  ERR ORLY: Too Many Requests. Rate limited. Try after a while.
+  [45/542] ORLY: nodata
+  ERR KDP: Too Many Requests. Rate limited. Try after a while.
+  [46/542] KDP: nodata
+  ERR MRNA: Too Many Requests. Rate limited. Try after a while.
+  [47/542] MRNA: nodata
+  ERR CSX: Too Many Requests. Rate limited. Try after a while.
+  [48/542] CSX: nodata
+  ERR PCAR: Too Many Requests. Rate limited. Try after a while.
+  [49/542] PCAR: nodata
+  ERR DXCM: Too Many Requests. Rate limited. Try after a while.
+  [50/542] DXCM: nodata
+  ERR NXPI: Too Many Requests. Rate limited. Try after a while.
+  [51/542] NXPI: nodata
+  ERR CTAS: Too Many Requests. Rate limited. Try after a while.
+  [52/542] CTAS: nodata
+  ERR PAYX: Too Many Requests. Rate limited. Try after a while.
+  [53/542] PAYX: nodata
+  ERR WDAY: Too Many Requests. Rate limited. Try after a while.
+  [54/542] WDAY: nodata
+  ERR TTD: Too Many Requests. Rate limited. Try after a while.
+  [55/542] TTD: nodata
+  ERR GEHC: Too Many Requests. Rate limited. Try after a while.
+  [56/542] GEHC: nodata
+  ERR FTNT: Too Many Requests. Rate limited. Try after a while.
+  [57/542] FTNT: nodata
+  ERR FAST: Too Many Requests. Rate limited. Try after a while.
+  [58/542] FAST: nodata
+  ERR CTSH: Too Many Requests. Rate limited. Try after a while.
+  [59/542] CTSH: nodata
+  ERR ROST: Too Many Requests. Rate limited. Try after a while.
+  [60/542] ROST: nodata
+  ERR ODFL: Too Many Requests. Rate limited. Try after a while.
+  [61/542] ODFL: nodata
+  ERR MCHP: Too Many Requests. Rate limited. Try after a while.
+  [62/542] MCHP: nodata
+  ERR BIIB: Too Many Requests. Rate limited. Try after a while.
+  [63/542] BIIB: nodata
+  ERR ZS: Too Many Requests. Rate limited. Try after a while.
+  [64/542] ZS: nodata
+  ERR EA: Too Many Requests. Rate limited. Try after a while.
+  [65/542] EA: nodata
+  ERR TEAM: Too Many Requests. Rate limited. Try after a while.
+  [66/542] TEAM: nodata
+  ERR IDXX: Too Many Requests. Rate limited. Try after a while.
+  [67/542] IDXX: nodata
+  ERR ANSS: Too Many Requests. Rate limited. Try after a while.
+  ERR WBD: Too Many Requests. Rate limited. Try after a while.
+  [68/542] ANSS: nodata
+  [69/542] WBD: nodata
+  ERR DLTR: Too Many Requests. Rate limited. Try after a while.
+  [70/542] DLTR: nodata
+  ERR EXC: Too Many Requests. Rate limited. Try after a while.
+  [71/542] EXC: nodata
+  ERR ILMN: Too Many Requests. Rate limited. Try after a while.
+  [72/542] ILMN: nodata
+  ERR KHC: Too Many Requests. Rate limited. Try after a while.
+  [73/542] KHC: nodata
+  ERR ON: Too Many Requests. Rate limited. Try after a while.
+  [74/542] ON: nodata
+  ERR VRSK: Too Many Requests. Rate limited. Try after a while.
+  ERR DDOG: Too Many Requests. Rate limited. Try after a while.
+  [75/542] VRSK: nodata
+  [76/542] DDOG: nodata
+  ERR CCEP: Too Many Requests. Rate limited. Try after a while.
+  [77/542] CCEP: nodata
+  ERR FANG: Too Many Requests. Rate limited. Try after a while.
+  [78/542] FANG: nodata
+  ERR BKR: Too Many Requests. Rate limited. Try after a while.
+  [79/542] BKR: nodata
+  ERR CSGP: Too Many Requests. Rate limited. Try after a while.
+  [80/542] CSGP: nodata
+  ERR SIRI: Too Many Requests. Rate limited. Try after a while.
+  [81/542] SIRI: nodata
+  ERR MNST: Too Many Requests. Rate limited. Try after a while.
+  [82/542] MNST: nodata
+  ERR CDW: Too Many Requests. Rate limited. Try after a while.
+  [83/542] CDW: nodata
+  ERR CHTR: Too Many Requests. Rate limited. Try after a while.
+  [84/542] CHTR: nodata
+  ERR ALGN: Too Many Requests. Rate limited. Try after a while.
+  [85/542] ALGN: nodata
+  ERR XEL: Too Many Requests. Rate limited. Try after a while.
+  [86/542] XEL: nodata
+  ERR PDD: Too Many Requests. Rate limited. Try after a while.
+  [87/542] PDD: nodata
+  ERR JD: Too Many Requests. Rate limited. Try after a while.
+  [88/542] JD: nodata
+  ERR LULU: Too Many Requests. Rate limited. Try after a while.
+  [89/542] LULU: nodata
+  ERR GS: Too Many Requests. Rate limited. Try after a while.
+  [90/542] GS: nodata
+  ERR BAC: Too Many Requests. Rate limited. Try after a while.
+  [91/542] BAC: nodata
+  ERR JPM: Too Many Requests. Rate limited. Try after a while.
+  [92/542] JPM: nodata
+  ERR MS: Too Many Requests. Rate limited. Try after a while.
+  [93/542] MS: nodata
+  ERR SCHW: Too Many Requests. Rate limited. Try after a while.
+  [94/542] SCHW: nodata
+  ERR WFC: Too Many Requests. Rate limited. Try after a while.
+  [95/542] WFC: nodata
+  ERR AXP: Too Many Requests. Rate limited. Try after a while.
+  [96/542] AXP: nodata
+  ERR BLK: Too Many Requests. Rate limited. Try after a while.
+  [97/542] BLK: nodata
+  ERR SPGI: Too Many Requests. Rate limited. Try after a while.
+  [98/542] SPGI: nodata
+  ERR PGR: Too Many Requests. Rate limited. Try after a while.
+  [99/542] PGR: nodata
+  ERR ALL: Too Many Requests. Rate limited. Try after a while.
+  [100/542] ALL: nodata
+  ERR MMC: Too Many Requests. Rate limited. Try after a while.
+  [101/542] MMC: nodata
+  ERR TRV: Too Many Requests. Rate limited. Try after a while.
+  [102/542] TRV: nodata
+  ERR AFL: Too Many Requests. Rate limited. Try after a while.
+  [103/542] AFL: nodata
+  ERR CB: Too Many Requests. Rate limited. Try after a while.
+  [104/542] CB: nodata
+  ERR AON: Too Many Requests. Rate limited. Try after a while.
+  [105/542] AON: nodata
+  ERR MET: Too Many Requests. Rate limited. Try after a while.
+  [106/542] MET: nodata
+  ERR PFG: Too Many Requests. Rate limited. Try after a while.
+  [107/542] PFG: nodata
+  ERR CINF: Too Many Requests. Rate limited. Try after a while.
+  [108/542] CINF: nodata
+  ERR AIG: Too Many Requests. Rate limited. Try after a while.
+  [109/542] AIG: nodata
+  ERR HIG: Too Many Requests. Rate limited. Try after a while.
+  [110/542] HIG: nodata
+  ERR PRU: Too Many Requests. Rate limited. Try after a while.
+  [111/542] PRU: nodata
+  ERR ICE: Too Many Requests. Rate limited. Try after a while.
+  [112/542] ICE: nodata
+  ERR DFS: Too Many Requests. Rate limited. Try after a while.
+  [113/542] DFS: nodata
+  ERR RJF: Too Many Requests. Rate limited. Try after a while.
+  [114/542] RJF: nodata
+  ERR MCO: Too Many Requests. Rate limited. Try after a while.
+  [115/542] MCO: nodata
+  ERR CME: Too Many Requests. Rate limited. Try after a while.
+  [116/542] CME: nodata
+  ERR SYF: Too Many Requests. Rate limited. Try after a while.
+  [117/542] SYF: nodata
+  ERR AMP: Too Many Requests. Rate limited. Try after a while.
+  [118/542] AMP: nodata
+  ERR COF: Too Many Requests. Rate limited. Try after a while.
+  [119/542] COF: nodata
+  ERR BK: Too Many Requests. Rate limited. Try after a while.
+  [120/542] BK: nodata
+  ERR STT: Too Many Requests. Rate limited. Try after a while.
+  [121/542] STT: nodata
+  ERR TROW: Too Many Requests. Rate limited. Try after a while.
+  [122/542] TROW: nodata
+  ERR RF: Too Many Requests. Rate limited. Try after a while.
+  [123/542] RF: nodata
+  ERR CFG: Too Many Requests. Rate limited. Try after a while.
+  [124/542] CFG: nodata
+  ERR KEY: Too Many Requests. Rate limited. Try after a while.
+  [125/542] KEY: nodata
+  ERR FITB: Too Many Requests. Rate limited. Try after a while.
+  [126/542] FITB: nodata
+  ERR MTB: Too Many Requests. Rate limited. Try after a while.
+  [127/542] MTB: nodata
+  ERR USB: Too Many Requests. Rate limited. Try after a while.
+  [128/542] USB: nodata
+  ERR PNC: Too Many Requests. Rate limited. Try after a while.
+  [129/542] PNC: nodata
+  ERR HBAN: Too Many Requests. Rate limited. Try after a while.
+  [130/542] HBAN: nodata
+  ERR C: Too Many Requests. Rate limited. Try after a while.
+  [131/542] C: nodata
+  ERR ALLY: Too Many Requests. Rate limited. Try after a while.
+  [132/542] ALLY: nodata
+  ERR TFC: Too Many Requests. Rate limited. Try after a while.
+  [133/542] TFC: nodata
+  ERR NTRS: Too Many Requests. Rate limited. Try after a while.
+  [134/542] NTRS: nodata
+  ERR LNC: Too Many Requests. Rate limited. Try after a while.
+  [135/542] LNC: nodata
+  ERR NDAQ: Too Many Requests. Rate limited. Try after a while.
+  [136/542] NDAQ: nodata
+  ERR BRO: Too Many Requests. Rate limited. Try after a while.
+  [137/542] BRO: nodata
+  ERR FNF: Too Many Requests. Rate limited. Try after a while.
+  [138/542] FNF: nodata
+  ERR RGA: Too Many Requests. Rate limited. Try after a while.
+  [139/542] RGA: nodata
+  ERR GL: Too Many Requests. Rate limited. Try after a while.
+  [140/542] GL: nodata
+  ERR WRB: Too Many Requests. Rate limited. Try after a while.
+  [141/542] WRB: nodata
+  ERR AIZ: Too Many Requests. Rate limited. Try after a while.
+  [142/542] AIZ: nodata
+  ERR ACGL: Too Many Requests. Rate limited. Try after a while.
+  [143/542] ACGL: nodata
+  ERR UNM: Too Many Requests. Rate limited. Try after a while.
+  [144/542] UNM: nodata
+  ERR LLY: Too Many Requests. Rate limited. Try after a while.
+  [145/542] LLY: nodata
+  ERR RE: Too Many Requests. Rate limited. Try after a while.
+  [146/542] RE: nodata
+  ERR ABBV: Too Many Requests. Rate limited. Try after a while.
+  [147/542] ABBV: nodata
+  ERR UNH: Too Many Requests. Rate limited. Try after a while.
+  [148/542] UNH: nodata
+  ERR JNJ: Too Many Requests. Rate limited. Try after a while.
+  [149/542] JNJ: nodata
+  ERR ELV: Too Many Requests. Rate limited. Try after a while.
+  [150/542] ELV: nodata
+  ERR DHR: Too Many Requests. Rate limited. Try after a while.
+  [151/542] DHR: nodata
+  ERR MRK: Too Many Requests. Rate limited. Try after a while.
+  [152/542] MRK: nodata
+  ERR ABT: Too Many Requests. Rate limited. Try after a while.
+  [153/542] ABT: nodata
+  ERR TMO: Too Many Requests. Rate limited. Try after a while.
+  [154/542] TMO: nodata
+  ERR CI: Too Many Requests. Rate limited. Try after a while.
+  [155/542] CI: nodata
+  ERR HUM: Too Many Requests. Rate limited. Try after a while.
+  [156/542] HUM: nodata
+  ERR BSX: Too Many Requests. Rate limited. Try after a while.
+  [157/542] BSX: nodata
+  ERR BDX: Too Many Requests. Rate limited. Try after a while.
+  [158/542] BDX: nodata
+  ERR MDT: Too Many Requests. Rate limited. Try after a while.
+  [159/542] MDT: nodata
+  ERR IQV: Too Many Requests. Rate limited. Try after a while.
+  [160/542] IQV: nodata
+  ERR HCA: Too Many Requests. Rate limited. Try after a while.
+  [161/542] HCA: nodata
+  ERR ZBH: Too Many Requests. Rate limited. Try after a while.
+  [162/542] ZBH: nodata
+  ERR ZTS: Too Many Requests. Rate limited. Try after a while.
+  [163/542] ZTS: nodata
+  ERR SYK: Too Many Requests. Rate limited. Try after a while.
+  [164/542] SYK: nodata
+  ERR MOH: Too Many Requests. Rate limited. Try after a while.
+  [165/542] MOH: nodata
+  ERR CAH: Too Many Requests. Rate limited. Try after a while.
+  [166/542] CAH: nodata
+  ERR MCK: Too Many Requests. Rate limited. Try after a while.
+  [167/542] MCK: nodata
+  ERR CNC: Too Many Requests. Rate limited. Try after a while.
+  ERR BAX: Too Many Requests. Rate limited. Try after a while.
+  [168/542] CNC: nodata
+  [169/542] BAX: nodata
+  ERR CVS: Too Many Requests. Rate limited. Try after a while.
+  [170/542] CVS: nodata
+  ERR MTD: Too Many Requests. Rate limited. Try after a while.
+  [171/542] MTD: nodata
+  ERR PODD: Too Many Requests. Rate limited. Try after a while.
+  [172/542] PODD: nodata
+  ERR EW: Too Many Requests. Rate limited. Try after a while.
+  ERR HOLX: Too Many Requests. Rate limited. Try after a while.
+  [173/542] EW: nodata
+  [174/542] HOLX: nodata
+  ERR A: Too Many Requests. Rate limited. Try after a while.
+  [175/542] A: nodata
+  ERR WAT: Too Many Requests. Rate limited. Try after a while.
+  [176/542] WAT: nodata
+  ERR RMD: Too Many Requests. Rate limited. Try after a while.
+  [177/542] RMD: nodata
+  ERR HSIC: Too Many Requests. Rate limited. Try after a while.
+  [178/542] HSIC: nodata
+  ERR COO: Too Many Requests. Rate limited. Try after a while.
+  [179/542] COO: nodata
+  ERR VTRS: Too Many Requests. Rate limited. Try after a while.
+  [180/542] VTRS: nodata
+  ERR TECH: Too Many Requests. Rate limited. Try after a while.
+  [181/542] TECH: nodata
+  ERR PGNY: Too Many Requests. Rate limited. Try after a while.
+  [182/542] PGNY: nodata
+  ERR DVA: Too Many Requests. Rate limited. Try after a while.
+  [183/542] DVA: nodata
+  ERR XOM: Too Many Requests. Rate limited. Try after a while.
+  [184/542] XOM: nodata
+  ERR CVX: Too Many Requests. Rate limited. Try after a while.
+  [185/542] CVX: nodata
+  ERR CTLT: Too Many Requests. Rate limited. Try after a while.
+  [186/542] CTLT: nodata
+  ERR COP: Too Many Requests. Rate limited. Try after a while.
+  [187/542] COP: nodata
+  ERR EOG: Too Many Requests. Rate limited. Try after a while.
+  [188/542] EOG: nodata
+  ERR MPC: Too Many Requests. Rate limited. Try after a while.
+  [189/542] MPC: nodata
+  ERR SLB: Too Many Requests. Rate limited. Try after a while.
+  [190/542] SLB: nodata
+  ERR SOLV: Too Many Requests. Rate limited. Try after a while.
+  [191/542] SOLV: nodata
+  ERR OXY: Too Many Requests. Rate limited. Try after a while.
+  [192/542] OXY: nodata
+  ERR PSX: Too Many Requests. Rate limited. Try after a while.
+  [193/542] PSX: nodata
+  ERR APA: Too Many Requests. Rate limited. Try after a while.
+  [194/542] APA: nodata
+  ERR VLO: Too Many Requests. Rate limited. Try after a while.
+  [195/542] VLO: nodata
+  ERR HES: Too Many Requests. Rate limited. Try after a while.
+  [196/542] HES: nodata
+  ERR HAL: Too Many Requests. Rate limited. Try after a while.
+  [197/542] HAL: nodata
+  ERR DVN: Too Many Requests. Rate limited. Try after a while.
+  [198/542] DVN: nodata
+  ERR OKE: Too Many Requests. Rate limited. Try after a while.
+  [199/542] OKE: nodata
+  ERR MRO: Too Many Requests. Rate limited. Try after a while.
+  [200/542] MRO: nodata
+  ERR CTRA: Too Many Requests. Rate limited. Try after a while.
+  [201/542] CTRA: nodata
+  ERR WMB: Too Many Requests. Rate limited. Try after a while.
+  [202/542] WMB: nodata
+  ERR KMI: Too Many Requests. Rate limited. Try after a while.
+  [203/542] KMI: nodata
+  ERR LNG: Too Many Requests. Rate limited. Try after a while.
+  [204/542] LNG: nodata
+  ERR VST: Too Many Requests. Rate limited. Try after a while.
+  [205/542] VST: nodata
+  ERR NRG: Too Many Requests. Rate limited. Try after a while.
+  [206/542] NRG: nodata
+  ERR AES: Too Many Requests. Rate limited. Try after a while.
+  [207/542] AES: nodata
+  ERR TRGP: Too Many Requests. Rate limited. Try after a while.
+  [208/542] TRGP: nodata
+  ERR NKE: Too Many Requests. Rate limited. Try after a while.
+  [209/542] NKE: nodata
+  ERR LOW: Too Many Requests. Rate limited. Try after a while.
+  [210/542] LOW: nodata
+  ERR HD: Too Many Requests. Rate limited. Try after a while.
+  [211/542] HD: nodata
+  ERR MCD: Too Many Requests. Rate limited. Try after a while.
+  [212/542] MCD: nodata
+  ERR EQT: Too Many Requests. Rate limited. Try after a while.
+  [213/542] EQT: nodata
+  ERR TJX: Too Many Requests. Rate limited. Try after a while.
+  [214/542] TJX: nodata
+  ERR MAR: Too Many Requests. Rate limited. Try after a while.
+  [215/542] MAR: nodata
+  ERR GM: Too Many Requests. Rate limited. Try after a while.
+  [216/542] GM: nodata
+  ERR HLT: Too Many Requests. Rate limited. Try after a while.
+  [217/542] HLT: nodata
+  ERR AZO: Too Many Requests. Rate limited. Try after a while.
+  [218/542] AZO: nodata
+  ERR EBAY: Too Many Requests. Rate limited. Try after a while.
+  [219/542] EBAY: nodata
+  ERR F: Too Many Requests. Rate limited. Try after a while.
+  [220/542] F: nodata
+  ERR BBY: Too Many Requests. Rate limited. Try after a while.
+  [221/542] BBY: nodata
+  ERR TSCO: Too Many Requests. Rate limited. Try after a while.
+  [222/542] TSCO: nodata
+  ERR ETSY: Too Many Requests. Rate limited. Try after a while.
+  ERR RCL: Too Many Requests. Rate limited. Try after a while.
+  [223/542] RCL: nodata
+  [224/542] ETSY: nodata
+  ERR CCL: Too Many Requests. Rate limited. Try after a while.
+  [225/542] CCL: nodata
+  ERR LVS: Too Many Requests. Rate limited. Try after a while.
+  [226/542] LVS: nodata
+  ERR DRI: Too Many Requests. Rate limited. Try after a while.
+  [227/542] DRI: nodata
+  ERR MGM: Too Many Requests. Rate limited. Try after a while.
+  [228/542] MGM: nodata
+  ERR YUM: Too Many Requests. Rate limited. Try after a while.
+  [229/542] YUM: nodata
+  ERR WYNN: Too Many Requests. Rate limited. Try after a while.
+  [230/542] WYNN: nodata
+  ERR CMG: Too Many Requests. Rate limited. Try after a while.
+  [231/542] CMG: nodata
+  ERR PHM: Too Many Requests. Rate limited. Try after a while.
+  [232/542] PHM: nodata
+  ERR DPZ: Too Many Requests. Rate limited. Try after a while.
+  [233/542] DPZ: nodata
+  ERR APTV: Too Many Requests. Rate limited. Try after a while.
+  [234/542] APTV: nodata
+  ERR TOL: Too Many Requests. Rate limited. Try after a while.
+  [235/542] TOL: nodata
+  ERR LEN: Too Many Requests. Rate limited. Try after a while.
+  [236/542] LEN: nodata
+  ERR DHI: Too Many Requests. Rate limited. Try after a while.
+  [237/542] DHI: nodata
+  ERR BWA: Too Many Requests. Rate limited. Try after a while.
+  [238/542] BWA: nodata
+  ERR NVR: Too Many Requests. Rate limited. Try after a while.
+  [239/542] NVR: nodata
+  ERR NCLH: Too Many Requests. Rate limited. Try after a while.
+  [240/542] NCLH: nodata
+  ERR POOL: Too Many Requests. Rate limited. Try after a while.
+  [241/542] POOL: nodata
+  ERR MAT: Too Many Requests. Rate limited. Try after a while.
+  [242/542] MAT: nodata
+  ERR HAS: Too Many Requests. Rate limited. Try after a while.
+  [243/542] HAS: nodata
+  ERR CROX: Too Many Requests. Rate limited. Try after a while.
+  [244/542] CROX: nodata
+  ERR PVH: Too Many Requests. Rate limited. Try after a while.
+  [245/542] PVH: nodata
+  ERR VFC: Too Many Requests. Rate limited. Try after a while.
+  [246/542] VFC: nodata
+  ERR BOOT: Too Many Requests. Rate limited. Try after a while.
+  [247/542] BOOT: nodata
+  ERR RL: Too Many Requests. Rate limited. Try after a while.
+  [248/542] RL: nodata
+  ERR DECK: Too Many Requests. Rate limited. Try after a while.
+  [249/542] DECK: nodata
+  ERR COLM: Too Many Requests. Rate limited. Try after a while.
+  [250/542] COLM: nodata
+  ERR SKX: Too Many Requests. Rate limited. Try after a while.
+  [251/542] SKX: nodata
+  ERR KO: Too Many Requests. Rate limited. Try after a while.
+  [252/542] KO: nodata
+  ERR WMT: Too Many Requests. Rate limited. Try after a while.
+  [253/542] WMT: nodata
+  ERR PG: Too Many Requests. Rate limited. Try after a while.
+  [254/542] PG: nodata
+  ERR MO: Too Many Requests. Rate limited. Try after a while.
+  [255/542] MO: nodata
+  ERR K: Too Many Requests. Rate limited. Try after a while.
+  [256/542] K: nodata
+  ERR PM: Too Many Requests. Rate limited. Try after a while.
+  [257/542] PM: nodata
+  ERR GIS: Too Many Requests. Rate limited. Try after a while.
+  [258/542] GIS: nodata
+  ERR HRL: Too Many Requests. Rate limited. Try after a while.
+  [259/542] HRL: nodata
+  ERR CL: Too Many Requests. Rate limited. Try after a while.
+  [260/542] CL: nodata
+  ERR SJM: Too Many Requests. Rate limited. Try after a while.
+  [261/542] SJM: nodata
+  ERR STZ: Too Many Requests. Rate limited. Try after a while.
+  [262/542] STZ: nodata
+  ERR HSY: Too Many Requests. Rate limited. Try after a while.
+  [263/542] HSY: nodata
+  ERR CPB: Too Many Requests. Rate limited. Try after a while.
+  [264/542] CPB: nodata
+  ERR MKC: Too Many Requests. Rate limited. Try after a while.
+  [265/542] MKC: nodata
+  ERR EL: Too Many Requests. Rate limited. Try after a while.
+  [266/542] EL: nodata
+  ERR CLX: Too Many Requests. Rate limited. Try after a while.
+  [267/542] CLX: nodata
+  ERR CAG: Too Many Requests. Rate limited. Try after a while.
+  [268/542] CAG: nodata
+  ERR KMB: Too Many Requests. Rate limited. Try after a while.
+  [269/542] KMB: nodata
+  ERR CHD: Too Many Requests. Rate limited. Try after a while.
+  [270/542] CHD: nodata
+  ERR TAP: Too Many Requests. Rate limited. Try after a while.
+  [271/542] TAP: nodata
+  ERR TSN: Too Many Requests. Rate limited. Try after a while.
+  [272/542] TSN: nodata
+  ERR ADM: Too Many Requests. Rate limited. Try after a while.
+  [273/542] ADM: nodata
+  ERR CTVA: Too Many Requests. Rate limited. Try after a while.
+  [274/542] CTVA: nodata
+  ERR SFM: Too Many Requests. Rate limited. Try after a while.
+  [275/542] SFM: nodata
+  ERR CF: Too Many Requests. Rate limited. Try after a while.
+  [276/542] CF: nodata
+  ERR MOS: Too Many Requests. Rate limited. Try after a while.
+  [277/542] MOS: nodata
+  ERR SYY: Too Many Requests. Rate limited. Try after a while.
+  [278/542] SYY: nodata
+  ERR BG: Too Many Requests. Rate limited. Try after a while.
+  [279/542] BG: nodata
+  ERR CAT: Too Many Requests. Rate limited. Try after a while.
+  [280/542] CAT: nodata
+  ERR FMC: Too Many Requests. Rate limited. Try after a while.
+  [281/542] FMC: nodata
+  ERR GE: Too Many Requests. Rate limited. Try after a while.
+  [282/542] GE: nodata
+  ERR COTY: Too Many Requests. Rate limited. Try after a while.
+  [283/542] COTY: nodata
+  ERR RTX: Too Many Requests. Rate limited. Try after a while.
+  [284/542] RTX: nodata
+  ERR UPS: Too Many Requests. Rate limited. Try after a while.
+  [285/542] UPS: nodata
+  ERR BA: Too Many Requests. Rate limited. Try after a while.
+  [286/542] BA: nodata
+  ERR UNP: Too Many Requests. Rate limited. Try after a while.
+  [287/542] UNP: nodata
+  ERR ETN: Too Many Requests. Rate limited. Try after a while.
+  [288/542] ETN: nodata
+  ERR FDX: Too Many Requests. Rate limited. Try after a while.
+  [289/542] FDX: nodata
+  ERR DE: Too Many Requests. Rate limited. Try after a while.
+  [290/542] DE: nodata
+  ERR ITW: Too Many Requests. Rate limited. Try after a while.
+  [291/542] ITW: nodata
+  ERR EMR: Too Many Requests. Rate limited. Try after a while.
+  [292/542] EMR: nodata
+  ERR LMT: Too Many Requests. Rate limited. Try after a while.
+  [293/542] LMT: nodata
+  ERR NOC: Too Many Requests. Rate limited. Try after a while.
+  [294/542] NOC: nodata
+  ERR ROP: Too Many Requests. Rate limited. Try after a while.
+  [295/542] ROP: nodata
+  ERR GD: Too Many Requests. Rate limited. Try after a while.
+  [296/542] GD: nodata
+  ERR NSC: Too Many Requests. Rate limited. Try after a while.
+  [297/542] NSC: nodata
+  ERR OTIS: Too Many Requests. Rate limited. Try after a while.
+  [298/542] OTIS: nodata
+  ERR IR: Too Many Requests. Rate limited. Try after a while.
+  [299/542] IR: nodata
+  ERR PH: Too Many Requests. Rate limited. Try after a while.
+  [300/542] PH: nodata
+  ERR CARR: Too Many Requests. Rate limited. Try after a while.
+  [301/542] CARR: nodata
+  ERR CMI: Too Many Requests. Rate limited. Try after a while.
+  [302/542] CMI: nodata
+  ERR TDG: Too Many Requests. Rate limited. Try after a while.
+  [303/542] TDG: nodata
+  ERR IEX: Too Many Requests. Rate limited. Try after a while.
+  [304/542] IEX: nodata
+  ERR AME: Too Many Requests. Rate limited. Try after a while.
+  [305/542] AME: nodata
+  ERR SNA: Too Many Requests. Rate limited. Try after a while.
+  [306/542] SNA: nodata
+  ERR GWW: Too Many Requests. Rate limited. Try after a while.
+  [307/542] GWW: nodata
+  ERR WM: Too Many Requests. Rate limited. Try after a while.
+  [308/542] WM: nodata
+  ERR RSG: Too Many Requests. Rate limited. Try after a while.
+  [309/542] RSG: nodata
+  ERR ROK: Too Many Requests. Rate limited. Try after a while.
+  [310/542] ROK: nodata
+  ERR HWM: Too Many Requests. Rate limited. Try after a while.
+  [311/542] HWM: nodata
+  ERR MMM: Too Many Requests. Rate limited. Try after a while.
+  [312/542] MMM: nodata
+  ERR XYL: Too Many Requests. Rate limited. Try after a while.
+  [313/542] XYL: nodata
+  ERR GNRC: Too Many Requests. Rate limited. Try after a while.
+  [314/542] GNRC: nodata
+  ERR LDOS: Too Many Requests. Rate limited. Try after a while.
+  [315/542] LDOS: nodata
+  ERR DOV: Too Many Requests. Rate limited. Try after a while.
+  [316/542] DOV: nodata
+  ERR JCI: Too Many Requests. Rate limited. Try after a while.
+  [317/542] JCI: nodata
+  ERR LHX: Too Many Requests. Rate limited. Try after a while.
+  [318/542] LHX: nodata
+  ERR AXON: Too Many Requests. Rate limited. Try after a while.
+  [319/542] AXON: nodata
+  ERR TXT: Too Many Requests. Rate limited. Try after a while.
+  [320/542] TXT: nodata
+  ERR CACI: Too Many Requests. Rate limited. Try after a while.
+  [321/542] CACI: nodata
+  ERR SAIC: Too Many Requests. Rate limited. Try after a while.
+  [322/542] SAIC: nodata
+  ERR XPO: Too Many Requests. Rate limited. Try after a while.
+  [323/542] XPO: nodata
+  ERR CHRW: Too Many Requests. Rate limited. Try after a while.
+  [324/542] CHRW: nodata
+  ERR JBHT: Too Many Requests. Rate limited. Try after a while.
+  [325/542] JBHT: nodata
+  ERR EXPD: Too Many Requests. Rate limited. Try after a while.
+  [326/542] EXPD: nodata
+  ERR HUBG: Too Many Requests. Rate limited. Try after a while.
+  [327/542] HUBG: nodata
+  ERR ORCL: Too Many Requests. Rate limited. Try after a while.
+  [328/542] ORCL: nodata
+  ERR IBM: Too Many Requests. Rate limited. Try after a while.
+  [329/542] IBM: nodata
+  ERR SAIA: Too Many Requests. Rate limited. Try after a while.
+  [330/542] SAIA: nodata
+  ERR WERN: Too Many Requests. Rate limited. Try after a while.
+  [331/542] WERN: nodata
+  ERR ACN: Too Many Requests. Rate limited. Try after a while.
+  [332/542] ACN: nodata
+  ERR CRM: Too Many Requests. Rate limited. Try after a while.
+  [333/542] CRM: nodata
+  ERR KEYS: Too Many Requests. Rate limited. Try after a while.
+  [334/542] KEYS: nodata
+  ERR HPE: Too Many Requests. Rate limited. Try after a while.
+  [335/542] HPE: nodata
+  ERR HPQ: Too Many Requests. Rate limited. Try after a while.
+  [336/542] HPQ: nodata
+  ERR AKAM: Too Many Requests. Rate limited. Try after a while.
+  [337/542] AKAM: nodata
+  ERR MPWR: Too Many Requests. Rate limited. Try after a while.
+  [338/542] MPWR: nodata
+  ERR ENPH: Too Many Requests. Rate limited. Try after a while.
+  [339/542] ENPH: nodata
+  ERR VRSN: Too Many Requests. Rate limited. Try after a while.
+  [340/542] VRSN: nodata
+  ERR FSLR: Too Many Requests. Rate limited. Try after a while.
+  [341/542] FSLR: nodata
+  ERR TYL: Too Many Requests. Rate limited. Try after a while.
+  [342/542] TYL: nodata
+  ERR SEDG: Too Many Requests. Rate limited. Try after a while.
+  [343/542] SEDG: nodata
+  ERR GLW: Too Many Requests. Rate limited. Try after a while.
+  [344/542] GLW: nodata
+  ERR FFIV: Too Many Requests. Rate limited. Try after a while.
+  [345/542] FFIV: nodata
+  ERR WDC: Too Many Requests. Rate limited. Try after a while.
+  [346/542] WDC: nodata
+  ERR GRMN: Too Many Requests. Rate limited. Try after a while.
+  [347/542] GRMN: nodata
+  ERR STX: Too Many Requests. Rate limited. Try after a while.
+  [348/542] STX: nodata
+  ERR ANET: Too Many Requests. Rate limited. Try after a while.
+  [349/542] ANET: nodata
+  ERR SMCI: Too Many Requests. Rate limited. Try after a while.
+  [350/542] SMCI: nodata
+  ERR NOW: Too Many Requests. Rate limited. Try after a while.
+  [351/542] NOW: nodata
+  ERR NTAP: Too Many Requests. Rate limited. Try after a while.
+  [352/542] NTAP: nodata
+  ERR NEE: Too Many Requests. Rate limited. Try after a while.
+  [353/542] NEE: nodata
+  ERR ZBRA: Too Many Requests. Rate limited. Try after a while.
+  [354/542] ZBRA: nodata
+  ERR FICO: Too Many Requests. Rate limited. Try after a while.
+  [355/542] FICO: nodata
+  ERR SO: Too Many Requests. Rate limited. Try after a while.
+  [356/542] SO: nodata
+  ERR SRE: Too Many Requests. Rate limited. Try after a while.
+  [357/542] SRE: nodata
+  ERR DUK: Too Many Requests. Rate limited. Try after a while.
+  [358/542] DUK: nodata
+  ERR AEP: Too Many Requests. Rate limited. Try after a while.
+  [359/542] AEP: nodata
+  ERR D: Too Many Requests. Rate limited. Try after a while.
+  [360/542] D: nodata
+  ERR PCG: Too Many Requests. Rate limited. Try after a while.
+  [361/542] PCG: nodata
+  ERR PEG: Too Many Requests. Rate limited. Try after a while.
+  [362/542] PEG: nodata
+  ERR AWK: Too Many Requests. Rate limited. Try after a while.
+  [363/542] AWK: nodata
+  ERR CMS: Too Many Requests. Rate limited. Try after a while.
+  [364/542] CMS: nodata
+  ERR WEC: Too Many Requests. Rate limited. Try after a while.
+  [365/542] WEC: nodata
+  ERR DTE: Too Many Requests. Rate limited. Try after a while.
+  [366/542] DTE: nodata
+  ERR ES: Too Many Requests. Rate limited. Try after a while.
+  [367/542] ES: nodata
+  ERR NI: Too Many Requests. Rate limited. Try after a while.
+  [368/542] NI: nodata
+  ERR ATO: Too Many Requests. Rate limited. Try after a while.
+  [369/542] ATO: nodata
+  ERR CNP: Too Many Requests. Rate limited. Try after a while.
+  [370/542] CNP: nodata
+  ERR EVRG: Too Many Requests. Rate limited. Try after a while.
+  [371/542] EVRG: nodata
+  ERR EIX: Too Many Requests. Rate limited. Try after a while.
+  [372/542] EIX: nodata
+  ERR ETR: Too Many Requests. Rate limited. Try after a while.
+  [373/542] ETR: nodata
+  ERR PPL: Too Many Requests. Rate limited. Try after a while.
+  [374/542] PPL: nodata
+  ERR IDA: Too Many Requests. Rate limited. Try after a while.
+  [375/542] IDA: nodata
+  ERR POR: Too Many Requests. Rate limited. Try after a while.
+  [376/542] POR: nodata
+  ERR AEE: Too Many Requests. Rate limited. Try after a while.
+  [377/542] AEE: nodata
+  ERR AVA: Too Many Requests. Rate limited. Try after a while.
+  [378/542] AVA: nodata
+  ERR OTTR: Too Many Requests. Rate limited. Try after a while.
+  [379/542] OTTR: nodata
+  ERR LNT: Too Many Requests. Rate limited. Try after a while.
+  [380/542] LNT: nodata
+  ERR BKH: Too Many Requests. Rate limited. Try after a while.
+  [381/542] BKH: nodata
+  ERR AMT: Too Many Requests. Rate limited. Try after a while.
+  [382/542] AMT: nodata
+  ERR CCI: Too Many Requests. Rate limited. Try after a while.
+  [383/542] CCI: nodata
+  ERR OGE: Too Many Requests. Rate limited. Try after a while.
+  [384/542] OGE: nodata
+  ERR SPG: Too Many Requests. Rate limited. Try after a while.
+  [385/542] SPG: nodata
+  ERR EQIX: Too Many Requests. Rate limited. Try after a while.
+  [386/542] EQIX: nodata
+  ERR PLD: Too Many Requests. Rate limited. Try after a while.
+  [387/542] PLD: nodata
+  ERR PSA: Too Many Requests. Rate limited. Try after a while.
+  [388/542] PSA: nodata
+  ERR VICI: Too Many Requests. Rate limited. Try after a while.
+  [389/542] VICI: nodata
+  ERR O: Too Many Requests. Rate limited. Try after a while.
+  [390/542] O: nodata
+  ERR MAA: Too Many Requests. Rate limited. Try after a while.
+  [391/542] MAA: nodata
+  ERR EXR: Too Many Requests. Rate limited. Try after a while.
+  [392/542] EXR: nodata
+  ERR UDR: Too Many Requests. Rate limited. Try after a while.
+  [393/542] UDR: nodata
+  ERR ESS: Too Many Requests. Rate limited. Try after a while.
+  [394/542] ESS: nodata
+  ERR EQR: Too Many Requests. Rate limited. Try after a while.
+  [395/542] EQR: nodata
+  ERR ELS: Too Many Requests. Rate limited. Try after a while.
+  [396/542] ELS: nodata
+  ERR SUI: Too Many Requests. Rate limited. Try after a while.
+  [397/542] SUI: nodata
+  ERR AVB: Too Many Requests. Rate limited. Try after a while.
+  [398/542] AVB: nodata
+  ERR FR: Too Many Requests. Rate limited. Try after a while.
+  [399/542] FR: nodata
+  ERR WPC: Too Many Requests. Rate limited. Try after a while.
+  [400/542] WPC: nodata
+  ERR DLR: Too Many Requests. Rate limited. Try after a while.
+  [401/542] DLR: nodata
+  ERR NNN: Too Many Requests. Rate limited. Try after a while.
+  [402/542] NNN: nodata
+  ERR REXR: Too Many Requests. Rate limited. Try after a while.
+  [403/542] REXR: nodata
+  ERR BXP: Too Many Requests. Rate limited. Try after a while.
+  [404/542] BXP: nodata
+  ERR IRM: Too Many Requests. Rate limited. Try after a while.
+  [405/542] IRM: nodata
+  ERR ARE: Too Many Requests. Rate limited. Try after a while.
+  [406/542] ARE: nodata
+  ERR SBAC: Too Many Requests. Rate limited. Try after a while.
+  [407/542] SBAC: nodata

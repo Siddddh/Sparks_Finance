@@ -1,0 +1,510 @@
+Cooling down…
+  ERR SPY: Too Many Requests. Rate limited. Try after a while.
+  ERR SPY: Too Many Requests. Rate limited. Try after a while.
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SPY"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SPY"}}}
+  Yahoo responding again after 135s
+Have 130; fetching 411 missing at 2 workers
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: ANSS"}}}
+$MMC: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [1/411] -- MMC: no row
+$ANSS: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [2/411] -- ANSS: no row
+$DFS: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [3/411] -- DFS: no row
+  [4/411] ok STT: 78 STRONG BUY px=184.92
+$BK: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [5/411] -- BK: no row
+  [6/411] ok BRO: 48 WEAK px=71.18
+  [7/411] ok FNF: 74 WATCH px=52.54
+  [8/411] ok LNC: 85 STRONG BUY px=46.67
+  [9/411] ok RGA: 88 STRONG BUY px=236.31
+  [10/411] ok GL: 89 STRONG BUY px=186.02
+  [11/411] ok AIZ: 93 STRONG BUY px=296.4
+  [12/411] ok UNM: 88 STRONG BUY px=89.81
+  [13/411] ok WRB: 58 WATCH px=72.13
+  [14/411] ok ACGL: 74 WATCH px=99.29
+$RE: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [15/411] -- RE: no row
+  [16/411] ok UNH: 34 WEAK px=403.97
+  [17/411] ok JNJ: 63 WATCH px=256.98
+  [18/411] ok LLY: 90 STRONG BUY px=1191.94
+  [19/411] ok ABBV: 67 WATCH px=243.87
+  [20/411] ok MRK: 80 STRONG BUY px=128.37
+  [21/411] ok TMO: 83 STRONG BUY px=580.02
+  [22/411] ok DHR: 61 WATCH px=199.98
+  [23/411] ok ABT: 84 STRONG BUY px=107.96
+  [24/411] ok ELV: 63 WATCH px=391.4
+  [25/411] ok HUM: 62 WATCH px=367.24
+  [26/411] ok CI: 53 WEAK px=275.25
+  [27/411] ok SYK: 50 WEAK px=337.43
+  [28/411] ok MDT: 65 WATCH px=85.92
+  [29/411] ok BDX: 68 WATCH px=177.07
+  [30/411] ok BSX: 48 WEAK px=49.3
+  [31/411] ok HCA: 61 WATCH px=408.89
+  [32/411] ok IQV: 59 WATCH px=232.43
+  [33/411] ok ZBH: 83 STRONG BUY px=97.19
+  [34/411] ok ZTS: 42 WEAK px=77.27
+  [35/411] ok MCK: 52 WEAK px=871.38
+  [36/411] ok CVS: 62 WATCH px=96.22
+  [37/411] ok CAH: 92 STRONG BUY px=237.66
+  [38/411] ok CNC: 62 WATCH px=64.2
+  [39/411] ok MOH: 48 WEAK px=191.88
+  [40/411] ok BAX: 87 STRONG BUY px=27.01
+  [41/411] ok EW: 74 WATCH px=89.32
+  [42/411] ok PODD: 49 WEAK px=139.3
+$HOLX: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [43/411] -- HOLX: no row
+  [44/411] ok MTD: 65 WATCH px=1421.24
+  [45/411] ok WAT: 77 STRONG BUY px=399.7
+  [46/411] ok A: 85 STRONG BUY px=141.34
+  [47/411] ok RMD: 88 STRONG BUY px=223.24
+  [48/411] ok TECH: 65 WATCH px=71.9
+  [49/411] ok COO: 69 WATCH px=73.32
+  [50/411] ok HSIC: 78 STRONG BUY px=88.23
+  [51/411] ok DVA: 72 WATCH px=180.67
+  [52/411] ok PGNY: 75 STRONG BUY px=30.21
+$CTLT: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [53/411] -- CTLT: no row
+  [54/411] ok VTRS: 52 WEAK px=16.29
+  [55/411] ok SOLV: 77 STRONG BUY px=82.96
+  [56/411] ok XOM: 86 STRONG BUY px=154.84
+  [57/411] ok CVX: 92 STRONG BUY px=189.23
+  [58/411] ok COP: 85 STRONG BUY px=116.76
+  [59/411] ok EOG: 71 WATCH px=136.2
+  [60/411] ok SLB: 84 STRONG BUY px=51.54
+  [61/411] ok OXY: 92 STRONG BUY px=56.04
+  [62/411] ok MPC: 89 STRONG BUY px=299.25
+  [63/411] ok PSX: 91 STRONG BUY px=205.52
+  [64/411] ok VLO: 90 STRONG BUY px=302.99
+$HES: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [65/411] -- HES: no row
+  [66/411] ok DVN: 62 WATCH px=43.11
+  [67/411] ok HAL: 32 WEAK px=32.51
+  [68/411] ok APA: 91 STRONG BUY px=36.53
+$CTRA: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [69/411] -- CTRA: no row
+$MRO: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [70/411] -- MRO: no row
+  [71/411] ok WMB: 48 WEAK px=71.76
+  [72/411] ok OKE: 58 WATCH px=87.93
+  [73/411] ok LNG: 92 STRONG BUY px=265.77
+  [74/411] ok KMI: 62 WATCH px=31.28
+  [75/411] ok EQT: 67 WATCH px=51.6
+  [76/411] ok TRGP: 86 STRONG BUY px=268.23
+  [77/411] ok NRG: 25 WEAK px=119.05
+  [78/411] ok VST: 20 WEAK px=141.38
+  [79/411] ok AES: 65 WATCH px=14.7
+  [80/411] ok HD: 77 STRONG BUY px=349.52
+  [81/411] ok MCD: 63 WATCH px=276.26
+  [82/411] ok NKE: 50 WEAK px=42.0
+  [83/411] ok LOW: 80 STRONG BUY px=218.4
+  [84/411] ok TJX: 94 STRONG BUY px=162.06
+  [85/411] ok MAR: 35 WEAK px=359.67
+  [86/411] ok HLT: 55 WATCH px=321.98
+  [87/411] ok F: 48 WEAK px=13.79
+  [88/411] ok GM: 90 STRONG BUY px=86.94
+  [89/411] ok AZO: 49 WEAK px=3069.62
+  [90/411] ok TSCO: 69 WATCH px=34.09
+  [91/411] ok BBY: 70 WATCH px=80.02
+  [92/411] ok EBAY: 52 WEAK px=110.14
+  [93/411] ok ETSY: 90 STRONG BUY px=82.26
+  [94/411] ok RCL: 91 STRONG BUY px=320.55
+  [95/411] ok CCL: 65 WATCH px=28.79
+  [96/411] ok LVS: 37 WEAK px=46.11
+  [97/411] ok MGM: 75 STRONG BUY px=44.7
+  [98/411] ok WYNN: 81 STRONG BUY px=101.5
+  [99/411] ok DRI: 92 STRONG BUY px=210.94
+  [100/411] ok YUM: 74 WATCH px=152.28
+  [101/411] ok CMG: 26 WEAK px=33.71
+  [102/411] ok DPZ: 83 STRONG BUY px=358.43
+  [103/411] ok APTV: 38 WEAK px=46.3
+  [104/411] ok BWA: 80 STRONG BUY px=65.8
+  [105/411] ok PHM: 87 STRONG BUY px=129.55
+  [106/411] ok LEN: 37 WEAK px=84.82
+  [107/411] ok TOL: 89 STRONG BUY px=151.33
+  [108/411] ok DHI: 53 WEAK px=146.01
+  [109/411] ok NVR: 42 WEAK px=6304.81
+  [110/411] ok POOL: 48 WEAK px=201.08
+  [111/411] ok HAS: 62 WATCH px=91.69
+  [112/411] ok MAT: 66 WATCH px=14.49
+  [113/411] ok NCLH: 34 WEAK px=19.37
+  [114/411] ok VFC: 18 WEAK px=14.75
+  [115/411] ok PVH: 86 STRONG BUY px=86.55
+  [116/411] ok RL: 95 STRONG BUY px=395.83
+  [117/411] ok DECK: 47 WEAK px=97.87
+  [118/411] ok CROX: 70 WATCH px=134.18
+  [119/411] ok BOOT: 78 STRONG BUY px=164.04
+  [120/411] ok COLM: 55 WATCH px=57.28
+$SKX: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [121/411] -- SKX: no row
+  [122/411] ok WMT: 58 WATCH px=112.07
+  [123/411] ok PG: 77 STRONG BUY px=146.97
+  [124/411] ok KO: 88 STRONG BUY px=86.85
+  [125/411] ok MO: 50 WEAK px=67.75
+  [126/411] ok PM: 87 STRONG BUY px=188.05
+  [127/411] ok CL: 87 STRONG BUY px=93.0
+  [128/411] ok STZ: 71 WATCH px=132.52
+$K: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [129/411] -- K: no row
+  [130/411] ok GIS: 34 WEAK px=36.07
+  [131/411] ok HRL: 86 STRONG BUY px=25.09
+  [132/411] ok SJM: 90 STRONG BUY px=118.8
+  [133/411] ok MKC: 61 WATCH px=52.28
+  [134/411] ok HSY: 76 STRONG BUY px=183.02
+  [135/411] ok CAG: 68 WATCH px=14.85
+  [136/411] ok CPB: 69 WATCH px=22.56
+  [137/411] ok CLX: 72 WATCH px=105.6
+  [138/411] ok CHD: 90 STRONG BUY px=103.36
+  [139/411] ok EL: 64 WATCH px=85.49
+  [140/411] ok KMB: 69 WATCH px=108.66
+  [141/411] ok TSN: 43 WEAK px=58.54
+  [142/411] ok TAP: 87 STRONG BUY px=42.41
+  [143/411] ok SFM: 64 WATCH px=87.2
+  [144/411] ok ADM: 33 WEAK px=77.51
+  [145/411] ok CTVA: 29 WEAK px=76.86
+  [146/411] ok SYY: 87 STRONG BUY px=84.35
+  [147/411] ok BG: 46 WEAK px=109.0
+  [148/411] ok CF: 90 STRONG BUY px=116.73
+  [149/411] ok MOS: 68 WATCH px=23.46
+  [150/411] ok FMC: 26 WEAK px=10.55
+  [151/411] ok COTY: 72 WATCH px=2.72
+  [152/411] ok GE: 91 STRONG BUY px=374.55
+  [153/411] ok CAT: 42 WEAK px=856.96
+  [154/411] ok BA: 70 WATCH px=232.19
+  [155/411] ok RTX: 91 STRONG BUY px=223.25
+  [156/411] ok UPS: 32 WEAK px=103.2
+  [157/411] ok UNP: 88 STRONG BUY px=295.38
+  [158/411] ok FDX: 77 STRONG BUY px=315.87
+  [159/411] ok ETN: 80 STRONG BUY px=448.19
+  [160/411] ok EMR: 90 STRONG BUY px=156.91
+  [161/411] ok ITW: 89 STRONG BUY px=294.7
+  [162/411] ok DE: 87 STRONG BUY px=614.84
+  [163/411] ok NSC: 90 STRONG BUY px=342.46
+  [164/411] ok LMT: 70 WATCH px=582.85
+  [165/411] ok NOC: 64 WATCH px=567.74
+  [166/411] ok GD: 89 STRONG BUY px=386.92
+  [167/411] ok ROP: 70 WATCH px=397.08
+  [168/411] ok OTIS: 66 WATCH px=73.83
+  [169/411] ok CARR: 25 WEAK px=63.96
+  [170/411] ok CMI: 32 WEAK px=643.98
+  [171/411] ok PH: 67 WATCH px=1069.8
+  [172/411] ok IR: 73 WATCH px=88.24
+  [173/411] ok AME: 91 STRONG BUY px=251.38
+  [174/411] ok IEX: 89 STRONG BUY px=233.71
+  [175/411] ok SNA: 90 STRONG BUY px=414.68
+  [176/411] ok GWW: 65 WATCH px=1282.58
+  [177/411] ok TDG: 69 WATCH px=1262.07
+  [178/411] ok HWM: 92 STRONG BUY px=289.72
+  [179/411] ok RSG: 47 WEAK px=209.59
+  [180/411] ok WM: 30 WEAK px=229.01
+  [181/411] ok ROK: 37 WEAK px=441.8
+  [182/411] ok JCI: 82 STRONG BUY px=154.55
+  [183/411] ok MMM: 73 WATCH px=180.71
+  [184/411] ok DOV: 25 WEAK px=210.84
+  [185/411] ok XYL: 42 WEAK px=120.76
+  [186/411] ok GNRC: 34 WEAK px=211.18
+  [187/411] ok LDOS: 52 WEAK px=135.26
+  [188/411] ok LHX: 45 WEAK px=289.53
+  [189/411] ok TXT: 25 WEAK px=87.89
+  [190/411] ok AXON: 65 WATCH px=522.46
+  [191/411] ok CACI: 74 WATCH px=628.79
+  [192/411] ok SAIC: 92 STRONG BUY px=124.28
+  [193/411] ok JBHT: 41 WEAK px=267.25
+  [194/411] ok CHRW: 38 WEAK px=146.66
+  [195/411] ok EXPD: 73 WATCH px=178.56
+  [196/411] ok XPO: 47 WEAK px=196.35
+  [197/411] ok SAIA: 35 WEAK px=361.82
+  [198/411] ok WERN: 38 WEAK px=36.87
+  [199/411] ok HUBG: 61 WATCH px=46.23
+  [200/411] ok ORCL: 52 WEAK px=143.47
+  [201/411] ok CRM: 87 STRONG BUY px=186.77
+  [202/411] ok IBM: 60 WATCH px=233.43
+  [203/411] ok ACN: 58 WATCH px=171.11
+  [204/411] ok HPE: 91 STRONG BUY px=52.43
+  [205/411] ok HPQ: 82 STRONG BUY px=28.18
+  [206/411] ok KEYS: 90 STRONG BUY px=336.96
+  [207/411] ok MPWR: 58 WATCH px=1359.08
+  [208/411] ok AKAM: 47 WEAK px=118.55
+  [209/411] ok VRSN: 87 STRONG BUY px=292.53
+  [210/411] ok TYL: 32 WEAK px=306.33
+  [211/411] ok FSLR: 91 STRONG BUY px=244.14
+  [212/411] ok ENPH: 23 WEAK px=39.67
+  [213/411] ok SEDG: 35 WEAK px=32.67
+  [214/411] ok GLW: 34 WEAK px=157.18
+  [215/411] ok GRMN: 90 STRONG BUY px=301.87
+  [216/411] ok FFIV: 89 STRONG BUY px=413.07
+  [217/411] ok STX: 55 WEAK px=852.95
+  [218/411] ok WDC: 49 WEAK px=451.52
+  [219/411] ok ANET: 90 STRONG BUY px=192.32
+  [220/411] ok NTAP: 93 STRONG BUY px=191.48
+  [221/411] ok ZBRA: 80 STRONG BUY px=364.24
+  [222/411] ok NOW: 51 WEAK px=117.35
+  [223/411] ok FICO: 41 WEAK px=1031.89
+  [224/411] ok SMCI: 52 WEAK px=29.38
+  [225/411] ok NEE: 48 WEAK px=84.6
+  [226/411] ok DUK: 49 WEAK px=123.9
+  [227/411] ok SO: 50 WEAK px=92.9
+  [228/411] ok D: 37 WEAK px=66.8
+  [229/411] ok AEP: 55 WATCH px=125.26
+  [230/411] ok SRE: 40 WEAK px=84.35
+  [231/411] ok PEG: 39 WEAK px=75.04
+  [232/411] ok PCG: 54 WEAK px=17.0
+  [233/411] ok AWK: 52 WEAK px=134.82
+  [234/411] ok WEC: 57 WATCH px=107.97
+  [235/411] ok ES: 75 STRONG BUY px=72.06
+  [236/411] ok CMS: 51 WEAK px=71.2
+  [237/411] ok DTE: 60 WATCH px=139.97
+  [238/411] ok ATO: 19 WEAK px=171.98
+  [239/411] ok NI: 52 WEAK px=43.38
+  [240/411] ok CNP: 74 WATCH px=40.67
+  [241/411] ok PPL: 60 WATCH px=34.62
+  [242/411] ok ETR: 30 WEAK px=106.49
+  [243/411] ok EVRG: 66 WATCH px=83.02
+  [244/411] ok EIX: 67 WATCH px=67.23
+  [245/411] ok AEE: 54 WEAK px=108.27
+  [246/411] ok IDA: 67 WATCH px=140.91
+  [247/411] ok AVA: 62 WATCH px=38.42
+  [248/411] ok POR: 24 WEAK px=48.54
+  [249/411] ok LNT: 36 WEAK px=69.52
+  [250/411] ok BKH: 55 WATCH px=72.75
+  [251/411] ok OGE: 53 WEAK px=46.79
+  [252/411] ok OTTR: 90 STRONG BUY px=93.05
+  [253/411] ok PLD: 68 WATCH px=139.14
+  [254/411] ok EQIX: 90 STRONG BUY px=1052.86
+  [255/411] ok AMT: 71 WATCH px=171.2
+  [256/411] ok CCI: 34 WEAK px=74.92
+  [257/411] ok SPG: 87 STRONG BUY px=221.83
+  [258/411] ok O: 56 WATCH px=62.36
+  [259/411] ok PSA: 92 STRONG BUY px=327.0
+  [260/411] ok VICI: 56 WATCH px=26.54
+  [261/411] ok MAA: 61 WATCH px=133.63
+  [262/411] ok EXR: 88 STRONG BUY px=149.54
+  [263/411] ok UDR: 54 WEAK px=38.14
+  [264/411] ok AVB: 48 WEAK px=186.55
+  [265/411] ok EQR: 50 WEAK px=66.7
+  [266/411] ok ESS: 55 WATCH px=285.12
+  [267/411] ok ELS: 78 STRONG BUY px=64.66
+  [268/411] ok SUI: 52 WEAK px=120.32
+  [269/411] ok WPC: 70 WATCH px=71.85
+  [270/411] ok NNN: 86 STRONG BUY px=47.0
+  [271/411] ok FR: 57 WATCH px=63.39
+  [272/411] ok REXR: 56 WATCH px=36.5
+  [273/411] ok DLR: 90 STRONG BUY px=192.56
+  [274/411] ok IRM: 58 WATCH px=121.96
+  [275/411] ok SBAC: 45 WEAK px=182.6
+  [276/411] ok ARE: 24 WEAK px=48.48
+  [277/411] ok BXP: 54 WEAK px=68.81
+  [278/411] ok VNO: 43 WEAK px=38.94
+  [279/411] ok KIM: 57 WATCH px=24.43
+  [280/411] ok REG: 57 WATCH px=76.96
+  [281/411] ok FRT: 57 WATCH px=117.91
+  [282/411] ok EPRT: 66 WATCH px=30.63
+  [283/411] ok STAG: 54 WEAK px=36.8
+  [284/411] ok TRNO: 87 STRONG BUY px=68.15
+  [285/411] ok IIPR: 52 WEAK px=58.35
+$MPW: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [286/411] -- MPW: no row
+$SBA: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [287/411] -- SBA: no row
+  [288/411] ok COR: 80 STRONG BUY px=325.01
+  [289/411] ok LIN: 27 WEAK px=490.11
+  [290/411] ok APD: 86 STRONG BUY px=299.92
+  [291/411] ok SHW: 71 WATCH px=363.42
+  [292/411] ok ECL: 69 WATCH px=283.46
+  [293/411] ok NEM: 64 WATCH px=105.43
+  [294/411] ok FCX: 88 STRONG BUY px=68.18
+  [295/411] ok NUE: 90 STRONG BUY px=272.0
+  [296/411] ok EMN: 84 STRONG BUY px=73.5
+  [297/411] ok CE: 31 WEAK px=43.95
+  [298/411] ok PPG: 63 WATCH px=117.16
+  [299/411] ok AVY: 74 WATCH px=173.99
+  [300/411] ok IP: 69 WATCH px=40.53
+  [301/411] ok PKG: 92 STRONG BUY px=252.75
+  [302/411] ok BALL: 71 WATCH px=63.13
+$SEE: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [303/411] -- SEE: no row
+  [304/411] ok SON: 87 STRONG BUY px=57.07
+  [305/411] ok ALB: 40 WEAK px=125.42
+  [306/411] ok RPM: 87 STRONG BUY px=115.65
+  [307/411] ok OLN: 23 WEAK px=18.74
+  [308/411] ok ASH: 92 STRONG BUY px=72.46
+  [309/411] ok VMC: 31 WEAK px=281.63
+  [310/411] ok MLM: 35 WEAK px=538.28
+  [311/411] ok STLD: 86 STRONG BUY px=261.48
+  [312/411] ok RS: 93 STRONG BUY px=418.13
+  [313/411] ok CLF: 63 WATCH px=12.23
+  [314/411] ok CMC: 87 STRONG BUY px=73.69
+$PARA: possibly delisted; no price data found  (period=1y)
+  [315/411] -- PARA: no row
+  [316/411] ok DIS: 73 WATCH px=104.68
+  [317/411] ok VZ: 66 WATCH px=46.99
+  [318/411] ok T: 62 WATCH px=23.71
+  [319/411] ok TTWO: 34 WEAK px=232.47
+  [320/411] ok TMUS: 37 WEAK px=179.97
+$IPG: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [321/411] -- IPG: no row
+  [322/411] ok OMC: 84 STRONG BUY px=82.51
+  [323/411] ok NWSA: 80 STRONG BUY px=29.67
+  [324/411] ok FOXA: 90 STRONG BUY px=61.79
+$IAC: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [325/411] -- IAC: no row
+  [326/411] ok FOX: 80 STRONG BUY px=55.37
+  [327/411] ok MTCH: 56 WATCH px=36.61
+  [328/411] ok LYFT: 67 WATCH px=16.3
+  [329/411] ok UBER: 59 WATCH px=70.47
+  [330/411] ok SNAP: 51 WEAK px=5.22
+  [331/411] ok PINS: 65 WATCH px=23.33
+  [332/411] ok RBLX: 21 WEAK px=36.04
+  [333/411] ok HOOD: 28 WEAK px=90.71
+  [334/411] ok COIN: 23 WEAK px=145.41
+  [335/411] ok SPOT: 43 WEAK px=475.07
+  [336/411] ok SHOP: 68 WATCH px=147.44
+  [337/411] ok BIDU: 57 WATCH px=109.33
+  [338/411] ok SE: 69 WATCH px=111.0
+  [339/411] ok SNOW: 87 STRONG BUY px=318.0
+  [340/411] ok OKTA: 84 STRONG BUY px=143.51
+  [341/411] ok DOCU: 58 WATCH px=56.9
+  [342/411] ok RIVN: 36 WEAK px=15.38
+  [343/411] ok PLTR: 76 STRONG BUY px=155.92
+  [344/411] ok ARM: 48 WEAK px=286.68
+  [345/411] ok ASML: 45 WEAK px=1704.37
+  [346/411] ok TSM: 53 WEAK px=418.2
+  [347/411] ok NVO: 20 WEAK px=45.97
+  [348/411] ok SOUN: 60 WATCH px=7.08
+  [349/411] ok RKLB: 45 WEAK px=75.67
+  [350/411] ok IONQ: 42 WEAK px=39.72
+  [351/411] ok JOBY: 55 WATCH px=8.23
+  [352/411] ok ACHR: 50 WEAK px=5.23
+  [353/411] ok QBTS: 34 WEAK px=19.41
+  [354/411] ok RGTI: 43 WEAK px=16.53
+  [355/411] ok CELH: 58 WATCH px=23.77
+  [356/411] ok LUNR: 50 WEAK px=14.93
+  [357/411] ok SNDK: 29 WEAK px=1258.58
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SPY"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SPY"}}}
+  [358/411] ok SPY: 90 STRONG BUY px=768.56
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QQQ"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QQQ"}}}
+  [359/411] ok QQQ: 70 WATCH px=714.65
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IWM"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IWM"}}}
+  [360/411] ok IWM: 69 WATCH px=298.25
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DIA"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DIA"}}}
+  [361/411] ok DIA: 89 STRONG BUY px=538.19
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VTI"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VTI"}}}
+  [362/411] ok VTI: 90 STRONG BUY px=379.07
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VOO"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VOO"}}}
+  [363/411] ok VOO: 91 STRONG BUY px=706.4
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VEA"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VEA"}}}
+  [364/411] ok VEA: 88 STRONG BUY px=72.12
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VWO"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: VWO"}}}
+  [365/411] ok VWO: 87 STRONG BUY px=59.96
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: GLD"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: GLD"}}}
+  [366/411] ok GLD: 79 STRONG BUY px=389.67
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SLV"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SLV"}}}
+  [367/411] ok SLV: 48 WEAK px=55.85
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: TLT"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: TLT"}}}
+  [368/411] ok TLT: 19 WEAK px=82.52
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IEF"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IEF"}}}
+  [369/411] ok IEF: 18 WEAK px=92.95
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: HYG"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: HYG"}}}
+  [370/411] ok HYG: 54 WEAK px=79.46
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: LQD"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: LQD"}}}
+  [371/411] ok LQD: 19 WEAK px=106.36
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLK"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLK"}}}
+  [372/411] ok XLK: 82 STRONG BUY px=185.33
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLF"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLV"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLF"}}}
+  [373/411] ok XLF: 40 WEAK px=57.81
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLV"}}}
+  [374/411] ok XLV: 71 WATCH px=164.45
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLE"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLI"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLE"}}}
+  [375/411] ok XLE: 87 STRONG BUY px=58.16
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLI"}}}
+  [376/411] ok XLI: 89 STRONG BUY px=184.76
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLC"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLC"}}}
+  [377/411] ok XLC: 58 WATCH px=111.18
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLP"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLP"}}}
+  [378/411] ok XLP: 72 WATCH px=85.11
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLU"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLU"}}}
+  [379/411] ok XLU: 52 WEAK px=43.38
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLRE"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLRE"}}}
+  [380/411] ok XLRE: 84 STRONG BUY px=44.81
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLY"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLY"}}}
+  [381/411] ok XLY: 46 WEAK px=118.1
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLB"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XLB"}}}
+  [382/411] ok XLB: 87 STRONG BUY px=52.17
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SMH"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SMH"}}}
+  [383/411] ok SMH: 37 WEAK px=571.48
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IBB"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: IBB"}}}
+  [384/411] ok IBB: 90 STRONG BUY px=192.97
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XBI"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XBI"}}}
+  [385/411] ok XBI: 89 STRONG BUY px=154.5
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XOP"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: XOP"}}}
+  [386/411] ok XOP: 73 WATCH px=167.05
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKK"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKK"}}}
+  [387/411] ok ARKK: 34 WEAK px=75.73
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKG"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKG"}}}
+  [388/411] ok ARKG: 73 WATCH px=40.55
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKW"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: ARKW"}}}
+  [389/411] ok ARKW: 44 WEAK px=143.46
+  [390/411] ok SPCX: 36 WEAK px=114.92
+  [391/411] ok ALAB: 51 WEAK px=331.5
+  [392/411] ok AMKR: 33 WEAK px=54.16
+  [393/411] ok APLD: 42 WEAK px=28.86
+  [394/411] ok APP: 56 WATCH px=335.67
+  [395/411] ok COCO: 56 WATCH px=64.12
+  [396/411] ok DELL: 88 STRONG BUY px=437.65
+  [397/411] ok DIOD: 86 STRONG BUY px=98.72
+  [398/411] ok DOCN: 44 WEAK px=122.23
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DRAM"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DRAM"}}}
+  [399/411] ok DRAM: 11 WEAK px=51.44
+  [400/411] ok FLEX: 52 WEAK px=122.65
+  [401/411] ok ICHR: 27 WEAK px=65.33
+  [402/411] ok IREN: 33 WEAK px=37.93
+  [403/411] ok LQDA: 93 STRONG BUY px=89.42
+  [404/411] ok LUV: 87 STRONG BUY px=46.94
+  [405/411] ok MXL: 43 WEAK px=70.2
+  [406/411] ok PRTH: 46 WEAK px=5.38
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QLD"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QLD"}}}
+  [407/411] ok QLD: 36 WEAK px=90.13
+  [408/411] ok RBRK: 75 WATCH px=84.6
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SSO"}}}
+  [409/411] ok SWBI: 62 WATCH px=14.55
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SSO"}}}
+  [410/411] ok SSO: 88 STRONG BUY px=70.88
+  [411/411] ok VRT: 34 WEAK px=275.17
+
+Patched 393 rows -> now 523 stocks
+Still failing: 0 []

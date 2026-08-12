@@ -1,0 +1,53 @@
+﻿Re-fetching 118 tickers
+  ok  [1/118] ACHR: 37 WEAK px=4.84
+  ok  [2/118] ALAB: 32 WEAK px=321.05
+  ok  [3/118] AMKR: 35 WEAK px=50.84
+python : HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for 
+symbol: ANSS"}}}
+At line:1 char:373
++ ... inance\KV"; python "C:\Users\91635\AppData\Local\Temp\claude\C--Users ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (HTTP Error 404:...ymbol: ANSS"}}}:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+$ANSS: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: 
+ANSS"}}}
+$ANSS: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+$ANSS: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+$ANSS: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  XX  [4/118] ANSS: still no data
+  ok  [5/118] APLD: 45 WEAK px=29.49
+  ok  [6/118] APP: 44 WEAK px=406.16
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found 
+for symbol: ARKG"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found 
+for symbol: ARKG"}}}
+  ok  [7/118] ARKG: 60 WATCH px=39.62
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found 
+for symbol: ARKK"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found 
+for symbol: ARKK"}}}
+  ok  [8/118] ARKK: 24 WEAK px=73.54
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found 
+for symbol: ARKW"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found 
+for symbol: ARKW"}}}
+  ok  [9/118] ARKW: 36 WEAK px=140.87
+  ok  [10/118] ARM: 36 WEAK px=239.06
+  ok  [11/118] ASML: 41 WEAK px=1642.52
+  ok  [12/118] BIDU: 69 WATCH px=113.06
+$BK: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+$BK: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+$BK: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+$BK: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  XX  [13/118] BK: still no data
+  ok  [14/118] CELH: 41 WEAK px=28.23
+  ok  [15/118] CLF: 55 WATCH px=11.22
+  ok  [16/118] CMC: 86 STRONG BUY px=70.21
+  ok  [17/118] COCO: 53 WEAK px=63.39
+  ok  [18/118] COIN: 27 WEAK px=146.5
+$CTLT: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+$CTLT: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+$CTLT: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+$CTLT: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
