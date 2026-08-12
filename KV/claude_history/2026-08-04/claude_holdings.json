@@ -1,0 +1,428 @@
+{
+  "date": "2026-08-04",
+  "users": {
+    "9U3EMCIBlyYATLhh9YLnfYwKgpC2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "At 303.42 you are up ~52% from a 200.00 basis. But this is not a leader right now: 10.8% below its 340.08 high, RSI 43.5, trading below its 50-DMA (309.52), and TradingView rates it SELL (6 buy / 11 sell). Earnings are 87 days out so there is no near-term event. Hold the core, but this is not where new money belongs."
+        },
+        {
+          "ticker": "ALAB",
+          "action": "TRIM",
+          "why": "A +322% position from a 76.00 basis — congratulations, and that is exactly why to take something off. Astera is 33.5% below its 483.02 high, below its 50-DMA (355.88), scores only 32.5, and TradingView is NEUTRAL. Critically, it reports TOMORROW (Aug 5). Trim into the print to protect a very large gain rather than putting all of it at risk on one report."
+        },
+        {
+          "ticker": "AMD",
+          "action": "TRIM",
+          "why": "Up ~83% from 265.00, but the setup has broken: 16.6% off its high, RSI 39.6, below its 50-DMA (512.95), scores 37.2 WEAK, and TradingView rates it SELL. It reports TOMORROW (Aug 5) into a semiconductor complex where AMAT is -28%, LRCX -32% and MU -32%. Reduce ahead of the print."
+        },
+        {
+          "ticker": "APLD",
+          "action": "REDUCE",
+          "why": "Down ~36% from a 46.14 basis at 29.49. Applied Digital is 40.6% below its high, below both its 50-DMA (37.20) and 200-DMA (32.62), scores 45.1 WEAK, and TradingView is NEUTRAL at best. Three-month momentum is -17.2%. There is no base here — cut the position rather than averaging into a downtrend."
+        },
+        {
+          "ticker": "APP",
+          "action": "REDUCE",
+          "why": "Your largest dollar loser in percentage-of-capital terms at 200 shares from 423.00, now 406.16. AppLovin is 44.6% below its 733.60 high, below its 200-DMA (519.36), RSI 34.8, and TradingView rates it SELL (2 buy / 14 sell). It reports Aug 6. A broken high-beta name into earnings is the definition of uncompensated risk — reduce before the print."
+        },
+        {
+          "ticker": "DRAM",
+          "action": "TRIM",
+          "why": "Up ~14% from 45.00 at 51.13. This is a memory-sector ETF and the sector is broken: it is 36.7% below its high, below both moving averages, and scores only 11.4 — the lowest of any position you hold. Memory names MU (-32%) and SNDK (-45%) confirm the group is de-rating. Take the gain while it is still a gain."
+        },
+        {
+          "ticker": "GOOGL",
+          "action": "HOLD",
+          "why": "Up ~74% from 215.00 and one of my STRONG BUY picks. Alphabet scores 87.8 with TradingView at STRONG BUY (16 buy / ZERO sell), EPS +294% and revenue +24.2% at just 25.3x forward earnings, and it sits 7.2% below its high with RSI 55.1 — room to run. Earnings 86 days out. This is a core hold; adding on weakness toward the 358.38 50-DMA is reasonable."
+        },
+        {
+          "ticker": "GS",
+          "action": "HOLD",
+          "why": "Up ~53% from 670.00 at 1027.06, but Goldman is the one financial NOT participating in the sector's leadership: it scores 39.0 WEAK, sits 10.9% below its high with RSI 32.8, below its 50-DMA (1049.76), and TradingView rates it SELL (6 buy / 10 sell). With BAC, USB, JPM and PNC all at or near 52-week highs, Goldman is the laggard. Hold, but if you want bank exposure the money is better placed elsewhere."
+        },
+        {
+          "ticker": "HOOD",
+          "action": "REDUCE",
+          "why": "Essentially flat at 90.34 against a 91.17 basis — and that flat number hides real damage: 40.7% below its 152.46 high, RSI 27.1, below both its 50-DMA (96.93) and 200-DMA (99.07), TradingView SELL (6 buy / 13 sell). Robinhood is part of the high-beta complex that has been sold hard (COIN -62%, PLTR -39%). Reduce; there is no base to hold onto."
+        },
+        {
+          "ticker": "INTC",
+          "action": "TRIM",
+          "why": "A ~102% gain from 45.00 at 91.00 — take some. Intel scores 20.1, the second-weakest name you own, sits 35.4% below its high with RSI 35.5, is below its 50-DMA (112.25), and TradingView rates it SELL (3 buy / 13 sell). The turnaround thesis may eventually work but the tape is not confirming it. Bank part of a doubling."
+        },
+        {
+          "ticker": "IREN",
+          "action": "REDUCE",
+          "why": "A single share from a 45.00 basis, now 39.75 — immaterial to your portfolio either way, but the signal is clear: 48.0% below its high, scores 34.5 WEAK, three-month momentum -19.7%, TradingView SELL. Close it and remove the line item rather than tracking a broken position."
+        },
+        {
+          "ticker": "LRCX",
+          "action": "REDUCE",
+          "why": "Barely above water at 294.61 versus 289.00. Lam is 32.0% below its 433.33 high, RSI 35.4, below its 50-DMA (337.89), scores 32.4 WEAK, and TradingView rates it SELL (4 buy / 12 sell). Semiconductor equipment is the epicentre of the current drawdown — AMAT is -28% alongside it. Exit near breakeven rather than hoping."
+        },
+        {
+          "ticker": "LUNR",
+          "action": "REDUCE",
+          "why": "Down ~35% from 20.00 at 13.10, and the chart is the worst in your portfolio: 71.3% below its 45.70 high, three-month momentum -48.3%, below both moving averages, TradingView SELL. It reports Aug 13. Intuitive Machines is a speculative story stock in a tape that is punishing exactly that profile — reduce."
+        },
+        {
+          "ticker": "MSFT",
+          "action": "HOLD",
+          "why": "Up ~41% from 345.00 at 487.65. Microsoft scores 84.0 with genuinely attractive fundamentals (EPS +31.7%, revenue +17.7% at only 20.8x) and TradingView at BUY. But RSI is 81.3 — the most overbought reading in my entire coverage — and it is 22% above its 50-DMA (400.74). Hold what you own; do not add here. Wait for a pullback toward 470 or a sideways consolidation."
+        },
+        {
+          "ticker": "MU",
+          "action": "TRIM",
+          "why": "A ~239% gain from 245.00 at 829.50 — one of your best positions, and now is the time to protect it. Micron is 31.6% below its 1213.37 high, RSI 39.7, below its 50-DMA (966.71), scores 32.8 WEAK, and TradingView rates it SELL (5 buy / 11 sell). Memory is cyclical and this cycle is rolling over. Trim aggressively; you are giving back a large gain slowly."
+        },
+        {
+          "ticker": "NVDA",
+          "action": "HOLD",
+          "why": "Up ~25% from 165.00 at 206.64. The most interesting disagreement in the market: the price action is weak (12.2% below its high, sitting right on its 50-DMA at 205.79, no VCP, no RS leadership) but the fundamentals are exceptional — revenue +85.2%, EPS +214.5% at just 16.0x forward earnings — and TradingView rates it STRONG BUY (16 buy / 1 sell). Earnings Aug 27 resolves it. Hold; do not add before the print."
+        },
+        {
+          "ticker": "ORCL",
+          "action": "HOLD",
+          "why": "Up ~42% from 100.00 at 141.85, but be aware how far it has fallen: 56.3% below its 324.63 high — the largest drawdown-from-high of any position you own — and below both its 50-DMA (163.57) and 200-DMA (181.17). It scores 59.8 WATCH, though TradingView is still constructive at BUY (11 buy / 6 sell) and it showed a pocket pivot. Hold the gain, but this needs to rebuild a base before it deserves more capital."
+        },
+        {
+          "ticker": "PLTR",
+          "action": "TRIM",
+          "why": "Barely profitable at 125.65 against 120.00, despite the headline that Palantir jumped 16% on 'otherworldly' commercial revenue. Read the whole picture: that pop came off the 107.27 low, and the stock is still 39.4% below its 207.18 high, below both moving averages, RSI 39.5, scoring 49.2 WEAK, with TradingView at SELL (5 buy / 11 sell). Volume was 2.02x, so the move is real — use the strength to trim, not to add."
+        },
+        {
+          "ticker": "QBTS",
+          "action": "TRIM",
+          "why": "A ~329% gain from 4.66 at 19.98 on 1000 shares — a genuinely large win. D-Wave is 55.4% below its 44.78 high, three-month momentum is -4.5%, it is below both moving averages, and it reports Aug 6. Quantum computing names (RGTI -72% alongside it) are the most speculative corner of this tape. Trim substantially into the print and let the rest run as a lottery ticket."
+        },
+        {
+          "ticker": "QLD",
+          "action": "TRIM",
+          "why": "Up ~70% from 51.00 at 86.62. This is 2x leveraged QQQ, and QQQ closed at 700.07 BELOW its 50-DMA while SPY closed at a 52-week high — the Nasdaq is the weak index right now. Leveraged exposure to the lagging index is the wrong side of the current rotation. Trim and consider SSO (2x S&P) as the better vehicle while breadth favours non-tech."
+        },
+        {
+          "ticker": "RBRK",
+          "action": "HOLD",
+          "why": "Up ~33% from 56.00 at 74.74. Rubrik scores 56.8 WATCH with RSI at just 23.3 — deeply oversold — sitting 24.1% below its high on a 5-contraction base tightening to 4.5%, and TradingView is still positive at BUY (10 buy / 7 sell). Earnings are 36 days out. This is a reasonable hold: oversold with a constructive gauge and no imminent event."
+        },
+        {
+          "ticker": "RGTI",
+          "action": "TRIM",
+          "why": "A ~167% gain from 6.00 at 16.02. Rigetti is 71.6% below its 56.34 high — the second-worst drawdown you hold — below both moving averages, and it reports Aug 7. TradingView is NEUTRAL. You are up substantially on a pre-revenue-quality speculative name heading into earnings; take most of the gain off the table."
+        },
+        {
+          "ticker": "RKLB",
+          "action": "TRIM",
+          "why": "A ~235% gain from 21.00 at 70.43 — protect it. Rocket Lab is 53.1% below its 150.23 high, RSI 41.1, below both its 50-DMA (95.48) and 200-DMA (77.79), scores 37.2 WEAK, TradingView SELL (5 buy / 11 sell), and it reports Aug 11. A broken chart plus a large gain plus an imminent catalyst equals trim."
+        },
+        {
+          "ticker": "SMCI",
+          "action": "HOLD",
+          "why": "Up ~25% from 23.00 at 28.64. Super Micro scores 59.9 WATCH — better than most of your semiconductor-adjacent names — though it sits 51.2% below its 58.68 high with TradingView NEUTRAL (9/9/8). It reports Aug 12. Volume is light at 0.56x. Hold the modest gain through the print given the balanced gauge, but keep the position size small."
+        },
+        {
+          "ticker": "SNDK",
+          "action": "TRIM",
+          "why": "A ~186% gain from 450.00 at 1288.03. Sandisk is 44.8% below its 2335.00 high, RSI 35.8, below its 50-DMA (1707.12), scores 22.2 — among the weakest names you hold — TradingView SELL (4 buy / 12 sell), and it reports Aug 6. Memory is de-rating hard. Trim decisively before the print."
+        },
+        {
+          "ticker": "SNOW",
+          "action": "HOLD",
+          "why": "Up ~28% from 240.00 at 307.53 — and Snowflake just closed at a 52-week high on 1.63x volume with a pocket pivot, an exceptional 4-contraction base tightening to 1.6%, RS at new highs, +113% three-month momentum, and TradingView STRONG BUY. Hold it. The reason I would not add: 113.9x forward earnings with negative EPS, RSI 70.0, and earnings in 30 days. Let the winner run, do not chase it."
+        },
+        {
+          "ticker": "SSO",
+          "action": "HOLD",
+          "why": "Up ~57% from 44.00 at 68.94, and this is the right leveraged vehicle for the current tape: SPY closed 757.67 at a 52-week high, above its 50-DMA (744.59), with VIX at 15.7 and falling, one distribution day and a follow-through day printed. SSO scores 88.9 with RS at new highs and TradingView STRONG BUY. Hold — but remember 2x leverage cuts both ways if the Iran talks fail."
+        },
+        {
+          "ticker": "TSLA",
+          "action": "REDUCE",
+          "why": "Down ~27% from 439.00 at 322.08 and it is the weakest large cap in the scan: 34.3% below its 489.88 high, RSI 23.6 (deeply oversold but with no base), below its 50-DMA (388.86) and 200-DMA (411.06), scoring 24.4 WEAK, EPS -3.0%, a 145.1x forward multiple, and TradingView SELL (2 buy / 14 sell). Oversold is not a reason to hold a broken trend at 145x earnings. Reduce."
+        },
+        {
+          "ticker": "TSM",
+          "action": "HOLD",
+          "why": "A ~132% gain from 175.00 at 406.11. TSMC has held up far better than the rest of the semiconductor complex — 15.0% below its high versus AMAT at -28% and LRCX at -32% — and it remains above its 200-DMA (356.56) with revenue +36% at 18.8x forward earnings. But it scores 41.9 WEAK, is below its 50-DMA (425.15), and TradingView rates it SELL. Hold the core position; do not add until the group stops making lower highs."
+        },
+        {
+          "ticker": "VRT",
+          "action": "HOLD",
+          "why": "A single share from a 16.00 basis now at 263.05 — an extraordinary multi-year gain, but immaterial to portfolio risk. Vertiv is 30.1% below its 376.15 high, RSI 37.2, below both moving averages, scores 39.0 WEAK, and TradingView rates it SELL. Data-centre power is a good long-term theme (see DLR in my picks) but this name has broken down. Hold or close on strength; the position is too small to manage actively."
+        }
+      ]
+    },
+    "9XYERwojDqZYyeKV2ajvWQig8Bh2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "Up ~21% from a 250.00 basis at 303.42. Apple is not currently a leader — 10.8% below its 340.08 high, RSI 43.5, below its 50-DMA (309.52), and TradingView rates it SELL (6 buy / 11 sell) — but it remains above its 200-DMA (277.94) with EPS +28.7% and revenue +16.4%, and earnings are 87 days out. As a single-position portfolio this is a reasonable long-term core; consider diversifying into the current leadership (banks at 11x earnings, or AMZN/GOOGL) rather than adding more here."
+        }
+      ]
+    },
+    "H0Wv2PLzKzR0JwanHqUssGUsmMl1": {
+      "holdings": [
+        {
+          "ticker": "AMKR",
+          "action": "REDUCE",
+          "why": "Down ~39% from 83.00 at 50.84 on 1060 shares. Amkor is 45.7% below its 93.55 high with RSI 28.2, three-month momentum -28.3%, below both its 50-DMA (70.79) and 200-DMA (53.75), and TradingView rates it SELL (3 buy / 14 sell). Semiconductor packaging is deep in the group drawdown. This is a material loss with no base forming — reduce rather than average down."
+        },
+        {
+          "ticker": "COCO",
+          "action": "REDUCE",
+          "why": "Down ~19% from 78.71 at 63.39 on 3000 shares — a large dollar loss. Vita Coco is 24.6% below its high, RSI 28.5, below its 50-DMA (74.15), scores 52.6 WEAK, and TradingView rates it SELL (2 buy / 14 sell). If you want consumer-defensive exposure, MDLZ is on my STRONG BUY list with a tight 2.5% base and EPS +144.9%. Rotate."
+        },
+        {
+          "ticker": "DELL",
+          "action": "HOLD",
+          "why": "Roughly flat at 429.02 against a 417.23 basis, and the setup is improving: Dell scores 76.1 STRONG BUY with +103% three-month momentum — the strongest trend of anything you own — EPS +282.5% and revenue +87.5% at 19.6x forward earnings, above its 50-DMA (402.18), and TradingView confirms BUY (15 buy / 1 sell). Earnings are 31 days out. Hold, and this is one of the few positions here worth adding to on weakness."
+        },
+        {
+          "ticker": "DIOD",
+          "action": "REDUCE",
+          "why": "Down ~33% from 122.81 at 82.09 on 2000 shares. Diodes scores 20.9 — the weakest name in your portfolio — 33.1% below its high, RSI 35.5, below its 50-DMA (100.20), TradingView SELL (3 buy / 13 sell), and it reports Aug 6. A broken analogue semiconductor into earnings with a large loss already booked: reduce before the print."
+        },
+        {
+          "ticker": "DOCN",
+          "action": "REDUCE",
+          "why": "Down ~29% from 179.89 at 127.17 on 2600 shares, and it reports TODAY (Aug 4) — so the immediate decision is about the print, which you cannot now avoid. DigitalOcean is 29.9% below its high, below its 50-DMA (146.96), scores 45.3 WEAK, though TradingView is mildly positive at BUY (12 buy / 5 sell). Reduce on any strength after the report; the trend has not been repaired."
+        },
+        {
+          "ticker": "FLEX",
+          "action": "REDUCE",
+          "why": "Down ~23% from 152.31 at 117.45 on 1500 shares. Flex is 27.5% below its 162.07 high, RSI 38.0, below its 50-DMA (138.80), scores 33.8 WEAK, and TradingView is NEUTRAL. Electronics manufacturing is caught in the same de-rating as the rest of your hardware exposure. Consolidate this loss and redeploy into the leadership."
+        },
+        {
+          "ticker": "FTNT",
+          "action": "HOLD",
+          "why": "Up ~13% from 144.90 at 163.21, and this is one of my STRONG BUY picks. Fortinet has its RS line at new highs with +82.9% three-month momentum, sits just 2.2% below its high, and RSI is only 44.6 — strong trend without being overbought — with EPS +43.9% and revenue +25.6%, confirmed by TradingView BUY (15 buy / 1 sell). Hold. Note the scan returned no earnings date, so verify the calendar before adding."
+        },
+        {
+          "ticker": "GLW",
+          "action": "REDUCE",
+          "why": "Down ~22% from 189.20 at 146.64 on 1000 shares. Corning is 42.6% below its 255.69 high with RSI 31.2 and sits well below its 50-DMA (181.77), though it is still above its 200-DMA (135.29). It scores 22.4 with TradingView at SELL (6 buy / 10 sell). The 50-DMA break and the 42.6% drawdown are what matter here — reduce."
+        },
+        {
+          "ticker": "GOOGL",
+          "action": "HOLD",
+          "why": "Up ~3% from 363.53 at 373.51 on 1640 shares — your largest position, and appropriately so. Alphabet is a STRONG BUY pick: score 87.8, TradingView STRONG BUY with 16 buy and ZERO sell signals, EPS +294% and revenue +24.2% at 25.3x forward earnings, 7.2% below its high with RSI 55.1 and earnings 86 days out. Hold, and add on weakness toward the 358.38 50-DMA."
+        },
+        {
+          "ticker": "ICHR",
+          "action": "REDUCE",
+          "why": "Down ~6% from 85.66 at 80.23 on 3200 shares. Ichor scores 26.4, sits 28.5% below its high, is below its 50-DMA (84.44), and TradingView rates it SELL (7 buy / 10 sell). It is a semiconductor-equipment supplier, the weakest subsector in this market. The loss is still small — take it now rather than after the group falls further."
+        },
+        {
+          "ticker": "LLY",
+          "action": "HOLD",
+          "why": "Down ~3.5% from 1162.00 at 1121.36 on 200 shares, and it reports TOMORROW (Aug 5). Eli Lilly scores 64.6 WATCH with EPS +169.9% and revenue +55.5% — outstanding fundamentals — at 24.9x forward earnings, but it is 9.2% below its high, below its 50-DMA (1149.37), and TradingView rates it SELL (5 buy / 11 sell). Hold through the print: the fundamentals justify patience, and the loss is small."
+        },
+        {
+          "ticker": "LQDA",
+          "action": "TRIM",
+          "why": "Up ~11% from 75.41 at 83.85 on 3000 shares. Liquidia is the highest-scoring name in the entire 523-stock scan at 93.6, with +117.9% three-month momentum and revenue up 4,158% as its product commercialises. But it is a single-product commercial-stage biotech, 85% above its 200-DMA (45.24), with a 19.21-89.03 annual range, TradingView at only BUY (12 buy / 5 sell), and earnings in 8 days. Trim to a size you can afford to see halve."
+        },
+        {
+          "ticker": "LUV",
+          "action": "HOLD",
+          "why": "Up ~10% from 42.75 at 47.07 on 4000 shares. Southwest scores 88.1 STRONG BUY with EPS +20.5% and revenue +16.4% at just 9.5x forward earnings — genuinely cheap — above both its 50-DMA (46.35) and 200-DMA (41.57), 5-contraction base, and TradingView confirms BUY (13 buy / 4 sell). Earnings 79 days out. Hold; the main risk is that jet fuel follows crude higher if the Iran talks fail."
+        },
+        {
+          "ticker": "MXL",
+          "action": "REDUCE",
+          "why": "Down ~33% from 99.95 at 67.11 on 5000 shares — one of your largest dollar losses. MaxLinear is 47.6% below its 128.03 high, RSI 34.9, three-month momentum -14.1%, below its 50-DMA (86.60), scores 26.7, and TradingView rates it SELL (4 buy / 12 sell). This is a small-cap semiconductor in the worst subsector of this market. Reduce."
+        },
+        {
+          "ticker": "NTAP",
+          "action": "HOLD",
+          "why": "Up ~15% from 159.26 at 182.92 on 2000 shares — and NetApp just closed at a 52-week high with RSI only 58.4, RS at new highs, +65.4% three-month momentum, at 18.6x forward earnings with EPS +23.4%, confirmed by TradingView STRONG BUY with 16 buy and ZERO sell signals. It is one of my STRONG BUY picks. Hold and consider adding; note volume at the high was light (0.77x) and earnings land Sept 3."
+        },
+        {
+          "ticker": "PRTH",
+          "action": "HOLD",
+          "why": "Down ~10% from 7.38 at 6.67 on 30,000 shares. Priority Technology scores 50.0 WEAK but the details are better than the score: it is above both its 50-DMA (6.57) and 200-DMA (5.86), trades at just 5.3x forward earnings with EPS +19.9%, on a 7-contraction base tightening to 5.7%, and TradingView rates it BUY (13 buy / 4 sell). It reports Aug 6. Hold through the print — the valuation and gauge justify patience on a small loss."
+        },
+        {
+          "ticker": "SWBI",
+          "action": "HOLD",
+          "why": "Down ~8% from 16.04 at 14.76 on 15,000 shares. Smith & Wesson scores 59.7 WATCH with EPS +86.7% and revenue +26.7%, sits 10.7% below its high on a tight 4-contraction base at 5.0%, and remains above its 200-DMA (12.51) — though below its 50-DMA (15.01) and TradingView rates it SELL (6 buy / 12 sell). Earnings are 31 days out. Hold; the fundamentals and base are constructive enough to give it time."
+        }
+      ]
+    },
+    "RWaiB5nNl5TjiWamTOEMb8tgVgQ2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "Up ~26% from 240.00 at 303.42. Apple is above its 200-DMA (277.94) with EPS +28.7% and revenue +16.4% and no earnings for 87 days, but it is not leading: 10.8% below its high, RSI 43.5, below its 50-DMA (309.52), TradingView SELL (6 buy / 11 sell). A fine long-term core holding — just not the place for new capital in this rotation."
+        },
+        {
+          "ticker": "GS",
+          "action": "HOLD",
+          "why": "Up ~28% from 800.00 at 1027.06. Be aware Goldman is the notable laggard in an otherwise dominant sector: it scores 39.0 WEAK with RSI 32.8, sits 10.9% below its high, is below its 50-DMA (1049.76), and TradingView rates it SELL (6 buy / 10 sell) — while BAC, USB, JPM and PNC all sit within 2% of 52-week highs. Hold the gain, but the bank exposure you want is in the commercial banks, not Goldman."
+        },
+        {
+          "ticker": "MNST",
+          "action": "HOLD",
+          "why": "Up ~17% from 80.00 at 93.55, and it reports Aug 7. Monster scores 59.7 WATCH with strong fundamentals (EPS +28.9%, revenue +26.9%) but a 36.0x multiple, sitting 6.4% below its high right at its 50-DMA (93.61), and TradingView rates it SELL (5 buy / 12 sell). Hold into the print given the modest gain, but the gauge and the multiple both argue against adding."
+        },
+        {
+          "ticker": "SPCX",
+          "action": "HOLD",
+          "why": "Down ~29% from 160.95 at 114.53 — and this is a NEW LISTING, so read its 31.5 score as 'insufficient trading history', not as a sell signal. The real facts: 45.8% below its 211.39 post-IPO high, near its 108.37 low, RSI 29.7 (deeply oversold), a 126.8x forward multiple, and TradingView at SELL (4 buy / 7 sell). It reports its first meaningful results TOMORROW (Aug 5). Hold — the launch monopoly and Starlink subscription franchise are intact — but do not add ahead of a first earnings print with no trading history to lean on."
+        },
+        {
+          "ticker": "TSLA",
+          "action": "TRIM",
+          "why": "Up ~29% from 250.00 at 322.08 — take some off. Tesla is the weakest large cap in the scan: 34.3% below its 489.88 high, RSI 23.6, below both its 50-DMA (388.86) and 200-DMA (411.06), scoring 24.4 WEAK, EPS -3.0% on a 145.1x forward multiple, TradingView SELL (2 buy / 14 sell). You have a good gain in a broken trend at an extreme valuation. Trim."
+        }
+      ]
+    },
+    "Upr1qGqvOZVTbZIazl3fVapJAWt1": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "Up ~17% from 259.38 at 303.42. Apple remains above its 200-DMA (277.94) with EPS +28.7%, revenue +16.4% and no earnings for 87 days — a sound core position. But it is 10.8% below its high with RSI 43.5, below its 50-DMA (309.52), and TradingView rates it SELL (6 buy / 11 sell), so it is not leading this tape. With a single-position portfolio, the bigger opportunity is diversification: the current leadership is banks at ~11x earnings (BAC, USB) and AMZN/GOOGL among mega-caps."
+        }
+      ]
+    },
+    "WwfbUgQdviVtfrB3BBzR25joqbv2": {
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "action": "HOLD",
+          "why": "Up ~21% from 250.00 at 303.42. Above its 200-DMA (277.94) with EPS +28.7% and no earnings for 87 days, but 10.8% below its high, RSI 43.5, below its 50-DMA (309.52), and TradingView at SELL. Hold as a core; not where new money belongs right now."
+        },
+        {
+          "ticker": "AMAT",
+          "action": "TRIM",
+          "why": "An extraordinary ~270% gain from 140.00 at 518.21 — protect it. Applied Materials is 28.3% below its 723.00 high, RSI 38.5, below its 50-DMA (545.41), scores 42.5 WEAK, TradingView NEUTRAL, and it reports Aug 14. Semiconductor equipment is the epicentre of this drawdown alongside LRCX (-32%). Trim a large winner in a broken group ahead of earnings."
+        },
+        {
+          "ticker": "AMZN",
+          "action": "HOLD",
+          "why": "Up ~14% from 250.00 at 284.02 — and Amazon closed exactly at a 52-week high on 1.88x volume with a pocket pivot and RS at new highs. It is one of my STRONG BUY picks: EPS +242.3%, revenue +19.6% at 27.5x forward earnings, earnings 87 days out, and TradingView STRONG BUY (17 buy / 1 sell) — the strongest gauge reading in my coverage. Hold and consider adding; the base is loose (11.1%) so use a wider stop."
+        },
+        {
+          "ticker": "COIN",
+          "action": "TRIM",
+          "why": "Up ~83% from 80.00 at 146.50, but Coinbase has the largest drawdown-from-high in the entire scan: 62.2% below its 387.27 peak, three-month momentum -27.8%, revenue -17.3%, below both its 50-DMA (163.45) and 200-DMA (211.46), scoring 26.7 with TradingView at SELL (2 buy / 16 sell). Note TradingView also rates BTC itself SELL. Take the gain."
+        },
+        {
+          "ticker": "DLR",
+          "action": "WATCH",
+          "why": "No position on record. Digital Realty is one of my STRONG BUY picks and the best way to own AI infrastructure while the semiconductors are broken: revenue +29.9% from contracted data-centre leases, 5.6% below its high, and TradingView STRONG BUY with 16 buy and ZERO sell signals. Consider initiating."
+        },
+        {
+          "ticker": "DTE",
+          "action": "HOLD",
+          "why": "Up ~42% from 100.00 at 141.72. DTE Energy scores 60.4 WATCH on a tight 3-contraction base at 2.5% with earnings 86 days out, but RSI is 32.8, it sits 8.2% below its high and below its 50-DMA (146.79), revenue is -1.5%, and TradingView rates it SELL (4 buy / 14 sell). Hold the gain as defensive ballast; the utility is oversold but not leading."
+        },
+        {
+          "ticker": "EOG",
+          "action": "HOLD",
+          "why": "An enormous gain from an 11.00 basis at 145.68 — likely a very long-held position. EOG scores 90.6 STRONG BUY with EPS +39.6% and revenue +15.6% at just 9.9x forward earnings, 2.0% below its high, above both moving averages, TradingView BUY (15 buy / 2 sell). But it reports TOMORROW (Aug 5). Hold — the setup and valuation are strong — just do not add into the print."
+        },
+        {
+          "ticker": "FICO",
+          "action": "REDUCE",
+          "why": "Up ~38% from 760.00 at 1045.46, but this is the most negative technical picture among your holdings: 44.4% below its 1879.55 high, RSI 36.6, below both its 50-DMA (1214.27) and 200-DMA (1372.75), and TradingView rates it STRONG SELL with 0 buy signals and 16 sells — the worst gauge reading in my entire coverage. Take the gain while you have it."
+        },
+        {
+          "ticker": "GS",
+          "action": "TRIM",
+          "why": "An outstanding ~634% gain from 140.00 at 1027.06. But Goldman is the laggard of a leading sector: score 39.0 WEAK, RSI 32.8, 10.9% below its high, below its 50-DMA (1049.76), TradingView SELL (6 buy / 10 sell) — while BAC, USB, JPM and PNC sit within 2% of their highs. Trim a very large multi-year gain and, if you want bank exposure, rotate into the commercial banks."
+        },
+        {
+          "ticker": "HWM",
+          "action": "WATCH",
+          "why": "No position on record. Worth noting because Howmet scores 90.7 STRONG BUY — 1.0% below its high with EPS +71.4%, revenue +19.1% and TradingView STRONG BUY (16 buy / 1 sell). The catch is that it reports Aug 6, which is why I have it as a WATCH rather than a buy today. Revisit after the print if you want aerospace exposure."
+        },
+        {
+          "ticker": "INTC",
+          "action": "TRIM",
+          "why": "Up ~105% from 44.29 at 91.00 on 35 shares. Intel scores 20.1 — one of the weakest readings in the scan — 35.4% below its high, RSI 35.5, below its 50-DMA (112.25), TradingView SELL (3 buy / 13 sell). The turnaround may eventually come but the tape is not confirming it. Bank part of a doubling."
+        },
+        {
+          "ticker": "IRM",
+          "action": "HOLD",
+          "why": "Underwater at 124.08 against a 232.00 basis, and it reports TOMORROW (Aug 5). Iron Mountain currently scores 76.4 STRONG BUY with revenue +21.6%, sitting 6.7% below its high with a 4-contraction base and TradingView at BUY (13 buy / 4 sell) — a constructive setup despite your entry price. Hold through the print; on a single share the position is immaterial to risk either way."
+        },
+        {
+          "ticker": "KIM",
+          "action": "WATCH",
+          "why": "No position on record. For reference, Kimco scores 91.9 — one of the highest REIT scores in the scan — 3.7% below its high on a tight 3-contraction base at 3.9%. But TradingView is only NEUTRAL (8/10/8) and it reports TODAY (Aug 4), so wait for the print before considering an entry. PSA is the cleaner REIT on my pick list."
+        },
+        {
+          "ticker": "MNST",
+          "action": "HOLD",
+          "why": "A fractional 0.1365-share position at 93.55 against a 93.43 basis — essentially flat and immaterial. Monster scores 59.7 WATCH, 6.4% below its high, right at its 50-DMA (93.61), TradingView SELL (5 buy / 12 sell), reporting Aug 7. Either build it to a meaningful size after the print or close it; a fractional share is not worth tracking."
+        },
+        {
+          "ticker": "MSFT",
+          "action": "WATCH",
+          "why": "No position on record. Microsoft scores 84.0 with excellent fundamentals (EPS +31.7%, revenue +17.7% at 20.8x) and TradingView BUY — but RSI 81.3 makes it the most overbought name in my coverage, 22% above its 50-DMA. If you want to initiate, wait for a pullback toward 470 or a consolidation rather than buying this print."
+        },
+        {
+          "ticker": "NVDA",
+          "action": "HOLD",
+          "why": "Underwater ~26% from 280.00 at 206.64. The fundamentals argue for patience: revenue +85.2%, EPS +214.5% at just 16.0x forward earnings, above both its 50-DMA (205.79) and 200-DMA (193.06), and TradingView rates it STRONG BUY (16 buy / 1 sell) despite weak price action. Earnings Aug 27 is the resolution point. Hold; do not average down before the print, and watch the 205.79 line closely."
+        },
+        {
+          "ticker": "NXPI",
+          "action": "REDUCE",
+          "why": "Down ~21% from 285.20 at 224.17. NXP has the most extreme oversold reading in the scan — RSI 17.8 — but that is a symptom, not an opportunity: 32.4% below its high, three-month momentum -22.6%, below both its 50-DMA (288.77) and 200-DMA (239.94), and TradingView rates it STRONG SELL (2 buy / 17 sell). Automotive semiconductors are in a genuine downcycle. Reduce."
+        },
+        {
+          "ticker": "SIRI",
+          "action": "HOLD",
+          "why": "Deeply underwater at 30.37 against an 80.00 basis, but the current setup is genuinely one of the better ones you own: SiriusXM scores 87.8 STRONG BUY, 6.8% below its high on 1.66x volume with a pocket pivot, above both its 50-DMA (29.38) and 200-DMA (23.88), at just 9.1x forward earnings with EPS +23.7%, and TradingView confirms BUY (10 buy / 7 sell). Hold — this is the best technical position among your losers."
+        },
+        {
+          "ticker": "SNDK",
+          "action": "TRIM",
+          "why": "An extraordinary gain from a 5.45 basis at 1288.03 (a figure that reflects corporate actions since your entry). Regardless of the basis, act on the present: Sandisk is 44.8% below its 2335.00 high, RSI 35.8, below its 50-DMA (1707.12), scores 22.2, TradingView SELL (4 buy / 12 sell), and it reports Aug 6. Trim decisively before the print."
+        },
+        {
+          "ticker": "SPCX",
+          "action": "HOLD",
+          "why": "A fractional 0.85-share position, down ~44% from 204.12 at 114.53. NEW LISTING — its 31.5 score means 'no trading history', not 'sell'. It is 45.8% below its post-IPO high near the 108.37 low with RSI 29.7, a 126.8x multiple, TradingView SELL (4 buy / 7 sell), and it reports its first real results TOMORROW (Aug 5). Hold; the position is fractional, so let the print happen and reassess with actual public-company data."
+        },
+        {
+          "ticker": "SPG",
+          "action": "WATCH",
+          "why": "No position on record. Simon Property scores 92.6 — a strong REIT setup, 3.2% below its high on a tight 3.9% base with revenue +19.3% and TradingView BUY (12 buy / 4 sell) — but it reports Aug 11, which is why I have it as WATCH. If you want retail-REIT exposure, wait for the print; PSA is the cleaner entry today."
+        },
+        {
+          "ticker": "TSLA",
+          "action": "REDUCE",
+          "why": "Down ~19% from 400.00 at 322.08. Tesla is the weakest large cap in the scan: 34.3% below its high, RSI 23.6, below both its 50-DMA (388.86) and 200-DMA (411.06), score 24.4, EPS -3.0% at a 145.1x forward multiple, TradingView SELL (2 buy / 14 sell). Oversold with no base and no earnings support is not a hold thesis. Reduce."
+        },
+        {
+          "ticker": "WDC",
+          "action": "TRIM",
+          "why": "Up ~5% from 500.01 at 527.22, and it reports Aug 6. Western Digital is 29.3% below its 746.23 high, below its 50-DMA (562.62), scores 35.0 WEAK, with TradingView NEUTRAL (10/9/7) — though revenue +45.5% and EPS +482.9% are strong. With memory names MU (-32%) and SNDK (-45%) both broken, trim ahead of the print rather than holding a small gain through a binary event."
+        }
+      ]
+    },
+    "XywlmmAEAhN9JBDkYQnagsBIkCf1": {
+      "holdings": [
+        {
+          "ticker": "BTC-USD",
+          "action": "HOLD",
+          "why": "Bitcoin is outside the equity scan so there are no breakout metrics for it, but TradingView's daily technical gauge rates it SELL (5 buy / 10 sell). The read-across from the equity tape is not encouraging either: COIN is 62.2% below its high — the worst drawdown in the entire scan — and the whole high-beta risk complex has been sold while money rotated into banks and REITs. Hold your 2 units; this is not an environment to add leverage or size to crypto."
+        },
+        {
+          "ticker": "GS",
+          "action": "HOLD",
+          "why": "Up ~105% from 500.00 at 1027.06. Worth knowing that Goldman is the weak link in an otherwise dominant sector: score 39.0 WEAK, RSI 32.8, 10.9% below its high, below its 50-DMA (1049.76), TradingView SELL (6 buy / 10 sell) — while BAC, USB, JPM and PNC all sit within 2% of 52-week highs on 11-14x earnings. Hold the doubling, but if you add financial exposure, the commercial banks are the better risk."
+        }
+      ]
+    }
+  }
+}

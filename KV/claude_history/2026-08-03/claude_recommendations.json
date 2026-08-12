@@ -1,0 +1,826 @@
+{
+  "scan_date": "2026-08-03",
+  "scan_time_et": "08:00 AM ET",
+  "market": {
+    "state": "UPTREND - but only the non-tech half of it",
+    "advice": "Into the open: SPY 747.03 has reclaimed its 50-DMA (744.22), VIX is back to 16.0 against a 17.6 five-day average and falling, distribution days are down to 1, and a follow-through day has printed - the index-level signal flipped from UNDER PRESSURE to UPTREND since Thursday. The driver is geopolitical, not fundamental: Trump cancelled the strike on Iran to chase a nuclear deal, talks begin today, Saudi tankers are moving out of the Red Sea again and crude has slid. Two things keep this from being an all-clear. First, the tape is split down the middle - QQQ 687.99 is still below its 50-DMA and the AI/semi complex is in a real drawdown (ORCL -60.0% off its high, RGTI -73.5%, LUNR -73.0%, COIN -62.2%, RKLB -56.8%, SMCI -51.6%, SNDK -48.0%, APP -46.0%, VRT -35.8%, TSLA -36.5% with RSI 18.1, and NVDA -14.7% and back under its 50-DMA), while financials, insurance, REITs, energy, rails, steel, staples and medtech print 52-week highs. Breadth of 61% above the 50-DMA says the same thing: this is a leadership rotation inside an uptrend, not a broad advance. Second, the headline that caused the rally is a two-way risk - a real Iran deal pulls the bid out of refiners and crude (VLO, MPC and PSX have added 17-20% of relative strength in four weeks), and a collapse in the talks takes back the VIX move. So trade the side that works: buy tight bases and VCP pullbacks in financials, REITs, industrials, materials and healthcare at full-but-not-heroic size, use the 50-DMA as the stop reference rather than a flat percentage, and keep semis and AI infrastructure on a leash - do not average down into any of them until the name reclaims its 50-DMA on above-average volume. Earnings traffic this week lands inside the leadership group itself: Rockwell tomorrow, DaVita, EOG, MetLife, Assurant and Lilly inside 48 hours, Terreno and Howmet Thursday, and SpaceX files its first-ever public quarter Wednesday. TradingView's independent read broadly agrees with the rotation - 18 Strong Buys and 42 Buys across the leaders against 36 Sells concentrated almost entirely in semis, crypto and AI hardware - but it flags four names we still like (WPC, TROW, KIM, LLY) as Sell, and it rates GOOGL a Strong Buy that our own scan grades a 60."
+  },
+  "picks": [
+    {
+      "ticker": "ILMN",
+      "name": "Illumina, Inc.",
+      "signal": "STRONG BUY",
+      "score": 93.9,
+      "grade": "A+",
+      "entry": 205.1,
+      "stop": 188.69,
+      "target": 246.12,
+      "thesis": "The single highest-scoring setup in the 443-name universe and it is breaking out today rather than sitting extended: price 205.10 is exactly at the 52-week high on 2.23x average volume, RSI is only 64.4, and the base is a 5-contraction VCP tightening to 3.8% - a textbook coiled spring that resolved on the Q2 beat and guidance raise. Sequencing has gone from a broken story to a re-rating story, with price now 47% above its 200-DMA at 139.69 and no earnings inside the trade window (next print 30 Oct). TradingView independently rates it STRONG BUY (17 buy / 2 sell), the cleanest confirmation on the board.",
+      "strengths": [
+        "At a new 52-week high on 2.23x average volume - genuine institutional demand, not drift",
+        "5-contraction VCP tightening to 3.8% resolved higher; RSI still only 64.4 so there is room",
+        "Stage 2 uptrend intact: 205.10 over MA50 175.42, MA150 146.52 and MA200 139.69",
+        "Q2 beat plus a guidance raise is the fundamental catalyst behind the breakout",
+        "No earnings until 30 Oct - 88 clear days, nothing binary inside the window"
+      ],
+      "risks": [
+        "Trailing EPS growth is still -9.4% - the revenue line (+9.4%) is recovering faster than earnings",
+        "Forward P/E 33.8 is a full price for single-digit revenue growth, and one sell-side note already calls it ~19% overvalued post-print",
+        "9.5% short interest with 4.2 days to cover can fuel a sharp squeeze in either direction",
+        "A breakout day at the exact 52-week high offers no cushion if the market gaps down"
+      ],
+      "watch": [
+        "Must hold 188.69 (roughly the low of the last contraction) - below that the breakout has failed",
+        "Volume needs to stay above average on follow-through days; a quiet fade back under 205 is the first warning"
+      ]
+    },
+    {
+      "ticker": "JPM",
+      "name": "JP Morgan Chase & Co.",
+      "signal": "STRONG BUY",
+      "score": 93.9,
+      "grade": "A+",
+      "entry": 351.79,
+      "stop": 323.65,
+      "target": 422.15,
+      "thesis": "The highest-quality large-cap base in the market right now: a 6-contraction VCP that has tightened to 3.5%, price 1.5% under the 52-week high at 357.31, RSI a healthy 64.7, and the relative-strength line already at new highs - JPM is leading the rotation, not following it. EPS +46.9% on revenue +30.4% at a 14.2 forward P/E is the rare combination of accelerating earnings and a low multiple, and rising long-end yields are the reason the money is coming here. No earnings until 13 Oct. TradingView rates it BUY (15 buy / 1 sell), which confirms the trend without calling it stretched.",
+      "strengths": [
+        "EPS +46.9% and revenue +30.4% YoY at a 14.2 forward P/E - earnings-led leadership, cheaply priced",
+        "6-contraction VCP tightening to 3.5%, the tightest large-cap base in the universe",
+        "RS line at new highs while QQQ sits below its 50-DMA - money is actively rotating in",
+        "1.1% short interest means no crowded bear position to unwind",
+        "Clean runway: next earnings 13 Oct, 71 days out"
+      ],
+      "risks": [
+        "$935B market cap - this is a 15-20% move, not a double; size it as a core position",
+        "Volume ratio 0.70 means the base is quiet, so the breakout through 357.31 still needs confirmation",
+        "The whole financial trade is levered to the long end of the curve; a sharp rally in Treasuries takes the multiple story away",
+        "Credit is the tail risk - any consumer-delinquency surprise hits money-centre banks first"
+      ],
+      "watch": [
+        "Volume expansion through 357.31 is the trigger; without it this is still a base, not a breakout",
+        "The 50-DMA at 326.83 is the line that matters - it has not been lost all year"
+      ]
+    },
+    {
+      "ticker": "BAC",
+      "name": "Bank of America Corporation",
+      "signal": "STRONG BUY",
+      "score": 93.5,
+      "grade": "A+",
+      "entry": 61.95,
+      "stop": 56.99,
+      "target": 74.34,
+      "thesis": "The tightest base in the entire universe - four contractions squeezed down to 1.9% - with price just 1.1% under the 52-week high at 62.62 and RSI a non-extended 64.3. EPS +34.1% on revenue +16.8% at an 11.7 forward P/E, zero reported short interest, and the RS line at new highs: this is the cheapest way to own the yield-curve trade that is actually working. No earnings until 14 Oct. TradingView agrees at BUY (15 buy / 1 sell).",
+      "strengths": [
+        "1.9% tightest contraction - the single most coiled setup on the board",
+        "EPS +34.1%, revenue +16.8%, forward P/E 11.7 - growth at a value multiple",
+        "RS line at new highs; zero short interest means no forced-buying artefact behind the move",
+        "Price 61.95 sits well above MA50 57.19, MA150 53.42 and MA200 53.15 - textbook Stage 2",
+        "72 days to the next earnings print"
+      ],
+      "risks": [
+        "A 1.9% contraction leaves almost no room - any market-wide flush stops you out fast",
+        "$440B cap and 0.81x volume: this needs the sector, not the stock, to keep working",
+        "Net interest income is the whole story; a dovish Fed pivot compresses it",
+        "Consumer credit deterioration would hit BAC's card book hardest of the money-centres"
+      ],
+      "watch": [
+        "62.62 is the trigger; take the entry on a volume expansion through it, not on a quiet drift",
+        "Losing 57.00 breaks both the 50-DMA and the base - that is the exit, not a dip to add to"
+      ]
+    },
+    {
+      "ticker": "CFG",
+      "name": "Citizens Financial Group, Inc.",
+      "signal": "STRONG BUY",
+      "score": 92.8,
+      "grade": "A+",
+      "entry": 71.65,
+      "stop": 65.92,
+      "target": 85.98,
+      "thesis": "The best risk/reward in the bank group because it is the least extended: RSI only 56.3 and price 3.1% under its 52-week high at 73.92, so you are buying inside the base rather than chasing the breakout. Three contractions to 4.4%, RS line at new highs, EPS +41.3% on revenue +14.7%, and an 11.0 forward P/E on a $30B regional. Earnings are 74 days out. TradingView rates it BUY (13 buy / 4 sell).",
+      "strengths": [
+        "RSI 56.3 with the RS line at new highs - strength without any overbought condition",
+        "EPS +41.3% and revenue +14.7% at an 11.0 forward P/E",
+        "Zero short interest and a 3.1% distance to the high leaves genuine room to run",
+        "Riding a 50-DMA at 67.77 that has held every pullback in the advance"
+      ],
+      "risks": [
+        "$30B regional bank - more credit-cycle beta than JPM or BAC if the consumer cracks",
+        "0.55x volume ratio is very quiet; the base needs demand to show up",
+        "Commercial real estate exposure is the standing question mark for every regional",
+        "It has already run 58% off the 45.28 low, so this is a continuation entry, not a bottom"
+      ],
+      "watch": [
+        "73.92 is the breakout level; the 67.77 50-DMA is the invalidation",
+        "Regional-bank spreads - if KRE starts lagging the money-centres, exit early"
+      ]
+    },
+    {
+      "ticker": "USB",
+      "name": "U.S. Bancorp",
+      "signal": "STRONG BUY",
+      "score": 92.6,
+      "grade": "A",
+      "entry": 63.01,
+      "stop": 57.97,
+      "target": 75.61,
+      "thesis": "The most conservative entry in the leadership group: RSI 53.6 - barely off neutral - with price 2.3% under the 52-week high, a 3.0% tight two-contraction base, EPS +21.6% on revenue +10.4%, and a 10.9 forward P/E. Zero short interest, $98B cap, earnings 73 days out. When a $98B bank is making highs on an RSI of 53 you are being handed the trend without the froth. TradingView rates it BUY (12 buy / 5 sell) - agreement, though a less emphatic one than JPM or BAC.",
+      "strengths": [
+        "RSI 53.6 near a 52-week high is the definition of an un-extended leader",
+        "Forward P/E 10.9 with EPS +21.6% and revenue +10.4%",
+        "Volume ratio 1.09 - demand is present, unlike the quieter bank bases",
+        "Zero short interest, 73 days to earnings, nothing binary in the window"
+      ],
+      "risks": [
+        "Slowest grower of the four banks here - +21.6% EPS versus +46.9% at JPM",
+        "TradingView's 12/5 split is the weakest confirmation among the banks we like",
+        "Same rate-cut sensitivity as the rest of the group",
+        "A 2-contraction base is less proven than JPM's six"
+      ],
+      "watch": [
+        "64.47 is the 52-week high and the trigger",
+        "59.35 is the 50-DMA - a close below it ends the setup"
+      ]
+    },
+    {
+      "ticker": "RS",
+      "name": "Reliance, Inc.",
+      "signal": "STRONG BUY",
+      "score": 93.2,
+      "grade": "A+",
+      "entry": 406.1,
+      "stop": 373.61,
+      "target": 487.32,
+      "thesis": "The cleanest way to own the industrial-materials leg of this rotation. Metals service-centre distributor with EPS +42.3% on revenue +26.5% at a 17.6 forward P/E, price 2.0% under the 52-week high at 414.33, RSI 62.9, a three-contraction base tightening to 3.2%, and the RS line at new highs. Steel and aluminium pricing plus reshoring demand are showing up in the numbers, not just the narrative. Earnings 80 days out. TradingView rates it STRONG BUY (15 buy / 1 sell).",
+      "strengths": [
+        "EPS +42.3% and revenue +26.5% - real cyclical earnings acceleration, not multiple expansion",
+        "RS line at new highs with RSI only 62.9 and a 3.2% tight base",
+        "Distributor model means margin, not commodity-price, leverage - less volatile than the mills",
+        "80 days to earnings; 2.6% short interest, so no crowded position"
+      ],
+      "risks": [
+        "Basic materials is a cyclical - a growth scare hits this before it hits staples",
+        "$21B cap means thinner liquidity than the mega-cap leaders",
+        "Steel pricing is the swing factor and it is outside management's control",
+        "Already 55% above the 262.77 low - the easy part of the move is behind it"
+      ],
+      "watch": [
+        "414.33 is the breakout trigger",
+        "390.41 is the 50-DMA; the base fails below roughly 373"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "name": "Valero Energy Corporation",
+      "signal": "STRONG BUY",
+      "score": 93.4,
+      "grade": "A+",
+      "entry": 312.9,
+      "stop": 287.87,
+      "target": 375.48,
+      "thesis": "Refining margins have gone vertical on the Hormuz disruption and Valero is the cleanest expression: EPS +453.5% on revenue +51.7% at an 11.4 forward P/E, price 0.2% off the 52-week high at 313.59, RSI a still-reasonable 62.6, RS line at new highs and +16.9% of relative strength added in four weeks. A four-contraction base tightening to 5.1% and no earnings for 80 days. TradingView rates it BUY (14 buy / 2 sell). The one caveat is on the front page: Iran talks start today, and a deal is the fastest way to compress the crack spread that created these earnings.",
+      "strengths": [
+        "EPS +453.5% and revenue +51.7% at an 11.4 forward P/E - extraordinary earnings power, cheaply priced",
+        "RS line at new highs, +16.9% four-week relative strength - the leadership is measurable",
+        "Price 312.90 versus MA200 216.47 - a fully mature Stage 2 advance",
+        "80 days to earnings and only 4.3% short interest"
+      ],
+      "risks": [
+        "The entire thesis is a crack-spread thesis and Iran negotiations start today - a deal reverses it fast",
+        "Refining margins mean-revert violently; Reuters is already calling the refining golden era temporary",
+        "OPEC+ completed its rollback of voluntary cuts in September, which adds crude supply",
+        "Entering 0.2% from the 52-week high means no cushion at all"
+      ],
+      "watch": [
+        "Iran headlines are the position risk, not the chart - a deal signed is a reason to cut, not to hold",
+        "313.59 is the trigger; 287.87 is the stop and 269.32 is the 50-DMA backstop"
+      ]
+    },
+    {
+      "ticker": "KMI",
+      "name": "Kinder Morgan, Inc.",
+      "signal": "STRONG BUY",
+      "score": 88.2,
+      "grade": "A",
+      "entry": 32.18,
+      "stop": 29.61,
+      "target": 38.62,
+      "thesis": "The energy exposure that does not depend on the crack spread. Kinder Morgan is fee-based midstream - it gets paid on volumes, not the crude price - which makes it the right way to stay long the energy build-out with Iran talks opening today. Price 32.18 is sitting directly on its 50-DMA at 32.13 with RSI at 49.3, so this is a pullback-to-support entry rather than a chase. EPS +21.2% on revenue +10.8%, 6.2% under the high, and 87 days to earnings. Worth stating plainly: TradingView rates it NEUTRAL on a dead-even 8 buy / 8 sell split - no momentum confirmation, which is exactly what a stock resting on its average looks like. The case here is the support level and the fee-based cash flow, not the momentum.",
+      "strengths": [
+        "RSI 49.3 at the 50-DMA - the lowest-risk entry point of any energy name on the board",
+        "Fee-based midstream cash flows insulate it from an Iran-deal crude reversal that would hit refiners",
+        "EPS +21.2% and revenue +10.8% with a durable dividend underpinning the price",
+        "87 days to earnings; 2.3% short interest"
+      ],
+      "risks": [
+        "TradingView is NEUTRAL (8 buy / 8 sell) - no technical confirmation for this entry",
+        "Lowest score of the energy names here (88.2) - the setup is safer but the momentum is weaker",
+        "Forward P/E 20.9 is a full price for a midstream utility-like grower",
+        "Rate-sensitive: a back-up in long yields pressures the yield-vehicle bid",
+        "Only a 2-contraction base - less structural proof than the tighter setups"
+      ],
+      "watch": [
+        "The 50-DMA at 32.13 must hold on a closing basis - that is the whole premise of the entry",
+        "34.31 is the 52-week high and the first target checkpoint"
+      ]
+    },
+    {
+      "ticker": "PSA",
+      "name": "Public Storage",
+      "signal": "STRONG BUY",
+      "score": 91.7,
+      "grade": "A",
+      "entry": 324.17,
+      "stop": 298.24,
+      "target": 389.0,
+      "thesis": "A five-contraction base tightening to 3.9%, price 1.9% under the 52-week high, and RSI at only 51.6 - you are buying a REIT leader before the momentum crowd arrives. EPS +45.1% at a 60.5B cap, no earnings for 87 days, and TradingView independently rates it STRONG BUY (16 buy / 1 sell), one of only 18 Strong Buys it issued across the whole leader set. Self-storage is the most defensive corner of real estate: short leases reprice with inflation and the customer is sticky.",
+      "strengths": [
+        "RSI 51.6 within 1.9% of a 52-week high - maximum room, minimum froth",
+        "5-contraction VCP tightening to 3.9% - a well-built, patient base",
+        "TradingView STRONG BUY 16/1 - among its highest-conviction technical reads",
+        "EPS +45.1%; 87 days to earnings, nothing binary in the window"
+      ],
+      "risks": [
+        "Revenue growth is only +3.3% - the EPS jump is not being driven by the top line",
+        "Forward P/E 35.3 is expensive on a GAAP basis even allowing for REIT accounting",
+        "Long-duration asset: rising 10-year yields are the direct headwind",
+        "Storage demand tracks housing turnover, which is still frozen"
+      ],
+      "watch": [
+        "330.47 is the 52-week high and the breakout trigger",
+        "315.88 is the 50-DMA - the base is intact above it"
+      ]
+    },
+    {
+      "ticker": "PLD",
+      "name": "Prologis, Inc.",
+      "signal": "STRONG BUY",
+      "score": 92.3,
+      "grade": "A",
+      "entry": 144.61,
+      "stop": 133.04,
+      "target": 173.53,
+      "thesis": "The largest industrial landlord in the world, sitting on its 50-DMA (143.56 versus 144.61 spot) with RSI at 54.8 and a four-contraction base tightening to 3.6% - an unusually low-risk entry in a $138B name. EPS +85.3% on revenue +12.3% as expiring leases reset to market, and 72 days to earnings. Worth flagging honestly: TradingView disagrees, rating it NEUTRAL on a dead-even 8 buy / 8 sell oscillator split, which is what you would expect from a name resting on support rather than surging - our case rests on the base and the earnings line, not on momentum.",
+      "strengths": [
+        "EPS +85.3% on revenue +12.3% - re-leasing spreads dropping straight to the bottom line",
+        "Entry directly on the 50-DMA with RSI 54.8 - defined risk, tight stop",
+        "3.6% tightest contraction in a four-contraction base at a $138B market cap",
+        "72 days to earnings; 1.7% short interest"
+      ],
+      "risks": [
+        "TradingView is NEUTRAL (8 buy / 8 sell) - no momentum confirmation for this entry",
+        "Forward P/E 42.5 is a premium multiple even on a REIT basis",
+        "National industrial supply is still being absorbed; Sun Belt vacancy is the sector's soft spot",
+        "Sitting on the 50-DMA means the setup fails quickly if that level goes"
+      ],
+      "watch": [
+        "143.56 must hold - a decisive close below the 50-DMA voids the entry",
+        "150.06 is the 52-week high; clearing it turns TradingView's neutral read positive"
+      ]
+    },
+    {
+      "ticker": "UNP",
+      "name": "Union Pacific Corporation",
+      "signal": "STRONG BUY",
+      "score": 92.3,
+      "grade": "A",
+      "entry": 292.13,
+      "stop": 268.76,
+      "target": 350.56,
+      "thesis": "Rails are quietly working and Union Pacific has the best-behaved chart of them: RSI 52.6, price 4.9% under the 52-week high at 307.32, a four-contraction base tightening to 3.0%, and volume already running 1.18x average. Revenue +11.5% with a 20.7 forward P/E on a $174B franchise with no competitive threat, and 80 days to the next print. TradingView rates it BUY (12 buy / 5 sell).",
+      "strengths": [
+        "RSI 52.6 with 4.9% of room back to the high - genuinely early in the move",
+        "1.18x volume on a 3.0% tight base means accumulation is already underway",
+        "Revenue +11.5% from an oligopoly asset base that cannot be disrupted",
+        "80 days to earnings; 5.3% short interest"
+      ],
+      "risks": [
+        "EPS growth of only +6.6% - the top line is doing the work, not the earnings line",
+        "Rail volumes are a direct read on industrial activity; a slowdown shows up here first",
+        "Forward P/E 20.7 is not cheap for single-digit earnings growth",
+        "Merger and regulatory noise across the rail sector remains a wildcard"
+      ],
+      "watch": [
+        "307.32 is the breakout trigger",
+        "277.18 is the 50-DMA; a close below roughly 269 ends it"
+      ]
+    },
+    {
+      "ticker": "GE",
+      "name": "GE Aerospace",
+      "signal": "STRONG BUY",
+      "score": 91.1,
+      "grade": "A",
+      "entry": 360.07,
+      "stop": 331.26,
+      "target": 432.08,
+      "thesis": "Post-breakup GE Aerospace is a pure engine-and-aftermarket business with the best installed-base economics in industrials, and the chart has cooled off exactly the right amount: RSI 54.3, price 4.9% under the 52-week high, five contractions tightening to 3.6%. EPS +19.4% on revenue +21.1%, 78 days to earnings, 1.4% short interest. TradingView rates it STRONG BUY (16 buy / 1 sell) - the setup is unextended and the second opinion is emphatic.",
+      "strengths": [
+        "Revenue +21.1% and EPS +19.4% - aftermarket spares and service are the highest-margin dollars in aviation",
+        "RSI 54.3 after a 4.9% pullback into a 5-contraction base - a proper reset",
+        "TradingView STRONG BUY 16/1 with no earnings for 78 days",
+        "$374B cap with only 1.4% short interest - clean ownership"
+      ],
+      "risks": [
+        "Forward P/E 39.7 is the richest multiple among the industrials we like",
+        "Four-week relative strength is -4.4%, so it has been lagging the rotation, not leading it",
+        "Air-traffic growth and airline capex are the demand drivers - both cycle",
+        "Supply-chain constraints on engine deliveries remain unresolved industry-wide"
+      ],
+      "watch": [
+        "378.68 is the 52-week high; a move through it on volume turns the lag into leadership",
+        "344.91 is the 50-DMA and the first line of defence"
+      ]
+    },
+    {
+      "ticker": "GD",
+      "name": "General Dynamics Corporation",
+      "signal": "STRONG BUY",
+      "score": 90.2,
+      "grade": "A",
+      "entry": 383.42,
+      "stop": 352.75,
+      "target": 460.1,
+      "thesis": "The defence name to own while Middle East policy is the dominant market variable in either direction: a widening Iran campaign raises procurement, and a nuclear deal still leaves the multi-year backlog intact. Price is 2.5% off the high with RSI 59.6, a three-contraction base tightening to 3.0%, volume at 1.28x average, revenue +8.1% and EPS +13.4% at a 20.8 forward P/E. Earnings 86 days out. TradingView rates it STRONG BUY (16 buy / 1 sell).",
+      "strengths": [
+        "1.28x volume on a 3.0% tight base - real demand inside the consolidation",
+        "TradingView STRONG BUY 16/1; RSI 59.6 leaves headroom",
+        "Backlog-driven revenue is the least cyclical earnings stream in the industrial group",
+        "86 days to earnings and 1.2% short interest"
+      ],
+      "risks": [
+        "Growth is modest - EPS +13.4%, revenue +8.1% - so the upside is a re-rating, not a boom",
+        "Genuinely headline-driven: a durable Iran deal compresses the defence premium",
+        "Government budget and continuing-resolution risk is perennial",
+        "Gulfstream deliveries add a discretionary, cycle-sensitive layer to the mix"
+      ],
+      "watch": [
+        "393.19 is the 52-week high and the trigger",
+        "358.86 is the 50-DMA; below 352 the base is broken"
+      ]
+    },
+    {
+      "ticker": "DXCM",
+      "name": "DexCom, Inc.",
+      "signal": "STRONG BUY",
+      "score": 92.2,
+      "grade": "A",
+      "entry": 83.45,
+      "stop": 76.77,
+      "target": 100.14,
+      "thesis": "Breaking to a new 52-week high at 83.45 on 2.47x average volume with RSI only 61.6 - a rare combination of a heavy-volume breakout and an unextended oscillator. EPS +43.6% on revenue +13.1% at a 26.8 forward P/E, price 23% above its 200-DMA, momentum +36.0% over three months, and 88 clear days to earnings. Continuous glucose monitoring is a razor-and-blade annuity being expanded by GLP-1 adoption rather than threatened by it. TradingView rates it STRONG BUY (16 buy / 0 sell) with zero sell signals.",
+      "strengths": [
+        "New 52-week high on 2.47x volume with RSI at only 61.6",
+        "EPS +43.6% on revenue +13.1% - recurring sensor revenue with expanding margin",
+        "TradingView STRONG BUY with 16 buy and zero sell signals - unanimous confirmation",
+        "88 days to earnings; the longest clean runway of any pick here"
+      ],
+      "risks": [
+        "The base is loose - six contractions but the tightest is 9.6%, far wider than the 2-4% setups here",
+        "Abbott's Libre competes directly and aggressively on price",
+        "26.8x forward earnings prices in continued 40%+ EPS growth",
+        "5.6% short interest with a history of violent post-earnings moves"
+      ],
+      "watch": [
+        "83.45 must hold as support now that it has been cleared - a failed breakout back under it is the signal to leave",
+        "73.13 is the 50-DMA and the structural stop reference"
+      ]
+    },
+    {
+      "ticker": "LQDA",
+      "name": "Liquidia Corporation",
+      "signal": "STRONG BUY",
+      "score": 93.6,
+      "grade": "A",
+      "entry": 84.11,
+      "stop": 77.38,
+      "target": 100.93,
+      "thesis": "The highest-momentum name on the board with a real commercial engine behind it: +120.5% over three months as Yutrepia moves from approval to a genuine revenue ramp in pulmonary arterial hypertension - revenue growth reads +4158% off a near-zero base. Price 84.11 is 5.5% under the 89.03 high with RSI 66.9 and a five-contraction base tightening to 5.2%, sitting well above a 73.25 50-DMA. TradingView rates it BUY (11 buy / 5 sell), which is respectable confirmation for a name this volatile. This is a high-beta position, not a core holding - size it accordingly.",
+      "strengths": [
+        "Yutrepia launch is converting to revenue - the ramp, not the approval, is now the story",
+        "+120.5% three-month momentum with price 5.5% below the high, so it has consolidated the move",
+        "17.2% short interest on a rising launch curve is real squeeze fuel",
+        "Trading far above its 44.94 200-DMA - the trend is unambiguous"
+      ],
+      "risks": [
+        "Earnings 12 Aug - nine days away, inside a normal swing window, and launch quarters are binary",
+        "$7.5B cap on essentially one product - single-asset concentration risk",
+        "United Therapeutics litigation and competitive response remain live",
+        "17.2% short interest cuts both ways: a soft launch number gaps this hard"
+      ],
+      "watch": [
+        "The 12 Aug print is the event - either take the position off before it or size it as a lottery ticket",
+        "73.25 is the 50-DMA; a break there ends the launch-momentum thesis"
+      ]
+    },
+    {
+      "ticker": "NTAP",
+      "name": "NetApp, Inc.",
+      "signal": "STRONG BUY",
+      "score": 90.0,
+      "grade": "A",
+      "entry": 178.5,
+      "stop": 164.22,
+      "target": 214.2,
+      "thesis": "The best technology setup in a broken sector, and the only large tech name whose relative-strength line is at new highs while QQQ trades under its 50-DMA. Price 178.50 is 1.1% off the 52-week high, RSI 63.0, momentum +59.7% over three months, EPS +23.4% on revenue +12.5% at an 18.1 forward P/E - a value multiple for a company selling storage into the AI data build-out. TradingView rates it STRONG BUY (16 buy / 0 sell), unanimous on the buy side. If you want tech exposure that is not fighting the tape, this is it.",
+      "strengths": [
+        "RS line at new highs while the tech complex bleeds - genuine idiosyncratic strength",
+        "Forward P/E 18.1 with EPS +23.4% - the cheapest AI-adjacent multiple on the board",
+        "TradingView STRONG BUY, 16 buy and zero sell signals",
+        "+59.7% three-month momentum yet only 1.1% off the high - it has held every gain"
+      ],
+      "risks": [
+        "Earnings 3 Sep - 31 days out, and NetApp's guidance moves the stock 10%+ routinely",
+        "Only a 2-contraction base with an 8.5% tightest pullback - loose by leadership standards",
+        "It is still storage hardware: if the AI capex narrative cracks, the multiple goes with it",
+        "7.6% short interest and 0.69x volume - the base is quiet"
+      ],
+      "watch": [
+        "180.53 is the 52-week high and the trigger",
+        "161.14 is the 50-DMA; a loss of it while QQQ is already below its own is a clear exit"
+      ]
+    },
+    {
+      "ticker": "FTNT",
+      "name": "Fortinet, Inc.",
+      "signal": "STRONG BUY",
+      "score": 89.5,
+      "grade": "A",
+      "entry": 161.95,
+      "stop": 148.99,
+      "target": 194.34,
+      "thesis": "Cybersecurity has decoupled from the rest of tech and Fortinet is the leader: +87.7% three-month momentum, RS line at new highs, price 2.9% under the 166.83 high, and RSI at only 51.7 - it has digested the entire run without giving anything back. EPS +43.9% on revenue +25.6%, earnings already behind it, and TradingView rates it STRONG BUY (17 buy / 1 sell) - the strongest technical confirmation of any technology name in the scan. Security budgets are the last line item to be cut, which is exactly the characteristic you want in a bifurcated tape.",
+      "strengths": [
+        "RSI 51.7 after +87.7% three-month momentum - a full consolidation, not a stall",
+        "RS line at new highs; TradingView STRONG BUY 17/1 - the best tech confirmation on the board",
+        "EPS +43.9% on revenue +25.6% with best-in-class operating margins",
+        "Earnings are behind it - no print inside the trade window"
+      ],
+      "risks": [
+        "Forward P/E 43.2 leaves no room for a growth deceleration",
+        "The base is loose - 10.1% tightest contraction across five contractions",
+        "Four-week relative strength is only +0.3%, so the leadership has flattened out recently",
+        "Palo Alto, CrowdStrike and Microsoft all compete directly and are all discounting"
+      ],
+      "watch": [
+        "166.83 is the trigger; clearing it on volume resumes the trend",
+        "149.67 is the 50-DMA and the line the whole 88% move has respected"
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon.com, Inc.",
+      "signal": "STRONG BUY",
+      "score": 90.6,
+      "grade": "A",
+      "entry": 271.58,
+      "stop": 249.85,
+      "target": 325.9,
+      "thesis": "The one mega-cap that is actually working: price 1.2% under the 52-week high on 2.83x average volume - the heaviest accumulation of any name on this list - with RSI 64.0 and EPS +242.3% on revenue +19.6% at a 26.4 forward P/E. AWS re-acceleration plus retail margin expansion is doing the work while the rest of the trillion-dollar cohort trades 10-15% below its highs. TradingView rates it STRONG BUY (17 buy / 0 sell), zero sell signals, and there is no earnings print for 88 days.",
+      "strengths": [
+        "2.83x average volume within 1.2% of the high - the clearest institutional footprint in the scan",
+        "EPS +242.3% and revenue +19.6% at 26.4x forward - operating leverage finally showing",
+        "TradingView STRONG BUY with 17 buy and zero sell signals",
+        "88 days to earnings; 1.1% short interest on a $2.9T cap"
+      ],
+      "risks": [
+        "The base is loose - 11.1% tightest contraction, so the structure is less reliable than the volume",
+        "Three-month momentum is only +1.2%: this is a recovery from a decline, not a fresh trend",
+        "AI capex is now a very large cash-flow commitment with a long payback",
+        "At $2.9T this is a slow mover - it will not lead the portfolio's return"
+      ],
+      "watch": [
+        "274.99 is the 52-week high and the trigger",
+        "246.63 is the 50-DMA; that is where the recovery thesis breaks"
+      ]
+    },
+    {
+      "ticker": "SJM",
+      "name": "The J.M. Smucker Company",
+      "signal": "STRONG BUY",
+      "score": 91.5,
+      "grade": "A",
+      "entry": 119.26,
+      "stop": 109.72,
+      "target": 143.11,
+      "thesis": "The best-constructed defensive base in the scan: five contractions tightening to 2.0% - the second-tightest structure on the board - with RSI 62.5, price 5.6% under the 126.35 high, momentum +24.4% over three months and a 11.1 forward P/E. Coffee cost deflation as green-coffee prices normalise is the margin story, and staples are being bid as an actual leadership group rather than a hiding place. Earnings 27 Aug, 24 days out. TradingView rates it BUY (13 buy / 3 sell).",
+      "strengths": [
+        "2.0% tightest contraction across five contractions - exceptional base construction",
+        "Forward P/E 11.1 with +24.4% three-month momentum - value and momentum together",
+        "1.15x volume confirms accumulation inside the base",
+        "Defensive cash flows that hold up if the rotation broadens into a growth scare"
+      ],
+      "risks": [
+        "Trailing EPS growth is not meaningful (loss-affected comparison) - the quality is in the cash flow, not the GAAP line",
+        "Revenue growth of only +5.8% caps the upside to a re-rating",
+        "Earnings 27 Aug sits inside a longer holding period",
+        "Coffee and cocoa input costs are volatile and can reverse the margin story"
+      ],
+      "watch": [
+        "126.35 is the trigger",
+        "111.38 is the 50-DMA and the structural stop reference"
+      ]
+    },
+    {
+      "ticker": "PM",
+      "name": "Philip Morris International Inc",
+      "signal": "STRONG BUY",
+      "score": 91.4,
+      "grade": "A",
+      "entry": 190.82,
+      "stop": 175.55,
+      "target": 228.98,
+      "thesis": "A five-contraction base tightening to 2.6% on a $297B defensive compounder, price 4.7% under the high with RSI 59.8 and revenue +10.4% - double-digit top-line growth from a consumer-staples name, driven by the smoke-free portfolio (Zyn and IQOS) rather than combustibles. Forward P/E 20.8, 79 days to earnings, 1.1% short interest. TradingView rates it BUY (12 buy / 4 sell). Currency and pricing power make this the most defensive way to stay invested if the rotation gets tested.",
+      "strengths": [
+        "2.6% tightest contraction over five contractions on a mega-cap - unusually tight for the size",
+        "Revenue +10.4% is genuinely rare for staples, and it comes from the smoke-free mix shift",
+        "Pricing power plus a large dividend gives a real total-return floor",
+        "79 days to earnings; 1.1% short interest"
+      ],
+      "risks": [
+        "Trailing EPS is -7.5% - currency and one-off charges have been pressuring the reported line",
+        "Forward P/E 20.8 is a historically full multiple for the tobacco group",
+        "Nicotine-pouch regulation in the US is the single largest binary risk to the Zyn story",
+        "Dollar strength directly compresses reported earnings"
+      ],
+      "watch": [
+        "200.17 is the 52-week high and the trigger",
+        "182.89 is the 50-DMA; the base fails below roughly 175"
+      ]
+    },
+    {
+      "ticker": "TRNO",
+      "name": "Terreno Realty Corporation",
+      "signal": "WATCH",
+      "score": 93.8,
+      "grade": "A+",
+      "entry": 71.65,
+      "stop": 65.92,
+      "target": 85.98,
+      "thesis": "Still the best-built base in the universe and still 4.6% under the 75.08 high with RSI 55.4 and a VCP tightening to 5.1% - the chart argues for a full position. The reason it is WATCH and not STRONG BUY is the calendar: Terreno reports Thursday 6 August, three days out, which makes this a coin-flip on a print rather than a setup. EPS +40.2% on revenue +12.7% from coastal infill industrial re-leasing spreads is exactly the earnings profile you want; just buy it after the number. TradingView rates it BUY (11 buy / 6 sell).",
+      "strengths": [
+        "EPS +40.2% on revenue +12.7% - re-leasing spreads dropping straight to the bottom line",
+        "4.6% below the high with RSI only 55.4 - the room and the base are both still there",
+        "Riding a 67.78 50-DMA that has not been lost in this advance",
+        "Coastal infill industrial is the tightest-supply niche in logistics real estate"
+      ],
+      "risks": [
+        "Earnings 6 August - three days away and directly inside any reasonable trade window",
+        "Forward P/E 41.2 is a full price even for a premium REIT",
+        "11.1% short interest can amplify a downside gap on a miss",
+        "$7.6B cap means thinner liquidity than the REIT majors"
+      ],
+      "watch": [
+        "Wait for the 6 August print, then buy strength through 75.08 on volume",
+        "The 50-DMA at 67.78 is the level that defines whether the base survives the number"
+      ]
+    },
+    {
+      "ticker": "CVX",
+      "name": "Chevron Corporation",
+      "signal": "WATCH",
+      "score": 93.4,
+      "grade": "A+",
+      "entry": 196.83,
+      "stop": 181.08,
+      "target": 236.2,
+      "thesis": "Fundamentally one of the strongest names in the scan - EPS +322.9% on revenue +52.6% at a 15.4 forward P/E with +17.8% four-week relative strength - but RSI is 74.2 and that is why this is WATCH. You are being asked to buy an overbought integrated oil major on the morning Iran nuclear talks begin, into a tape where crude has already slid on de-escalation hopes. TradingView rates it STRONG BUY (16 buy / 0 sell), which is exactly the kind of unanimity that shows up at short-term tops. Let it come back toward the 182.75 50-DMA.",
+      "strengths": [
+        "EPS +322.9% and revenue +52.6% at a 15.4 forward P/E - the earnings are real and cheap",
+        "+17.8% four-week relative strength; 1.31x volume - the leadership is being bought",
+        "TradingView STRONG BUY 16/0 and no earnings for 88 days",
+        "Integrated model cushions it better than a pure refiner if crude falls"
+      ],
+      "risks": [
+        "RSI 74.2 - overbought, and 5.9% below the high means the last leg was vertical",
+        "Iran talks open today; a deal is the fastest way to reverse the entire energy leg",
+        "OPEC+ has completed its rollback of voluntary cuts, adding supply into September",
+        "Only a 3-contraction base - less structural support than the tighter setups here"
+      ],
+      "watch": [
+        "Wait for RSI to work back under 65 or for a pullback toward the 182.75 50-DMA",
+        "Iran headlines are the trigger in both directions - a signed deal means stand down"
+      ]
+    },
+    {
+      "ticker": "NUE",
+      "name": "Nucor Corporation",
+      "signal": "WATCH",
+      "score": 92.6,
+      "grade": "A+",
+      "entry": 257.29,
+      "stop": 236.71,
+      "target": 308.75,
+      "thesis": "Excellent fundamentals - EPS +93.8% on revenue +23.0% at a 14.1 forward P/E - and a beautifully tight six-contraction base at 2.6%, but RSI is 71.1 and the stock has already added +15.6% of relative strength in four weeks. This is the same steel thesis as RS, which we do rate STRONG BUY at an RSI of 62.9; own the un-extended one and keep Nucor on the list for a pullback. TradingView rates it BUY (14 buy / 2 sell). Earnings are 85 days out, so there is no rush.",
+      "strengths": [
+        "EPS +93.8% and revenue +23.0% at a 14.1 forward P/E - the best value-plus-growth mix in materials",
+        "2.6% tightest contraction across six contractions - a genuinely high-quality base",
+        "+15.6% four-week relative strength; 1.16x volume",
+        "85 days to earnings; 2.3% short interest"
+      ],
+      "risks": [
+        "RSI 71.1 - overbought, and the entry sits only 3.2% below the high",
+        "Steel pricing is the whole earnings driver and it is cyclical and policy-dependent",
+        "Tariff and trade-policy changes cut in both directions for a domestic mill",
+        "We already own the same theme via RS at a materially better entry"
+      ],
+      "watch": [
+        "Let RSI cool under 65 or wait for a retest of the 242.39 50-DMA",
+        "265.70 is the 52-week high; a volume breakout through it would justify paying up"
+      ]
+    },
+    {
+      "ticker": "ROK",
+      "name": "Rockwell Automation, Inc.",
+      "signal": "WATCH",
+      "score": 93.3,
+      "grade": "A+",
+      "entry": 480.08,
+      "stop": 441.67,
+      "target": 576.1,
+      "thesis": "A top-ten score with a five-contraction base tightening to 2.5%, RSI 60.7, price 3.0% off the high, EPS +39.6% on revenue +11.9%, and 1.34x volume inside the base - the setup is excellent. It is WATCH purely because Rockwell reports tomorrow, 4 August. Factory-automation orders are the cleanest read on the reshoring capex cycle, which makes the print genuinely informative rather than just risky. Wait for it. TradingView rates it STRONG BUY (16 buy / 0 sell).",
+      "strengths": [
+        "EPS +39.6% on revenue +11.9% with a 2.5% tightest contraction - a high-quality coiled base",
+        "1.34x volume inside the consolidation suggests accumulation ahead of the print",
+        "TradingView STRONG BUY 16/0; RSI 60.7 leaves room",
+        "Reshoring and factory-automation capex is a multi-year secular driver"
+      ],
+      "risks": [
+        "Earnings tomorrow, 4 August - the single largest binary in this list",
+        "Forward P/E 32.8 prices in a good print already",
+        "Four-week relative strength is 0.0% - it has not been leading into the number",
+        "Short-cycle orders can turn quickly if industrial activity softens"
+      ],
+      "watch": [
+        "Do not position ahead of the 4 August print; trade the reaction, not the anticipation",
+        "495.08 is the high and 463.64 is the 50-DMA - the two levels that will frame the gap"
+      ]
+    },
+    {
+      "ticker": "HWM",
+      "name": "Howmet Aerospace Inc.",
+      "signal": "WATCH",
+      "score": 92.6,
+      "grade": "A+",
+      "entry": 282.26,
+      "stop": 259.68,
+      "target": 338.71,
+      "thesis": "Best-in-class aerospace fundamentals - EPS +71.4% on revenue +19.1% - with a seven-contraction base, RSI 59.0 and price 2.4% under the 289.26 high, and TradingView independently rating it STRONG BUY (16 buy / 1 sell). It is WATCH because earnings land Thursday 6 August and the 46.6 forward P/E leaves nothing priced for a miss. Engine-component content on every new narrowbody is a genuinely great business; just do not pay for it three days before a print at 46x.",
+      "strengths": [
+        "EPS +71.4% and revenue +19.1% - the strongest earnings acceleration in aerospace",
+        "TradingView STRONG BUY 16/1 with RSI at only 59.0",
+        "Seven contractions means a long, patient, well-tested base",
+        "Sole-source engine content gives durable pricing power"
+      ],
+      "risks": [
+        "Earnings 6 August - three days out",
+        "Forward P/E 46.6 is the richest multiple in this entire pick list",
+        "5.7% tightest contraction is loose for a seven-contraction base",
+        "Aerospace build rates depend on OEM delivery schedules that keep slipping"
+      ],
+      "watch": [
+        "Trade the 6 August reaction; a gap-up hold above 289.26 is the entry",
+        "269.33 is the 50-DMA - if the print breaks it, the base is gone"
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft Corporation",
+      "signal": "WATCH",
+      "score": 84.0,
+      "grade": "B+",
+      "entry": 464.72,
+      "stop": 427.54,
+      "target": 557.66,
+      "thesis": "A powerful bounce, not a breakout - and the distinction matters. Price has run from 352.83 to 464.72 and added +20.8% of four-week relative strength, but it is still 13.7% below the 538.66 high and RSI is now 75.0. The constructive part is that 464.72 now sits above all three moving averages - the 399.39 50-DMA, the 410.85 150-DMA and the 432.26 200-DMA - for the first time in this drawdown, so the damaged structure has been repaired. EPS +31.7% on revenue +17.7% at a 20.0 forward P/E is genuinely cheap for the franchise, and TradingView rates it STRONG BUY (16 buy / 1 sell). But at RSI 75 into a QQQ that is still under its own 50-DMA, the right move is to hold what you own and add on the first pullback, not chase the third up-day.",
+      "strengths": [
+        "Back above the 50-, 150- and 200-day moving averages - the drawdown structure has been repaired",
+        "EPS +31.7% on revenue +17.7% at 20.0x forward - the cheapest mega-cap growth multiple on the board",
+        "+20.8% four-week relative strength on 1.68x volume - the reclaim was bought, not drifted",
+        "TradingView STRONG BUY 16/1; no earnings for 87 days"
+      ],
+      "risks": [
+        "RSI 75.0 - the most overbought reading in this list, and it got there in a straight line",
+        "Still 13.7% below the 52-week high: this is repair, not leadership",
+        "QQQ remains below its own 50-DMA - the sector backdrop is not confirming",
+        "Azure AI capex is now enormous and the market has been punishing capex intensity all quarter"
+      ],
+      "watch": [
+        "Add on a pullback toward 430-440, not at RSI 75",
+        "The 399.39 50-DMA is the level that must hold for the repair thesis to survive"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet Inc.",
+      "signal": "WATCH",
+      "score": 60.0,
+      "grade": "C+",
+      "entry": 356.13,
+      "stop": 327.64,
+      "target": 427.36,
+      "thesis": "The sharpest disagreement on the board and worth flagging plainly: our scan grades Alphabet a 60.0 - price 356.13 is below its 358.68 50-DMA, 11.5% off the 402.38 high, four-week relative strength -2.3%, and the base is loose at 14.4% - while TradingView rates it STRONG BUY (16 buy / 1 sell). The fundamentals are on TradingView's side: EPS +294.0% on revenue +24.2% at a 24.2 forward P/E for a $4.4T franchise is extraordinary value. The chart is on ours. The resolution is the 50-DMA: reclaim 358.68 on volume and this becomes a leadership buy; fail there and it is another mega-cap in a downtrend. No earnings for 87 days, so there is time to let it prove itself.",
+      "strengths": [
+        "EPS +294.0% on revenue +24.2% at a 24.2 forward P/E - the best fundamental value in mega-cap tech",
+        "TradingView STRONG BUY 16/1 - a strong technical second opinion that contradicts our own read",
+        "1.55x volume suggests the level is being contested, not abandoned",
+        "87 days to earnings; 1.3% short interest"
+      ],
+      "risks": [
+        "Trading below the 50-DMA with negative four-week relative strength - the trend is not yet up",
+        "14.4% tightest contraction means there is no real base to define risk against",
+        "Search-monetisation-versus-AI is a genuine structural question, not just sentiment",
+        "Antitrust remedies remain unresolved"
+      ],
+      "watch": [
+        "358.68 is the whole trade - a volume reclaim of the 50-DMA is the trigger to act on TradingView's read",
+        "Losing 340 would put the 325.98 200-DMA in play and settle the argument the other way"
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "signal": "WATCH",
+      "score": 81.0,
+      "grade": "B+",
+      "entry": 308.91,
+      "stop": 284.2,
+      "target": 370.69,
+      "thesis": "Apple is sitting exactly on the fence - 308.91 against a 309.50 50-DMA, 9.2% below the 340.08 high, RSI 45.1, four-week relative strength -0.6% - and TradingView is unambiguously negative at SELL (4 buy / 13 sell), one of the weakest technical reads it issued on any large-cap. Our scan still grades it 81.0 because the fundamentals are intact: EPS +28.7% on revenue +16.4% and a 3-contraction base tightening to 3.6%. Earnings are behind it and the next print is 88 days out. This is the most widely held position across the platform, so be precise: it is a HOLD on the 50-DMA, not a buy, and TradingView's Sell is the reason not to add here.",
+      "strengths": [
+        "EPS +28.7% on revenue +16.4% - the fundamentals never broke down",
+        "3-contraction base tightening to 3.6% is still structurally intact",
+        "2.47x volume means the 50-DMA test is being actively defended",
+        "88 days to the next earnings print - no binary event in the window"
+      ],
+      "risks": [
+        "TradingView SELL, 4 buy versus 13 sell - the clearest negative second opinion on any mega-cap here",
+        "Price is fractionally below the 50-DMA with negative relative strength",
+        "Forward P/E 32.5 on 16% revenue growth is a premium that requires the trend to cooperate",
+        "$4.5T cap means it needs the whole tape, and QQQ is still below its 50-DMA"
+      ],
+      "watch": [
+        "309.50 is the decision line - reclaim it on volume and the WATCH becomes a buy",
+        "280.24 is the 150-DMA and the level that would confirm a genuine trend change if lost"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "name": "Southern Company (The)",
+      "signal": "WATCH",
+      "score": 78.4,
+      "grade": "B",
+      "entry": 94.54,
+      "stop": 86.98,
+      "target": 113.45,
+      "thesis": "The only utility worth naming in a sector that is otherwise the weakest group in the scan - VST -31.7% off its high, CEG -34.7%, NRG -26.8%, and the AI-power trade fully unwound. Southern is the regulated, boring end of it: EPS +30.4%, 3.8% below the 98.30 high, and price 94.54 sitting on a 94.52 50-DMA with RSI 42.4. That is a defined-risk entry if you want the defensive ballast, but four-week relative strength is -1.0% and there is no leadership here yet. TradingView agrees with the caution and goes further, rating it SELL (5 buy / 11 sell). Genuinely a WATCH, not a call to act.",
+      "strengths": [
+        "EPS +30.4% from a regulated rate base - the earnings are contracted, not cyclical",
+        "Price resting exactly on the 50-DMA gives a tight, definable stop",
+        "3.8% from its 52-week high while the merchant-power names are down 25-35%",
+        "87 days to earnings; a substantial dividend underpins the total return"
+      ],
+      "risks": [
+        "Revenue growth of +0.1% - there is no top line here at all",
+        "RSI 42.4, negative relative strength and a TradingView SELL - no momentum to lean on",
+        "Utilities are the weakest sector in the scan; you would be early, not right",
+        "Directly rate-sensitive, and long yields have been climbing"
+      ],
+      "watch": [
+        "94.52 must hold; below it there is no reason to own the sector at all",
+        "A move through 98.30 on volume would be the first sign utilities are stabilising"
+      ]
+    },
+    {
+      "ticker": "SPCX",
+      "name": "Space Exploration Technologies Corp.",
+      "signal": "WATCH",
+      "score": 23.7,
+      "grade": "D",
+      "entry": 108.37,
+      "stop": 99.7,
+      "target": 130.04,
+      "thesis": "NEW LISTING - treat the quant score as noise. SpaceX has only weeks of trading history, so the 23.7 score, the blank 52-week signals and the flat 145.41 moving averages are artefacts of a short data series, not a verdict. What the price does say is unambiguous: 108.37 is a fresh all-time low, 48.7% below the 211.39 post-IPO high, with RSI at 19.2 - the most oversold reading in the entire 443-name universe. The thesis has to be the business, not the chart: Starlink is now a genuine subscription utility with a global subscriber base, Falcon 9 reuse gives SpaceX a launch-cost structure nobody can match, and Starship is the option on everything after that. What has broken is the valuation, not the company - a $1.43 trillion market cap on 120x forward earnings and +15.4% revenue growth was an IPO price set for perfection, and the market is now repricing it. First-ever public quarterly report is Wednesday 5 August, which is the single most important event on this week's calendar for anyone holding it. TradingView rates it SELL (2 buy / 8 sell) - as expected for a name with no established trend, and consistent with the price action.",
+      "strengths": [
+        "Starlink is a recurring-revenue subscription business inside what was a pure launch company",
+        "Falcon 9 reusability is a structural cost advantage with no credible near-term competitor",
+        "RSI 19.2 at an all-time low is a genuine capitulation reading, whatever the fair value is",
+        "Starship gives real optionality on lunar, Mars and heavy-lift government contracts"
+      ],
+      "risks": [
+        "NEW LISTING: breakout signals, 52-week levels and moving averages are not yet meaningful",
+        "$1.43T market cap on a 120x forward P/E with revenue growing only +15.4% - the valuation was the whole problem",
+        "First public quarter reports Wednesday 5 August with no track record of guiding the street",
+        "48.7% below the IPO high with no base, no 50-DMA support and no prior demand level to lean on",
+        "Lock-up expiry and index-inclusion mechanics can add supply independent of fundamentals"
+      ],
+      "watch": [
+        "The 5 August print is the event - it will set the first real valuation anchor for this stock",
+        "Do not try to catch this before a base forms; wait for a higher low and a reclaim of 145.41",
+        "Position size is the only real risk control on a name with no chart history"
+      ]
+    }
+  ]
+}
