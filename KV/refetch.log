@@ -1,3 +1,9 @@
+  ERR ALAB: Too Many Requests. Rate limited. Try after a while.
+  ERR ALAB: Too Many Requests. Rate limited. Try after a while.
+  ERR ALAB: Too Many Requests. Rate limited. Try after a while.
+  ERR ALAB: Too Many Requests. Rate limited. Try after a while.
+  ERR AMKR: Too Many Requests. Rate limited. Try after a while.
+  ERR AMKR: Too Many Requests. Rate limited. Try after a while.
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DRAM"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DRAM"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QLD"}}}
@@ -5,38 +11,38 @@ HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","desc
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SSO"}}}
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SSO"}}}
 Re-fetching 32 missing held tickers: ['ALAB', 'AMKR', 'APLD', 'APP', 'COCO', 'COIN', 'DELL', 'DIOD', 'DOCN', 'DRAM', 'FLEX', 'HOOD', 'ICHR', 'IREN', 'LQDA', 'LUNR', 'LUV', 'MXL', 'PLTR', 'PRTH', 'QBTS', 'QLD', 'RBRK', 'RGTI', 'RKLB', 'SNDK', 'SNOW', 'SPCX', 'SSO', 'SWBI', 'TSM', 'VRT']
-  ok  ALAB: 46 WEAK px=260.23
-  ok  AMKR: 41 WEAK px=45.69
-  ok  APLD: 38 WEAK px=26.62
-  ok  APP: 41 WEAK px=418.22
-  ok  COCO: 74 WATCH px=69.58
-  ok  COIN: 38 WEAK px=167.9
-  ok  DELL: 71 WATCH px=392.1
-  ok  DIOD: 36 WEAK px=80.29
-  ok  DOCN: 39 WEAK px=112.51
-  ok  DRAM: 13 WEAK px=47.77
-  ok  FLEX: 34 WEAK px=113.28
-  ok  HOOD: 31 WEAK px=92.76
-  ok  ICHR: 32 WEAK px=68.1
-  ok  IREN: 24 WEAK px=33.93
-  ok  LQDA: 94 STRONG BUY px=86.82
-  ok  LUNR: 42 WEAK px=12.37
-  ok  LUV: 70 WATCH px=46.31
-  ok  MXL: 29 WEAK px=58.94
-  ok  PLTR: 52 WEAK px=123.53
-  ok  PRTH: 86 STRONG BUY px=6.89
-  ok  QBTS: 32 WEAK px=17.64
-  ok  QLD: 25 WEAK px=80.87
-  ok  RBRK: 58 WATCH px=71.45
-  ok  RGTI: 37 WEAK px=14.52
-  ok  RKLB: 44 WEAK px=63.89
-  ok  SNDK: 43 WEAK px=1096.1
-  ok  SNOW: 87 STRONG BUY px=270.36
-  ok  SPCX: 34 WEAK px=116.41
-  ok  SSO: 46 WEAK px=65.98
-  ok  SWBI: 61 WATCH px=14.68
-  ok  TSM: 52 WEAK px=392.31
-  ok  VRT: 34 WEAK px=269.56
+  XX  ALAB: still no data
+  ok  AMKR: 37 WEAK px=49.87
+  ok  APLD: 34 WEAK px=27.39
+  ok  APP: 41 WEAK px=395.9
+  ok  COCO: 51 WEAK px=65.94
+  ok  COIN: 30 WEAK px=146.26
+  ok  DELL: 66 WATCH px=405.37
+  ok  DIOD: 34 WEAK px=82.32
+  ok  DOCN: 34 WEAK px=117.5
+  ok  DRAM: 14 WEAK px=50.37
+  ok  FLEX: 36 WEAK px=113.75
+  ok  HOOD: 44 WEAK px=86.56
+  ok  ICHR: 19 WEAK px=75.27
+  ok  IREN: 26 WEAK px=36.8
+  ok  LQDA: 94 STRONG BUY px=84.11
+  ok  LUNR: 42 WEAK px=12.34
+  ok  LUV: 63 WATCH px=44.97
+  ok  MXL: 26 WEAK px=66.82
+  ok  PLTR: 45 WEAK px=123.06
+  ok  PRTH: 59 WATCH px=6.5
+  ok  QBTS: 24 WEAK px=18.08
+  ok  QLD: 29 WEAK px=83.67
+  ok  RBRK: 47 WEAK px=72.36
+  ok  RGTI: 31 WEAK px=14.95
+  ok  RKLB: 36 WEAK px=64.95
+  ok  SNDK: 35 WEAK px=1214.83
+  ok  SNOW: 89 STRONG BUY px=293.28
+  ok  SPCX: 24 WEAK px=108.37
+  ok  SSO: 54 WEAK px=66.99
+  ok  SWBI: 58 WATCH px=14.55
+  ok  TSM: 42 WEAK px=404.25
+  ok  VRT: 37 WEAK px=241.57
 
-Patched 32 rows -> combined_results.json (now 444 stocks)
-Still missing: []
+Patched 31 rows -> combined_results.json (now 440 stocks)
+Still missing: ['ALAB']
