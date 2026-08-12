@@ -1,0 +1,45 @@
+Probing Yahoo until the rate limit lifts…
+  throttle cleared after 0.0 min (PLTR px=174.94)
+Re-fetching 32 tickers (held first) at ~2.5s pace…
+  [1/32] ok  ALAB: 34 WEAK px=311.99
+  [2/32] ok  AMKR: 62 WATCH px=54.3
+  [3/32] ok  APLD: 53 WEAK px=29.69
+  [4/32] ok  APP: 32 WEAK px=318.68
+  [5/32] ok  COCO: 56 WATCH px=64.46
+  [6/32] ok  COIN: 19 WEAK px=148.58
+  [7/32] ok  DELL: 88 STRONG BUY px=440.97
+  [8/32] ok  DIOD: 79 STRONG BUY px=103.15
+  [9/32] ok  DOCN: 32 WEAK px=120.86
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DRAM"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DRAM"}}}
+  [10/32] ok  DRAM: 26 WEAK px=50.89
+  [11/32] ok  FLEX: 45 WEAK px=122.41
+  [12/32] ok  HOOD: 35 WEAK px=94.38
+  [13/32] ok  ICHR: 24 WEAK px=67.51
+  [14/32] ok  IREN: 57 WATCH px=39.75
+  [15/32] ok  LQDA: 92 STRONG BUY px=88.05
+  [16/32] ok  LUNR: 72 WATCH px=16.48
+  [17/32] ok  LUV: 62 WATCH px=45.52
+  [18/32] ok  MXL: 30 WEAK px=69.02
+  [19/32] ok  PLTR: 64 WATCH px=174.94
+  [20/32] ok  PRTH: 44 WEAK px=5.21
+  [21/32] ok  QBTS: 42 WEAK px=20.23
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QLD"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QLD"}}}
+  [22/32] ok  QLD: 83 STRONG BUY px=90.98
+  [23/32] ok  RBRK: 73 WATCH px=96.93
+  [24/32] ok  RGTI: 46 WEAK px=18.09
+  [25/32] ok  RKLB: 48 WEAK px=80.01
+  -- checkpoint: 442 rows on disk
+  [26/32] ok  SNDK: 25 WEAK px=1271.05
+  [27/32] ok  SNOW: 86 STRONG BUY px=334.14
+  [28/32] ok  SPCX: 49 WEAK px=133.29
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SSO"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SSO"}}}
+  [29/32] ok  SSO: 87 STRONG BUY px=71.16
+  [30/32] ok  SWBI: 71 WATCH px=14.22
+  [31/32] ok  TSM: 58 WATCH px=422.06
+  [32/32] ok  VRT: 62 WATCH px=281.81
+
+ok  patched 32 rows -> combined_results.json (now 449 stocks)
+still missing: []
