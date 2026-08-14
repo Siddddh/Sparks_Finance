@@ -1,0 +1,667 @@
+{
+  "date": "2026-08-14",
+  "analyses": [
+    {
+      "ticker": "NVDA", "name": "NVIDIA Corporation", "signal": "STRONG BUY",
+      "verdict": "Three months of sideways price against 85% revenue growth has compressed the multiple to 17.6x forward — the base is the opportunity, the earnings bar is the risk.",
+      "financials": {
+        "period": "FY2026 (ended January 2026)",
+        "summary": "The datacenter segment remains effectively the entire story, dwarfing gaming, professional visualization and automotive combined. The Blackwell generation carried the year, with supply — not demand — the binding constraint throughout. Gross margins held in the mid-70s despite the mix shift toward complete rack-scale systems, which carry more bought-in content than merchant silicon. Free cash flow generation was large enough to fund both aggressive buybacks and the capital commitments behind the announced $500B domestic build plan. The balance sheet remains net-cash, which matters given how much of the AI complex is now financing capacity with debt.",
+        "highlights": [
+          "Revenue growth +85.2% year-over-year",
+          "EPS growth +214.5% — operating leverage far outpacing the top line",
+          "Datacenter is the overwhelming majority of revenue; gaming is now a rounding error by comparison",
+          "Gross margin sustained in the mid-70s through the rack-scale mix shift",
+          "Forward P/E of 17.6x — a market multiple for the fastest-growing mega-cap",
+          "Net-cash balance sheet funding the $500B build commitment without leverage"
+        ]
+      },
+      "accomplishments": [
+        "Blackwell ramped to volume production and became the default training platform for frontier model builders",
+        "Announced a $500B domestic AI infrastructure build plan, moving from component supplier to infrastructure principal",
+        "Extended the CUDA software moat — the switching cost, not the silicon, remains the durable advantage",
+        "Reached a ~$5.46T market capitalisation, the largest company in the scanned universe",
+        "Networking (NVLink/InfiniBand/Ethernet) grew into a material second business rather than an accessory"
+      ],
+      "journey_52w": {
+        "summary": "A year of two halves. The first was a powerful advance as Blackwell shipped and hyperscaler capex guidance kept ratcheting higher. The second has been a three-month consolidation — momentum is actually -4.3% over that window — as the market digested both the size of the $500B commitment and the credit implications of an industry funding capacity with debt. Price closed at 225.30, 4.3% below the 235.47 high, having ranged between 164.98 and 235.47 across the year. Critically, earnings compounded through the entire flat stretch, which is what took the forward multiple down to 17.6x.",
+        "milestones": [
+          {"label": "Late 2025", "note": "Blackwell volume ramp; datacenter revenue re-accelerates and the stock makes its run toward the highs"},
+          {"label": "Early 2026", "note": "$500B domestic AI infrastructure plan announced — ambition applauded, funding structure questioned"},
+          {"label": "Spring 2026", "note": "Consolidation begins; credit-risk commentary around AI capex financing becomes the dominant bear argument"},
+          {"label": "Q2 2026", "note": "Three-month momentum turns slightly negative (-4.3%) as the stock bases between roughly 195 and 235"},
+          {"label": "13 Aug 2026", "note": "Rallies 7% on the session to close at 225.30; Goldman simultaneously warns the earnings bar is now high"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "The earnings bar is high — Goldman flagged it explicitly; an in-line print may not be enough to break the base",
+          "AI capex is increasingly debt-financed across the customer base; credit stress at hyperscalers or neoclouds transmits directly to orders",
+          "Customer concentration: a handful of hyperscalers drive the majority of datacenter revenue",
+          "Custom silicon (hyperscaler in-house accelerators) is a slow, structural share threat",
+          "Three-month momentum of -4.3% means the trend is stalled — a failed breakout would confirm distribution"
+        ],
+        "catalysts": [
+          "A break above 235.47 on volume would resolve a three-month base to the upside",
+          "Next earnings report — the binary event for the consolidation",
+          "Hyperscaler capex guidance revisions",
+          "Progress and financing detail on the $500B build plan",
+          "Easing credit-risk perception, which has already begun per recent commentary"
+        ],
+        "watch": [
+          "The 50-day at 206.31 — losing it invalidates the base thesis",
+          "The 235.47 high as the trigger level",
+          "Gross margin trajectory as rack-scale systems become a larger share of mix",
+          "TradingView rates it BUY (16 buy / 3 sell) — confirms the constructive read"
+        ],
+        "valuation": "17.6x forward earnings against +85.2% revenue and +214.5% EPS growth is the widest growth-to-multiple gap in mega-cap. The market is applying a cyclical discount to what has so far behaved as a secular build-out. That discount is the entire bull case — and it is also the market telling you it does not fully believe the durability."
+      }
+    },
+    {
+      "ticker": "DELL", "name": "Dell Technologies Inc.", "signal": "STRONG BUY",
+      "verdict": "A stock that has doubled in three months yet closed at an all-time high with RSI of only 59.9 — the most orderly major advance in the scan.",
+      "financials": {
+        "period": "FY2026 (ended January 2026)",
+        "summary": "The Infrastructure Solutions Group has completely re-shaped the company. AI-optimised server demand drove revenue growth of 87.5% and EPS growth of 282.5%, converting Dell from a low-growth PC and enterprise-hardware business into the primary Western integrator of AI compute at rack scale. The important tension in the model is margin: AI servers carry substantially thinner gross margins than traditional enterprise storage and services, so revenue growth of this magnitude does not translate proportionally into gross profit. Management has offset that with scale, supply-chain leverage and attach of higher-margin storage and services. The Client Solutions Group (PCs) has been a steady but unexciting contributor.",
+        "highlights": [
+          "Revenue growth +87.5% year-over-year",
+          "EPS growth +282.5% — operating leverage despite thinner AI server margins",
+          "Infrastructure Solutions Group now the dominant revenue and growth driver",
+          "Forward P/E of 22.4x — modest against the growth rate",
+          "Market capitalisation reached ~$319B",
+          "AI server backlog remains the key disclosed forward indicator"
+        ]
+      },
+      "accomplishments": [
+        "Became the leading Western integrator of rack-scale AI compute systems",
+        "Grew from roughly $110 to $494 over 52 weeks — a near-4.5x advance",
+        "Converted a mature, low-multiple hardware franchise into a recognised AI infrastructure name",
+        "Sustained the advance without becoming technically overbought — RSI 59.9 at an all-time high",
+        "Maintained storage and services attach to defend blended gross margin"
+      ],
+      "journey_52w": {
+        "summary": "One of the most complete re-ratings in the universe. The stock traded as low as 110.54 within the past year and closed the session at 494.21, an all-time high — with 99.7% of that move coming in just the last three months. The advance has been unusually well-behaved: price is 17.6% above its 50-day (420.30) and 117% above its 200-day (227.44), yet RSI is only 59.9, meaning the gains came through sustained accumulation rather than a blow-off.",
+        "milestones": [
+          {"label": "Late 2025", "note": "Stock bases near the 52-week low around 110 as AI server orders begin building in the backlog"},
+          {"label": "Winter 2025-26", "note": "ISG revenue inflects; the AI server narrative starts to be priced"},
+          {"label": "Spring 2026", "note": "The 200-day at 227.44 is left decisively behind as the re-rating accelerates"},
+          {"label": "May-Aug 2026", "note": "A 99.7% three-month advance carries price from the 240s to the 490s"},
+          {"label": "13 Aug 2026", "note": "Closes at 494.21 — a new all-time high, with RSI still under 60"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "AI server gross margins are structurally thin; an adverse mix shift would disappoint on profit even with revenue growth",
+          "Price is 17.6% above the 50-day — any stop is necessarily wide and a mean-reversion move would be large",
+          "A 99.7% three-month gain creates substantial profit-taking supply",
+          "Competitive intensity from Supermicro, HPE and the ODMs is rising in exactly this segment",
+          "Component cost inflation (especially memory, given Micron's pricing power) compresses server margins directly"
+        ],
+        "catalysts": [
+          "AI server backlog disclosure at the next earnings report",
+          "Storage and services attach improving blended margin",
+          "Continued hyperscaler and enterprise AI capex",
+          "Holding 494 and extending would confirm the breakout"
+        ],
+        "watch": [
+          "Gross margin percentage — the single most important line for this story",
+          "Whether 494.21 holds or the all-time high becomes a reversal point",
+          "The 50-day at 420.30 as the trend line",
+          "TradingView rates it BUY (16 buy / 2 sell) — confirms"
+        ],
+        "valuation": "22.4x forward earnings for 87.5% revenue growth looks inexpensive, but the multiple is deservedly lower than a semiconductor's: this is an integration and assembly business with thinner structural margins. The right question is not whether 22x is cheap against growth, but whether AI server margins hold as competition intensifies."
+      }
+    },
+    {
+      "ticker": "TSM", "name": "Taiwan Semiconductor Manufacturing Company", "signal": "STRONG BUY",
+      "verdict": "The unavoidable supplier for every AI chip, resting on its 50-day at a 19.8x multiple — the cheapest way to own the compute cycle.",
+      "financials": {
+        "period": "FY2025 (ended December 2025)",
+        "summary": "Leading-edge nodes (3nm and below) drove the year, with high-performance computing displacing smartphones as the largest revenue platform — a structural shift, not a cyclical one. Revenue grew 36.0% and EPS 77.4%, with gross margins benefiting from both node mix and the pricing power that comes from being the only foundry able to produce at the frontier at scale. Advanced packaging (CoWoS) went from a bottleneck to a differentiated, capacity-constrained profit centre in its own right. Capital intensity remains extreme — overseas fab construction in Arizona, Japan and Germany carries a margin drag that management has been explicit about — but operating cash flow comfortably funds it.",
+        "highlights": [
+          "Revenue growth +36.0% year-over-year",
+          "EPS growth +77.4% — node mix and pricing power compounding",
+          "High-performance computing overtook smartphones as the largest platform",
+          "Advanced packaging (CoWoS) capacity remains a binding industry constraint",
+          "Forward P/E of 19.8x on a ~$2.23T market capitalisation",
+          "Overseas fab expansion carries an acknowledged, quantified margin dilution"
+        ]
+      },
+      "accomplishments": [
+        "Sustained an effective monopoly on leading-edge foundry capacity — every major AI accelerator is fabricated here",
+        "Scaled CoWoS advanced packaging to relieve the industry's tightest bottleneck",
+        "Executed geographic diversification (Arizona, Japan, Germany) without derailing the cost structure",
+        "Grew from a 224.84 low to a 477.57 high over the past 52 weeks",
+        "Converted foundry pricing power into 77.4% EPS growth — historically unusual for the model"
+      ],
+      "journey_52w": {
+        "summary": "A strong year followed by a healthy correction. Price ranged from 224.84 to 477.57 and closed at 430.55 — 9.8% below the high but sitting almost exactly on its 50-day at 425.25, with RSI 64.4. Three-month momentum of just +3.3% reflects the broader semiconductor pause that has also left MU 21.7% and AMD 16.9% below their highs. The distinction is that TSMC's pullback is shallow and orderly while the rest of the group's is deep.",
+        "milestones": [
+          {"label": "Autumn 2025", "note": "AI accelerator demand pushes leading-edge utilisation to capacity; HPC overtakes smartphones"},
+          {"label": "Winter 2025-26", "note": "CoWoS packaging expansion announced as the industry bottleneck becomes the binding constraint"},
+          {"label": "Spring 2026", "note": "Stock reaches the 477.57 high as foundry pricing power is recognised"},
+          {"label": "Summer 2026", "note": "Semiconductor group-wide consolidation; TSM pulls back to its 50-day rather than breaking down"},
+          {"label": "13 Aug 2026", "note": "Closes at 430.55, resting on the 50-day at 425.25 with RSI 64.4"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "Taiwan geopolitical risk is permanent, binary and unhedgeable — it is the reason the multiple is 19.8x and not 30x",
+          "Extreme capital intensity; a demand air-pocket against committed capex would compress returns sharply",
+          "Overseas fabs structurally dilute gross margin",
+          "Customer concentration among a small number of large fabless designers",
+          "Semiconductors are the laggard group in the current rotation — the sector tape is a headwind"
+        ],
+        "catalysts": [
+          "Monthly revenue disclosures — TSMC reports more frequently than peers, giving a faster read on the cycle",
+          "CoWoS capacity expansion milestones",
+          "2nm node ramp and its pricing",
+          "Reclaiming the 477.57 high"
+        ],
+        "watch": [
+          "The 50-day at 425.25 — the setup depends on it holding",
+          "Monthly revenue prints as the cleanest AI-demand indicator available",
+          "Advanced packaging capacity commentary",
+          "TradingView rates it BUY (16 buy / 3 sell) — confirms"
+        ],
+        "valuation": "19.8x forward earnings for a business with monopoly economics and 36% revenue growth is a geopolitical discount, not a fundamental one. If you are willing to underwrite Taiwan risk, this is among the most mispriced large caps available. If you are not, no multiple is low enough."
+      }
+    },
+    {
+      "ticker": "MU", "name": "Micron Technology, Inc.", "signal": "STRONG BUY",
+      "verdict": "6.1x forward earnings against 1,368% EPS growth — the market is pricing a cycle top while the cycle is visibly still running.",
+      "financials": {
+        "period": "FY2025 (ended August/September 2025)",
+        "summary": "An extraordinary year driven almost entirely by high-bandwidth memory. HBM is sold out well in advance, priced under long-term agreements, and carries margins far above commodity DRAM — which transformed the income statement. Revenue grew 345.7% and EPS 1,368.5%, figures that look like typos but reflect the operating leverage inherent in a memory business coming off a trough with pricing power. Conventional DRAM and NAND also benefited from constrained supply as capacity was redirected toward HBM. Capital expenditure rose sharply to fund HBM capacity, and management has been disciplined about not over-building conventional bit supply — the historic sin of the industry.",
+        "highlights": [
+          "Revenue growth +345.7% year-over-year",
+          "EPS growth +1,368.5% — the steepest earnings inflection in the scanned universe",
+          "HBM effectively sold out under long-term agreements, insulating near-term pricing",
+          "Forward P/E of only 6.1x on a ~$1.07T market capitalisation",
+          "Capacity redirected toward HBM constrained conventional DRAM supply, lifting those prices too",
+          "Capital discipline on conventional bit growth — a break from prior cycles"
+        ]
+      },
+      "accomplishments": [
+        "Established itself as one of only three credible HBM suppliers for AI accelerators",
+        "Secured long-term HBM supply agreements that de-risk near-term pricing",
+        "Grew from a 115.60 52-week low to a 1,213.37 high — better than a 10x range",
+        "Delivered a 1,368.5% EPS inflection while maintaining supply discipline",
+        "Became a genuine mega-cap (~$1.07T) from a mid-cap cyclical base"
+      ],
+      "journey_52w": {
+        "summary": "A near-vertical advance followed by a meaningful correction. The 52-week range runs from 115.60 to 1,213.37 — one of the widest in the universe — and price closed at 949.83, some 21.7% below the high and marginally below its 50-day at 962.81. RSI at 52.6 is neutral. Three-month momentum remains positive at +22.4%, so this is a pullback within an uptrend rather than a trend break, but the stock must reclaim the 50-day to confirm that reading.",
+        "milestones": [
+          {"label": "Late 2025", "note": "HBM demand inflects as AI accelerator volumes scale; memory pricing turns sharply"},
+          {"label": "Winter 2025-26", "note": "Long-term HBM supply agreements signed; earnings visibility improves dramatically"},
+          {"label": "Spring 2026", "note": "Stock reaches the 1,213.37 high as the earnings inflection is fully recognised"},
+          {"label": "Summer 2026", "note": "21.7% correction as the market begins to price a cycle peak"},
+          {"label": "13 Aug 2026", "note": "Closes at 949.83, just below the 50-day at 962.81, RSI 52.6"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "Memory is the most violently cyclical business in semiconductors — a 6.1x multiple is the market's explicit forecast of a peak",
+          "Closed below the 50-day at 962.81; failing to reclaim it would confirm the correction",
+          "Samsung and SK Hynix HBM capacity additions are the direct threat to the pricing that drives everything",
+          "A 21.7% drawdown from the high can extend materially before resolving",
+          "Conventional DRAM/NAND oversupply would return quickly if HBM demand softens and capacity reverts"
+        ],
+        "catalysts": [
+          "Reclaiming the 50-day at 962.81",
+          "HBM pricing and contract renewals for the next generation",
+          "Hyperscaler memory commitments alongside accelerator orders",
+          "Continued capital discipline on conventional bit supply"
+        ],
+        "watch": [
+          "The 50-day at 962.81 — the immediate technical hurdle",
+          "Competitor HBM qualification announcements — the key share risk",
+          "DRAM spot pricing as a leading indicator",
+          "TradingView rates it BUY (14 buy / 2 sell) — confirms"
+        ],
+        "valuation": "6.1x forward earnings is not a value signal in the normal sense; it is how the market always prices peak memory earnings. The genuine question is duration. If HBM tightness persists another year, the stock is dramatically mispriced. If competitor capacity lands sooner, 6.1x will prove to have been correct. Position size for that binary."
+      }
+    },
+    {
+      "ticker": "BAC", "name": "Bank of America Corporation", "signal": "STRONG BUY",
+      "verdict": "The cleanest large-cap technical setup in the scan — 1.1% from its high with relative strength already at new highs, at 12.1x earnings.",
+      "financials": {
+        "period": "FY2025 (ended December 2025)",
+        "summary": "Net interest income was the engine, benefiting from a rate environment that stayed higher for longer than the deposit base repriced. Revenue grew 16.8% and EPS 34.1%, with the EPS line further helped by a sustained buyback. Credit quality held up better than the bear case assumed — charge-offs normalised rather than deteriorated, and reserve builds were modest. The consumer bank continued to gather low-cost deposits, while Global Markets delivered a strong year on elevated volatility. Capital ratios remained comfortably above requirements, which is what funds the buyback that has been quietly compounding EPS.",
+        "highlights": [
+          "Revenue growth +16.8% year-over-year",
+          "EPS growth +34.1%, amplified by sustained share repurchase",
+          "Net interest income the primary driver as deposit repricing lagged asset yields",
+          "Credit normalisation rather than deterioration — the bear case did not materialise",
+          "Forward P/E of 12.1x on a ~$448B market capitalisation",
+          "Capital ratios comfortably above regulatory minimums"
+        ]
+      },
+      "accomplishments": [
+        "Grew from a 45.94 52-week low to close within 1.1% of its 64.81 high",
+        "Achieved relative strength at new highs — outperforming the market, not just rising with it",
+        "Published a widely-followed AI stocks buy list, reinforcing the research franchise",
+        "Delivered 34.1% EPS growth while maintaining a fortress balance sheet",
+        "Navigated the rate cycle without the deposit flight that hit regional peers"
+      ],
+      "journey_52w": {
+        "summary": "A steady, methodical re-rating rather than a dramatic one. Price ranged from 45.94 to 64.81 and closed at 64.10, up 29.3% in just three months as the rotation into financials accelerated. The technical structure is the standout: a valid VCP contraction into the highs with relative strength already at new highs — price and RS confirming each other simultaneously, which is uncommon and is why this scores 94.",
+        "milestones": [
+          {"label": "Autumn 2025", "note": "Trades near the 45.94 low as recession and credit fears dominate bank sentiment"},
+          {"label": "Winter 2025-26", "note": "Net interest income guidance improves; credit fears prove overdone"},
+          {"label": "Spring 2026", "note": "Financials begin to lead; BAC clears its 200-day and starts building the base"},
+          {"label": "Q2-Q3 2026", "note": "29.3% three-month advance as rate-hike odds fall and the rotation into banks accelerates"},
+          {"label": "13 Aug 2026", "note": "Closes at 64.10 — 1.1% from the high, VCP intact, relative strength at new highs"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "Volume at 0.7x average — the advance to the highs lacks a genuine accumulation signature",
+          "Financials are now a crowded, consensus long; a sector unwind takes BAC with it regardless of merit",
+          "The net interest income tailwind reverses if rate cuts arrive faster than expected",
+          "Commercial real estate exposure remains an unresolved sector-wide question",
+          "Buying 1.1% below a 52-week high offers minimal cushion if the breakout fails"
+        ],
+        "catalysts": [
+          "A close above 64.81 on above-average volume would confirm the breakout",
+          "Continued moderation in rate-hike expectations, per the Reuters read into the close",
+          "Net interest income guidance revisions",
+          "Buyback authorisation increases"
+        ],
+        "watch": [
+          "Volume on any move through 64.81 — the missing ingredient",
+          "The 50-day at 59.38 as trend support",
+          "Charge-off trends in the consumer book",
+          "TradingView rates it BUY (14 buy / 5 sell) — confirms"
+        ],
+        "valuation": "12.1x forward earnings for 34.1% EPS growth and a fortress balance sheet is undemanding even after a 29% three-month run. The multiple reflects lingering scepticism about the durability of net interest income rather than any doubt about the franchise."
+      }
+    },
+    {
+      "ticker": "MPC", "name": "Marathon Petroleum Corporation", "signal": "STRONG BUY",
+      "verdict": "All-time high, relative strength at new highs, TradingView's strongest energy rating — and still only 11.7x forward earnings.",
+      "financials": {
+        "period": "FY2025 (ended December 2025)",
+        "summary": "An exceptional refining year. Crack spreads — the margin between crude input and refined product output — stayed elevated far longer than the forward curve had implied, and Marathon's scale and Gulf Coast positioning let it capture them fully. Revenue grew 53.7% and EPS 348%, the latter magnified by an aggressive buyback that has meaningfully shrunk the share count. The midstream affiliate (MPLX) continued to provide a stable, fee-based cash flow stream that partially offsets refining's volatility — a structural advantage over pure-play refiners. Capital returns remained the priority over growth capex, which is the correct posture at this point in the cycle.",
+        "highlights": [
+          "Revenue growth +53.7% year-over-year",
+          "EPS growth +348.0%, amplified by aggressive share repurchase",
+          "Refining crack spreads held above forward-curve expectations through the year",
+          "Midstream (MPLX) fee-based cash flow dampens refining cyclicality",
+          "Forward P/E of 11.7x on a ~$100B market capitalisation",
+          "Capital returns prioritised over growth capital expenditure"
+        ]
+      },
+      "accomplishments": [
+        "Reached an all-time high of 356.40 — the stock has no overhead supply whatsoever",
+        "Delivered 348% EPS growth through a combination of margin capture and buyback",
+        "Advanced 43.8% in three months as energy took rotational leadership",
+        "Achieved relative strength at new highs alongside price",
+        "Maintained the midstream structure that differentiates it from pure-play refiners"
+      ],
+      "journey_52w": {
+        "summary": "One of the strongest advances in the universe. Price ranged from 159.20 to 356.40 and closed at the top of that range — an all-time high — having gained 43.8% in three months. The move has left price 24.6% above its 50-day at 286.01, which is the main caution: the trend is exceptional but the stock is a long way from its own trend line. Relative strength is also at new highs, confirming this is genuine leadership rather than a beta move.",
+        "milestones": [
+          {"label": "Autumn 2025", "note": "Trades near 159 as refining margins are assumed to normalise downward"},
+          {"label": "Winter 2025-26", "note": "Crack spreads hold well above the forward curve; earnings estimates revised sharply higher"},
+          {"label": "Spring 2026", "note": "Buyback accelerates, compounding the EPS effect of margin strength"},
+          {"label": "Summer 2026", "note": "Middle East supply disruption risk adds a geopolitical premium to refined product margins"},
+          {"label": "13 Aug 2026", "note": "Closes at an all-time high of 356.40; MPC and PSX both hit records on the session"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "Refining margins are the single most mean-reverting earnings stream in energy — the 11.7x multiple is the market pricing that",
+          "Price is 24.6% above the 50-day; a reversion to trend is a substantial drawdown",
+          "Strait of Hormuz headlines cut both ways — de-escalation that normalises crude flows would compress the geopolitical premium",
+          "RSI 71.3 is running warm; a pause is more probable than immediate extension",
+          "No overhead supply also means no reference level below except the 50-day, far away"
+        ],
+        "catalysts": [
+          "Weekly crack spread prints — the highest-frequency indicator for this name",
+          "Continued buyback execution shrinking the share count",
+          "Refinery outage headlines that tighten product supply",
+          "MPLX distribution growth"
+        ],
+        "watch": [
+          "Whether 356 holds or the stock backfills toward 330",
+          "Strait of Hormuz and Iran-related supply headlines — Reuters reported competing control claims into the close",
+          "Crack spreads versus the forward curve",
+          "TradingView rates it STRONG BUY (17 buy / 2 sell) — its strongest energy reading"
+        ],
+        "valuation": "11.7x forward earnings at an all-time high is the classic refining setup: the multiple contracts as earnings peak, so a low P/E is a warning rather than a bargain. The offset here is the buyback and the midstream cash flow, both of which are structural rather than cyclical."
+      }
+    },
+    {
+      "ticker": "EXPD", "name": "Expeditors International of Washington", "signal": "STRONG BUY",
+      "verdict": "A 52-week-high close with a perfect TradingView reading — 17 buy signals, zero sell — and RSI still only 65.5.",
+      "financials": {
+        "period": "FY2025 (ended December 2025)",
+        "summary": "An asset-light freight forwarder, which is the key to reading these numbers: Expeditors owns no aircraft or ships, so when airfreight volumes and rates rise, the incremental margin flows through with very little fixed cost absorbing it. Revenue grew 32.1% and EPS 51.5% — the gap between those two figures is the operating leverage of the model. Airfreight was the standout, with strong Q2 growth in particular. The balance sheet carries no meaningful debt and the company has a long history of returning excess cash. The counterpoint, well-flagged by sell-side commentary, is that the same asset-light model means there is no moat when volumes turn — the earnings fall as fast as they rose.",
+        "highlights": [
+          "Revenue growth +32.1% year-over-year",
+          "EPS growth +51.5% — asset-light operating leverage in action",
+          "Airfreight the standout segment, with notable Q2 strength",
+          "Forward P/E of 23.6x on a ~$24B market capitalisation",
+          "Debt-free balance sheet with a consistent capital-return history",
+          "No owned aircraft or vessels — margin flows straight through on volume upswings"
+        ]
+      },
+      "accomplishments": [
+        "Closed at a 52-week high of 187.08 with relative strength also at new highs",
+        "Delivered 51.5% EPS growth on 32.1% revenue growth — genuine operating leverage",
+        "Advanced 22.4% over three months as transports took rotational leadership",
+        "Earned a perfect TradingView technical reading — 17 buy, 9 neutral, 0 sell",
+        "Maintained a debt-free balance sheet through the expansion"
+      ],
+      "journey_52w": {
+        "summary": "A clean, uninterrupted uptrend. Price ranged from 111.96 to 187.08 and closed at the high, up 22.4% over three months and now 9.9% above its 50-day at 170.16. RSI at 65.5 is strong but well short of overbought, which is the notable feature — a stock at 52-week highs that has not become technically stretched. The one blemish is volume at 0.5x average.",
+        "milestones": [
+          {"label": "Autumn 2025", "note": "Trades near 112 as freight volumes are assumed to stay depressed"},
+          {"label": "Winter 2025-26", "note": "Airfreight volumes begin recovering; rate environment firms"},
+          {"label": "Spring 2026", "note": "Q2 airfreight growth lands strongly; earnings estimates revised up"},
+          {"label": "Summer 2026", "note": "Transports take rotational leadership alongside financials and energy"},
+          {"label": "13 Aug 2026", "note": "Closes at the 52-week high of 187.08 with RSI 65.5 and RS at new highs"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "Sell-side commentary already characterises the stock as 'rich' after the Q2 airfreight print",
+          "Volume at 0.5x average — a 52-week-high close with no volume confirmation is fragile",
+          "Freight cycles turn abruptly; the asset-light model that amplifies upside amplifies downside identically",
+          "23.6x forward earnings is a full multiple for a cyclical forwarder",
+          "$24B market cap means less liquidity than the mega-cap industrials"
+        ],
+        "catalysts": [
+          "Volume expansion above 187.08 confirming the breakout",
+          "Continued airfreight rate strength",
+          "Peak shipping season volumes",
+          "Capital return announcements"
+        ],
+        "watch": [
+          "Volume — the single missing ingredient in an otherwise perfect setup",
+          "The 50-day at 170.16 as trend support",
+          "Airfreight rate indices",
+          "TradingView rates it STRONG BUY (17 buy / 0 sell) — no dissenting signal at all"
+        ],
+        "valuation": "23.6x forward earnings for a cyclical freight forwarder is toward the upper end of its historical range, which is what the 'rich' commentary reflects. The justification is the debt-free balance sheet and the operating leverage — but you are paying for a cycle that is already visibly good."
+      }
+    },
+    {
+      "ticker": "JBHT", "name": "J.B. Hunt Transport Services", "signal": "STRONG BUY",
+      "verdict": "The best risk-adjusted setup on the board — a 90 score and a perfect TradingView rating with RSI at just 45.6, resting on its 50-day.",
+      "financials": {
+        "period": "FY2025 (ended December 2025)",
+        "summary": "Intermodal is the core franchise and the year's driver — the rail-plus-truck model gains share when fuel costs and driver economics favour rail over long-haul trucking. Revenue grew 19.4% and EPS 45.8%, with the EPS outperformance reflecting both operating leverage and cost discipline after a period of network investment. Dedicated Contract Services provided stable, contracted revenue that smooths the cyclicality of the spot-exposed segments. The brokerage business remains the most volatile piece. Capital expenditure moderated after prior-year container fleet investment, improving free cash flow conversion.",
+        "highlights": [
+          "Revenue growth +19.4% year-over-year",
+          "EPS growth +45.8% — operating leverage plus post-investment cost discipline",
+          "Intermodal the core franchise, gaining share from long-haul trucking",
+          "Dedicated Contract Services provides contracted revenue stability",
+          "Forward P/E of 27.9x on a ~$26.5B market capitalisation",
+          "Capital expenditure moderated, improving free cash flow conversion"
+        ]
+      },
+      "accomplishments": [
+        "Grew from a 129.59 52-week low to a 297.91 high — better than a doubling",
+        "Delivered 45.8% EPS growth on 19.4% revenue growth",
+        "Earned a perfect TradingView technical rating — 17 buy, 9 neutral, 0 sell",
+        "Expanded intermodal share against long-haul trucking",
+        "Consolidated on its 50-day rather than breaking down during the summer pause"
+      ],
+      "journey_52w": {
+        "summary": "A powerful advance followed by an orderly rest. Price ranged from 129.59 to 297.91 and closed at 282.32 — only 5.2% below the high — while RSI fell to 45.6 and price settled onto the 50-day at 279.48. Three-month momentum remains positive at +11.0%. This combination of a high conviction score, a perfect independent technical rating, and a neutral RSI is exactly the profile of a leader resting rather than topping.",
+        "milestones": [
+          {"label": "Autumn 2025", "note": "Trades near the 129.59 low amid freight recession pessimism"},
+          {"label": "Winter 2025-26", "note": "Intermodal volumes recover; share gains from truckload become visible"},
+          {"label": "Spring 2026", "note": "Stock more than doubles off the low; reaches the 297.91 high"},
+          {"label": "Summer 2026", "note": "Consolidates back to the 50-day; RSI unwinds from overbought to 45.6"},
+          {"label": "13 Aug 2026", "note": "Closes at 282.32, sitting on the 50-day at 279.48 with RSI 45.6"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "Intermodal volumes track consumer goods demand directly — a consumer slowdown hits the core franchise first",
+          "27.9x forward earnings is a full multiple for a transport business",
+          "A low RSI can mean the consolidation persists or deepens rather than resolving upward",
+          "Rail service quality is outside the company's control yet determines intermodal competitiveness",
+          "5.2% below the high — the uptrend has not yet reasserted"
+        ],
+        "catalysts": [
+          "Holding the 50-day at 279.48 and turning back up",
+          "Peak season intermodal volumes",
+          "Continued share shift from long-haul trucking to intermodal",
+          "A move back through 297.91"
+        ],
+        "watch": [
+          "The 50-day at 279.48 — the entire setup rests on this level",
+          "Intermodal volume growth versus truckload rates",
+          "Consumer goods demand indicators",
+          "TradingView rates it STRONG BUY (17 buy / 0 sell) — no dissent"
+        ],
+        "valuation": "27.9x forward earnings is not cheap, and that is the honest weakness in this pick. What justifies it is the quality of the entry rather than the quality of the price: you are buying a confirmed leader at its trend line with a definable stop, which is a different proposition from buying it 20% higher."
+      }
+    },
+    {
+      "ticker": "LLY", "name": "Eli Lilly and Company", "signal": "STRONG BUY",
+      "verdict": "A $1.08T company growing revenue at 47.7% and closing 2.1% from its high with RSI at 52.3 — growth at scale without the crowding.",
+      "financials": {
+        "period": "FY2025 (ended December 2025)",
+        "summary": "The incretin franchise — tirzepatide across both diabetes and obesity indications — dominated the year and remains the largest single growth driver in global pharmaceuticals. Revenue grew 47.7% and EPS 26.2%; the gap between the two reflects the enormous manufacturing capital being deployed to relieve supply constraints, which depresses near-term margins in exchange for future volume. Capacity expansion has been the central operational story: for much of the period, demand exceeded what Lilly could physically produce. The oncology and immunology portfolios provided secondary growth. Research and development spend remained elevated, funding both next-generation incretins and the Alzheimer's franchise.",
+        "highlights": [
+          "Revenue growth +47.7% year-over-year — extraordinary at a $1.08T market capitalisation",
+          "EPS growth +26.2%, held below revenue growth by manufacturing capacity investment",
+          "Incretin franchise the dominant driver across diabetes and obesity",
+          "Manufacturing capacity, not demand, was the binding constraint for much of the year",
+          "Forward P/E of 25.6x — modest against 47.7% revenue growth",
+          "Elevated R&D funding next-generation incretins and the Alzheimer's programme"
+        ]
+      },
+      "accomplishments": [
+        "Grew from a 679.62 52-week low to a 1,235.56 high — an 82% range",
+        "Sustained 47.7% revenue growth at trillion-dollar scale",
+        "Brought substantial new manufacturing capacity online to relieve supply constraints",
+        "Advanced 20.3% over three months as healthcare took rotational leadership",
+        "Maintained an un-extended technical posture (RSI 52.3) throughout the advance"
+      ],
+      "journey_52w": {
+        "summary": "A strong, orderly year. Price ranged from 679.62 to 1,235.56 and closed at 1,209.28 — 2.1% below the high — with a 20.3% three-month gain. RSI at 52.3 is remarkably neutral for a stock near its highs, and price sits comfortably above both the 50-day (1,167.52) and 200-day (1,039.54). This is what an uncrowded uptrend looks like: sustained gains without a momentum crowd.",
+        "milestones": [
+          {"label": "Autumn 2025", "note": "Trades near 680 as supply constraints cap the revenue the demand could support"},
+          {"label": "Winter 2025-26", "note": "Manufacturing capacity expansions begin converting backlog into revenue"},
+          {"label": "Spring 2026", "note": "Obesity indication reimbursement expands the addressable market"},
+          {"label": "Summer 2026", "note": "Healthcare takes rotational leadership; LLY advances 20.3% in three months"},
+          {"label": "13 Aug 2026", "note": "Closes at 1,209.28, 2.1% from the high, with RSI still only 52.3"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "GLP-1 competitive intensity is rising — Novo Nordisk plus a pipeline of oral and next-generation entrants",
+          "Pricing pressure is the structural long-term risk as the category matures and payers push back",
+          "Manufacturing capacity constraints have repeatedly capped upside surprises",
+          "25.6x forward earnings requires the growth rate to persist; any deceleration de-rates the stock quickly",
+          "The share price above $1,200 makes position sizing awkward for smaller accounts"
+        ],
+        "catalysts": [
+          "A break above the 1,235.56 high",
+          "Obesity-indication reimbursement decisions expanding covered lives",
+          "Next-generation incretin trial readouts, particularly oral formulations",
+          "Additional manufacturing capacity coming online"
+        ],
+        "watch": [
+          "Reimbursement and formulary decisions — the largest swing factor for the addressable market",
+          "Competitive trial readouts from Novo and oral entrants",
+          "The 50-day at 1,167.52 as trend support",
+          "TradingView rates it BUY (15 buy / 2 sell) — confirms"
+        ],
+        "valuation": "25.6x forward earnings against 47.7% revenue growth is undemanding for a franchise of this quality. The multiple embeds an assumption that growth decelerates meaningfully — which it will eventually — but the manufacturing capacity coming online suggests that deceleration is not imminent."
+      }
+    },
+    {
+      "ticker": "AMZN", "name": "Amazon.com, Inc.", "signal": "STRONG BUY",
+      "verdict": "Three months of flat price against 242% EPS growth — the margin inflection is real and the base is well built.",
+      "financials": {
+        "period": "FY2025 (ended December 2025)",
+        "summary": "The year the margin story finally arrived. Revenue grew 19.6% while EPS grew 242.3% — that gap is the entire investment case. Three things drove it: AWS reaccelerated as AI workloads moved from experimentation into production, the advertising business continued compounding at high incremental margins, and the North American retail cost structure benefited from the regionalised fulfilment network reaching maturity. AWS and advertising together now contribute the overwhelming majority of operating income despite being a minority of revenue. Capital expenditure rose sharply to fund AI datacenter capacity, which is the principal drag on free cash flow and the main thing bears point to.",
+        "highlights": [
+          "Revenue growth +19.6% year-over-year",
+          "EPS growth +242.3% — the margin inflection is the story",
+          "AWS reaccelerated as AI workloads moved into production",
+          "Advertising continued compounding at high incremental margin",
+          "Regionalised fulfilment network delivered structural retail cost savings",
+          "Forward P/E of 25.5x on a ~$2.86T market capitalisation"
+        ]
+      },
+      "accomplishments": [
+        "Delivered 242.3% EPS growth — one of the largest earnings inflections in mega-cap",
+        "Reaccelerated AWS growth after several quarters of deceleration",
+        "Built advertising into a major, high-margin profit contributor",
+        "Completed the regionalised fulfilment network build-out and captured the cost savings",
+        "Held above both the 50-day and 200-day through a three-month consolidation"
+      ],
+      "journey_52w": {
+        "summary": "A strong year followed by a constructive pause. Price ranged from 198.79 to 284.02 and closed at 265.13, 6.7% below the high, with three-month momentum essentially flat at -0.8%. That flat stretch is the point: earnings compounded through it while price did not, building a valid VCP base above both the 50-day (247.91) and 200-day (237.52). RSI at 67.7 shows the base is resolving upward rather than deteriorating.",
+        "milestones": [
+          {"label": "Autumn 2025", "note": "Trades near 199 as AWS deceleration concerns dominate"},
+          {"label": "Winter 2025-26", "note": "AWS growth reaccelerates on AI workload migration; the narrative turns"},
+          {"label": "Spring 2026", "note": "Margin inflection becomes visible in reported results; stock reaches 284.02"},
+          {"label": "Summer 2026", "note": "Three-month consolidation (-0.8%) as AI capex spending raises free-cash-flow questions"},
+          {"label": "13 Aug 2026", "note": "Closes at 265.13 with a valid VCP base above both major moving averages, RSI 67.7"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "AWS growth deceleration is the single largest downside catalyst — the multiple depends on it",
+          "AI datacenter capital expenditure is heavy and depresses free cash flow",
+          "TradingView's 12 buy / 4 sell split is only moderate confirmation — the weakest among my mega-cap picks",
+          "6.7% below the high; it has not yet proven it can reclaim 284.02",
+          "Retail margins remain thin and exposed to consumer weakness"
+        ],
+        "catalysts": [
+          "AWS growth rate in the next quarterly report",
+          "Advertising revenue growth continuing to outpace retail",
+          "A move back through the 284.02 high resolving the base",
+          "Capital expenditure guidance moderating"
+        ],
+        "watch": [
+          "AWS growth rate — the number that matters most",
+          "The 200-day at 237.52 as the structural line",
+          "Free cash flow conversion against AI capex",
+          "TradingView rates it BUY (12 buy / 4 sell) — moderate confirmation"
+        ],
+        "valuation": "25.5x forward earnings for a business that just grew EPS 242% is inexpensive on its face, but the earnings base is newly inflected and therefore less proven than a stable compounder's. The bull case is that AWS and advertising margins are structural; the bear case is that AI capex consumes the free cash flow the P&L is now generating."
+      }
+    },
+    {
+      "ticker": "MRK", "name": "Merck & Company, Inc.", "signal": "STRONG BUY",
+      "verdict": "The cheapest large-cap pharma making new highs — 14.2x forward earnings with a perfect TradingView reading.",
+      "financials": {
+        "period": "FY2025 (ended December 2025)",
+        "summary": "A year defined by the tension between a dominant present and an uncertain future. Keytruda remained the largest-selling pharmaceutical product globally and continued expanding into earlier lines of therapy and adjuvant settings, driving the bulk of profitability. Revenue growth of 5.1% is modest — this is a mature franchise, not a growth story — but the cash generation is enormous and funds both the dividend and an active business-development programme aimed squarely at the post-Keytruda gap. The animal health business provided steady diversification. Management's central task, well understood by the market, is deploying that cash into assets that replace Keytruda revenue before loss of exclusivity arrives.",
+        "highlights": [
+          "Revenue growth +5.1% year-over-year — mature franchise, not a growth story",
+          "Keytruda remains the world's largest-selling pharmaceutical product",
+          "Continued label expansion into earlier-line and adjuvant settings",
+          "Forward P/E of 14.2x on a ~$334B market capitalisation",
+          "Enormous cash generation funding dividend plus business development",
+          "Animal health provides non-correlated diversification"
+        ]
+      },
+      "accomplishments": [
+        "Closed at a 52-week high of 135.58 after recovering 20.4% in three months",
+        "Recovered from a 75.83 52-week low — a 79% advance across the year",
+        "Earned a perfect TradingView technical rating — 16 buy, 10 neutral, 0 sell",
+        "Expanded Keytruda into additional earlier-line indications",
+        "Executed business development aimed at the post-exclusivity revenue gap"
+      ],
+      "journey_52w": {
+        "summary": "A genuine recovery story. Price fell to 75.83 within the past year as patent-cliff pessimism peaked, then recovered steadily to close the session at a 52-week high of 135.58 — a 79% advance from the low with 20.4% of it coming in the last three months. RSI at 65.0 shows the move to new highs has not become stretched, and price sits well above the 50-day at 124.92.",
+        "milestones": [
+          {"label": "Autumn 2025", "note": "Trades near the 75.83 low as Keytruda patent-cliff fears dominate the narrative"},
+          {"label": "Winter 2025-26", "note": "Business development activity signals a credible pipeline replacement strategy"},
+          {"label": "Spring 2026", "note": "Keytruda label expansions extend the runway; estimates stabilise"},
+          {"label": "Summer 2026", "note": "Healthcare takes rotational leadership; MRK advances 20.4% in three months"},
+          {"label": "13 Aug 2026", "note": "Closes at a 52-week high of 135.58 with RSI 65.0"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "The Keytruda patent cliff is the structural overhang and the reason the multiple is 14.2x rather than 20x",
+          "Revenue growth of only 5.1% — this has been a re-rating, not an earnings story",
+          "Business development execution risk: acquisitions to fill the gap may destroy value",
+          "Buying at a 52-week high offers no cushion",
+          "Pharmaceutical pricing policy remains a persistent political risk"
+        ],
+        "catalysts": [
+          "Follow-through above 135.58",
+          "Pipeline readouts for Keytruda successor assets, particularly subcutaneous formulations",
+          "Business development transactions that credibly address the revenue gap",
+          "Continued rotation into defensive healthcare"
+        ],
+        "watch": [
+          "Pipeline news on Keytruda successors — the entire long-term case",
+          "The 50-day at 124.92 as trend support",
+          "Business development announcements and the prices paid",
+          "TradingView rates it STRONG BUY (16 buy / 0 sell) — no dissenting signal"
+        ],
+        "valuation": "14.2x forward earnings for a $334B pharma at 52-week highs is the cheapest combination in large-cap healthcare. The discount is entirely about Keytruda's exclusivity horizon. If management deploys the cash well, the multiple re-rates; if not, 14.2x will look expensive on the far side of the cliff."
+      }
+    },
+    {
+      "ticker": "SPCX", "name": "SpaceX", "signal": "WATCH",
+      "verdict": "A new listing where the quant signals are structurally meaningless — judge the business, size the position small.",
+      "financials": {
+        "period": "FY2025 (ended December 2025)",
+        "summary": "Two businesses in one listing, with very different characteristics. The launch business has effectively monopoly economics in commercial orbital launch: reusable boosters drove marginal cost per kilogram to a level no competitor has approached, and the manifest is booked out well in advance across commercial, civil and national-security customers. The far more important development is Starlink, which converts a lumpy, contract-driven project business into a recurring consumer and enterprise subscription business with a growing installed base — and increasingly direct-to-cell partnerships with terrestrial carriers. Revenue grew 91.9%. The capital intensity remains extreme: constellation replenishment is a permanent capital expenditure, not a one-time build.",
+        "highlights": [
+          "Revenue growth +91.9% year-over-year",
+          "Reusable launch economics remain unmatched by any competitor",
+          "Starlink converts project revenue into recurring subscription revenue",
+          "Direct-to-cell carrier partnerships extend the addressable market beyond terminals",
+          "Forward P/E of 76.3x on a ~$1.86T implied market capitalisation",
+          "Constellation replenishment is a permanent, ongoing capital requirement"
+        ]
+      },
+      "accomplishments": [
+        "Completed one of the largest public listings on record",
+        "Sustained a launch cadence no competitor has come close to matching",
+        "Scaled Starlink into a material recurring-revenue business",
+        "Established direct-to-cell partnerships with terrestrial mobile carriers",
+        "Delivered 91.9% revenue growth at very substantial scale"
+      ],
+      "journey_52w": {
+        "summary": "Too short a history for a genuine 52-week arc — that is the central analytical fact here. Since listing, the stock has traded between 108.27 and 211.39 and closed at 141.29, some 33.2% below its post-listing high and effectively on its still-forming 50-day at 141.85. The quant score of 45 reflects the absence of 52-week, VCP and relative-strength history rather than any bearish judgment; those signals are blank by construction for a new listing. TradingView does resolve a BUY, but on only 19 signals versus the 26 it uses for seasoned names — treat it as provisional.",
+        "milestones": [
+          {"label": "Listing", "note": "Debuts publicly; initial enthusiasm carries price to the 211.39 high"},
+          {"label": "Post-IPO", "note": "Retreats 33.2% from the high as early enthusiasm normalises and supply arrives"},
+          {"label": "Recent", "note": "Three-month momentum of -12.2% as the stock searches for a base"},
+          {"label": "13 Aug 2026", "note": "Closes at 141.29, effectively on the nascent 50-day at 141.85, RSI 63.1"}
+        ]
+      },
+      "critical": {
+        "risks": [
+          "New listing: no 52-week base, no VCP, no relative-strength history — the 45 score is uninformative, not bearish",
+          "Lock-up expiries represent known future supply overhead",
+          "76.3x forward earnings prices in flawless execution across both businesses",
+          "Constellation replenishment is a permanent capital drain, not a one-time build",
+          "TradingView's BUY rests on only 19 resolved signals versus the usual 26 — thin and provisional",
+          "Key-person concentration risk is unusually high for a company of this scale"
+        ],
+        "catalysts": [
+          "Starlink subscriber disclosures — the metric that will define the valuation",
+          "Direct-to-cell partnership expansion with additional carriers",
+          "Launch cadence records and new national-security contract awards",
+          "Establishing a base above 141.85 that gives the technical signals something to measure"
+        ],
+        "watch": [
+          "Whether 141.85 (the nascent 50-day) holds as support",
+          "Lock-up expiry dates and the supply they release",
+          "Starlink subscriber and ARPU disclosures",
+          "Accumulating enough trading history for the quant signals to become meaningful",
+          "TradingView rates it BUY (9 buy / 5 sell) — provisional on thin data"
+        ],
+        "valuation": "76.3x forward earnings is a growth-company multiple applied to a capital-intensive infrastructure business, which is an uncomfortable combination. The bull case rests entirely on Starlink's subscription economics scaling faster than constellation replenishment consumes capital. That is genuinely unknowable from outside — which is the argument for a small position rather than a conviction one."
+      }
+    }
+  ]
+}
