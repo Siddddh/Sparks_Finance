@@ -1810,8 +1810,13 @@ const MAIL_FROM_EMAIL = 'no-reply@sparksfinance.ai';
 const MAIL_FROM_NAME = 'Sparks Finance';
 const APP_URL = 'https://sparksfinance.ai';
 const MODULE_KEYS = [{ id: 'stocks', label: 'Trading' }, { id: 'loans', label: 'Loans & Notes' }];   // for module-access emails
+// KILL SWITCH — set to true to resume sending. While false, every SendGrid email is suppressed at the
+// single send point below; all the builders/dispatchers/wiring stay intact, nothing actually goes out.
+// (OTP / password-reset uses Resend, not this path, so account access still emails normally.)
+const MAIL_ENABLED = false;
 
 async function sendEmailSendGrid(to, subject, html, key) {
+  if (!MAIL_ENABLED) { logger.info('email suppressed (MAIL_ENABLED=false)', { to: to, subject: subject }); return true; }
   if (!key) { logger.warn('SendGrid key missing; skipping email', { to }); return false; }
   const r = await fetch('https://api.sendgrid.com/v3/mail/send', {
     method: 'POST',
