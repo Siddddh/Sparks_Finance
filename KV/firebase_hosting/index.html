@@ -1083,6 +1083,8 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .dash-section-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
 /* ── Loans & Notes ── */
 .loan-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.loan-check{justify-content:flex-start;gap:9px;cursor:pointer;}
+.loan-check input{width:auto;margin:0;flex:none;}
 .loan-field{background:var(--surface-2);padding:12px 15px;}
 .loan-field-l{font-size:10px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
 .loan-field-v{font-size:14px;color:var(--text);font-weight:600;}
@@ -6901,6 +6903,7 @@ function _fmtBytes(b) { b = +b || 0; if (b < 1024) return b + ' B'; if (b < 1048
 function loanIsActive(l) { return !l.status || l.status === 'active' || l.status === 'defaulted'; }
 function loanOutstanding(l) { if (!l) return 0; if (l.outstanding != null && l.outstanding !== '') return loanNum(l.outstanding); return (l.status === 'closed' || l.status === 'paid_off') ? 0 : loanNum(l.principal); }
 function loanAnnualInterest(l) { return loanNum(l.principal) * loanNum(l.rate) / 100; }
+function loanOutstandingInterest(l) { if (!l) return null; return (l.outstandingInterest != null && l.outstandingInterest !== '') ? loanNum(l.outstandingInterest) : null; }
 function loanTitle(l) { return l.name || ((l.type === 'lent' ? 'Loan to ' : 'Loan from ') + (l.type === 'lent' ? (l.borrower || '—') : (l.lender || '—'))); }
 // Next payment: explicit field, else step startDate forward by the frequency to the next future date.
 function loanNextPayment(l) {
@@ -7066,15 +7069,20 @@ function loanFormModal(l) {
     '<label class="modal-label">Loan / note name or reference</label><input id="loanName" class="modal-input" value="' + v(l.name) + '" placeholder="e.g. Acme promissory note #2024-1"/>' +
     '<label class="modal-label">Type</label><select id="loanType" class="modal-input">' + _opt([['borrowed', 'Borrowed (I owe)'], ['lent', 'Lent (owed to me)']], l.type || 'borrowed') + '</select>' +
     '<label class="modal-label">Borrower name</label><input id="loanBorrower" class="modal-input" value="' + v(l.borrower) + '" placeholder="Borrower&#39;s full name or entity"/>' +
+    '<label class="modal-label">Borrower email</label><input id="loanBorrowerEmail" class="modal-input" type="email" value="' + v(l.borrowerEmail) + '" placeholder="borrower@example.com"/>' +
     '<label class="modal-label">Lender name</label><input id="loanLender" class="modal-input" value="' + v(l.lender) + '" placeholder="Lender&#39;s full name or entity"/>' +
+    '<label class="modal-label">Lender email</label><input id="loanLenderEmail" class="modal-input" type="email" value="' + v(l.lenderEmail) + '" placeholder="lender@example.com"/>' +
     '<label class="modal-label">Principal amount ($)</label><input id="loanPrincipal" class="modal-input" type="text" inputmode="decimal" data-ccy value="' + escHtml(ccyDisplay(l.principal)) + '" placeholder="$25,000.00"/>' +
-    '<label class="modal-label">Interest rate (% annual)</label><input id="loanRate" class="modal-input" type="number" step="0.01" min="0" value="' + v(l.rate) + '" placeholder="e.g. 6.5"/>' +
-    '<label class="modal-label">Current outstanding balance ($) <span class="modal-price-hint">defaults to principal</span></label><input id="loanOutstanding" class="modal-input" type="text" inputmode="decimal" data-ccy value="' + escHtml(ccyDisplay(l.outstanding)) + '" placeholder="$20,000.00"/>' +
+    '<label class="modal-label">Interest rate (% annual)</label><input id="loanRate" class="modal-input" type="number" step="0.01" min="0" value="' + v(l.rate) + '" placeholder="e.g. 6.5" oninput="_loanOiHint()"/>' +
+    '<label class="modal-label">Current outstanding balance ($) <span class="modal-price-hint">defaults to principal</span></label><input id="loanOutstanding" class="modal-input" type="text" inputmode="decimal" data-ccy value="' + escHtml(ccyDisplay(l.outstanding)) + '" placeholder="$20,000.00" oninput="_loanOiHint()"/>' +
+    '<label class="modal-label">Outstanding interest ($) <span class="modal-price-hint">unpaid interest accrued so far <span id="loanOiHint"></span></span></label><input id="loanOutstandingInterest" class="modal-input" type="text" inputmode="decimal" data-ccy value="' + escHtml(ccyDisplay(l.outstandingInterest)) + '" placeholder="$0.00"/>' +
+    '<label class="modal-label loan-check"><input id="loanCapitalize" type="checkbox"' + (l.capitalizeAnnually ? ' checked' : '') + '/> <span>Add unpaid interest to principal at year-end (compounds annually)</span></label>' +
     '<label class="modal-label">Loan start date</label><input id="loanStart" class="modal-input" type="date" value="' + v(l.startDate || todayStr()) + '" onchange="syncLoanNextPay()"/>' +
     '<label class="modal-label">Maturity date</label><input id="loanMaturity" class="modal-input" type="date" value="' + v(l.maturityDate) + '"/>' +
     '<label class="modal-label">Payment frequency</label><select id="loanFreq" class="modal-input" onchange="syncLoanNextPay()">' + _opt(LOAN_FREQS, l.paymentFreq || 'monthly') + '</select>' +
     '<label class="modal-label">Next payment date <span class="modal-price-hint">auto-set from the frequency — edit if needed</span></label><input id="loanNextPay" class="modal-input" type="date" value="' + v(l.nextPaymentDate) + '" oninput="_loanNextPayEdited(this)"/>' +
     '<label class="modal-label">Status</label><select id="loanStatus" class="modal-input">' + _opt(LOAN_STATUSES, l.status || 'active') + '</select>' +
+    '<label class="modal-label">Agreement document link <span class="modal-price-hint">Google Drive or other URL</span></label><input id="loanDriveLink" class="modal-input" type="url" value="' + v(l.driveLink) + '" placeholder="https://drive.google.com/…"/>' +
     '<label class="modal-label">Notes &amp; comments</label>' + _richEditorHtml('loanNotes', l.notes, 'Terms, collateral, context…', l.notesFormat === 'html') +
     '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitLoan(' + (l.id ? '\'' + l.id + '\'' : 'null') + ')">' + (l.id ? 'Save' : 'Create') + '</button></div>';
 }
@@ -7085,8 +7093,12 @@ function submitLoan(id) {
   const fields = {
     name: g('loanName').trim(), type: g('loanType') || 'borrowed',
     borrower: g('loanBorrower').trim(), lender: g('loanLender').trim(),
+    borrowerEmail: g('loanBorrowerEmail').trim(), lenderEmail: g('loanLenderEmail').trim(),
+    driveLink: g('loanDriveLink').trim(),
     principal, rate: loanNum(g('loanRate')),
     outstanding: g('loanOutstanding').trim() === '' ? null : ccyNum(g('loanOutstanding')),
+    outstandingInterest: g('loanOutstandingInterest').trim() === '' ? null : ccyNum(g('loanOutstandingInterest')),
+    capitalizeAnnually: !!(document.getElementById('loanCapitalize') && document.getElementById('loanCapitalize').checked),
     startDate: g('loanStart') || null, maturityDate: g('loanMaturity') || null,
     paymentFreq: g('loanFreq') || 'monthly', nextPaymentDate: g('loanNextPay') || null,
     status: g('loanStatus') || 'active', notes: _richValue('loanNotes'), notesFormat: 'html'
@@ -7096,6 +7108,26 @@ function submitLoan(id) {
   closeModal();
 }
 function editLoan(id) { if (!permGuard('loans', 'write')) return; _loanEditId = id; openModal('editLoan'); }
+// Live reference under the Outstanding-interest input: shows the annual figure at the current rate/balance.
+function _loanOiHint() {
+  const el = document.getElementById('loanOiHint'); if (!el) return;
+  const rate = loanNum((document.getElementById('loanRate') || {}).value);
+  const base = ccyNum((document.getElementById('loanOutstanding') || {}).value) || (ccyParse((document.getElementById('loanPrincipal') || {}).value) || 0);
+  el.textContent = (rate > 0 && base > 0) ? ('· ≈ ' + dollarFmt(base * rate / 100) + '/yr at this rate') : '';
+}
+// Year-end capitalization: fold the current outstanding interest into the principal (and balance owed),
+// reset outstanding interest to 0, and log the event. Interest thereafter accrues on the larger base.
+function capitalizeLoanInterest(id) {
+  if (!permGuard('loans', 'write')) return;
+  const l = loans.find(x => x.id === id); if (!l) return;
+  const oi = loanOutstandingInterest(l);
+  if (!(oi > 0)) { try { pmToast('No outstanding interest to capitalize.'); } catch (e) {} return; }
+  const P = loanNum(l.principal), newP = P + oi;
+  const newOut = (l.outstanding != null && l.outstanding !== '') ? (loanNum(l.outstanding) + oi) : null;
+  if (!confirm('Capitalize ' + dollarFmt(oi) + ' of outstanding interest into the principal?\n\nPrincipal ' + dollarFmt(P) + ' → ' + dollarFmt(newP) + '\nOutstanding interest resets to $0.\nFuture interest is calculated on the higher balance.')) return;
+  updateLoan(id, { principal: newP, outstanding: newOut, outstandingInterest: 0, capitalizations: firebase.firestore.FieldValue.arrayUnion({ date: todayStr(), amount: oi, principalAfter: newP }) })
+    .then(() => { try { pmToast('Interest capitalized into principal.'); } catch (e) {} });
+}
 
 // ── Records list + filter ──
 function setLoanFilter(k) { _loanFilter = k; renderLoans(); }
@@ -7130,14 +7162,16 @@ function renderLoans() {
       '<td>' + dollarFmt(loanNum(l.principal)) + '</td>' +
       '<td>' + (loanNum(l.rate) ? loanNum(l.rate).toFixed(2) + '%' : '—') + '</td>' +
       '<td>' + dollarFmt(out) + '</td>' +
+      '<td>' + (loanOutstandingInterest(l) != null ? dollarFmt(loanOutstandingInterest(l)) : '<span class="ht-sub">—</span>') + '</td>' +
       '<td>' + npCell + '</td>' +
       '<td>' + mCell + '</td>' +
+      '<td>' + (l.driveLink ? '<a class="loan-doc-name" href="' + escHtml(l.driveLink) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">Agreement ↗</a>' : '<span class="ht-sub">—</span>') + '</td>' +
       '<td>' + loanStatusBadge(l.status) + '</td>' +
       '<td style="white-space:nowrap" onclick="event.stopPropagation()"><button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="openLoan(\'' + l.id + '\')">View</button> <button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="editLoan(\'' + l.id + '\')">Edit</button> <button class="pf-btn pf-btn-danger" title="Delete" onclick="deleteLoan(\'' + l.id + '\')">' + ic('x', 16) + '</button></td>' +
       '</tr>';
   }).join('');
   el.innerHTML = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr>' +
-    '<th class="ht-sym">Loan / Note</th><th>Type</th><th>Principal</th><th>Rate</th><th>Outstanding</th><th>Next payment</th><th>Maturity</th><th>Status</th><th></th>' +
+    '<th class="ht-sym">Loan / Note</th><th>Type</th><th>Principal</th><th>Rate</th><th>Outstanding</th><th>Outstanding interest</th><th>Next payment</th><th>Maturity</th><th>Document</th><th>Status</th><th></th>' +
     '</tr></thead><tbody>' + rows + '</tbody></table></div>';
 }
 function openLoan(id) { _loanId = id; _loanView = 'detail'; sw('loans'); renderLoans(); }
@@ -7153,14 +7187,20 @@ function renderLoanDetail(id) {
     '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">' +
     '<div style="flex:1 1 auto;min-width:0"><div class="rec-head-tkr">' + escHtml(loanTitle(l)) + '</div><div class="rec-head-name">' + loanTypeBadge(l.type) + ' ' + loanStatusBadge(l.status) + '</div></div>' +
     '<button class="pf-btn pf-btn-outline" onclick="editLoan(\'' + l.id + '\')">Edit</button>' +
+    (loanOutstandingInterest(l) > 0 ? '<button class="pf-btn pf-btn-outline" onclick="capitalizeLoanInterest(\'' + l.id + '\')" title="Add outstanding interest to the principal (year-end capitalization)">Capitalize</button>' : '') +
     '<button class="pf-btn pf-btn-danger" title="Delete" onclick="deleteLoan(\'' + l.id + '\')">' + ic('x', 16) + '</button></div></div>';
   const grid = '<div class="loan-fields">' +
     field('Borrower', escHtml(l.borrower || '—')) +
+    field('Borrower email', l.borrowerEmail ? '<a class="loan-doc-name" href="mailto:' + escHtml(l.borrowerEmail) + '">' + escHtml(l.borrowerEmail) + '</a>' : '—') +
     field('Lender', escHtml(l.lender || '—')) +
+    field('Lender email', l.lenderEmail ? '<a class="loan-doc-name" href="mailto:' + escHtml(l.lenderEmail) + '">' + escHtml(l.lenderEmail) + '</a>' : '—') +
     field('Principal', dollarFmt(loanNum(l.principal))) +
     field('Interest rate', loanNum(l.rate) ? loanNum(l.rate).toFixed(2) + '% /yr' : '—') +
     field('Outstanding balance', dollarFmt(out)) +
+    field('Outstanding interest', loanOutstandingInterest(l) != null ? dollarFmt(loanOutstandingInterest(l)) : '—') +
     field('Annual interest', (l.type === 'lent' ? 'Income ' : 'Expense ') + dollarFmt(ann)) +
+    field('Interest capitalization', l.capitalizeAnnually ? ('Capitalized annually' + ((l.capitalizations && l.capitalizations.length) ? ' <span class="ht-sub">(last ' + escHtml(fmtDate(l.capitalizations[l.capitalizations.length - 1].date)) + ')</span>' : '')) : 'Not capitalized') +
+    field('Agreement document', l.driveLink ? '<a class="loan-doc-name" href="' + escHtml(l.driveLink) + '" target="_blank" rel="noopener">Open link ↗</a>' : '—') +
     field('Start date', fmtDate(l.startDate)) +
     field('Maturity date', l.maturityDate ? fmtDate(l.maturityDate) + (dm != null ? ' <span class="ht-sub">(' + (dm < 0 ? Math.abs(dm) + 'd ago' : 'in ' + dm + 'd') + ')</span>' : '') : '—') +
     field('Payment frequency', escHtml((LOAN_FREQS.find(f => f[0] === l.paymentFreq) || [, '—'])[1])) +
@@ -7169,7 +7209,8 @@ function renderLoanDetail(id) {
     '</div>';
   const notesHtml = l.notes ? (l.notesFormat === 'html' ? _sanitizeRich(String(l.notes)) : escHtml(String(l.notes)).replace(/\n/g, '<br>')) : '';
   const notes = notesHtml ? '<div class="loan-notes"><div class="loan-field-l">Notes &amp; comments</div><div class="loan-notes-body">' + notesHtml + '</div></div>' : '';
-  el.innerHTML = head + grid + notes + _loanDocsHtml(l) + '<div class="rng-advice-note">Interest figures are annualized estimates (principal × rate) — informational only, not financial advice.</div>';
+  const capHist = (l.capitalizations && l.capitalizations.length) ? '<div class="loan-notes"><div class="loan-field-l">Capitalization history</div><div class="loan-notes-body">' + l.capitalizations.slice().reverse().map(c => escHtml(fmtDate(c.date)) + ': +' + dollarFmt(loanNum(c.amount)) + ' → principal ' + dollarFmt(loanNum(c.principalAfter))).join('<br>') + '</div></div>' : '';
+  el.innerHTML = head + grid + capHist + notes + _loanDocsHtml(l) + '<div class="rng-advice-note">Interest figures are annualized estimates (principal × rate) — informational only, not financial advice.</div>';
 }
 
 // ── Documents (Firebase Storage) ──
@@ -7257,6 +7298,7 @@ function renderLoansDash() {
     '</div>';
   const mini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
     _dashMini('Outstanding balance', dollarFmt(outstanding), '') +
+    _dashMini('Outstanding interest', dollarFmt(loans.reduce((s, l) => s + (loanIsActive(l) ? (loanOutstandingInterest(l) || 0) : 0), 0)), '') +
     _dashMini('Net position', (net >= 0 ? '+' : '-') + dollarFmt(Math.abs(net)), net >= 0 ? 'gain' : 'loss') +
     _dashMini('Annual interest income', dollarFmt(intIncome), 'gain') +
     _dashMini('Annual interest expense', dollarFmt(intExpense), 'loss') +
@@ -7342,7 +7384,7 @@ function openModal(type) {
   } else if (type === 'newLoan' || type === 'editLoan') {
     const l = (type === 'editLoan') ? (loans.find(x => x.id === _loanEditId) || null) : null;
     box.innerHTML = loanFormModal(l);
-    setTimeout(() => { syncLoanNextPay(); const i = document.getElementById('loanName'); if (i) i.focus(); }, 0);
+    setTimeout(() => { syncLoanNextPay(); _loanOiHint(); const i = document.getElementById('loanName'); if (i) i.focus(); }, 0);
   } else if (type === 'newPf') {
     box.innerHTML = '<div class="modal-title">New portfolio</div><label class="modal-label">Portfolio name</label><input id="newPfName" class="modal-input" placeholder="e.g. Growth Portfolio"/><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="createPortfolio(document.getElementById(\'newPfName\').value);closeModal()">Create</button></div>';
   } else if (type === 'addHolding') {
