@@ -1,0 +1,42 @@
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DRAM"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: DRAM"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QLD"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: QLD"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SSO"}}}
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"No fundamentals data found for symbol: SSO"}}}
+Re-fetching 32 missing held tickers: ['ALAB', 'AMKR', 'APLD', 'APP', 'COCO', 'COIN', 'DELL', 'DIOD', 'DOCN', 'DRAM', 'FLEX', 'HOOD', 'ICHR', 'IREN', 'LQDA', 'LUNR', 'LUV', 'MXL', 'PLTR', 'PRTH', 'QBTS', 'QLD', 'RBRK', 'RGTI', 'RKLB', 'SNDK', 'SNOW', 'SPCX', 'SSO', 'SWBI', 'TSM', 'VRT']
+  ok  ALAB: 52 WEAK px=321.61
+  ok  AMKR: 61 WATCH px=58.99
+  ok  APLD: 71 WATCH px=31.2
+  ok  APP: 29 WEAK px=315.44
+  ok  COCO: 47 WEAK px=65.21
+  ok  COIN: 44 WEAK px=148.47
+  ok  DELL: 92 STRONG BUY px=490.81
+  ok  DIOD: 91 STRONG BUY px=103.48
+  ok  DOCN: 64 WATCH px=129.92
+  ok  DRAM: 44 WEAK px=57.32
+  ok  FLEX: 86 STRONG BUY px=126.16
+  ok  HOOD: 35 WEAK px=95.56
+  ok  ICHR: 31 WEAK px=71.05
+  ok  IREN: 59 WATCH px=44.06
+  ok  LQDA: 53 WEAK px=74.44
+  ok  LUNR: 71 WATCH px=19.01
+  ok  LUV: 67 WATCH px=44.26
+  ok  MXL: 88 STRONG BUY px=84.84
+  ok  PLTR: 80 STRONG BUY px=174.04
+  ok  PRTH: 22 WEAK px=5.49
+  ok  QBTS: 47 WEAK px=21.17
+  ok  QLD: 90 STRONG BUY px=94.15
+  ok  RBRK: 77 STRONG BUY px=102.23
+  ok  RGTI: 47 WEAK px=18.82
+  ok  RKLB: 46 WEAK px=80.25
+  ok  SNDK: 53 WEAK px=1641.11
+  ok  SNOW: 87 STRONG BUY px=328.92
+  ok  SPCX: 44 WEAK px=140.0
+  ok  SSO: 90 STRONG BUY px=72.2
+  ok  SWBI: 61 WATCH px=14.33
+  ok  TSM: 86 STRONG BUY px=426.35
+  ok  VRT: 86 STRONG BUY px=293.84
+
+Patched 32 rows -> combined_results.json (now 451 stocks)
+Still missing: []
