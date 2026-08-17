@@ -1233,15 +1233,22 @@ async function runLoanReminders(sgKey) {
       const np = _loanNextPay(l, date), dp = _dUntil(np, date);
       if (dp != null && dp <= 5 && dp >= -14) {   // stop pushing after ~2 weeks overdue (still shown in-app)
         const overdue = dp < 0;
+        const pa = (l.paymentAmount != null && l.paymentAmount !== '' && !isNaN(Number(l.paymentAmount))) ? Number(l.paymentAmount) : 0;
+        const payStr = pa > 0 ? ' Payment: $' + Math.round(pa).toLocaleString('en-US') + '.' : '';
         // Title matches the client-derived reminder so the feed collapses the two into one.
         events.push({ dedupSuffix: 'pay:' + d.id + ':' + np, rkey: 'loan:' + d.id + ':pay:' + np,
           title: (overdue ? 'OVERDUE payment — ' : 'Payment due soon — ') + title0,
-          body: (overdue ? 'A payment on this note was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'A payment on this note is due today' : 'A payment on this note is due in ' + dp + ' day(s)')) + '.' });
+          body: (overdue ? 'A payment on this note was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'A payment on this note is due today' : 'A payment on this note is due in ' + dp + ' day(s)')) + '.' + payStr });
       }
       const dm = _dUntil(l.maturityDate, date);
       if (dm != null && dm >= 0 && dm <= 7) {
         events.push({ dedupSuffix: 'mat:' + d.id + ':' + l.maturityDate, rkey: 'loan:' + d.id + ':mat:' + l.maturityDate,
           title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + l.maturityDate + '.' });
+      }
+      // Missing-documents nudge: an active loan with no agreement link and no uploaded documents.
+      if (!l.driveLink && !((l.documents || []).length)) {
+        events.push({ dedupSuffix: 'missdoc:' + d.id, rkey: 'loan:' + d.id + ':missdoc',
+          title: 'Missing documents — ' + title0, body: 'No agreement link or uploaded documents on this active loan. Add the loan agreement for your records.' });
       }
       if (!events.length) continue;
 
@@ -1298,6 +1305,7 @@ async function _digestRecipients(db) {
   return out;
 }
 async function runNewsDigest(finnhubKey, sgKey) {
+  if (!TRADING_EMAILS_ENABLED) return { sent: 0, skipped: 'trading_emails_off' };
   const db = admin.firestore();
   let rows = [];
   try { rows = (await finnhubGet('/news', { category: 'general' }, finnhubKey)) || []; } catch (e) {}
@@ -1310,6 +1318,7 @@ async function runNewsDigest(finnhubKey, sgKey) {
   logger.info('News digest sent', { sent }); return { sent };
 }
 async function runTopPicksDigest(sgKey) {
+  if (!TRADING_EMAILS_ENABLED) return { sent: 0, skipped: 'trading_emails_off' };
   const db = admin.firestore();
   let picks = [];
   try {
@@ -1813,7 +1822,11 @@ const MODULE_KEYS = [{ id: 'stocks', label: 'Trading' }, { id: 'loans', label: '
 // KILL SWITCH — set to true to resume sending. While false, every SendGrid email is suppressed at the
 // single send point below; all the builders/dispatchers/wiring stay intact, nothing actually goes out.
 // (OTP / password-reset uses Resend, not this path, so account access still emails normally.)
-const MAIL_ENABLED = false;
+const MAIL_ENABLED = true;
+// Pause ONLY the Trading-module emails (pre-market brief, market-news digest, top-picks digest) while
+// keeping account/org/invite and Loans-module mail. Flip to true to resume trading emails.
+const TRADING_EMAILS_ENABLED = false;
+const _TRADING_CATS = { premarket: 1, news: 1, topPicks: 1, alerts: 1, watchlist: 1, macro: 1, earnings: 1 };
 
 async function sendEmailSendGrid(to, subject, html, key) {
   if (!MAIL_ENABLED) { logger.info('email suppressed (MAIL_ENABLED=false)', { to: to, subject: subject }); return true; }
@@ -1941,6 +1954,7 @@ async function mailUser(db, uid, category, built, key) {
     try { const u = await db.collection('users').doc(uid).get(); if (u.exists) { email = u.get('email') || null; prefs = u.get('emailPrefs') || {}; } } catch (e) {}
     if (!email) { try { email = (await admin.auth().getUser(uid)).email || null; } catch (e) {} }
     if (!email) return false;
+    if (!TRADING_EMAILS_ENABLED && _TRADING_CATS[category]) { logger.info('trading email muted', { uid: uid, category: category }); return false; }
     if (category !== 'account' && prefs[category] === false) return false;
     await sendEmailSendGrid(email, built.subject, built.html, key);
     return true;
@@ -2323,8 +2337,11 @@ exports.orgInvite = onRequest({ region: 'us-central1', cors: true, secrets: [SEN
     if (dupe) { await dupe.ref.set(inv, { merge: true }); inviteId = dupe.id; }
     else { const ref = await db.collection('invites').add(inv); inviteId = ref.id; }
     // Send BEFORE responding — gen-2/Cloud Run throttles CPU after res flushes, orphaning a post-response await.
-    await mailTo(email, mailInvite({ orgName, role, inviterEmail: inv.invitedByEmail }), SENDGRID_API_KEY.value());
-    res.json({ ok: true, inviteId, updated: !!dupe });
+    // `emailed` reflects whether SendGrid actually accepted the message (mailTo swallows failures + returns false),
+    // so the client can tell the admin the truth instead of a blind "sent". `MAIL_ENABLED &&` forces it false when
+    // mail is globally suppressed (sendEmailSendGrid returns true in that mode) — a suppressed send is NOT a delivery.
+    const emailed = MAIL_ENABLED && await mailTo(email, mailInvite({ orgName, role, inviterEmail: inv.invitedByEmail }), SENDGRID_API_KEY.value());
+    res.json({ ok: true, inviteId, updated: !!dupe, emailed });
   } catch (e) { logger.error('orgInvite failed', { error: String(e) }); res.status(500).json({ error: 'invite_failed' }); }
 });
 
@@ -2387,6 +2404,17 @@ exports.acceptInvite = onRequest({ region: 'us-central1', cors: true, secrets: [
       await mailTo(email, mailAccountAction({ title: 'You joined ' + (coNm || orgNm || 'a workspace'), message: 'You now have access to ' + (coNm || orgNm) + ' on Sparks Finance as ' + coRole + '.' }), SENDGRID_API_KEY.value());
       res.json({ ok: true, orgId: iv.orgId, companyId: iv.companyId, name: orgNm });
       return;
+    }
+    // Org-admin invite → grant org-admin (no company membership). Only platform owners can create these,
+    // so confer only if the inviter is still a platform owner (defense in depth).
+    if (iv.orgAdmin === true) {
+      if (!OWNER_EMAILS.includes((iv.invitedByEmail || '').toLowerCase())) { res.status(403).json({ error: 'forbidden' }); return; }
+      const orgNm2 = (await _orgName(iv.orgId)) || iv.orgName || '';
+      await db.doc('organizations/' + iv.orgId + '/orgAdmins/' + tok.uid).set({ email, role: 'org_admin', addedBy: iv.invitedBy || null, addedAt: Date.now() }, { merge: true });
+      await db.collection('users').doc(tok.uid).set({ email, orgs: { [iv.orgId]: { name: orgNm2, orgAdmin: true } } }, { merge: true });
+      await invRef.set({ status: 'accepted', acceptedAt: Date.now(), acceptedUid: tok.uid, grantedRole: 'org_admin' }, { merge: true });
+      await mailTo(email, mailAccountAction({ title: 'You’re now an Organization Administrator', message: 'You now have Organization Administrator access for ' + orgNm2 + ' on Sparks Finance.' }), SENDGRID_API_KEY.value());
+      res.json({ ok: true, orgId: iv.orgId, name: orgNm2, orgAdmin: true }); return;
     }
     // Authority freshness: only confer owner/admin if the inviter is STILL an owner (or platform owner).
     // Otherwise downgrade to member — a since-demoted/removed inviter can't pre-provision privilege.
@@ -2643,14 +2671,28 @@ exports.assignOrgAdmin = onRequest({ region: 'us-central1', cors: true, secrets:
     const orgId = String((req.body && req.body.orgId) || '');
     const email = String((req.body && req.body.email) || '').trim().toLowerCase();
     if (!orgId || !email) { res.status(400).json({ error: 'bad_request' }); return; }
-    const uid = await _uidByEmail(email);
-    if (!uid) { res.status(404).json({ error: 'user_not_found' }); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { res.status(400).json({ error: 'invalid_email' }); return; }
+    // Platform owners already have full access everywhere; assigning them org-admin is redundant.
+    if (isOwnerEmail(email)) { res.status(400).json({ error: 'owner_is_platform_admin' }); return; }
     const db = admin.firestore();
     const orgName = await _orgName(orgId);
-    await db.doc('organizations/' + orgId + '/orgAdmins/' + uid).set({ email, role: 'org_admin', addedBy: tok.uid, addedAt: Date.now() }, { merge: true });
-    await db.collection('users').doc(uid).set({ email, orgs: { [orgId]: { name: orgName, orgAdmin: true } } }, { merge: true });
-    await mailUser(db, uid, 'account', mailAccountAction({ title: 'You’re now an Organization Administrator', message: 'You have been granted Organization Administrator access for ' + orgName + ' on Sparks Finance. You can now manage every company in this organization.' }), SENDGRID_API_KEY.value());
-    res.json({ ok: true, uid });
+    const uid = await _uidByEmail(email);
+    if (uid) {
+      // Existing Sparks user → grant org-admin immediately.
+      await db.doc('organizations/' + orgId + '/orgAdmins/' + uid).set({ email, role: 'org_admin', addedBy: tok.uid, addedAt: Date.now() }, { merge: true });
+      await db.collection('users').doc(uid).set({ email, orgs: { [orgId]: { name: orgName, orgAdmin: true } } }, { merge: true });
+      const emailed = MAIL_ENABLED && await mailUser(db, uid, 'account', mailAccountAction({ title: 'You’re now an Organization Administrator', message: 'You have been granted Organization Administrator access for ' + orgName + ' on Sparks Finance. You can now manage every company in this organization.' }), SENDGRID_API_KEY.value());
+      res.json({ ok: true, uid, assigned: true, emailed }); return;
+    }
+    // Not registered yet → create a pending org-admin invite + email it; they become an org admin on accept.
+    const inv = { orgId, emailLower: email, orgAdmin: true, role: 'org_admin', status: 'pending', invitedBy: tok.uid, invitedByEmail: (tok.email || '').toLowerCase(), orgName, createdAt: Date.now(), expiresAt: Date.now() + 30 * 864e5 };
+    const existing = await db.collection('invites').where('emailLower', '==', email).get();
+    const dupe = existing.docs.find(d => { const v = d.data(); return v.orgId === orgId && v.orgAdmin === true && v.status === 'pending'; });
+    let inviteId;
+    if (dupe) { await dupe.ref.set(inv, { merge: true }); inviteId = dupe.id; }
+    else { const ref = await db.collection('invites').add(inv); inviteId = ref.id; }
+    const emailed = MAIL_ENABLED && await mailTo(email, mailInvite({ orgName, role: 'organization admin', inviterEmail: inv.invitedByEmail }), SENDGRID_API_KEY.value());
+    res.json({ ok: true, invited: true, inviteId, emailed });
   } catch (e) { logger.error('assignOrgAdmin failed', { error: String(e) }); res.status(500).json({ error: 'assign_failed' }); }
 });
 exports.removeOrgAdmin = onRequest({ region: 'us-central1', cors: true, secrets: [SENDGRID_API_KEY] }, async (req, res) => {
@@ -2717,7 +2759,9 @@ exports.orgListCompanies = onRequest({ region: 'us-central1', cors: true }, asyn
       companies.push({ companyId: d.id, name: c.name || '', active: c.active !== false, modules: c.modules || { stocks: true, loans: true }, memberCount, createdAt: c.createdAt || null });
     }
     const orgAdmins = (await db.collection('organizations').doc(orgId).collection('orgAdmins').get()).docs.map(d => ({ uid: d.id, ...d.data() }));
-    res.json({ ok: true, companies, orgAdmins });
+    let orgAdminInvites = [];
+    try { const invSnap = await db.collection('invites').where('orgId', '==', orgId).get(); orgAdminInvites = invSnap.docs.map(d => ({ inviteId: d.id, ...d.data() })).filter(v => v.orgAdmin === true && v.status === 'pending').map(v => ({ inviteId: v.inviteId, email: v.emailLower })); } catch (e) {}
+    res.json({ ok: true, companies, orgAdmins, orgAdminInvites });
   } catch (e) { logger.error('orgListCompanies failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
 });
 
@@ -2766,9 +2810,32 @@ exports.companyInvite = onRequest({ region: 'us-central1', cors: true, secrets: 
     let inviteId;
     if (dupe) { await dupe.ref.set(inv, { merge: true }); inviteId = dupe.id; }
     else { const ref = await db.collection('invites').add(inv); inviteId = ref.id; }
-    await mailTo(email, mailInvite({ orgName, companyName, role, inviterEmail: inv.invitedByEmail }), SENDGRID_API_KEY.value());
-    res.json({ ok: true, inviteId, updated: !!dupe });
+    const emailed = MAIL_ENABLED && await mailTo(email, mailInvite({ orgName, companyName, role, inviterEmail: inv.invitedByEmail }), SENDGRID_API_KEY.value());
+    res.json({ ok: true, inviteId, updated: !!dupe, emailed });
   } catch (e) { logger.error('companyInvite failed', { error: String(e) }); res.status(500).json({ error: 'invite_failed' }); }
+});
+// Revoke a pending invitation. Authority mirrors the create side, decided by the invite's own shape:
+// company invite → a company admin; org-admin invite → a platform owner; plain org invite → an org admin.
+// Marks status:'revoked' (non-destructive; drops out of every pending list, which all filter status==='pending').
+exports.cancelInvite = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const tok = await verifyAuthed(req);
+  if (!tok) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const inviteId = String((req.body && req.body.inviteId) || '');
+    if (!inviteId) { res.status(400).json({ error: 'bad_request' }); return; }
+    const db = admin.firestore();
+    const ref = db.collection('invites').doc(inviteId);
+    const snap = await ref.get();
+    if (!snap.exists) { res.json({ ok: true, alreadyGone: true }); return; }
+    const iv = snap.data() || {};
+    let authorized = false;
+    if (iv.companyId) authorized = !!(await verifyCompanyRole(req, iv.orgId, iv.companyId, 'admin'));
+    else if (iv.orgAdmin === true) authorized = isPlatformOwner(tok);
+    else authorized = !!(await verifyOrgRole(req, iv.orgId, 'admin'));
+    if (!authorized) { res.status(403).json({ error: 'forbidden' }); return; }
+    if (iv.status === 'pending') await ref.set({ status: 'revoked', revokedBy: tok.uid, revokedAt: Date.now() }, { merge: true });
+    res.json({ ok: true });
+  } catch (e) { logger.error('cancelInvite failed', { error: String(e) }); res.status(500).json({ error: 'cancel_failed' }); }
 });
 exports.companyUpdateMember = onRequest({ region: 'us-central1', cors: true, secrets: [SENDGRID_API_KEY] }, async (req, res) => {
   const orgId = String((req.body && req.body.orgId) || ''), companyId = String((req.body && req.body.companyId) || '');
