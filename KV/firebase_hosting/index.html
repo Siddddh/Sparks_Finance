@@ -2127,7 +2127,7 @@ function renderMembersTable() {
     let actions = '';
     if (_orgCanManage) {
       actions += '<button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="editMember(\'' + u.uid + '\')">Edit</button> ';
-      if (u.uid !== UID) actions += '<button class="pf-btn pf-btn-danger" title="Remove member" onclick="removeMember(\'' + u.uid + '\',\'' + escHtml(u.email || '') + '\')">' + ic('x', 16) + '</button>';
+      if (u.uid !== UID) actions += '<button class="pf-btn pf-btn-danger" title="Remove member" onclick="removeMember(\'' + u.uid + '\')">' + ic('x', 16) + '</button>';
     }
     return '<tr><td class="ht-sym"><div><div class="holding-ticker">' + escHtml(u.email || u.uid) + (u.uid === UID ? ' <span class="ht-sub">(you)</span>' : '') + '</div></div></td><td>' + orgRoleBadge(u.role) + '</td>' + permCells + '<td style="white-space:nowrap">' + actions + '</td></tr>';
   }).join('');
@@ -2138,10 +2138,11 @@ function renderMembersTable() {
   el.innerHTML = personalNote + '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Member</th><th>Role</th>' + modCols + '<th></th></tr></thead><tbody>' + rows + invRows + '</tbody></table></div>';
 }
 function editMember(uid) { _memberEditUid = uid; openModal('editMember'); }
-async function removeMember(uid, email) {
+async function removeMember(uid) {
+  const m = _orgMembers.find(x => x.uid === uid); const email = m ? (m.email || '') : '';
   if (!confirm('Remove ' + (email || 'this member') + ' from the company?')) return;
   try { await _adminCall('companyRemoveMember', { orgId: ACTIVE_ORG, companyId: ACTIVE_COMPANY, uid }); try { pmToast('Member removed'); } catch (e) {} renderOrgMembers(); }
-  catch (e) { try { pmToast({ last_admin: "You can't remove the last admin.", forbidden: 'You do not have permission.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {} }
+  catch (e) { const code = String(e && e.message); const MSG = { last_admin: "You can't remove the last admin.", forbidden: 'You do not have permission.', not_member: 'That member is no longer in this company.' }; try { pmToast(MSG[code] || 'Something went wrong. Please try again.'); } catch (_) {} if (code === 'not_member') { try { renderOrgMembers(); } catch (_) {} } }
 }
 function memberFormModal(kind) {
   const isEdit = kind === 'edit';
@@ -2179,7 +2180,10 @@ async function submitMember(kind) {
     }
   } catch (e) {
     authBusy(btn, false);
-    try { pmToast({ already_member: 'That person is already a member.', last_admin: "You can't demote the last admin.", forbidden: 'You do not have permission.', personal_locked: 'Members of a personal workspace can only be added by a platform administrator.', owner_is_platform_admin: 'Super-admins already have full access to every workspace — they can’t be added as a member.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {}
+    const code = String(e && e.message);
+    const MSG = { already_member: 'That person is already a member.', last_admin: "You can't demote the last admin.", forbidden: 'You do not have permission.', personal_locked: 'Members of a personal workspace can only be added by a platform administrator.', owner_is_platform_admin: 'Super-admins already have full access to every workspace — they can’t be added as a member.', not_member: 'That member is no longer in this company — the list has been refreshed.' };
+    try { pmToast(MSG[code] || 'Something went wrong. Please try again.'); } catch (_) {}
+    if (code === 'not_member') { try { closeModal(); renderOrgMembers(); } catch (_) {} }
   }
 }
 // Professional confirmation popup shown after an invite is created. It states who was invited, their role,
@@ -3457,6 +3461,7 @@ async function renderOrgLevel() {
       const info = _myOrgs[id] || {};
       if (info.personal) return;
       const cos = info.companies || {};
+      if (!info.orgAdmin && !Object.keys(cos).length) return;   // phantom org left in the users mirror after removal from its last company — don't show a "0 companies" card
       orgs.push({ orgId: id, name: info.name || 'Organization', sub: info.orgAdmin ? 'Organization admin' : (Object.keys(cos).length + ' compan' + (Object.keys(cos).length === 1 ? 'y' : 'ies')), memberCount: 0, admin: !!info.orgAdmin });
     });
   }
