@@ -2399,6 +2399,11 @@ exports.acceptInvite = onRequest({ region: 'us-central1', cors: true, secrets: [
         if (!inviterOk && iv.invitedBy) { try { const cm = await db.doc('organizations/' + iv.orgId + '/companies/' + iv.companyId + '/members/' + iv.invitedBy).get(); inviterOk = cm.exists && cm.data().role === 'admin'; } catch (e) {} }
         if (!inviterOk) coRole = 'member';
       }
+      // Anti-downgrade / idempotency: a stale or duplicate pending invite must never LOWER an existing
+      // member's standing. Without this, a leftover 'member' invite accepted after the person was promoted
+      // to admin (via companyUpdateMember) would silently demote them — and if they were the last admin,
+      // drive the company's admin count to zero, bypassing the last-admin guards elsewhere.
+      try { const cur = await db.doc('organizations/' + iv.orgId + '/companies/' + iv.companyId + '/members/' + tok.uid).get(); if (cur.exists && cur.data().role === 'admin') coRole = 'admin'; } catch (e) {}
       await setCompanyMembership(iv.orgId, iv.companyId, tok.uid, email, coRole, iv.perms, orgNm, coNm, { joinedAt: Date.now(), invitedBy: iv.invitedBy || null });
       await invRef.set({ status: 'accepted', acceptedAt: Date.now(), acceptedUid: tok.uid, grantedRole: coRole }, { merge: true });
       await mailTo(email, mailAccountAction({ title: 'You joined ' + (coNm || orgNm || 'a workspace'), message: 'You now have access to ' + (coNm || orgNm) + ' on Sparks Finance as ' + coRole + '.' }), SENDGRID_API_KEY.value());
@@ -2788,17 +2793,16 @@ exports.companyInvite = onRequest({ region: 'us-central1', cors: true, secrets: 
   const companyId = String((req.body && req.body.companyId) || '');
   const auth = await verifyCompanyRole(req, orgId, companyId, 'admin');
   if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
-  // Personal workspaces (personal:true) are member-managed ONLY by platform super-admins — the workspace
-  // owner (a company admin) and org-admins cannot add members. Everyone else invites as usual.
-  try {
-    const _org = await admin.firestore().doc('organizations/' + orgId).get();
-    if (_org.exists && _org.data().personal === true && !auth.isPlatform) { res.status(403).json({ error: 'personal_locked' }); return; }
-  } catch (e) {}
   try {
     const email = String((req.body && req.body.email) || '').trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { res.status(400).json({ error: 'invalid_email' }); return; }
     // Platform super-admins (owner emails) already have full access to every org/company; never add them as members.
     if (isOwnerEmail(email)) { res.status(400).json({ error: 'owner_is_platform_admin' }); return; }
+    // Personal workspaces (personal:true) are member-managed ONLY by platform super-admins — the workspace
+    // owner (a company admin) and org-admins cannot add members. This gate lives INSIDE the try so a failed
+    // organizations/{orgId} read FAILS CLOSED (→ invite_failed) instead of silently letting the invite through.
+    const _org = await admin.firestore().doc('organizations/' + orgId).get();
+    if (_org.exists && _org.data().personal === true && !auth.isPlatform) { res.status(403).json({ error: 'personal_locked' }); return; }
     const role = (req.body && req.body.role) === 'admin' ? 'admin' : 'member';
     const db = admin.firestore();
     const already = await db.doc('organizations/' + orgId + '/companies/' + companyId).collection('members').where('email', '==', email).limit(1).get();
@@ -2848,19 +2852,19 @@ exports.companyUpdateMember = onRequest({ region: 'us-central1', cors: true, sec
     const db = admin.firestore();
     const memRef = db.doc('organizations/' + orgId + '/companies/' + companyId + '/members/' + uid);
     const adminsQ = db.doc('organizations/' + orgId + '/companies/' + companyId).collection('members').where('role', '==', 'admin');
-    let outRole = 'member', oldRole = 'member', oldPerms = {}, newPerms = {};
     // Transaction: read member + admin set and write the new role atomically, so a concurrent demotion of
-    // another admin can't leave the company with zero admins (TOCTOU).
-    await db.runTransaction(async (t) => {
+    // another admin can't leave the company with zero admins (TOCTOU). Values are RETURNED from the closure
+    // (not written to outer vars) so a Firestore retry can't leak a prior attempt's role/perms into the email diff.
+    const { outRole, oldRole, oldPerms, newPerms } = await db.runTransaction(async (t) => {
       const memDoc = await t.get(memRef);
       if (!memDoc.exists) throw { code: 'not_member' };
       const cur = memDoc.data();
-      oldRole = cur.role; oldPerms = cur.perms || {};
+      const _oldRole = cur.role, _oldPerms = cur.perms || {};
       const newRole = (req.body && req.body.role) === 'admin' ? 'admin' : ((req.body && req.body.role) === 'member' ? 'member' : cur.role);
       if (cur.role === 'admin' && newRole !== 'admin') { const admins = await t.get(adminsQ); if (admins.size <= 1) throw { code: 'last_admin' }; }
-      newPerms = cleanPerms((req.body && req.body.perms) || cur.perms || {});
-      t.set(memRef, { email: cur.email, role: newRole, perms: newPerms, updatedAt: Date.now() }, { merge: true });
-      outRole = newRole;
+      const _newPerms = cleanPerms((req.body && req.body.perms) || cur.perms || {});
+      t.set(memRef, { email: cur.email, role: newRole, perms: _newPerms, updatedAt: Date.now() }, { merge: true });
+      return { outRole: newRole, oldRole: _oldRole, oldPerms: _oldPerms, newPerms: _newPerms };
     });
     const companyName = await _companyName(orgId, companyId);
     await db.collection('users').doc(uidBody).set({ orgs: { [orgId]: { companies: { [companyId]: { name: companyName, role: outRole } } } } }, { merge: true });
@@ -2890,13 +2894,14 @@ exports.companyRemoveMember = onRequest({ region: 'us-central1', cors: true, sec
     const db = admin.firestore();
     const memRef = db.doc('organizations/' + orgId + '/companies/' + companyId + '/members/' + uid);
     const adminsQ = db.doc('organizations/' + orgId + '/companies/' + companyId).collection('members').where('role', '==', 'admin');
-    let removed = false;
-    // Transaction: last-admin check + delete atomically (mirrors orgRemoveMember).
-    await db.runTransaction(async (t) => {
+    // Transaction: last-admin check + delete atomically (mirrors orgRemoveMember). Return the outcome FROM the
+    // closure rather than mutating an outer flag — a Firestore retry re-runs the callback, and a stale outer
+    // `removed=true` from a conflicted attempt could otherwise fire a spurious removal email on a no-op commit.
+    const removed = await db.runTransaction(async (t) => {
       const memDoc = await t.get(memRef);
-      if (!memDoc.exists) return;
+      if (!memDoc.exists) return false;
       if (memDoc.data().role === 'admin') { const admins = await t.get(adminsQ); if (admins.size <= 1) throw { code: 'last_admin' }; }
-      t.delete(memRef); removed = true;
+      t.delete(memRef); return true;
     });
     if (removed) await db.collection('users').doc(uid).set({ orgs: { [orgId]: { companies: { [companyId]: admin.firestore.FieldValue.delete() } } } }, { merge: true });
     // Notify (before responding) only when an admin removed someone else (not a self-leave).
