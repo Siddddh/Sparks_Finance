@@ -1085,6 +1085,11 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .loan-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
 .loan-check{justify-content:flex-start;gap:9px;cursor:pointer;}
 .loan-check input{width:auto;margin:0;flex:none;}
+.oa-list{margin-bottom:6px;}
+.oa-sec{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);margin:12px 0 6px;}
+.oa-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;background:var(--surface-2);}
+.oa-email{font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pf-warn-note{background:var(--amber-soft);border:1px solid var(--amber);color:var(--text);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;line-height:1.5;}
 .loan-field{background:var(--surface-2);padding:12px 15px;}
 .loan-field-l{font-size:10px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
 .loan-field-v{font-size:14px;color:var(--text);font-weight:600;}
@@ -1614,6 +1619,10 @@ body.sidebar-open .nav-scrim{display:block;}
             <button class="pf-btn pf-btn-primary" onclick="openModal('newLoan')"><span class="i-plus"></span> New loan / note</button>
             <div class="cc-seg" id="loanFilterSeg" style="margin-left:auto;flex-wrap:wrap;"></div>
           </div>
+          <div class="pf-toolbar" style="margin-top:-4px;">
+            <input id="loanSearch" class="modal-input" type="text" placeholder="Search name, lender or borrower…" style="max-width:280px;margin:0;" oninput="_onLoanSearch()"/>
+            <select id="loanTypeFilter" class="modal-input" style="max-width:190px;margin:0;" onchange="_onLoanTypeFilter(this.value)"><option value="all">All types</option></select>
+          </div>
           <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Track every note you've borrowed or lent — principal, interest, payments, maturities and documents, all in one place.</div>
           <div id="loansBody"></div>
         </div>
@@ -2099,15 +2108,18 @@ async function renderOrgMembers() {
 }
 function renderMembersTable() {
   const el = document.getElementById('membersBody'); if (!el) return;
+  const personalWarn = (_orgIsPersonal && _orgCanInvite)
+    ? '<div class="pf-warn-note">⚠ This is your <b>personal</b> workspace. Anyone you add here shares this one private space — its data will <b>not</b> roll up to any organization dashboard. For a team with an organization-wide roll-up, create an <b>Organization</b> from the workspace hub and invite people into a company there.</div>'
+    : '';
   if (!_orgMembers.length && !_orgInvites.length) {
-    el.innerHTML = emptyState('users', 'No members yet', _orgCanInvite
+    el.innerHTML = personalWarn + emptyState('users', 'No members yet', _orgCanInvite
       ? 'Invite your first teammate to this company and choose which modules they can access.'
       : 'No one has been added to this company yet.');
     return;
   }
-  const personalNote = (_orgIsPersonal && !_orgCanInvite)
+  const personalNote = personalWarn || ((_orgIsPersonal && !_orgCanInvite)
     ? '<div class="pf-filter-note" style="margin-bottom:10px">This is a personal workspace — members can only be added by a platform administrator.</div>'
-    : '';
+    : '');
   const modCols = MODULES.map(m => '<th>' + escHtml(m.label) + '</th>').join('');
   const rows = _orgMembers.map(u => {
     const perms = u.perms || {};
@@ -2122,7 +2134,7 @@ function renderMembersTable() {
   const inviteDivider = _orgInvites.length
     ? '<tr class="members-section-row"><td colspan="' + (MODULES.length + 3) + '" class="ht-sub" style="padding-top:14px;font-weight:600;color:var(--text-2)">Pending invitations</td></tr>'
     : '';
-  const invRows = inviteDivider + _orgInvites.map(iv => '<tr style="opacity:.6"><td class="ht-sym"><div><div class="holding-ticker">' + escHtml(iv.emailLower || '') + '</div><div class="ht-sub">invited · pending</div></div></td><td>' + orgRoleBadge(iv.role) + '</td>' + MODULES.map(() => '<td class="ht-sub">—</td>').join('') + '<td></td></tr>').join('');
+  const invRows = inviteDivider + _orgInvites.map(iv => '<tr style="opacity:.75"><td class="ht-sym"><div><div class="holding-ticker">' + escHtml(iv.emailLower || '') + '</div><div class="ht-sub">invited · pending</div></div></td><td>' + orgRoleBadge(iv.role) + '</td>' + MODULES.map(() => '<td class="ht-sub">—</td>').join('') + '<td style="white-space:nowrap">' + ((_orgCanManage && iv.inviteId) ? '<button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="cancelInviteBtn(\'' + iv.inviteId + '\',\'company\')">Cancel invite</button>' : '') + '</td></tr>').join('');
   el.innerHTML = personalNote + '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Member</th><th>Role</th>' + modCols + '<th></th></tr></thead><tbody>' + rows + invRows + '</tbody></table></div>';
 }
 function editMember(uid) { _memberEditUid = uid; openModal('editMember'); }
@@ -2148,15 +2160,60 @@ async function submitMember(kind) {
   const g = x => { const e = document.getElementById(x); return e ? e.value : ''; };
   const role = g('mRole') || 'member';
   const perms = {}; MODULES.forEach(m => perms[m.id] = g('mperm_' + m.id) || 'none');
+  const btn = document.querySelector('#modalBox .modal-btn-primary');
+  if (btn && btn.disabled) return;   // reentry guard against double-submit while a call is in flight
+  const email = kind === 'edit' ? '' : g('mEmail').trim();
+  if (kind !== 'edit' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { try { pmToast('Enter a valid email address'); } catch (e) {} return; }
+  authBusy(btn, true, kind === 'edit' ? 'Saving…' : 'Sending invite…');
   try {
-    if (kind === 'edit') { await _adminCall('companyUpdateMember', { orgId: ACTIVE_ORG, companyId: ACTIVE_COMPANY, uid: _memberEditUid, role, perms }); try { pmToast('Member updated'); } catch (e) {} }
-    else {
-      const email = g('mEmail').trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { try { pmToast('Enter a valid email'); } catch (e) {} return; }
-      await _adminCall('companyInvite', { orgId: ACTIVE_ORG, companyId: ACTIVE_COMPANY, email, role, perms }); try { pmToast('Invitation sent to ' + email); } catch (e) {}
+    if (kind === 'edit') {
+      await _adminCall('companyUpdateMember', { orgId: ACTIVE_ORG, companyId: ACTIVE_COMPANY, uid: _memberEditUid, role, perms });
+      closeModal(); renderOrgMembers(); try { pmToast('Member updated'); } catch (e) {}
+    } else {
+      const d = await _adminCall('companyInvite', { orgId: ACTIVE_ORG, companyId: ACTIVE_COMPANY, email, role, perms });
+      renderOrgMembers();   // the pending invite appears in the list behind the confirmation popup
+      const where = _companyName || 'this company';
+      showInviteResult({ title: 'Invitation created', email: email,
+        detail: 'Role: <b>' + escHtml(role === 'admin' ? 'Company Admin' : 'Member') + '</b> · ' + escHtml(where),
+        emailed: d.emailed !== false, kind: 'company' });
     }
-    closeModal(); renderOrgMembers();
-  } catch (e) { try { pmToast({ already_member: 'That person is already a member.', last_admin: "You can't demote the last admin.", forbidden: 'You do not have permission.', personal_locked: 'Members of a personal workspace can only be added by a platform administrator.', owner_is_platform_admin: 'Super-admins already have full access to every workspace — they can’t be added as a member.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {} }
+  } catch (e) {
+    authBusy(btn, false);
+    try { pmToast({ already_member: 'That person is already a member.', last_admin: "You can't demote the last admin.", forbidden: 'You do not have permission.', personal_locked: 'Members of a personal workspace can only be added by a platform administrator.', owner_is_platform_admin: 'Super-admins already have full access to every workspace — they can’t be added as a member.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {}
+  }
+}
+// Professional confirmation popup shown after an invite is created. It states who was invited, their role,
+// and — crucially — whether the email ACTUALLY went out (emailed=false when SendGrid silently failed), so a
+// broken email pipeline is never mistaken for success. Renders into the existing modal shell.
+function showInviteResult(o) {
+  o = o || {};
+  const box = document.getElementById('modalBox'); if (!box) return;
+  const ov = document.getElementById('modalOverlay'); if (ov) ov.classList.remove('hidden');
+  const assigned = !!o.assigned;
+  const mail = o.emailed
+    ? '<div style="margin-top:14px;padding:11px 13px;border-radius:10px;background:rgba(11,143,91,.10);border:1px solid rgba(11,143,91,.34);color:var(--text);font-size:13px;line-height:1.5">✉️ We emailed ' + (assigned ? 'a notification' : 'an invitation') + ' to <b>' + escHtml(o.email || '') + '</b>.</div>'
+    : '<div style="margin-top:14px;padding:11px 13px;border-radius:10px;background:rgba(230,168,0,.12);border:1px solid rgba(230,168,0,.42);color:var(--text);font-size:13px;line-height:1.5">⚠️ The ' + (assigned ? 'access change was saved' : 'invitation was saved') + ', but the email couldn’t be sent right now. <b>' + escHtml(o.email || '') + '</b> can still ' + (assigned ? 'use their new access' : 'join') + ' — they sign in at <b>sparksfinance.ai</b>' + (assigned ? '' : ' and accept it from their Workspace Hub') + '. (An administrator may still need to finish email delivery setup.)</div>';
+  const another = o.kind === 'company'
+    ? '<button class="modal-btn modal-btn-cancel" onclick="openModal(\'inviteMember\')">Invite another</button>'
+    : (o.kind === 'orgadmin' ? '<button class="modal-btn modal-btn-cancel" onclick="openModal(\'orgAdmins\')">Add another</button>' : '');
+  box.innerHTML =
+    '<div style="text-align:center">' +
+      '<div style="width:52px;height:52px;border-radius:50%;margin:2px auto 0;display:flex;align-items:center;justify-content:center;background:rgba(11,143,91,.12);color:var(--green)">' + ic('check', 26) + '</div>' +
+      '<div class="modal-title" style="margin-top:12px">' + escHtml(o.title || 'Invitation created') + '</div>' +
+    '</div>' +
+    (o.detail ? '<div style="text-align:center;color:var(--text-2);font-size:14px;margin-top:2px">' + o.detail + '</div>' : '') +
+    mail +
+    '<div class="modal-footer">' + another + '<button class="modal-btn modal-btn-primary" onclick="closeModal()">Done</button></div>';
+}
+// Revoke a pending invitation (company members table or org-admins modal).
+async function cancelInviteBtn(inviteId, kind) {
+  if (!inviteId) return;
+  if (!confirm('Cancel this pending invitation? The person will no longer be able to join using it.')) return;
+  try {
+    await _adminCall('cancelInvite', { inviteId });
+    try { pmToast('Invitation cancelled.'); } catch (e) {}
+    if (kind === 'orgadmin') _loadOrgAdmins(); else renderOrgMembers();
+  } catch (e) { try { pmToast('Could not cancel invitation: ' + ({ forbidden: 'You do not have permission.' }[String(e.message)] || (e.message || e))); } catch (_) {} }
 }
 function renderOrgSettings() {
   const el = document.getElementById('orgSettingsBody'); if (!el) return;
@@ -2219,6 +2276,9 @@ async function renderOrgDashboard() {
   }
   let totMembers = 0, totPortfolio = 0, totInvested = 0, totOutstanding = 0, totLent = 0, totBorrowed = 0, totHoldings = 0, totLoans = 0;
   const rows = [];
+  // Enterprise loan rollup — mirrors the company Loans dashboard, consolidated across every company.
+  let entIntPayable = 0, entIntRecv = 0, entMonthlyOblig = 0, entActive = 0, entClosed = 0, entDue30 = 0, entDue60 = 0, entDue90 = 0, entOverdue = 0;
+  let entHiRate = null; const entMaturities = []; const loanRows = [];
   for (const c of companies) {
     totMembers += c.memberCount || 0;
     let coVal = 0, coInv = 0, coHold = 0, coOut = 0, coLoans = 0;
@@ -2230,9 +2290,30 @@ async function renderOrgDashboard() {
         lots.docs.forEach(ld => { const h = ld.data() || {}; const qty = parseFloat(h.qty) || 0, bp = parseFloat(h.buy_price) || 0; coInv += qty * bp; const le = liveEntry(h.ticker), sd = scanStockFor(h.ticker); const px = (le && le.price) || (sd && parseFloat(sd.price)) || bp; coVal += qty * px; coHold++; });
       }
     } catch (e) {}
-    try { const lns = await coRef.collection('loans').get(); lns.docs.forEach(ld => { const l = ld.data() || {}; coLoans++; coOut += loanOutstanding(l); if (l.type === 'lent') totLent += loanNum(l.principal); else totBorrowed += loanNum(l.principal); }); } catch (e) {}
+    let coBorrow = 0, coLent = 0, coMonthly = 0, coActive = 0, coDue = 0;
+    try {
+      const lns = await coRef.collection('loans').get();
+      lns.docs.forEach(ld => {
+        const l = ld.data() || {}; coLoans++;
+        const p = loanNum(l.principal), oi = loanOutstandingInterest(l) || 0, act = loanIsActive(l);
+        coOut += loanOutstanding(l);
+        if (l.type === 'lent') { totLent += p; coLent += p; if (act) entIntRecv += oi; }
+        else { totBorrowed += p; coBorrow += p; if (act) { entIntPayable += oi; const mo = loanMonthlyObligation(l); entMonthlyOblig += mo; coMonthly += mo; } }
+        if (l.status === 'closed' || l.status === 'paid_off') entClosed++; else entActive++;
+        if (act) {
+          coActive++;
+          const rate = loanNum(l.rate);
+          if (rate > 0 && (!entHiRate || rate > entHiRate.rate)) entHiRate = { rate, name: loanTitle(l), company: c.name, id: ld.id };
+          const np = loanNextPayment(l), dp = daysUntil(np), dm = daysUntil(l.maturityDate);
+          if (dp != null && dp < 0) entOverdue++;
+          if (dp != null && dp >= 0) { if (dp <= 30) { entDue30++; coDue++; } if (dp <= 60) entDue60++; if (dp <= 90) entDue90++; }
+          if (dm != null && dm >= 0 && dm <= 60) entMaturities.push({ name: loanTitle(l), company: c.name, id: ld.id, d: dm });
+        }
+      });
+    } catch (e) {}
     totPortfolio += coVal; totInvested += coInv; totHoldings += coHold; totOutstanding += coOut; totLoans += coLoans;
     rows.push({ name: c.name, members: c.memberCount || 0, portfolio: coVal, holdings: coHold, loans: coLoans, outstanding: coOut });
+    loanRows.push({ name: c.name, borrowed: coBorrow, lent: coLent, outstanding: coOut, monthly: coMonthly, active: coActive, due: coDue });
   }
   const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' +
     _odCard('Companies', String(companies.length)) + _odCard('Total users', String(totMembers)) +
@@ -2247,7 +2328,41 @@ async function renderOrgDashboard() {
   const tbl = '<div class="dash-section"><div class="dash-section-title">Company performance</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Company</th><th>Members</th><th>Holdings</th><th>Portfolio value</th><th>Loans</th><th>Outstanding</th></tr></thead><tbody>' +
     (rows.length ? rows.map(r => '<tr><td class="ht-sym"><div class="holding-ticker">' + escHtml(r.name) + '</div></td><td>' + r.members + '</td><td>' + r.holdings + '</td><td>' + dollarFmt(r.portfolio) + '</td><td>' + r.loans + '</td><td>' + dollarFmt(r.outstanding) + '</td></tr>').join('') : '<tr><td colspan="6" class="ht-sub" style="padding:16px">No companies yet.</td></tr>') +
     '</tbody></table></div></div>';
-  el.innerHTML = hero + mini + placeholders + tbl + '<div class="rng-advice-note">Portfolio values use the latest available prices; figures are informational, not financial advice.</div>';
+  // ── Enterprise loans (auto-consolidated across every company) ──
+  let loanSection = '';
+  if (totLoans > 0) {
+    const entNet = totLent - totBorrowed;
+    const loanMini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
+      _dashMini('Total borrowed', dollarFmt(totBorrowed), 'loss') +
+      _dashMini('Total lent', dollarFmt(totLent), 'gain') +
+      _dashMini('Outstanding principal', dollarFmt(totOutstanding), '') +
+      _dashMini('Net position', (entNet >= 0 ? '+' : '-') + dollarFmt(Math.abs(entNet)), entNet >= 0 ? 'gain' : 'loss') +
+      _dashMini('Interest payable', dollarFmt(entIntPayable), entIntPayable ? 'loss' : '') +
+      _dashMini('Interest receivable', dollarFmt(entIntRecv), entIntRecv ? 'gain' : '') +
+      _dashMini('Monthly debt obligation', dollarFmt(entMonthlyOblig), '') +
+      _dashMini('Active loans', String(entActive), '') +
+      _dashMini('Closed loans', String(entClosed), '') +
+      _dashMini('Loans due 30 / 60 / 90d', entDue30 + ' / ' + entDue60 + ' / ' + entDue90, '') +
+      _dashMini('Overdue payments', String(entOverdue), entOverdue ? 'loss' : '') +
+      '</div>';
+    const lrows = loanRows.filter(r => r.borrowed || r.lent || r.outstanding || r.active).sort((a, b) => b.outstanding - a.outstanding);
+    const loanTbl = '<div class="ht-sub" style="margin:12px 0 4px">Company-wise loan summary</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Company</th><th>Borrowed</th><th>Lent</th><th>Outstanding</th><th>Monthly obligation</th><th>Active</th><th>Due ≤30d</th></tr></thead><tbody>' +
+      (lrows.length ? lrows.map(r => '<tr><td class="ht-sym"><div class="holding-ticker">' + escHtml(r.name) + '</div></td><td>' + dollarFmt(r.borrowed) + '</td><td>' + dollarFmt(r.lent) + '</td><td>' + dollarFmt(r.outstanding) + '</td><td>' + dollarFmt(r.monthly) + '</td><td>' + r.active + '</td><td>' + r.due + '</td></tr>').join('') : '<tr><td colspan="7" class="ht-sub" style="padding:16px">No active loans across the organization yet.</td></tr>') +
+      '</tbody></table></div>';
+    const insights = [];
+    const topDebt = lrows.length ? lrows[0] : null;   // lrows is already sorted by outstanding desc
+    if (topDebt && topDebt.outstanding > 0) insights.push('<strong>Highest outstanding debt:</strong> ' + escHtml(topDebt.name) + ' — ' + dollarFmt(topDebt.outstanding) + '.');
+    if (entHiRate) insights.push('<strong>Highest-interest loan:</strong> ' + escHtml(entHiRate.name) + ' at ' + entHiRate.rate.toFixed(2) + '% (' + escHtml(entHiRate.company) + ').');
+    if (entMonthlyOblig > 0) insights.push('<strong>Monthly debt obligation:</strong> ' + dollarFmt(entMonthlyOblig) + ' across the organization.');
+    const mats = entMaturities.slice().sort((a, b) => a.d - b.d).slice(0, 3);
+    if (mats.length) insights.push('<strong>Upcoming maturities:</strong> ' + mats.map(m => escHtml(m.name) + ' (' + escHtml(m.company) + ', in ' + m.d + 'd)').join('; ') + '.');
+    if (entOverdue > 0) insights.push('<strong>' + entOverdue + ' overdue payment' + (entOverdue === 1 ? '' : 's') + '</strong> across the organization need attention.');
+    const insightsHtml = insights.length ? '<div class="dash-section"><div class="dash-section-title">Enterprise loan insights</div><ul style="margin:6px 0 0;padding-left:18px;line-height:1.7;color:var(--text);font-size:13px">' + insights.map(i => '<li style="margin:2px 0">' + i + '</li>').join('') + '</ul></div>' : '';
+    const aiCard = '<div class="dash-section"><div class="dash-section-title">AI recommendations</div><div class="pf-filter-note">Consolidated refinancing opportunities, debt-risk analysis and cross-company recommendations will appear here once the Sparks AI review runs.</div></div>';
+    const dEnote = '<div class="rng-advice-note">Financial Health Score and Debt-to-Equity ratios arrive with the Financial Statements module — they need equity figures Sparks doesn’t track yet.</div>';
+    loanSection = '<div class="dash-section"><div class="dash-section-title">Enterprise loans</div>' + loanMini + loanTbl + '</div>' + insightsHtml + aiCard + dEnote;
+  }
+  el.innerHTML = hero + mini + loanSection + placeholders + tbl + '<div class="rng-advice-note">Portfolio values use the latest available prices; figures are informational, not financial advice.</div>';
 }
 function renderSoon(name) {
   const map = {
@@ -2380,10 +2495,10 @@ function escHtml(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => 
 
 // ── State ──
 let D = null, UID = null;
-let portfolios = [], currentPfId = null, holdings = [], holdingsByPortfolio = {}, holdingsUnsub = null;
-let watchlists = [], currentWLId = null;
-let userAlerts = [];
-let loans = [], loansUnsub = null, _loanView = 'list', _loanId = null, _loanEditId = null, _loanFilter = 'all';
+let portfolios = [], currentPfId = null, holdings = [], holdingsByPortfolio = {}, holdingsUnsub = null, _pfUnsub = null;
+let watchlists = [], currentWLId = null, _wlUnsub = null;
+let userAlerts = [], _alertsUnsub = null;
+let loans = [], loansUnsub = null, _loanView = 'list', _loanId = null, _loanEditId = null, _loanFilter = 'all', _loanSearch = '', _loanTypeFilter = 'all';
 let notifications = [];
 let notifFilter = 'all';
 let healthData = null, summaryData = null;
@@ -3168,7 +3283,20 @@ async function routeAfterAuth(user) {
   ACTIVE_ORG = null; ACTIVE_COMPANY = null; _hubOrgId = null; _hubMode = 'team';
   try { showModeGate(user); } catch (e) {}
 }
+// Tear down the previous workspace's live listeners + in-memory data before entering another one, so a
+// reload-free switch (enterWorkspace) can't leave stale listeners bleeding the prior workspace's data
+// into the shared globals or briefly render its dashboard. Mirrors the sign-out teardown.
+function _teardownWorkspace() {
+  [holdingsUnsub, transactionsUnsub, loansUnsub, _pfUnsub, _wlUnsub, _alertsUnsub, _permsUnsub, _claudeHoldingsUnsub, _scanUnsub].forEach(u => { if (u) { try { u(); } catch (e) {} } });
+  holdingsUnsub = transactionsUnsub = loansUnsub = _pfUnsub = _wlUnsub = _alertsUnsub = _permsUnsub = _claudeHoldingsUnsub = _scanUnsub = null;
+  portfolios = []; holdings = []; holdingsByPortfolio = {}; currentPfId = null;
+  transactions = []; _pfView = 'holdings';
+  loans = []; _loanView = 'list'; _loanId = null;
+  watchlists = []; userAlerts = []; _claudeHoldings = {};
+  const hd = document.getElementById('homeDashboard'); if (hd) hd.innerHTML = '';
+}
 function enterApp(user, opts) {
+  _teardownWorkspace();   // clear any previous workspace's listeners/data first (reload-free switches)
   const _hub = document.getElementById('orgHub'); if (_hub) _hub.classList.add('hidden');
   const _mg = document.getElementById('modeGate'); if (_mg) _mg.classList.add('hidden');
   document.getElementById('authPanel').classList.add('hidden');
@@ -3191,7 +3319,7 @@ function enterApp(user, opts) {
       if (opts && opts.boot) {
         while (_navHist.length && _navHist[_navHist.length - 1].screen === 'app') _navHist.pop();
         _navHist.push(_navAppLoc('home')); _navIdx = _navHist.length - 1;
-        try { history.replaceState({ d: _navIdx }, ''); } catch (e) {}
+        _navRebuildHistory();   // replay pushState so history depth matches the restored ancestry → Back works after reload
         _navPersist(); renderCrumbs();
       } else { navRecord(_navAppLoc('home')); }
     }
@@ -3246,7 +3374,9 @@ function showModeGate(user) {
   const th = document.getElementById('mgTheme'); if (th) th.innerHTML = ic(document.documentElement.getAttribute('data-theme') === 'dark' ? 'sun' : 'moon', 18);
   renderModeGate();
   _screenIn(gate);
-  try { if (!_navLock) { if (!_navHist.length) _navRestore(); if (!_navHist.length) navRecord(_navScreenLoc('modeGate')); else renderCrumbs(); } } catch (e) {}
+  // The chooser is the trail root. On a genuine show (not a navApply restore), reset to [modeGate] — this
+  // also drops any stale deep hub trail left in sessionStorage after a reload — and rebuild browser history.
+  try { if (!_navLock) { _navHist = [_navScreenLoc('modeGate')]; _navIdx = 0; _navPersist(); _navRebuildHistory(); renderCrumbs(); } } catch (e) {}
 }
 function renderModeGate() {
   const body = document.getElementById('modeGateBody'); if (!body) return;
@@ -3575,10 +3705,46 @@ async function createCompanyBtn() {
   catch (e) { authBusy(btn, false); try { pmToast('Could not create company: ' + (e.message || e)); } catch (_) {} }
 }
 async function assignOrgAdminBtn() {
-  const email = (document.getElementById('oaEmail').value || '').trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { try { pmToast('Enter a valid email'); } catch (e) {} return; }
-  try { await _adminCall('assignOrgAdmin', { orgId: _hubOrgId, email }); try { pmToast('Org admin assigned'); } catch (e) {} openModal('orgAdmins'); }
-  catch (e) { try { pmToast({ user_not_found: 'That user must sign up first.', forbidden: 'Super Admins only.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {} }
+  const inp = document.getElementById('oaEmail'); const email = (inp && inp.value || '').trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { try { pmToast('Enter a valid email address'); } catch (e) {} return; }
+  const btn = document.querySelector('#modalBox .modal-btn-primary');
+  if (btn && btn.disabled) return;   // reentry guard: the #oaEmail Enter handler calls this directly, bypassing the disabled button
+  authBusy(btn, true, 'Sending…');
+  try {
+    const d = await _adminCall('assignOrgAdmin', { orgId: _hubOrgId, email });
+    if (inp) inp.value = '';
+    if (d.assigned) {
+      showInviteResult({ title: 'Organization admin added', email: email, assigned: true,
+        detail: '<b>' + escHtml(email) + '</b> can now manage every company in this organization.',
+        emailed: d.emailed !== false, kind: 'orgadmin' });
+    } else {
+      showInviteResult({ title: 'Invitation created', email: email,
+        detail: 'They’ll become an <b>organization admin</b> as soon as they accept.',
+        emailed: d.emailed !== false, kind: 'orgadmin' });
+    }
+  } catch (e) {
+    authBusy(btn, false);
+    try { pmToast({ owner_is_platform_admin: 'That person is a platform super-admin — they already have full access.', invalid_email: 'Enter a valid email.', forbidden: 'Super Admins only.' }[String(e.message)] || ('Failed: ' + (e.message || e))); } catch (_) {}
+  }
+}
+// Load current org admins + pending org-admin invites into the orgAdmins modal.
+async function _loadOrgAdmins() {
+  const host = document.getElementById('oaList'); if (!host) return;
+  try {
+    const d = await _adminCall('orgListCompanies', { orgId: _hubOrgId });
+    const admins = d.orgAdmins || [], pend = d.orgAdminInvites || [];
+    let html = '<div class="oa-sec">Current admins</div>';
+    html += admins.length
+      ? admins.map(a => '<div class="oa-row"><span class="oa-email">' + escHtml(a.email || a.uid) + '</span><button class="hub-mini-btn hub-mini-danger" onclick="removeOrgAdminBtn(\'' + a.uid + '\')">Remove</button></div>').join('')
+      : '<div class="pf-filter-note">No organization admins yet.</div>';
+    if (pend.length) html += '<div class="oa-sec">Pending invitations</div>' + pend.map(p => '<div class="oa-row"><span class="oa-email">' + escHtml(p.email) + '</span><span style="display:flex;gap:8px;align-items:center"><span class="badge badge-yellow">Pending</span>' + (p.inviteId ? '<button class="hub-mini-btn hub-mini-danger" onclick="cancelInviteBtn(\'' + p.inviteId + '\',\'orgadmin\')">Cancel</button>' : '') + '</span></div>').join('');
+    host.innerHTML = html;
+  } catch (e) { host.innerHTML = '<div class="pf-filter-note">Couldn\'t load admins: ' + escHtml(String(e.message || e)) + '</div>'; }
+}
+async function removeOrgAdminBtn(uid) {
+  if (!confirm('Remove this organization admin?')) return;
+  try { await _adminCall('removeOrgAdmin', { orgId: _hubOrgId, uid }); try { pmToast('Organization admin removed.'); } catch (e) {} _loadOrgAdmins(); }
+  catch (e) { try { pmToast('Failed: ' + (e.message || e)); } catch (_) {} }
 }
 async function acceptInviteBtn(inviteId) {
   try {
@@ -3682,8 +3848,10 @@ auth.onAuthStateChanged(async user => {
 });
 
 // ── Scan listener ──
+let _scanUnsub = null;
 function initScanListener() {
-  db.collection('scans').doc('latest').onSnapshot(doc => {
+  if (_scanUnsub) { try { _scanUnsub(); } catch (e) {} _scanUnsub = null; }
+  _scanUnsub = db.collection('scans').doc('latest').onSnapshot(doc => {
     if (!doc.exists) { setLoading('No scan data yet.'); return; }
     D = doc.data();
     renderAll();
@@ -4983,7 +5151,8 @@ async function loadHomeNews(syms) {
 // ── Portfolio ──
 function loadPortfolioData() {
   if (!UID) return;
-  pfCol().onSnapshot(snap => {
+  if (_pfUnsub) { try { _pfUnsub(); } catch (e) {} _pfUnsub = null; }
+  _pfUnsub = pfCol().onSnapshot(snap => {
     portfolios = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     syncReportSelectors();
     const _dEl = document.getElementById('inlineHoldingDate'); if (_dEl && !_dEl.value) _dEl.value = todayStr();
@@ -5740,7 +5909,8 @@ function pfQuickAdd(sym) {
 // ── Watchlist ──
 function loadWatchlistData() {
   if (!UID) return;
-  wlCol().onSnapshot(snap => {
+  if (_wlUnsub) { try { _wlUnsub(); } catch (e) {} _wlUnsub = null; }
+  _wlUnsub = wlCol().onSnapshot(snap => {
     watchlists = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     updateWLSelect();
     renderWatchlistTab();
@@ -5873,7 +6043,8 @@ function renderWatchlistTab() {
 let _editAlertId = null;   // set while editing an existing alert; null = creating a new one
 function loadUserAlerts() {
   if (!UID) return;
-  alertsCol().onSnapshot(snap => {
+  if (_alertsUnsub) { try { _alertsUnsub(); } catch (e) {} _alertsUnsub = null; }
+  _alertsUnsub = alertsCol().onSnapshot(snap => {
     userAlerts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderUserAlerts();
   });
@@ -6890,6 +7061,15 @@ function scanDataSection(ticker, s) {
 const LOAN_FREQS = [['one-time', 'One-time'], ['weekly', 'Weekly'], ['biweekly', 'Bi-weekly'], ['monthly', 'Monthly'], ['quarterly', 'Quarterly'], ['semiannual', 'Semi-annual'], ['annually', 'Annually']];
 const LOAN_STATUSES = [['active', 'Active'], ['closed', 'Closed'], ['paid_off', 'Paid off'], ['defaulted', 'Defaulted']];
 const _FREQ_DAYS = { weekly: 7, biweekly: 14, monthly: 30, quarterly: 91, semiannual: 182, annually: 365 };
+// Loan/note classification (BRD) — distinct from `type` (borrowed/lent direction).
+const LOAN_TYPES = [['construction', 'Construction'], ['commercial', 'Commercial'], ['land_dev', 'Land development'], ['real_estate', 'Real estate'], ['equipment', 'Equipment'], ['loc', 'Line of credit'], ['bridge', 'Bridge'], ['bank', 'Bank'], ['private', 'Private'], ['partner', 'Partner'], ['shareholder', 'Shareholder'], ['personal', 'Personal'], ['intercompany', 'Intercompany'], ['promissory', 'Promissory note'], ['convertible', 'Convertible note'], ['investor', 'Investor note'], ['other', 'Other']];
+function loanTypeName(v) { const f = LOAN_TYPES.find(t => t[0] === v); return f ? f[1] : ''; }
+// Regular payment normalized to a per-month figure by frequency → "monthly debt obligation".
+const _FREQ_PER_MONTH = { weekly: 52 / 12, biweekly: 26 / 12, monthly: 1, quarterly: 1 / 3, semiannual: 1 / 6, annually: 1 / 12 };
+function loanMonthlyObligation(l) { if (!l) return 0; const pa = (l.paymentAmount != null && l.paymentAmount !== '') ? loanNum(l.paymentAmount) : 0; const f = _FREQ_PER_MONTH[l.paymentFreq]; return (pa > 0 && f) ? pa * f : 0; }
+// Supporting-document categories (BRD). A loan is "missing documents" if it has neither an uploaded file nor an agreement link.
+const LOAN_DOC_CATS = ['Loan Agreement', 'Promissory Note', 'Amortization Schedule', 'Closing Documents', 'Bank Correspondence', 'Other'];
+function _loanMissingDocs(l) { return !l.driveLink && !((l.documents || []).length); }
 
 function fmtDate(s) { if (!s) return '—'; const d = new Date(s + 'T00:00:00'); if (isNaN(d)) return escHtml(String(s)); return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }); }
 function loanNum(v) { const n = parseFloat(v); return isFinite(n) ? n : 0; }
@@ -7068,6 +7248,7 @@ function loanFormModal(l) {
   return '<div class="modal-title">' + (l.id ? 'Edit loan / note' : 'New loan / note') + '</div>' +
     '<label class="modal-label">Loan / note name or reference</label><input id="loanName" class="modal-input" value="' + v(l.name) + '" placeholder="e.g. Acme promissory note #2024-1"/>' +
     '<label class="modal-label">Type</label><select id="loanType" class="modal-input">' + _opt([['borrowed', 'Borrowed (I owe)'], ['lent', 'Lent (owed to me)']], l.type || 'borrowed') + '</select>' +
+    '<label class="modal-label">Loan / note category</label><select id="loanClass" class="modal-input">' + _opt(LOAN_TYPES, l.loanType || 'other') + '</select>' +
     '<label class="modal-label">Borrower name</label><input id="loanBorrower" class="modal-input" value="' + v(l.borrower) + '" placeholder="Borrower&#39;s full name or entity"/>' +
     '<label class="modal-label">Borrower email</label><input id="loanBorrowerEmail" class="modal-input" type="email" value="' + v(l.borrowerEmail) + '" placeholder="borrower@example.com"/>' +
     '<label class="modal-label">Lender name</label><input id="loanLender" class="modal-input" value="' + v(l.lender) + '" placeholder="Lender&#39;s full name or entity"/>' +
@@ -7080,6 +7261,7 @@ function loanFormModal(l) {
     '<label class="modal-label">Loan start date</label><input id="loanStart" class="modal-input" type="date" value="' + v(l.startDate || todayStr()) + '" onchange="syncLoanNextPay()"/>' +
     '<label class="modal-label">Maturity date</label><input id="loanMaturity" class="modal-input" type="date" value="' + v(l.maturityDate) + '"/>' +
     '<label class="modal-label">Payment frequency</label><select id="loanFreq" class="modal-input" onchange="syncLoanNextPay()">' + _opt(LOAN_FREQS, l.paymentFreq || 'monthly') + '</select>' +
+    '<label class="modal-label">Payment amount ($) <span class="modal-price-hint">regular payment per the frequency</span></label><input id="loanPaymentAmount" class="modal-input" type="text" inputmode="decimal" data-ccy value="' + escHtml(ccyDisplay(l.paymentAmount)) + '" placeholder="$0.00"/>' +
     '<label class="modal-label">Next payment date <span class="modal-price-hint">auto-set from the frequency — edit if needed</span></label><input id="loanNextPay" class="modal-input" type="date" value="' + v(l.nextPaymentDate) + '" oninput="_loanNextPayEdited(this)"/>' +
     '<label class="modal-label">Status</label><select id="loanStatus" class="modal-input">' + _opt(LOAN_STATUSES, l.status || 'active') + '</select>' +
     '<label class="modal-label">Agreement document link <span class="modal-price-hint">Google Drive or other URL</span></label><input id="loanDriveLink" class="modal-input" type="url" value="' + v(l.driveLink) + '" placeholder="https://drive.google.com/…"/>' +
@@ -7095,6 +7277,8 @@ function submitLoan(id) {
     borrower: g('loanBorrower').trim(), lender: g('loanLender').trim(),
     borrowerEmail: g('loanBorrowerEmail').trim(), lenderEmail: g('loanLenderEmail').trim(),
     driveLink: g('loanDriveLink').trim(),
+    loanType: g('loanClass') || 'other',
+    paymentAmount: g('loanPaymentAmount').trim() === '' ? null : ccyNum(g('loanPaymentAmount')),
     principal, rate: loanNum(g('loanRate')),
     outstanding: g('loanOutstanding').trim() === '' ? null : ccyNum(g('loanOutstanding')),
     outstandingInterest: g('loanOutstandingInterest').trim() === '' ? null : ccyNum(g('loanOutstandingInterest')),
@@ -7131,7 +7315,11 @@ function capitalizeLoanInterest(id) {
 
 // ── Records list + filter ──
 function setLoanFilter(k) { _loanFilter = k; renderLoans(); }
+function _onLoanSearch() { const e = document.getElementById('loanSearch'); _loanSearch = ((e && e.value) || '').trim().toLowerCase(); renderLoans(); }
+function _onLoanTypeFilter(v) { _loanTypeFilter = v || 'all'; renderLoans(); }
 function _loanFilterMatch(l) {
+  if (_loanTypeFilter && _loanTypeFilter !== 'all' && (l.loanType || 'other') !== _loanTypeFilter) return false;
+  if (_loanSearch) { const hay = ((l.name || '') + ' ' + (l.lender || '') + ' ' + (l.borrower || '') + ' ' + loanTypeName(l.loanType)).toLowerCase(); if (hay.indexOf(_loanSearch) < 0) return false; }
   const f = _loanFilter;
   if (f === 'all') return true;
   if (f === 'borrowed') return l.type === 'borrowed';
@@ -7145,6 +7333,8 @@ function renderLoans() {
   const el = document.getElementById('loansBody'); if (!el) return;
   const seg = document.getElementById('loanFilterSeg');
   if (seg) { const F = [['all', 'All'], ['borrowed', 'Borrowed'], ['lent', 'Lent'], ['active', 'Active'], ['overdue', 'Overdue'], ['closed', 'Closed']]; seg.innerHTML = F.map(f => '<button class="' + (_loanFilter === f[0] ? 'active' : '') + '" onclick="setLoanFilter(\'' + f[0] + '\')">' + f[1] + '</button>').join(''); }
+  const tf = document.getElementById('loanTypeFilter');
+  if (tf) { if (!tf.dataset.filled) { tf.innerHTML = '<option value="all">All types</option>' + LOAN_TYPES.map(t => '<option value="' + t[0] + '">' + t[1] + '</option>').join(''); tf.dataset.filled = '1'; } tf.value = _loanTypeFilter; }
   if (_loanView === 'detail' && _loanId) { renderLoanDetail(_loanId); return; }
   if (!UID) { el.innerHTML = emptyState('file', 'Sign in to manage loans', 'Your loans & promissory notes live here.'); return; }
   if (!loans.length) { el.innerHTML = emptyState('file', 'No loans or notes yet', 'Click "New loan / note" to record your first borrowed or lent amount.'); return; }
@@ -7155,7 +7345,7 @@ function renderLoans() {
     const overdue = loanIsActive(l) && dp != null && dp < 0;
     const npCell = np ? ('<span class="' + (overdue ? 'neg' : '') + '">' + fmtDate(np) + '</span><div class="ht-sub ' + (overdue ? 'neg' : '') + '">' + (dp < 0 ? Math.abs(dp) + 'd overdue' : (dp === 0 ? 'due today' : 'in ' + dp + 'd')) + '</div>') : '<span class="ht-sub">—</span>';
     const mCell = l.maturityDate ? (fmtDate(l.maturityDate) + (dm != null ? '<div class="ht-sub">' + (dm < 0 ? Math.abs(dm) + 'd ago' : 'in ' + dm + 'd') + '</div>' : '')) : '<span class="ht-sub">—</span>';
-    const who = l.type === 'lent' ? ('to ' + (l.borrower || '—')) : ('from ' + (l.lender || '—'));
+    const _cat = loanTypeName(l.loanType); const who = (_cat ? _cat + ' · ' : '') + (l.type === 'lent' ? ('to ' + (l.borrower || '—')) : ('from ' + (l.lender || '—')));
     return '<tr onclick="openLoan(\'' + l.id + '\')" style="cursor:pointer">' +
       '<td class="ht-sym"><div><div class="holding-ticker">' + escHtml(loanTitle(l)) + '</div><div class="ht-sub">' + escHtml(who) + '</div></div></td>' +
       '<td>' + loanTypeBadge(l.type) + '</td>' +
@@ -7194,6 +7384,7 @@ function renderLoanDetail(id) {
     field('Borrower email', l.borrowerEmail ? '<a class="loan-doc-name" href="mailto:' + escHtml(l.borrowerEmail) + '">' + escHtml(l.borrowerEmail) + '</a>' : '—') +
     field('Lender', escHtml(l.lender || '—')) +
     field('Lender email', l.lenderEmail ? '<a class="loan-doc-name" href="mailto:' + escHtml(l.lenderEmail) + '">' + escHtml(l.lenderEmail) + '</a>' : '—') +
+    field('Loan type', loanTypeName(l.loanType) ? escHtml(loanTypeName(l.loanType)) : '—') +
     field('Principal', dollarFmt(loanNum(l.principal))) +
     field('Interest rate', loanNum(l.rate) ? loanNum(l.rate).toFixed(2) + '% /yr' : '—') +
     field('Outstanding balance', dollarFmt(out)) +
@@ -7204,6 +7395,8 @@ function renderLoanDetail(id) {
     field('Start date', fmtDate(l.startDate)) +
     field('Maturity date', l.maturityDate ? fmtDate(l.maturityDate) + (dm != null ? ' <span class="ht-sub">(' + (dm < 0 ? Math.abs(dm) + 'd ago' : 'in ' + dm + 'd') + ')</span>' : '') : '—') +
     field('Payment frequency', escHtml((LOAN_FREQS.find(f => f[0] === l.paymentFreq) || [, '—'])[1])) +
+    field('Payment amount', (l.paymentAmount != null && l.paymentAmount !== '') ? dollarFmt(loanNum(l.paymentAmount)) : '—') +
+    field('Monthly obligation', loanMonthlyObligation(l) > 0 ? dollarFmt(loanMonthlyObligation(l)) : '—') +
     field('Next payment', np ? '<span class="' + (overdue ? 'neg' : '') + '">' + fmtDate(np) + (dp != null ? ' (' + (dp < 0 ? Math.abs(dp) + 'd overdue' : (dp === 0 ? 'today' : 'in ' + dp + 'd')) + ')' : '') + '</span>' : '—') +
     field('Status', loanStatusBadge(l.status)) +
     '</div>';
@@ -7220,12 +7413,13 @@ function _loanDocsHtml(l) {
     inner = '<div class="loan-doc-note">Document upload becomes available once Firebase Storage is enabled for this project and deployed. You\'ll then be able to attach promissory notes, agreements &amp; amortization schedules here.</div>';
   } else {
     const docs = l.documents || [];
-    const list = docs.length ? docs.map((d, i) => '<div class="loan-doc-row">' + ic('file', 16) + '<a href="' + escHtml(d.url) + '" target="_blank" rel="noopener" class="loan-doc-name">' + escHtml(d.name) + '</a><span class="ht-sub">' + _fmtBytes(d.size) + '</span><button class="pf-btn pf-btn-danger" title="Delete document" onclick="deleteLoanDoc(\'' + l.id + '\',' + i + ')">' + ic('x', 14) + '</button></div>').join('') : '<div class="ht-sub" style="padding:6px 0">No documents yet.</div>';
-    inner = list + '<label class="loan-upload"><input type="file" style="display:none" onchange="uploadLoanDoc(\'' + l.id + '\', this.files[0]); this.value=\'\'"/><span class="pf-btn pf-btn-outline">' + ic('plus', 15) + ' Upload document</span></label>';
+    const list = docs.length ? docs.map((d, i) => '<div class="loan-doc-row">' + ic('file', 16) + '<a href="' + escHtml(d.url) + '" target="_blank" rel="noopener" class="loan-doc-name">' + escHtml(d.name) + '</a><span class="ht-sub">' + (d.category ? escHtml(d.category) + ' · ' : '') + _fmtBytes(d.size) + '</span><button class="pf-btn pf-btn-danger" title="Delete document" onclick="deleteLoanDoc(\'' + l.id + '\',' + i + ')">' + ic('x', 14) + '</button></div>').join('') : '<div class="ht-sub" style="padding:6px 0">No documents yet.</div>';
+    const catSel = '<select id="loanDocCat" class="modal-input" style="width:auto;max-width:210px;margin:0">' + LOAN_DOC_CATS.map(c => '<option value="' + escHtml(c) + '">' + escHtml(c) + '</option>').join('') + '</select>';
+    inner = list + '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px">' + catSel + '<label class="loan-upload" style="margin:0"><input type="file" style="display:none" onchange="uploadLoanDoc(\'' + l.id + '\', this.files[0], (document.getElementById(\'loanDocCat\')||{}).value); this.value=\'\'"/><span class="pf-btn pf-btn-outline">' + ic('plus', 15) + ' Upload document</span></label></div>';
   }
   return '<div class="loan-docs"><div class="loan-field-l">Documents</div>' + inner + '</div>';
 }
-async function uploadLoanDoc(loanId, file) {
+async function uploadLoanDoc(loanId, file, category) {
   if (!file || !UID) return;
   if (!permGuard('loans', 'write')) return;
   if (!storage) { try { pmToast('Enable Firebase Storage to upload documents'); } catch (e) {} return; }
@@ -7237,7 +7431,7 @@ async function uploadLoanDoc(loanId, file) {
     const ref = storage.ref(path);
     await ref.put(file);
     const url = await ref.getDownloadURL();
-    const meta = { name: file.name, path, url, size: file.size, type: file.type || '', uploaded: new Date().toISOString() };
+    const meta = { name: file.name, path, url, size: file.size, type: file.type || '', category: (LOAN_DOC_CATS.indexOf(category) >= 0 ? category : 'Other'), uploaded: new Date().toISOString() };
     await loansCol().doc(loanId).update({ documents: firebase.firestore.FieldValue.arrayUnion(meta), updated: new Date().toISOString() });
     try { pmToast('Uploaded ' + file.name); } catch (e) {}
     if (_loanView === 'detail' && _loanId === loanId) renderLoanDetail(loanId);
@@ -7276,19 +7470,21 @@ function renderLoansDash() {
   if (!UID) { el.innerHTML = emptyState('file', 'Sign in to view your loans dashboard', ''); return; }
   if (!loans.length) { el.innerHTML = emptyState('file', 'No loans or notes yet', 'Add loans in the Loans & Notes tab to see totals, interest and reminders here.') + '<div style="text-align:center;margin-top:14px"><button class="pf-btn pf-btn-primary" onclick="sw(\'loans\')">Go to Loans & Notes</button></div>'; return; }
   let borrowed = 0, lent = 0, outstanding = 0, intIncome = 0, intExpense = 0, active = 0, closed = 0, nB = 0, nL = 0;
+  let intPayable = 0, intRecv = 0, monthlyOblig = 0;
   loans.forEach(l => {
-    const p = loanNum(l.principal), ann = loanAnnualInterest(l);
-    if (l.type === 'lent') { lent += p; nL++; if (loanIsActive(l)) intIncome += ann; } else { borrowed += p; nB++; if (loanIsActive(l)) intExpense += ann; }
+    const p = loanNum(l.principal), ann = loanAnnualInterest(l), oi = loanOutstandingInterest(l) || 0;
+    if (l.type === 'lent') { lent += p; nL++; if (loanIsActive(l)) { intIncome += ann; intRecv += oi; } } else { borrowed += p; nB++; if (loanIsActive(l)) { intExpense += ann; intPayable += oi; monthlyOblig += loanMonthlyObligation(l); } }
     outstanding += loanOutstanding(l);
     if (l.status === 'closed' || l.status === 'paid_off') closed++; else active++;
   });
   const net = lent - borrowed;
-  const overdue = [], upPay = [], upMat = [];
+  const overdue = [], upPay = [], upMat = []; let due30 = 0, due60 = 0, due90 = 0;
   loans.forEach(l => {
     if (!loanIsActive(l)) return;
     const np = loanNextPayment(l), dp = daysUntil(np), dm = daysUntil(l.maturityDate);
     if (dp != null && dp < 0) overdue.push({ l, d: dp });
     else if (dp != null && dp <= 14) upPay.push({ l, d: dp });
+    if (dp != null && dp >= 0) { if (dp <= 30) due30++; if (dp <= 60) due60++; if (dp <= 90) due90++; }
     if (dm != null && dm >= 0 && dm <= 30) upMat.push({ l, d: dm });
   });
   overdue.sort((a, b) => a.d - b.d); upPay.sort((a, b) => a.d - b.d); upMat.sort((a, b) => a.d - b.d);
@@ -7302,14 +7498,22 @@ function renderLoansDash() {
     _dashMini('Net position', (net >= 0 ? '+' : '-') + dollarFmt(Math.abs(net)), net >= 0 ? 'gain' : 'loss') +
     _dashMini('Annual interest income', dollarFmt(intIncome), 'gain') +
     _dashMini('Annual interest expense', dollarFmt(intExpense), 'loss') +
+    _dashMini('Interest payable', dollarFmt(intPayable), intPayable ? 'loss' : '') +
+    _dashMini('Interest receivable', dollarFmt(intRecv), intRecv ? 'gain' : '') +
+    _dashMini('Monthly debt obligation', dollarFmt(monthlyOblig), '') +
+    _dashMini('Loans due 30 / 60 / 90d', due30 + ' / ' + due60 + ' / ' + due90, '') +
     _dashMini('Active loans', String(active), '') +
     _dashMini('Closed loans', String(closed), '') +
     _dashMini('Overdue payments', String(overdue.length), overdue.length ? 'loss' : '') +
     '</div>';
+  const byRate = loans.filter(l => loanIsActive(l) && loanNum(l.rate) > 0).sort((a, b) => loanNum(b.rate) - loanNum(a.rate)).slice(0, 3);
+  const hiSection = byRate.length ? '<div class="dash-section"><div class="dash-section-title">Highest interest rate</div>' + byRate.map(l => '<div class="notif-row" onclick="openLoan(\'' + l.id + '\')" style="cursor:pointer"><span class="notif-av notif-ic">' + ic('file', 16) + '</span><div class="notif-main"><div class="notif-t">' + escHtml(loanTitle(l)) + '</div><div class="notif-b">' + loanTypeBadge(l.type) + ' · ' + dollarFmt(loanOutstanding(l)) + ' outstanding</div></div><span style="font-weight:700;font-size:12px;white-space:nowrap">' + loanNum(l.rate).toFixed(2) + '%</span></div>').join('') + '</div>' : '';
+  const aiCard = '<div class="dash-section"><div class="dash-section-title">AI recommendations</div><div class="pf-filter-note">Debt insights, refinancing opportunities and risk analysis will appear here once the Sparks AI review runs.</div></div>';
   el.innerHTML = hero + mini +
     _loanDashSection('Overdue & defaults', overdue, true) +
     _loanDashSection('Upcoming payments (14 days)', upPay, false) +
     _loanDashSection('Upcoming maturities (30 days)', upMat, false, 'maturity') +
+    hiSection + aiCard +
     '<div class="rng-advice-note">Interest figures are annualized estimates (principal × rate) — informational only, not financial advice.</div>';
 }
 
@@ -7323,12 +7527,15 @@ function _loanReminders() {
     const np = loanNextPayment(l), dp = daysUntil(np);
     if (dp != null && dp <= 5 && dp >= -14) {   // stop nagging after ~2 weeks overdue (still shown on the dashboard)
       const overdue = dp < 0;
+      const pa = (l.paymentAmount != null && l.paymentAmount !== '') ? loanNum(l.paymentAmount) : 0;
+      const payStr = pa > 0 ? ' Payment: ' + dollarFmt(pa) + '.' : '';
       out.push({ key: 'loan:' + l.id + ':pay:' + np, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: _derivedTs('loan:' + l.id + ':pay:' + np),
         title: (overdue ? 'OVERDUE payment — ' : 'Payment due soon — ') + title0,
-        body: (overdue ? 'Payment was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'Payment due today' : 'Payment due in ' + dp + ' day(s)')) + ' · ' + dollarFmt(loanOutstanding(l)) + ' outstanding.' });
+        body: (overdue ? 'Payment was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'Payment due today' : 'Payment due in ' + dp + ' day(s)')) + ' · ' + dollarFmt(loanOutstanding(l)) + ' outstanding.' + payStr });
     }
     const dm = daysUntil(l.maturityDate);
     if (dm != null && dm >= 0 && dm <= 7) out.push({ key: 'loan:' + l.id + ':mat:' + l.maturityDate, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: _derivedTs('loan:' + l.id + ':mat:' + l.maturityDate), title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + fmtDate(l.maturityDate) + '.' });
+    if (_loanMissingDocs(l)) out.push({ key: 'loan:' + l.id + ':missdoc', cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: _derivedTs('loan:' + l.id + ':missdoc'), title: 'Missing documents — ' + title0, body: 'No agreement link or uploaded documents on this active loan. Add the loan agreement for your records.' });
   });
   return out;
 }
@@ -7351,10 +7558,11 @@ function openModal(type) {
     setTimeout(() => { const i = document.getElementById('obCompanyName'); if (i) i.focus(); }, 0);
   } else if (type === 'orgAdmins') {
     box.innerHTML = '<div class="modal-title">Organization admins</div>' +
-      '<div class="modal-price-hint" style="margin-bottom:8px">Org admins can access every company in this organization. The person must already have a Sparks account.</div>' +
-      '<label class="modal-label">Email</label><input id="oaEmail" class="modal-input" type="email" placeholder="admin@example.com" onkeydown="if(event.key===\'Enter\')assignOrgAdminBtn()"/>' +
-      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Close</button><button class="modal-btn modal-btn-primary" onclick="assignOrgAdminBtn()">Assign org admin</button></div>';
-    setTimeout(() => { const i = document.getElementById('oaEmail'); if (i) i.focus(); }, 0);
+      '<div class="modal-price-hint" style="margin-bottom:10px">Org admins can manage every company in this organization. Enter any email — if they don’t have a Sparks account yet, we’ll send them an invitation and they become an admin once they accept.</div>' +
+      '<div id="oaList" class="oa-list"><div class="pf-filter-note">Loading…</div></div>' +
+      '<label class="modal-label">Add or invite by email</label><input id="oaEmail" class="modal-input" type="email" placeholder="admin@example.com" onkeydown="if(event.key===\'Enter\')assignOrgAdminBtn()"/>' +
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Close</button><button class="modal-btn modal-btn-primary" onclick="assignOrgAdminBtn()">Add org admin</button></div>';
+    setTimeout(() => { _loadOrgAdmins(); const i = document.getElementById('oaEmail'); if (i) i.focus(); }, 0);
   } else if (type === 'editCompany') {
     const c = _hubFindCo(_editCompanyId);
     box.innerHTML = '<div class="modal-title">Rename company</div><label class="modal-label">Company name</label><input id="ecName" class="modal-input" placeholder="e.g. TX Sparks Construction" value="' + escHtml(c.name || '') + '" onkeydown="if(event.key===\'Enter\')saveCompanyBtn()"/>' +
@@ -7645,12 +7853,12 @@ function navRecord(loc) {
   try { history.pushState({ d: _navIdx }, ''); } catch (e) {}
   _navPersist(); renderCrumbs();
 }
-function navApply(i) {
+async function navApply(i) {
   if (i < 0 || i >= _navHist.length) return;
   const loc = _navHist[i]; _navIdx = i; _navLock = true;
   try {
     if (loc.screen === 'modeGate') { showModeGate(_hubUser || auth.currentUser); }
-    else if (loc.screen === 'hub') { _hubMode = loc.mode || 'team'; _hubOrgId = loc.orgId || null; _hubShowHub(_hubUser || auth.currentUser); renderHub(_hubUser || auth.currentUser); }
+    else if (loc.screen === 'hub') { _hubMode = loc.mode || 'team'; _hubOrgId = loc.orgId || null; _hubShowHub(_hubUser || auth.currentUser); await renderHub(_hubUser || auth.currentUser); }   // await → the trailing navRecord in renderHub stays under _navLock
     else {   // app
       if (loc.org && loc.company && (loc.org !== ACTIVE_ORG || loc.company !== ACTIVE_COMPANY)) {
         try { enterWorkspace(loc.org, loc.company); } catch (e) {}   // cross-workspace back → re-enter (reload-free)
@@ -7665,10 +7873,23 @@ function navApply(i) {
   try { history.replaceState({ d: _navIdx }, ''); } catch (e) {}
   _navPersist(); renderCrumbs();
 }
-function navBack() { if (_navIdx > 0) { try { history.back(); } catch (e) { navApply(_navIdx - 1); } } }
+// On-screen Back. Prefer the browser history (so device Back stays in lockstep); if the two are out of
+// sync (e.g. after a reload rebuilt _navHist from sessionStorage), restore the entry directly instead.
+function navBack() {
+  if (_navIdx <= 0) return;
+  const s = history.state;
+  if (s && typeof s.d === 'number' && s.d === _navIdx) { try { history.back(); return; } catch (e) {} }
+  navApply(_navIdx - 1);
+}
 function _navPersist() { try { sessionStorage.setItem('sf_nav', JSON.stringify({ h: _navHist, i: _navIdx })); } catch (e) {} }
 function _navRestore() { try { const r = JSON.parse(sessionStorage.getItem('sf_nav') || 'null'); if (r && Array.isArray(r.h) && r.h.length) { _navHist = r.h; _navIdx = (typeof r.i === 'number') ? r.i : r.h.length - 1; return true; } } catch (e) {} return false; }
 function _navClear() { _navHist = []; _navIdx = -1; try { sessionStorage.removeItem('sf_nav'); } catch (e) {} }
+// After a reload, the browser has one same-document history entry but _navHist may hold several. Replay
+// pushState so history depth matches _navIdx again — otherwise history.back() has nowhere to go and the
+// Back/breadcrumb buttons appear dead.
+function _navRebuildHistory() {
+  try { history.replaceState({ d: 0 }, ''); for (let i = 1; i <= _navIdx; i++) history.pushState({ d: i }, ''); } catch (e) {}
+}
 function _activeCrumbSlot() {
   const mg = document.getElementById('modeGate'); if (mg && !mg.classList.contains('hidden')) return document.getElementById('crumbsMode');
   const hub = document.getElementById('orgHub'); if (hub && !hub.classList.contains('hidden')) return document.getElementById('crumbsHub');
