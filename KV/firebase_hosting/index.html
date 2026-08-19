@@ -1627,6 +1627,21 @@ body.sidebar-open .nav-scrim{display:block;}
           <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Track property, equipment, investments and bank accounts — their cost, current value and total worth.</div>
           <div id="assetsBody"></div>
         </div>
+        <div id="tab-findash" class="tab-panel">
+          <div class="page-title">Financial statements — overview</div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Income, profitability, balance sheet and key ratios for the currently selected company.</div>
+          <div id="finDashBody"></div>
+        </div>
+        <div id="tab-financials" class="tab-panel">
+          <div class="page-title">Financial statements</div>
+          <div class="pf-toolbar">
+            <button class="pf-btn pf-btn-primary" onclick="openModal('newFinancial')"><span class="i-plus"></span> New period</button>
+            <input id="finSearch" class="modal-input" type="text" placeholder="Search periods…" style="max-width:240px;margin:0 0 0 auto;" oninput="_onFinSearch()"/>
+            <select id="finTypeFilter" class="modal-input" style="max-width:180px;margin:0;" onchange="_onFinTypeFilter(this.value)"><option value="all">All periods</option><option value="year">Yearly</option><option value="quarter">Quarterly</option><option value="month">Monthly</option></select>
+          </div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Enter one summary per period — revenue, expenses and cash flow. The balance sheet and ratios compose automatically from your Assets and Loans.</div>
+          <div id="financialsBody"></div>
+        </div>
         <div id="tab-loans" class="tab-panel">
           <div class="page-title">Loans &amp; Notes</div>
           <div class="pf-toolbar">
@@ -1907,6 +1922,10 @@ const NAV = [
   { sec: 'Manage' },
   { tab: 'assetsdash', label: 'Dashboard', icon: 'data' },
   { tab: 'assets', label: 'Assets', icon: 'briefcase' },
+  { cat: 'Financial Statements' },
+  { sec: 'Manage' },
+  { tab: 'findash', label: 'Overview', icon: 'data' },
+  { tab: 'financials', label: 'Statements', icon: 'file' },
   { cat: 'Company' },
   { sec: 'Manage' },
   { tab: 'compdash', label: 'Dashboard', icon: 'data' },
@@ -1976,12 +1995,14 @@ const OWNER_EMAILS_CLIENT = ['sean@txsparks.com', 'ravi@txsparks.com'];
 const MODULES = [
   { id: 'stocks', cat: 'Trading', label: 'Trading' },
   { id: 'loans', cat: 'Loans & Notes', label: 'Loans & Notes' },
-  { id: 'assets', cat: 'Assets', label: 'Assets' }
+  { id: 'assets', cat: 'Assets', label: 'Assets' },
+  { id: 'financials', cat: 'Financial Statements', label: 'Financial Statements' }
 ];
 const _MOD_TABS = {
   stocks: ['cards', 'explore', 'research', 'recommend', 'table', 'portfolio', 'watchlist', 'useralerts', 'market', 'earnings', 'premarket'],
   loans: ['loansdash', 'loans'],
-  assets: ['assetsdash', 'assets']
+  assets: ['assetsdash', 'assets'],
+  financials: ['findash', 'financials']
 };
 let _role = 'user', _perms = {}, _permsUnsub = null;
 // ── Active organization (multi-tenant scope) ──
@@ -1998,6 +2019,7 @@ function wlCol() { return companyRef().collection('watchlists'); }
 function alertsCol() { return companyRef().collection('alerts'); }
 function loansCol() { return companyRef().collection('loans'); }
 function assetsCol() { return companyRef().collection('assets'); }
+function financialsCol() { return companyRef().collection('financials'); }
 function loanStoragePath(loanId, fname) { return 'orgs/' + ACTIVE_ORG + '/companies/' + ACTIVE_COMPANY + '/loans/' + loanId + '/' + fname; }
 function isPlatformAdmin() { try { const u = auth.currentUser; return !!u && u.emailVerified && OWNER_EMAILS_CLIENT.includes(((u.email || '')).toLowerCase()); } catch (e) { return false; } }
 function _ownerEmailNow() { return isPlatformAdmin(); }   // back-compat alias
@@ -2020,7 +2042,7 @@ function _isOrgAdminNow() { return isPlatformAdmin() || !!(_myOrgs[ACTIVE_ORG] &
 function loadPermsAndGate() {
   if (_permsUnsub) { try { _permsUnsub(); } catch (e) {} _permsUnsub = null; }
   if (!UID || !ACTIVE_ORG || !ACTIVE_COMPANY) { _role = 'user'; _perms = {}; try { applyPermissions(); } catch (e) {} return; }
-  const forceFull = () => { if (_isOrgAdminNow()) { _role = 'admin'; _perms = { stocks: 'delete', loans: 'delete', assets: 'delete' }; return true; } return false; };
+  const forceFull = () => { if (_isOrgAdminNow()) { _role = 'admin'; _perms = { stocks: 'delete', loans: 'delete', assets: 'delete', financials: 'delete' }; return true; } return false; };
   _permsUnsub = companyRef().collection('members').doc(UID).onSnapshot(doc => {
     if (!forceFull()) { const d = (doc && doc.exists) ? (doc.data() || {}) : {}; _role = d.role || 'member'; _perms = d.perms || {}; }
     applyPermissions();
@@ -2338,7 +2360,21 @@ async function _aggregateCompany(orgId, companyId, companyName) {
   } catch (e) {}
   const coLiabilities = coOut;                 // outstanding loan principal
   const coNetWorth = coAssets - coLiabilities;
-  return { coVal, coInv, coHold, coOut, coLoans, coBorrow, coLent, coMonthly, coActive, coClosed, coDue30, coDue60, coDue90, coOverdue, coIntPay, coIntRecv, hiRate, maturities, coAssets, coCash, coRealEstate, coAssetCount, coLiabilities, coNetWorth };
+  // Financial Statements: latest period's income summary (revenue / expenses / net profit / EBITDA + margin).
+  let coRevenue = 0, coExpenses = 0, coGrossProfit = 0, coNetProfit = 0, coEBITDA = 0, coNetMargin = null, coHasFin = false, coPeriodLabel = '';
+  try {
+    const fsnap = await coRef.collection('financials').get();
+    if (!fsnap.empty) {
+      const fdocs = fsnap.docs.map(d => ({ id: d.id, ...d.data() }));
+      fdocs.sort((a, b) => _finSortKey(b) - _finSortKey(a));
+      const latest = fdocs[0], cc = finCompute(latest);
+      coRevenue = cc.revenue; coGrossProfit = cc.grossProfit; coNetProfit = cc.netProfit; coEBITDA = cc.ebitda;
+      coExpenses = cc.cogs + cc.opex + cc.otherExp + cc.tax; coNetMargin = cc.netMargin;
+      coHasFin = true; coPeriodLabel = finPeriodLabel(latest);
+    }
+  } catch (e) {}
+  const coEquity = coNetWorth;
+  return { coVal, coInv, coHold, coOut, coLoans, coBorrow, coLent, coMonthly, coActive, coClosed, coDue30, coDue60, coDue90, coOverdue, coIntPay, coIntRecv, hiRate, maturities, coAssets, coCash, coRealEstate, coAssetCount, coLiabilities, coNetWorth, coRevenue, coExpenses, coGrossProfit, coNetProfit, coEBITDA, coNetMargin, coHasFin, coPeriodLabel, coEquity };
 }
 async function renderOrgDashboard(orgId, host) {
   orgId = orgId || ACTIVE_ORG;
@@ -2449,8 +2485,23 @@ async function renderCompanyDashboard() {
     _dashMini('Assets tracked', String(a.coAssetCount), '') +
     _dashMini('Holdings', String(a.coHold), '') +
     _dashMini('Members', String(memberCount), '') + '</div>';
-  const soon = '<div class="dash-section"><div class="dash-section-title">Revenue &amp; profitability</div><div class="pf-filter-note">Revenue, expenses, net profit, EBITDA and margins populate once you add <b>Financial Statements</b> (the next module). The Balance Sheet then composes automatically from your Assets and Loans.</div></div>';
-  el.innerHTML = hero + mini + soon + '<div class="rng-advice-note">Figures use your entered valuations + latest available prices — informational only, not financial advice.</div>';
+  let profitability;
+  if (a.coHasFin) {
+    const pmini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
+      _dashMini('Revenue', dollarFmt(a.coRevenue), '') +
+      _dashMini('Expenses', dollarFmt(a.coExpenses), a.coExpenses ? 'loss' : '') +
+      _dashMini('Net profit', _finSigned(a.coNetProfit), a.coNetProfit >= 0 ? 'gain' : 'loss') +
+      _dashMini('EBITDA', dollarFmt(a.coEBITDA), '') +
+      _dashMini('Gross profit', dollarFmt(a.coGrossProfit), '') +
+      _dashMini('Net margin', finPct(a.coNetMargin), (a.coNetMargin != null && a.coNetMargin < 0) ? 'loss' : '') +
+      '</div>';
+    profitability = '<div class="dash-section"><div class="dash-section-title">Revenue &amp; profitability <span class="ht-sub" style="font-weight:400">— ' + escHtml(a.coPeriodLabel) + '</span></div>' + pmini +
+      '<div style="margin-top:8px"><button class="pf-btn pf-btn-outline" style="padding:5px 12px;font-size:12px" onclick="sw(\'findash\')">Open financial statements →</button></div></div>';
+  } else {
+    profitability = '<div class="dash-section"><div class="dash-section-title">Revenue &amp; profitability</div><div class="pf-filter-note">Add a period in <b>Financial Statements</b> to populate revenue, expenses, net profit, EBITDA and margins here. The balance sheet already composes automatically from your Assets and Loans.</div>' +
+      '<div style="margin-top:8px"><button class="pf-btn pf-btn-primary" style="padding:5px 12px;font-size:12px" onclick="sw(\'financials\')">Add a financial period</button></div></div>';
+  }
+  el.innerHTML = hero + mini + profitability + '<div class="rng-advice-note">Figures use your entered valuations + latest available prices — informational only, not financial advice.</div>';
 }
 // Org-wide members roster (org level). Lists every person across the org's companies + org admins, with roles.
 async function renderOrgAllMembers(orgId, host) {
@@ -3424,12 +3475,13 @@ async function routeAfterAuth(user) {
 // reload-free switch (enterWorkspace) can't leave stale listeners bleeding the prior workspace's data
 // into the shared globals or briefly render its dashboard. Mirrors the sign-out teardown.
 function _teardownWorkspace() {
-  [holdingsUnsub, transactionsUnsub, loansUnsub, assetsUnsub, _pfUnsub, _wlUnsub, _alertsUnsub, _permsUnsub, _claudeHoldingsUnsub, _scanUnsub].forEach(u => { if (u) { try { u(); } catch (e) {} } });
-  holdingsUnsub = transactionsUnsub = loansUnsub = assetsUnsub = _pfUnsub = _wlUnsub = _alertsUnsub = _permsUnsub = _claudeHoldingsUnsub = _scanUnsub = null;
+  [holdingsUnsub, transactionsUnsub, loansUnsub, assetsUnsub, financialsUnsub, _pfUnsub, _wlUnsub, _alertsUnsub, _permsUnsub, _claudeHoldingsUnsub, _scanUnsub].forEach(u => { if (u) { try { u(); } catch (e) {} } });
+  holdingsUnsub = transactionsUnsub = loansUnsub = assetsUnsub = financialsUnsub = _pfUnsub = _wlUnsub = _alertsUnsub = _permsUnsub = _claudeHoldingsUnsub = _scanUnsub = null;
   portfolios = []; holdings = []; holdingsByPortfolio = {}; currentPfId = null;
   transactions = []; _pfView = 'holdings';
   loans = []; _loanView = 'list'; _loanId = null;
   assets = []; _assetView = 'list'; _assetId = null;
+  financials = []; _finView = 'list'; _finId = null;
   watchlists = []; userAlerts = []; _claudeHoldings = {};
   const hd = document.getElementById('homeDashboard'); if (hd) hd.innerHTML = '';
 }
@@ -3471,7 +3523,7 @@ function subscribeUserDoc() {
     _myOrgs = (d.exists && d.data() && d.data().orgs) || {};
     // Once the org index loads/updates, an org-admin's org-wide full access may only now be known — re-apply
     // the gate so their modules (Loans, etc.) appear without a reload (fixes intermittently-missing modules).
-    try { if (ACTIVE_ORG && ACTIVE_COMPANY && _isOrgAdminNow()) { _role = 'admin'; _perms = { stocks: 'delete', loans: 'delete', assets: 'delete' }; } applyPermissions(); } catch (e) {}
+    try { if (ACTIVE_ORG && ACTIVE_COMPANY && _isOrgAdminNow()) { _role = 'admin'; _perms = { stocks: 'delete', loans: 'delete', assets: 'delete', financials: 'delete' }; } applyPermissions(); } catch (e) {}
     try { renderOrgSwitcher(); } catch (e) {}
   }, () => {});
 }
@@ -4080,6 +4132,7 @@ auth.onAuthStateChanged(async user => {
     UID = null; ACTIVE_ORG = null; _myOrgs = {};
     if (loansUnsub) { try { loansUnsub(); } catch (e) {} loansUnsub = null; }
     if (assetsUnsub) { try { assetsUnsub(); } catch (e) {} assetsUnsub = null; }
+    if (financialsUnsub) { try { financialsUnsub(); } catch (e) {} financialsUnsub = null; }
     if (_permsUnsub) { try { _permsUnsub(); } catch (e) {} _permsUnsub = null; }
     if (_userDocUnsub) { try { _userDocUnsub(); } catch (e) {} _userDocUnsub = null; }
     if (holdingsUnsub) { try { holdingsUnsub(); } catch (e) {} holdingsUnsub = null; }
@@ -4087,6 +4140,7 @@ auth.onAuthStateChanged(async user => {
     _role = 'user'; _perms = {}; try { applyPermissions(); } catch (e) {}
     loans = []; _loanView = 'list'; _loanId = null;
     assets = []; _assetView = 'list'; _assetId = null;
+    financials = []; _finView = 'list'; _finId = null;
     holdings = []; transactions = []; holdingsByPortfolio = {}; currentPfId = null; _pfView = 'holdings';
     const _hub = document.getElementById('orgHub'); if (_hub) _hub.classList.add('hidden');
     const _mg = document.getElementById('modeGate'); if (_mg) _mg.classList.add('hidden');
@@ -4129,6 +4183,7 @@ function initUserListeners() {
   loadUserAlerts();
   loadLoans();
   loadAssets();
+  loadFinancials();
   loadNotifications();
 }
 
@@ -7848,7 +7903,7 @@ function loadAssets() {
   }, () => {});
 }
 function createAsset(fields) { if (!UID) return Promise.resolve(null); if (!permGuard('assets', 'write')) return Promise.resolve(null); return assetsCol().add({ ...fields, created: new Date().toISOString(), updated: new Date().toISOString() }); }
-function updateAsset(id, fields) { if (!UID || !id) return Promise.resolve(); if (!permGuard('assets', 'write')) return Promise.resolve(); return assetsCol().doc(id).update({ ...fields, updated: new Date().toISOString() }).catch(() => {}); }
+function updateAsset(id, fields) { if (!UID || !id) return Promise.resolve(); if (!permGuard('assets', 'write')) return Promise.resolve(); return assetsCol().doc(id).update({ ...fields, updated: new Date().toISOString() }); }
 async function deleteAsset(id) {
   if (!permGuard('assets', 'delete')) return;
   const a = assets.find(x => x.id === id);
@@ -7954,6 +8009,297 @@ function renderAssetsDash() {
   el.innerHTML = hero + breakdown + '<div class="rng-advice-note">Values are your entered valuations — informational only, not an appraisal.</div>';
 }
 
+// ════════ Financial Statements module (company-scoped: organizations/{o}/companies/{c}/financials) ════════
+// One summary document per period. The income statement + cash flow are entered manually; the balance sheet
+// and every ratio compose automatically from the Assets and Loans modules — no duplicate data entry.
+const FIN_PERIOD_TYPES = [['year', 'Yearly'], ['quarter', 'Quarterly'], ['month', 'Monthly']];
+const FIN_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+let financials = [], financialsUnsub = null, _finView = 'list', _finId = null, _finEditId = null, _finSearch = '', _finTypeFilter = 'all';
+function loadFinancials() {
+  if (!UID) return;
+  if (financialsUnsub) { try { financialsUnsub(); } catch (e) {} }
+  financialsUnsub = financialsCol().onSnapshot(snap => {
+    financials = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (document.getElementById('tab-financials') && document.getElementById('tab-financials').classList.contains('active')) renderFinancials();
+    if (document.getElementById('tab-findash') && document.getElementById('tab-findash').classList.contains('active')) renderFinDash();
+    if (document.getElementById('tab-compdash') && document.getElementById('tab-compdash').classList.contains('active')) renderCompanyDashboard();
+  }, () => {});
+}
+// Periods use their period string as the doc id (e.g. "2026-Q1") so a period is unique — re-adding one opens it to edit.
+function createFinancial(id, fields) { if (!UID || !id) return Promise.resolve(null); if (!permGuard('financials', 'write')) return Promise.resolve(null); return financialsCol().doc(id).set({ ...fields, created: new Date().toISOString(), updated: new Date().toISOString() }); }
+function updateFinancial(id, fields) { if (!UID || !id) return Promise.resolve(); if (!permGuard('financials', 'write')) return Promise.resolve(); return financialsCol().doc(id).update({ ...fields, updated: new Date().toISOString() }); }
+async function deleteFinancial(id) {
+  if (!permGuard('financials', 'delete')) return;
+  const f = financials.find(x => x.id === id);
+  if (!confirm('Delete the "' + ((f && finPeriodLabel(f)) || 'this') + '" statement? This cannot be undone.')) return;
+  await financialsCol().doc(id).delete().catch(() => {});
+  if (_finId === id) { _finView = 'list'; _finId = null; }
+  try { pmToast('Statement deleted'); } catch (e) {}
+  renderFinancials();
+}
+// ── Period + computation helpers ──
+function finFactor(f) { return (f && f.periodType === 'quarter') ? 4 : ((f && f.periodType === 'month') ? 12 : 1); }   // annualization factor
+function finPeriodLabel(f) {
+  if (!f) return '';
+  const y = f.year || (f.period ? String(f.period).slice(0, 4) : '');
+  if (f.periodType === 'quarter') return 'Q' + (f.sub || 1) + ' ' + y;
+  if (f.periodType === 'month') return (FIN_MONTHS[(f.sub || 1) - 1] || '') + ' ' + y;
+  return String(y);
+}
+function finTypeLabel(t) { const x = FIN_PERIOD_TYPES.find(p => p[0] === t); return x ? x[1] : 'Yearly'; }
+function _finSortKey(f) { const y = parseInt(f.year, 10) || 0; const end = f.periodType === 'month' ? (f.sub || 0) : (f.periodType === 'quarter' ? (f.sub || 0) * 3 : 12); return y * 100 + end; }
+function finCompute(f) {
+  const revenue = finRawNum(f.revenue), cogs = finRawNum(f.cogs), opex = finRawNum(f.operatingExpenses), dep = finRawNum(f.depreciation),
+        otherInc = finRawNum(f.otherIncome), otherExp = finRawNum(f.otherExpense), tax = finRawNum(f.taxExpense);
+  const grossProfit = revenue - cogs;
+  const ebit = grossProfit - opex;              // operating income
+  const ebitda = ebit + dep;
+  const pretax = ebit + otherInc - otherExp;
+  const netProfit = pretax - tax;
+  const opExpenses = cogs + opex;               // operating cost base (for budget vs actual)
+  const grossMargin = revenue ? grossProfit / revenue : null;
+  const opMargin = revenue ? ebit / revenue : null;
+  const netMargin = revenue ? netProfit / revenue : null;
+  const ocf = finRawNum(f.operatingCF), icf = finRawNum(f.investingCF), fcf = finRawNum(f.financingCF);
+  const netCF = ocf + icf + fcf;
+  const budRev = finRawNum(f.budgetRevenue), budExp = finRawNum(f.budgetExpenses);
+  return { revenue, cogs, opex, dep, otherInc, otherExp, tax, grossProfit, ebit, ebitda, pretax, netProfit, opExpenses, grossMargin, opMargin, netMargin, ocf, icf, fcf, netCF, budRev, budExp };
+}
+// Balance sheet composes from the CURRENTLY-LOADED Assets + Loans (point-in-time), not per period — no manual entry.
+function _finBalanceSheet() {
+  let totalAssets = 0, cash = 0, realEstate = 0, investments = 0;
+  (assets || []).forEach(a => { const v = ccyNum(a.currentValue) || 0; totalAssets += v; const c = a.category || 'other'; if (c === 'bank') cash += v; else if (c === 'land' || c === 'commercial' || c === 'residential' || c === 'luxury') realEstate += v; else if (c === 'investment') investments += v; });
+  let liabilities = 0, monthlyDebt = 0;
+  (loans || []).forEach(l => { liabilities += (loanOutstanding(l) || 0); if (loanIsActive(l) && l.type !== 'lent') monthlyDebt += (loanMonthlyObligation(l) || 0); });
+  const equity = totalAssets - liabilities;
+  return { totalAssets, cash, realEstate, investments, liabilities, equity, monthlyDebt };
+}
+function finRatios(c, bs, f) {
+  const factor = finFactor(f);
+  const de = bs.equity ? bs.liabilities / bs.equity : null;
+  const roa = bs.totalAssets ? (c.netProfit * factor) / bs.totalAssets : null;
+  const roe = bs.equity ? (c.netProfit * factor) / bs.equity : null;
+  const annualDebtService = bs.monthlyDebt * 12;
+  const dscr = annualDebtService ? (c.ebitda * factor) / annualDebtService : null;
+  const cashToDebt = bs.liabilities ? bs.cash / bs.liabilities : null;
+  return { de, roa, roe, dscr, cashToDebt, annualDebtService };
+}
+function finPct(x) { return (x == null || isNaN(x)) ? '—' : (x * 100).toFixed(1) + '%'; }
+function finX(x) { return (x == null || isNaN(x)) ? '—' : x.toFixed(2) + '×'; }
+function _finSigned(v) { return (v >= 0 ? '+' : '-') + dollarFmt(Math.abs(v)); }
+// Sign-preserving numeric read (ccyNum/ccyParse strip the minus, which is wrong for cash-flow outflows).
+// Accepts numbers, "-50000", accounting parentheses "($50,000)", and masked "$1,234.56".
+function finRawNum(v) {
+  if (typeof v === 'number') return isFinite(v) ? v : 0;
+  const s = String(v == null ? '' : v).trim(); if (s === '') return 0;
+  const neg = s.indexOf('-') >= 0 || /^\(.*\)$/.test(s);
+  const n = parseFloat(s.replace(/[^0-9.]/g, '')); if (!isFinite(n)) return 0;
+  return neg ? -n : n;
+}
+function finSignedDisplay(n) {
+  if (n === '' || n == null) return '';
+  const x = typeof n === 'number' ? n : finRawNum(n); if (!isFinite(x)) return '';
+  return (x < 0 ? '-$' : '$') + Math.abs(x).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function _onFinSearch() { const e = document.getElementById('finSearch'); _finSearch = ((e && e.value) || '').trim().toLowerCase(); renderFinancials(); }
+function _onFinTypeFilter(v) { _finTypeFilter = v || 'all'; renderFinancials(); }
+function _finFilterMatch(f) {
+  if (_finTypeFilter && _finTypeFilter !== 'all' && (f.periodType || 'year') !== _finTypeFilter) return false;
+  if (_finSearch) { const hay = (finPeriodLabel(f) + ' ' + finTypeLabel(f.periodType)).toLowerCase(); if (hay.indexOf(_finSearch) < 0) return false; }
+  return true;
+}
+function openFinancial(id) { _finId = id; _finView = 'detail'; sw('financials'); renderFinancials(); }
+function finBackToList() { if (_navIdx > 0 && _navHist[_navIdx - 1] && _navHist[_navIdx - 1].tab === 'financials') return navBack(); _finView = 'list'; _finId = null; renderFinancials(); }
+function editFinancial(id) { if (!permGuard('financials', 'write')) return; _finEditId = id; openModal('editFinancial'); }
+function _finTogglePeriod() {
+  const t = ((document.getElementById('finPType') || {}).value) || 'year';
+  const qr = document.getElementById('finQuarterRow'), mr = document.getElementById('finMonthRow');
+  if (qr) qr.style.display = (t === 'quarter') ? '' : 'none';
+  if (mr) mr.style.display = (t === 'month') ? '' : 'none';
+}
+function financialFormModal(f) {
+  const isEdit = !!(f && f.id);
+  f = f || {};
+  const cy = new Date().getFullYear();
+  const years = []; for (let y = cy + 1; y >= cy - 6; y--) years.push(y);
+  const pt = f.periodType || 'year';
+  const dis = isEdit ? ' disabled' : '';
+  const money = (id, label, val, hint) => '<label class="modal-label">' + label + (hint ? ' <span class="modal-price-hint">' + hint + '</span>' : '') + '</label><input id="' + id + '" class="modal-input" type="text" inputmode="decimal" data-ccy value="' + escHtml(ccyDisplay(val)) + '" placeholder="$0.00"/>';
+  // Signed input for cash-flow lines (outflows are negative) — no data-ccy mask (it strips the minus).
+  const moneySigned = (id, label, val) => '<label class="modal-label">' + label + ' <span class="modal-price-hint">use – for an outflow</span></label><input id="' + id + '" class="modal-input" type="text" inputmode="text" value="' + escHtml(finSignedDisplay(val)) + '" placeholder="$0.00 or -$0.00"/>';
+  const sec = (t) => '<div style="font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);margin:16px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border-soft)">' + t + '</div>';
+  const typeSel = '<select id="finPType" class="modal-input" onchange="_finTogglePeriod()"' + dis + '>' + FIN_PERIOD_TYPES.map(t => '<option value="' + t[0] + '"' + (pt === t[0] ? ' selected' : '') + '>' + t[1] + '</option>').join('') + '</select>';
+  const yearSel = '<select id="finYear" class="modal-input"' + dis + '>' + years.map(y => '<option value="' + y + '"' + ((parseInt(f.year, 10) || cy) === y ? ' selected' : '') + '>' + y + '</option>').join('') + '</select>';
+  const qSel = '<select id="finQuarter" class="modal-input"' + dis + '>' + [1, 2, 3, 4].map(q => '<option value="' + q + '"' + ((f.sub || 1) === q ? ' selected' : '') + '>Q' + q + '</option>').join('') + '</select>';
+  const mSel = '<select id="finMonth" class="modal-input"' + dis + '>' + FIN_MONTHS.map((m, i) => '<option value="' + (i + 1) + '"' + ((f.sub || 1) === (i + 1) ? ' selected' : '') + '>' + m + '</option>').join('') + '</select>';
+  return '<div class="modal-title">' + (isEdit ? 'Edit ' + escHtml(finPeriodLabel(f)) : 'New financial period') + (_companyName ? '<div style="font-weight:400;color:var(--text-3);font-size:12px;margin-top:2px">in ' + escHtml(_companyName) + '</div>' : '') + '</div>' +
+    '<div style="max-height:58vh;overflow-y:auto;padding-right:6px">' +
+    sec('Period') +
+    '<label class="modal-label">Type</label>' + typeSel +
+    '<label class="modal-label">Year</label>' + yearSel +
+    '<div id="finQuarterRow"' + (pt === 'quarter' ? '' : ' style="display:none"') + '><label class="modal-label">Quarter</label>' + qSel + '</div>' +
+    '<div id="finMonthRow"' + (pt === 'month' ? '' : ' style="display:none"') + '><label class="modal-label">Month</label>' + mSel + '</div>' +
+    (isEdit ? '<div class="modal-price-hint" style="margin-top:6px">The period can’t be changed after creation — delete and re-add to move it.</div>' : '') +
+    sec('Income statement') +
+    money('finRevenue', 'Revenue', f.revenue) +
+    money('finCogs', 'Cost of goods sold (COGS)', f.cogs, 'optional') +
+    money('finOpex', 'Operating expenses', f.operatingExpenses, 'optional') +
+    money('finDep', 'Depreciation & amortization', f.depreciation, 'optional') +
+    money('finOtherInc', 'Other income', f.otherIncome, 'optional') +
+    money('finOtherExp', 'Other expense', f.otherExpense, 'optional') +
+    money('finTax', 'Tax expense', f.taxExpense, 'optional') +
+    sec('Cash flow') +
+    moneySigned('finOcf', 'Operating cash flow', f.operatingCF) +
+    moneySigned('finIcf', 'Investing cash flow', f.investingCF) +
+    moneySigned('finFcf', 'Financing cash flow', f.financingCF) +
+    sec('Budget (optional — enables budget vs actual)') +
+    money('finBudRev', 'Budgeted revenue', f.budgetRevenue, 'optional') +
+    money('finBudExp', 'Budgeted operating costs', f.budgetExpenses, 'COGS + operating expenses') +
+    '<label class="modal-label">Notes <span class="modal-price-hint">optional</span></label><textarea id="finNotes" class="modal-input" rows="2" placeholder="Assumptions, one-offs, context…">' + escHtml(f.notes || '') + '</textarea>' +
+    '</div>' +
+    '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitFinancial(' + (isEdit ? '\'' + f.id + '\'' : 'null') + ')">' + (isEdit ? 'Save' : 'Create') + '</button></div>';
+}
+function submitFinancial(id) {
+  const g = (x) => { const e = document.getElementById(x); return e ? e.value : ''; };
+  const isEdit = !!id;
+  const periodType = g('finPType') || 'year';
+  const year = parseInt(g('finYear'), 10) || new Date().getFullYear();
+  let sub = 0, period = String(year);
+  if (periodType === 'quarter') { sub = parseInt(g('finQuarter'), 10) || 1; period = year + '-Q' + sub; }
+  else if (periodType === 'month') { sub = parseInt(g('finMonth'), 10) || 1; period = year + '-' + ('0' + sub).slice(-2); }
+  const docId = isEdit ? id : period;
+  if (!isEdit && financials.some(x => x.id === docId)) {
+    try { pmToast('That period already exists — opening it to edit.'); } catch (e) {}
+    _finEditId = docId; openModal('editFinancial'); return;
+  }
+  const num = (x) => { const s = g(x).trim(); return s === '' ? 0 : ccyNum(s); };
+  const btn = document.querySelector('#modalBox .modal-btn-primary'); if (btn && btn.disabled) return;
+  const fields = {
+    period: period, periodType: periodType, year: year, sub: sub,
+    revenue: num('finRevenue'), cogs: num('finCogs'), operatingExpenses: num('finOpex'), depreciation: num('finDep'),
+    otherIncome: num('finOtherInc'), otherExpense: num('finOtherExp'), taxExpense: num('finTax'),
+    operatingCF: finRawNum(g('finOcf')), investingCF: finRawNum(g('finIcf')), financingCF: finRawNum(g('finFcf')),
+    budgetRevenue: num('finBudRev'), budgetExpenses: num('finBudExp'),
+    notes: g('finNotes').trim()
+  };
+  authBusy(btn, true, isEdit ? 'Saving…' : 'Creating…');
+  (isEdit ? updateFinancial(docId, fields) : createFinancial(docId, fields)).then(() => { closeModal(); try { pmToast(isEdit ? 'Statement updated' : 'Period added — ' + finPeriodLabel(fields)); } catch (e) {} })
+    .catch(() => { authBusy(btn, false); try { pmToast('Something went wrong. Please try again.'); } catch (e) {} });
+}
+function renderFinancials() {
+  const el = document.getElementById('financialsBody'); if (!el) return;
+  const tf = document.getElementById('finTypeFilter'); if (tf) tf.value = _finTypeFilter;
+  if (_finView === 'detail' && _finId) { renderFinancialDetail(_finId); return; }
+  if (!UID) { el.innerHTML = emptyState('file', 'Sign in to manage statements', ''); return; }
+  if (!financials.length) { el.innerHTML = emptyState('file', 'No financial periods yet', 'Click "New period" to enter a summary of revenue, expenses and cash flow. The balance sheet and ratios compose automatically from your Assets and Loans.'); return; }
+  const view = financials.filter(_finFilterMatch);
+  if (!view.length) { el.innerHTML = '<div class="pf-filter-note">No periods match this filter.</div>'; return; }
+  const rows = view.slice().sort((a, b) => _finSortKey(b) - _finSortKey(a)).map(f => {
+    const c = finCompute(f);
+    return '<tr onclick="openFinancial(\'' + f.id + '\')" style="cursor:pointer">' +
+      '<td class="ht-sym"><div><div class="holding-ticker">' + escHtml(finPeriodLabel(f)) + '</div><div class="ht-sub">' + escHtml(finTypeLabel(f.periodType)) + '</div></div></td>' +
+      '<td>' + dollarFmt(c.revenue) + '</td>' +
+      '<td><span style="color:' + (c.netProfit >= 0 ? 'var(--green)' : 'var(--red)') + '">' + _finSigned(c.netProfit) + '</span></td>' +
+      '<td>' + finPct(c.netMargin) + '</td>' +
+      '<td>' + dollarFmt(c.ebitda) + '</td>' +
+      '<td style="white-space:nowrap" onclick="event.stopPropagation()"><button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="editFinancial(\'' + f.id + '\')">Edit</button> <button class="pf-btn pf-btn-danger" title="Delete" onclick="deleteFinancial(\'' + f.id + '\')">' + ic('x', 16) + '</button></td>' +
+      '</tr>';
+  }).join('');
+  el.innerHTML = '<div class="pf-filter-note" style="margin:-2px 0 8px">' + view.length + ' period' + (view.length === 1 ? '' : 's') + ' · newest first. Click a period for the full statement.</div>' +
+    '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Period</th><th>Revenue</th><th>Net profit</th><th>Net margin</th><th>EBITDA</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+}
+function renderFinancialDetail(id) {
+  const el = document.getElementById('financialsBody'); if (!el) return;
+  const f = financials.find(x => x.id === id); if (!f) { finBackToList(); return; }
+  const c = finCompute(f), bs = _finBalanceSheet(), r = finRatios(c, bs, f), factor = finFactor(f);
+  const head = '<div class="rec-head"><button class="rec-back" onclick="finBackToList()">← All periods</button>' +
+    '<div style="margin-top:8px"><div class="rec-head-tkr">' + escHtml(finPeriodLabel(f)) + '</div><div class="rec-head-name">' + escHtml(finTypeLabel(f.periodType)) + ' statement</div></div>' +
+    '<div style="margin-left:auto;display:flex;gap:8px;align-items:flex-start"><button class="pf-btn pf-btn-outline" onclick="editFinancial(\'' + f.id + '\')">Edit</button><button class="pf-btn pf-btn-danger" onclick="deleteFinancial(\'' + f.id + '\')">Delete</button></div></div>';
+  const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">' +
+    _odCard('Revenue', dollarFmt(c.revenue)) + _odCard('Net profit', _finSigned(c.netProfit)) + _odCard('EBITDA', dollarFmt(c.ebitda)) + _odCard('Net margin', finPct(c.netMargin)) + '</div>';
+  const row = (l, v, strong) => '<div style="display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--border-soft);font-size:13px' + (strong ? ';font-weight:700;color:var(--text)' : ';color:var(--text-2)') + '"><span>' + l + '</span><span style="white-space:nowrap;text-align:right">' + v + '</span></div>';
+  const income = '<div class="dash-section"><div class="dash-section-title">Income statement</div><div style="max-width:560px">' +
+    row('Revenue', dollarFmt(c.revenue)) +
+    row('Cost of goods sold', c.cogs ? '(' + dollarFmt(c.cogs) + ')' : '—') +
+    row('Gross profit · ' + finPct(c.grossMargin), dollarFmt(c.grossProfit), true) +
+    row('Operating expenses', c.opex ? '(' + dollarFmt(c.opex) + ')' : '—') +
+    row('Operating income (EBIT) · ' + finPct(c.opMargin), dollarFmt(c.ebit), true) +
+    (c.dep ? row('Depreciation & amortization → EBITDA ' + dollarFmt(c.ebitda), '(' + dollarFmt(c.dep) + ')') : '') +
+    (c.otherInc ? row('Other income', dollarFmt(c.otherInc)) : '') +
+    (c.otherExp ? row('Other expense', '(' + dollarFmt(c.otherExp) + ')') : '') +
+    row('Pre-tax income', dollarFmt(c.pretax)) +
+    row('Tax expense', c.tax ? '(' + dollarFmt(c.tax) + ')' : '—') +
+    row('Net profit · ' + finPct(c.netMargin), _finSigned(c.netProfit), true) +
+    '</div></div>';
+  const balance = '<div class="dash-section"><div class="dash-section-title">Balance sheet <span class="ht-sub" style="font-weight:400">— auto-composed from Assets + Loans</span></div><div style="max-width:560px">' +
+    row('Total assets', dollarFmt(bs.totalAssets)) +
+    row('— of which cash & bank', dollarFmt(bs.cash)) +
+    row('— of which real estate', dollarFmt(bs.realEstate)) +
+    row('Total liabilities (loans outstanding)', bs.liabilities ? '(' + dollarFmt(bs.liabilities) + ')' : '—') +
+    row('Equity (net worth)', _finSigned(bs.equity), true) +
+    '</div></div>';
+  const cashflow = '<div class="dash-section"><div class="dash-section-title">Cash flow</div><div style="max-width:560px">' +
+    row('Operating activities', _finSigned(c.ocf)) +
+    row('Investing activities', _finSigned(c.icf)) +
+    row('Financing activities', _finSigned(c.fcf)) +
+    row('Net change in cash', _finSigned(c.netCF), true) +
+    '</div></div>';
+  let budget = '';
+  if (c.budRev || c.budExp) {
+    const revVar = c.revenue - c.budRev, expVar = c.opExpenses - c.budExp;
+    budget = '<div class="dash-section"><div class="dash-section-title">Budget vs actual</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Line</th><th>Budget</th><th>Actual</th><th>Variance</th></tr></thead><tbody>' +
+      '<tr><td class="ht-sym">Revenue</td><td>' + dollarFmt(c.budRev) + '</td><td>' + dollarFmt(c.revenue) + '</td><td><span style="color:' + (revVar >= 0 ? 'var(--green)' : 'var(--red)') + '">' + _finSigned(revVar) + '</span></td></tr>' +
+      '<tr><td class="ht-sym">Operating costs <span class="ht-sub">(COGS + opex)</span></td><td>' + dollarFmt(c.budExp) + '</td><td>' + dollarFmt(c.opExpenses) + '</td><td><span style="color:' + (expVar <= 0 ? 'var(--green)' : 'var(--red)') + '">' + _finSigned(expVar) + '</span></td></tr>' +
+      '</tbody></table></div></div>';
+  }
+  const ratios = '<div class="dash-section"><div class="dash-section-title">Financial ratios</div><div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
+    _dashMini('Gross margin', finPct(c.grossMargin), '') +
+    _dashMini('Operating margin', finPct(c.opMargin), '') +
+    _dashMini('Net margin', finPct(c.netMargin), (c.netMargin != null && c.netMargin < 0) ? 'loss' : '') +
+    _dashMini('Debt-to-equity', finX(r.de), (r.de != null && r.de > 2) ? 'loss' : '') +
+    _dashMini('Return on assets', finPct(r.roa), '') +
+    _dashMini('Return on equity', finPct(r.roe), '') +
+    _dashMini('Debt-service coverage', finX(r.dscr), (r.dscr != null && r.dscr < 1.25) ? 'loss' : (r.dscr != null ? 'gain' : '')) +
+    _dashMini('Cash-to-debt', finX(r.cashToDebt), '') +
+    '</div>' +
+    (factor > 1 ? '<div class="ht-sub" style="margin-top:6px">Return on assets/equity and debt-service coverage are annualized from this ' + (f.periodType === 'month' ? 'month' : 'quarter') + '.</div>' : '') +
+    '</div>';
+  const notes = f.notes ? '<div class="loan-notes" style="max-width:680px;margin-top:14px"><div class="loan-field-l">Notes</div><div style="white-space:pre-wrap">' + escHtml(f.notes) + '</div></div>' : '';
+  el.innerHTML = head + hero + income + balance + cashflow + budget + ratios + notes + '<div class="rng-advice-note">Income figures are your entered summaries; the balance sheet reflects current Asset valuations and Loan balances — informational only, not audited financials or advice.</div>';
+}
+function renderFinDash() {
+  const el = document.getElementById('finDashBody'); if (!el) return;
+  if (!UID) { el.innerHTML = emptyState('data', 'Sign in to view financials', ''); return; }
+  const bs = _finBalanceSheet();
+  const bsHero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">' +
+    _odCard('Total assets', dollarFmt(bs.totalAssets)) + _odCard('Liabilities', dollarFmt(bs.liabilities)) + _odCard('Equity', _finSigned(bs.equity)) + _odCard('Cash & bank', dollarFmt(bs.cash)) + '</div>';
+  if (!financials.length) {
+    el.innerHTML = bsHero +
+      '<div class="dash-section"><div class="dash-section-title">Balance sheet <span class="ht-sub" style="font-weight:400">— auto-composed from Assets + Loans</span></div><div class="pf-filter-note">This snapshot builds automatically from your Assets and Loans. Add a <b>financial period</b> to unlock revenue, profit, EBITDA, margins and ratios.</div></div>' +
+      '<div style="text-align:center;margin-top:14px"><button class="pf-btn pf-btn-primary" onclick="sw(\'financials\')">Add a financial period</button></div>';
+    return;
+  }
+  const sorted = financials.slice().sort((a, b) => _finSortKey(b) - _finSortKey(a));
+  const latest = sorted[0], c = finCompute(latest), r = finRatios(c, bs, latest);
+  const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">' +
+    _odCard('Revenue', dollarFmt(c.revenue)) + _odCard('Net profit', _finSigned(c.netProfit)) + _odCard('EBITDA', dollarFmt(c.ebitda)) + _odCard('Net margin', finPct(c.netMargin)) + '</div>';
+  const sub = '<div class="ht-sub" style="margin:-6px 0 10px">Latest period: <b>' + escHtml(finPeriodLabel(latest)) + '</b> (' + escHtml(finTypeLabel(latest.periodType)) + ')</div>';
+  const mini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
+    _dashMini('Gross profit', dollarFmt(c.grossProfit), '') +
+    _dashMini('Operating income', dollarFmt(c.ebit), '') +
+    _dashMini('Gross margin', finPct(c.grossMargin), '') +
+    _dashMini('Operating margin', finPct(c.opMargin), '') +
+    _dashMini('Net cash flow', _finSigned(c.netCF), c.netCF >= 0 ? 'gain' : 'loss') +
+    _dashMini('Debt-to-equity', finX(r.de), (r.de != null && r.de > 2) ? 'loss' : '') +
+    _dashMini('Return on equity', finPct(r.roe), '') +
+    _dashMini('Debt-service coverage', finX(r.dscr), (r.dscr != null && r.dscr < 1.25) ? 'loss' : '') +
+    '</div>';
+  const balSec = '<div class="dash-section"><div class="dash-section-title">Balance sheet <span class="ht-sub" style="font-weight:400">— auto-composed from Assets + Loans</span></div>' + bsHero + '</div>';
+  const tRows = sorted.slice(0, 8).map(p => { const cc = finCompute(p); return '<tr onclick="openFinancial(\'' + p.id + '\')" style="cursor:pointer"><td class="ht-sym"><div class="holding-ticker">' + escHtml(finPeriodLabel(p)) + '</div></td><td>' + dollarFmt(cc.revenue) + '</td><td>' + dollarFmt(cc.grossProfit) + '</td><td>' + dollarFmt(cc.ebitda) + '</td><td><span style="color:' + (cc.netProfit >= 0 ? 'var(--green)' : 'var(--red)') + '">' + _finSigned(cc.netProfit) + '</span></td><td>' + finPct(cc.netMargin) + '</td></tr>'; }).join('');
+  const tbl = '<div class="dash-section"><div class="dash-section-title">By period</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Period</th><th>Revenue</th><th>Gross profit</th><th>EBITDA</th><th>Net profit</th><th>Net margin</th></tr></thead><tbody>' + tRows + '</tbody></table></div></div>';
+  el.innerHTML = hero + sub + mini + balSec + tbl + '<div class="rng-advice-note">Balance sheet reflects current Asset valuations and Loan balances; income figures are your entered summaries — informational only, not advice.</div>';
+}
+
 function openModal(type) {
   const box = document.getElementById('modalBox');
   document.getElementById('modalOverlay').classList.remove('hidden');
@@ -8014,6 +8360,10 @@ function openModal(type) {
     const a = (type === 'editAsset') ? (assets.find(x => x.id === _assetEditId) || null) : null;
     box.innerHTML = assetFormModal(a);
     setTimeout(() => { const i = document.getElementById('assetName'); if (i) i.focus(); }, 0);
+  } else if (type === 'newFinancial' || type === 'editFinancial') {
+    const f = (type === 'editFinancial') ? (financials.find(x => x.id === _finEditId) || null) : null;
+    box.innerHTML = financialFormModal(f);
+    setTimeout(() => { _finTogglePeriod(); const i = document.getElementById(f ? 'finRevenue' : 'finPType'); if (i) i.focus(); }, 0);
   } else if (type === 'newPf') {
     box.innerHTML = '<div class="modal-title">New portfolio</div><label class="modal-label">Portfolio name</label><input id="newPfName" class="modal-input" placeholder="e.g. Growth Portfolio"/><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="createPortfolio(document.getElementById(\'newPfName\').value);closeModal()">Create</button></div>';
   } else if (type === 'addHolding') {
@@ -8206,6 +8556,8 @@ function sw(name) {
   if (name === 'compdash') renderCompanyDashboard();
   if (name === 'assetsdash') renderAssetsDash();
   if (name === 'assets') renderAssets();
+  if (name === 'findash') renderFinDash();
+  if (name === 'financials') renderFinancials();
   if (name === 'platform') renderPlatform();
   try { navRecord(_navAppLoc(name)); } catch (e) {}   // breadcrumb: record the RBAC-resolved tab
 }
@@ -8216,6 +8568,7 @@ function sw(name) {
 // button, the on-screen Back, and clicking a crumb all restore the exact prior view.
 let _navHist = [], _navIdx = -1, _navLock = false;
 function _loanLabel(id) { try { const l = (loans || []).find(x => x.id === id); return l ? loanTitle(l) : 'Loan'; } catch (e) { return 'Loan'; } }
+function _finLabel(id) { try { const f = (financials || []).find(x => x.id === id); return f ? finPeriodLabel(f) : 'Statement'; } catch (e) { return 'Statement'; } }
 function _pfLabel(id) { try { const p = (portfolios || []).find(x => x.id === id); return (p && p.name) || 'Portfolio'; } catch (e) { return 'Portfolio'; } }
 // Per-tab capture/restore — only tabs with a drill-down sub-view need an entry (rest use the default).
 const NAV_REG = {
@@ -8234,6 +8587,16 @@ const NAV_REG = {
                kind: s => (s && s.v === 'detail') ? 'detail' : 'list',
                label: s => (s && s.v === 'detail') ? _loanLabel(s.id) : 'Loans & Notes',
                apply: () => renderLoans() },
+  assets:    { get: () => ({ v: _assetView, id: _assetId, f: _assetCatFilter }),
+               set: s => { _assetView = (s && s.v) || 'list'; _assetId = (s && s.id) || null; _assetCatFilter = (s && s.f) || 'all'; },
+               kind: s => (s && s.v === 'detail') ? 'detail' : 'list',
+               label: s => (s && s.v === 'detail') ? _assetName(s.id) : 'Assets',
+               apply: () => renderAssets() },
+  financials:{ get: () => ({ v: _finView, id: _finId, f: _finTypeFilter }),
+               set: s => { _finView = (s && s.v) || 'list'; _finId = (s && s.id) || null; _finTypeFilter = (s && s.f) || 'all'; },
+               kind: s => (s && s.v === 'detail') ? 'detail' : 'list',
+               label: s => (s && s.v === 'detail') ? _finLabel(s.id) : 'Statements',
+               apply: () => renderFinancials() },
   portfolio: { get: () => ({ pf: currentPfId, v: _pfView, sc: _pfPanelScope, all: _pfAllScope }),
                set: s => { if (s) { _pfView = s.v || 'holdings'; _pfPanelScope = s.sc || 'this'; _pfAllScope = !!s.all; } },
                kind: () => 'pf',
