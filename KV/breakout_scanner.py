@@ -21,7 +21,7 @@ _SPY_CACHE = None
 def get_spy():
     global _SPY_CACHE
     if _SPY_CACHE is None:
-        _SPY_CACHE = yf.Ticker("SPY").history(period="1y", interval="1d", auto_adjust=True)["Close"]
+        _SPY_CACHE = yf.Ticker("SPY").history(period="1y", interval="1d", auto_adjust=True)["Close"].dropna()
     return _SPY_CACHE
 
 # ─────────────────────────────────────────
@@ -392,6 +392,12 @@ def score_stock(ticker_symbol, min_history=50):
     try:
         tk   = yf.Ticker(ticker_symbol)
         hist = tk.history(period="1y", interval="1d", auto_adjust=True)
+        # Yahoo intermittently returns a trailing bar with Open/Volume populated but no
+        # Close (an unsettled or glitched session). Its NaN Close propagates into price,
+        # every MA, RSI and the score — turning the whole universe into NaN/WEAK. Drop any
+        # bar without a Close and score off the last real one.
+        if not hist.empty and "Close" in hist:
+            hist = hist[hist["Close"].notna()]
 
         # Minimum history. Callers pass a lower bound for curated/held names so brand-new
         # IPOs still surface (the broad universe keeps the default 50). Below ~30 days we
