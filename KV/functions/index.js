@@ -1818,7 +1818,7 @@ function otpEmailHtml(code) {
 const MAIL_FROM_EMAIL = 'no-reply@sparksfinance.ai';
 const MAIL_FROM_NAME = 'Sparks Finance';
 const APP_URL = 'https://sparksfinance.ai';
-const MODULE_KEYS = [{ id: 'stocks', label: 'Trading' }, { id: 'loans', label: 'Loans & Notes' }];   // for module-access emails
+const MODULE_KEYS = [{ id: 'stocks', label: 'Trading' }, { id: 'loans', label: 'Loans & Notes' }, { id: 'assets', label: 'Assets' }];   // for module-access emails
 // KILL SWITCH — set to true to resume sending. While false, every SendGrid email is suppressed at the
 // single send point below; all the builders/dispatchers/wiring stay intact, nothing actually goes out.
 // (OTP / password-reset uses Resend, not this path, so account access still emails normally.)
@@ -2074,7 +2074,7 @@ exports.verifyOtp = onRequest(
 // ONLY way to create/delete accounts and set role/permissions. Every call verifies the caller's
 // Firebase ID token and requires admin (an owner email, or a role:admin custom claim).
 const OWNER_EMAILS = ['sean@txsparks.com', 'ravi@txsparks.com'];   // permanent super-admins (keep in sync with firestore.rules + client)
-const RBAC_MODULES = ['stocks', 'loans'];                          // keep in sync with the client MODULES registry
+const RBAC_MODULES = ['stocks', 'loans', 'assets'];                // keep in sync with the client MODULES registry
 const PERM_LEVELS = ['none', 'read', 'update', 'delete'];
 function isOwnerEmail(email) { return OWNER_EMAILS.includes((email || '').toLowerCase()); }
 // Platform super-admin: an owner email whose address is VERIFIED. Requiring email_verified prevents an
@@ -2120,7 +2120,7 @@ exports.adminListUsers = onRequest(
         return {
           uid: u.uid, email: u.email || '', owner, disabled: !!u.disabled,
           role: owner ? 'admin' : (claims.role || doc.role || 'user'),
-          perms: owner ? cleanPerms({ stocks: 'delete', loans: 'delete' }) : cleanPerms(claims.perms || doc.perms),
+          perms: owner ? cleanPerms({ stocks: 'delete', loans: 'delete', assets: 'delete' }) : cleanPerms(claims.perms || doc.perms),
           created: (u.metadata && u.metadata.creationTime) || null,
           lastSignIn: (u.metadata && u.metadata.lastSignInTime) || null
         };
@@ -2291,7 +2291,7 @@ exports.createOrg = onRequest({ region: 'us-central1', cors: true }, async (req,
     const ref = db.collection('organizations').doc();
     // `personal` is set ONLY by ensurePersonalOrg (kept idempotent); a normal createOrg is never personal.
     await ref.set({ name, industry, personal: false, createdBy: tok.uid, createdByEmail: (tok.email || '').toLowerCase(), createdAt: Date.now(), plan: 'free' });
-    await setMembership(ref.id, tok.uid, tok.email, 'owner', { stocks: 'delete', loans: 'delete' }, name, { joinedAt: Date.now(), invitedBy: tok.uid });
+    await setMembership(ref.id, tok.uid, tok.email, 'owner', { stocks: 'delete', loans: 'delete', assets: 'delete' }, name, { joinedAt: Date.now(), invitedBy: tok.uid });
     res.json({ ok: true, orgId: ref.id, name });
   } catch (e) { logger.error('createOrg failed', { error: String(e) }); res.status(500).json({ error: 'create_failed' }); }
 });
@@ -2313,7 +2313,7 @@ exports.ensurePersonalOrg = onRequest({ region: 'us-central1', cors: true }, asy
     const coRef = ref.collection('companies').doc();
     await ref.set({ name: 'Personal', industry: '', personal: true, active: true, defaultCompany: coRef.id, createdBy: tok.uid, createdByEmail: (tok.email || '').toLowerCase(), createdAt: Date.now(), plan: 'free' });
     await coRef.set({ name: 'Personal', active: true, modules: { stocks: true, loans: true }, createdBy: tok.uid, createdAt: Date.now() });
-    await setCompanyMembership(ref.id, coRef.id, tok.uid, tok.email, 'admin', { stocks: 'delete', loans: 'delete' }, 'Personal', 'Personal', { joinedAt: Date.now() });
+    await setCompanyMembership(ref.id, coRef.id, tok.uid, tok.email, 'admin', { stocks: 'delete', loans: 'delete', assets: 'delete' }, 'Personal', 'Personal', { joinedAt: Date.now() });
     // Denormalize personal:true onto the user's org index so the hub can render it as a single
     // "Personal workspace" entry (a member can't read the org doc directly to learn this).
     await db.collection('users').doc(tok.uid).set({ orgs: { [ref.id]: { personal: true } } }, { merge: true });
@@ -2745,7 +2745,7 @@ exports.createCompany = onRequest({ region: 'us-central1', cors: true }, async (
     // resolves by name — unless they're a platform owner (owner emails are never ordinary members; they
     // already have platform-wide access). The client also auto-enters the new company after this returns.
     if (!isOwnerEmail((auth.tok.email || '').toLowerCase())) {
-      try { await setCompanyMembership(orgId, ref.id, auth.tok.uid, (auth.tok.email || '').toLowerCase(), 'admin', { stocks: 'delete', loans: 'delete' }, await _orgName(orgId), name, { joinedAt: Date.now() }); } catch (e) {}
+      try { await setCompanyMembership(orgId, ref.id, auth.tok.uid, (auth.tok.email || '').toLowerCase(), 'admin', { stocks: 'delete', loans: 'delete', assets: 'delete' }, await _orgName(orgId), name, { joinedAt: Date.now() }); } catch (e) {}
     }
     res.json({ ok: true, companyId: ref.id, name });
   } catch (e) { logger.error('createCompany failed', { error: String(e) }); res.status(500).json({ error: 'create_failed' }); }
@@ -2831,7 +2831,11 @@ exports.companyListMembers = onRequest({ region: 'us-central1', cors: true }, as
     const personal = !!(orgSnap && orgSnap.exists && orgSnap.data().personal === true);
     let invites = [];
     if (canManage) { const snap = await db.collection('invites').where('orgId', '==', orgId).get(); invites = snap.docs.map(d => ({ inviteId: d.id, ...d.data() })).filter(v => v.status === 'pending' && v.companyId === companyId); }
-    res.json({ ok: true, members, invites, canManage, personal, callerRole: auth.isPlatform ? 'platform' : (auth.orgAdmin ? 'org_admin' : (auth.member && auth.member.role)) });
+    // Also surface who can access this company beyond its direct members: the org admins (org-wide) and the
+    // platform super-admins. Shown read-only so it's clear they have full access here.
+    let orgAdmins = [];
+    try { orgAdmins = (await db.doc('organizations/' + orgId).collection('orgAdmins').get()).docs.map(d => ({ uid: d.id, email: ((d.data() || {}).email || '').toLowerCase() })); } catch (e) {}
+    res.json({ ok: true, members, invites, canManage, personal, orgAdmins, superAdmins: OWNER_EMAILS.slice(), callerRole: auth.isPlatform ? 'platform' : (auth.orgAdmin ? 'org_admin' : (auth.member && auth.member.role)) });
   } catch (e) { logger.error('companyListMembers failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
 });
 // Invite someone to a company (company admin / org-admin / super-admin). Reuses the top-level invites collection.
