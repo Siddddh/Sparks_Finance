@@ -1612,9 +1612,20 @@ body.sidebar-open .nav-scrim{display:block;}
           <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Platform super-admin view — every access to an org's details is logged.</div>
           <div id="platformBody"></div>
         </div>
-        <div id="tab-soon" class="tab-panel">
-          <div class="page-title" id="soonTitle">Coming soon</div>
-          <div id="soonBody"></div>
+        <div id="tab-assetsdash" class="tab-panel">
+          <div class="page-title">Assets dashboard</div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Total asset value and breakdown for the currently selected company.</div>
+          <div id="assetsDashBody"></div>
+        </div>
+        <div id="tab-assets" class="tab-panel">
+          <div class="page-title">Assets</div>
+          <div class="pf-toolbar">
+            <button class="pf-btn pf-btn-primary" onclick="openModal('newAsset')"><span class="i-plus"></span> New asset</button>
+            <input id="assetSearch" class="modal-input" type="text" placeholder="Search assets…" style="max-width:260px;margin:0 0 0 auto;" oninput="_onAssetSearch()"/>
+            <select id="assetCatFilter" class="modal-input" style="max-width:200px;margin:0;" onchange="_onAssetCatFilter(this.value)"><option value="all">All categories</option></select>
+          </div>
+          <div style="font-size:13px;color:var(--text-3);margin:-4px 0 12px;">Track property, equipment, investments and bank accounts — their cost, current value and total worth.</div>
+          <div id="assetsBody"></div>
         </div>
         <div id="tab-loans" class="tab-panel">
           <div class="page-title">Loans &amp; Notes</div>
@@ -1892,13 +1903,10 @@ const NAV = [
   { sec: 'Manage' },
   { tab: 'loansdash', label: 'Dashboard', icon: 'data' },
   { tab: 'loans', label: 'Loans & Notes', icon: 'file' },
-  { cat: 'More modules' },
-  { sec: 'Coming soon' },
-  { tab: 'm_ap', label: 'Accounts payable', icon: 'file' },
-  { tab: 'm_ar', label: 'Accounts receivable', icon: 'file' },
-  { tab: 'm_invoices', label: 'Invoices', icon: 'file' },
-  { tab: 'm_banking', label: 'Banking', icon: 'data' },
-  { tab: 'm_cash', label: 'Cash management', icon: 'data' },
+  { cat: 'Assets' },
+  { sec: 'Manage' },
+  { tab: 'assetsdash', label: 'Dashboard', icon: 'data' },
+  { tab: 'assets', label: 'Assets', icon: 'briefcase' },
   { cat: 'Company' },
   { sec: 'Manage' },
   { tab: 'compdash', label: 'Dashboard', icon: 'data' },
@@ -1967,11 +1975,13 @@ const CF_BASE = 'https://us-central1-claude-apps-a6fe1.cloudfunctions.net/';
 const OWNER_EMAILS_CLIENT = ['sean@txsparks.com', 'ravi@txsparks.com'];
 const MODULES = [
   { id: 'stocks', cat: 'Trading', label: 'Trading' },
-  { id: 'loans', cat: 'Loans & Notes', label: 'Loans & Notes' }
+  { id: 'loans', cat: 'Loans & Notes', label: 'Loans & Notes' },
+  { id: 'assets', cat: 'Assets', label: 'Assets' }
 ];
 const _MOD_TABS = {
   stocks: ['cards', 'explore', 'research', 'recommend', 'table', 'portfolio', 'watchlist', 'useralerts', 'market', 'earnings', 'premarket'],
-  loans: ['loansdash', 'loans']
+  loans: ['loansdash', 'loans'],
+  assets: ['assetsdash', 'assets']
 };
 let _role = 'user', _perms = {}, _permsUnsub = null;
 // ── Active organization (multi-tenant scope) ──
@@ -1987,6 +1997,7 @@ function txnCol(pfId) { return companyRef().collection('transactions').doc(pfId)
 function wlCol() { return companyRef().collection('watchlists'); }
 function alertsCol() { return companyRef().collection('alerts'); }
 function loansCol() { return companyRef().collection('loans'); }
+function assetsCol() { return companyRef().collection('assets'); }
 function loanStoragePath(loanId, fname) { return 'orgs/' + ACTIVE_ORG + '/companies/' + ACTIVE_COMPANY + '/loans/' + loanId + '/' + fname; }
 function isPlatformAdmin() { try { const u = auth.currentUser; return !!u && u.emailVerified && OWNER_EMAILS_CLIENT.includes(((u.email || '')).toLowerCase()); } catch (e) { return false; } }
 function _ownerEmailNow() { return isPlatformAdmin(); }   // back-compat alias
@@ -2009,7 +2020,7 @@ function _isOrgAdminNow() { return isPlatformAdmin() || !!(_myOrgs[ACTIVE_ORG] &
 function loadPermsAndGate() {
   if (_permsUnsub) { try { _permsUnsub(); } catch (e) {} _permsUnsub = null; }
   if (!UID || !ACTIVE_ORG || !ACTIVE_COMPANY) { _role = 'user'; _perms = {}; try { applyPermissions(); } catch (e) {} return; }
-  const forceFull = () => { if (_isOrgAdminNow()) { _role = 'admin'; _perms = { stocks: 'delete', loans: 'delete' }; return true; } return false; };
+  const forceFull = () => { if (_isOrgAdminNow()) { _role = 'admin'; _perms = { stocks: 'delete', loans: 'delete', assets: 'delete' }; return true; } return false; };
   _permsUnsub = companyRef().collection('members').doc(UID).onSnapshot(doc => {
     if (!forceFull()) { const d = (doc && doc.exists) ? (doc.data() || {}) : {}; _role = d.role || 'member'; _perms = d.perms || {}; }
     applyPermissions();
@@ -2089,7 +2100,7 @@ function renderAdminTable() {
 }
 function editUser(uid) { _userEditUid = uid; openModal('editUser'); }
 // ── Organization management (Members / Settings / Platform) — via the org Cloud Functions ──
-let _orgMembers = [], _orgInvites = [], _orgCanManage = false, _memberEditUid = null, _orgIsPersonal = false, _orgCanInvite = false;
+let _orgMembers = [], _orgInvites = [], _orgCanManage = false, _memberEditUid = null, _orgIsPersonal = false, _orgCanInvite = false, _orgOrgAdmins = [], _orgSuperAdmins = [];
 function roleRankC(r) { return r === 'owner' ? 3 : r === 'admin' ? 2 : 1; }
 function orgRoleBadge(r) { const m = { owner: ['Owner', 'badge-red'], admin: ['Admin', 'badge-blue'], member: ['Member', 'badge-gray'] }; const b = m[r] || m.member; return '<span class="badge ' + b[1] + '">' + b[0] + '</span>'; }
 async function renderOrgMembers() {
@@ -2102,6 +2113,7 @@ async function renderOrgMembers() {
     _orgInvites = d.invites || [];
     _orgCanManage = !!d.canManage;
     _orgIsPersonal = !!d.personal;
+    _orgOrgAdmins = d.orgAdmins || []; _orgSuperAdmins = d.superAdmins || [];
     // Personal workspaces: only a platform super-admin may add members (enforced by companyInvite CF).
     _orgCanInvite = _orgCanManage && (!_orgIsPersonal || d.callerRole === 'platform');
   } catch (e) { el.innerHTML = emptyState('users', "Couldn't load members", escHtml(String(e.message || e)) + ' — the org Cloud Functions must be deployed.'); return; }
@@ -2113,7 +2125,14 @@ function renderMembersTable() {
   const personalWarn = (_orgIsPersonal && _orgCanInvite)
     ? '<div class="pf-warn-note">⚠ This is your <b>personal</b> workspace. Anyone you add here shares this one private space — its data will <b>not</b> roll up to any organization dashboard. For a team with an organization-wide roll-up, create an <b>Organization</b> from the workspace hub and invite people into a company there.</div>'
     : '';
-  if (!_orgMembers.length && !_orgInvites.length) {
+  // People who can access this company beyond its direct members: org admins (org-wide) + platform super-admins.
+  // Deduped against direct members (by uid/email) and each other, shown read-only with full access.
+  const memberUids = new Set(_orgMembers.map(u => u.uid));
+  const memberEmails = new Set(_orgMembers.map(u => (u.email || '').toLowerCase()));
+  const accessPeople = [];
+  (_orgOrgAdmins || []).forEach(a => { const e = (a.email || '').toLowerCase(); if (a.uid && memberUids.has(a.uid)) return; if (e && memberEmails.has(e)) return; accessPeople.push({ email: a.email || a.uid, tag: 'org' }); });
+  (_orgSuperAdmins || []).forEach(em => { const e = (em || '').toLowerCase(); if (!e || memberEmails.has(e)) return; if (accessPeople.find(p => (p.email || '').toLowerCase() === e)) return; accessPeople.push({ email: e, tag: 'super' }); });
+  if (!_orgMembers.length && !_orgInvites.length && !accessPeople.length) {
     el.innerHTML = personalWarn + emptyState('users', 'No members yet', _orgCanInvite
       ? 'Invite your first teammate to this company and choose which modules they can access.'
       : 'No one has been added to this company yet.');
@@ -2137,7 +2156,12 @@ function renderMembersTable() {
     ? '<tr class="members-section-row"><td colspan="' + (MODULES.length + 3) + '" class="ht-sub" style="padding-top:14px;font-weight:600;color:var(--text-2)">Pending invitations</td></tr>'
     : '';
   const invRows = inviteDivider + _orgInvites.map(iv => '<tr style="opacity:.75"><td class="ht-sym"><div><div class="holding-ticker">' + escHtml(iv.emailLower || '') + '</div><div class="ht-sub">invited · pending</div></div></td><td>' + orgRoleBadge(iv.role) + '</td>' + MODULES.map(() => '<td class="ht-sub">—</td>').join('') + '<td style="white-space:nowrap">' + ((_orgCanManage && iv.inviteId) ? '<button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="cancelInviteBtn(\'' + iv.inviteId + '\',\'company\')">Cancel invite</button>' : '') + '</td></tr>').join('');
-  el.innerHTML = personalNote + '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Member</th><th>Role</th>' + modCols + '<th></th></tr></thead><tbody>' + rows + invRows + '</tbody></table></div>';
+  const noDirectNote = (!_orgMembers.length && !_orgInvites.length) ? '<div class="pf-filter-note" style="margin-bottom:10px">No teammates have been added to this company yet — the organization &amp; platform admins below can access it.</div>' : '';
+  const accessRows = accessPeople.length
+    ? '<tr class="members-section-row"><td colspan="' + (MODULES.length + 3) + '" class="ht-sub" style="padding-top:14px;font-weight:600;color:var(--text-2)">Organization &amp; platform access</td></tr>' +
+      accessPeople.map(p => '<tr style="opacity:.85"><td class="ht-sym"><div><div class="holding-ticker">' + escHtml(p.email) + '</div><div class="ht-sub">' + (p.tag === 'super' ? 'Super admin · full access' : 'Org admin · full access') + '</div></div></td><td>' + (p.tag === 'super' ? '<span class="badge badge-red">Super admin</span>' : '<span class="badge badge-blue">Org admin</span>') + '</td>' + MODULES.map(() => '<td><span class="badge badge-blue">Full</span></td>').join('') + '<td></td></tr>').join('')
+    : '';
+  el.innerHTML = personalNote + noDirectNote + '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Member</th><th>Role</th>' + modCols + '<th></th></tr></thead><tbody>' + rows + invRows + accessRows + '</tbody></table></div>';
 }
 function editMember(uid) { _memberEditUid = uid; openModal('editMember'); }
 async function removeMember(uid) {
@@ -2306,7 +2330,15 @@ async function _aggregateCompany(orgId, companyId, companyName) {
       }
     });
   } catch (e) {}
-  return { coVal, coInv, coHold, coOut, coLoans, coBorrow, coLent, coMonthly, coActive, coClosed, coDue30, coDue60, coDue90, coOverdue, coIntPay, coIntRecv, hiRate, maturities };
+  // Assets: total value, cash (bank accounts), real estate. Net worth = assets − loan outstanding (liabilities).
+  let coAssets = 0, coCash = 0, coRealEstate = 0, coAssetCount = 0;
+  try {
+    const asnap = await coRef.collection('assets').get();
+    asnap.docs.forEach(ad => { const a = ad.data() || {}; const v = ccyNum(a.currentValue) || 0; coAssets += v; coAssetCount++; const cat = a.category || 'other'; if (cat === 'bank') coCash += v; if (cat === 'land' || cat === 'commercial' || cat === 'residential' || cat === 'luxury') coRealEstate += v; });
+  } catch (e) {}
+  const coLiabilities = coOut;                 // outstanding loan principal
+  const coNetWorth = coAssets - coLiabilities;
+  return { coVal, coInv, coHold, coOut, coLoans, coBorrow, coLent, coMonthly, coActive, coClosed, coDue30, coDue60, coDue90, coOverdue, coIntPay, coIntRecv, hiRate, maturities, coAssets, coCash, coRealEstate, coAssetCount, coLiabilities, coNetWorth };
 }
 async function renderOrgDashboard(orgId, host) {
   orgId = orgId || ACTIVE_ORG;
@@ -2321,7 +2353,7 @@ async function renderOrgDashboard(orgId, host) {
     el.innerHTML = emptyState('briefcase', 'No active companies yet', 'Add a company to this organization (in the Companies tab) to see consolidated portfolio value, loans, and users across the whole organization here.');
     return;
   }
-  let totMembers = 0, totPortfolio = 0, totInvested = 0, totOutstanding = 0, totLent = 0, totBorrowed = 0, totHoldings = 0, totLoans = 0;
+  let totMembers = 0, totPortfolio = 0, totInvested = 0, totOutstanding = 0, totLent = 0, totBorrowed = 0, totHoldings = 0, totLoans = 0, totAssets = 0, totCash = 0;
   const rows = [];
   // Enterprise loan rollup — mirrors the company Loans dashboard, consolidated across every company.
   let entIntPayable = 0, entIntRecv = 0, entMonthlyOblig = 0, entActive = 0, entClosed = 0, entDue30 = 0, entDue60 = 0, entDue90 = 0, entOverdue = 0;
@@ -2330,7 +2362,7 @@ async function renderOrgDashboard(orgId, host) {
     totMembers += c.memberCount || 0;
     const a = await _aggregateCompany(orgId, c.companyId, c.name);
     totPortfolio += a.coVal; totInvested += a.coInv; totHoldings += a.coHold; totOutstanding += a.coOut; totLoans += a.coLoans;
-    totLent += a.coLent; totBorrowed += a.coBorrow;
+    totLent += a.coLent; totBorrowed += a.coBorrow; totAssets += a.coAssets; totCash += a.coCash;
     entIntPayable += a.coIntPay; entIntRecv += a.coIntRecv; entMonthlyOblig += a.coMonthly;
     entActive += a.coActive; entClosed += a.coClosed;
     entDue30 += a.coDue30; entDue60 += a.coDue60; entDue90 += a.coDue90; entOverdue += a.coOverdue;
@@ -2339,10 +2371,13 @@ async function renderOrgDashboard(orgId, host) {
     rows.push({ name: c.name, members: c.memberCount || 0, portfolio: a.coVal, holdings: a.coHold, loans: a.coLoans, outstanding: a.coOut });
     loanRows.push({ name: c.name, borrowed: a.coBorrow, lent: a.coLent, outstanding: a.coOut, monthly: a.coMonthly, active: a.coActive, due: a.coDue30 });
   }
+  const totNetWorth = totAssets - totOutstanding;
   const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' +
-    _odCard('Companies', String(companies.length)) + _odCard('Total users', String(totMembers)) +
-    _odCard('Total portfolio value', dollarFmt(totPortfolio)) + _odCard('Total loans outstanding', dollarFmt(totOutstanding)) + '</div>';
+    _odCard('Total net worth', dollarFmt(totNetWorth)) + _odCard('Total assets', dollarFmt(totAssets)) +
+    _odCard('Total liabilities', dollarFmt(totOutstanding)) + _odCard('Cash & bank', dollarFmt(totCash)) + '</div>';
   const mini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
+    _dashMini('Companies', String(companies.length), '') + _dashMini('Total users', String(totMembers), '') +
+    _dashMini('Portfolio value', dollarFmt(totPortfolio), '') +
     _dashMini('Invested (cost basis)', dollarFmt(totInvested), '') +
     _dashMini('Unrealized P&L', dollarFmt(totPortfolio - totInvested), (totPortfolio - totInvested) >= 0 ? 'gain' : 'loss') +
     _dashMini('Total holdings', String(totHoldings), '') + _dashMini('Total loans', String(totLoans), '') +
@@ -2400,49 +2435,83 @@ async function renderCompanyDashboard() {
   try { memberCount = (await companyRef().collection('members').get()).size; } catch (e) {}
   const net = a.coVal - a.coInv;
   const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' +
-    _odCard('Portfolio value', dollarFmt(a.coVal)) + _odCard('Loans outstanding', dollarFmt(a.coOut)) +
-    _odCard('Borrowed', dollarFmt(a.coBorrow)) + _odCard('Lent', dollarFmt(a.coLent)) + '</div>';
+    _odCard('Net worth', dollarFmt(a.coNetWorth)) +
+    _odCard('Total assets', dollarFmt(a.coAssets)) +
+    _odCard('Liabilities', dollarFmt(a.coLiabilities)) +
+    _odCard('Cash & bank', dollarFmt(a.coCash)) + '</div>';
   const mini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
-    _dashMini('Invested (cost basis)', dollarFmt(a.coInv), '') +
+    _dashMini('Real estate', dollarFmt(a.coRealEstate), '') +
+    _dashMini('Portfolio value', dollarFmt(a.coVal), '') +
     _dashMini('Unrealized P&L', (net >= 0 ? '+' : '-') + dollarFmt(Math.abs(net)), net >= 0 ? 'gain' : 'loss') +
-    _dashMini('Holdings', String(a.coHold), '') + _dashMini('Total loans', String(a.coLoans), '') +
-    _dashMini('Active loans', String(a.coActive), '') +
+    _dashMini('Loans outstanding', dollarFmt(a.coOut), a.coOut ? 'loss' : '') +
     _dashMini('Monthly debt obligation', dollarFmt(a.coMonthly), '') +
-    _dashMini('Interest payable', dollarFmt(a.coIntPay), a.coIntPay ? 'loss' : '') +
-    _dashMini('Interest receivable', dollarFmt(a.coIntRecv), a.coIntRecv ? 'gain' : '') +
-    _dashMini('Loans due 30 / 60 / 90d', a.coDue30 + ' / ' + a.coDue60 + ' / ' + a.coDue90, '') +
-    _dashMini('Overdue payments', String(a.coOverdue), a.coOverdue ? 'loss' : '') +
+    _dashMini('Active loans', String(a.coActive), '') +
+    _dashMini('Assets tracked', String(a.coAssetCount), '') +
+    _dashMini('Holdings', String(a.coHold), '') +
     _dashMini('Members', String(memberCount), '') + '</div>';
-  const placeholders = '<div class="dash-section"><div class="dash-section-title">Coming soon</div><div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
-    ['Financial Statements', 'Assets', 'Accounts Receivable', 'Accounts Payable'].map(t => _dashMini(t, '<span class="ht-sub">Coming soon</span>', '')).join('') + '</div></div>';
-  el.innerHTML = hero + mini + placeholders + '<div class="rng-advice-note">Figures use the latest available prices — informational only, not financial advice.</div>';
+  const soon = '<div class="dash-section"><div class="dash-section-title">Revenue &amp; profitability</div><div class="pf-filter-note">Revenue, expenses, net profit, EBITDA and margins populate once you add <b>Financial Statements</b> (the next module). The Balance Sheet then composes automatically from your Assets and Loans.</div></div>';
+  el.innerHTML = hero + mini + soon + '<div class="rng-advice-note">Figures use your entered valuations + latest available prices — informational only, not financial advice.</div>';
 }
 // Org-wide members roster (org level). Lists every person across the org's companies + org admins, with roles.
 async function renderOrgAllMembers(orgId, host) {
   const el = host || document.getElementById('hubOrgContent'); if (!el) return;
-  el.innerHTML = '<div class="pf-filter-note">Loading members…</div>';
+  // Actions (this view is only reachable by org-admins/super-admins). Invite member → a company (org-admins
+  // + super-admins). Manage org admins → org-wide access (super-admins only).
+  const header = '<div class="pf-toolbar" style="margin-bottom:12px">' +
+    '<button class="pf-btn pf-btn-primary" onclick="openModal(\'orgInviteMember\')"><span class="i-plus"></span> Invite member</button>' +
+    (isPlatformAdmin() ? '<button class="pf-btn pf-btn-outline" onclick="openModal(\'orgAdmins\')">Manage org admins</button>' : '') +
+    '</div>';
+  el.innerHTML = header + '<div class="pf-filter-note">Loading members…</div>';
   let members = [];
   try { members = (await _adminCall('orgListAllMembers', { orgId: orgId })).members || []; }
-  catch (e) { el.innerHTML = emptyState('users', "Couldn't load members", escHtml(String(e.message || e)) + ' — the organization Cloud Functions must be deployed.'); return; }
-  if (!members.length) { el.innerHTML = emptyState('users', 'No members yet', 'Members you add to this organization’s companies will appear here with their roles.'); return; }
+  catch (e) { el.innerHTML = header + emptyState('users', "Couldn't load members", escHtml(String(e.message || e)) + ' — the organization Cloud Functions must be deployed.'); return; }
+  if (!members.length) { el.innerHTML = header + emptyState('users', 'No members yet', 'Invite someone to a company (button above) — they’ll appear here with their role. Org admins you add show here too.'); return; }
   const rows = members.map(u => {
     const chips = (u.companies || []).map(c => '<span class="badge badge-gray">' + escHtml(c.companyName) + ' · ' + escHtml(c.role === 'admin' ? 'Admin' : 'Member') + (c.active === false ? ' (inactive)' : '') + '</span>').join(' ') || '<span class="ht-sub">—</span>';
     const role = u.orgAdmin ? '<span class="badge badge-blue">Org admin</span>' : '<span class="badge badge-gray">Member</span>';
     return '<tr><td class="ht-sym"><div class="holding-ticker">' + escHtml(u.email || u.uid) + '</div></td><td>' + role + '</td><td>' + chips + '</td></tr>';
   }).join('');
-  el.innerHTML = '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Person</th><th>Organization role</th><th>Companies &amp; roles</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+  el.innerHTML = header + '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Person</th><th>Organization role</th><th>Companies &amp; roles</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
 }
-function renderSoon(name) {
-  const map = {
-    m_ap:       { label: 'Accounts payable',    desc: 'Track vendor bills and outgoing payments, schedule due dates, and see exactly what your company owes at a glance.' },
-    m_ar:       { label: 'Accounts receivable', desc: 'Monitor customer balances, keep on top of what is owed to your company, and stay ahead with built-in aging and reminders.' },
-    m_invoices: { label: 'Invoices',            desc: 'Create, send, and track professional invoices end to end — from draft to paid — with clear status tracking and downloadable records.' },
-    m_banking:  { label: 'Banking',             desc: 'Connect and reconcile your company bank accounts, categorize transactions, and keep every balance in sync with your books.' },
-    m_cash:     { label: 'Cash management',     desc: 'See your consolidated cash position across accounts, forecast inflows and outflows, and plan liquidity with confidence.' }
-  };
-  const m = map[name] || { label: 'Module', desc: 'This module is planned for a future release.' };
-  const t = document.getElementById('soonTitle'); if (t) t.textContent = m.label;
-  const b = document.getElementById('soonBody'); if (b) b.innerHTML = emptyState('box', m.label + ' is coming soon', m.desc + ' It will be available to every company in this organization once released, with the same role-based access as Trading and Loans & Notes.');
+// Org-level "invite a member to a company" — like the company invite, but with a company picker (used from the
+// org Members roster, where there's no single active company). Org-admins + super-admins; gated server-side too.
+function orgInviteMemberModal() {
+  const permRows = MODULES.map(m => '<label class="modal-label">' + escHtml(m.label) + '</label>' + _permSelect('operm_' + m.id, '')).join('');
+  return '<div class="modal-title">Invite member to a company</div>' +
+    '<div class="modal-price-hint" style="margin-bottom:8px">Choose which company in this organization they join, their role, and per-module access.</div>' +
+    '<label class="modal-label">Company</label><select id="oiCompany" class="modal-input"><option value="">Loading companies…</option></select>' +
+    '<label class="modal-label">Email</label><input id="oiEmail" class="modal-input" type="email" placeholder="person@example.com" autocomplete="off"/>' +
+    '<label class="modal-label">Role</label><select id="oiRole" class="modal-input"><option value="member" selected>Member (module access below)</option><option value="admin">Company Admin (manage members + full access)</option></select>' +
+    '<div class="modal-price-hint" style="margin:10px 0 2px">Per-module access (applies when role is Member; admins get full access)</div>' + permRows +
+    '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitOrgInvite()">Send invite</button></div>';
+}
+async function _fillOrgInviteCompanies() {
+  const sel = document.getElementById('oiCompany'); if (!sel) return;
+  let companies = [];
+  try { const d = await _adminCall('orgListCompanies', { orgId: _hubOrgId }); companies = (d.companies || []).filter(c => c.active !== false); } catch (e) {}
+  sel.innerHTML = companies.length
+    ? companies.map(c => '<option value="' + c.companyId + '">' + escHtml(c.name || 'Company') + '</option>').join('')
+    : '<option value="">No active companies yet — create one first</option>';
+}
+async function submitOrgInvite() {
+  const g = x => { const e = document.getElementById(x); return e ? e.value : ''; };
+  const companyId = g('oiCompany'), email = g('oiEmail').trim(), role = g('oiRole') || 'member';
+  if (!companyId) { try { pmToast('Pick a company'); } catch (e) {} return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { try { pmToast('Enter a valid email address'); } catch (e) {} return; }
+  const perms = {}; MODULES.forEach(m => perms[m.id] = g('operm_' + m.id) || 'none');
+  const btn = document.querySelector('#modalBox .modal-btn-primary'); if (btn && btn.disabled) return;
+  const sel = document.getElementById('oiCompany'); const coName = (sel && sel.selectedOptions[0] && sel.selectedOptions[0].textContent) || 'the company';
+  authBusy(btn, true, 'Sending invite…');
+  try {
+    const d = await _adminCall('companyInvite', { orgId: _hubOrgId, companyId, email, role, perms });
+    try { renderOrgAllMembers(_hubOrgId); } catch (e) {}
+    showInviteResult({ title: 'Invitation created', email: email, detail: 'Role: <b>' + escHtml(role === 'admin' ? 'Company Admin' : 'Member') + '</b> · ' + escHtml(coName), emailed: d.emailed !== false, kind: null });
+  } catch (e) {
+    authBusy(btn, false);
+    const code = String(e && e.message);
+    const MSG = { already_member: 'That person is already a member of that company.', forbidden: 'You do not have permission.', personal_locked: 'Members of a personal workspace can only be added by a platform administrator.', owner_is_platform_admin: 'Super-admins already have full access — they can’t be added as a member.', invalid_email: 'Enter a valid email.' };
+    try { pmToast(MSG[code] || 'Something went wrong. Please try again.'); } catch (_) {}
+  }
 }
 function _permSelect(id, cur) {
   const opts = [['none', 'No access'], ['read', 'View only'], ['update', 'View & edit'], ['delete', 'Full access (incl. delete)']];
@@ -3343,7 +3412,7 @@ async function routeAfterAuth(user) {
     if (o && c) {
       ACTIVE_ORG = o; ACTIVE_COMPANY = c;
       // Workspace names fill in from the background read / live listener — don't block entry on them.
-      _myOrgsPromise.then(() => { _orgName = (_myOrgs[o] && _myOrgs[o].name) || _orgName; const cos = (_myOrgs[o] && _myOrgs[o].companies) || {}; _companyName = (cos[c] && cos[c].name) || _companyName; try { renderOrgSwitcher(); } catch (e) {} });
+      _myOrgsPromise.then(() => { _resolveWorkspaceNames(o, c); try { renderOrgSwitcher(); renderCrumbs(); } catch (e) {} });
       enterApp(user, { boot: true }); return;
     }
   }
@@ -3355,11 +3424,12 @@ async function routeAfterAuth(user) {
 // reload-free switch (enterWorkspace) can't leave stale listeners bleeding the prior workspace's data
 // into the shared globals or briefly render its dashboard. Mirrors the sign-out teardown.
 function _teardownWorkspace() {
-  [holdingsUnsub, transactionsUnsub, loansUnsub, _pfUnsub, _wlUnsub, _alertsUnsub, _permsUnsub, _claudeHoldingsUnsub, _scanUnsub].forEach(u => { if (u) { try { u(); } catch (e) {} } });
-  holdingsUnsub = transactionsUnsub = loansUnsub = _pfUnsub = _wlUnsub = _alertsUnsub = _permsUnsub = _claudeHoldingsUnsub = _scanUnsub = null;
+  [holdingsUnsub, transactionsUnsub, loansUnsub, assetsUnsub, _pfUnsub, _wlUnsub, _alertsUnsub, _permsUnsub, _claudeHoldingsUnsub, _scanUnsub].forEach(u => { if (u) { try { u(); } catch (e) {} } });
+  holdingsUnsub = transactionsUnsub = loansUnsub = assetsUnsub = _pfUnsub = _wlUnsub = _alertsUnsub = _permsUnsub = _claudeHoldingsUnsub = _scanUnsub = null;
   portfolios = []; holdings = []; holdingsByPortfolio = {}; currentPfId = null;
   transactions = []; _pfView = 'holdings';
   loans = []; _loanView = 'list'; _loanId = null;
+  assets = []; _assetView = 'list'; _assetId = null;
   watchlists = []; userAlerts = []; _claudeHoldings = {};
   const hd = document.getElementById('homeDashboard'); if (hd) hd.innerHTML = '';
 }
@@ -3399,6 +3469,9 @@ function subscribeUserDoc() {
   if (!UID) return;
   _userDocUnsub = db.collection('users').doc(UID).onSnapshot(d => {
     _myOrgs = (d.exists && d.data() && d.data().orgs) || {};
+    // Once the org index loads/updates, an org-admin's org-wide full access may only now be known — re-apply
+    // the gate so their modules (Loans, etc.) appear without a reload (fixes intermittently-missing modules).
+    try { if (ACTIVE_ORG && ACTIVE_COMPANY && _isOrgAdminNow()) { _role = 'admin'; _perms = { stocks: 'delete', loans: 'delete', assets: 'delete' }; } applyPermissions(); } catch (e) {}
     try { renderOrgSwitcher(); } catch (e) {}
   }, () => {});
 }
@@ -3773,14 +3846,31 @@ async function deleteOrgBtn() {
   catch (e) { try { pmToast('Failed: ' + (e.message || e)); } catch (_) {} }
 }
 function _hubFilter() { if (_hubOrgId) _hubRenderCompanyCards(); else _hubRenderOrgCards(); }
+// Resolve the active org + company display names from every source we might have (membership mirror, hub
+// lists, the switcher's fetched company list). For a super-admin/org-admin who isn't a MEMBER of the company,
+// the name isn't local — fetch it once from orgListCompanies and refresh the UI (fixes the "Workspace" label).
+function _resolveWorkspaceNames(orgId, companyId) {
+  _orgName = (_myOrgs[orgId] && _myOrgs[orgId].name) || (_hubOrgList.find(o => o.orgId === orgId) || {}).name || (_hubAllOrgs.find(o => o.orgId === orgId) || {}).name || (_hubPersonalOrgs.find(o => o.orgId === orgId) || {}).name || _orgName || '';
+  const cos = (_myOrgs[orgId] && _myOrgs[orgId].companies) || {};
+  _companyName = (cos[companyId] && cos[companyId].name)
+    || ((_hubCoData.companies || []).find(c => c.companyId === companyId) || {}).name
+    || ((_wswCompanies && _wswCompanies.orgId === orgId) ? ((_wswCompanies.list || []).find(c => c.companyId === companyId) || {}).name : '')
+    || '';
+  if (!_companyName && (isPlatformAdmin() || (_myOrgs[orgId] && _myOrgs[orgId].orgAdmin))) {
+    _adminCall('orgListCompanies', { orgId }).then(d => {
+      _wswCompanies = { orgId, list: d.companies || [] };
+      const c = (d.companies || []).find(x => x.companyId === companyId);
+      if (c && c.name && orgId === ACTIVE_ORG && companyId === ACTIVE_COMPANY) { _companyName = c.name; try { renderOrgSwitcher(); renderCrumbs(); } catch (e) {} }
+    }).catch(() => {});
+  }
+}
 function enterWorkspace(orgId, companyId) {
   if (!orgId || !companyId) return;
   ACTIVE_ORG = orgId; ACTIVE_COMPANY = companyId;
-  _orgName = (_myOrgs[orgId] && _myOrgs[orgId].name) || (_hubOrgList.find(o => o.orgId === orgId) || {}).name || (_hubPersonalOrgs.find(o => o.orgId === orgId) || {}).name || '';
-  const cos = (_myOrgs[orgId] && _myOrgs[orgId].companies) || {};
-  _companyName = (cos[companyId] && cos[companyId].name) || ((_hubCoData.companies.find(c => c.companyId === companyId) || {}).name) || '';
+  _resolveWorkspaceNames(orgId, companyId);
   _persistActive(orgId, companyId);
   enterApp(auth.currentUser);
+  if (!_navLock) { try { sw('home'); } catch (e) {} }   // land on Home for the freshly-entered company (skip during a Back-restore, which sets the tab itself)
 }
 async function enterPersonal() {
   try {
@@ -3975,9 +4065,12 @@ function _wswOutside(e) { const w = document.getElementById('orgSwitcher'); if (
 function _wswEsc(e) { if (e.key === 'Escape') closeWsw(); }
 function switchWorkspace(orgId, companyId) {
   closeWsw();
+  if (!orgId || !companyId) return;
   if (orgId === ACTIVE_ORG && companyId === ACTIVE_COMPANY) return;   // already here
-  try { sessionStorage.removeItem('sf_nav'); } catch (e) {}           // new workspace → fresh trail
-  _persistActive(orgId, companyId); location.reload();               // clean re-scope
+  // Reload-free re-scope: enterWorkspace tears down the old company's listeners/data, re-subscribes the new
+  // company's (perms/loans/portfolios/…), resolves the name, lands on Home, and appends to the nav trail
+  // (so Back works). This replaces the old location.reload(), which lost the company name + the Back trail.
+  enterWorkspace(orgId, companyId);
 }
 
 auth.onAuthStateChanged(async user => {
@@ -3986,12 +4079,14 @@ auth.onAuthStateChanged(async user => {
   } else {
     UID = null; ACTIVE_ORG = null; _myOrgs = {};
     if (loansUnsub) { try { loansUnsub(); } catch (e) {} loansUnsub = null; }
+    if (assetsUnsub) { try { assetsUnsub(); } catch (e) {} assetsUnsub = null; }
     if (_permsUnsub) { try { _permsUnsub(); } catch (e) {} _permsUnsub = null; }
     if (_userDocUnsub) { try { _userDocUnsub(); } catch (e) {} _userDocUnsub = null; }
     if (holdingsUnsub) { try { holdingsUnsub(); } catch (e) {} holdingsUnsub = null; }
     if (transactionsUnsub) { try { transactionsUnsub(); } catch (e) {} transactionsUnsub = null; }
     _role = 'user'; _perms = {}; try { applyPermissions(); } catch (e) {}
     loans = []; _loanView = 'list'; _loanId = null;
+    assets = []; _assetView = 'list'; _assetId = null;
     holdings = []; transactions = []; holdingsByPortfolio = {}; currentPfId = null; _pfView = 'holdings';
     const _hub = document.getElementById('orgHub'); if (_hub) _hub.classList.add('hidden');
     const _mg = document.getElementById('modeGate'); if (_mg) _mg.classList.add('hidden');
@@ -4033,6 +4128,7 @@ function initUserListeners() {
   loadWatchlistData();
   loadUserAlerts();
   loadLoans();
+  loadAssets();
   loadNotifications();
 }
 
@@ -7737,6 +7833,127 @@ function _loanReminders() {
   return out;
 }
 
+// ════════ Assets module (company-scoped: organizations/{o}/companies/{c}/assets) ════════
+const ASSET_CATS = [['land', 'Land'], ['commercial', 'Commercial building'], ['residential', 'Residential property'], ['luxury', 'Luxury home'], ['vehicle', 'Vehicle'], ['equipment', 'Equipment'], ['software', 'Software asset'], ['investment', 'Investment'], ['bank', 'Bank account'], ['other', 'Other']];
+function assetCatName(v) { const f = ASSET_CATS.find(x => x[0] === v); return f ? f[1] : 'Other'; }
+let assets = [], assetsUnsub = null, _assetView = 'list', _assetId = null, _assetEditId = null, _assetSearch = '', _assetCatFilter = 'all';
+function loadAssets() {
+  if (!UID) return;
+  if (assetsUnsub) { try { assetsUnsub(); } catch (e) {} }
+  assetsUnsub = assetsCol().onSnapshot(snap => {
+    assets = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (document.getElementById('tab-assets') && document.getElementById('tab-assets').classList.contains('active')) renderAssets();
+    if (document.getElementById('tab-assetsdash') && document.getElementById('tab-assetsdash').classList.contains('active')) renderAssetsDash();
+    if (document.getElementById('tab-compdash') && document.getElementById('tab-compdash').classList.contains('active')) renderCompanyDashboard();
+  }, () => {});
+}
+function createAsset(fields) { if (!UID) return Promise.resolve(null); if (!permGuard('assets', 'write')) return Promise.resolve(null); return assetsCol().add({ ...fields, created: new Date().toISOString(), updated: new Date().toISOString() }); }
+function updateAsset(id, fields) { if (!UID || !id) return Promise.resolve(); if (!permGuard('assets', 'write')) return Promise.resolve(); return assetsCol().doc(id).update({ ...fields, updated: new Date().toISOString() }).catch(() => {}); }
+async function deleteAsset(id) {
+  if (!permGuard('assets', 'delete')) return;
+  const a = assets.find(x => x.id === id);
+  if (!confirm('Delete "' + ((a && a.name) || 'this asset') + '"? This cannot be undone.')) return;
+  await assetsCol().doc(id).delete().catch(() => {});
+  if (_assetId === id) { _assetView = 'list'; _assetId = null; }
+  try { pmToast('Asset deleted'); } catch (e) {}
+  renderAssets();
+}
+function assetFormModal(a) {
+  a = a || {};
+  const v = (x) => escHtml(x == null ? '' : x);
+  return '<div class="modal-title">' + (a.id ? 'Edit asset' : 'New asset') + (_companyName ? '<div style="font-weight:400;color:var(--text-3);font-size:12px;margin-top:2px">in ' + escHtml(_companyName) + '</div>' : '') + '</div>' +
+    '<label class="modal-label">Asset name</label><input id="assetName" class="modal-input" value="' + v(a.name) + '" placeholder="e.g. Downtown office building"/>' +
+    '<label class="modal-label">Category</label><select id="assetCat" class="modal-input">' + ASSET_CATS.map(c => '<option value="' + c[0] + '"' + ((a.category || 'other') === c[0] ? ' selected' : '') + '>' + c[1] + '</option>').join('') + '</select>' +
+    '<label class="modal-label">Current value ($)</label><input id="assetValue" class="modal-input" type="text" inputmode="decimal" data-ccy value="' + escHtml(ccyDisplay(a.currentValue)) + '" placeholder="$0.00"/>' +
+    '<label class="modal-label">Purchase price ($) <span class="modal-price-hint">optional</span></label><input id="assetCost" class="modal-input" type="text" inputmode="decimal" data-ccy value="' + escHtml(ccyDisplay(a.purchasePrice)) + '" placeholder="$0.00"/>' +
+    '<label class="modal-label">Acquired date <span class="modal-price-hint">optional</span></label><input id="assetDate" class="modal-input" type="date" value="' + v(a.acquiredDate) + '"/>' +
+    '<label class="modal-label">Notes <span class="modal-price-hint">optional</span></label><textarea id="assetNotes" class="modal-input" rows="2" placeholder="Location, condition, valuation basis…">' + v(a.notes) + '</textarea>' +
+    '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="submitAsset(' + (a.id ? '\'' + a.id + '\'' : 'null') + ')">' + (a.id ? 'Save' : 'Create') + '</button></div>';
+}
+function submitAsset(id) {
+  const g = (x) => { const e = document.getElementById(x); return e ? e.value : ''; };
+  const name = g('assetName').trim();
+  if (!name) { try { pmToast('Enter an asset name'); } catch (e) {} const n = document.getElementById('assetName'); if (n) n.focus(); return; }
+  const btn = document.querySelector('#modalBox .modal-btn-primary'); if (btn && btn.disabled) return;
+  const fields = {
+    name: name, category: g('assetCat') || 'other',
+    currentValue: g('assetValue').trim() === '' ? 0 : ccyNum(g('assetValue')),
+    purchasePrice: g('assetCost').trim() === '' ? null : ccyNum(g('assetCost')),
+    acquiredDate: g('assetDate') || null, notes: g('assetNotes').trim()
+  };
+  authBusy(btn, true, id ? 'Saving…' : 'Creating…');
+  (id ? updateAsset(id, fields) : createAsset(fields)).then(() => { closeModal(); try { pmToast(id ? 'Asset updated' : 'Asset added — “' + name + '”'); } catch (e) {} })
+    .catch(() => { authBusy(btn, false); try { pmToast('Something went wrong. Please try again.'); } catch (e) {} });
+}
+function editAsset(id) { if (!permGuard('assets', 'write')) return; _assetEditId = id; openModal('editAsset'); }
+function openAsset(id) { _assetId = id; _assetView = 'detail'; sw('assets'); renderAssets(); }
+function assetBackToList() { if (_navIdx > 0 && _navHist[_navIdx - 1] && _navHist[_navIdx - 1].tab === 'assets') return navBack(); _assetView = 'list'; _assetId = null; renderAssets(); }
+function _onAssetSearch() { const e = document.getElementById('assetSearch'); _assetSearch = ((e && e.value) || '').trim().toLowerCase(); renderAssets(); }
+function _onAssetCatFilter(v) { _assetCatFilter = v || 'all'; renderAssets(); }
+function _assetFilterMatch(a) {
+  if (_assetCatFilter && _assetCatFilter !== 'all' && (a.category || 'other') !== _assetCatFilter) return false;
+  if (_assetSearch) { const hay = ((a.name || '') + ' ' + assetCatName(a.category)).toLowerCase(); if (hay.indexOf(_assetSearch) < 0) return false; }
+  return true;
+}
+function _assetName(id) { try { const a = (assets || []).find(x => x.id === id); return a ? (a.name || 'Asset') : 'Asset'; } catch (e) { return 'Asset'; } }
+function renderAssets() {
+  const el = document.getElementById('assetsBody'); if (!el) return;
+  const cf = document.getElementById('assetCatFilter');
+  if (cf) { if (!cf.dataset.filled) { cf.innerHTML = '<option value="all">All categories</option>' + ASSET_CATS.map(c => '<option value="' + c[0] + '">' + c[1] + '</option>').join(''); cf.dataset.filled = '1'; } cf.value = _assetCatFilter; }
+  if (_assetView === 'detail' && _assetId) { renderAssetDetail(_assetId); return; }
+  if (!UID) { el.innerHTML = emptyState('briefcase', 'Sign in to manage assets', ''); return; }
+  if (!assets.length) { el.innerHTML = emptyState('briefcase', 'No assets yet', 'Click "New asset" to record property, equipment, investments or bank accounts.'); return; }
+  const view = assets.filter(_assetFilterMatch);
+  if (!view.length) { el.innerHTML = '<div class="pf-filter-note">No assets match this filter.</div>'; return; }
+  const rows = view.slice().sort((a, b) => (ccyNum(b.currentValue) || 0) - (ccyNum(a.currentValue) || 0)).map(a => {
+    const gain = (a.purchasePrice != null && a.purchasePrice !== '') ? (ccyNum(a.currentValue) - ccyNum(a.purchasePrice)) : null;
+    return '<tr onclick="openAsset(\'' + a.id + '\')" style="cursor:pointer">' +
+      '<td class="ht-sym"><div><div class="holding-ticker">' + escHtml(a.name || 'Asset') + '</div><div class="ht-sub">' + escHtml(assetCatName(a.category)) + '</div></div></td>' +
+      '<td>' + dollarFmt(ccyNum(a.currentValue)) + '</td>' +
+      '<td>' + (a.purchasePrice != null && a.purchasePrice !== '' ? dollarFmt(ccyNum(a.purchasePrice)) : '<span class="ht-sub">—</span>') + '</td>' +
+      '<td>' + (gain == null ? '<span class="ht-sub">—</span>' : '<span style="color:' + (gain >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (gain >= 0 ? '+' : '-') + dollarFmt(Math.abs(gain)) + '</span>') + '</td>' +
+      '<td>' + (a.acquiredDate ? escHtml(fmtDate(a.acquiredDate)) : '<span class="ht-sub">—</span>') + '</td>' +
+      '<td style="white-space:nowrap" onclick="event.stopPropagation()"><button class="pf-btn pf-btn-outline" style="padding:5px 10px;font-size:12px" onclick="editAsset(\'' + a.id + '\')">Edit</button> <button class="pf-btn pf-btn-danger" title="Delete" onclick="deleteAsset(\'' + a.id + '\')">' + ic('x', 16) + '</button></td>' +
+      '</tr>';
+  }).join('');
+  const total = view.reduce((s, a) => s + (ccyNum(a.currentValue) || 0), 0);
+  el.innerHTML = '<div class="pf-filter-note" style="margin:-2px 0 8px">Total (filtered): <b>' + dollarFmt(total) + '</b> across ' + view.length + ' asset' + (view.length === 1 ? '' : 's') + '.</div>' +
+    '<div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Asset</th><th>Current value</th><th>Purchase price</th><th>Gain/Loss</th><th>Acquired</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+}
+function renderAssetDetail(id) {
+  const el = document.getElementById('assetsBody'); if (!el) return;
+  const a = assets.find(x => x.id === id); if (!a) { assetBackToList(); return; }
+  const field = (l, val) => '<div class="loan-field"><div class="loan-field-l">' + l + '</div><div class="loan-field-v">' + val + '</div></div>';
+  const cost = (a.purchasePrice != null && a.purchasePrice !== '') ? ccyNum(a.purchasePrice) : null;
+  const gain = cost != null ? (ccyNum(a.currentValue) - cost) : null;
+  const head = '<div class="rec-head"><button class="rec-back" onclick="assetBackToList()">← All assets</button>' +
+    '<div style="margin-top:8px"><div class="rec-head-tkr">' + escHtml(a.name || 'Asset') + '</div><div class="rec-head-name">' + escHtml(assetCatName(a.category)) + '</div></div>' +
+    '<div style="margin-left:auto;display:flex;gap:8px;align-items:flex-start"><button class="pf-btn pf-btn-outline" onclick="editAsset(\'' + a.id + '\')">Edit</button><button class="pf-btn pf-btn-danger" onclick="deleteAsset(\'' + a.id + '\')">Delete</button></div></div>';
+  const grid = '<div class="loan-fields">' +
+    field('Current value', dollarFmt(ccyNum(a.currentValue))) +
+    field('Purchase price', cost != null ? dollarFmt(cost) : '—') +
+    field('Gain / loss', gain == null ? '—' : ('<span style="color:' + (gain >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (gain >= 0 ? '+' : '-') + dollarFmt(Math.abs(gain)) + '</span>')) +
+    field('Acquired', a.acquiredDate ? fmtDate(a.acquiredDate) : '—') +
+    field('Category', assetCatName(a.category)) +
+    '</div>';
+  const notes = a.notes ? '<div class="loan-notes" style="max-width:640px;margin-top:14px"><div class="loan-field-l">Notes</div><div style="white-space:pre-wrap">' + escHtml(a.notes) + '</div></div>' : '';
+  el.innerHTML = head + grid + notes;
+}
+function renderAssetsDash() {
+  const el = document.getElementById('assetsDashBody'); if (!el) return;
+  if (!UID) { el.innerHTML = emptyState('briefcase', 'Sign in to view assets', ''); return; }
+  if (!assets.length) { el.innerHTML = emptyState('briefcase', 'No assets yet', 'Add assets in the Assets tab to see totals and a breakdown here.') + '<div style="text-align:center;margin-top:14px"><button class="pf-btn pf-btn-primary" onclick="sw(\'assets\')">Go to Assets</button></div>'; return; }
+  let total = 0; const byCat = {};
+  assets.forEach(a => { const v = ccyNum(a.currentValue) || 0; total += v; const k = a.category || 'other'; byCat[k] = (byCat[k] || 0) + v; });
+  const cash = byCat['bank'] || 0;
+  const realEstate = (byCat['land'] || 0) + (byCat['commercial'] || 0) + (byCat['residential'] || 0) + (byCat['luxury'] || 0);
+  const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' +
+    _odCard('Total asset value', dollarFmt(total)) + _odCard('Cash & bank', dollarFmt(cash)) + _odCard('Real estate', dollarFmt(realEstate)) + _odCard('Asset count', String(assets.length)) + '</div>';
+  const catRows = ASSET_CATS.filter(c => byCat[c[0]]).sort((x, y) => byCat[y[0]] - byCat[x[0]]).map(c => '<div class="notif-row"><span class="notif-main"><div class="notif-t">' + escHtml(c[1]) + '</div></span><span style="font-weight:700;white-space:nowrap">' + dollarFmt(byCat[c[0]]) + '</span></div>').join('');
+  const breakdown = '<div class="dash-section"><div class="dash-section-title">By category</div>' + catRows + '</div>';
+  el.innerHTML = hero + breakdown + '<div class="rng-advice-note">Values are your entered valuations — informational only, not an appraisal.</div>';
+}
+
 function openModal(type) {
   const box = document.getElementById('modalBox');
   document.getElementById('modalOverlay').classList.remove('hidden');
@@ -7786,10 +8003,17 @@ function openModal(type) {
   } else if (type === 'inviteMember' || type === 'editMember') {
     box.innerHTML = memberFormModal(type === 'editMember' ? 'edit' : 'invite');
     setTimeout(() => { const i = document.getElementById(type === 'editMember' ? 'mRole' : 'mEmail'); if (i) i.focus(); }, 0);
+  } else if (type === 'orgInviteMember') {
+    box.innerHTML = orgInviteMemberModal();
+    setTimeout(() => { _fillOrgInviteCompanies(); const i = document.getElementById('oiEmail'); if (i) i.focus(); }, 0);
   } else if (type === 'newLoan' || type === 'editLoan') {
     const l = (type === 'editLoan') ? (loans.find(x => x.id === _loanEditId) || null) : null;
     box.innerHTML = loanFormModal(l);
     setTimeout(() => { syncLoanNextPay(); _loanOiHint(); const i = document.getElementById('loanName'); if (i) i.focus(); }, 0);
+  } else if (type === 'newAsset' || type === 'editAsset') {
+    const a = (type === 'editAsset') ? (assets.find(x => x.id === _assetEditId) || null) : null;
+    box.innerHTML = assetFormModal(a);
+    setTimeout(() => { const i = document.getElementById('assetName'); if (i) i.focus(); }, 0);
   } else if (type === 'newPf') {
     box.innerHTML = '<div class="modal-title">New portfolio</div><label class="modal-label">Portfolio name</label><input id="newPfName" class="modal-input" placeholder="e.g. Growth Portfolio"/><div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button><button class="modal-btn modal-btn-primary" onclick="createPortfolio(document.getElementById(\'newPfName\').value);closeModal()">Create</button></div>';
   } else if (type === 'addHolding') {
@@ -7956,7 +8180,7 @@ function sw(name) {
   } catch (e) {}
   document.querySelectorAll('.navitem').forEach(el => el.classList.toggle('active', el.getAttribute('data-nav') === name));
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  const panel = document.getElementById('tab-' + (name.indexOf('m_') === 0 ? 'soon' : name));
+  const panel = document.getElementById('tab-' + name);
   if (panel) panel.classList.add('active');
   try { revealNavCatFor(name); } catch (e) {}   // open the category holding the active tab
   document.body.classList.remove('sidebar-open');
@@ -7980,8 +8204,9 @@ function sw(name) {
   if (name === 'loans') renderLoans();
   if (name === 'members') renderOrgMembers();
   if (name === 'compdash') renderCompanyDashboard();
+  if (name === 'assetsdash') renderAssetsDash();
+  if (name === 'assets') renderAssets();
   if (name === 'platform') renderPlatform();
-  if (name.indexOf('m_') === 0) renderSoon(name);
   try { navRecord(_navAppLoc(name)); } catch (e) {}   // breadcrumb: record the RBAC-resolved tab
 }
 
@@ -8058,7 +8283,8 @@ async function navApply(i) {
     else if (loc.screen === 'hub') { _hubMode = loc.mode || 'team'; _hubOrgId = loc.orgId || null; _hubOrgTab = loc.orgTab || 'companies'; _hubShowHub(_hubUser || auth.currentUser); await renderHub(_hubUser || auth.currentUser); }   // await → the trailing navRecord in renderHub stays under _navLock
     else {   // app
       if (loc.org && loc.company && (loc.org !== ACTIVE_ORG || loc.company !== ACTIVE_COMPANY)) {
-        try { enterWorkspace(loc.org, loc.company); } catch (e) {}   // cross-workspace back → re-enter (reload-free)
+        try { enterWorkspace(loc.org, loc.company); } catch (e) {}   // cross-workspace back → re-enter (reload-free; sw('home') skipped under _navLock)
+        try { const reg = NAV_REG[loc.tab]; if (reg && reg.set) reg.set(loc.sub); sw(loc.tab); if (reg && reg.apply) reg.apply(loc.sub); } catch (e) {}   // then restore the exact tab/sub
       } else {
         const reg = NAV_REG[loc.tab];
         if (reg && reg.set) reg.set(loc.sub);
