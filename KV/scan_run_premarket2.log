@@ -1,0 +1,817 @@
+Journal loaded: 0 trades
+[17:48] Fetching market health…
+  Market: UPTREND | VIX: 15.7 | Dist days: 0
+[17:48] Scanning 542 stocks with 10 parallel workers…
+  [1/542] TSLA: 69 WATCH | VCP:True RS@High:False
+  [2/542] META: 57 WATCH | VCP:True RS@High:False
+  [3/542] COST: 82 STRONG BUY | VCP:True RS@High:False
+  [4/542] AVGO: 90 STRONG BUY | VCP:True RS@High:False
+  [5/542] NVDA: 85 STRONG BUY | VCP:False RS@High:False
+  [6/542] GOOG: 58 WATCH | VCP:False RS@High:False
+  [7/542] AMZN: 91 STRONG BUY | VCP:True RS@High:False
+  [8/542] AAPL: 45 WEAK | VCP:False RS@High:False
+  [9/542] MSFT: 72 WATCH | VCP:True RS@High:False
+  [10/542] GOOGL: 57 WATCH | VCP:False RS@High:False
+  [11/542] PEP: 66 WATCH | VCP:True RS@High:False
+  [12/542] AMD: 88 STRONG BUY | VCP:True RS@High:False
+  [13/542] AMAT: 67 WATCH | VCP:True RS@High:False
+  [14/542] QCOM: 15 WEAK | VCP:False RS@High:False
+  [15/542] INTU: 82 STRONG BUY | VCP:True RS@High:False
+  [16/542] NFLX: 72 WATCH | VCP:True RS@High:False
+  [17/542] ADBE: 68 WATCH | VCP:True RS@High:False
+  [18/542] CSCO: 70 WATCH | VCP:True RS@High:False
+  [19/542] TXN: 77 STRONG BUY | VCP:True RS@High:False
+  [20/542] AMGN: 91 STRONG BUY | VCP:True RS@High:False
+  [21/542] CMCSA: 42 WEAK | VCP:True RS@High:False
+  [22/542] HON: 46 WEAK | VCP:True RS@High:False
+  [23/542] VRTX: 89 STRONG BUY | VCP:True RS@High:False
+  [24/542] ISRG: 50 WEAK | VCP:False RS@High:False
+  [25/542] REGN: 60 WATCH | VCP:True RS@High:False
+  [26/542] MU: 93 STRONG BUY | VCP:True RS@High:False
+  [27/542] LRCX: 86 STRONG BUY | VCP:True RS@High:False
+  [28/542] PANW: 91 STRONG BUY | VCP:True RS@High:True
+  [29/542] BKNG: 66 WATCH | VCP:True RS@High:False
+  [30/542] ADI: 77 STRONG BUY | VCP:True RS@High:False
+  [31/542] KLAC: 40 WEAK | VCP:False RS@High:False
+  [32/542] ABNB: 92 STRONG BUY | VCP:True RS@High:True
+  [33/542] INTC: 40 WEAK | VCP:False RS@High:False
+  [34/542] MDLZ: 90 STRONG BUY | VCP:True RS@High:False
+  [35/542] MELI: 56 WATCH | VCP:True RS@High:False
+  [36/542] GILD: 74 WATCH | VCP:True RS@High:False
+  [37/542] SNPS: 78 STRONG BUY | VCP:True RS@High:False
+  [38/542] SBUX: 92 STRONG BUY | VCP:True RS@High:False
+  [39/542] CDNS: 71 WATCH | VCP:True RS@High:False
+  [40/542] ADP: 68 WATCH | VCP:True RS@High:False
+  [41/542] PYPL: 74 WATCH | VCP:True RS@High:False
+  [42/542] CEG: 64 WATCH | VCP:True RS@High:False
+  [43/542] ORLY: 71 WATCH | VCP:True RS@High:False
+  [44/542] CRWD: 91 STRONG BUY | VCP:True RS@High:False
+  [45/542] CSX: 82 STRONG BUY | VCP:True RS@High:False
+  [46/542] KDP: 77 STRONG BUY | VCP:False RS@High:False
+  [47/542] MRVL: 74 WATCH | VCP:True RS@High:False
+  [48/542] PCAR: 84 STRONG BUY | VCP:True RS@High:False
+  [49/542] DXCM: 86 STRONG BUY | VCP:True RS@High:False
+  [50/542] MRNA: 88 STRONG BUY | VCP:True RS@High:False
+  [51/542] PAYX: 84 STRONG BUY | VCP:True RS@High:False
+  [52/542] NXPI: 34 WEAK | VCP:False RS@High:False
+  [53/542] FTNT: 92 STRONG BUY | VCP:True RS@High:False
+  [54/542] CTAS: 30 WEAK | VCP:False RS@High:False
+  [55/542] EA: skip (no data)
+  [56/542] FAST: 90 STRONG BUY | VCP:True RS@High:False
+  [57/542] WDAY: 86 STRONG BUY | VCP:False RS@High:False
+  [58/542] GEHC: 60 WATCH | VCP:True RS@High:False
+  [59/542] TTD: 24 WEAK | VCP:False RS@High:False
+  [60/542] ROST: 93 STRONG BUY | VCP:True RS@High:False
+  [61/542] CTSH: 61 WATCH | VCP:True RS@High:False
+  [62/542] MCHP: 55 WATCH | VCP:False RS@High:False
+  [63/542] ODFL: 59 WATCH | VCP:True RS@High:False
+  [64/542] BIIB: 90 STRONG BUY | VCP:True RS@High:False
+  [65/542] TEAM: 71 WATCH | VCP:True RS@High:False
+  [66/542] ZS: 39 WEAK | VCP:False RS@High:False
+  [67/542] IDXX: 18 WEAK | VCP:False RS@High:False
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: ANSS"}}}
+$ANSS: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [68/542] ANSS: skip (no data)
+  [69/542] DLTR: 82 STRONG BUY | VCP:True RS@High:False
+  [70/542] ON: 42 WEAK | VCP:True RS@High:False
+  [71/542] WBD: 26 WEAK | VCP:False RS@High:False
+  [72/542] EXC: 26 WEAK | VCP:False RS@High:False
+  [73/542] DDOG: 79 STRONG BUY | VCP:False RS@High:False
+  [74/542] KHC: 31 WEAK | VCP:False RS@High:False
+  [75/542] BKR: 75 STRONG BUY | VCP:True RS@High:False
+  [76/542] VRSK: 13 WEAK | VCP:False RS@High:False
+  [77/542] ILMN: 76 STRONG BUY | VCP:False RS@High:False
+  [78/542] CSGP: 77 STRONG BUY | VCP:True RS@High:False
+  [79/542] XEL: 42 WEAK | VCP:False RS@High:False
+  [80/542] FANG: 87 STRONG BUY | VCP:True RS@High:False
+  [81/542] SIRI: 52 WEAK | VCP:True RS@High:False
+  [82/542] CDW: 60 WATCH | VCP:False RS@High:False
+  [83/542] MNST: 28 WEAK | VCP:False RS@High:False
+  [84/542] CCEP: 54 WEAK | VCP:False RS@High:False
+  [85/542] CHTR: 73 WATCH | VCP:True RS@High:False
+  [86/542] ALGN: 86 STRONG BUY | VCP:True RS@High:False
+  [87/542] PDD: 47 WEAK | VCP:True RS@High:False
+  [88/542] JD: 35 WEAK | VCP:False RS@High:False
+  [89/542] LULU: 40 WEAK | VCP:True RS@High:False
+  [90/542] SCHW: 91 STRONG BUY | VCP:True RS@High:False
+  [91/542] GS: 40 WEAK | VCP:False RS@High:False
+  [92/542] JPM: 93 STRONG BUY | VCP:True RS@High:False
+  [93/542] BAC: 93 STRONG BUY | VCP:True RS@High:True
+  [94/542] BLK: 66 WATCH | VCP:True RS@High:False
+  [95/542] MS: 93 STRONG BUY | VCP:True RS@High:False
+  [96/542] WFC: 45 WEAK | VCP:False RS@High:False
+  [97/542] AXP: 49 WEAK | VCP:False RS@High:False
+  [98/542] SPGI: 47 WEAK | VCP:True RS@High:False
+  [99/542] CB: 79 STRONG BUY | VCP:True RS@High:False
+$MMC: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [100/542] MMC: skip (no data)
+  [101/542] PGR: 54 WEAK | VCP:True RS@High:False
+  [102/542] ALL: 88 STRONG BUY | VCP:True RS@High:False
+  [103/542] AFL: 80 STRONG BUY | VCP:True RS@High:False
+  [104/542] AON: 54 WEAK | VCP:True RS@High:False
+  [105/542] HIG: 82 STRONG BUY | VCP:True RS@High:False
+  [106/542] TRV: 54 WEAK | VCP:False RS@High:False
+  [107/542] MET: 92 STRONG BUY | VCP:True RS@High:False
+$DFS: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [108/542] DFS: skip (no data)
+  [109/542] PFG: 89 STRONG BUY | VCP:True RS@High:False
+  [110/542] PRU: 87 STRONG BUY | VCP:True RS@High:False
+  [111/542] AIG: 51 WEAK | VCP:True RS@High:False
+  [112/542] CME: 75 STRONG BUY | VCP:True RS@High:False
+  [113/542] CINF: 69 WATCH | VCP:True RS@High:False
+  [114/542] COF: 72 WATCH | VCP:True RS@High:False
+  [115/542] RJF: 86 STRONG BUY | VCP:True RS@High:False
+$BK: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [116/542] BK: skip (no data)
+  [117/542] ICE: 65 WATCH | VCP:True RS@High:False
+  [118/542] MCO: 77 STRONG BUY | VCP:True RS@High:False
+  [119/542] SYF: 79 STRONG BUY | VCP:True RS@High:False
+  [120/542] TROW: 59 WATCH | VCP:True RS@High:False
+  [121/542] STT: 86 STRONG BUY | VCP:False RS@High:True
+  [122/542] AMP: 89 STRONG BUY | VCP:True RS@High:False
+  [123/542] KEY: 87 STRONG BUY | VCP:False RS@High:False
+  [124/542] NTRS: 93 STRONG BUY | VCP:True RS@High:True
+  [125/542] FITB: 91 STRONG BUY | VCP:True RS@High:False
+  [126/542] RF: 79 STRONG BUY | VCP:False RS@High:False
+  [127/542] CFG: 93 STRONG BUY | VCP:True RS@High:True
+  [128/542] MTB: 91 STRONG BUY | VCP:True RS@High:False
+  [129/542] HBAN: 74 WATCH | VCP:False RS@High:False
+  [130/542] PNC: 93 STRONG BUY | VCP:True RS@High:False
+  [131/542] C: 93 STRONG BUY | VCP:True RS@High:False
+  [132/542] USB: 93 STRONG BUY | VCP:True RS@High:False
+  [133/542] ALLY: 89 STRONG BUY | VCP:True RS@High:False
+  [134/542] TFC: 90 STRONG BUY | VCP:True RS@High:False
+  [135/542] BRO: 44 WEAK | VCP:False RS@High:False
+  [136/542] NDAQ: 78 STRONG BUY | VCP:True RS@High:False
+  [137/542] FNF: 42 WEAK | VCP:True RS@High:False
+  [138/542] LNC: 67 WATCH | VCP:True RS@High:False
+$RE: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [139/542] RE: skip (no data)
+  [140/542] UNM: 88 STRONG BUY | VCP:True RS@High:False
+  [141/542] AIZ: 81 STRONG BUY | VCP:False RS@High:False
+  [142/542] RGA: 93 STRONG BUY | VCP:True RS@High:True
+  [143/542] GL: 76 STRONG BUY | VCP:False RS@High:False
+  [144/542] WRB: 27 WEAK | VCP:False RS@High:False
+  [145/542] ACGL: 74 WATCH | VCP:True RS@High:False
+  [146/542] UNH: 38 WEAK | VCP:False RS@High:False
+  [147/542] ABBV: 72 WATCH | VCP:False RS@High:False
+  [148/542] JNJ: 75 WATCH | VCP:True RS@High:False
+  [149/542] LLY: 84 STRONG BUY | VCP:True RS@High:False
+  [150/542] MRK: 90 STRONG BUY | VCP:True RS@High:False
+  [151/542] TMO: 81 STRONG BUY | VCP:True RS@High:False
+  [152/542] DHR: 78 STRONG BUY | VCP:True RS@High:False
+  [153/542] ELV: 89 STRONG BUY | VCP:True RS@High:False
+  [154/542] HUM: 91 STRONG BUY | VCP:True RS@High:False
+  [155/542] ABT: 79 STRONG BUY | VCP:True RS@High:False
+  [156/542] MDT: 76 STRONG BUY | VCP:True RS@High:False
+  [157/542] BSX: 47 WEAK | VCP:True RS@High:False
+  [158/542] CI: 28 WEAK | VCP:False RS@High:False
+  [159/542] BDX: 77 STRONG BUY | VCP:True RS@High:False
+  [160/542] HCA: 59 WATCH | VCP:True RS@High:False
+  [161/542] SYK: 54 WEAK | VCP:False RS@High:False
+  [162/542] ZBH: 84 STRONG BUY | VCP:True RS@High:False
+  [163/542] IQV: 62 WATCH | VCP:True RS@High:False
+$HOLX: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [164/542] HOLX: skip (no data)
+  [165/542] ZTS: 31 WEAK | VCP:True RS@High:False
+  [166/542] MCK: 36 WEAK | VCP:False RS@High:False
+  [167/542] CAH: 81 STRONG BUY | VCP:False RS@High:False
+  [168/542] CNC: 89 STRONG BUY | VCP:True RS@High:False
+  [169/542] CVS: 36 WEAK | VCP:False RS@High:False
+  [170/542] EW: 48 WEAK | VCP:False RS@High:False
+  [171/542] MOH: 77 STRONG BUY | VCP:False RS@High:False
+  [172/542] PODD: 37 WEAK | VCP:False RS@High:False
+  [173/542] BAX: 85 STRONG BUY | VCP:False RS@High:False
+  [174/542] WAT: 69 WATCH | VCP:True RS@High:False
+  [175/542] MTD: 68 WATCH | VCP:True RS@High:False
+  [176/542] A: 83 STRONG BUY | VCP:True RS@High:False
+  [177/542] RMD: 76 STRONG BUY | VCP:True RS@High:False
+$CTLT: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [178/542] CTLT: skip (no data)
+  [179/542] TECH: 68 WATCH | VCP:True RS@High:False
+  [180/542] DVA: 59 WATCH | VCP:True RS@High:False
+  [181/542] HSIC: 83 STRONG BUY | VCP:False RS@High:False
+  [182/542] PGNY: 38 WEAK | VCP:False RS@High:False
+  [183/542] COO: 56 WATCH | VCP:True RS@High:False
+  [184/542] VTRS: 45 WEAK | VCP:True RS@High:False
+  [185/542] SOLV: 48 WEAK | VCP:False RS@High:False
+  [186/542] XOM: 83 STRONG BUY | VCP:True RS@High:False
+  [187/542] COP: 79 STRONG BUY | VCP:True RS@High:False
+  [188/542] EOG: 84 STRONG BUY | VCP:True RS@High:False
+  [189/542] CVX: 80 STRONG BUY | VCP:True RS@High:False
+$HES: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [190/542] HES: skip (no data)
+  [191/542] OXY: 91 STRONG BUY | VCP:True RS@High:False
+  [192/542] PSX: 86 STRONG BUY | VCP:False RS@High:True
+  [193/542] SLB: 64 WATCH | VCP:True RS@High:False
+  [194/542] MPC: 93 STRONG BUY | VCP:True RS@High:True
+$CTRA: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [195/542] CTRA: skip (no data)
+  [196/542] VLO: 93 STRONG BUY | VCP:True RS@High:True
+  [197/542] DVN: 84 STRONG BUY | VCP:True RS@High:False
+$MRO: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [198/542] MRO: skip (no data)
+  [199/542] HAL: 73 WATCH | VCP:True RS@High:False
+  [200/542] LNG: 91 STRONG BUY | VCP:True RS@High:False
+  [201/542] APA: 90 STRONG BUY | VCP:True RS@High:False
+  [202/542] WMB: 87 STRONG BUY | VCP:True RS@High:False
+  [203/542] EQT: 65 WATCH | VCP:True RS@High:False
+  [204/542] KMI: 79 STRONG BUY | VCP:False RS@High:False
+  [205/542] OKE: 90 STRONG BUY | VCP:True RS@High:False
+  [206/542] NRG: 33 WEAK | VCP:False RS@High:False
+  [207/542] TRGP: 91 STRONG BUY | VCP:True RS@High:False
+  [208/542] VST: 27 WEAK | VCP:True RS@High:False
+  [209/542] AES: 61 WATCH | VCP:False RS@High:False
+  [210/542] TJX: 54 WEAK | VCP:True RS@High:False
+  [211/542] MCD: 61 WATCH | VCP:True RS@High:False
+  [212/542] NKE: 51 WEAK | VCP:True RS@High:False
+  [213/542] MAR: 32 WEAK | VCP:False RS@High:False
+  [214/542] LOW: 69 WATCH | VCP:True RS@High:False
+  [215/542] GM: 88 STRONG BUY | VCP:True RS@High:False
+  [216/542] F: 64 WATCH | VCP:True RS@High:False
+  [217/542] HD: 58 WATCH | VCP:True RS@High:False
+  [218/542] HLT: 46 WEAK | VCP:True RS@High:False
+  [219/542] AZO: 43 WEAK | VCP:True RS@High:False
+  [220/542] TSCO: 58 WATCH | VCP:True RS@High:False
+  [221/542] EBAY: 44 WEAK | VCP:True RS@High:False
+  [222/542] RCL: 87 STRONG BUY | VCP:True RS@High:False
+  [223/542] BBY: 56 WATCH | VCP:False RS@High:False
+  [224/542] ETSY: 76 STRONG BUY | VCP:True RS@High:False
+  [225/542] CCL: 81 STRONG BUY | VCP:True RS@High:False
+  [226/542] LVS: 25 WEAK | VCP:False RS@High:False
+  [227/542] WYNN: 85 STRONG BUY | VCP:True RS@High:False
+  [228/542] MGM: 78 STRONG BUY | VCP:True RS@High:False
+  [229/542] DRI: 92 STRONG BUY | VCP:True RS@High:False
+  [230/542] YUM: 73 WATCH | VCP:True RS@High:False
+  [231/542] CMG: 37 WEAK | VCP:False RS@High:False
+  [232/542] APTV: 17 WEAK | VCP:False RS@High:False
+  [233/542] DPZ: 76 STRONG BUY | VCP:True RS@High:False
+  [234/542] BWA: 83 STRONG BUY | VCP:False RS@High:False
+  [235/542] PHM: 77 STRONG BUY | VCP:True RS@High:False
+  [236/542] LEN: 58 WATCH | VCP:True RS@High:False
+  [237/542] TOL: 44 WEAK | VCP:True RS@High:False
+  [238/542] DHI: 68 WATCH | VCP:True RS@High:False
+  [239/542] MAT: 81 STRONG BUY | VCP:True RS@High:False
+  [240/542] NVR: 39 WEAK | VCP:True RS@High:False
+  [241/542] HAS: 86 STRONG BUY | VCP:True RS@High:False
+  [242/542] POOL: 56 WATCH | VCP:True RS@High:False
+  [243/542] NCLH: 52 WEAK | VCP:True RS@High:False
+  [244/542] VFC: 22 WEAK | VCP:False RS@High:False
+  [245/542] RL: 83 STRONG BUY | VCP:True RS@High:False
+  [246/542] CROX: 70 WATCH | VCP:False RS@High:False
+HTTP Error 401: {"finance":{"result":null,"error":{"code":"Unauthorized","description":"Invalid Crumb"}}}
+  [247/542] PVH: 88 STRONG BUY | VCP:True RS@High:False
+$SKX: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [248/542] SKX: skip (no data)
+  [249/542] DECK: 37 WEAK | VCP:True RS@High:False
+$K: possibly delisted; no price data found  (period=1y) (Yahoo error = "No data found, symbol may be delisted")
+  [250/542] K: skip (no data)
+  [251/542] BOOT: 81 STRONG BUY | VCP:True RS@High:False
+  [252/542] COLM: 31 WEAK | VCP:False RS@High:False
+  [253/542] PG: 51 WEAK | VCP:True RS@High:False
+  [254/542] WMT: 57 WATCH | VCP:True RS@High:False
+  [255/542] MO: 47 WEAK | VCP:True RS@High:False
+  [256/542] STZ: 64 WATCH | VCP:True RS@High:False
+  [257/542] PM: 74 WATCH | VCP:True RS@High:False
+  [258/542] CL: 80 STRONG BUY | VCP:True RS@High:False
+  [259/542] KO: 76 STRONG BUY | VCP:False RS@High:False
+  [260/542] HRL: 64 WATCH | VCP:True RS@High:False
+  [261/542] HSY: 79 STRONG BUY | VCP:True RS@High:False
+  [262/542] GIS: 63 WATCH | VCP:True RS@High:False
+  [263/542] CAG: 74 WATCH | VCP:True RS@High:False
+  [264/542] MKC: 67 WATCH | VCP:True RS@High:False
+  [265/542] SJM: 93 STRONG BUY | VCP:True RS@High:False
+  [266/542] CPB: 80 STRONG BUY | VCP:True RS@High:False
+  [267/542] CLX: 72 WATCH | VCP:True RS@High:False
+  [268/542] CHD: 89 STRONG BUY | VCP:True RS@High:False
+  [269/542] EL: 44 WEAK | VCP:True RS@High:False
+  [270/542] KMB: 88 STRONG BUY | VCP:True RS@High:False
+  [271/542] TAP: 72 WATCH | VCP:True RS@High:False
+  [272/542] SFM: 67 WATCH | VCP:True RS@High:False
+  [273/542] CTVA: 28 WEAK | VCP:False RS@High:False
+  [274/542] TSN: 33 WEAK | VCP:False RS@High:False
+  [275/542] ADM: 54 WEAK | VCP:False RS@High:False
+  [276/542] BG: 44 WEAK | VCP:False RS@High:False
+  [277/542] MOS: 44 WEAK | VCP:True RS@High:False
+  [278/542] SYY: 75 STRONG BUY | VCP:True RS@High:False
+  [279/542] CF: 67 WATCH | VCP:False RS@High:False
+  [280/542] COTY: 51 WEAK | VCP:True RS@High:False
+  [281/542] FMC: 30 WEAK | VCP:False RS@High:False
+  [282/542] CAT: 65 WATCH | VCP:True RS@High:False
+  [283/542] GE: 91 STRONG BUY | VCP:True RS@High:False
+  [284/542] RTX: 93 STRONG BUY | VCP:True RS@High:False
+  [285/542] UNP: 88 STRONG BUY | VCP:True RS@High:False
+  [286/542] FDX: 90 STRONG BUY | VCP:True RS@High:False
+  [287/542] BA: 78 STRONG BUY | VCP:True RS@High:False
+  [288/542] UPS: 45 WEAK | VCP:True RS@High:False
+  [289/542] ETN: 84 STRONG BUY | VCP:False RS@High:False
+  [290/542] EMR: 90 STRONG BUY | VCP:True RS@High:False
+  [291/542] ITW: 91 STRONG BUY | VCP:True RS@High:False
+  [292/542] NSC: 85 STRONG BUY | VCP:True RS@High:False
+  [293/542] DE: 64 WATCH | VCP:True RS@High:False
+  [294/542] LMT: 86 STRONG BUY | VCP:True RS@High:False
+  [295/542] NOC: 75 STRONG BUY | VCP:True RS@High:False
+  [296/542] OTIS: 50 WEAK | VCP:True RS@High:False
+  [297/542] GD: 91 STRONG BUY | VCP:True RS@High:False
+  [298/542] ROP: 73 WATCH | VCP:True RS@High:False
+  [299/542] CARR: 28 WEAK | VCP:False RS@High:False
+  [300/542] CMI: 36 WEAK | VCP:True RS@High:False
+  [301/542] PH: 89 STRONG BUY | VCP:True RS@High:False
+  [302/542] AME: 92 STRONG BUY | VCP:True RS@High:False
+  [303/542] IR: 54 WEAK | VCP:True RS@High:False
+  [304/542] TDG: 55 WEAK | VCP:True RS@High:False
+  ERR ROK: Too Many Requests. Rate limited. Try after a while.
+  [305/542] ROK: skip (no data)
+  ERR MMM: Too Many Requests. Rate limited. Try after a while.
+  ERR JCI: Too Many Requests. Rate limited. Try after a while.
+  [306/542] MMM: skip (no data)
+  [307/542] JCI: skip (no data)
+  ERR XYL: Too Many Requests. Rate limited. Try after a while.
+  [308/542] XYL: skip (no data)
+  ERR DOV: Too Many Requests. Rate limited. Try after a while.
+  [309/542] DOV: skip (no data)
+  [310/542] GWW: 78 STRONG BUY | VCP:True RS@High:False
+  ERR LDOS: Too Many Requests. Rate limited. Try after a while.
+  [311/542] LDOS: skip (no data)
+  ERR LHX: Too Many Requests. Rate limited. Try after a while.
+  [312/542] LHX: skip (no data)
+  ERR GNRC: Too Many Requests. Rate limited. Try after a while.
+  [313/542] GNRC: skip (no data)
+  ERR CACI: Too Many Requests. Rate limited. Try after a while.
+  [314/542] CACI: skip (no data)
+  ERR SAIC: Too Many Requests. Rate limited. Try after a while.
+  [315/542] SAIC: skip (no data)
+  ERR TXT: Too Many Requests. Rate limited. Try after a while.
+  [316/542] TXT: skip (no data)
+  ERR AXON: Too Many Requests. Rate limited. Try after a while.
+  [317/542] AXON: skip (no data)
+  ERR WM: Too Many Requests. Rate limited. Try after a while.
+  [318/542] WM: skip (no data)
+  ERR JBHT: Too Many Requests. Rate limited. Try after a while.
+  [319/542] JBHT: skip (no data)
+  ERR CHRW: Too Many Requests. Rate limited. Try after a while.
+  [320/542] CHRW: skip (no data)
+  ERR HUBG: Too Many Requests. Rate limited. Try after a while.
+  [321/542] HUBG: skip (no data)
+  ERR EXPD: Too Many Requests. Rate limited. Try after a while.
+  [322/542] EXPD: skip (no data)
+  ERR WERN: Too Many Requests. Rate limited. Try after a while.
+  [323/542] WERN: skip (no data)
+  ERR XPO: Too Many Requests. Rate limited. Try after a while.
+  [324/542] XPO: skip (no data)
+  [325/542] HWM: 92 STRONG BUY | VCP:True RS@High:False
+  ERR SAIA: Too Many Requests. Rate limited. Try after a while.
+  [326/542] RSG: 25 WEAK | VCP:False RS@High:False
+  [327/542] SAIA: skip (no data)
+  ERR ORCL: Too Many Requests. Rate limited. Try after a while.
+  [328/542] ORCL: skip (no data)
+  ERR IBM: Too Many Requests. Rate limited. Try after a while.
+  [329/542] IBM: skip (no data)
+  ERR CRM: Too Many Requests. Rate limited. Try after a while.
+  [330/542] CRM: skip (no data)
+  [331/542] SNA: 87 STRONG BUY | VCP:True RS@High:False
+  ERR AKAM: Too Many Requests. Rate limited. Try after a while.
+  [332/542] AKAM: skip (no data)
+  ERR VRSN: Too Many Requests. Rate limited. Try after a while.
+  [333/542] VRSN: skip (no data)
+  ERR HPE: Too Many Requests. Rate limited. Try after a while.
+  [334/542] HPE: skip (no data)
+  ERR KEYS: Too Many Requests. Rate limited. Try after a while.
+  ERR HPQ: Too Many Requests. Rate limited. Try after a while.
+  [335/542] KEYS: skip (no data)
+  [336/542] HPQ: skip (no data)
+  ERR MPWR: Too Many Requests. Rate limited. Try after a while.
+  [337/542] MPWR: skip (no data)
+  ERR ACN: Too Many Requests. Rate limited. Try after a while.
+  [338/542] ACN: skip (no data)
+  ERR FSLR: Too Many Requests. Rate limited. Try after a while.
+  [339/542] FSLR: skip (no data)
+  ERR ENPH: Too Many Requests. Rate limited. Try after a while.
+  [340/542] ENPH: skip (no data)
+  ERR TYL: Too Many Requests. Rate limited. Try after a while.
+  [341/542] TYL: skip (no data)
+  [342/542] IEX: 92 STRONG BUY | VCP:True RS@High:True
+  ERR SEDG: Too Many Requests. Rate limited. Try after a while.
+  [343/542] SEDG: skip (no data)
+  ERR WDC: Too Many Requests. Rate limited. Try after a while.
+  [344/542] WDC: skip (no data)
+  ERR NTAP: Too Many Requests. Rate limited. Try after a while.
+  [345/542] NTAP: skip (no data)
+  ERR GLW: Too Many Requests. Rate limited. Try after a while.
+  [346/542] GLW: skip (no data)
+  ERR GRMN: Too Many Requests. Rate limited. Try after a while.
+  [347/542] GRMN: skip (no data)
+  ERR FFIV: Too Many Requests. Rate limited. Try after a while.
+  ERR STX: Too Many Requests. Rate limited. Try after a while.
+  [348/542] FFIV: skip (no data)
+  [349/542] STX: skip (no data)
+  ERR NOW: Too Many Requests. Rate limited. Try after a while.
+  [350/542] NOW: skip (no data)
+  ERR ANET: Too Many Requests. Rate limited. Try after a while.
+  ERR SMCI: Too Many Requests. Rate limited. Try after a while.
+  [351/542] ANET: skip (no data)
+  [352/542] SMCI: skip (no data)
+  ERR ZBRA: Too Many Requests. Rate limited. Try after a while.
+  [353/542] ZBRA: skip (no data)
+  ERR FICO: Too Many Requests. Rate limited. Try after a while.
+  [354/542] FICO: skip (no data)
+  ERR PEG: Too Many Requests. Rate limited. Try after a while.
+  [355/542] PEG: skip (no data)
+  ERR PCG: Too Many Requests. Rate limited. Try after a while.
+  ERR SRE: Too Many Requests. Rate limited. Try after a while.
+  [356/542] PCG: skip (no data)
+  [357/542] SRE: skip (no data)
+  ERR NEE: Too Many Requests. Rate limited. Try after a while.
+  [358/542] NEE: skip (no data)
+  ERR DUK: Too Many Requests. Rate limited. Try after a while.
+  [359/542] DUK: skip (no data)
+  ERR D: Too Many Requests. Rate limited. Try after a while.
+  [360/542] D: skip (no data)
+  ERR SO: Too Many Requests. Rate limited. Try after a while.
+  [361/542] SO: skip (no data)
+  ERR AEP: Too Many Requests. Rate limited. Try after a while.
+  [362/542] AEP: skip (no data)
+  ERR AWK: Too Many Requests. Rate limited. Try after a while.
+  [363/542] AWK: skip (no data)
+  ERR WEC: Too Many Requests. Rate limited. Try after a while.
+  [364/542] WEC: skip (no data)
+  ERR NI: Too Many Requests. Rate limited. Try after a while.
+  [365/542] NI: skip (no data)
+  ERR DTE: Too Many Requests. Rate limited. Try after a while.
+  [366/542] DTE: skip (no data)
+  ERR ES: Too Many Requests. Rate limited. Try after a while.
+  ERR CMS: Too Many Requests. Rate limited. Try after a while.
+  [367/542] CMS: skip (no data)
+  [368/542] ES: skip (no data)
+  ERR ATO: Too Many Requests. Rate limited. Try after a while.
+  [369/542] ATO: skip (no data)
+  ERR EIX: Too Many Requests. Rate limited. Try after a while.
+  [370/542] EIX: skip (no data)
+  ERR ETR: Too Many Requests. Rate limited. Try after a while.
+  ERR PPL: Too Many Requests. Rate limited. Try after a while.
+  ERR CNP: Too Many Requests. Rate limited. Try after a while.
+  [371/542] ETR: skip (no data)
+  [372/542] PPL: skip (no data)
+  [373/542] CNP: skip (no data)
+  ERR EVRG: Too Many Requests. Rate limited. Try after a while.
+  [374/542] EVRG: skip (no data)
+  ERR POR: Too Many Requests. Rate limited. Try after a while.
+  [375/542] POR: skip (no data)
+  ERR LNT: Too Many Requests. Rate limited. Try after a while.
+  [376/542] LNT: skip (no data)
+  ERR BKH: Too Many Requests. Rate limited. Try after a while.
+  ERR IDA: Too Many Requests. Rate limited. Try after a while.
+  [377/542] BKH: skip (no data)
+  ERR AEE: Too Many Requests. Rate limited. Try after a while.
+  [378/542] IDA: skip (no data)
+  [379/542] AEE: skip (no data)
+  ERR AVA: Too Many Requests. Rate limited. Try after a while.
+  [380/542] AVA: skip (no data)
+  ERR EQIX: Too Many Requests. Rate limited. Try after a while.
+  [381/542] EQIX: skip (no data)
+  ERR AMT: Too Many Requests. Rate limited. Try after a while.
+  [382/542] AMT: skip (no data)
+  ERR CCI: Too Many Requests. Rate limited. Try after a while.
+  [383/542] CCI: skip (no data)
+  ERR OGE: Too Many Requests. Rate limited. Try after a while.
+  ERR PLD: Too Many Requests. Rate limited. Try after a while.
+  [384/542] OGE: skip (no data)
+  [385/542] PLD: skip (no data)
+  ERR OTTR: Too Many Requests. Rate limited. Try after a while.
+  [386/542] OTTR: skip (no data)
+  ERR O: Too Many Requests. Rate limited. Try after a while.
+  [387/542] O: skip (no data)
+  ERR PSA: Too Many Requests. Rate limited. Try after a while.
+  [388/542] PSA: skip (no data)
+  ERR SPG: Too Many Requests. Rate limited. Try after a while.
+  [389/542] SPG: skip (no data)
+  ERR EXR: Too Many Requests. Rate limited. Try after a while.
+  [390/542] EXR: skip (no data)
+  ERR VICI: Too Many Requests. Rate limited. Try after a while.
+  [391/542] VICI: skip (no data)
+  ERR MAA: Too Many Requests. Rate limited. Try after a while.
+  [392/542] MAA: skip (no data)
+  ERR SUI: Too Many Requests. Rate limited. Try after a while.
+  [393/542] SUI: skip (no data)
+  ERR UDR: Too Many Requests. Rate limited. Try after a while.
+  [394/542] UDR: skip (no data)
+  ERR EQR: Too Many Requests. Rate limited. Try after a while.
+  [395/542] EQR: skip (no data)
+  ERR AVB: Too Many Requests. Rate limited. Try after a while.
+  ERR ESS: Too Many Requests. Rate limited. Try after a while.
+  [396/542] AVB: skip (no data)
+  [397/542] ESS: skip (no data)
+  ERR WPC: Too Many Requests. Rate limited. Try after a while.
+  [398/542] WPC: skip (no data)
+  ERR REXR: Too Many Requests. Rate limited. Try after a while.
+  ERR DLR: Too Many Requests. Rate limited. Try after a while.
+  [399/542] REXR: skip (no data)
+  [400/542] DLR: skip (no data)
+  ERR IRM: Too Many Requests. Rate limited. Try after a while.
+  [401/542] IRM: skip (no data)
+  ERR ELS: Too Many Requests. Rate limited. Try after a while.
+  [402/542] ELS: skip (no data)
+  ERR NNN: Too Many Requests. Rate limited. Try after a while.
+  [403/542] NNN: skip (no data)
+  ERR FR: Too Many Requests. Rate limited. Try after a while.
+  [404/542] FR: skip (no data)
+  ERR VNO: Too Many Requests. Rate limited. Try after a while.
+  [405/542] VNO: skip (no data)
+  ERR FRT: Too Many Requests. Rate limited. Try after a while.
+  [406/542] FRT: skip (no data)
+  ERR KIM: Too Many Requests. Rate limited. Try after a while.
+  ERR REG: Too Many Requests. Rate limited. Try after a while.
+  ERR EPRT: Too Many Requests. Rate limited. Try after a while.
+  [407/542] REG: skip (no data)
+  [408/542] KIM: skip (no data)
+  [409/542] EPRT: skip (no data)
+  ERR SBAC: Too Many Requests. Rate limited. Try after a while.
+  [410/542] SBAC: skip (no data)
+  ERR ARE: Too Many Requests. Rate limited. Try after a while.
+  [411/542] ARE: skip (no data)
+  ERR BXP: Too Many Requests. Rate limited. Try after a while.
+  [412/542] BXP: skip (no data)
+  ERR STAG: Too Many Requests. Rate limited. Try after a while.
+  [413/542] STAG: skip (no data)
+  ERR IIPR: Too Many Requests. Rate limited. Try after a while.
+  [414/542] IIPR: skip (no data)
+  ERR TRNO: Too Many Requests. Rate limited. Try after a while.
+  [415/542] TRNO: skip (no data)
+  ERR MPW: Too Many Requests. Rate limited. Try after a while.
+  [416/542] MPW: skip (no data)
+  ERR SBA: Too Many Requests. Rate limited. Try after a while.
+  [417/542] SBA: skip (no data)
+  ERR LIN: Too Many Requests. Rate limited. Try after a while.
+  ERR COR: Too Many Requests. Rate limited. Try after a while.
+  [418/542] LIN: skip (no data)
+  [419/542] COR: skip (no data)
+  ERR SHW: Too Many Requests. Rate limited. Try after a while.
+  [420/542] SHW: skip (no data)
+  ERR FCX: Too Many Requests. Rate limited. Try after a while.
+  [421/542] FCX: skip (no data)
+  ERR ECL: Too Many Requests. Rate limited. Try after a while.
+  [422/542] ECL: skip (no data)
+  ERR NEM: Too Many Requests. Rate limited. Try after a while.
+  [423/542] NEM: skip (no data)
+  ERR PPG: Too Many Requests. Rate limited. Try after a while.
+  ERR EMN: Too Many Requests. Rate limited. Try after a while.
+  [424/542] PPG: skip (no data)
+  [425/542] EMN: skip (no data)
+  ERR CE: Too Many Requests. Rate limited. Try after a while.
+  [426/542] CE: skip (no data)
+  ERR AVY: Too Many Requests. Rate limited. Try after a while.
+  [427/542] AVY: skip (no data)
+  ERR NUE: Too Many Requests. Rate limited. Try after a while.
+  [428/542] NUE: skip (no data)
+  ERR APD: Too Many Requests. Rate limited. Try after a while.
+  [429/542] APD: skip (no data)
+  ERR PKG: Too Many Requests. Rate limited. Try after a while.
+  [430/542] PKG: skip (no data)
+  ERR ALB: Too Many Requests. Rate limited. Try after a while.
+  ERR SEE: Too Many Requests. Rate limited. Try after a while.
+  [431/542] ALB: skip (no data)
+  [432/542] SEE: skip (no data)
+  ERR RPM: Too Many Requests. Rate limited. Try after a while.
+  [433/542] RPM: skip (no data)
+  ERR SON: Too Many Requests. Rate limited. Try after a while.
+  [434/542] SON: skip (no data)
+  ERR IP: Too Many Requests. Rate limited. Try after a while.
+  [435/542] IP: skip (no data)
+  ERR BALL: Too Many Requests. Rate limited. Try after a while.
+  [436/542] BALL: skip (no data)
+  ERR OLN: Too Many Requests. Rate limited. Try after a while.
+  [437/542] OLN: skip (no data)
+  ERR MLM: Too Many Requests. Rate limited. Try after a while.
+  [438/542] MLM: skip (no data)
+  ERR VMC: Too Many Requests. Rate limited. Try after a while.
+  [439/542] VMC: skip (no data)
+  ERR ASH: Too Many Requests. Rate limited. Try after a while.
+  ERR STLD: Too Many Requests. Rate limited. Try after a while.
+  [440/542] ASH: skip (no data)
+  [441/542] STLD: skip (no data)
+  ERR RS: Too Many Requests. Rate limited. Try after a while.
+  ERR VZ: Too Many Requests. Rate limited. Try after a while.
+  [442/542] VZ: skip (no data)
+  [443/542] RS: skip (no data)
+  ERR CLF: Too Many Requests. Rate limited. Try after a while.
+  [444/542] CLF: skip (no data)
+  ERR CMC: Too Many Requests. Rate limited. Try after a while.
+  [445/542] CMC: skip (no data)
+  ERR DIS: Too Many Requests. Rate limited. Try after a while.
+  [446/542] DIS: skip (no data)
+  ERR PARA: Too Many Requests. Rate limited. Try after a while.
+  [447/542] PARA: skip (no data)
+  ERR OMC: Too Many Requests. Rate limited. Try after a while.
+  [448/542] OMC: skip (no data)
+  ERR T: Too Many Requests. Rate limited. Try after a while.
+  [449/542] T: skip (no data)
+  ERR TTWO: Too Many Requests. Rate limited. Try after a while.
+  [450/542] TTWO: skip (no data)
+  ERR TMUS: Too Many Requests. Rate limited. Try after a while.
+  [451/542] TMUS: skip (no data)
+  ERR IPG: Too Many Requests. Rate limited. Try after a while.
+  [452/542] IPG: skip (no data)
+  ERR NWSA: Too Many Requests. Rate limited. Try after a while.
+  [453/542] NWSA: skip (no data)
+  ERR FOXA: Too Many Requests. Rate limited. Try after a while.
+  ERR LYFT: Too Many Requests. Rate limited. Try after a while.
+  [454/542] LYFT: skip (no data)
+  ERR MTCH: Too Many Requests. Rate limited. Try after a while.
+  [455/542] FOXA: skip (no data)
+  ERR FOX: Too Many Requests. Rate limited. Try after a while.
+  [456/542] MTCH: skip (no data)
+  [457/542] FOX: skip (no data)
+  ERR IAC: Too Many Requests. Rate limited. Try after a while.
+  [458/542] IAC: skip (no data)
+  ERR RBLX: Too Many Requests. Rate limited. Try after a while.
+  [459/542] RBLX: skip (no data)
+  ERR UBER: Too Many Requests. Rate limited. Try after a while.
+  [460/542] UBER: skip (no data)
+  ERR SNAP: Too Many Requests. Rate limited. Try after a while.
+  [461/542] SNAP: skip (no data)
+  ERR COIN: Too Many Requests. Rate limited. Try after a while.
+  [462/542] COIN: skip (no data)
+  ERR HOOD: Too Many Requests. Rate limited. Try after a while.
+  [463/542] HOOD: skip (no data)
+  ERR SNOW: Too Many Requests. Rate limited. Try after a while.
+  [464/542] SNOW: skip (no data)
+  ERR SPOT: Too Many Requests. Rate limited. Try after a while.
+  [465/542] SPOT: skip (no data)
+  ERR SE: Too Many Requests. Rate limited. Try after a while.
+  [466/542] SE: skip (no data)
+  ERR SHOP: Too Many Requests. Rate limited. Try after a while.
+  ERR BIDU: Too Many Requests. Rate limited. Try after a while.
+  [467/542] SHOP: skip (no data)
+  [468/542] BIDU: skip (no data)
+  ERR RIVN: Too Many Requests. Rate limited. Try after a while.
+  [469/542] RIVN: skip (no data)
+  ERR PINS: Too Many Requests. Rate limited. Try after a while.
+  [470/542] PINS: skip (no data)
+  ERR PLTR: Too Many Requests. Rate limited. Try after a while.
+  [471/542] PLTR: skip (no data)
+  ERR OKTA: Too Many Requests. Rate limited. Try after a while.
+  [472/542] OKTA: skip (no data)
+  ERR DOCU: Too Many Requests. Rate limited. Try after a while.
+  [473/542] DOCU: skip (no data)
+  ERR IONQ: Too Many Requests. Rate limited. Try after a while.
+  [474/542] IONQ: skip (no data)
+  ERR ARM: Too Many Requests. Rate limited. Try after a while.
+  [475/542] ARM: skip (no data)
+  ERR TSM: Too Many Requests. Rate limited. Try after a while.
+  [476/542] TSM: skip (no data)
+  ERR ASML: Too Many Requests. Rate limited. Try after a while.
+  [477/542] ASML: skip (no data)
+  ERR SOUN: Too Many Requests. Rate limited. Try after a while.
+  [478/542] SOUN: skip (no data)
+  ERR NVO: Too Many Requests. Rate limited. Try after a while.
+  [479/542] NVO: skip (no data)
+  ERR JOBY: Too Many Requests. Rate limited. Try after a while.
+  [480/542] JOBY: skip (no data)
+  ERR RGTI: Too Many Requests. Rate limited. Try after a while.
+  [481/542] RGTI: skip (no data)
+  ERR IWM: Too Many Requests. Rate limited. Try after a while.
+  [482/542] IWM: skip (no data)
+  ERR ACHR: Too Many Requests. Rate limited. Try after a while.
+  [483/542] ACHR: skip (no data)
+  ERR QBTS: Too Many Requests. Rate limited. Try after a while.
+  [484/542] QBTS: skip (no data)
+  ERR CELH: Too Many Requests. Rate limited. Try after a while.
+  [485/542] CELH: skip (no data)
+  ERR SNDK: Too Many Requests. Rate limited. Try after a while.
+  [486/542] SNDK: skip (no data)
+  ERR LUNR: Too Many Requests. Rate limited. Try after a while.
+  [487/542] LUNR: skip (no data)
+  ERR RKLB: Too Many Requests. Rate limited. Try after a while.
+  [488/542] RKLB: skip (no data)
+  ERR SPY: Too Many Requests. Rate limited. Try after a while.
+  [489/542] SPY: skip (no data)
+  ERR QQQ: Too Many Requests. Rate limited. Try after a while.
+  [490/542] QQQ: skip (no data)
+  ERR DIA: Too Many Requests. Rate limited. Try after a while.
+  [491/542] DIA: skip (no data)
+  ERR VTI: Too Many Requests. Rate limited. Try after a while.
+  [492/542] VTI: skip (no data)
+  ERR VWO: Too Many Requests. Rate limited. Try after a while.
+  [493/542] VWO: skip (no data)
+  ERR VEA: Too Many Requests. Rate limited. Try after a while.
+  ERR VOO: Too Many Requests. Rate limited. Try after a while.
+  [494/542] VEA: skip (no data)
+  [495/542] VOO: skip (no data)
+  ERR LQD: Too Many Requests. Rate limited. Try after a while.
+  [496/542] LQD: skip (no data)
+  ERR SLV: Too Many Requests. Rate limited. Try after a while.
+  [497/542] SLV: skip (no data)
+  ERR IEF: Too Many Requests. Rate limited. Try after a while.
+  [498/542] IEF: skip (no data)
+  ERR HYG: Too Many Requests. Rate limited. Try after a while.
+  [499/542] HYG: skip (no data)
+  ERR TLT: Too Many Requests. Rate limited. Try after a while.
+  [500/542] TLT: skip (no data)
+  ERR XLI: Too Many Requests. Rate limited. Try after a while.
+  [501/542] XLI: skip (no data)
+  ERR XLK: Too Many Requests. Rate limited. Try after a while.
+  [502/542] XLK: skip (no data)
+  ERR XLE: Too Many Requests. Rate limited. Try after a while.
+  [503/542] XLE: skip (no data)
+  ERR XLV: Too Many Requests. Rate limited. Try after a while.
+  [504/542] XLV: skip (no data)
+  ERR XLF: Too Many Requests. Rate limited. Try after a while.
+  [505/542] XLF: skip (no data)
+  ERR XLC: Too Many Requests. Rate limited. Try after a while.
+  [506/542] XLC: skip (no data)
+  ERR XLY: Too Many Requests. Rate limited. Try after a while.
+  [507/542] XLY: skip (no data)
+  ERR XLB: Too Many Requests. Rate limited. Try after a while.
+  [508/542] XLB: skip (no data)
+  ERR XLP: Too Many Requests. Rate limited. Try after a while.
+  [509/542] XLP: skip (no data)
+  ERR XLRE: Too Many Requests. Rate limited. Try after a while.
+  [510/542] XLRE: skip (no data)
+  ERR XLU: Too Many Requests. Rate limited. Try after a while.
+  [511/542] XLU: skip (no data)
+  ERR GLD: Too Many Requests. Rate limited. Try after a while.
+  [512/542] GLD: skip (no data)
+  ERR SMH: Too Many Requests. Rate limited. Try after a while.
+  [513/542] SMH: skip (no data)
+  ERR XBI: Too Many Requests. Rate limited. Try after a while.
+  [514/542] XBI: skip (no data)
+  ERR XOP: Too Many Requests. Rate limited. Try after a while.
+  [515/542] XOP: skip (no data)
+  ERR IBB: Too Many Requests. Rate limited. Try after a while.
+  [516/542] IBB: skip (no data)
+  ERR ARKK: Too Many Requests. Rate limited. Try after a while.
+  [517/542] ARKK: skip (no data)
+  ERR ARKG: Too Many Requests. Rate limited. Try after a while.
+  ERR APLD: Too Many Requests. Rate limited. Try after a while.
+  [518/542] ARKG: skip (no data)
+  [519/542] APLD: skip (no data)
+  ERR ARKW: Too Many Requests. Rate limited. Try after a while.
+  ERR ALAB: Too Many Requests. Rate limited. Try after a while.
+  [520/542] ALAB: skip (no data)
+  [521/542] ARKW: skip (no data)
+  ERR AMKR: Too Many Requests. Rate limited. Try after a while.
+  [522/542] AMKR: skip (no data)
+  ERR SPCX: Too Many Requests. Rate limited. Try after a while.
+  [523/542] SPCX: skip (no data)
+  ERR DELL: Too Many Requests. Rate limited. Try after a while.
+  [524/542] DELL: skip (no data)
+  ERR APP: Too Many Requests. Rate limited. Try after a while.
+  [525/542] APP: skip (no data)
+  ERR BTC-USD: Too Many Requests. Rate limited. Try after a while.
+  [526/542] BTC-USD: skip (no data)
+  ERR COCO: Too Many Requests. Rate limited. Try after a while.
+  [527/542] COCO: skip (no data)
+  ERR DIOD: Too Many Requests. Rate limited. Try after a while.
+  [528/542] DIOD: skip (no data)
+  ERR LQDA: Too Many Requests. Rate limited. Try after a while.
+  [529/542] LQDA: skip (no data)
+  ERR DOCN: Too Many Requests. Rate limited. Try after a while.
+  [530/542] DOCN: skip (no data)
+  ERR FLEX: Too Many Requests. Rate limited. Try after a while.
+  [531/542] FLEX: skip (no data)
+  ERR DRAM: Too Many Requests. Rate limited. Try after a while.
+  [532/542] DRAM: skip (no data)
+  ERR IREN: Too Many Requests. Rate limited. Try after a while.
+  [533/542] IREN: skip (no data)
+  ERR LUV: Too Many Requests. Rate limited. Try after a while.
+  [534/542] LUV: skip (no data)
+  ERR MXL: Too Many Requests. Rate limited. Try after a while.
+  [535/542] MXL: skip (no data)
+  ERR QLD: Too Many Requests. Rate limited. Try after a while.
+  [536/542] QLD: skip (no data)
+  ERR PRTH: Too Many Requests. Rate limited. Try after a while.
+  [537/542] PRTH: skip (no data)
+  ERR RBRK: Too Many Requests. Rate limited. Try after a while.
+  [538/542] RBRK: skip (no data)
+  ERR ICHR: Too Many Requests. Rate limited. Try after a while.
+  [539/542] ICHR: skip (no data)
+  ERR SWBI: Too Many Requests. Rate limited. Try after a while.
+  ERR SSO: Too Many Requests. Rate limited. Try after a while.
+  [540/542] SWBI: skip (no data)
+  [541/542] SSO: skip (no data)
+  ERR VRT: Too Many Requests. Rate limited. Try after a while.
+  [542/542] VRT: skip (no data)
+[17:49] Fetching news…
+Fetching news for 15 tickers…
+  BAC
+  ROST
+  MPC
+  JPM
+  NTRS
+  RGA
+  VLO
+  MS
+  C
+  USB
+  CFG
+  PNC
+  SJM
+  RTX
+  MU
+[17:49] Generating trade theses…
+[17:49] ✓ Saved latest → C:\Users\91635\Desktop\TXsparks\Sparks_Finance\Sparks_Finance\KV\combined_results.json
+  History: 7 day(s) stored → 2026-08-18, 2026-08-17, 2026-08-14, 2026-08-13, 2026-08-12, 2026-08-07, 2026-08-06
+[17:49] Pushing to Firestore…
+  ✓  Pushed → Firestore: scans/latest
+  ✓  Pushed → Firestore: history/2026-08-18
+  ✓  History index: 2026-08-18, 2026-08-17, 2026-08-14, 2026-08-13, 2026-08-12, 2026-08-07, 2026-08-06
