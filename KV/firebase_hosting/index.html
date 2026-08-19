@@ -1802,10 +1802,10 @@ body.sidebar-open .nav-scrim{display:block;}
       </div>
     </main>
   </div>
-  <!-- AI assistant pop-up: floating bubble → panel → fullscreen -->
-  <button class="asst-fab" id="asstFab" onclick="asstPopOpen()" title="Ask the AI analyst" aria-label="Open AI assistant"></button>
-  <div class="asst-pop hidden" id="asstPop"><div id="asstPopHost" style="display:flex;flex-direction:column;height:100%;min-height:0;"></div></div>
 </div>
+  <!-- AI assistant pop-up — body-level so it's reachable on the org hub AND inside a company: bubble → panel → fullscreen -->
+  <button class="asst-fab hidden" id="asstFab" onclick="asstPopOpen()" title="Ask the AI analyst" aria-label="Open AI assistant"></button>
+  <div class="asst-pop hidden" id="asstPop"><div id="asstPopHost" style="display:flex;flex-direction:column;height:100%;min-height:0;"></div></div>
 
 <script>
 // ════════ Icons (lucide-style inline SVG, currentColor) ════════
@@ -2382,6 +2382,7 @@ async function _aggregateCompany(orgId, companyId, companyName, industry) {
   const coHealth = finHealthScore({ cash: coCash, liabilities: coLiabilities, equity: coEquity, monthlyDebt: coMonthly, netMargin: coNetMargin, dscr: coDscr, hasFin: coHasFin, assets: coAssets, industry: industry });
   return { coVal, coInv, coHold, coOut, coLoans, coBorrow, coLent, coMonthly, coActive, coClosed, coDue30, coDue60, coDue90, coOverdue, coIntPay, coIntRecv, hiRate, maturities, coAssets, coCash, coRealEstate, coAssetCount, coAssetsByCat, coREItems, coLiabilities, coNetWorth, coRevenue, coExpenses, coGrossProfit, coNetProfit, coEBITDA, coNetMargin, coHasFin, coPeriodLabel, coPeriodType, coFactor, coRevenueAnn, coNetProfitAnn, coEBITDAAnn, coGrossProfitAnn, coEquity, coDscr, coHealth };
 }
+let _orgSnap = null;   // last consolidated org aggregate — powers the org-level AI assistant on the hub
 async function renderOrgDashboard(orgId, host) {
   orgId = orgId || ACTIVE_ORG;
   const el = host || document.getElementById('orgDashBody'); if (!el) return;
@@ -2435,6 +2436,13 @@ async function renderOrgDashboard(orgId, host) {
   const avgBand = avgHealth == null ? '' : (avgHealth >= 80 ? 'Excellent' : avgHealth >= 60 ? 'Good' : avgHealth >= 40 ? 'Fair' : 'At risk');
   const avgColor = avgHealth == null ? 'var(--text-3)' : (avgHealth >= 60 ? 'var(--green)' : avgHealth >= 40 ? '#e0a020' : 'var(--red)');
   const healthTile = avgHealth == null ? '' : '<div class="dash-mini"><div class="dash-mini-label">Avg health score</div><div class="dash-mini-val" style="color:' + avgColor + '">' + avgHealth + ' · ' + avgBand + '</div></div>';
+  // Explain the score right here (distribution across companies + method + why it may be low).
+  const _hb = { Excellent: 0, Good: 0, Fair: 0, 'At risk': 0 };
+  scored.forEach(h => { _hb[h.band] = (_hb[h.band] || 0) + 1; });
+  const _hdist = Object.keys(_hb).filter(b => _hb[b]).map(b => _hb[b] + ' ' + b).join(' · ');
+  const _hmethod = 'Score is a 0–100 composite of <b>liquidity, leverage, profitability &amp; debt coverage</b>, industry-calibrated, averaged over companies that have data.';
+  const _hwhy = (avgHealth != null && avgHealth < 40 && totAssets === 0 && totOutstanding > 0) ? ' It’s low because companies have <b>loans recorded but no assets, cash or financial periods</b> yet — add those and it will reflect real health.' : '';
+  const healthExplain = (avgHealth == null) ? '' : '<div class="ht-sub" style="margin-top:6px">' + (_hdist ? _hdist + '. ' : '') + _hmethod + _hwhy + '</div>';
   // Consolidated financials — each company's latest period ANNUALIZED to a common yearly run-rate (H1 fix:
   // never add a company's single month to another's full year; quarter ×4, month ×12, year ×1).
   let execFin = '';
@@ -2450,9 +2458,9 @@ async function renderOrgDashboard(orgId, host) {
       _dashMini('Gross profit (run-rate)', dollarFmt(totGrossProfitAnn), '') +
       _dashMini('Blended net margin', finPct(blended), (blended != null && blended < 0) ? 'loss' : '') +
       _dashMini('Total equity', _finSigned(totNetWorth), '') + healthTile + '</div>' +
-      '<div class="ht-sub" style="margin-top:6px">Each company’s latest period annualized (quarter ×4, month ×12) to a comparable yearly basis.' + mixNote + '</div></div>';
+      '<div class="ht-sub" style="margin-top:6px">Each company’s latest period annualized (quarter ×4, month ×12) to a comparable yearly basis.' + mixNote + '</div>' + healthExplain + '</div>';
   } else if (avgHealth != null) {
-    execFin = '<div class="dash-section"><div class="dash-section-title">Financial health</div><div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' + healthTile + '</div><div class="ht-sub" style="margin-top:6px">Add financial periods in each company to unlock consolidated revenue, profit and margins.</div></div>';
+    execFin = '<div class="dash-section"><div class="dash-section-title">Financial health</div><div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' + healthTile + '</div>' + healthExplain + '<div class="ht-sub" style="margin-top:4px">Add financial periods in each company to also unlock consolidated revenue, profit and margins.</div></div>';
   }
   // Asset portfolio — consolidated by category across every company.
   let assetSection = '';
@@ -2510,7 +2518,23 @@ async function renderOrgDashboard(orgId, host) {
     const insightsHtml = insights.length ? '<div class="dash-section"><div class="dash-section-title">Enterprise loan insights</div><ul style="margin:6px 0 0;padding-left:18px;line-height:1.7;color:var(--text);font-size:13px">' + insights.map(i => '<li style="margin:2px 0">' + i + '</li>').join('') + '</ul></div>' : '';
     loanSection = '<div class="dash-section"><div class="dash-section-title">Enterprise loans</div>' + loanMini + loanTbl + '</div>' + insightsHtml;
   }
-  el.innerHTML = hero + mini + execFin + assetSection + reSection + tbl + loanSection + _aiCfoCard('org') + '<div class="rng-advice-note">Balance sheet as of ' + fmtDate(todayStr()) + '. Equity = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Consolidated from each company’s Assets, Loans and latest Financial Statements — informational only, not financial advice.</div>';
+  // Deterministic AI CFO summary — a plain-English readout generated from the consolidated figures (cost-free).
+  const _noFinCount = rows.filter(r => !r.hasFin).length;
+  const _atRisk = scored.filter(h => h.score < 40).length;
+  const _ob = [];
+  _ob.push('Across <b>' + companies.length + '</b> companies: total assets ' + dollarFmt(totAssets) + ', loan debt ' + dollarFmt(totOutstanding) + ' → equity <b>' + _finSigned(totNetWorth) + '</b>.');
+  if (anyFin) _ob.push('Consolidated run-rate revenue ' + dollarFmt(totRevenueAnn) + ', net profit ' + _finSigned(totNetProfitAnn) + ' (' + finPct(totRevenueAnn ? totNetProfitAnn / totRevenueAnn : null) + ' margin).');
+  if (avgHealth != null) _ob.push('Average financial health <b>' + avgHealth + '/100 (' + avgBand + ')</b>' + (_atRisk ? ', ' + _atRisk + (_atRisk === 1 ? ' company' : ' companies') + ' at risk' : '') + '.');
+  if (totAssets === 0 && totOutstanding > 0) _ob.push('⚠️ No assets or cash recorded — equity is negative on loan debt alone; add assets and bank balances to reflect true net worth.');
+  if (_noFinCount) _ob.push('<b>' + _noFinCount + '</b> of ' + companies.length + ' companies have no financial period yet — add them to consolidate revenue, profit and margins.');
+  if (entOverdue) _ob.push('⚠️ <b>' + entOverdue + '</b> overdue loan payment' + (entOverdue === 1 ? '' : 's') + ' across the organization need attention.');
+  const orgCfo = '<div style="font-size:13px;line-height:1.7;color:var(--text)">' + _ob.map(b => '• ' + b).join('<br>') + '</div>';
+  // Cache the aggregate so the org-level AI assistant can answer from it without re-fetching.
+  _orgSnap = { orgId: orgId, companies: companies.length, totAssets: totAssets, totOutstanding: totOutstanding, totNetWorth: totNetWorth, totCash: totCash, totPortfolio: totPortfolio,
+    avgHealth: avgHealth, avgBand: avgBand, anyFin: anyFin, totRevenueAnn: totRevenueAnn, totNetProfitAnn: totNetProfitAnn, totEBITDAAnn: totEBITDAAnn,
+    atRisk: scored.filter(h => h.score < 40).length, noFin: rows.filter(r => !r.hasFin).length, entOverdue: entOverdue, entMonthlyOblig: entMonthlyOblig,
+    rows: rows.map(r => ({ name: r.name, assets: r.assets, netWorth: r.netWorth, revenue: r.revenue, netProfit: r.netProfit, hasFin: r.hasFin, score: r.health && r.health.score != null ? r.health.score : null, band: r.health && r.health.band ? r.health.band : null })) };
+  el.innerHTML = hero + mini + execFin + assetSection + reSection + tbl + loanSection + _aiCfoCard('org', orgCfo) + '<div class="rng-advice-note">Balance sheet as of ' + fmtDate(todayStr()) + '. Equity = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Consolidated from each company’s Assets, Loans and latest Financial Statements — informational only, not financial advice.</div>';
 }
 // Single-COMPANY executive summary (the company-level dashboard). Reuses the exact per-company math via
 // _aggregateCompany, so its numbers match this company's row in the consolidated org dashboard.
@@ -2586,7 +2610,21 @@ async function renderCompanyDashboard() {
     _dashMini('Assets tracked', String(a.coAssetCount), '') +
     _dashMini('Holdings', String(a.coHold), '') +
     _dashMini('Members', String(memberCount), '') + '</div></div>';
-  el.innerHTML = alertStrip + hero + asOf + health + profitability + trend + mini + _aiCfoCard('company') + '<div class="rng-advice-note">Equity = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Figures use your entered valuations + latest available prices — informational only, not financial advice.</div>';
+  // Deterministic AI CFO summary for this company (cost-free, from the figures already computed).
+  const _cb = [];
+  _cb.push('Equity <b>' + _finSigned(a.coNetWorth) + '</b> on ' + dollarFmt(a.coAssets) + ' assets and ' + dollarFmt(a.coLiabilities) + ' loan debt.');
+  if (fc) _cb.push((fc.netProfit >= 0 ? 'Profitable' : 'Operating at a loss') + ' in ' + finPeriodLabel(latestFin) + ' — net profit ' + _finSigned(fc.netProfit) + ' at ' + finPct(fc.netMargin) + ' margin' + (pfc ? (fc.netProfit >= pfc.netProfit ? ', up vs prior' : ', down vs prior') : '') + '.');
+  else _cb.push('No financial period entered yet — add one for revenue, profit and margins.');
+  if (runwayLabel) _cb.push('Cash runway: <b>' + runwayLabel + '</b>' + (runwayMonths != null && runwayMonths < 3 ? ' ⚠️' : '') + '.');
+  if (a.coHealth && a.coHealth.score != null) _cb.push('Financial health <b>' + a.coHealth.score + '/100 (' + a.coHealth.band + ')</b>' + (a.coHealth.industryLabel ? ', calibrated for ' + a.coHealth.industryLabel : '') + '.');
+  const _cw = [];
+  if (a.coOverdue) _cw.push(a.coOverdue + ' overdue payment' + (a.coOverdue === 1 ? '' : 's'));
+  if (runwayMonths != null && runwayMonths < 3) _cw.push('low cash runway');
+  if (a.coHealth && a.coHealth.score != null && a.coHealth.score < 40) _cw.push('health at risk');
+  if (a.coMonthly > 0 && a.coCash === 0) _cw.push('no cash recorded');
+  if (_cw.length) _cb.push('⚠️ Watch: ' + _cw.join(', ') + '.');
+  const coCfo = '<div style="font-size:13px;line-height:1.7;color:var(--text)">' + _cb.map(b => '• ' + b).join('<br>') + '</div>';
+  el.innerHTML = alertStrip + hero + asOf + health + profitability + trend + mini + _aiCfoCard('company', coCfo) + '<div class="rng-advice-note">Equity = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Figures use your entered valuations + latest available prices — informational only, not financial advice.</div>';
 }
 // Org-wide members roster (org level). Lists every person across the org's companies + org admins, with roles.
 async function renderOrgAllMembers(orgId, host) {
@@ -3631,6 +3669,7 @@ function _hubShowHub(user) {
   const ub = document.getElementById('hubUserBadge'); if (ub) ub.textContent = (user && user.email) || '';
   const th = document.getElementById('hubTheme'); if (th) th.innerHTML = ic(document.documentElement.getAttribute('data-theme') === 'dark' ? 'sun' : 'moon', 18);
   _screenIn(hub);
+  try { _updateAsstFab(); } catch (e) {}
 }
 // ── Post-login "choose your mode" page (Personal plan vs Team/Organization plan) ──
 function _screenIn(el) { if (!el || _reduceMotion) return; el.classList.remove('screen-in'); void el.offsetWidth; el.classList.add('screen-in'); }
@@ -3652,6 +3691,7 @@ function showModeGate(user) {
   const th = document.getElementById('mgTheme'); if (th) th.innerHTML = ic(document.documentElement.getAttribute('data-theme') === 'dark' ? 'sun' : 'moon', 18);
   renderModeGate();
   _screenIn(gate);
+  try { _updateAsstFab(); } catch (e) {}
   // The chooser is the trail root. On a genuine show (not a navApply restore), reset to [modeGate] — this
   // also drops any stale deep hub trail left in sessionStorage after a reload — and rebuild browser history.
   try { if (!_navLock) { _navHist = [_navScreenLoc('modeGate')]; _navIdx = 0; _navPersist(); _navRebuildHistory(); renderCrumbs(); } } catch (e) {}
@@ -4236,6 +4276,7 @@ auth.onAuthStateChanged(async user => {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('app').style.display = 'none';
     document.getElementById('authPanel').classList.remove('hidden');
+    try { _updateAsstFab(); } catch (e) {}
   }
 });
 
@@ -8275,10 +8316,12 @@ function _finBarChart(periods) {
   const legend = '<div style="display:flex;gap:16px;justify-content:center;margin-top:4px;font-size:11px;color:var(--text-3)"><span><span style="display:inline-block;width:10px;height:10px;background:#5b8def;border-radius:2px;vertical-align:middle;margin-right:5px"></span>Revenue</span><span><span style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:2px;vertical-align:middle;margin-right:5px"></span>Net profit</span></div>';
   return '<div class="dash-section"><div class="dash-section-title">Revenue &amp; profit trend</div><div style="width:100%;overflow-x:auto"><svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;min-width:' + Math.max(320, n * 72) + 'px;height:auto;display:block">' + zero + bars + labels + '</svg></div>' + legend + '</div>';
 }
-function _aiCfoCard(scope) {
-  return '<div class="dash-section"><div class="dash-section-title">AI CFO summary</div><div class="pf-filter-note">' +
-    (scope === 'org' ? 'A cross-company performance narrative, risk flags and recommendations' : 'A plain-English read on this company’s performance, key risks and what to watch') +
-    ' will appear here once the Sparks AI review runs. In the meantime, ask the <b>AI Assistant</b> about these numbers.</div></div>';
+function _aiCfoCard(scope, summaryHtml) {
+  const body = summaryHtml
+    ? summaryHtml + '<div class="ht-sub" style="margin-top:8px">Auto-generated from your current figures — ' + (scope === 'org' ? 'open a company and ask the <b>AI Assistant</b> for detail.' : 'ask the <b>AI Assistant</b> for detail or follow-ups.') + '</div>'
+    : '<div class="pf-filter-note">' + (scope === 'org' ? 'A cross-company performance narrative, risk flags and recommendations' : 'A plain-English read on this company’s performance, key risks and what to watch') +
+      ' appears here once you’ve entered data. Ask the <b>AI Assistant</b> in the meantime.</div>';
+  return '<div class="dash-section"><div class="dash-section-title">AI CFO summary</div>' + body + '</div>';
 }
 function _onFinSearch() { const e = document.getElementById('finSearch'); _finSearch = ((e && e.value) || '').trim().toLowerCase(); renderFinancials(); }
 function _onFinTypeFilter(v) { _finTypeFilter = v || 'all'; renderFinancials(); }
@@ -8739,6 +8782,7 @@ function sw(name) {
   if (name === 'financials') renderFinancials();
   if (name === 'platform') renderPlatform();
   try { navRecord(_navAppLoc(name)); } catch (e) {}   // breadcrumb: record the RBAC-resolved tab
+  try { _updateAsstFab(); } catch (e) {}
 }
 
 // ════════ Navigation history — breadcrumbs + "back to exactly where I was" (app + hub + chooser) ════════
@@ -9256,7 +9300,72 @@ function assistantFinanceSnapshot() {
 }
 function _asstSuggestions() {
   if (ACTIVE_ORG && ACTIVE_COMPANY) return ['What is our cash balance and runway?', 'How did revenue and profit change vs last period?', 'What loan payments are due soon?', 'How is the company’s financial health?'];
+  if (_hubOrgId && !ACTIVE_COMPANY) return ['How is the organization doing overall?', 'What is our total debt and equity?', 'Which companies are at risk?', 'What’s our consolidated revenue and profit?'];
   return ASSISTANT_SUGGESTED;
+}
+// The org-level assistant + consolidated figures are for ORG ADMINS / PLATFORM SUPER-ADMINS only (mirrors the
+// org dashboard's own gate). Company members use the company-scoped assistant inside their workspace instead.
+function _isHubOrgAdmin() { return isPlatformAdmin() || !!(_hubOrgId && _myOrgs[_hubOrgId] && _myOrgs[_hubOrgId].orgAdmin); }
+// Org-level deterministic engine (used on the workspace hub, where there's no single active company). Answers
+// from the cached consolidated aggregate (_orgSnap) built by renderOrgDashboard. Returns markdown or null.
+function answerOrgFinanceQuestion(q) {
+  if (ACTIVE_COMPANY) return null;                              // inside a company → the company engine answers
+  if (!_isHubOrgAdmin()) return null;                           // org-admins / super-admins only
+  if (!_hubOrgId || !_orgSnap || _orgSnap.orgId !== _hubOrgId) return null;
+  const s = (q || '').toLowerCase().trim(); if (!s) return null;
+  if (/\bstocks?\b|\bshares?\b|ticker|nasdaq|nyse|\bmarket\b|\bipo\b|\betf\b/.test(s) || /\$[A-Z]{1,5}\b/.test(q || '')) return null;
+  const has = (...w) => w.some(x => s.indexOf(x) >= 0);
+  const o = _orgSnap; const org = _orgNameFor(_hubOrgId) || 'this organization';
+  const blended = o.totRevenueAnn ? o.totNetProfitAnn / o.totRevenueAnn : null;
+  if (has('what can you', 'what do you do', 'how can you help', 'examples of')) {
+    return 'At the organization level for **' + org + '** I can answer from your consolidated figures:\n• Total **assets**, **debt**, **equity/net worth**, **cash**\n• Consolidated **revenue/profit** (annualized run-rate) & **margin**\n• Average **financial health** & which companies are **at risk**\n• **Overdue** payments & monthly debt service\n• Company count & the largest / weakest company\nOpen a specific company for its detailed numbers, or ask a stock/market question anytime.';
+  }
+  if (has('how many compan', 'company count', 'companies do', 'overview', 'how is the org', 'how are we doing', 'how is the organization', 'how is the business')) {
+    return '**' + org + '** spans **' + o.companies + '** companies. Total assets ' + dollarFmt(o.totAssets) + ', loan debt ' + dollarFmt(o.totOutstanding) + ', equity ' + _finSigned(o.totNetWorth) + '.' + (o.avgHealth != null ? ' Average health **' + o.avgHealth + '/100 (' + o.avgBand + ')**' + (o.atRisk ? ', ' + o.atRisk + ' at risk' : '') + '.' : '') + (o.noFin ? ' ' + o.noFin + ' compan' + (o.noFin === 1 ? 'y has' : 'ies have') + ' no financial period yet.' : '');
+  }
+  if (has('runway', 'burn')) return 'Cash runway is tracked per company — open a specific company to see it. Organization-wide cash & bank is ' + dollarFmt(o.totCash) + '.';
+  if (has('cash')) return '**' + org + '** holds **' + dollarFmt(o.totCash) + '** in cash & bank across ' + o.companies + ' companies.';
+  if (has('revenue', 'sales', 'profit', 'net income', 'margin', 'ebitda', 'top line')) {
+    if (!o.anyFin) return 'No company has entered a financial period yet, so consolidated revenue/profit aren’t available. Add a period under **Financial Statements** in each company.';
+    return '**' + org + '** consolidated (annualized run-rate): revenue **' + dollarFmt(o.totRevenueAnn) + '**, net profit **' + _finSigned(o.totNetProfitAnn) + '**, EBITDA ' + dollarFmt(o.totEBITDAAnn) + ', blended net margin **' + finPct(blended) + '**. (Each company’s latest period annualized to compare.)';
+  }
+  if (has('net worth', 'equity', 'worth')) return '**' + org + '** equity (net worth) is **' + _finSigned(o.totNetWorth) + '** — total assets ' + dollarFmt(o.totAssets) + ' minus loan debt ' + dollarFmt(o.totOutstanding) + '. (Excludes non-loan liabilities.)';
+  if (has('debt', 'liabilit', 'owe', 'loans')) return '**' + org + '** owes **' + dollarFmt(o.totOutstanding) + '** in outstanding loan debt' + (o.entMonthlyOblig ? ', ' + dollarFmt(o.entMonthlyOblig) + '/mo in payments' : '') + (o.entOverdue ? '. ⚠️ ' + o.entOverdue + ' overdue payment' + (o.entOverdue === 1 ? '' : 's') : '') + '.';
+  if (has('asset', 'own')) return '**' + org + '** holds **' + dollarFmt(o.totAssets) + '** in tracked assets across ' + o.companies + ' companies (cash ' + dollarFmt(o.totCash) + ')' + (o.totPortfolio ? ', plus ' + dollarFmt(o.totPortfolio) + ' in marketable securities' : '') + '.';
+  if (has('overdue', 'due', 'payment')) return o.entOverdue ? '⚠️ **' + o.entOverdue + '** overdue loan payment' + (o.entOverdue === 1 ? '' : 's') + ' across **' + org + '**. Monthly debt service ' + dollarFmt(o.entMonthlyOblig) + '. Open a company for the specific loans.' : 'No overdue payments flagged across **' + org + '**. Monthly debt service ' + dollarFmt(o.entMonthlyOblig) + '.';
+  if (has('health', 'risk', 'weakest', 'worst')) {
+    if (o.avgHealth == null) return 'Not enough data yet to score health across **' + org + '** — add assets, loans or financial periods in the companies.';
+    const weakest = o.rows.filter(r => r.score != null).slice().sort((a, b) => a.score - b.score)[0];
+    return '**' + org + '** average financial health is **' + o.avgHealth + '/100 (' + o.avgBand + ')**' + (o.atRisk ? ', with **' + o.atRisk + '** compan' + (o.atRisk === 1 ? 'y' : 'ies') + ' at risk' : '') + '.' + (weakest ? ' Weakest: **' + weakest.name + '** (' + weakest.score + '/100).' : '');
+  }
+  if (has('biggest', 'largest', 'top company')) {
+    const big = o.rows.slice().sort((a, b) => b.assets - a.assets)[0];
+    return big ? 'By assets, the largest company in **' + org + '** is **' + big.name + '** (' + dollarFmt(big.assets) + ' assets, equity ' + _finSigned(big.netWorth) + ').' : null;
+  }
+  return null;
+}
+function assistantOrgSnapshot() {
+  if (ACTIVE_COMPANY || !_isHubOrgAdmin() || !_hubOrgId || !_orgSnap || _orgSnap.orgId !== _hubOrgId) return null;
+  const o = _orgSnap; const org = _orgNameFor(_hubOrgId) || 'the organization';
+  const L = [];
+  L.push('Organization: ' + org + ' — ' + o.companies + ' companies.');
+  L.push('Consolidated balance sheet: total assets ' + dollarFmt(o.totAssets) + ', loan debt ' + dollarFmt(o.totOutstanding) + ', equity ' + dollarFmt(o.totNetWorth) + ', cash & bank ' + dollarFmt(o.totCash) + '.');
+  if (o.anyFin) L.push('Consolidated run-rate: revenue ' + dollarFmt(o.totRevenueAnn) + ', net profit ' + dollarFmt(o.totNetProfitAnn) + ', EBITDA ' + dollarFmt(o.totEBITDAAnn) + '.');
+  if (o.avgHealth != null) L.push('Average financial health ' + o.avgHealth + '/100 (' + o.avgBand + '), ' + o.atRisk + ' at risk.');
+  if (o.entOverdue) L.push(o.entOverdue + ' overdue loan payments; monthly debt service ' + dollarFmt(o.entMonthlyOblig) + '.');
+  L.push('Figures are company-entered, informational, not audited.');
+  return L.join('\n');
+}
+// Show the floating AI button on the workspace hub AND the app shell (but not on auth/mode-gate/loading).
+function _updateAsstFab() {
+  const f = document.getElementById('asstFab'), p = document.getElementById('asstPop');
+  if (!f) return;
+  const app = document.getElementById('app'); const appVis = !!app && app.style.display !== 'none';
+  const hub = document.getElementById('orgHub'); const hubVis = !!hub && !hub.classList.contains('hidden');
+  // In a company → any member with access. On the org hub → org-admins / super-admins only (org-level assistant).
+  const show = !!(typeof UID !== 'undefined' && UID) && (appVis || (hubVis && _isHubOrgAdmin()));
+  if (!show) { f.classList.add('hidden'); if (p) p.classList.add('hidden'); try { document.body.classList.remove('asst-pop-full-open'); } catch (e) {} return; }
+  if (!p || p.classList.contains('hidden')) f.classList.remove('hidden');
 }
 function asstCurrent() { return asstThreads.find(t => t.id === asstCurrentId) || null; }
 function asstFocus() { setTimeout(() => { const a = document.querySelector('.tab-panel.active .asst-host .asst-input') || document.querySelector('.asst-host .asst-input'); if (a) a.focus(); }, 40); }
@@ -9359,7 +9468,10 @@ function assistantHostHtml(place) {
 }
 function asstWelcomeHtml() {
   const inCo = !!(ACTIVE_ORG && ACTIVE_COMPANY);
-  const sub = inCo ? 'Ask about ' + escHtml(_companyName || 'your company') + '’s finances — cash, revenue, profit, loans, health — or any stock &amp; market question.' : 'Portfolio check-ins, stock deep-dives, or live market context — just ask.';
+  const inOrg = !inCo && !!_hubOrgId;
+  const sub = inCo ? 'Ask about ' + escHtml(_companyName || 'your company') + '’s finances — cash, revenue, profit, loans, health — or any stock &amp; market question.'
+    : inOrg ? 'Ask about ' + escHtml(_orgNameFor(_hubOrgId) || 'your organization') + '’s consolidated finances — assets, debt, equity, health, at-risk companies — or any stock &amp; market question.'
+    : 'Portfolio check-ins, stock deep-dives, or live market context — just ask.';
   return '<div class="asst-welcome">' +
     '<div class="asst-orb">' + ic('spark', 24) + '</div>' +
     '<div class="asst-welcome-title">What\'s on your mind?</div>' +
@@ -9417,18 +9529,20 @@ async function asstSend(text) {
   th.ts = Date.now();
   asstBusy = true; renderAllAssistant(); asstSave();
   try {
-    // 1) Deterministic company-finance answer — instant, offline, no API cost. Primary path in a company workspace.
+    // 1) Deterministic finance answer — instant, offline, no API cost. Company engine in a company workspace,
+    //    org engine on the workspace hub. Primary path.
     let det = null; try { det = await answerFinanceQuestion(text); } catch (e) {}
+    if (!det) { try { det = answerOrgFinanceQuestion(text); } catch (e) {} }
     if (det) {
       th.messages.push({ role: 'assistant', content: det });
     } else {
-      // 2) LLM fallback (stock/market Q&A) — inject the company-finance snapshot so any model can use the real numbers.
+      // 2) LLM fallback (stock/market Q&A) — inject the company OR org finance snapshot so any model can use the real numbers.
       let token = '';
       try { if (auth.currentUser) token = await auth.currentUser.getIdToken(); } catch (e) {}
       const headers = { 'Content-Type': 'application/json' };
       if (token) headers['Authorization'] = 'Bearer ' + token;
       let pf = null; try { if (token) pf = await assistantPortfolioSnapshot(); } catch (e) {}
-      let fin = null; try { fin = assistantFinanceSnapshot(); } catch (e) {}
+      let fin = null; try { fin = assistantFinanceSnapshot() || assistantOrgSnapshot(); } catch (e) {}
       const reqMessages = fin
         ? [{ role: 'user', content: '(Context — the company I am asking about, current figures:\n' + fin + '\nUse these when my question is about the company/business.)' }].concat(th.messages)
         : th.messages;
