@@ -81,6 +81,12 @@ service cloud.firestore {
           allow create, update: if coCanWrite(o, c, 'assets');
           allow delete: if coCanDelete(o, c, 'assets');
         }
+        // Financial Statements module → 'financials' perm.
+        match /financials/{document=**} {
+          allow read: if coCanRead(o, c, 'financials');
+          allow create, update: if coCanWrite(o, c, 'financials');
+          allow delete: if coCanDelete(o, c, 'financials');
+        }
       }
     }
 
