@@ -239,7 +239,7 @@ def run(mode="quick"):
         # Curated watchlist + held tickers are "forced" — score them even with little history
         # (so fresh IPOs like SPCX appear); the broad universe keeps the default 50-day minimum.
         forced = {t.upper() for t in (CUSTOM_WATCHLIST + _held_tickers())}
-        n_workers = min(20, len(tickers))
+        n_workers = min(int(os.environ.get("SPARKS_SCAN_WORKERS", "20")), len(tickers))
         print(f"[{datetime.now():%H:%M}] Scanning {len(tickers)} stocks with {n_workers} parallel workers…", flush=True)
         from concurrent.futures import ThreadPoolExecutor, as_completed
         import threading
