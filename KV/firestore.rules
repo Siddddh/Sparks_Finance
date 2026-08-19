@@ -75,6 +75,12 @@ service cloud.firestore {
           allow create, update: if coCanWrite(o, c, 'loans');
           allow delete: if coCanDelete(o, c, 'loans');
         }
+        // Assets module → 'assets' perm.
+        match /assets/{document=**} {
+          allow read: if coCanRead(o, c, 'assets');
+          allow create, update: if coCanWrite(o, c, 'assets');
+          allow delete: if coCanDelete(o, c, 'assets');
+        }
       }
     }
 
