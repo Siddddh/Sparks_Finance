@@ -1,4 +1,4 @@
-firebase deploy --only hosting,functions<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
@@ -8093,18 +8093,68 @@ function _activeCrumbSlot() {
   const app = document.getElementById('app'); if (app && app.style.display !== 'none') return document.getElementById('crumbsApp');
   return null;
 }
+function _orgNameFor(orgId) {
+  if (!orgId) return 'Organization';
+  if (orgId === ACTIVE_ORG && _orgName) return _orgName;
+  return (_myOrgs[orgId] && _myOrgs[orgId].name) || ((_hubOrgList.find(o => o.orgId === orgId) || {}).name) || ((_hubAllOrgs.find(o => o.orgId === orgId) || {}).name) || 'Organization';
+}
+function _companyNameFor(orgId, companyId) {
+  if (!companyId) return 'Company';
+  if (orgId === ACTIVE_ORG && companyId === ACTIVE_COMPANY && _companyName) return _companyName;
+  const cos = (_myOrgs[orgId] && _myOrgs[orgId].companies) || {};
+  if (cos[companyId] && cos[companyId].name) return cos[companyId].name;
+  const hc = (_hubCoData.companies || []).find(c => c.companyId === companyId); if (hc && hc.name) return hc.name;
+  if (_wswCompanies && _wswCompanies.orgId === orgId) { const wc = (_wswCompanies.list || []).find(c => c.companyId === companyId); if (wc && wc.name) return wc.name; }
+  return 'Company';
+}
+// Build a HIERARCHICAL, de-duplicated crumb path for the CURRENT location only (not the raw history stack).
+// This makes the trail unique (no repeated tabs), and — crucially — reflects the active COMPANY between the
+// organization and the tab (each company's Home is its own). Back still uses the history stack (navBack).
+function _crumbPath() {
+  const loc = _navHist[_navIdx]; if (!loc) return [];
+  if (loc.screen === 'modeGate') return [{ label: 'Choose workspace', current: true }];
+  const orgIdForMode = loc.org || loc.orgId;
+  const rootLabel = (_hubOrgIsPersonal(orgIdForMode) || (loc.mode || _hubMode) === 'personal') ? 'Personal workspaces' : 'Organizations';
+  if (loc.screen === 'hub') {
+    if (!loc.orgId) return [{ label: rootLabel, current: true }];
+    const items = [{ label: rootLabel, onclick: 'crumbGoOrgList()' }];
+    const orgNm = _orgNameFor(loc.orgId), tab = loc.orgTab || 'companies';
+    if (tab === 'companies') items.push({ label: orgNm, current: true });
+    else { items.push({ label: orgNm, onclick: "switchToOrgHub('" + loc.orgId + "')" }); items.push({ label: ({ dashboard: 'Dashboard', members: 'Members', settings: 'Settings' }[tab] || tab), current: true }); }
+    return items;
+  }
+  // app (inside a company): Organizations › {Org} › {Company} › {Tab}
+  const items = [{ label: rootLabel, onclick: 'crumbGoOrgList()' }, { label: _orgNameFor(loc.org), onclick: "switchToOrgHub('" + loc.org + "')" }];
+  const coNm = _companyNameFor(loc.org, loc.company);
+  const drill = (loc.kind === 'ticker' || loc.kind === 'detail');   // has a distinct drill-down leaf
+  const tabLbl = TAB_LABEL[loc.tab] || loc.tab;
+  if (loc.tab === 'home' && !drill) { items.push({ label: coNm, current: true }); return items; }   // Home = the company root
+  items.push({ label: coNm, onclick: 'crumbGoHome()' });
+  if (drill) { items.push({ label: tabLbl, onclick: "crumbGoTab('" + loc.tab + "')" }); items.push({ label: loc.label || tabLbl, current: true }); }
+  else items.push({ label: loc.label || tabLbl, current: true });
+  return items;
+}
+// Crumb navigation (reload-free). Each records its destination via the render it triggers, so Back stays consistent.
+function crumbGoOrgList() {
+  try { const a = document.getElementById('app'); if (a && a.style.display !== 'none') _teardownWorkspace(); } catch (e) {}
+  try { sessionStorage.removeItem('sf_ws'); } catch (e) {}
+  ACTIVE_ORG = null; ACTIVE_COMPANY = null; _hubOrgId = null;
+  try { renderOrgSwitcher(); } catch (e) {}
+  _hubShowHub(auth.currentUser);
+  renderOrgLevel();
+}
+function crumbGoHome() { sw('home'); }
+function crumbGoTab(tab) { const reg = NAV_REG[tab]; if (reg && reg.set) { try { reg.set(null); } catch (e) {} } sw(tab); }
 function renderCrumbs() {
   ['crumbsApp', 'crumbsHub', 'crumbsMode'].forEach(id => { const el = document.getElementById(id); if (el) { el.innerHTML = ''; el.classList.remove('at-root'); } });
   const slot = _activeCrumbSlot(); if (!slot) return;
-  const path = _navHist.slice(0, _navIdx + 1); if (!path.length) return;
-  slot.classList.toggle('at-root', path.length <= 1);
+  const items = _crumbPath(); if (!items.length) return;
+  slot.classList.toggle('at-root', items.length <= 1);
   const back = '<button class="crumb-back" onclick="navBack()" aria-label="Go back">' + ic('chevleft', 13) + ' Back</button>';
-  const crumbs = path.map((loc, idx) => {
-    const lbl = escHtml(loc.label || '');
-    return (idx === path.length - 1)
-      ? '<span class="crumb crumb-current" aria-current="page">' + lbl + '</span>'
-      : '<button class="crumb" onclick="navApply(' + idx + ')">' + lbl + '</button>';
-  }).join('<span class="crumb-sep">›</span>');
+  const crumbs = items.map(it => it.current
+    ? '<span class="crumb crumb-current" aria-current="page">' + escHtml(it.label) + '</span>'
+    : '<button class="crumb" onclick="' + it.onclick + '">' + escHtml(it.label) + '</button>'
+  ).join('<span class="crumb-sep">›</span>');
   slot.innerHTML = back + crumbs;
 }
 window.addEventListener('popstate', function (e) {
