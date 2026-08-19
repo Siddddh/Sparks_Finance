@@ -18,6 +18,11 @@ def get_market_health(stock_rows=None):
         spy = yf.Ticker("SPY").history(period="6mo", interval="1d", auto_adjust=True)
         qqq = yf.Ticker("QQQ").history(period="6mo", interval="1d", auto_adjust=True)
         vix = yf.Ticker("^VIX").history(period="3mo", interval="1d", auto_adjust=True)
+        # Drop unsettled/glitched trailing bars (Open+Volume present, Close NaN) — otherwise
+        # spy_price/breadth publish as NaN and the market bar reads UNDER PRESSURE at 0%.
+        spy = spy[spy["Close"].notna()] if not spy.empty else spy
+        qqq = qqq[qqq["Close"].notna()] if not qqq.empty else qqq
+        vix = vix[vix["Close"].notna()] if not vix.empty else vix
 
         spy_close = spy["Close"]; spy_vol = spy["Volume"]
         qqq_close = qqq["Close"]
