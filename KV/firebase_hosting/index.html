@@ -2321,7 +2321,7 @@ async function renderPlatform() {
 function _odCard(label, val, sub) { return '<div class="dash-card"><div class="dash-mini-label">' + escHtml(label) + '</div><div style="font-size:26px;font-weight:700;color:var(--text);margin-top:4px">' + val + '</div>' + (sub ? '<div class="ht-sub" style="margin-top:2px">' + escHtml(sub) + '</div>' : '') + '</div>'; }
 // Aggregate ONE company's Trading + Loans figures. Shared by the consolidated org dashboard and the
 // single-company dashboard so both show identical math. Extracted verbatim from renderOrgDashboard's loop.
-async function _aggregateCompany(orgId, companyId, companyName) {
+async function _aggregateCompany(orgId, companyId, companyName, industry) {
   const coRef = db.collection('organizations').doc(orgId).collection('companies').doc(companyId);
   let coVal = 0, coInv = 0, coHold = 0, coOut = 0, coLoans = 0, coBorrow = 0, coLent = 0, coMonthly = 0,
       coActive = 0, coClosed = 0, coDue30 = 0, coDue60 = 0, coDue90 = 0, coOverdue = 0, coIntPay = 0, coIntRecv = 0;
@@ -2363,7 +2363,7 @@ async function _aggregateCompany(orgId, companyId, companyName) {
   const coLiabilities = coOut;                 // outstanding loan principal
   const coNetWorth = coAssets - coLiabilities;
   // Financial Statements: latest period's income summary (revenue / expenses / net profit / EBITDA + margin).
-  let coRevenue = 0, coExpenses = 0, coGrossProfit = 0, coNetProfit = 0, coEBITDA = 0, coNetMargin = null, coHasFin = false, coPeriodLabel = '', coFactor = 1;
+  let coRevenue = 0, coExpenses = 0, coGrossProfit = 0, coNetProfit = 0, coEBITDA = 0, coNetMargin = null, coHasFin = false, coPeriodLabel = '', coPeriodType = '', coFactor = 1;
   try {
     const fsnap = await coRef.collection('financials').get();
     if (!fsnap.empty) {
@@ -2372,13 +2372,15 @@ async function _aggregateCompany(orgId, companyId, companyName) {
       const latest = fdocs[0], cc = finCompute(latest);
       coRevenue = cc.revenue; coGrossProfit = cc.grossProfit; coNetProfit = cc.netProfit; coEBITDA = cc.ebitda;
       coExpenses = cc.cogs + cc.opex + cc.otherExp + cc.tax; coNetMargin = cc.netMargin;
-      coHasFin = true; coPeriodLabel = finPeriodLabel(latest); coFactor = finFactor(latest);
+      coHasFin = true; coPeriodLabel = finPeriodLabel(latest); coPeriodType = latest.periodType || 'year'; coFactor = finFactor(latest);
     }
   } catch (e) {}
+  // Annualized run-rate variants → a comparable cross-company rollup (quarter×4, month×12, year×1).
+  const coRevenueAnn = coRevenue * coFactor, coNetProfitAnn = coNetProfit * coFactor, coEBITDAAnn = coEBITDA * coFactor, coGrossProfitAnn = coGrossProfit * coFactor;
   const coEquity = coNetWorth;
   const coDscr = (coHasFin && coMonthly > 0) ? (coEBITDA * coFactor) / (coMonthly * 12) : null;
-  const coHealth = finHealthScore({ cash: coCash, liabilities: coLiabilities, equity: coEquity, monthlyDebt: coMonthly, netMargin: coNetMargin, dscr: coDscr, hasFin: coHasFin, assets: coAssets });
-  return { coVal, coInv, coHold, coOut, coLoans, coBorrow, coLent, coMonthly, coActive, coClosed, coDue30, coDue60, coDue90, coOverdue, coIntPay, coIntRecv, hiRate, maturities, coAssets, coCash, coRealEstate, coAssetCount, coAssetsByCat, coREItems, coLiabilities, coNetWorth, coRevenue, coExpenses, coGrossProfit, coNetProfit, coEBITDA, coNetMargin, coHasFin, coPeriodLabel, coEquity, coDscr, coHealth };
+  const coHealth = finHealthScore({ cash: coCash, liabilities: coLiabilities, equity: coEquity, monthlyDebt: coMonthly, netMargin: coNetMargin, dscr: coDscr, hasFin: coHasFin, assets: coAssets, industry: industry });
+  return { coVal, coInv, coHold, coOut, coLoans, coBorrow, coLent, coMonthly, coActive, coClosed, coDue30, coDue60, coDue90, coOverdue, coIntPay, coIntRecv, hiRate, maturities, coAssets, coCash, coRealEstate, coAssetCount, coAssetsByCat, coREItems, coLiabilities, coNetWorth, coRevenue, coExpenses, coGrossProfit, coNetProfit, coEBITDA, coNetMargin, coHasFin, coPeriodLabel, coPeriodType, coFactor, coRevenueAnn, coNetProfitAnn, coEBITDAAnn, coGrossProfitAnn, coEquity, coDscr, coHealth };
 }
 async function renderOrgDashboard(orgId, host) {
   orgId = orgId || ACTIVE_ORG;
@@ -2395,16 +2397,19 @@ async function renderOrgDashboard(orgId, host) {
   }
   let totMembers = 0, totPortfolio = 0, totInvested = 0, totOutstanding = 0, totLent = 0, totBorrowed = 0, totHoldings = 0, totLoans = 0, totAssets = 0, totCash = 0;
   let totRevenue = 0, totNetProfit = 0, totEBITDA = 0, totGrossProfit = 0, anyFin = false;
-  const orgAssetsByCat = {}, orgREItems = [], rows = [];
+  let totRevenueAnn = 0, totNetProfitAnn = 0, totEBITDAAnn = 0, totGrossProfitAnn = 0;
+  const orgAssetsByCat = {}, orgREItems = [], rows = [], finTypes = {};
+  const industry = await _orgIndustry(orgId);   // health calibration — org-admins/platform can read the org doc
   // Enterprise loan rollup — mirrors the company Loans dashboard, consolidated across every company.
   let entIntPayable = 0, entIntRecv = 0, entMonthlyOblig = 0, entActive = 0, entClosed = 0, entDue30 = 0, entDue60 = 0, entDue90 = 0, entOverdue = 0;
   let entHiRate = null; const entMaturities = [], loanRows = [];
   for (const c of companies) {
     totMembers += c.memberCount || 0;
-    const a = await _aggregateCompany(orgId, c.companyId, c.name);
+    const a = await _aggregateCompany(orgId, c.companyId, c.name, industry);
     totPortfolio += a.coVal; totInvested += a.coInv; totHoldings += a.coHold; totOutstanding += a.coOut; totLoans += a.coLoans;
     totLent += a.coLent; totBorrowed += a.coBorrow; totAssets += a.coAssets; totCash += a.coCash;
-    totRevenue += a.coRevenue; totNetProfit += a.coNetProfit; totEBITDA += a.coEBITDA; totGrossProfit += a.coGrossProfit; if (a.coHasFin) anyFin = true;
+    totRevenue += a.coRevenue; totNetProfit += a.coNetProfit; totEBITDA += a.coEBITDA; totGrossProfit += a.coGrossProfit; if (a.coHasFin) { anyFin = true; finTypes[a.coPeriodType] = (finTypes[a.coPeriodType] || 0) + 1; }
+    totRevenueAnn += a.coRevenueAnn; totNetProfitAnn += a.coNetProfitAnn; totEBITDAAnn += a.coEBITDAAnn; totGrossProfitAnn += a.coGrossProfitAnn;
     Object.keys(a.coAssetsByCat || {}).forEach(k => { orgAssetsByCat[k] = (orgAssetsByCat[k] || 0) + a.coAssetsByCat[k]; });
     (a.coREItems || []).forEach(it => orgREItems.push(it));
     entIntPayable += a.coIntPay; entIntRecv += a.coIntRecv; entMonthlyOblig += a.coMonthly;
@@ -2412,7 +2417,7 @@ async function renderOrgDashboard(orgId, host) {
     entDue30 += a.coDue30; entDue60 += a.coDue60; entDue90 += a.coDue90; entOverdue += a.coOverdue;
     if (a.hiRate && (!entHiRate || a.hiRate.rate > entHiRate.rate)) entHiRate = a.hiRate;
     a.maturities.forEach(m => entMaturities.push(m));
-    rows.push({ name: c.name, members: c.memberCount || 0, revenue: a.coRevenue, netProfit: a.coNetProfit, assets: a.coAssets, netWorth: a.coNetWorth, hasFin: a.coHasFin, health: a.coHealth });
+    rows.push({ name: c.name, members: c.memberCount || 0, revenue: a.coRevenue, netProfit: a.coNetProfit, assets: a.coAssets, netWorth: a.coNetWorth, hasFin: a.coHasFin, health: a.coHealth, periodLabel: a.coPeriodLabel, periodType: a.coPeriodType });
     loanRows.push({ name: c.name, borrowed: a.coBorrow, lent: a.coLent, outstanding: a.coOut, monthly: a.coMonthly, active: a.coActive, due: a.coDue30 });
   }
   const totNetWorth = totAssets - totOutstanding;
@@ -2430,18 +2435,22 @@ async function renderOrgDashboard(orgId, host) {
   const avgBand = avgHealth == null ? '' : (avgHealth >= 80 ? 'Excellent' : avgHealth >= 60 ? 'Good' : avgHealth >= 40 ? 'Fair' : 'At risk');
   const avgColor = avgHealth == null ? 'var(--text-3)' : (avgHealth >= 60 ? 'var(--green)' : avgHealth >= 40 ? '#e0a020' : 'var(--red)');
   const healthTile = avgHealth == null ? '' : '<div class="dash-mini"><div class="dash-mini-label">Avg health score</div><div class="dash-mini-val" style="color:' + avgColor + '">' + avgHealth + ' · ' + avgBand + '</div></div>';
-  // Consolidated financials — sum of each company's latest reported period.
+  // Consolidated financials — each company's latest period ANNUALIZED to a common yearly run-rate (H1 fix:
+  // never add a company's single month to another's full year; quarter ×4, month ×12, year ×1).
   let execFin = '';
   if (anyFin) {
-    const blended = totRevenue ? totNetProfit / totRevenue : null;
-    execFin = '<div class="dash-section"><div class="dash-section-title">Consolidated financials <span class="ht-sub" style="font-weight:400">— each company’s latest reported period</span></div>' +
+    const blended = totRevenueAnn ? totNetProfitAnn / totRevenueAnn : null;
+    const types = Object.keys(finTypes);
+    const mixNote = (types.length > 1) ? ' Companies report on different cadences (' + types.map(t => finTypeLabel(t).toLowerCase()).join(', ') + '), each annualized so they compare.' : '';
+    execFin = '<div class="dash-section"><div class="dash-section-title">Consolidated financials <span class="ht-sub" style="font-weight:400">— annualized run-rate</span></div>' +
       '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
-      _dashMini('Total revenue', dollarFmt(totRevenue), '') +
-      _dashMini('Net profit', _finSigned(totNetProfit), totNetProfit >= 0 ? 'gain' : 'loss') +
-      _dashMini('EBITDA', dollarFmt(totEBITDA), '') +
-      _dashMini('Gross profit', dollarFmt(totGrossProfit), '') +
+      _dashMini('Revenue (run-rate)', dollarFmt(totRevenueAnn), '') +
+      _dashMini('Net profit (run-rate)', _finSigned(totNetProfitAnn), totNetProfitAnn >= 0 ? 'gain' : 'loss') +
+      _dashMini('EBITDA (run-rate)', dollarFmt(totEBITDAAnn), '') +
+      _dashMini('Gross profit (run-rate)', dollarFmt(totGrossProfitAnn), '') +
       _dashMini('Blended net margin', finPct(blended), (blended != null && blended < 0) ? 'loss' : '') +
-      _dashMini('Total equity', _finSigned(totNetWorth), '') + healthTile + '</div></div>';
+      _dashMini('Total equity', _finSigned(totNetWorth), '') + healthTile + '</div>' +
+      '<div class="ht-sub" style="margin-top:6px">Each company’s latest period annualized (quarter ×4, month ×12) to a comparable yearly basis.' + mixNote + '</div></div>';
   } else if (avgHealth != null) {
     execFin = '<div class="dash-section"><div class="dash-section-title">Financial health</div><div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' + healthTile + '</div><div class="ht-sub" style="margin-top:6px">Add financial periods in each company to unlock consolidated revenue, profit and margins.</div></div>';
   }
@@ -2466,9 +2475,9 @@ async function renderOrgDashboard(orgId, host) {
   }
   // Company performance — executive table (revenue / profit / assets / net worth / health).
   const fmtHealth = h => (h && h.score != null) ? '<span style="color:' + h.color + ';font-weight:700">' + h.score + '</span> <span class="ht-sub">' + escHtml(h.band) + '</span>' : '<span class="ht-sub">—</span>';
-  const tbl = '<div class="dash-section"><div class="dash-section-title">Company performance</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Company</th><th>Members</th><th>Revenue</th><th>Net profit</th><th>Assets</th><th>Equity</th><th>Health</th></tr></thead><tbody>' +
-    (rows.length ? rows.map(r => '<tr><td class="ht-sym"><div class="holding-ticker">' + escHtml(r.name) + '</div></td><td>' + r.members + '</td><td>' + (r.hasFin ? dollarFmt(r.revenue) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? '<span style="color:' + (r.netProfit >= 0 ? 'var(--green)' : 'var(--red)') + '">' + _finSigned(r.netProfit) + '</span>' : '<span class="ht-sub">—</span>') + '</td><td>' + dollarFmt(r.assets) + '</td><td>' + _finSigned(r.netWorth) + '</td><td>' + fmtHealth(r.health) + '</td></tr>').join('') : '<tr><td colspan="7" class="ht-sub" style="padding:16px">No companies yet.</td></tr>') +
-    '</tbody></table></div></div>';
+  const tbl = '<div class="dash-section"><div class="dash-section-title">Company performance</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Company</th><th>Members</th><th>Period</th><th>Revenue</th><th>Net profit</th><th>Assets</th><th>Equity</th><th>Health</th></tr></thead><tbody>' +
+    (rows.length ? rows.map(r => '<tr><td class="ht-sym"><div class="holding-ticker">' + escHtml(r.name) + '</div></td><td>' + r.members + '</td><td>' + (r.hasFin ? escHtml(r.periodLabel) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? dollarFmt(r.revenue) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? '<span style="color:' + (r.netProfit >= 0 ? 'var(--green)' : 'var(--red)') + '">' + _finSigned(r.netProfit) + '</span>' : '<span class="ht-sub">—</span>') + '</td><td>' + dollarFmt(r.assets) + '</td><td>' + _finSigned(r.netWorth) + '</td><td>' + fmtHealth(r.health) + '</td></tr>').join('') : '<tr><td colspan="8" class="ht-sub" style="padding:16px">No companies yet.</td></tr>') +
+    '</tbody></table></div><div class="ht-sub" style="margin-top:6px">Revenue &amp; net profit are each company’s actual latest period (see Period); the consolidated figures above are annualized run-rates.</div></div>';
   // ── Enterprise loans (auto-consolidated across every company) ──
   let loanSection = '';
   if (totLoans > 0) {
@@ -2509,14 +2518,19 @@ async function renderCompanyDashboard() {
   const el = document.getElementById('compDashBody'); if (!el) return;
   if (!ACTIVE_ORG || !ACTIVE_COMPANY) { el.innerHTML = emptyState('data', 'No company selected', ''); return; }
   el.innerHTML = '<div class="pf-filter-note">Loading company summary…</div>';
+  let industry = '';
+  if (isPlatformAdmin() || (_myOrgs[ACTIVE_ORG] && _myOrgs[ACTIVE_ORG].orgAdmin)) { try { industry = await _orgIndustry(ACTIVE_ORG); } catch (e) {} }
   let a, memberCount = 0;
-  try { a = await _aggregateCompany(ACTIVE_ORG, ACTIVE_COMPANY, _companyName || 'This company'); }
+  try { a = await _aggregateCompany(ACTIVE_ORG, ACTIVE_COMPANY, _companyName || 'This company', industry); }
   catch (e) { el.innerHTML = emptyState('data', "Couldn't load the company summary", escHtml(String(e.message || e))); return; }
   try { memberCount = (await companyRef().collection('members').get()).size; } catch (e) {}
   const net = a.coVal - a.coInv;
-  // Latest financial period (loaded locally for the active company) drives the P&L tiles + trend chart.
-  const latestFin = (financials && financials.length) ? financials.slice().sort((x, y) => _finSortKey(y) - _finSortKey(x))[0] : null;
+  // Latest financial period (loaded locally for the active company) drives the P&L tiles, deltas + trend chart.
+  const sortedFin = (financials && financials.length) ? financials.slice().sort((x, y) => _finSortKey(y) - _finSortKey(x)) : [];
+  const latestFin = sortedFin[0] || null;
   const fc = latestFin ? finCompute(latestFin) : null;
+  const priorFin = latestFin ? (sortedFin.find((p, i) => i > 0 && p.periodType === latestFin.periodType) || null) : null;   // prior SAME-type period for like-for-like deltas
+  const pfc = priorFin ? finCompute(priorFin) : null;
   // Cash runway = bank cash ÷ monthly net burn (from the latest period's net cash flow); ∞ when cash-flow positive.
   let runwayMonths = null, runwayLabel = null;
   if (fc) {
@@ -2544,16 +2558,17 @@ async function renderCompanyDashboard() {
   let profitability;
   if (fc) {
     const pmini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
-      _dashMini('Revenue', dollarFmt(fc.revenue), '') +
-      _dashMini('Net profit', _finSigned(fc.netProfit), fc.netProfit >= 0 ? 'gain' : 'loss') +
-      _dashMini('EBITDA', dollarFmt(fc.ebitda), '') +
+      _dashMini('Revenue', dollarFmt(fc.revenue), '', pfc ? _finDelta(fc.revenue, pfc.revenue) : '') +
+      _dashMini('Net profit', _finSigned(fc.netProfit), fc.netProfit >= 0 ? 'gain' : 'loss', pfc ? _finDelta(fc.netProfit, pfc.netProfit) : '') +
+      _dashMini('EBITDA', dollarFmt(fc.ebitda), '', pfc ? _finDelta(fc.ebitda, pfc.ebitda) : '') +
       _dashMini('Net margin', finPct(fc.netMargin), (fc.netMargin != null && fc.netMargin < 0) ? 'loss' : '') +
       _dashMini('Gross profit', dollarFmt(fc.grossProfit), '') +
       _dashMini('Operating income', dollarFmt(fc.ebit), '') +
       _dashMini('Net cash flow', _finSigned(fc.netCF), fc.netCF >= 0 ? 'gain' : 'loss') +
       _dashMini('Cash runway', runwayLabel, (runwayMonths != null && runwayMonths < 3) ? 'loss' : (runwayLabel === 'Cash-flow positive' ? 'gain' : '')) +
       '</div>';
-    profitability = '<div class="dash-section"><div class="dash-section-title">Revenue &amp; profitability <span class="ht-sub" style="font-weight:400">— ' + escHtml(finPeriodLabel(latestFin)) + '</span></div>' + pmini +
+    const budgetLine = (fc.budRev || fc.budExp) ? (function () { const rv = fc.revenue - fc.budRev, ev = fc.opExpenses - fc.budExp; return '<div class="ht-sub" style="margin-top:6px">Vs budget — revenue <span style="color:' + (rv >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (rv >= 0 ? '+' : '−') + dollarFmt(Math.abs(rv)) + '</span>, operating costs <span style="color:' + (ev <= 0 ? 'var(--green)' : 'var(--red)') + '">' + (ev <= 0 ? '−' : '+') + dollarFmt(Math.abs(ev)) + '</span> vs plan.</div>'; })() : '';
+    profitability = '<div class="dash-section"><div class="dash-section-title">Revenue &amp; profitability <span class="ht-sub" style="font-weight:400">— ' + escHtml(finPeriodLabel(latestFin)) + (priorFin ? ' vs ' + escHtml(finPeriodLabel(priorFin)) : '') + '</span></div>' + pmini + budgetLine +
       (fc.dep ? '' : '<div class="ht-sub" style="margin-top:6px">EBITDA equals operating income here — no depreciation &amp; amortization entered for this period.</div>') +
       '<div style="margin-top:8px"><button class="pf-btn pf-btn-outline" style="padding:5px 12px;font-size:12px" onclick="sw(\'findash\')">Open financial statements →</button></div></div>';
   } else {
@@ -7867,7 +7882,23 @@ async function deleteLoanDoc(loanId, idx) {
 }
 
 // ── Dashboard ──
-function _dashMini(label, val, cls) { return '<div class="dash-mini' + (cls ? ' ' + cls : '') + '"><div class="dash-mini-label">' + label + '</div><div class="dash-mini-val' + (cls === 'gain' ? ' pos' : cls === 'loss' ? ' neg' : '') + '">' + val + '</div></div>'; }
+function _dashMini(label, val, cls, sub) { return '<div class="dash-mini' + (cls ? ' ' + cls : '') + '"><div class="dash-mini-label">' + label + '</div><div class="dash-mini-val' + (cls === 'gain' ? ' pos' : cls === 'loss' ? ' neg' : '') + '">' + val + '</div>' + (sub ? '<div class="ht-sub" style="margin-top:2px">' + sub + '</div>' : '') + '</div>'; }
+// Period-over-period delta chip (arrow + % when the prior base is positive, else direction only).
+function _finDelta(cur, prev) {
+  if (prev == null || !isFinite(prev)) return '';
+  const d = cur - prev, up = d >= 0, col = up ? 'var(--green)' : 'var(--red)';
+  const pct = (prev > 0) ? (' ' + (up ? '+' : '−') + Math.abs(d / prev * 100).toFixed(0) + '%') : '';
+  return '<span style="color:' + col + '">' + (up ? '▲' : '▼') + pct + ' vs prior</span>';
+}
+// Org industry (for health calibration). Cached; only org-admins/platform can read the org doc, so callers gate the read.
+let _orgIndustryCache = {};
+async function _orgIndustry(orgId) {
+  if (!orgId) return '';
+  if (_orgIndustryCache[orgId] != null) return _orgIndustryCache[orgId];
+  let v = '';
+  try { const d = await db.collection('organizations').doc(orgId).get(); v = (d.exists && (d.data() || {}).industry) || ''; } catch (e) { v = ''; }
+  _orgIndustryCache[orgId] = v; return v;
+}
 function _loanDashSection(title, items, danger, kind) {
   if (!items || !items.length) return '';
   const rows = items.map(it => {
@@ -8174,10 +8205,22 @@ function finSignedDisplay(n) {
 // ── Deterministic Financial Health Score (0–100) + gauge, trend chart, AI CFO placeholder (Phase 3 dashboards) ──
 // Weighs liquidity, leverage, profitability and debt coverage; reweights over whatever inputs exist (a company
 // with no financials still scores on its balance sheet). Returns {score|null, band, color, parts}.
+// Industry-calibrated bands: healthy debt-to-equity and net-margin targets vary a lot by sector, so a
+// normally-leveraged construction/real-estate firm shouldn't be scored like an asset-light SaaS. Generic default unchanged.
+function _healthBands(industry) {
+  const s = (industry || '').toLowerCase();
+  if (/real|estate|property|realty|construc|build|develop|reit|infrastructur|contract/.test(s)) return { deGood: 1.5, deBad: 6.0, mGood: 0.12, mBad: -0.05, label: 'real estate / construction' };
+  if (/bank|financ|lend|insur|capital|invest|fund|equity/.test(s)) return { deGood: 3.0, deBad: 10.0, mGood: 0.20, mBad: -0.05, label: 'financial services' };
+  if (/tech|software|saas|app|platform|media|agency|consult|service|design|studio/.test(s)) return { deGood: 0.3, deBad: 2.0, mGood: 0.25, mBad: -0.15, label: 'technology / services' };
+  if (/retail|commerce|store|shop|wholesale|distrib|ecommerce/.test(s)) return { deGood: 0.5, deBad: 3.5, mGood: 0.10, mBad: -0.05, label: 'retail / commerce' };
+  if (/manufactur|industrial|factory|production|logistic/.test(s)) return { deGood: 0.8, deBad: 4.0, mGood: 0.12, mBad: -0.05, label: 'manufacturing' };
+  return { deGood: 0.5, deBad: 3.0, mGood: 0.20, mBad: -0.10, label: '' };
+}
 function finHealthScore(m) {
   m = m || {};
   const hasData = !!(m.hasFin || (m.liabilities > 0) || (m.assets > 0) || (m.cash > 0));
-  if (!hasData) return { score: null, band: 'No data', color: 'var(--text-3)', parts: [] };
+  if (!hasData) return { score: null, band: 'No data', color: 'var(--text-3)', parts: [], industryLabel: '' };
+  const B = _healthBands(m.industry);
   const clamp = x => Math.max(0, Math.min(100, x));
   const parts = [];
   let liq;
@@ -8187,15 +8230,15 @@ function finHealthScore(m) {
   let lev;
   if (m.equity <= 0) lev = (m.liabilities > 0) ? 0 : 50;
   else if (m.liabilities <= 0) lev = 100;
-  else lev = clamp(100 - ((m.liabilities / m.equity) - 0.5) / 2.5 * 100);     // D/E 0.5→100, 3.0→0
+  else lev = clamp(100 - ((m.liabilities / m.equity) - B.deGood) / (B.deBad - B.deGood) * 100);   // D/E deGood→100, deBad→0
   parts.push({ label: 'Leverage', score: lev, weight: 0.25 });
-  if (m.hasFin && m.netMargin != null) parts.push({ label: 'Profitability', score: clamp((m.netMargin + 0.10) / 0.30 * 100), weight: 0.30 });  // -10%→0, +20%→100
+  if (m.hasFin && m.netMargin != null) parts.push({ label: 'Profitability', score: clamp((m.netMargin - B.mBad) / (B.mGood - B.mBad) * 100), weight: 0.30 });  // mBad→0, mGood→100
   if (m.hasFin && m.dscr != null) parts.push({ label: 'Debt coverage', score: clamp((m.dscr - 1) * 100), weight: 0.20 });                        // 1.0×→0, 2.0×→100
   const totW = parts.reduce((s, p) => s + p.weight, 0) || 1;
   const score = Math.round(parts.reduce((s, p) => s + p.score * p.weight, 0) / totW);
   const band = score >= 80 ? 'Excellent' : score >= 60 ? 'Good' : score >= 40 ? 'Fair' : 'At risk';
   const color = score >= 60 ? 'var(--green)' : score >= 40 ? '#e0a020' : 'var(--red)';
-  return { score, band, color, parts };
+  return { score, band, color, parts, industryLabel: B.label, bands: B };
 }
 function _healthBarColor(s) { return s >= 60 ? 'var(--green)' : s >= 40 ? '#e0a020' : 'var(--red)'; }
 function _healthGauge(h) {
@@ -8205,7 +8248,7 @@ function _healthGauge(h) {
     '<div style="display:flex;gap:22px;align-items:center;flex-wrap:wrap">' +
     '<div style="text-align:center;min-width:120px"><div style="font-size:46px;font-weight:800;line-height:1;color:' + h.color + '">' + h.score + '</div><div style="font-size:13px;font-weight:700;color:' + h.color + ';margin-top:2px">' + escHtml(h.band) + '</div><div class="ht-sub">out of 100</div></div>' +
     '<div style="flex:1;min-width:240px">' + bars + '</div></div>' +
-    '<div class="ht-sub" style="margin-top:8px">Composite of ' + (function () { const fl = h.parts.map(p => p.label.toLowerCase()); return fl.length > 1 ? (fl.slice(0, -1).join(', ') + ' and ' + fl[fl.length - 1]) : (fl[0] || 'balance-sheet strength'); })() + ' — informational, not a credit rating.</div></div>';
+    '<div class="ht-sub" style="margin-top:8px"' + (h.bands ? ' title="Targets: debt-to-equity ≤ ' + h.bands.deGood + '×, net margin ≥ ' + Math.round(h.bands.mGood * 100) + '%"' : '') + '>Composite of ' + (function () { const fl = h.parts.map(p => p.label.toLowerCase()); return fl.length > 1 ? (fl.slice(0, -1).join(', ') + ' and ' + fl[fl.length - 1]) : (fl[0] || 'balance-sheet strength'); })() + (h.industryLabel ? ', calibrated for ' + escHtml(h.industryLabel) : '') + ' — informational, not a credit rating.</div></div>';
 }
 // Lightweight inline-SVG grouped bars: revenue vs net profit across the last periods (theme-aware, no library).
 function _finBarChart(periods) {
