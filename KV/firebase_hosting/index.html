@@ -9120,6 +9120,144 @@ async function assistantPortfolioSnapshot() {
   });
   return { asOf: new Date().toISOString(), currency: 'USD', holdingsCount: holdings.length, totalValue: +totalValue.toFixed(2), totalCost: +totalCost.toFixed(2), totalGain: +(totalValue - totalCost).toFixed(2), totalGainPct: totalCost > 0 ? +(((totalValue - totalCost) / totalCost) * 100).toFixed(2) : 0, todayPnl: +todayPnl.toFixed(2), holdings: holdings };
 }
+// ════════ AI Financial Assistant — deterministic company-finance engine (Phase 4) ════════
+// Answers the executive question-set INSTANTLY and offline from the loaded assets/loans/financials — no
+// API cost, no model needed. Returns a markdown string, or null when there's no confident finance match
+// (or we're not in a company workspace) so the question falls through to the stock/LLM assistant.
+async function answerFinanceQuestion(q) {
+  if (!ACTIVE_ORG || !ACTIVE_COMPANY) return null;
+  const s = (q || '').toLowerCase().trim(); if (!s) return null;
+  // Defer clearly stock/market questions to the LLM even inside a company workspace (avoids matching a
+  // company finance intent when the user actually means a ticker — e.g. "compare NVDA vs AMD", "$AAPL").
+  if (/\bstocks?\b|\bshares?\b|ticker|nasdaq|nyse|s&p| dow |\bmarket\b|\bipo\b|\betf\b/.test(s) || /\b[A-Z]{1,5}\s+(?:vs\.?|versus)\s+[A-Z]{1,5}\b/.test(q || '') || /\$[A-Z]{1,5}\b/.test(q || '')) return null;
+  const has = (...ws) => ws.some(w => s.indexOf(w) >= 0);
+  const co = _companyName || 'this company';
+  const bs = _finBalanceSheet();
+  const sortedFin = (financials || []).slice().sort((a, b) => _finSortKey(b) - _finSortKey(a));
+  const latest = sortedFin[0] || null, fc = latest ? finCompute(latest) : null;
+  const prior = latest ? (sortedFin.find((p, i) => i > 0 && p.periodType === latest.periodType) || null) : null;
+  const pfc = prior ? finCompute(prior) : null;
+  const plabel = latest ? finPeriodLabel(latest) : '';
+  const noFin = 'No financial periods have been entered for **' + co + '** yet. Add one under **Financial Statements** and I can answer revenue, profit, margin and cash-flow questions.';
+  const delta = (cur, prv) => { if (prv == null) return ''; const d = cur - prv, up = d >= 0; const p = prv > 0 ? ' (' + (up ? '+' : '−') + Math.abs(d / prv * 100).toFixed(0) + '%)' : ''; return ' — ' + (up ? 'up ' : 'down ') + dollarFmt(Math.abs(d)) + p + ' vs ' + finPeriodLabel(prior); };
+
+  if (has('what can you', 'what do you do', 'how can you help', 'examples of', 'list of questions')) {
+    return 'For **' + co + '** I can answer instantly from your live data:\n' +
+      '• **Cash** balance & **runway** • **Revenue**, **profit**, **margins**, **EBITDA**\n' +
+      '• **Net worth / equity**, **assets** & **real estate**, **debt**\n' +
+      '• **Loan payments** due & overdue • **Financial health** score • **Growth** vs the prior period\n' +
+      'Try “what’s our cash runway?”, “how did profit change vs last year?”, or “what loan payments are due soon?”. I can also take general stock & market questions.';
+  }
+  // Loan payments due / overdue (before the generic loan summary).
+  if (has('due', 'overdue', 'upcoming') && has('loan', 'payment', 'emi', 'installment', 'debt', 'due', 'pay')) {
+    const rows = (loans || []).filter(loanIsActive).map(l => { const np = loanNextPayment(l); return { l, np, dp: daysUntil(np) }; }).filter(x => x.dp != null && x.dp <= 60).sort((a, b) => a.dp - b.dp);
+    if (!rows.length) return 'No loan payments are due in the next 60 days for **' + co + '**.' + ((loans || []).filter(loanIsActive).length ? '' : ' There are no active loans on file.');
+    const over = rows.filter(x => x.dp < 0).length;
+    const line = rows.map(x => { const pa = (x.l.paymentAmount != null && x.l.paymentAmount !== '') ? loanNum(x.l.paymentAmount) : 0; const when = x.dp < 0 ? '**OVERDUE** by ' + Math.abs(x.dp) + 'd' : (x.dp === 0 ? 'due **today**' : 'in ' + x.dp + 'd'); return '• ' + loanTitle(x.l) + ' — ' + when + ' (' + fmtDate(x.np) + ')' + (pa ? ', ' + dollarFmt(pa) : ''); }).join('\n');
+    return (over ? '⚠️ **' + over + ' overdue** payment' + (over === 1 ? '' : 's') + '.\n' : '') + 'Loan payments for **' + co + '** in the next 60 days:\n' + line;
+  }
+  if (has('runway', 'burn')) {
+    if (!fc) return noFin;
+    const pm = 12 / finFactor(latest), mNet = fc.netCF / pm;
+    if (mNet >= 0) return '**' + co + '** is **cash-flow positive** in ' + plabel + ' (net cash flow ' + _finSigned(fc.netCF) + '), so cash isn’t burning down. Cash & bank on hand: **' + dollarFmt(bs.cash) + '**.';
+    const months = bs.cash / Math.abs(mNet);
+    return 'At the current burn (' + dollarFmt(Math.abs(mNet)) + '/mo, from ' + plabel + ' net cash flow), **' + co + '**’s cash of **' + dollarFmt(bs.cash) + '** is about **' + months.toFixed(1) + ' months** of runway.' + (months < 3 ? ' ⚠️ Under 3 months.' : '');
+  }
+  if (has('cash balance', 'how much cash', 'cash on hand', 'cash position', 'liquid')) {
+    return '**' + co + '** holds **' + dollarFmt(bs.cash) + '** in cash & bank accounts' + (bs.monthlyDebt > 0 ? ', against ' + dollarFmt(bs.monthlyDebt) + '/mo of debt service' : '') + '.' + (bs.cash === 0 ? ' (No assets are tagged “Bank account” yet — add one so cash is tracked.)' : '');
+  }
+  // Growth / comparison (before plain revenue/profit so "revenue vs last year" gives the full comparison).
+  if (has('grow', 'growth', 'vs last', 'versus last', 'year over year', 'yoy', 'qoq', 'this year vs', 'this quarter vs', 'last year', 'last quarter', 'last month', 'prior period', 'vs prior')) {
+    if (!fc) return noFin;
+    if (!pfc) return 'I need at least two ' + (latest.periodType || 'year') + ' periods to compare — only ' + plabel + ' is entered so far.';
+    return '**' + co + '**, ' + plabel + ' vs ' + finPeriodLabel(prior) + ':\n' +
+      '• Revenue ' + dollarFmt(fc.revenue) + delta(fc.revenue, pfc.revenue) + '\n' +
+      '• Net profit ' + _finSigned(fc.netProfit) + delta(fc.netProfit, pfc.netProfit) + '\n' +
+      '• EBITDA ' + dollarFmt(fc.ebitda) + delta(fc.ebitda, pfc.ebitda);
+  }
+  if (has('revenue', 'sales', 'top line', 'turnover')) {
+    if (!fc) return noFin;
+    return '**' + co + '** revenue for **' + plabel + '** is **' + dollarFmt(fc.revenue) + '**' + (pfc ? delta(fc.revenue, pfc.revenue) : '') + '.';
+  }
+  if (has('profit', 'net income', 'bottom line', 'making money', 'profitable', 'p&l', 'p and l')) {
+    if (!fc) return noFin;
+    return '**' + co + '** is **' + (fc.netProfit >= 0 ? 'profitable' : 'running at a loss') + '** in ' + plabel + ': net profit **' + _finSigned(fc.netProfit) + '** at a **' + finPct(fc.netMargin) + '** net margin' + (pfc ? delta(fc.netProfit, pfc.netProfit) : '') + '. EBITDA ' + dollarFmt(fc.ebitda) + ', gross profit ' + dollarFmt(fc.grossProfit) + '.';
+  }
+  if (has('margin')) {
+    if (!fc) return noFin;
+    return 'Margins for **' + co + '** (' + plabel + '): gross **' + finPct(fc.grossMargin) + '**, operating **' + finPct(fc.opMargin) + '**, net **' + finPct(fc.netMargin) + '**.';
+  }
+  if (has('ebitda')) {
+    if (!fc) return noFin;
+    return '**' + co + '** EBITDA for ' + plabel + ' is **' + dollarFmt(fc.ebitda) + '**' + (fc.dep ? '' : ' (equal to operating income — no depreciation entered)') + '.';
+  }
+  if (has('expense', 'costs', 'cost base', 'spending', 'overhead')) {
+    if (!fc) return noFin;
+    return '**' + co + '** costs for ' + plabel + ': COGS ' + dollarFmt(fc.cogs) + ', operating expenses ' + dollarFmt(fc.opex) + (fc.tax ? ', tax ' + dollarFmt(fc.tax) : '') + ' → total operating cost **' + dollarFmt(fc.opExpenses) + '**.';
+  }
+  if (has('cash flow', 'cashflow')) {
+    if (!fc) return noFin;
+    return '**' + co + '** cash flow for ' + plabel + ': operating ' + _finSigned(fc.ocf) + ', investing ' + _finSigned(fc.icf) + ', financing ' + _finSigned(fc.fcf) + ' → **net ' + _finSigned(fc.netCF) + '**.';
+  }
+  if (has('net worth', 'equity', 'book value', 'worth')) {
+    return '**' + co + '** equity (net worth) is **' + _finSigned(bs.equity) + '** — total assets ' + dollarFmt(bs.totalAssets) + ' minus loan debt ' + dollarFmt(bs.liabilities) + '. (Excludes payables, accrued tax & other non-loan liabilities.)';
+  }
+  if (has('liabilit', 'how much do we owe', 'how much we owe', 'total debt', 'debt do we', 'do we owe')) {
+    const active = (loans || []).filter(loanIsActive);
+    return '**' + co + '** owes **' + dollarFmt(bs.liabilities) + '** in outstanding loan debt across ' + active.length + ' active loan' + (active.length === 1 ? '' : 's') + (bs.monthlyDebt > 0 ? ', with ' + dollarFmt(bs.monthlyDebt) + '/mo in payments' : '') + '. (Loan debt only — excludes payables/accruals.)';
+  }
+  if (has('real estate', 'property', 'properties', 'buildings')) {
+    const re = (assets || []).filter(a => ['land', 'commercial', 'residential', 'luxury'].indexOf(a.category || '') >= 0);
+    if (!re.length) return 'No real-estate assets are recorded for **' + co + '** yet. Add them under **Assets**.';
+    const tot = re.reduce((x, a) => x + (ccyNum(a.currentValue) || 0), 0);
+    const list = re.slice().sort((a, b) => (ccyNum(b.currentValue) || 0) - (ccyNum(a.currentValue) || 0)).slice(0, 6).map(a => '• ' + (a.name || 'Property') + ' (' + assetCatName(a.category) + ') — ' + dollarFmt(ccyNum(a.currentValue))).join('\n');
+    return '**' + co + '** holds **' + dollarFmt(tot) + '** in real estate across ' + re.length + ' propert' + (re.length === 1 ? 'y' : 'ies') + ':\n' + list;
+  }
+  if (has('what do we own', 'what do i own', 'do we own', 'our assets', 'list assets', 'asset', 'own')) {
+    if (!(assets || []).length) return 'No assets are recorded for **' + co + '** yet. Add them under **Assets**.';
+    const byCat = {}; (assets || []).forEach(a => { const c = a.category || 'other'; byCat[c] = (byCat[c] || 0) + (ccyNum(a.currentValue) || 0); });
+    const list = ASSET_CATS.filter(c => byCat[c[0]]).sort((x, y) => byCat[y[0]] - byCat[x[0]]).map(c => '• ' + c[1] + ' — ' + dollarFmt(byCat[c[0]])).join('\n');
+    return '**' + co + '** holds **' + dollarFmt(bs.totalAssets) + '** in tracked assets across ' + (assets || []).length + ' item' + ((assets || []).length === 1 ? '' : 's') + ':\n' + list + '\nEquity after loan debt: ' + _finSigned(bs.equity) + '.';
+  }
+  if (has('loan', 'borrow', 'lent', 'lend')) {
+    const active = (loans || []).filter(loanIsActive);
+    if (!(loans || []).length) return 'No loans or notes are recorded for **' + co + '** yet.';
+    let borrowed = 0, lent = 0, monthly = 0; active.forEach(l => { if (l.type === 'lent') lent += loanNum(l.principal); else { borrowed += loanNum(l.principal); monthly += loanMonthlyObligation(l); } });
+    return '**' + co + '** loans: **' + active.length + ' active**. Borrowed ' + dollarFmt(borrowed) + ', lent ' + dollarFmt(lent) + ', outstanding **' + dollarFmt(bs.liabilities) + '**' + (monthly ? ', monthly obligation ' + dollarFmt(monthly) : '') + '.';
+  }
+  if (has('health', 'how are we doing', 'how is the business', 'how is the company', 'financial position', 'financial shape', 'how healthy')) {
+    const industry = (isPlatformAdmin() || (_myOrgs[ACTIVE_ORG] && _myOrgs[ACTIVE_ORG].orgAdmin)) ? await _orgIndustry(ACTIVE_ORG) : '';
+    const dscr = (fc && bs.monthlyDebt > 0) ? (fc.ebitda * finFactor(latest)) / (bs.monthlyDebt * 12) : null;
+    const h = finHealthScore({ cash: bs.cash, liabilities: bs.liabilities, equity: bs.equity, monthlyDebt: bs.monthlyDebt, netMargin: fc ? fc.netMargin : null, dscr, hasFin: !!fc, assets: bs.totalAssets, industry });
+    if (h.score == null) return 'Not enough data yet to score **' + co + '**’s financial health — add assets, loans or a financial period.';
+    const weakest = h.parts.slice().sort((a, b) => a.score - b.score)[0];
+    return '**' + co + '** financial health: **' + h.score + '/100 — ' + h.band + '**' + (h.industryLabel ? ' (calibrated for ' + h.industryLabel + ')' : '') + '.\nComponents: ' + h.parts.map(p => p.label + ' ' + Math.round(p.score)).join(', ') + '.' + (weakest && weakest.score < 50 ? '\nFocus area: **' + weakest.label + '** is the weakest — worth attention.' : '');
+  }
+  return null;   // no confident finance match → let the stock/LLM assistant handle it
+}
+// Compact company-finance context injected into the LLM fallback so ANY model (free OpenRouter today, a
+// stronger model once an API key is set) can answer unmatched questions with the real numbers.
+function assistantFinanceSnapshot() {
+  if (!ACTIVE_ORG || !ACTIVE_COMPANY) return null;
+  try {
+    const bs = _finBalanceSheet();
+    const sortedFin = (financials || []).slice().sort((a, b) => _finSortKey(b) - _finSortKey(a));
+    const latest = sortedFin[0] || null, fc = latest ? finCompute(latest) : null;
+    const L = [];
+    L.push('Company: ' + (_companyName || '(unnamed)'));
+    L.push('Balance sheet (current): total assets ' + dollarFmt(bs.totalAssets) + ', cash & bank ' + dollarFmt(bs.cash) + ', real estate ' + dollarFmt(bs.realEstate) + ', outstanding loan debt ' + dollarFmt(bs.liabilities) + ', equity ' + dollarFmt(bs.equity) + ' (equity excludes non-loan liabilities).');
+    if (fc) L.push('Latest period ' + finPeriodLabel(latest) + ': revenue ' + dollarFmt(fc.revenue) + ', gross profit ' + dollarFmt(fc.grossProfit) + ', EBITDA ' + dollarFmt(fc.ebitda) + ', net profit ' + dollarFmt(fc.netProfit) + ', net margin ' + finPct(fc.netMargin) + ', net cash flow ' + _finSigned(fc.netCF) + '.');
+    else L.push('No financial periods entered yet.');
+    const active = (loans || []).filter(loanIsActive);
+    if (active.length) { let monthly = 0; active.forEach(l => { if (l.type !== 'lent') monthly += loanMonthlyObligation(l); }); L.push('Loans: ' + active.length + ' active, outstanding ' + dollarFmt(bs.liabilities) + ', monthly debt service ' + dollarFmt(monthly) + '.'); }
+    L.push('Assets tracked: ' + (assets || []).length + '. Figures are company-entered, informational, not audited.');
+    return L.join('\n');
+  } catch (e) { return null; }
+}
+function _asstSuggestions() {
+  if (ACTIVE_ORG && ACTIVE_COMPANY) return ['What is our cash balance and runway?', 'How did revenue and profit change vs last period?', 'What loan payments are due soon?', 'How is the company’s financial health?'];
+  return ASSISTANT_SUGGESTED;
+}
 function asstCurrent() { return asstThreads.find(t => t.id === asstCurrentId) || null; }
 function asstFocus() { setTimeout(() => { const a = document.querySelector('.tab-panel.active .asst-host .asst-input') || document.querySelector('.asst-host .asst-input'); if (a) a.focus(); }, 40); }
 function asstNewThread(doRender) {
@@ -9220,12 +9358,14 @@ function assistantHostHtml(place) {
     '</div>';
 }
 function asstWelcomeHtml() {
+  const inCo = !!(ACTIVE_ORG && ACTIVE_COMPANY);
+  const sub = inCo ? 'Ask about ' + escHtml(_companyName || 'your company') + '’s finances — cash, revenue, profit, loans, health — or any stock &amp; market question.' : 'Portfolio check-ins, stock deep-dives, or live market context — just ask.';
   return '<div class="asst-welcome">' +
     '<div class="asst-orb">' + ic('spark', 24) + '</div>' +
     '<div class="asst-welcome-title">What\'s on your mind?</div>' +
-    '<div class="asst-welcome-sub">Portfolio check-ins, stock deep-dives, or live market context — just ask.</div>' +
+    '<div class="asst-welcome-sub">' + sub + '</div>' +
     '<div class="asst-suggests">' +
-      ASSISTANT_SUGGESTED.slice(0, 3).map(p => '<button class="asst-suggest" data-q="' + escHtml(p) + '" onclick="asstSendPrompt(this.dataset.q)"><span class="as-txt">' + escHtml(p) + '</span><span class="as-ic">' + ic('sparkles', 15) + '</span></button>').join('') +
+      _asstSuggestions().slice(0, 3).map(p => '<button class="asst-suggest" data-q="' + escHtml(p) + '" onclick="asstSendPrompt(this.dataset.q)"><span class="as-txt">' + escHtml(p) + '</span><span class="as-ic">' + ic('sparkles', 15) + '</span></button>').join('') +
     '</div>' +
   '</div>';
 }
@@ -9277,14 +9417,25 @@ async function asstSend(text) {
   th.ts = Date.now();
   asstBusy = true; renderAllAssistant(); asstSave();
   try {
-    let token = '';
-    try { if (auth.currentUser) token = await auth.currentUser.getIdToken(); } catch (e) {}
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = 'Bearer ' + token;
-    let pf = null; try { if (token) pf = await assistantPortfolioSnapshot(); } catch (e) {}
-    const r = await fetch(ASSISTANT_API, { method: 'POST', headers, body: JSON.stringify({ messages: th.messages, portfolio: pf }) });
-    const d = await r.json().catch(() => ({}));
-    th.messages.push({ role: 'assistant', content: d.reply || 'Sorry — I had trouble answering. Please try again.' });
+    // 1) Deterministic company-finance answer — instant, offline, no API cost. Primary path in a company workspace.
+    let det = null; try { det = await answerFinanceQuestion(text); } catch (e) {}
+    if (det) {
+      th.messages.push({ role: 'assistant', content: det });
+    } else {
+      // 2) LLM fallback (stock/market Q&A) — inject the company-finance snapshot so any model can use the real numbers.
+      let token = '';
+      try { if (auth.currentUser) token = await auth.currentUser.getIdToken(); } catch (e) {}
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+      let pf = null; try { if (token) pf = await assistantPortfolioSnapshot(); } catch (e) {}
+      let fin = null; try { fin = assistantFinanceSnapshot(); } catch (e) {}
+      const reqMessages = fin
+        ? [{ role: 'user', content: '(Context — the company I am asking about, current figures:\n' + fin + '\nUse these when my question is about the company/business.)' }].concat(th.messages)
+        : th.messages;
+      const r = await fetch(ASSISTANT_API, { method: 'POST', headers, body: JSON.stringify({ messages: reqMessages, portfolio: pf, finance: fin }) });
+      const d = await r.json().catch(() => ({}));
+      th.messages.push({ role: 'assistant', content: d.reply || 'Sorry — I had trouble answering. Please try again.' });
+    }
   } catch (e) {
     th.messages.push({ role: 'assistant', content: 'Sorry — I could not reach the assistant. Please try again.' });
   }
