@@ -1853,6 +1853,8 @@ function _mailEsc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').
 function _htmlToText(html) {
   return String(html || '')
     .replace(/<style[\s\S]*?<\/style>/gi, '').replace(/<head[\s\S]*?<\/head>/gi, '')
+    // Drop the hidden preheader + its invisible padding so the plain-text part opens with real content.
+    .replace(/<(div|span)[^>]*display:\s*none[^>]*>[\s\S]*?<\/\1>/gi, '')
     .replace(/<a[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi, '$2 ($1)')
     .replace(/<\/(p|div|tr|table|h[1-6]|li)>/gi, '\n').replace(/<br\s*\/?>/gi, '\n')
     .replace(/<[^>]+>/g, '')
@@ -1868,8 +1870,12 @@ function emailShell({ title, preheader, bodyHtml, ctaText, ctaUrl, footerNote })
     : '';
   return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"></head>' +
     '<body style="margin:0;padding:0;background:#f1f3f4;">' +
-    '<span style="display:none!important;opacity:0;color:transparent;height:0;width:0;overflow:hidden">' + _mailEsc(preheader || title || '') +
-    '&#8203;&#847;&nbsp;&#847;&#8203;'.repeat(20) + '</span>' +
+    // Hidden preheader: the one line shown in the inbox list preview. It MUST differ from the subject/first
+    // heading (see mailAccountAction) or Gmail shows "Subject - Subject" and collapses the body on mobile.
+    // Trailing invisible padding (nbsp+zero-width-non-joiner) fills the snippet window so the header/logo text
+    // below doesn't bleed into the preview. No combining marks (they can render as visible artifacts).
+    '<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:transparent;opacity:0">' +
+    _mailEsc(preheader || title || '') + '&nbsp;&zwnj;'.repeat(70) + '</div>' +
     '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f3f4;padding:24px 12px;font-family:Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif"><tr><td align="center">' +
     '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border:1px solid #e6e8eb;border-radius:16px;overflow:hidden">' +
     '<tr><td style="padding:22px 28px;border-bottom:1px solid #eef0f2"><span style="font-size:19px;font-weight:800;color:#1a73e8;letter-spacing:-.3px">⚡ Sparks Finance</span></td></tr>' +
@@ -1937,7 +1943,10 @@ function mailOrgCompanyStatus({ name, status }) {
       bodyHtml: '<b>' + _mailEsc(name) + '</b> has been <b>' + _mailEsc(status) + '</b>. Members lose access while it is inactive.' }) };
 }
 function mailAccountAction({ title, message }) {
-  return { subject: title, html: emailShell({ title, preheader: title, bodyHtml: _mailEsc(message), ctaText: 'Open Sparks Finance', ctaUrl: APP_URL }) };
+  // preheader = the message summary, NOT the title. If it equals the title (which equals the subject) the
+  // Gmail list snippet reads "Subject - Subject" AND the hidden preheader duplicates the first visible heading,
+  // which makes Gmail mobile collapse the whole body behind a "…" (it treats the repeat as trimmable content).
+  return { subject: title, html: emailShell({ title, preheader: message, bodyHtml: _mailEsc(message), ctaText: 'Open Sparks Finance', ctaUrl: APP_URL }) };
 }
 function mailDigest({ subject, title, intro, items, ctaText, tab }) {
   return { subject, html: emailShell({ title, preheader: intro || title,
@@ -2312,6 +2321,15 @@ exports.ensurePersonalOrg = onRequest({ region: 'us-central1', cors: true }, asy
   } catch (e) { logger.error('ensurePersonalOrg failed', { error: String(e) }); res.status(500).json({ error: 'create_failed' }); }
 });
 
+// Deterministic, doc-id-safe invite id keyed by the invite's scope + target email. Two concurrent invites
+// to the same target therefore write the SAME doc (set+merge = last write wins) instead of racing a
+// non-transactional get-then-add into two duplicate pending invites. base64url keeps it id-safe; the
+// 'inv_' prefix guarantees it never collides with the reserved __.*__ / '.' / '..' id forms.
+function _stableInviteId(orgId, companyId, orgAdmin, email) {
+  const scope = companyId ? ('co:' + orgId + ':' + companyId) : (orgAdmin ? ('oa:' + orgId) : ('org:' + orgId));
+  const raw = scope + '|' + String(email || '').toLowerCase();
+  return 'inv_' + Buffer.from(raw, 'utf8').toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
 // Owner/admin invites a person by email. Invites live in a top-level `invites` collection (only
 // single-field auto-indexes needed). Granting owner/admin requires the caller to be an owner.
 exports.orgInvite = onRequest({ region: 'us-central1', cors: true, secrets: [SENDGRID_API_KEY] }, async (req, res) => {
@@ -2331,17 +2349,17 @@ exports.orgInvite = onRequest({ region: 'us-central1', cors: true, secrets: [SEN
     if (!already.empty) { res.status(409).json({ error: 'already_member' }); return; }
     const orgName = await _orgName(orgId);
     const inv = { orgId, emailLower: email, role, perms: cleanPerms((req.body && req.body.perms) || {}), status: 'pending', invitedBy: auth.tok.uid, invitedByEmail: (auth.tok.email || '').toLowerCase(), orgName, createdAt: Date.now(), expiresAt: Date.now() + 30 * 864e5 };
-    const existing = await db.collection('invites').where('emailLower', '==', email).get();
-    const dupe = existing.docs.find(d => { const v = d.data(); return v.orgId === orgId && v.status === 'pending'; });
-    let inviteId;
-    if (dupe) { await dupe.ref.set(inv, { merge: true }); inviteId = dupe.id; }
-    else { const ref = await db.collection('invites').add(inv); inviteId = ref.id; }
+    const invRef = db.collection('invites').doc(_stableInviteId(orgId, null, false, email));
+    const prev = await invRef.get();
+    const updated = prev.exists && prev.data().status === 'pending';
+    await invRef.set(inv, { merge: true });
+    const inviteId = invRef.id;
     // Send BEFORE responding — gen-2/Cloud Run throttles CPU after res flushes, orphaning a post-response await.
     // `emailed` reflects whether SendGrid actually accepted the message (mailTo swallows failures + returns false),
     // so the client can tell the admin the truth instead of a blind "sent". `MAIL_ENABLED &&` forces it false when
     // mail is globally suppressed (sendEmailSendGrid returns true in that mode) — a suppressed send is NOT a delivery.
     const emailed = MAIL_ENABLED && await mailTo(email, mailInvite({ orgName, role, inviterEmail: inv.invitedByEmail }), SENDGRID_API_KEY.value());
-    res.json({ ok: true, inviteId, updated: !!dupe, emailed });
+    res.json({ ok: true, inviteId, updated, emailed });
   } catch (e) { logger.error('orgInvite failed', { error: String(e) }); res.status(500).json({ error: 'invite_failed' }); }
 });
 
@@ -2691,11 +2709,9 @@ exports.assignOrgAdmin = onRequest({ region: 'us-central1', cors: true, secrets:
     }
     // Not registered yet → create a pending org-admin invite + email it; they become an org admin on accept.
     const inv = { orgId, emailLower: email, orgAdmin: true, role: 'org_admin', status: 'pending', invitedBy: tok.uid, invitedByEmail: (tok.email || '').toLowerCase(), orgName, createdAt: Date.now(), expiresAt: Date.now() + 30 * 864e5 };
-    const existing = await db.collection('invites').where('emailLower', '==', email).get();
-    const dupe = existing.docs.find(d => { const v = d.data(); return v.orgId === orgId && v.orgAdmin === true && v.status === 'pending'; });
-    let inviteId;
-    if (dupe) { await dupe.ref.set(inv, { merge: true }); inviteId = dupe.id; }
-    else { const ref = await db.collection('invites').add(inv); inviteId = ref.id; }
+    const invRef = db.collection('invites').doc(_stableInviteId(orgId, null, true, email));
+    await invRef.set(inv, { merge: true });
+    const inviteId = invRef.id;
     const emailed = MAIL_ENABLED && await mailTo(email, mailInvite({ orgName, role: 'organization admin', inviterEmail: inv.invitedByEmail }), SENDGRID_API_KEY.value());
     res.json({ ok: true, invited: true, inviteId, emailed });
   } catch (e) { logger.error('assignOrgAdmin failed', { error: String(e) }); res.status(500).json({ error: 'assign_failed' }); }
@@ -2725,6 +2741,12 @@ exports.createCompany = onRequest({ region: 'us-central1', cors: true }, async (
     if (!name) { res.status(400).json({ error: 'name_required' }); return; }
     const ref = admin.firestore().collection('organizations').doc(orgId).collection('companies').doc();
     await ref.set({ name, active: true, modules: { stocks: true, loans: true }, createdBy: auth.tok.uid, createdAt: Date.now() });
+    // Make the creator an admin member (+ users mirror) so the new company shows up in THEIR switcher and
+    // resolves by name — unless they're a platform owner (owner emails are never ordinary members; they
+    // already have platform-wide access). The client also auto-enters the new company after this returns.
+    if (!isOwnerEmail((auth.tok.email || '').toLowerCase())) {
+      try { await setCompanyMembership(orgId, ref.id, auth.tok.uid, (auth.tok.email || '').toLowerCase(), 'admin', { stocks: 'delete', loans: 'delete' }, await _orgName(orgId), name, { joinedAt: Date.now() }); } catch (e) {}
+    }
     res.json({ ok: true, companyId: ref.id, name });
   } catch (e) { logger.error('createCompany failed', { error: String(e) }); res.status(500).json({ error: 'create_failed' }); }
 });
@@ -2769,6 +2791,31 @@ exports.orgListCompanies = onRequest({ region: 'us-central1', cors: true }, asyn
     res.json({ ok: true, companies, orgAdmins, orgAdminInvites });
   } catch (e) { logger.error('orgListCompanies failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
 });
+// Org-wide members roster: every company's members + org admins, grouped PER PERSON (a uid can be a member of
+// several companies with different roles). Powers the org-level "Members" view. Org-admin / super-admin only.
+exports.orgListAllMembers = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
+  const orgId = String((req.body && req.body.orgId) || (req.query && req.query.orgId) || '');
+  const auth = await verifyOrgAdmin(req, orgId);
+  if (!auth) { res.status(403).json({ error: 'forbidden' }); return; }
+  try {
+    const db = admin.firestore();
+    const byUid = {};   // uid -> { uid, email, orgAdmin, companies:[{companyId, companyName, role, active}] }
+    const ensure = (uid, email) => (byUid[uid] = byUid[uid] || { uid, email: (email || '').toLowerCase(), orgAdmin: false, companies: [] });
+    const cosSnap = await db.collection('organizations').doc(orgId).collection('companies').get();
+    for (const cd of cosSnap.docs) {
+      const c = cd.data() || {};
+      if (c.deleted === true) continue;
+      const name = c.name || 'Company', active = c.active !== false;
+      const mem = await cd.ref.collection('members').get();
+      mem.forEach(m => { const d = m.data() || {}; const u = ensure(m.id, d.email); if (!u.email && d.email) u.email = (d.email || '').toLowerCase(); u.companies.push({ companyId: cd.id, companyName: name, role: d.role || 'member', active }); });
+    }
+    (await db.collection('organizations').doc(orgId).collection('orgAdmins').get()).forEach(a => { const u = ensure(a.id, (a.data() || {}).email); u.orgAdmin = true; });
+    // Fill any missing emails from Auth (rare — member docs normally carry email).
+    for (const u of Object.values(byUid)) { if (!u.email) { try { u.email = ((await admin.auth().getUser(u.uid)).email || '').toLowerCase(); } catch (e) {} } }
+    const members = Object.values(byUid).sort((a, b) => (Number(b.orgAdmin) - Number(a.orgAdmin)) || (a.email || '').localeCompare(b.email || ''));
+    res.json({ ok: true, members });
+  } catch (e) { logger.error('orgListAllMembers failed', { error: String(e) }); res.status(500).json({ error: 'list_failed' }); }
+});
 
 // ── Company Admin: members ──
 exports.companyListMembers = onRequest({ region: 'us-central1', cors: true }, async (req, res) => {
@@ -2809,13 +2856,13 @@ exports.companyInvite = onRequest({ region: 'us-central1', cors: true, secrets: 
     if (!already.empty) { res.status(409).json({ error: 'already_member' }); return; }
     const orgName = await _orgName(orgId), companyName = await _companyName(orgId, companyId);
     const inv = { orgId, companyId, emailLower: email, role, perms: cleanPerms((req.body && req.body.perms) || {}), status: 'pending', invitedBy: auth.tok.uid, invitedByEmail: (auth.tok.email || '').toLowerCase(), orgName, companyName, createdAt: Date.now(), expiresAt: Date.now() + 30 * 864e5 };
-    const existing = await db.collection('invites').where('emailLower', '==', email).get();
-    const dupe = existing.docs.find(d => { const v = d.data(); return v.orgId === orgId && v.companyId === companyId && v.status === 'pending'; });
-    let inviteId;
-    if (dupe) { await dupe.ref.set(inv, { merge: true }); inviteId = dupe.id; }
-    else { const ref = await db.collection('invites').add(inv); inviteId = ref.id; }
+    const invRef = db.collection('invites').doc(_stableInviteId(orgId, companyId, false, email));
+    const prev = await invRef.get();
+    const updated = prev.exists && prev.data().status === 'pending';
+    await invRef.set(inv, { merge: true });
+    const inviteId = invRef.id;
     const emailed = MAIL_ENABLED && await mailTo(email, mailInvite({ orgName, companyName, role, inviterEmail: inv.invitedByEmail }), SENDGRID_API_KEY.value());
-    res.json({ ok: true, inviteId, updated: !!dupe, emailed });
+    res.json({ ok: true, inviteId, updated, emailed });
   } catch (e) { logger.error('companyInvite failed', { error: String(e) }); res.status(500).json({ error: 'invite_failed' }); }
 });
 // Revoke a pending invitation. Authority mirrors the create side, decided by the invite's own shape:
