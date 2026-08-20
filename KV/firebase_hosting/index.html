@@ -2418,12 +2418,12 @@ async function renderOrgDashboard(orgId, host) {
     entDue30 += a.coDue30; entDue60 += a.coDue60; entDue90 += a.coDue90; entOverdue += a.coOverdue;
     if (a.hiRate && (!entHiRate || a.hiRate.rate > entHiRate.rate)) entHiRate = a.hiRate;
     a.maturities.forEach(m => entMaturities.push(m));
-    rows.push({ name: c.name, members: c.memberCount || 0, revenue: a.coRevenue, netProfit: a.coNetProfit, assets: a.coAssets, netWorth: a.coNetWorth, hasFin: a.coHasFin, health: a.coHealth, periodLabel: a.coPeriodLabel, periodType: a.coPeriodType });
+    rows.push({ name: c.name, members: c.memberCount || 0, revenue: a.coRevenue, netProfit: a.coNetProfit, assets: a.coAssets, debt: a.coLiabilities, netWorth: a.coNetWorth, hasFin: a.coHasFin, health: a.coHealth, periodLabel: a.coPeriodLabel, periodType: a.coPeriodType });
     loanRows.push({ name: c.name, borrowed: a.coBorrow, lent: a.coLent, outstanding: a.coOut, monthly: a.coMonthly, active: a.coActive, due: a.coDue30 });
   }
   const totNetWorth = totAssets - totOutstanding;
   const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' +
-    _odCard('Total equity', dollarFmt(totNetWorth), 'assets − loan debt') + _odCard('Total assets', dollarFmt(totAssets), totPortfolio > 0 ? 'excl. securities' : '') +
+    _odCard('Total net worth', dollarFmt(totNetWorth), '(equity) · assets − loan debt') + _odCard('Total assets', dollarFmt(totAssets), totPortfolio > 0 ? 'excl. securities' : '') +
     _odCard('Total debt (loans)', dollarFmt(totOutstanding)) + _odCard('Cash & bank', dollarFmt(totCash)) + '</div>';
   const mini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
     _dashMini('Companies', String(companies.length), '') + _dashMini('Total users', String(totMembers), '') +
@@ -2457,7 +2457,7 @@ async function renderOrgDashboard(orgId, host) {
       _dashMini('EBITDA (run-rate)', dollarFmt(totEBITDAAnn), '') +
       _dashMini('Gross profit (run-rate)', dollarFmt(totGrossProfitAnn), '') +
       _dashMini('Blended net margin', finPct(blended), (blended != null && blended < 0) ? 'loss' : '') +
-      _dashMini('Total equity', _finSigned(totNetWorth), '') + healthTile + '</div>' +
+      _dashMini('Total net worth', _finSigned(totNetWorth), '', '(equity)') + healthTile + '</div>' +
       '<div class="ht-sub" style="margin-top:6px">Each company’s latest period annualized (quarter ×4, month ×12) to a comparable yearly basis.' + mixNote + '</div>' + healthExplain + '</div>';
   } else if (avgHealth != null) {
     execFin = '<div class="dash-section"><div class="dash-section-title">Financial health</div><div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' + healthTile + '</div>' + healthExplain + '<div class="ht-sub" style="margin-top:4px">Add financial periods in each company to also unlock consolidated revenue, profit and margins.</div></div>';
@@ -2483,9 +2483,9 @@ async function renderOrgDashboard(orgId, host) {
   }
   // Company performance — executive table (revenue / profit / assets / net worth / health).
   const fmtHealth = h => (h && h.score != null) ? '<span style="color:' + h.color + ';font-weight:700">' + h.score + '</span> <span class="ht-sub">' + escHtml(h.band) + '</span>' : '<span class="ht-sub">—</span>';
-  const tbl = '<div class="dash-section"><div class="dash-section-title">Company performance</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Company</th><th>Members</th><th>Period</th><th>Revenue</th><th>Net profit</th><th>Assets</th><th>Equity</th><th>Health</th></tr></thead><tbody>' +
-    (rows.length ? rows.map(r => '<tr><td class="ht-sym"><div class="holding-ticker">' + escHtml(r.name) + '</div></td><td>' + r.members + '</td><td>' + (r.hasFin ? escHtml(r.periodLabel) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? dollarFmt(r.revenue) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? '<span style="color:' + (r.netProfit >= 0 ? 'var(--green)' : 'var(--red)') + '">' + _finSigned(r.netProfit) + '</span>' : '<span class="ht-sub">—</span>') + '</td><td>' + dollarFmt(r.assets) + '</td><td>' + _finSigned(r.netWorth) + '</td><td>' + fmtHealth(r.health) + '</td></tr>').join('') : '<tr><td colspan="8" class="ht-sub" style="padding:16px">No companies yet.</td></tr>') +
-    '</tbody></table></div><div class="ht-sub" style="margin-top:6px">Revenue &amp; net profit are each company’s actual latest period (see Period); the consolidated figures above are annualized run-rates.</div></div>';
+  const tbl = '<div class="dash-section"><div class="dash-section-title">Company performance</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Company</th><th>Members</th><th>Period</th><th>Revenue</th><th>Net profit</th><th>Assets</th><th>Loans</th><th>Net worth <span class="ht-sub" style="font-weight:400">(equity)</span></th><th>Health</th></tr></thead><tbody>' +
+    (rows.length ? rows.map(r => '<tr><td class="ht-sym"><div class="holding-ticker">' + escHtml(r.name) + '</div></td><td>' + r.members + '</td><td>' + (r.hasFin ? escHtml(r.periodLabel) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? dollarFmt(r.revenue) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? '<span style="color:' + (r.netProfit >= 0 ? 'var(--green)' : 'var(--red)') + '">' + _finSigned(r.netProfit) + '</span>' : '<span class="ht-sub">—</span>') + '</td><td>' + dollarFmt(r.assets) + '</td><td>' + (r.debt ? '<span style="color:var(--red)">−' + dollarFmt(r.debt) + '</span>' : dollarFmt(0)) + '</td><td>' + _finSigned(r.netWorth) + '</td><td>' + fmtHealth(r.health) + '</td></tr>').join('') : '<tr><td colspan="9" class="ht-sub" style="padding:16px">No companies yet.</td></tr>') +
+    '</tbody></table></div><div class="ht-sub" style="margin-top:6px">Net worth (equity) = Assets − Loans. Revenue &amp; net profit are each company’s actual latest period (see Period); the consolidated figures above are annualized run-rates.</div></div>';
   // ── Enterprise loans (auto-consolidated across every company) ──
   let loanSection = '';
   if (totLoans > 0) {
@@ -2522,7 +2522,7 @@ async function renderOrgDashboard(orgId, host) {
   const _noFinCount = rows.filter(r => !r.hasFin).length;
   const _atRisk = scored.filter(h => h.score < 40).length;
   const _ob = [];
-  _ob.push('Across <b>' + companies.length + '</b> companies: total assets ' + dollarFmt(totAssets) + ', loan debt ' + dollarFmt(totOutstanding) + ' → equity <b>' + _finSigned(totNetWorth) + '</b>.');
+  _ob.push('Across <b>' + companies.length + '</b> companies: total assets ' + dollarFmt(totAssets) + ', loan debt ' + dollarFmt(totOutstanding) + ' → net worth <b>' + _finSigned(totNetWorth) + '</b>.');
   if (anyFin) _ob.push('Consolidated run-rate revenue ' + dollarFmt(totRevenueAnn) + ', net profit ' + _finSigned(totNetProfitAnn) + ' (' + finPct(totRevenueAnn ? totNetProfitAnn / totRevenueAnn : null) + ' margin).');
   if (avgHealth != null) _ob.push('Average financial health <b>' + avgHealth + '/100 (' + avgBand + ')</b>' + (_atRisk ? ', ' + _atRisk + (_atRisk === 1 ? ' company' : ' companies') + ' at risk' : '') + '.');
   if (totAssets === 0 && totOutstanding > 0) _ob.push('⚠️ No assets or cash recorded — equity is negative on loan debt alone; add assets and bank balances to reflect true net worth.');
@@ -2534,7 +2534,7 @@ async function renderOrgDashboard(orgId, host) {
     avgHealth: avgHealth, avgBand: avgBand, anyFin: anyFin, totRevenueAnn: totRevenueAnn, totNetProfitAnn: totNetProfitAnn, totEBITDAAnn: totEBITDAAnn,
     atRisk: scored.filter(h => h.score < 40).length, noFin: rows.filter(r => !r.hasFin).length, entOverdue: entOverdue, entMonthlyOblig: entMonthlyOblig,
     rows: rows.map(r => ({ name: r.name, assets: r.assets, netWorth: r.netWorth, revenue: r.revenue, netProfit: r.netProfit, hasFin: r.hasFin, score: r.health && r.health.score != null ? r.health.score : null, band: r.health && r.health.band ? r.health.band : null })) };
-  el.innerHTML = hero + mini + execFin + assetSection + reSection + tbl + loanSection + _aiCfoCard('org', orgCfo) + '<div class="rng-advice-note">Balance sheet as of ' + fmtDate(todayStr()) + '. Equity = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Consolidated from each company’s Assets, Loans and latest Financial Statements — informational only, not financial advice.</div>';
+  el.innerHTML = hero + mini + execFin + assetSection + reSection + tbl + loanSection + _aiCfoCard('org', orgCfo) + '<div class="rng-advice-note">Balance sheet as of ' + fmtDate(todayStr()) + '. Net worth (equity) = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Consolidated from each company’s Assets, Loans and latest Financial Statements — informational only, not financial advice.</div>';
 }
 // Single-COMPANY executive summary (the company-level dashboard). Reuses the exact per-company math via
 // _aggregateCompany, so its numbers match this company's row in the consolidated org dashboard.
@@ -2564,7 +2564,7 @@ async function renderCompanyDashboard() {
     else { runwayMonths = a.coCash / Math.abs(monthlyNetCF); runwayLabel = runwayMonths.toFixed(1) + ' mo'; }
   }
   const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' +
-    _odCard('Equity', dollarFmt(a.coNetWorth), 'assets − loan debt') +
+    _odCard('Net worth', dollarFmt(a.coNetWorth), '(equity) · assets − loan debt') +
     _odCard('Total assets', dollarFmt(a.coAssets), a.coVal > 0 ? 'excl. securities' : '') +
     _odCard('Debt (loans)', dollarFmt(a.coLiabilities)) +
     _odCard('Cash & bank', dollarFmt(a.coCash)) + '</div>';
@@ -2612,7 +2612,7 @@ async function renderCompanyDashboard() {
     _dashMini('Members', String(memberCount), '') + '</div></div>';
   // Deterministic AI CFO summary for this company (cost-free, from the figures already computed).
   const _cb = [];
-  _cb.push('Equity <b>' + _finSigned(a.coNetWorth) + '</b> on ' + dollarFmt(a.coAssets) + ' assets and ' + dollarFmt(a.coLiabilities) + ' loan debt.');
+  _cb.push('Net worth <b>' + _finSigned(a.coNetWorth) + '</b> on ' + dollarFmt(a.coAssets) + ' assets and ' + dollarFmt(a.coLiabilities) + ' loan debt.');
   if (fc) _cb.push((fc.netProfit >= 0 ? 'Profitable' : 'Operating at a loss') + ' in ' + finPeriodLabel(latestFin) + ' — net profit ' + _finSigned(fc.netProfit) + ' at ' + finPct(fc.netMargin) + ' margin' + (pfc ? (fc.netProfit >= pfc.netProfit ? ', up vs prior' : ', down vs prior') : '') + '.');
   else _cb.push('No financial period entered yet — add one for revenue, profit and margins.');
   if (runwayLabel) _cb.push('Cash runway: <b>' + runwayLabel + '</b>' + (runwayMonths != null && runwayMonths < 3 ? ' ⚠️' : '') + '.');
@@ -2624,7 +2624,7 @@ async function renderCompanyDashboard() {
   if (a.coMonthly > 0 && a.coCash === 0) _cw.push('no cash recorded');
   if (_cw.length) _cb.push('⚠️ Watch: ' + _cw.join(', ') + '.');
   const coCfo = '<div style="font-size:13px;line-height:1.7;color:var(--text)">' + _cb.map(b => '• ' + b).join('<br>') + '</div>';
-  el.innerHTML = alertStrip + hero + asOf + health + profitability + trend + mini + _aiCfoCard('company', coCfo) + '<div class="rng-advice-note">Equity = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Figures use your entered valuations + latest available prices — informational only, not financial advice.</div>';
+  el.innerHTML = alertStrip + hero + asOf + health + profitability + trend + mini + _aiCfoCard('company', coCfo) + '<div class="rng-advice-note">Net worth (equity) = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Figures use your entered valuations + latest available prices — informational only, not financial advice.</div>';
 }
 // Org-wide members roster (org level). Lists every person across the org's companies + org admins, with roles.
 async function renderOrgAllMembers(orgId, host) {
@@ -3598,8 +3598,9 @@ async function routeAfterAuth(user) {
 // reload-free switch (enterWorkspace) can't leave stale listeners bleeding the prior workspace's data
 // into the shared globals or briefly render its dashboard. Mirrors the sign-out teardown.
 function _teardownWorkspace() {
-  [holdingsUnsub, transactionsUnsub, loansUnsub, assetsUnsub, financialsUnsub, _pfUnsub, _wlUnsub, _alertsUnsub, _permsUnsub, _claudeHoldingsUnsub, _scanUnsub].forEach(u => { if (u) { try { u(); } catch (e) {} } });
-  holdingsUnsub = transactionsUnsub = loansUnsub = assetsUnsub = financialsUnsub = _pfUnsub = _wlUnsub = _alertsUnsub = _permsUnsub = _claudeHoldingsUnsub = _scanUnsub = null;
+  [holdingsUnsub, transactionsUnsub, loansUnsub, assetsUnsub, financialsUnsub, alertAcksUnsub, _pfUnsub, _wlUnsub, _alertsUnsub, _permsUnsub, _claudeHoldingsUnsub, _scanUnsub].forEach(u => { if (u) { try { u(); } catch (e) {} } });
+  holdingsUnsub = transactionsUnsub = loansUnsub = assetsUnsub = financialsUnsub = alertAcksUnsub = _pfUnsub = _wlUnsub = _alertsUnsub = _permsUnsub = _claudeHoldingsUnsub = _scanUnsub = null;
+  alertAcks = []; _alertAcksLoaded = false;
   portfolios = []; holdings = []; holdingsByPortfolio = {}; currentPfId = null;
   transactions = []; _pfView = 'holdings';
   loans = []; _loanView = 'list'; _loanId = null;
@@ -4258,6 +4259,8 @@ auth.onAuthStateChanged(async user => {
     if (loansUnsub) { try { loansUnsub(); } catch (e) {} loansUnsub = null; }
     if (assetsUnsub) { try { assetsUnsub(); } catch (e) {} assetsUnsub = null; }
     if (financialsUnsub) { try { financialsUnsub(); } catch (e) {} financialsUnsub = null; }
+    if (alertAcksUnsub) { try { alertAcksUnsub(); } catch (e) {} alertAcksUnsub = null; }
+    alertAcks = []; _alertAcksLoaded = false;
     if (_permsUnsub) { try { _permsUnsub(); } catch (e) {} _permsUnsub = null; }
     if (_userDocUnsub) { try { _userDocUnsub(); } catch (e) {} _userDocUnsub = null; }
     if (holdingsUnsub) { try { holdingsUnsub(); } catch (e) {} holdingsUnsub = null; }
@@ -4310,6 +4313,7 @@ function initUserListeners() {
   loadLoans();
   loadAssets();
   loadFinancials();
+  loadAlertAcks();
   loadNotifications();
 }
 
@@ -6695,9 +6699,10 @@ function _dayLabel(ts) {
   const y = new Date(now); y.setDate(y.getDate() - 1); if (sd(d) === sd(y)) return 'Yesterday';
   return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 }
-function _notifIcon(cat) { return { portfolio: 'briefcase', alert: 'bell', watchlist: 'eye', breaking: 'spark', market: 'newspaper', earnings: 'calendar', explore: 'compass', reminder: 'file', macro: 'bell' }[cat] || 'bell'; }
+function _notifIcon(cat) { return { portfolio: 'briefcase', alert: 'bell', watchlist: 'eye', breaking: 'spark', market: 'newspaper', earnings: 'calendar', explore: 'compass', reminder: 'file', expiry: 'clock', macro: 'bell' }[cat] || 'bell'; }
 const NOTIF_CATS = [
   { key: 'all', label: 'All' },
+  { key: 'expiry', label: 'Deadlines' },
   { key: 'portfolio', label: 'Portfolio' },
   { key: 'alert', label: 'My alerts' },
   { key: 'watchlist', label: 'Watchlist' },
@@ -6717,6 +6722,7 @@ function notifCategory(n) {
   if (t === 'earnings_alert') return 'earnings';
   if (t === 'breaking_news') return 'breaking';
   if (t === 'loan_reminder') return 'reminder';
+  if (t === 'expiry_alert') return 'expiry';
   return 'macro';   // premarket_digest + anything else
 }
 function notifBadge(cat) {
@@ -6727,7 +6733,13 @@ function notifBadge(cat) {
 // Merge persisted + derived into one normalized, de-duped, time-sorted feed.
 function buildNotifFeed() {
   const seen = _notifSeen(), out = [];
-  (notifications || []).forEach(n => out.push({ key: (n.rkey || ('srv:' + n.id)), id: n.id, persisted: true, cat: notifCategory(n), title: n.title || 'Notification', body: n.body || '', url: n.url || '', ticker: n.ticker || '', loanId: n.loanId || '', pct: (n.pct != null ? n.pct : null), ts: _notifTs(n), read: !!n.read }));
+  (notifications || []).forEach(n => {
+    // Expiry alerts are surfaced in-app by the ack-aware, company-scoped client-derived _expiryAlerts (ACTIVE
+    // company only). Drop the server-pushed twin so we never show another company's alert here — and, crucially,
+    // so Acknowledge can't write to the WRONG (active) company. Push/email remain the cross-company channel.
+    if (n.type === 'expiry_alert') return;
+    out.push({ key: (n.rkey || ('srv:' + n.id)), id: n.id, persisted: true, cat: notifCategory(n), title: n.title || 'Notification', body: n.body || '', url: n.url || '', ticker: n.ticker || '', loanId: n.loanId || '', pct: (n.pct != null ? n.pct : null), ts: _notifTs(n), read: !!n.read });
+  });
   (_derivedNotifs || []).forEach(d => out.push(Object.assign({}, d, { persisted: false, read: seen.has(d.key) })));
   const k = new Set(), dedup = [];
   // Dedupe on url, else the item's own stable key (so distinct reminders that share a title aren't
@@ -6793,7 +6805,8 @@ async function refreshDerivedNotifs() {
       } catch (e) {}
     }
     let reminders = []; try { reminders = _loanReminders(); } catch (e) {}
-    _derivedNotifs = [...alerts, ...movers, ...watch, ...explore, ..._newsNotifs, ...reminders];
+    let expiry = []; try { expiry = _expiryAlerts().filter(a => !a.acknowledged); } catch (e) {}
+    _derivedNotifs = [...alerts, ...movers, ...watch, ...explore, ..._newsNotifs, ...reminders, ...expiry];
   } finally { _refreshingNotifs = false; }
   updateNotifBadge();
   const p = document.getElementById('notifPanel'); if (p && !p.classList.contains('hidden')) renderNotifPanel();
@@ -6820,7 +6833,7 @@ function notifRowHtml(it) {
   return '<div class="notif-row' + (it.read ? '' : ' unread') + '" onclick="openNotifDetail(\'' + escHtml(it.key) + '\')">' + av +
     '<div class="notif-main"><div class="notif-t">' + escHtml(it.title) + pctTxt + (it.read ? '' : '<span class="notif-udot"></span>') + '</div>' +
     (it.body ? '<div class="notif-b">' + escHtml(it.body) + '</div>' : '') +
-    '<div class="notif-meta">' + notifBadge(it.cat) + (t ? '<span>' + t + '</span>' : '') + '</div></div>' + ext + '</div>';
+    '<div class="notif-meta">' + _alertBadge(it) + (t ? '<span>' + t + '</span>' : '') + (it.cat === 'expiry' ? ' <button class="pf-btn pf-btn-outline" style="padding:2px 8px;font-size:11px" onclick="event.stopPropagation();acknowledgeAlertUi(\'' + escHtml(it.ackId || it.key) + '\')">Acknowledge</button>' : '') + '</div></div>' + ext + '</div>';
 }
 // Clicking a notification opens an ENRICHED detail view (what happened + live context + explicit
 // actions) instead of blindly redirecting. Navigation to Research/Loans/article is a deliberate button.
@@ -6858,12 +6871,13 @@ function _notifDetailHtml(it) {
       (it.alert.note ? '<br><span class="ht-sub">Your note: ' + escHtml(it.alert.note) + '</span>' : '') + '</div>';
   }
   const acts = [];
+  if (it.cat === 'expiry' && (it.ackId || it.key)) acts.push('<button class="modal-btn modal-btn-primary" onclick="acknowledgeAlertUi(\'' + escHtml(it.ackId || it.key) + '\');closeModal()">Acknowledge</button>');
   if (it.url) acts.push('<a class="modal-btn modal-btn-primary" href="' + escHtml(it.url) + '" target="_blank" rel="noopener">Read full article ↗</a>');
   if (it.ticker) acts.push('<button class="modal-btn ' + (it.url ? 'modal-btn-cancel' : 'modal-btn-primary') + '" onclick="closeModal();goResearch(\'' + escHtml(it.ticker) + '\')">View ' + escHtml(it.ticker) + '</button>');
   if (it.loanId) acts.push('<button class="modal-btn modal-btn-primary" onclick="closeModal();sw(\'loans\');openLoan(\'' + escHtml(it.loanId) + '\')">View loan</button>');
   acts.push('<button class="modal-btn modal-btn-cancel" onclick="closeModal()">Close</button>');
   return '<div class="modal-title" style="display:flex;align-items:center;gap:10px">' + logo + '<span style="flex:1;min-width:0">' + escHtml(it.title) + '</span></div>' +
-    '<div style="display:flex;align-items:center;gap:8px;margin:-6px 0 12px">' + notifBadge(it.cat) + (when ? '<span class="ht-sub">' + when + '</span>' : '') + '</div>' +
+    '<div style="display:flex;align-items:center;gap:8px;margin:-6px 0 12px">' + _alertBadge(it) + (when ? '<span class="ht-sub">' + when + '</span>' : '') + '</div>' +
     quote +
     (it.body ? '<div style="font-size:14px;line-height:1.6;color:var(--text-2);white-space:pre-wrap">' + escHtml(it.body) + '</div>' : '') +
     extra +
@@ -7659,6 +7673,7 @@ function loadLoans() {
     if (document.getElementById('tab-loans').classList.contains('active')) renderLoans();
     if (document.getElementById('tab-loansdash').classList.contains('active')) renderLoansDash();
     try { refreshDerivedNotifs(); } catch (e) {}
+    try { _maybeShowExpiryPopup(); } catch (e) {}
   }, () => {});
 }
 function createLoan(fields) { if (!UID) return Promise.resolve(null); if (!permGuard('loans', 'write')) return Promise.resolve(null); return loansCol().add({ ...fields, created: new Date().toISOString(), updated: new Date().toISOString() }); }
@@ -8023,11 +8038,109 @@ function _loanReminders() {
         title: (overdue ? 'OVERDUE payment — ' : 'Payment due soon — ') + title0,
         body: (overdue ? 'Payment was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'Payment due today' : 'Payment due in ' + dp + ' day(s)')) + ' · ' + dollarFmt(loanOutstanding(l)) + ' outstanding.' + payStr });
     }
-    const dm = daysUntil(l.maturityDate);
-    if (dm != null && dm >= 0 && dm <= 7) out.push({ key: 'loan:' + l.id + ':mat:' + l.maturityDate, cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: _derivedTs('loan:' + l.id + ':mat:' + l.maturityDate), title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + fmtDate(l.maturityDate) + '.' });
+    // Maturity/expiry now handled by the tiered, acknowledgeable _expiryAlerts() below.
     if (_loanMissingDocs(l)) out.push({ key: 'loan:' + l.id + ':missdoc', cat: 'reminder', type: 'loan_reminder', loanId: l.id, ts: _derivedTs('loan:' + l.id + ':missdoc'), title: 'Missing documents — ' + title0, body: 'No agreement link or uploaded documents on this active loan. Add the loan agreement for your records.' });
   });
   return out;
+}
+
+// ════════ Tiered, acknowledgeable expiry alerts (loans/notes maturing / ending) ════════
+// Three escalating tiers by days-to-maturity. Each recurs in-app daily (+ via the daily reminder CF) until a
+// company member ACKNOWLEDGES it (shared across the company). Escalation re-alerts: acknowledging the 50-day
+// reminder does NOT silence the 15-day critical, because the tier is part of the acknowledgement key.
+const ALERT_TIERS = {
+  overdue:  { label: 'Overdue', badge: 'badge-red', color: 'var(--red)', order: 0 },
+  critical: { label: 'Critical', badge: 'badge-red', color: 'var(--red)', order: 1 },
+  plan:     { label: 'Plan ahead', badge: 'badge-yellow', color: '#e0a020', order: 2 },
+  reminder: { label: 'Reminder', badge: 'badge-blue', color: 'var(--blue,#1a73e8)', order: 3 }
+};
+function _alertTier(dm) {                 // days until maturity → tier (null = no alert)
+  if (dm == null) return null;
+  if (dm < 0) return 'overdue';           // past due — distinct tier so it re-alerts even after a 'critical' ack
+  if (dm <= 15) return 'critical';        // ≤15 days — settle/refinance now
+  if (dm <= 30) return 'plan';            // ≤30 days — start arranging the funds (~30 days lead time)
+  if (dm <= 50) return 'reminder';        // ≤50 days — informational heads-up
+  return null;
+}
+function _expiryAlertId(refId, tier, dueDate) { return refId + '__' + tier + '__' + (dueDate || 'na'); }
+function _expiryAlerts() {
+  if (!loans || !loans.length) return [];
+  const ackSet = new Set((alertAcks || []).map(a => a.id));
+  const out = [];
+  loans.forEach(l => {
+    if (!loanIsActive(l) || !l.maturityDate) return;
+    const dm = daysUntil(l.maturityDate), tier = _alertTier(dm);
+    if (!tier) return;
+    const id = _expiryAlertId(l.id, tier, l.maturityDate), title0 = loanTitle(l);
+    const ovd = Math.abs(dm);
+    const phrase = dm < 0 ? ('is overdue by ' + ovd + ' day' + (ovd === 1 ? '' : 's')) : (dm === 0 ? 'matures today' : 'matures in ' + dm + ' day' + (dm === 1 ? '' : 's'));
+    const pre = tier === 'overdue' ? 'OVERDUE — ' : (tier === 'critical' ? 'Critical — ' : (tier === 'plan' ? 'Plan ahead — ' : 'Reminder — '));
+    const advice = tier === 'reminder' ? ' Start planning how it will be settled or renewed.' : (tier === 'plan' ? ' Begin arranging the funds now — this typically needs ~30 days.' : (tier === 'critical' ? ' Settle, refinance or renew immediately.' : ' Past due — settle or renew now; this keeps alerting until acknowledged.'));
+    out.push({ key: id, ackId: id, cat: 'expiry', tier: tier, type: 'expiry_alert', module: 'loans', loanId: l.id, dueDate: l.maturityDate, acknowledged: ackSet.has(id), _dm: dm,
+      title: pre + title0 + ' ' + phrase,
+      body: title0 + ' (' + loanTypeName(l.type) + ')' + (dm < 0 ? ' matured on ' : ' matures on ') + fmtDate(l.maturityDate) + ' · ' + dollarFmt(loanOutstanding(l)) + ' outstanding.' + advice,
+      ts: _derivedTs('exp:' + id) });
+  });
+  return out;
+}
+function _expiryUnacked() { return _expiryAlerts().filter(a => !a.acknowledged).sort((x, y) => ((ALERT_TIERS[x.tier] || {}).order - (ALERT_TIERS[y.tier] || {}).order) || (x._dm - y._dm)); }
+function _alertBadge(it) { const t = it.cat === 'expiry' && it.tier && ALERT_TIERS[it.tier]; return t ? '<span class="badge ' + t.badge + '">' + t.label + '</span>' : notifBadge(it.cat); }
+// ── Acknowledgement store (company-shared) ──
+function alertAcksCol() { return companyRef().collection('alertAcks'); }
+let alertAcks = [], alertAcksUnsub = null, _alertAcksLoaded = false;
+function loadAlertAcks() {
+  if (!UID) return;
+  if (alertAcksUnsub) { try { alertAcksUnsub(); } catch (e) {} }
+  alertAcksUnsub = alertAcksCol().onSnapshot(snap => {
+    alertAcks = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    _alertAcksLoaded = true;
+    try { refreshDerivedNotifs(); } catch (e) {}
+    try { _maybeShowExpiryPopup(); } catch (e) {}
+  }, () => {});
+}
+function acknowledgeAlert(ackId, meta) {
+  if (!UID || !ackId) return Promise.resolve();
+  if (!canRead('loans')) { try { pmToast("You don't have access to acknowledge this."); } catch (e) {} return Promise.resolve(); }
+  const email = (auth.currentUser && auth.currentUser.email) || '';
+  return alertAcksCol().doc(ackId).set(Object.assign({ acknowledgedBy: UID, acknowledgedByEmail: email, acknowledgedAt: new Date().toISOString(), resolved: false }, meta || {}), { merge: true });
+}
+function _ackMetaFor(ackId) { const a = _expiryAlerts().find(x => x.ackId === ackId); return a ? { module: a.module, refId: a.loanId, tier: a.tier, dueDate: a.dueDate, title: (a.title || '').slice(0, 140) } : {}; }
+function acknowledgeAlertUi(ackId) {
+  acknowledgeAlert(ackId, _ackMetaFor(ackId)).then(() => {
+    try { _addNotifSeen([ackId]); } catch (e) {}
+    try { pmToast('Alert acknowledged'); } catch (e) {}
+    try { refreshDerivedNotifs(); } catch (e) {}
+    try { if (document.getElementById('expiryAlertsBody')) renderExpiryPopupBody(); } catch (e) {}
+    try { if (document.getElementById('tab-premarket') && document.getElementById('tab-premarket').classList.contains('active')) renderNotifications(); } catch (e) {}
+  }).catch(() => { try { pmToast('Could not acknowledge — try again.'); } catch (e) {} });
+}
+function acknowledgeAllExpiry() {
+  const list = _expiryUnacked(); if (!list.length) return;
+  Promise.all(list.map(a => acknowledgeAlert(a.ackId, { module: a.module, refId: a.loanId, tier: a.tier, dueDate: a.dueDate, title: (a.title || '').slice(0, 140) })))
+    .then(() => { try { refreshDerivedNotifs(); } catch (e) {} try { renderExpiryPopupBody(); } catch (e) {} try { pmToast('All alerts acknowledged'); } catch (e) {} });
+}
+// ── Daily popup: surface unacknowledged deadlines once per day per company (recurs until acknowledged) ──
+function _expiryPopupKey() { return 'expiryPopSeen:' + (ACTIVE_COMPANY || '') + ':' + new Date().toISOString().slice(0, 10); }
+function _maybeShowExpiryPopup() {
+  if (!ACTIVE_ORG || !ACTIVE_COMPANY || !_alertAcksLoaded) return;
+  if (!canRead('loans')) return;
+  try { if (localStorage.getItem(_expiryPopupKey())) return; } catch (e) {}
+  if (!_expiryUnacked().length) return;
+  try { if (!document.getElementById('modalOverlay').classList.contains('hidden')) return; } catch (e) {}   // a modal is open — defer (do NOT burn today's flag), retry on a later snapshot
+  try { localStorage.setItem(_expiryPopupKey(), '1'); } catch (e) {}   // mark seen only once we actually open it
+  openModal('expiryAlerts');
+}
+function renderExpiryPopupBody() {
+  const el = document.getElementById('expiryAlertsBody'); if (!el) return;
+  const list = _expiryUnacked();
+  if (!list.length) { el.innerHTML = '<div class="pf-filter-note">All deadlines acknowledged — you’re all caught up. 🎉</div>'; return; }
+  el.innerHTML = list.map(a => {
+    const t = ALERT_TIERS[a.tier] || {};
+    return '<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border-soft)">' +
+      '<span class="badge ' + t.badge + '" style="margin-top:2px;white-space:nowrap">' + t.label + '</span>' +
+      '<div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px">' + escHtml(a.title) + '</div><div class="ht-sub" style="margin-top:2px">' + escHtml(a.body) + '</div>' +
+      '<div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap"><button class="pf-btn pf-btn-outline" style="padding:4px 10px;font-size:12px" onclick="acknowledgeAlertUi(\'' + escHtml(a.ackId) + '\')">Acknowledge</button><button class="pf-btn" style="padding:4px 10px;font-size:12px" onclick="closeModal();sw(\'loans\');openLoan(\'' + escHtml(a.loanId) + '\')">View loan</button></div></div></div>';
+  }).join('');
 }
 
 // ════════ Assets module (company-scoped: organizations/{o}/companies/{c}/assets) ════════
@@ -8458,7 +8571,7 @@ function renderFinancialDetail(id) {
     row('— of which cash & bank', dollarFmt(bs.cash)) +
     row('— of which real estate', dollarFmt(bs.realEstate)) +
     row('Total liabilities (loans outstanding)', bs.liabilities ? '(' + dollarFmt(bs.liabilities) + ')' : '—') +
-    row('Equity (net worth)', _finSigned(bs.equity), true) +
+    row('Net worth (equity)', _finSigned(bs.equity), true) +
     '</div></div>';
   const cashflow = '<div class="dash-section"><div class="dash-section-title">Cash flow</div><div style="max-width:560px">' +
     row('Operating activities', _finSigned(c.ocf)) +
@@ -8494,7 +8607,7 @@ function renderFinDash() {
   if (!UID) { el.innerHTML = emptyState('data', 'Sign in to view financials', ''); return; }
   const bs = _finBalanceSheet();
   const bsHero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">' +
-    _odCard('Total assets', dollarFmt(bs.totalAssets)) + _odCard('Liabilities', dollarFmt(bs.liabilities)) + _odCard('Equity', _finSigned(bs.equity)) + _odCard('Cash & bank', dollarFmt(bs.cash)) + '</div>';
+    _odCard('Total assets', dollarFmt(bs.totalAssets)) + _odCard('Liabilities', dollarFmt(bs.liabilities)) + _odCard('Net worth', _finSigned(bs.equity), '(equity)') + _odCard('Cash & bank', dollarFmt(bs.cash)) + '</div>';
   if (!financials.length) {
     el.innerHTML = bsHero +
       '<div class="dash-section"><div class="dash-section-title">Balance sheet <span class="ht-sub" style="font-weight:400">— auto-composed from Assets + Loans</span></div><div class="pf-filter-note">This snapshot builds automatically from your Assets and Loans. Add a <b>financial period</b> to unlock revenue, profit, EBITDA, margins and ratios.</div></div>' +
@@ -8568,6 +8681,13 @@ function openModal(type) {
       '<div class="modal-danger-row"><button class="modal-btn modal-btn-danger-outline" onclick="removePersonalWorkspace()">Remove workspace</button></div>';
   } else if (type === 'notifDetail') {
     box.innerHTML = _notifDetailHtml(_notifDetailIt);
+  } else if (type === 'expiryAlerts') {
+    const n = _expiryUnacked().length;
+    box.innerHTML = '<div class="modal-title">Upcoming loan &amp; note deadlines' + (n ? ' <span class="badge badge-red">' + n + '</span>' : '') + '</div>' +
+      '<div class="modal-price-hint" style="margin-bottom:8px">These recur daily until a team member acknowledges them. Acknowledging silences the current tier for the whole company; it re-alerts if the deadline moves into a more urgent tier.</div>' +
+      '<div id="expiryAlertsBody" style="max-height:56vh;overflow-y:auto"></div>' +
+      '<div class="modal-footer"><button class="modal-btn modal-btn-cancel" onclick="closeModal()">Close</button><button class="modal-btn modal-btn-primary" onclick="acknowledgeAllExpiry()">Acknowledge all</button></div>';
+    setTimeout(renderExpiryPopupBody, 0);
   } else if (type === 'inviteMember' || type === 'editMember') {
     box.innerHTML = memberFormModal(type === 'editMember' ? 'edit' : 'invite');
     setTimeout(() => { const i = document.getElementById(type === 'editMember' ? 'mRole' : 'mEmail'); if (i) i.focus(); }, 0);
@@ -9244,7 +9364,7 @@ async function answerFinanceQuestion(q) {
     return '**' + co + '** cash flow for ' + plabel + ': operating ' + _finSigned(fc.ocf) + ', investing ' + _finSigned(fc.icf) + ', financing ' + _finSigned(fc.fcf) + ' → **net ' + _finSigned(fc.netCF) + '**.';
   }
   if (has('net worth', 'equity', 'book value', 'worth')) {
-    return '**' + co + '** equity (net worth) is **' + _finSigned(bs.equity) + '** — total assets ' + dollarFmt(bs.totalAssets) + ' minus loan debt ' + dollarFmt(bs.liabilities) + '. (Excludes payables, accrued tax & other non-loan liabilities.)';
+    return '**' + co + '** net worth (equity) is **' + _finSigned(bs.equity) + '** — total assets ' + dollarFmt(bs.totalAssets) + ' minus loan debt ' + dollarFmt(bs.liabilities) + '. (Excludes payables, accrued tax & other non-loan liabilities.)';
   }
   if (has('liabilit', 'how much do we owe', 'how much we owe', 'total debt', 'debt do we', 'do we owe')) {
     const active = (loans || []).filter(loanIsActive);
@@ -9261,7 +9381,7 @@ async function answerFinanceQuestion(q) {
     if (!(assets || []).length) return 'No assets are recorded for **' + co + '** yet. Add them under **Assets**.';
     const byCat = {}; (assets || []).forEach(a => { const c = a.category || 'other'; byCat[c] = (byCat[c] || 0) + (ccyNum(a.currentValue) || 0); });
     const list = ASSET_CATS.filter(c => byCat[c[0]]).sort((x, y) => byCat[y[0]] - byCat[x[0]]).map(c => '• ' + c[1] + ' — ' + dollarFmt(byCat[c[0]])).join('\n');
-    return '**' + co + '** holds **' + dollarFmt(bs.totalAssets) + '** in tracked assets across ' + (assets || []).length + ' item' + ((assets || []).length === 1 ? '' : 's') + ':\n' + list + '\nEquity after loan debt: ' + _finSigned(bs.equity) + '.';
+    return '**' + co + '** holds **' + dollarFmt(bs.totalAssets) + '** in tracked assets across ' + (assets || []).length + ' item' + ((assets || []).length === 1 ? '' : 's') + ':\n' + list + '\nNet worth (equity) after loan debt: ' + _finSigned(bs.equity) + '.';
   }
   if (has('loan', 'borrow', 'lent', 'lend')) {
     const active = (loans || []).filter(loanIsActive);
@@ -9289,7 +9409,7 @@ function assistantFinanceSnapshot() {
     const latest = sortedFin[0] || null, fc = latest ? finCompute(latest) : null;
     const L = [];
     L.push('Company: ' + (_companyName || '(unnamed)'));
-    L.push('Balance sheet (current): total assets ' + dollarFmt(bs.totalAssets) + ', cash & bank ' + dollarFmt(bs.cash) + ', real estate ' + dollarFmt(bs.realEstate) + ', outstanding loan debt ' + dollarFmt(bs.liabilities) + ', equity ' + dollarFmt(bs.equity) + ' (equity excludes non-loan liabilities).');
+    L.push('Balance sheet (current): total assets ' + dollarFmt(bs.totalAssets) + ', cash & bank ' + dollarFmt(bs.cash) + ', real estate ' + dollarFmt(bs.realEstate) + ', outstanding loan debt ' + dollarFmt(bs.liabilities) + ', net worth (equity = assets − loan debt) ' + dollarFmt(bs.equity) + ' (excludes non-loan liabilities).');
     if (fc) L.push('Latest period ' + finPeriodLabel(latest) + ': revenue ' + dollarFmt(fc.revenue) + ', gross profit ' + dollarFmt(fc.grossProfit) + ', EBITDA ' + dollarFmt(fc.ebitda) + ', net profit ' + dollarFmt(fc.netProfit) + ', net margin ' + finPct(fc.netMargin) + ', net cash flow ' + _finSigned(fc.netCF) + '.');
     else L.push('No financial periods entered yet.');
     const active = (loans || []).filter(loanIsActive);
@@ -9300,7 +9420,7 @@ function assistantFinanceSnapshot() {
 }
 function _asstSuggestions() {
   if (ACTIVE_ORG && ACTIVE_COMPANY) return ['What is our cash balance and runway?', 'How did revenue and profit change vs last period?', 'What loan payments are due soon?', 'How is the company’s financial health?'];
-  if (_hubOrgId && !ACTIVE_COMPANY) return ['How is the organization doing overall?', 'What is our total debt and equity?', 'Which companies are at risk?', 'What’s our consolidated revenue and profit?'];
+  if (_hubOrgId && !ACTIVE_COMPANY) return ['How is the organization doing overall?', 'What is our total debt and net worth?', 'Which companies are at risk?', 'What’s our consolidated revenue and profit?'];
   return ASSISTANT_SUGGESTED;
 }
 // The org-level assistant + consolidated figures are for ORG ADMINS / PLATFORM SUPER-ADMINS only (mirrors the
@@ -9318,10 +9438,10 @@ function answerOrgFinanceQuestion(q) {
   const o = _orgSnap; const org = _orgNameFor(_hubOrgId) || 'this organization';
   const blended = o.totRevenueAnn ? o.totNetProfitAnn / o.totRevenueAnn : null;
   if (has('what can you', 'what do you do', 'how can you help', 'examples of')) {
-    return 'At the organization level for **' + org + '** I can answer from your consolidated figures:\n• Total **assets**, **debt**, **equity/net worth**, **cash**\n• Consolidated **revenue/profit** (annualized run-rate) & **margin**\n• Average **financial health** & which companies are **at risk**\n• **Overdue** payments & monthly debt service\n• Company count & the largest / weakest company\nOpen a specific company for its detailed numbers, or ask a stock/market question anytime.';
+    return 'At the organization level for **' + org + '** I can answer from your consolidated figures:\n• Total **assets**, **debt**, **net worth/equity**, **cash**\n• Consolidated **revenue/profit** (annualized run-rate) & **margin**\n• Average **financial health** & which companies are **at risk**\n• **Overdue** payments & monthly debt service\n• Company count & the largest / weakest company\nOpen a specific company for its detailed numbers, or ask a stock/market question anytime.';
   }
   if (has('how many compan', 'company count', 'companies do', 'overview', 'how is the org', 'how are we doing', 'how is the organization', 'how is the business')) {
-    return '**' + org + '** spans **' + o.companies + '** companies. Total assets ' + dollarFmt(o.totAssets) + ', loan debt ' + dollarFmt(o.totOutstanding) + ', equity ' + _finSigned(o.totNetWorth) + '.' + (o.avgHealth != null ? ' Average health **' + o.avgHealth + '/100 (' + o.avgBand + ')**' + (o.atRisk ? ', ' + o.atRisk + ' at risk' : '') + '.' : '') + (o.noFin ? ' ' + o.noFin + ' compan' + (o.noFin === 1 ? 'y has' : 'ies have') + ' no financial period yet.' : '');
+    return '**' + org + '** spans **' + o.companies + '** companies. Total assets ' + dollarFmt(o.totAssets) + ', loan debt ' + dollarFmt(o.totOutstanding) + ', net worth ' + _finSigned(o.totNetWorth) + '.' + (o.avgHealth != null ? ' Average health **' + o.avgHealth + '/100 (' + o.avgBand + ')**' + (o.atRisk ? ', ' + o.atRisk + ' at risk' : '') + '.' : '') + (o.noFin ? ' ' + o.noFin + ' compan' + (o.noFin === 1 ? 'y has' : 'ies have') + ' no financial period yet.' : '');
   }
   if (has('runway', 'burn')) return 'Cash runway is tracked per company — open a specific company to see it. Organization-wide cash & bank is ' + dollarFmt(o.totCash) + '.';
   if (has('cash')) return '**' + org + '** holds **' + dollarFmt(o.totCash) + '** in cash & bank across ' + o.companies + ' companies.';
@@ -9329,7 +9449,7 @@ function answerOrgFinanceQuestion(q) {
     if (!o.anyFin) return 'No company has entered a financial period yet, so consolidated revenue/profit aren’t available. Add a period under **Financial Statements** in each company.';
     return '**' + org + '** consolidated (annualized run-rate): revenue **' + dollarFmt(o.totRevenueAnn) + '**, net profit **' + _finSigned(o.totNetProfitAnn) + '**, EBITDA ' + dollarFmt(o.totEBITDAAnn) + ', blended net margin **' + finPct(blended) + '**. (Each company’s latest period annualized to compare.)';
   }
-  if (has('net worth', 'equity', 'worth')) return '**' + org + '** equity (net worth) is **' + _finSigned(o.totNetWorth) + '** — total assets ' + dollarFmt(o.totAssets) + ' minus loan debt ' + dollarFmt(o.totOutstanding) + '. (Excludes non-loan liabilities.)';
+  if (has('net worth', 'equity', 'worth')) return '**' + org + '** net worth (equity) is **' + _finSigned(o.totNetWorth) + '** — total assets ' + dollarFmt(o.totAssets) + ' minus loan debt ' + dollarFmt(o.totOutstanding) + '. (Excludes non-loan liabilities.)';
   if (has('debt', 'liabilit', 'owe', 'loans')) return '**' + org + '** owes **' + dollarFmt(o.totOutstanding) + '** in outstanding loan debt' + (o.entMonthlyOblig ? ', ' + dollarFmt(o.entMonthlyOblig) + '/mo in payments' : '') + (o.entOverdue ? '. ⚠️ ' + o.entOverdue + ' overdue payment' + (o.entOverdue === 1 ? '' : 's') : '') + '.';
   if (has('asset', 'own')) return '**' + org + '** holds **' + dollarFmt(o.totAssets) + '** in tracked assets across ' + o.companies + ' companies (cash ' + dollarFmt(o.totCash) + ')' + (o.totPortfolio ? ', plus ' + dollarFmt(o.totPortfolio) + ' in marketable securities' : '') + '.';
   if (has('overdue', 'due', 'payment')) return o.entOverdue ? '⚠️ **' + o.entOverdue + '** overdue loan payment' + (o.entOverdue === 1 ? '' : 's') + ' across **' + org + '**. Monthly debt service ' + dollarFmt(o.entMonthlyOblig) + '. Open a company for the specific loans.' : 'No overdue payments flagged across **' + org + '**. Monthly debt service ' + dollarFmt(o.entMonthlyOblig) + '.';
@@ -9340,7 +9460,7 @@ function answerOrgFinanceQuestion(q) {
   }
   if (has('biggest', 'largest', 'top company')) {
     const big = o.rows.slice().sort((a, b) => b.assets - a.assets)[0];
-    return big ? 'By assets, the largest company in **' + org + '** is **' + big.name + '** (' + dollarFmt(big.assets) + ' assets, equity ' + _finSigned(big.netWorth) + ').' : null;
+    return big ? 'By assets, the largest company in **' + org + '** is **' + big.name + '** (' + dollarFmt(big.assets) + ' assets, net worth ' + _finSigned(big.netWorth) + ').' : null;
   }
   return null;
 }
@@ -9349,7 +9469,7 @@ function assistantOrgSnapshot() {
   const o = _orgSnap; const org = _orgNameFor(_hubOrgId) || 'the organization';
   const L = [];
   L.push('Organization: ' + org + ' — ' + o.companies + ' companies.');
-  L.push('Consolidated balance sheet: total assets ' + dollarFmt(o.totAssets) + ', loan debt ' + dollarFmt(o.totOutstanding) + ', equity ' + dollarFmt(o.totNetWorth) + ', cash & bank ' + dollarFmt(o.totCash) + '.');
+  L.push('Consolidated balance sheet: total assets ' + dollarFmt(o.totAssets) + ', loan debt ' + dollarFmt(o.totOutstanding) + ', net worth (equity = assets − loan debt) ' + dollarFmt(o.totNetWorth) + ', cash & bank ' + dollarFmt(o.totCash) + '.');
   if (o.anyFin) L.push('Consolidated run-rate: revenue ' + dollarFmt(o.totRevenueAnn) + ', net profit ' + dollarFmt(o.totNetProfitAnn) + ', EBITDA ' + dollarFmt(o.totEBITDAAnn) + '.');
   if (o.avgHealth != null) L.push('Average financial health ' + o.avgHealth + '/100 (' + o.avgBand + '), ' + o.atRisk + ' at risk.');
   if (o.entOverdue) L.push(o.entOverdue + ' overdue loan payments; monthly debt service ' + dollarFmt(o.entMonthlyOblig) + '.');
@@ -9470,7 +9590,7 @@ function asstWelcomeHtml() {
   const inCo = !!(ACTIVE_ORG && ACTIVE_COMPANY);
   const inOrg = !inCo && !!_hubOrgId;
   const sub = inCo ? 'Ask about ' + escHtml(_companyName || 'your company') + '’s finances — cash, revenue, profit, loans, health — or any stock &amp; market question.'
-    : inOrg ? 'Ask about ' + escHtml(_orgNameFor(_hubOrgId) || 'your organization') + '’s consolidated finances — assets, debt, equity, health, at-risk companies — or any stock &amp; market question.'
+    : inOrg ? 'Ask about ' + escHtml(_orgNameFor(_hubOrgId) || 'your organization') + '’s consolidated finances — assets, debt, net worth, health, at-risk companies — or any stock &amp; market question.'
     : 'Portfolio check-ins, stock deep-dives, or live market context — just ask.';
   return '<div class="asst-welcome">' +
     '<div class="asst-orb">' + ic('spark', 24) + '</div>' +
