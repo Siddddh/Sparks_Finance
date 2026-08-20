@@ -1206,12 +1206,23 @@ function _loanNextPay(l, todayStr) {
 function _loanActive(l) { return !l.status || l.status === 'active' || l.status === 'defaulted'; }
 function _loanTitleFn(l) { return l.name || ((l.type === 'lent' ? 'Loan to ' : 'Loan from ') + (l.type === 'lent' ? (l.borrower || 'borrower') : (l.lender || 'lender'))); }
 
+function _alertTierFn(dm) {   // days-to-maturity → escalating tier (keep in sync with the client _alertTier)
+  if (dm == null) return null;
+  if (dm < 0) return 'overdue';
+  if (dm <= 15) return 'critical';
+  if (dm <= 30) return 'plan';
+  if (dm <= 50) return 'reminder';
+  return null;
+}
 async function runLoanReminders(sgKey) {
   const db = admin.firestore();
   const messaging = admin.messaging();
   const date = todayInET();
   const summary = { date, companies: 0, notified: 0, sent: 0 };
   const emailItems = {};   // uid -> [{title, body}] for one consolidated email per user
+  const orgAdminCache = {};   // orgId -> [uid] — org admins also receive loan/expiry alerts
+  let superUids = [];         // platform super-admins receive them too
+  try { superUids = (await Promise.all((OWNER_EMAILS || []).map(async e => { try { return (await admin.auth().getUserByEmail(e)).uid; } catch (_) { return null; } }))).filter(Boolean); } catch (e) {}
 
   // Loans are company data (organizations/{o}/companies/{c}/loans) shared by the company's members.
   // Each payment / maturity milestone is delivered to every member with Loans & Notes access, deduped
@@ -1222,7 +1233,9 @@ async function runLoanReminders(sgKey) {
     let snap;
     try { snap = await co.coRef.collection('loans').get(); } catch (e) { continue; }
     if (snap.empty) continue;
-    const uids = await companyModuleUids(co.coRef, 'loans');
+    const memberUids = await companyModuleUids(co.coRef, 'loans');
+    if (orgAdminCache[co.orgId] === undefined) { try { orgAdminCache[co.orgId] = (await db.collection('organizations').doc(co.orgId).collection('orgAdmins').get()).docs.map(x => x.id); } catch (e) { orgAdminCache[co.orgId] = []; } }
+    const uids = [...new Set([...memberUids, ...orgAdminCache[co.orgId], ...superUids])];   // members + org admins + super admins
     if (!uids.length) continue;
     summary.companies++;
 
@@ -1241,9 +1254,19 @@ async function runLoanReminders(sgKey) {
           body: (overdue ? 'A payment on this note was due ' + Math.abs(dp) + ' day(s) ago' : (dp === 0 ? 'A payment on this note is due today' : 'A payment on this note is due in ' + dp + ' day(s)')) + '.' + payStr });
       }
       const dm = _dUntil(l.maturityDate, date);
-      if (dm != null && dm >= 0 && dm <= 7) {
-        events.push({ dedupSuffix: 'mat:' + d.id + ':' + l.maturityDate, rkey: 'loan:' + d.id + ':mat:' + l.maturityDate,
-          title: 'Maturity in ' + dm + 'd — ' + title0, body: 'This note matures on ' + l.maturityDate + '.' });
+      const tier = l.maturityDate ? _alertTierFn(dm) : null;
+      if (tier) {
+        // Fire daily until a company member acknowledges this loan+tier (organizations/{o}/companies/{c}/alertAcks).
+        const ackId = d.id + '__' + tier + '__' + l.maturityDate;
+        let acked = false;
+        try { acked = (await co.coRef.collection('alertAcks').doc(ackId).get()).exists; } catch (e) {}
+        if (!acked) {
+          const phrase = dm < 0 ? ('is overdue by ' + Math.abs(dm) + 'd') : (dm === 0 ? 'matures today' : 'matures in ' + dm + 'd');
+          const pre = tier === 'overdue' ? 'OVERDUE — ' : (tier === 'critical' ? 'Critical — ' : (tier === 'plan' ? 'Plan ahead — ' : 'Reminder — '));
+          const advice = tier === 'reminder' ? 'Start planning how it will be settled or renewed.' : (tier === 'plan' ? 'Begin arranging the funds now — this typically needs ~30 days.' : (tier === 'critical' ? 'Settle, refinance or renew immediately.' : 'Past due — settle or renew now; this keeps alerting until acknowledged.'));
+          events.push({ type: 'expiry_alert', tier: tier, ackId: ackId, dedupSuffix: 'exp:' + d.id + ':' + tier + ':' + l.maturityDate, rkey: ackId,
+            title: pre + title0 + ' ' + phrase, body: 'This note ' + (dm < 0 ? 'matured on ' : 'matures on ') + l.maturityDate + '. ' + advice });
+        }
       }
       // Missing-documents nudge: an active loan with no agreement link and no uploaded documents.
       if (!l.driveLink && !((l.documents || []).length)) {
@@ -1260,12 +1283,12 @@ async function runLoanReminders(sgKey) {
           fired.add(key);
           (emailItems[uid] = emailItems[uid] || []).push({ title: ev.title, body: ev.body });
           await sink.enqueue(uid,
-            { date, type: 'loan_reminder', title: ev.title, body: ev.body, ticker: null, url: null,
-              rkey: ev.rkey, loanId: d.id, orgId: co.orgId, companyId: co.companyId, company: co.name,
-              read: false, status: 'sent', data: { type: 'loan_reminder' },
+            { date, type: ev.type || 'loan_reminder', title: ev.title, body: ev.body, ticker: null, url: null,
+              rkey: ev.rkey, loanId: d.id, tier: ev.tier || null, ackId: ev.ackId || null, orgId: co.orgId, companyId: co.companyId, company: co.name,
+              read: false, status: 'sent', data: { type: ev.type || 'loan_reminder' },
               createdAt: admin.firestore.FieldValue.serverTimestamp() },
             { title: ev.title, body: pushBody(ev.body) },
-            { type: 'loan_reminder' });
+            { type: ev.type || 'loan_reminder' });
         }
       }
     }
