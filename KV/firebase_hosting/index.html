@@ -1084,6 +1084,11 @@ html.theme-anim, html.theme-anim *{transition:background-color .25s ease, border
 .dash-mini.gain{border-left:3px solid var(--green);}
 .dash-mini.loss{border-left:3px solid var(--red);}
 .dash-mini-label{font-size:10px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+/* Hover ⓘ that explains a KPI label. The tooltip itself is a body-level singleton (#sfTip) so it can't be clipped by scroll areas. */
+.info-dot{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;border:1px solid var(--text-3);color:var(--text-3);font-size:9px;font-style:italic;font-weight:700;line-height:1;cursor:help;vertical-align:middle;margin-left:5px;font-family:Georgia,'Times New Roman',serif;text-transform:none;letter-spacing:0;outline:none;transition:border-color .12s,color .12s;}
+.info-dot:hover,.info-dot:focus-visible{border-color:var(--blue);color:var(--blue);}
+#sfTip{position:fixed;z-index:99999;width:max-content;max-width:260px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:12px;font-weight:400;line-height:1.45;letter-spacing:0;text-transform:none;box-shadow:var(--shadow-lg);pointer-events:none;opacity:0;transform:translateY(2px);transition:opacity .1s ease,transform .1s ease;}
+#sfTip.show{opacity:1;transform:translateY(0);}
 .dash-mini-tkr{font-size:17px;font-weight:700;color:var(--text);}
 .dash-mini-val{font-size:15px;font-weight:700;color:var(--text);}
 .dash-section{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin-bottom:14px;}
@@ -2317,8 +2322,80 @@ async function renderPlatform() {
     el.innerHTML = _orgTableHtml(orgs);
   } catch (e) { el.innerHTML = emptyState('data', "Couldn't load organizations", escHtml(String(e.message || e))); }
 }
+// ── Hover ⓘ explainers for KPI tiles ────────────────────────────────────────
+// Plain-English, one line each; shared across the org + company dashboards, keyed by tile label.
+const TILE_INFO = {
+  'Net worth': "What's owned minus what's still owed on loans (assets − loan debt). Also called equity.",
+  'Total net worth': "What's owned minus what's still owed on loans (assets − loan debt). Also called equity.",
+  'Total assets': "Combined value of everything owned — property, equipment, cash, etc. Excludes marketable securities unless the tile says otherwise.",
+  'Total debt (loans)': "Loan principal still owed — the remaining balance across loans & notes, excluding interest.",
+  'Debt (loans)': "Loan principal still owed — the remaining balance across loans & notes, excluding interest.",
+  'Loans outstanding': "Loan principal still owed — the remaining balance across loans & notes, excluding interest.",
+  'Outstanding principal': "Loan principal still owed — the remaining balance across loans & notes, excluding interest.",
+  'Cash & bank': "Money in bank accounts (from Assets tagged 'Bank account').",
+  'Portfolio value': "Current market value of the trading/investment portfolio (marketable securities).",
+  'Unrealized P&L': "Paper gain/loss on the portfolio — current value minus amount invested; not yet locked in by selling.",
+  'Total holdings': "Number of distinct securities held.",
+  'Holdings': "Number of distinct securities held.",
+  'Total loans': "Count of active loan & note records.",
+  'Active loans': "Count of active loan & note records.",
+  'Total borrowed': "Principal you owe others (money borrowed).",
+  'Total lent': "Principal others owe you (money lent out).",
+  'Net position': "Total lent minus total borrowed. Positive = net creditor; negative = net borrower.",
+  'Interest payable': "Interest you owe but haven't yet paid.",
+  'Interest receivable': "Interest owed to you but not yet received.",
+  'Monthly debt obligation': "Total loan payments due each month (principal + interest).",
+  'Closed loans': "Loans & notes that are fully settled/closed.",
+  'Loans due 30 / 60 / 90d': "Loans with a payment or maturity due within 30 / 60 / 90 days.",
+  'Overdue payments': "Loan payments past their due date.",
+  'Revenue': "Total income for the period, before costs.",
+  'Net profit': "What's left after all costs, taxes and expenses for the period.",
+  'EBITDA': "Earnings before interest, tax, depreciation & amortization — a proxy for operating cash earnings.",
+  'Net margin': "Net profit as a percentage of revenue.",
+  'Gross profit': "Revenue minus direct cost of goods/services (COGS).",
+  'Operating income': "Profit from core operations (EBIT), before interest and tax.",
+  'Net cash flow': "Net cash in/out for the period (operating + investing + financing).",
+  'Cash runway': "How many months current cash lasts at the current burn rate; 'Cash-flow positive' means cash isn't being burned.",
+  'Real estate': "Total value of real-estate assets.",
+  'Companies': "Number of companies in this organization.",
+  'Total users': "Distinct people with access across all companies.",
+  'Members': "People with access to this company.",
+  'Assets tracked': "Number of asset records recorded."
+};
+let _sfTipInit = false, _sfTipEl = null, _sfTipDot = null;
+// One body-level tooltip singleton, driven by event delegation so it can't be clipped by any scroll area.
+function _ensureInfoTips() {
+  if (_sfTipInit || typeof document === 'undefined' || !document.body) return;
+  _sfTipInit = true;
+  _sfTipEl = document.createElement('div'); _sfTipEl.id = 'sfTip'; document.body.appendChild(_sfTipEl);
+  const dotOf = e => (e.target && e.target.closest) ? e.target.closest('.info-dot') : null;
+  const show = dot => { const tip = dot.getAttribute('data-tip'); if (!tip) return; _sfTipDot = dot; _sfTipEl.textContent = tip; _sfTipEl.classList.add('show'); _positionInfoTip(dot); };
+  const hide = () => { _sfTipDot = null; _sfTipEl.classList.remove('show'); };
+  document.addEventListener('mouseover', e => { const d = dotOf(e); if (d) show(d); });
+  document.addEventListener('mouseout', e => { const d = dotOf(e); if (d && d === _sfTipDot) hide(); });
+  document.addEventListener('focusin', e => { const d = dotOf(e); if (d) show(d); });
+  document.addEventListener('focusout', e => { const d = dotOf(e); if (d && d === _sfTipDot) hide(); });
+  document.addEventListener('click', e => { const d = dotOf(e); if (d) { e.preventDefault(); (d === _sfTipDot && _sfTipEl.classList.contains('show')) ? hide() : show(d); } else if (_sfTipDot) hide(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && _sfTipDot) hide(); });
+  window.addEventListener('scroll', () => { if (_sfTipDot) hide(); }, true);
+  window.addEventListener('resize', () => { if (_sfTipDot) hide(); });
+}
+function _positionInfoTip(dot) {
+  const r = dot.getBoundingClientRect(), t = _sfTipEl, m = 8;
+  t.style.left = '0px'; t.style.top = '0px';           // measure at origin first
+  const tw = t.offsetWidth, th = t.offsetHeight;
+  let left = Math.max(m, Math.min(r.left + r.width / 2 - tw / 2, window.innerWidth - tw - m));
+  let top = r.top - th - 6;                             // prefer above the dot
+  if (top < m) top = r.bottom + 6;                     // flip below if no room
+  t.style.left = left + 'px'; t.style.top = top + 'px';
+}
+function _infoDot(text) {
+  if (!text) return '';
+  _ensureInfoTips();
+  return ' <span class="info-dot" tabindex="0" role="img" aria-label="Explain: ' + escHtml(text) + '" data-tip="' + escHtml(text) + '">i</span>';
+}
 // Consolidated Organization Dashboard — aggregates Trading + Loans across ALL companies (org-admin/super-admin only).
-function _odCard(label, val, sub) { return '<div class="dash-card"><div class="dash-mini-label">' + escHtml(label) + '</div><div style="font-size:26px;font-weight:700;color:var(--text);margin-top:4px">' + val + '</div>' + (sub ? '<div class="ht-sub" style="margin-top:2px">' + escHtml(sub) + '</div>' : '') + '</div>'; }
+function _odCard(label, val, sub, info) { return '<div class="dash-card"><div class="dash-mini-label">' + escHtml(label) + _infoDot(info) + '</div><div style="font-size:26px;font-weight:700;color:var(--text);margin-top:4px">' + val + '</div>' + (sub ? '<div class="ht-sub" style="margin-top:2px">' + escHtml(sub) + '</div>' : '') + '</div>'; }
 // Aggregate ONE company's Trading + Loans figures. Shared by the consolidated org dashboard and the
 // single-company dashboard so both show identical math. Extracted verbatim from renderOrgDashboard's loop.
 async function _aggregateCompany(orgId, companyId, companyName, industry) {
@@ -2432,13 +2509,13 @@ async function _orgDashBuild(orgId) {
   });
   const totNetWorth = totAssets - totOutstanding;
   const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' +
-    _odCard('Total net worth', dollarFmt(totNetWorth), '(equity) · assets − loan debt') + _odCard('Total assets', dollarFmt(totAssets), totPortfolio > 0 ? 'excl. securities' : '') +
-    _odCard('Total debt (loans)', dollarFmt(totOutstanding)) + _odCard('Cash & bank', dollarFmt(totCash)) + '</div>';
+    _odCard('Total net worth', dollarFmt(totNetWorth), '(equity) · assets − loan debt', TILE_INFO['Total net worth']) + _odCard('Total assets', dollarFmt(totAssets), totPortfolio > 0 ? 'excl. securities' : '', TILE_INFO['Total assets']) +
+    _odCard('Total debt (loans)', dollarFmt(totOutstanding), '', TILE_INFO['Total debt (loans)']) + _odCard('Cash & bank', dollarFmt(totCash), '', TILE_INFO['Cash & bank']) + '</div>';
   const mini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
-    _dashMini('Companies', String(companies.length), '') + _dashMini('Total users', String(totMembers), '') +
-    _dashMini('Portfolio value', dollarFmt(totPortfolio), '') +
-    _dashMini('Unrealized P&L', dollarFmt(totPortfolio - totInvested), (totPortfolio - totInvested) >= 0 ? 'gain' : 'loss') +
-    _dashMini('Total holdings', String(totHoldings), '') + _dashMini('Total loans', String(totLoans), '') + '</div>';
+    _dashMini('Companies', String(companies.length), '', '', TILE_INFO['Companies']) + _dashMini('Total users', String(totMembers), '', '', TILE_INFO['Total users']) +
+    _dashMini('Portfolio value', dollarFmt(totPortfolio), '', '', TILE_INFO['Portfolio value']) +
+    _dashMini('Unrealized P&L', dollarFmt(totPortfolio - totInvested), (totPortfolio - totInvested) >= 0 ? 'gain' : 'loss', '', TILE_INFO['Unrealized P&L']) +
+    _dashMini('Total holdings', String(totHoldings), '', '', TILE_INFO['Total holdings']) + _dashMini('Total loans', String(totLoans), '', '', TILE_INFO['Total loans']) + '</div>';
   // Portfolio-wide health = average of the companies that have a score.
   const scored = rows.map(r => r.health).filter(h => h && h.score != null);
   const avgHealth = scored.length ? Math.round(scored.reduce((s, h) => s + h.score, 0) / scored.length) : null;
@@ -2466,7 +2543,7 @@ async function _orgDashBuild(orgId) {
       _dashMini('EBITDA (run-rate)', dollarFmt(totEBITDAAnn), '') +
       _dashMini('Gross profit (run-rate)', dollarFmt(totGrossProfitAnn), '') +
       _dashMini('Blended net margin', finPct(blended), (blended != null && blended < 0) ? 'loss' : '') +
-      _dashMini('Total net worth', _finSigned(totNetWorth), '', '(equity)') + healthTile + '</div>' +
+      _dashMini('Total net worth', _finSigned(totNetWorth), '', '(equity)', TILE_INFO['Total net worth']) + healthTile + '</div>' +
       '<div class="ht-sub" style="margin-top:6px">Each company’s latest period annualized (quarter ×4, month ×12) to a comparable yearly basis.' + mixNote + '</div>' + healthExplain + '</div>';
   } else if (avgHealth != null) {
     execFin = '<div class="dash-section"><div class="dash-section-title">Financial health</div><div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' + healthTile + '</div>' + healthExplain + '<div class="ht-sub" style="margin-top:4px">Add financial periods in each company to also unlock consolidated revenue, profit and margins.</div></div>';
@@ -2493,24 +2570,24 @@ async function _orgDashBuild(orgId) {
   // Company performance — executive table (revenue / profit / assets / net worth / health).
   const fmtHealth = h => (h && h.score != null) ? '<span style="color:' + h.color + ';font-weight:700">' + h.score + '</span> <span class="ht-sub">' + escHtml(h.band) + '</span>' : '<span class="ht-sub">—</span>';
   const tbl = '<div class="dash-section"><div class="dash-section-title">Company performance</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Company</th><th>Members</th><th>Period</th><th>Revenue</th><th>Net profit</th><th>Assets</th><th>Loans</th><th>Net worth <span class="ht-sub" style="font-weight:400">(equity)</span></th><th>Health</th></tr></thead><tbody>' +
-    (rows.length ? rows.map(r => '<tr><td class="ht-sym"><div class="holding-ticker">' + escHtml(r.name) + '</div></td><td>' + r.members + '</td><td>' + (r.hasFin ? escHtml(r.periodLabel) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? dollarFmt(r.revenue) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? '<span style="color:' + (r.netProfit >= 0 ? 'var(--green)' : 'var(--red)') + '">' + _finSigned(r.netProfit) + '</span>' : '<span class="ht-sub">—</span>') + '</td><td>' + dollarFmt(r.assets) + '</td><td>' + (r.debt ? '<span style="color:var(--red)">−' + dollarFmt(r.debt) + '</span>' : dollarFmt(0)) + '</td><td>' + _finSigned(r.netWorth) + '</td><td>' + fmtHealth(r.health) + '</td></tr>').join('') : '<tr><td colspan="9" class="ht-sub" style="padding:16px">No companies yet.</td></tr>') +
+    (rows.length ? rows.map(r => '<tr><td class="ht-sym"><div class="holding-ticker">' + escHtml(r.name) + '</div></td><td>' + r.members + '</td><td>' + (r.hasFin ? escHtml(r.periodLabel) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? dollarFmt(r.revenue) : '<span class="ht-sub">—</span>') + '</td><td>' + (r.hasFin ? '<span style="color:' + (r.netProfit >= 0 ? 'var(--green)' : 'var(--red)') + '">' + _finSigned(r.netProfit) + '</span>' : '<span class="ht-sub">—</span>') + '</td><td>' + dollarFmt(r.assets) + '</td><td>' + dollarFmt(r.debt || 0) + '</td><td>' + _finSigned(r.netWorth) + '</td><td>' + fmtHealth(r.health) + '</td></tr>').join('') : '<tr><td colspan="9" class="ht-sub" style="padding:16px">No companies yet.</td></tr>') +
     '</tbody></table></div><div class="ht-sub" style="margin-top:6px">Net worth (equity) = Assets − Loans. Revenue &amp; net profit are each company’s actual latest period (see Period); the consolidated figures above are annualized run-rates.</div></div>';
   // ── Enterprise loans (auto-consolidated across every company) ──
   let loanSection = '';
   if (totLoans > 0) {
     const entNet = totLent - totBorrowed;
     const loanMini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
-      _dashMini('Total borrowed', dollarFmt(totBorrowed), 'loss') +
-      _dashMini('Total lent', dollarFmt(totLent), 'gain') +
-      _dashMini('Outstanding principal', dollarFmt(totOutstanding), '') +
-      _dashMini('Net position', (entNet >= 0 ? '+' : '-') + dollarFmt(Math.abs(entNet)), entNet >= 0 ? 'gain' : 'loss') +
-      _dashMini('Interest payable', dollarFmt(entIntPayable), entIntPayable ? 'loss' : '') +
-      _dashMini('Interest receivable', dollarFmt(entIntRecv), entIntRecv ? 'gain' : '') +
-      _dashMini('Monthly debt obligation', dollarFmt(entMonthlyOblig), '') +
-      _dashMini('Active loans', String(entActive), '') +
-      _dashMini('Closed loans', String(entClosed), '') +
-      _dashMini('Loans due 30 / 60 / 90d', entDue30 + ' / ' + entDue60 + ' / ' + entDue90, '') +
-      _dashMini('Overdue payments', String(entOverdue), entOverdue ? 'loss' : '') +
+      _dashMini('Total borrowed', dollarFmt(totBorrowed), 'loss', '', TILE_INFO['Total borrowed']) +
+      _dashMini('Total lent', dollarFmt(totLent), 'gain', '', TILE_INFO['Total lent']) +
+      _dashMini('Outstanding principal', dollarFmt(totOutstanding), '', '', TILE_INFO['Outstanding principal']) +
+      _dashMini('Net position', (entNet >= 0 ? '+' : '-') + dollarFmt(Math.abs(entNet)), entNet >= 0 ? 'gain' : 'loss', '', TILE_INFO['Net position']) +
+      _dashMini('Interest payable', dollarFmt(entIntPayable), entIntPayable ? 'loss' : '', '', TILE_INFO['Interest payable']) +
+      _dashMini('Interest receivable', dollarFmt(entIntRecv), entIntRecv ? 'gain' : '', '', TILE_INFO['Interest receivable']) +
+      _dashMini('Monthly debt obligation', dollarFmt(entMonthlyOblig), '', '', TILE_INFO['Monthly debt obligation']) +
+      _dashMini('Active loans', String(entActive), '', '', TILE_INFO['Active loans']) +
+      _dashMini('Closed loans', String(entClosed), '', '', TILE_INFO['Closed loans']) +
+      _dashMini('Loans due 30 / 60 / 90d', entDue30 + ' / ' + entDue60 + ' / ' + entDue90, '', '', TILE_INFO['Loans due 30 / 60 / 90d']) +
+      _dashMini('Overdue payments', String(entOverdue), entOverdue ? 'loss' : '', '', TILE_INFO['Overdue payments']) +
       '</div>';
     const lrows = loanRows.filter(r => r.borrowed || r.lent || r.outstanding || r.active).sort((a, b) => b.outstanding - a.outstanding);
     const loanTbl = '<div class="ht-sub" style="margin:12px 0 4px">Company-wise loan summary</div><div class="hold-table-wrap"><table class="hold-table"><thead><tr><th class="ht-sym">Company</th><th>Borrowed</th><th>Lent</th><th>Outstanding</th><th>Monthly obligation</th><th>Active</th><th>Due ≤30d</th></tr></thead><tbody>' +
@@ -2600,10 +2677,10 @@ async function renderCompanyDashboard() {
     else { runwayMonths = a.coCash / Math.abs(monthlyNetCF); runwayLabel = runwayMonths.toFixed(1) + ' mo'; }
   }
   const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' +
-    _odCard('Net worth', dollarFmt(a.coNetWorth), '(equity) · assets − loan debt') +
-    _odCard('Total assets', dollarFmt(a.coAssets), a.coVal > 0 ? 'excl. securities' : '') +
-    _odCard('Debt (loans)', dollarFmt(a.coLiabilities)) +
-    _odCard('Cash & bank', dollarFmt(a.coCash)) + '</div>';
+    _odCard('Net worth', dollarFmt(a.coNetWorth), '(equity) · assets − loan debt', TILE_INFO['Net worth']) +
+    _odCard('Total assets', dollarFmt(a.coAssets), a.coVal > 0 ? 'excl. securities' : '', TILE_INFO['Total assets']) +
+    _odCard('Debt (loans)', dollarFmt(a.coLiabilities), '', TILE_INFO['Debt (loans)']) +
+    _odCard('Cash & bank', dollarFmt(a.coCash), '', TILE_INFO['Cash & bank']) + '</div>';
   const asOf = '<div class="ht-sub" style="margin:-6px 0 10px">Balance sheet as of ' + fmtDate(todayStr()) + (fc ? ' · P&amp;L for ' + escHtml(finPeriodLabel(latestFin)) : '') + '</div>';
   // Needs-attention strip — reuses the loan/health/liquidity signals already computed for this company.
   const alerts = [];
@@ -2618,14 +2695,14 @@ async function renderCompanyDashboard() {
   let profitability;
   if (fc) {
     const pmini = '<div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
-      _dashMini('Revenue', dollarFmt(fc.revenue), '', pfc ? _finDelta(fc.revenue, pfc.revenue) : '') +
-      _dashMini('Net profit', _finSigned(fc.netProfit), fc.netProfit >= 0 ? 'gain' : 'loss', pfc ? _finDelta(fc.netProfit, pfc.netProfit) : '') +
-      _dashMini('EBITDA', dollarFmt(fc.ebitda), '', pfc ? _finDelta(fc.ebitda, pfc.ebitda) : '') +
-      _dashMini('Net margin', finPct(fc.netMargin), (fc.netMargin != null && fc.netMargin < 0) ? 'loss' : '') +
-      _dashMini('Gross profit', dollarFmt(fc.grossProfit), '') +
-      _dashMini('Operating income', dollarFmt(fc.ebit), '') +
-      _dashMini('Net cash flow', _finSigned(fc.netCF), fc.netCF >= 0 ? 'gain' : 'loss') +
-      _dashMini('Cash runway', runwayLabel, (runwayMonths != null && runwayMonths < 3) ? 'loss' : (runwayLabel === 'Cash-flow positive' ? 'gain' : '')) +
+      _dashMini('Revenue', dollarFmt(fc.revenue), '', pfc ? _finDelta(fc.revenue, pfc.revenue) : '', TILE_INFO['Revenue']) +
+      _dashMini('Net profit', _finSigned(fc.netProfit), fc.netProfit >= 0 ? 'gain' : 'loss', pfc ? _finDelta(fc.netProfit, pfc.netProfit) : '', TILE_INFO['Net profit']) +
+      _dashMini('EBITDA', dollarFmt(fc.ebitda), '', pfc ? _finDelta(fc.ebitda, pfc.ebitda) : '', TILE_INFO['EBITDA']) +
+      _dashMini('Net margin', finPct(fc.netMargin), (fc.netMargin != null && fc.netMargin < 0) ? 'loss' : '', '', TILE_INFO['Net margin']) +
+      _dashMini('Gross profit', dollarFmt(fc.grossProfit), '', '', TILE_INFO['Gross profit']) +
+      _dashMini('Operating income', dollarFmt(fc.ebit), '', '', TILE_INFO['Operating income']) +
+      _dashMini('Net cash flow', _finSigned(fc.netCF), fc.netCF >= 0 ? 'gain' : 'loss', '', TILE_INFO['Net cash flow']) +
+      _dashMini('Cash runway', runwayLabel, (runwayMonths != null && runwayMonths < 3) ? 'loss' : (runwayLabel === 'Cash-flow positive' ? 'gain' : ''), '', TILE_INFO['Cash runway']) +
       '</div>';
     const budgetLine = (fc.budRev || fc.budExp) ? (function () { const rv = fc.revenue - fc.budRev, ev = fc.opExpenses - fc.budExp; return '<div class="ht-sub" style="margin-top:6px">Vs budget — revenue <span style="color:' + (rv >= 0 ? 'var(--green)' : 'var(--red)') + '">' + (rv >= 0 ? '+' : '−') + dollarFmt(Math.abs(rv)) + '</span>, operating costs <span style="color:' + (ev <= 0 ? 'var(--green)' : 'var(--red)') + '">' + (ev <= 0 ? '−' : '+') + dollarFmt(Math.abs(ev)) + '</span> vs plan.</div>'; })() : '';
     profitability = '<div class="dash-section"><div class="dash-section-title">Revenue &amp; profitability <span class="ht-sub" style="font-weight:400">— ' + escHtml(finPeriodLabel(latestFin)) + (priorFin ? ' vs ' + escHtml(finPeriodLabel(priorFin)) : '') + '</span></div>' + pmini + budgetLine +
@@ -2637,15 +2714,15 @@ async function renderCompanyDashboard() {
   }
   const trend = _finBarChart(financials || []);
   const mini = '<div class="dash-section"><div class="dash-section-title">Operating snapshot</div><div class="dash-mini-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">' +
-    _dashMini('Real estate', dollarFmt(a.coRealEstate), '') +
-    _dashMini('Portfolio value', dollarFmt(a.coVal), '') +
-    _dashMini('Unrealized P&L', (net >= 0 ? '+' : '-') + dollarFmt(Math.abs(net)), net >= 0 ? 'gain' : 'loss') +
-    _dashMini('Loans outstanding', dollarFmt(a.coOut), a.coOut ? 'loss' : '') +
-    _dashMini('Monthly debt obligation', dollarFmt(a.coMonthly), '') +
-    _dashMini('Active loans', String(a.coActive), '') +
-    _dashMini('Assets tracked', String(a.coAssetCount), '') +
-    _dashMini('Holdings', String(a.coHold), '') +
-    _dashMini('Members', String(memberCount), '') + '</div></div>';
+    _dashMini('Real estate', dollarFmt(a.coRealEstate), '', '', TILE_INFO['Real estate']) +
+    _dashMini('Portfolio value', dollarFmt(a.coVal), '', '', TILE_INFO['Portfolio value']) +
+    _dashMini('Unrealized P&L', (net >= 0 ? '+' : '-') + dollarFmt(Math.abs(net)), net >= 0 ? 'gain' : 'loss', '', TILE_INFO['Unrealized P&L']) +
+    _dashMini('Loans outstanding', dollarFmt(a.coOut), a.coOut ? 'loss' : '', '', TILE_INFO['Loans outstanding']) +
+    _dashMini('Monthly debt obligation', dollarFmt(a.coMonthly), '', '', TILE_INFO['Monthly debt obligation']) +
+    _dashMini('Active loans', String(a.coActive), '', '', TILE_INFO['Active loans']) +
+    _dashMini('Assets tracked', String(a.coAssetCount), '', '', TILE_INFO['Assets tracked']) +
+    _dashMini('Holdings', String(a.coHold), '', '', TILE_INFO['Holdings']) +
+    _dashMini('Members', String(memberCount), '', '', TILE_INFO['Members']) + '</div></div>';
   // Deterministic AI CFO summary for this company (cost-free, from the figures already computed).
   const _cb = [];
   _cb.push('Net worth <b>' + _finSigned(a.coNetWorth) + '</b> on ' + dollarFmt(a.coAssets) + ' assets and ' + dollarFmt(a.coLiabilities) + ' loan debt.');
@@ -7975,7 +8052,7 @@ async function deleteLoanDoc(loanId, idx) {
 }
 
 // ── Dashboard ──
-function _dashMini(label, val, cls, sub) { return '<div class="dash-mini' + (cls ? ' ' + cls : '') + '"><div class="dash-mini-label">' + label + '</div><div class="dash-mini-val' + (cls === 'gain' ? ' pos' : cls === 'loss' ? ' neg' : '') + '">' + val + '</div>' + (sub ? '<div class="ht-sub" style="margin-top:2px">' + sub + '</div>' : '') + '</div>'; }
+function _dashMini(label, val, cls, sub, info) { return '<div class="dash-mini' + (cls ? ' ' + cls : '') + '"><div class="dash-mini-label">' + label + _infoDot(info) + '</div><div class="dash-mini-val' + (cls === 'gain' ? ' pos' : cls === 'loss' ? ' neg' : '') + '">' + val + '</div>' + (sub ? '<div class="ht-sub" style="margin-top:2px">' + sub + '</div>' : '') + '</div>'; }
 // Period-over-period delta chip (arrow + % when the prior base is positive, else direction only).
 function _finDelta(cur, prev) {
   if (prev == null || !isFinite(prev)) return '';
