@@ -1,0 +1,921 @@
+{
+ "market": {
+  "state": "UPTREND INTACT - BROAD GIVE-BACK, REAL ASSETS THE ONLY BID",
+  "advice": "The index held and almost everything underneath it slipped. SPY closed at 762.78, down about 0.8%, 1.9% off its high but still comfortably above a rising 50-day at 750.72 with the distribution-day count at zero, so the trend structure is untouched. The internals are a different story. QQQ closed at 710.93, down 0.7%, and is now BELOW its 50-day for the first time in this leg. Breadth fell from 57% to 51% of the 474 scanned names above their 50-day, VIX ticked up to 16.0 against a 15.2 five-day average, and the signal migration was decisively one-sided: 65 names downgraded, only 26 upgraded, leaving 152 STRONG BUY, 144 WATCH and 178 WEAK. Nine of eleven sectors closed red. This is not damage, it is narrowing - and narrowing is what you manage, not what you panic about. What actually happened is that yesterday's two big trades were both partly unwound. Healthcare, which averaged +5.4% yesterday, gave back -1.6% today, and the giveback was concentrated exactly where the froth was: MRNA -23.5% after Tuesday's +177% vaccine spike, ISRG -5.8%, BSX -5.1%, SYK -3.6%. If you did not chase Moderna, this cost you nothing, which is the whole point. Banks kept falling for a second session - Financial Services -0.9% with COF -3.7%, SYF -3.6%, LNC -3.5% - so yesterday's read that lower yields hand you a risk-defined entry in the highest-scoring banks has NOT worked yet. JPM still scores 92.2 with an RSI of 50.3, but TradingView rates it a flat NEUTRAL at 8 buy / 10 neutral / 8 sell, and two down days in a row on the group means the pullback is still a pullback and not yet a base. That is marked WATCH rather than STRONG BUY for exactly that reason. Consumer took a real hit: WMT fell 9.2% on 3.31x average volume on its earnings print, COTY -9.6%, and Consumer Cyclical was the second-worst sector at -1.6%. Three groups closed green and all three are real assets. Basic Materials led at +0.7%, driven by an agricultural complex that woke up on Deere's earnings - DE +6.9% on 2.54x volume, CF +5.6%, MOS +5.0%, BG +2.2%, with CTVA upgrading off the bottom. FCX +3.1% printed a new 52-week high and gold followed (NEM +2.1%). Energy added +0.5% and remains the single best group in the market, converting 15 of 20 names to STRONG BUY - 75%, unchanged and still the highest on the board - with COP +3.3%, OXY +2.4%, DVN +2.3%, APA +2.2%, EOG +1.8%, TRGP +1.8%, LNG +1.8%. The catalyst is not technical: Bessent said the US will impose its toughest-ever sanctions on Iran and pressed China to cooperate, the Houthis struck Najran airport and Aramco facilities inside Saudi Arabia, a tanker off Yemen was boarded and diverted toward Somalia, and Aramco is now selling cargoes that load outside Hormuz. Supply risk is escalating, not resolving. Real Estate scraped +0.1% on data-center strength (ARE +4.7%). The one bright spot in technology was memory and networking silicon bouncing off deeply oversold levels - MRVL +5.8%, MU +4.0%, STX +2.1% - but the semicap group did not participate (AMAT flat, KLAC -0.8%, AMAT still -31% from its high), so treat the bounce as a bounce until semicap confirms. Cybersecurity kept bleeding (CRWD -5.6%, ZS -5.2%). Sector conversion into the next session reads Energy 75%, Basic Materials 58%, Healthcare 42%, Industrials 36%, Consumer Defensive 34%, Financials 32%, Technology 28%, Consumer Cyclical 25%, Real Estate 18%, Communication Services 17% and Utilities 9%. How to trade it: keep normal position sizing, because the index has not given a single distribution day and sits above a rising 50-day. But buy where the money is actually going rather than where it left. Energy and materials are the only groups where price, breadth and a live external catalyst all point the same way, and inside energy the correct choice is the least-extended name, not the highest score - APA is 23.6% above its 50-day and MPC 21.5% above, which is why both are WATCH here despite scores of 92 and 93. Do not buy the healthcare giveback yet; the two names that led yesterday are the two that hurt most today. Leave semicap alone until the group stops making lower lows. And respect the calendar - the next fifteen sessions carry a dense earnings cluster (SJM 6 days, then NVDA, CRM, A, DLTR and CRWD at 7, MRVL, WDAY and RBRK at 8, SAIC 11, PANW and DELL 13, NTAP, SNOW, CPB and HPE 14). NVDA reports in seven days and it is the whole market's binary event, which is why a 90.7-score name with 214% EPS growth and a 16.7x forward multiple is on the watch list instead of the buy list."
+ },
+ "picks": [
+  {
+   "ticker": "EOG",
+   "signal": "STRONG BUY",
+   "score": 93,
+   "grade": "A+",
+   "entry": 152.21,
+   "stop": 140.03,
+   "target": 182.65,
+   "thesis": "The single best-shaped setup in the entire 474-name scan. EOG closed at 152.21, which IS its 52-week high, and it did so with an RSI of only 54.5 - a new high reached from the middle of the momentum range rather than the top of it, meaning the move has room before it is technically stretched. It sits just 10.1% above its 50-day at 138.24, the least-extended position of any high-scoring energy name, on a confirmed VCP of 5 contractions tightening to 9.7%. TradingView independently rates it STRONG BUY at 16 buy / 10 neutral / 0 sell - zero sell votes, full agreement with our read.",
+   "strengths": [
+    "Closed exactly at a new 52-week high of 152.21 with RSI at only 54.5 - the rarest combination in the scan",
+    "EPS growth +109.4% and revenue growth +58.7% on a forward P/E of 10.4 - the cheapest growth on the board",
+    "Only 10.1% above its 50-day, versus APA at +23.6% and MPC at +21.5%, so a structural stop is close enough to keep risk honest",
+    "TradingView STRONG BUY 16/10/0 - not a single sell vote among 26 indicators",
+    "No scheduled earnings date inside the risk window, unlike most of the market's top scores",
+    "Energy converts 15 of 20 names to STRONG BUY (75%), the highest of any sector for a second straight session"
+   ],
+   "risks": [
+    "The entire thesis rests on a geopolitical supply premium - if Iran de-escalates, crude gives back and this trade goes with it",
+    "Volume at 0.67x average on the breakout day is adequate but not conviction; a real breakout wants expansion",
+    "Short interest is only 3.5%, so there is no squeeze fuel to help the move along",
+    "Energy has now led for several sessions; the group is early-mature, not early"
+   ],
+   "watch": [
+    "Whether it clears and holds 152.21 rather than stalling at the old high",
+    "The 50-day at 138.24 as the line that invalidates the setup",
+    "Crude's reaction to the next headline out of Hormuz - the sanctions story is the driver",
+    "Volume expansion above 1.0x on any move through the high"
+   ]
+  },
+  {
+   "ticker": "OXY",
+   "signal": "STRONG BUY",
+   "score": 92,
+   "grade": "A+",
+   "entry": 61.51,
+   "stop": 56.59,
+   "target": 73.82,
+   "thesis": "A 91.7 score with the most extreme earnings leverage in the scan: EPS growth of 964.9% and revenue growth of 53.4% on a 16.1x forward multiple. It closed up 2.36% at 61.51, 6.7% below its 52-week high of 65.94, on a textbook VCP of 5 contractions tightening to 2.3% - a 2.3% tightest contraction is a coiled spring, not a drift. RSI 65.9 leaves headroom. TradingView rates it STRONG BUY at 16/9/1, so the second opinion agrees.",
+   "strengths": [
+    "EPS growth +964.9% and revenue +53.4% - the highest operating leverage to a rising crude price in the scan",
+    "VCP with 5 contractions tightening to 2.3%, the tightest coil among the energy leaders",
+    "12.4% above the 50-day at 54.70 - extended but far less so than APA or MPC",
+    "TradingView STRONG BUY 16/9/1",
+    "No scheduled earnings date inside the window",
+    "Rose +2.36% on a day nine of eleven sectors closed red - relative strength on a down tape"
+   ],
+   "risks": [
+    "964.9% EPS growth is a base-effect number off a depressed prior year, not a durable growth rate",
+    "Carries the most leverage of the large-cap E&Ps, so it falls hardest if crude reverses",
+    "Zero short interest means no squeeze support",
+    "Still 6.7% below its high, so this is a continuation entry, not a breakout"
+   ],
+   "watch": [
+    "The 65.94 prior high as the objective that confirms the VCP resolved upward",
+    "The 50-day at 54.70 as the invalidation line",
+    "Whether the 2.3% contraction resolves up or breaks down - tight coils move fast either way"
+   ]
+  },
+  {
+   "ticker": "DVN",
+   "signal": "STRONG BUY",
+   "score": 86,
+   "grade": "A",
+   "entry": 49.29,
+   "stop": 45.35,
+   "target": 59.15,
+   "thesis": "The cheapest way to own the energy trade: a 9.1x forward multiple with EPS growth of 44.0% and revenue growth of 64.2%. Devon closed +2.28% at 49.29, only 4.7% from its 52-week high, on a six-contraction VCP tightening to 2.2% - the tightest base of any name we are buying. RSI 66.6 with the stock 12.5% over its 50-day. TradingView has no rating on it, so this one stands on our read and the fundamentals alone rather than on confirmation.",
+   "strengths": [
+    "Forward P/E of 9.1 with 64.2% revenue growth - the best value-to-growth ratio in the energy group",
+    "Six VCP contractions tightening to 2.2%, the tightest coil in the buy list",
+    "Only 4.7% below its 52-week high of 51.70 after a +2.28% session",
+    "Rose while Financials, Industrials, Healthcare and Consumer Cyclical all fell more than 0.9%"
+   ],
+   "risks": [
+    "TradingView returns no rating for DVN, so there is no independent technical cross-check here",
+    "Earnings are 77 days out, which is clean, but the crude tape can move faster than the fundamentals",
+    "A pure commodity price-taker with no midstream or refining buffer",
+    "12.5% above its 50-day - a normal pullback would be a 4-5% drawdown"
+   ],
+   "watch": [
+    "The 51.70 high as the trigger level",
+    "The 50-day at 43.80 as the stop-out zone",
+    "Whether the group's leadership rotates from E&P to refiners, which would leave DVN behind"
+   ]
+  },
+  {
+   "ticker": "OKE",
+   "signal": "STRONG BUY",
+   "score": 90,
+   "grade": "A+",
+   "entry": 94.57,
+   "stop": 87.0,
+   "target": 113.48,
+   "thesis": "Energy exposure without the extension. ONEOK scores 89.7 and closed at 94.57, only 2.6% below its 52-week high, yet it sits just 5.8% above its 50-day - by far the least-stretched high-scoring energy name in the scan. A midstream toll-road business with 52.8% revenue growth on a 15.0x forward multiple means the earnings do not depend on where crude prints next week, only on volumes moving through the system. It closed -1.50% today, which is what makes the entry rather than spoils it. TradingView rates it BUY at 14/8/4.",
+   "strengths": [
+    "Only 5.8% above its 50-day at 89.41 - the least-extended energy leader, so the stop is genuinely tight",
+    "Revenue growth of 52.8% on a 15.0x forward P/E in a fee-based midstream model",
+    "VCP with 4 contractions tightening to 3.7% and price 2.6% from the 52-week high",
+    "TradingView BUY 14/8/4 confirms the trend without calling it overbought",
+    "Sold off 1.5% today, offering entry into strength rather than chasing it"
+   ],
+   "risks": [
+    "TradingView shows 4 sell votes, more than EOG or OXY carry - the confirmation is softer",
+    "Midstream lags on a sharp crude spike, so it will underperform E&Ps if the geopolitical premium expands fast",
+    "Short interest of 5.3% is the highest in our energy group",
+    "Rate-sensitive: a yield-driven, distribution-paying structure sells off when the long end backs up"
+   ],
+   "watch": [
+    "The 97.07 high as the level that confirms",
+    "The 50-day at 89.41 - only 5.8% away, which is the whole appeal",
+    "Whether the -1.5% session extends to a third day, which would question the group's leadership"
+   ]
+  },
+  {
+   "ticker": "TRGP",
+   "signal": "STRONG BUY",
+   "score": 93,
+   "grade": "A+",
+   "entry": 302.3,
+   "stop": 278.12,
+   "target": 362.76,
+   "thesis": "A 93.3 score - the second-highest in the scan - and it closed AT its 52-week high of 302.30, up 1.75%, on 1.34x average volume. That volume matters: it is the only name in our energy list that broke to a new high on genuine volume expansion rather than on a quiet drift. RSI 69.6 is warm but not extreme, and the stock is 11.5% above its 50-day at 271.10. TradingView rates it BUY at 14/9/3.",
+   "strengths": [
+    "New 52-week high at 302.30 on 1.34x volume - the only volume-confirmed energy breakout in the list",
+    "Score of 93.3, second-highest of 474 names scanned",
+    "Rose +1.75% while nine of eleven sectors closed red",
+    "VCP of 4 contractions tightening to 5.0%, resolving upward",
+    "Earnings 77 days out - no binary event inside the risk window"
+   ],
+   "risks": [
+    "A 25.0x forward multiple on only 4.2% revenue growth - the most expensive energy name here relative to its growth",
+    "RSI 69.6 is the warmest in our energy buys; it is closer to overbought than EOG or DVN",
+    "TradingView carries 3 sell votes, so the cross-check is good rather than emphatic",
+    "11.5% above the 50-day means the structural stop is a real 8% away"
+   ],
+   "watch": [
+    "Whether 302.30 holds as support on the first pullback attempt - new highs that fail back through are the warning",
+    "The 50-day at 271.10 as invalidation",
+    "NGL volume and processing spreads rather than the crude headline, since this is a gathering business"
+   ]
+  },
+  {
+   "ticker": "MPC",
+   "signal": "WATCH",
+   "score": 93,
+   "grade": "A",
+   "entry": 358.33,
+   "stop": 329.66,
+   "target": 430.0,
+   "thesis": "The third-highest score in the scan at 93.1 with EPS growth of 348.0% and revenue growth of 53.7% on an 11.1x forward multiple - and it is on the watch list purely because of where it sits, not what it is. Marathon closed at 358.33, 21.5% above its 50-day at 294.81. That is a full-blown extension: a normal mean-reversion move is a 15% drawdown from here, and there is no version of a stop on this chart that is both structural and tight. TradingView rates it BUY at 14/6/6 - note the 6 sell votes, the softest confirmation of any energy name we looked at.",
+   "strengths": [
+    "Score 93.1 with EPS +348.0% and revenue +53.7% on an 11.1x forward P/E",
+    "Only 1.9% below its 52-week high of 365.21 - the trend is entirely intact",
+    "Refining margins are the direct beneficiary of a Hormuz supply disruption",
+    "Earnings 75 days out"
+   ],
+   "risks": [
+    "21.5% above its 50-day - the most extended name in our entire energy coverage after APA",
+    "TradingView shows 6 sell votes against 14 buys, the weakest confirmation in the group",
+    "RSI 69.6 combined with the extension means any crude reversal produces an outsized drawdown",
+    "A refiner's crack spread can compress even while crude rises, which breaks the correlation traders assume"
+   ],
+   "watch": [
+    "A pullback toward 320-330 that would make the risk-reward honest again",
+    "The 50-day at 294.81 - far below, which is the problem",
+    "Whether TradingView's 6 sell votes grow, which would flag the oscillators rolling over"
+   ]
+  },
+  {
+   "ticker": "APA",
+   "signal": "WATCH",
+   "score": 92,
+   "grade": "A",
+   "entry": 44.39,
+   "stop": 40.84,
+   "target": 53.27,
+   "thesis": "A 92.1 score, a close AT its 52-week high of 44.39, seven VCP contractions tightening to 2.6%, and 11.3% of the float short - on paper this is the most explosive setup in energy. It is on the watch list because it closed 23.6% above its 50-day at 35.90 with an RSI of 74.4. Buying a stock that is nearly a quarter above its 50-day into an overbought oscillator is chasing, whatever the score says. TradingView rates it BUY at 15/9/2.",
+   "strengths": [
+    "New 52-week high at 44.39 with 7 VCP contractions tightening to 2.6%",
+    "11.3% short interest - genuine squeeze fuel, the highest of any energy name in the scan",
+    "EPS +26.3%, revenue +9.2%, forward P/E only 10.6",
+    "TradingView BUY 15/9/2",
+    "Earnings 77 days out"
+   ],
+   "risks": [
+    "23.6% above its 50-day and RSI 74.4 - the most extended energy name in the scan",
+    "There is no structural stop that is not 20%+ away; any tight stop is arbitrary and will be hit on noise",
+    "11.3% short interest cuts both ways - it unwinds violently if crude turns",
+    "Already up +2.16% today into that extension"
+   ],
+   "watch": [
+    "A pullback into the 39-41 zone, which would offer the same setup with a defensible stop",
+    "Whether RSI cools below 65 while price holds above 42",
+    "The 50-day at 35.90 as the real, distant invalidation line"
+   ]
+  },
+  {
+   "ticker": "FCX",
+   "signal": "STRONG BUY",
+   "score": 93,
+   "grade": "A+",
+   "entry": 71.26,
+   "stop": 65.56,
+   "target": 85.51,
+   "thesis": "Freeport closed +3.14% at 71.26, within 0.4% of its 52-week high of 71.55, on 1.14x volume - a volume-confirmed push to a new high in the only sector that closed green as a group. RSI 68.0 leaves headroom, the stock is 10.8% above its 50-day at 64.31, and the base is a six-contraction VCP tightening to 3.0%. TradingView rates it STRONG BUY at 17 buy / 9 neutral / 0 sell - the strongest independent confirmation of any name in this list.",
+   "strengths": [
+    "TradingView STRONG BUY 17/9/0 - zero sell votes, the most emphatic cross-check on the board",
+    "Rose +3.14% on 1.14x volume into a new 52-week high while nine sectors fell",
+    "Basic Materials was the best sector today at +0.7% and converts 58% of its names to STRONG BUY, second only to Energy",
+    "No scheduled earnings date inside the risk window",
+    "Six-contraction VCP tightening to 3.0% resolving upward",
+    "Copper is a direct beneficiary of both the AI power-buildout and any dollar weakness"
+   ],
+   "risks": [
+    "Revenue growth is NEGATIVE at -7.3% - this is a price-of-copper trade, not an operating-momentum one",
+    "A 17.3x forward multiple on shrinking revenue is only justified if the commodity keeps rising",
+    "Miners carry jurisdictional risk that no technical setup prices",
+    "Only 2.0% short interest, so no squeeze support"
+   ],
+   "watch": [
+    "Whether it clears 71.55 and holds, rather than double-topping there",
+    "The 50-day at 64.31 as the invalidation line",
+    "Copper spot alongside gold - if NEM (RSI 83.9) breaks, the whole metals bid is at risk",
+    "Volume above 1.14x on the breakout through the high"
+   ]
+  },
+  {
+   "ticker": "CF",
+   "signal": "STRONG BUY",
+   "score": 83,
+   "grade": "A",
+   "entry": 125.68,
+   "stop": 115.63,
+   "target": 150.82,
+   "thesis": "The cleanest way to own today's actual rotation. The agricultural complex woke up on Deere's earnings and CF closed +5.60% at 125.68 - yet its RSI is only 51.5, dead in the middle of the range. It upgraded outright from WEAK to STRONG BUY on the scan's own math. A 5.6% move that leaves the momentum oscillator at 51.5 means the group is starting from a base, not finishing a run, and that is the opposite of what healthcare offered yesterday. EPS growth is +99.6% on a 12.0x forward multiple. TradingView carries no rating, so this rests on our read.",
+   "strengths": [
+    "Upgraded WEAK to STRONG BUY today - the highest-scoring of the 26 upgrades in a session with 65 downgrades",
+    "Rose +5.60% and STILL has an RSI of only 51.5 - the un-extended entry into a group that just turned",
+    "EPS growth +99.6% and revenue +17.6% on a 12.0x forward P/E",
+    "Part of a genuine group move: DE +6.9%, MOS +5.0%, BG +2.2%, CTVA upgrading off the bottom",
+    "Earnings 77 days out, so the position is not carrying a print",
+    "Only 9.2% above its 50-day at 115.09, leaving a defensible stop"
+   ],
+   "risks": [
+    "TradingView returns no rating for CF - there is no independent technical confirmation of this call",
+    "No clear VCP pattern; the base is less refined than the energy names we are buying",
+    "Still 7.8% below its 52-week high of 136.34, so this is a recovery entry rather than a breakout",
+    "Nitrogen pricing depends on natural gas input costs, and gas moves with the same geopolitical tape",
+    "One day of ag strength off a single earnings report is a hypothesis, not a trend"
+   ],
+   "watch": [
+    "Whether the ag complex follows through for a second session - one day off DE's print proves nothing",
+    "The 136.34 prior high as the objective",
+    "The 50-day at 115.09 as invalidation",
+    "6.3% short interest - modest but the largest in our materials names"
+   ]
+  },
+  {
+   "ticker": "DE",
+   "signal": "STRONG BUY",
+   "score": 85,
+   "grade": "A",
+   "entry": 620.89,
+   "stop": 571.22,
+   "target": 745.07,
+   "thesis": "Deere reported and closed +6.93% at 620.89 on 2.54x average volume - the largest volume expansion of any gainer in the scan and the trigger for the whole agricultural move. It upgraded WEAK to STRONG BUY on the print. RSI 60.1 is unstretched, the stock is only 2.9% above its 50-day at 603.12, and there is a six-contraction VCP tightening to 6.5% behind it. Crucially, the earnings event is now BEHIND the stock rather than in front of it, which is rare among this scan's high scores. TradingView has no rating, so the volume and the price action carry this one.",
+   "strengths": [
+    "+6.93% on 2.54x volume - the highest-conviction volume signature in the entire session",
+    "Upgraded WEAK to STRONG BUY on the print, and dragged CF, MOS, BG and CTVA with it",
+    "Earnings risk is now retired - the print is done, unlike NVDA, CRM, MRVL and 16 other high scorers",
+    "Only 2.9% above its 50-day at 603.12, so the structural stop is unusually close for a post-earnings gap",
+    "RSI 60.1 after a 7% day - the move did not exhaust the oscillator"
+   ],
+   "risks": [
+    "EPS growth is -8.5% and revenue growth -11.1% - the market bought a bottom, not growth, and it may be early",
+    "A 27.8x forward multiple on contracting revenue is a full price for a cyclical trough call",
+    "TradingView returns no rating, so nothing independently confirms this",
+    "Post-earnings gaps fill more often than they extend; the first pullback is the real test",
+    "Still 5.8% below its 52-week high of 658.85"
+   ],
+   "watch": [
+    "Whether the gap holds on the next down day - a fill back below 603 breaks the thesis",
+    "Whether CF, MOS and CTVA confirm the group for a second session",
+    "The 50-day at 603.12, only 2.9% below, as a clean invalidation line",
+    "Farm credit and crop-price commentary, which is what a 27.8x multiple on falling revenue is really betting on"
+   ]
+  },
+  {
+   "ticker": "CSX",
+   "signal": "STRONG BUY",
+   "score": 93,
+   "grade": "A+",
+   "entry": 50.97,
+   "stop": 46.89,
+   "target": 61.16,
+   "thesis": "Industrials averaged -1.07% today and the rails closed GREEN - CSX +0.57%, NSC +0.29%, UNP +0.74%. That is a group holding its ground while its sector sells off, which is the definition of relative strength. CSX scores 92.7 with an RSI of 56.0, sits 4.2% below its 52-week high and only 3.4% above its 50-day at 49.29, on a four-contraction VCP tightening to 2.3%. TradingView rates it STRONG BUY at 15 buy / 10 neutral / 1 sell. Earnings are 64 days out.",
+   "strengths": [
+    "Rose while its own sector fell 1.07% - and both other Class I rails (UNP +0.74%, NSC +0.29%) did the same, confirming a group move",
+    "TradingView STRONG BUY 15/10/1",
+    "Only 3.4% above its 50-day at 49.29 - the tightest structural stop of any 92+ score in the scan",
+    "RSI 56.0 with EPS +22.7% and revenue +10.1%, a 22.4x forward multiple",
+    "VCP of 4 contractions tightening to 2.3%",
+    "Earnings 64 days out - no print inside the window"
+   ],
+   "risks": [
+    "Rail volumes are a real-economy proxy, and WMT falling 9.2% on its print is not a vote of confidence in freight demand",
+    "A 22.4x multiple on 10% revenue growth is not cheap for a regulated transport asset",
+    "Still 4.2% below the 53.23 high, so this is a continuation setup",
+    "Only 2.0% short interest - no squeeze fuel"
+   ],
+   "watch": [
+    "Whether 53.23 is taken out on the next attempt",
+    "The 50-day at 49.29 as invalidation - only 3.4% away",
+    "Whether the rails hold as a group; if UNP and NSC roll over, CSX will not hold alone",
+    "Freight and intermodal volume data as the fundamental confirmation"
+   ]
+  },
+  {
+   "ticker": "IEX",
+   "signal": "STRONG BUY",
+   "score": 92,
+   "grade": "A",
+   "entry": 233.64,
+   "stop": 214.95,
+   "target": 280.37,
+   "thesis": "A quiet 92.0-score industrial that nobody is talking about: RSI 55.1, 2.9% below its 52-week high, only 3.0% above its 50-day at 226.93, on a four-contraction VCP tightening to 1.9% - the tightest contraction in the entire buy list. That combination is what a base looks like right before it resolves. IDEX barely moved today (-0.35%) while its sector fell 1.07%. TradingView rates it BUY at 12/10/4. Earnings 69 days out.",
+   "strengths": [
+    "VCP tightening to 1.9%, the tightest coil of any name we are buying",
+    "Only 3.0% above its 50-day at 226.93 - a genuinely tight, structural stop",
+    "RSI 55.1 with the stock 2.9% from its high: un-extended, not overbought",
+    "Held flat while Industrials averaged -1.07%",
+    "Earnings 69 days out"
+   ],
+   "risks": [
+    "Growth is modest - EPS +10.9% and revenue +6.4% on a 24.4x forward multiple, so there is no earnings tailwind to force the move",
+    "TradingView shows 4 sell votes against 12 buys; the weakest confirmation among our industrials",
+    "A 1.9% contraction can resolve in either direction, and tight coils break down as fast as they break out",
+    "Low-liquidity mid-cap relative to the rails - it will gap on any surprise"
+   ],
+   "watch": [
+    "Resolution of the 1.9% contraction - direction, on volume",
+    "The 240.52 high as the objective",
+    "The 50-day at 226.93 as the invalidation line"
+   ]
+  },
+  {
+   "ticker": "ILMN",
+   "signal": "STRONG BUY",
+   "score": 93,
+   "grade": "A+",
+   "entry": 213.24,
+   "stop": 196.18,
+   "target": 255.89,
+   "thesis": "Yesterday this was the best-shaped setup in the scan and today it proved it. Healthcare gave back -1.61% as a sector, MRNA fell 23.5% and ISRG fell 5.8% - and Illumina rose +4.02% to close at 213.24, which is a NEW 52-week high, on 1.57x average volume. RSI is still only 56.2. A stock making a new high on expanding volume while its own sector unwinds is being accumulated, not chased. TradingView rates it STRONG BUY at 16 buy / 10 neutral / 0 sell - zero sell votes.",
+   "strengths": [
+    "New 52-week high at 213.24 on 1.57x volume while its sector fell 1.61% - the cleanest relative-strength signal in the scan",
+    "RSI only 56.2 at a new high, so the move is not technically stretched",
+    "Second consecutive session of confirmation; this was our top call yesterday and it delivered +4.0%",
+    "TradingView STRONG BUY 16/10/0 - no sell votes",
+    "Six-contraction VCP tightening to 2.5%",
+    "Earnings 71 days out - no binary event in the window",
+    "8.7% short interest provides genuine squeeze fuel on continuation"
+   ],
+   "risks": [
+    "Revenue growth is only 9.4% and EPS growth is NEGATIVE at -9.4% - this is a technical and turnaround story, not fundamental momentum",
+    "A 35.0x forward multiple is a full price for single-digit growth",
+    "Now 14.4% above its 50-day at 186.40 - the extension has built up over two sessions and the stop is no longer tight",
+    "It has run 4% in a day and 8.9% the day before; a consolidation here is more likely than an immediate third leg",
+    "8.7% short interest also means a sharp unwind if the sequencing recovery disappoints"
+   ],
+   "watch": [
+    "Whether it holds above 205 - the prior high, now the line that must become support",
+    "Whether volume stays above 1.0x on any continuation",
+    "The 50-day at 186.40 as the real invalidation line",
+    "Consumables pull-through commentary on the NovaSeq X installed base"
+   ]
+  },
+  {
+   "ticker": "LLY",
+   "signal": "STRONG BUY",
+   "score": 93,
+   "grade": "A+",
+   "entry": 1245.69,
+   "stop": 1146.03,
+   "target": 1494.83,
+   "thesis": "A 92.8 score with EPS growth of 26.2% and revenue growth of 47.7% - real, durable fundamental momentum rather than a base effect - and it just handed you a 2.71% pullback. Lilly closed at 1245.69, 2.7% below its 52-week high, with RSI 63.8 and the stock only 6.0% above its 50-day at 1175.72. The seven-contraction VCP tightening to 4.1% is intact. TradingView rates it BUY at 14/9/3. Buying the largest healthcare franchise on a down day in a sector that just gave back 1.6% is the risk-defined way to own the group.",
+   "strengths": [
+    "Revenue +47.7% and EPS +26.2% - genuine growth at scale, not a recovery base effect",
+    "Fell 2.71% today, offering entry 2.7% below the high rather than at it",
+    "Only 6.0% above its 50-day at 1175.72, so the structural stop is defensible",
+    "Seven-contraction VCP tightening to 4.1%",
+    "Earnings 70 days out",
+    "Only 1.0% short interest - the position is not crowded on the bear side"
+   ],
+   "risks": [
+    "TradingView rates it BUY, not STRONG BUY, with 3 sell votes - solid but not emphatic confirmation",
+    "A 26.3x forward multiple prices in continued GLP-1 dominance with no share loss",
+    "It fell on a day the sector fell; if healthcare's giveback extends to a third session this goes with it",
+    "The single largest weight in the group means it cannot outrun a sector unwind"
+   ],
+   "watch": [
+    "Whether the 1175.72 50-day holds on any extension of the healthcare selloff",
+    "The 1280.34 high as the objective",
+    "Competitive obesity-drug headlines, which are the only thing that re-rates this multiple",
+    "Whether healthcare's -1.6% day extends or stabilises"
+   ]
+  },
+  {
+   "ticker": "DXCM",
+   "signal": "STRONG BUY",
+   "score": 90,
+   "grade": "A",
+   "entry": 90.22,
+   "stop": 83.0,
+   "target": 108.26,
+   "thesis": "The healthcare name that went UP while its sector went down without needing a headline to do it. DexCom closed +0.38% at 90.22, just 1.4% below its 52-week high of 91.48, with RSI 65.7 and EPS growth of 43.6% on revenue growth of 13.1%. It scores 90.2. TradingView rates it BUY at 15/9/2. Earnings are 71 days out, so this is a clean position with no print inside the window - a genuine rarity in this scan.",
+   "strengths": [
+    "Closed green while Healthcare averaged -1.61% and the sector's leaders unwound hard",
+    "EPS growth +43.6% on revenue +13.1% - operating leverage, on a 28.9x forward multiple",
+    "1.4% from its 52-week high with RSI 65.7 - close to breakout without being overbought",
+    "TradingView BUY 15/9/2",
+    "Earnings 71 days out",
+    "Continuous glucose monitoring is a recurring-consumable annuity, structurally insulated from the vaccine and device news cycle"
+   ],
+   "risks": [
+    "16.7% above its 50-day at 77.28 - the most extended of our three healthcare buys",
+    "A 28.9x forward multiple leaves no room for a guidance miss",
+    "5.4% short interest is modest but the highest of our healthcare names",
+    "Only a three-contraction VCP tightening to 9.6% - the loosest base in the buy list"
+   ],
+   "watch": [
+    "Whether 91.48 gives way on the next attempt",
+    "The 50-day at 77.28 - a long way down, which is the main risk here",
+    "Whether the 9.6% contraction tightens further before resolving"
+   ]
+  },
+  {
+   "ticker": "MRK",
+   "signal": "WATCH",
+   "score": 90,
+   "grade": "A",
+   "entry": 149.18,
+   "stop": 137.25,
+   "target": 179.02,
+   "thesis": "Merck scores 89.9 and is 2.0% from its 52-week high, but it closed -1.98% at 149.18 with an RSI of 79.2 and price 17.2% above its 50-day at 127.28. It is on the watch list for the same reason it was yesterday: it led a 5.4% sector day, and after that day reversed, an RSI approaching 80 is the wrong place to add. TradingView rates it BUY at 15/6/5 - note 5 sell votes, the oscillators are already flagging the extension.",
+   "strengths": [
+    "Only 2.0% below its 52-week high of 152.20 after a major re-rating",
+    "Four-contraction VCP tightening to 3.1%",
+    "15.6x forward multiple - not expensive for large-cap pharma",
+    "Earnings 70 days out",
+    "TradingView still rates it BUY overall"
+   ],
+   "risks": [
+    "RSI 79.2 and 17.2% above the 50-day - the extension is the reason this is not a buy",
+    "TradingView's 5 sell votes reflect oscillators rolling over",
+    "It gave back 1.98% today, the first crack in the post-catalyst run",
+    "Revenue growth is only 5.1%; the move was catalyst-driven, not growth-driven"
+   ],
+   "watch": [
+    "A cooling of RSI below 65 with price holding above 140",
+    "The 50-day at 127.28 as the distant real support",
+    "Whether the cancer-vaccine narrative sustains beyond the initial print"
+   ]
+  },
+  {
+   "ticker": "KO",
+   "signal": "STRONG BUY",
+   "score": 92,
+   "grade": "A+",
+   "entry": 90.54,
+   "stop": 83.29,
+   "target": 108.64,
+   "thesis": "Coca-Cola closed AT its 52-week high of 90.54, up 0.21% on a day when Consumer Defensive averaged -0.89% and WMT fell 9.2%. It scores 92.1 with RSI 69.4, sits 7.6% above its 50-day at 84.13, and TradingView independently rates it STRONG BUY at 16 buy / 9 neutral / 1 sell. When the consumer tape breaks and the most defensive large-cap staple prints a new high on the same day, that is where the money went.",
+   "strengths": [
+    "New 52-week high at 90.54 on a day its own sector fell 0.89% and WMT lost 9.2%",
+    "TradingView STRONG BUY 16/9/1",
+    "EPS +16.9% on revenue +6.7% - steady, not spectacular, which is the point of the position",
+    "Only 1.1% short interest and 7.6% above the 50-day - low crowding, moderate extension",
+    "Earnings 61 days out"
+   ],
+   "risks": [
+    "A 25.7x forward multiple on 6.7% revenue growth is a premium price for defensiveness",
+    "RSI 69.4 is warm - a new high at that reading can stall for weeks",
+    "If the tape re-risks toward energy and materials, staples underperform immediately",
+    "Only a three-contraction VCP tightening to 2.9% - a competent but not deep base"
+   ],
+   "watch": [
+    "Whether 90.54 holds as support rather than becoming a double top",
+    "The 50-day at 84.13 as invalidation",
+    "Whether the WMT print marks a broader consumer-spending problem, which would eventually reach volumes"
+   ]
+  },
+  {
+   "ticker": "PM",
+   "signal": "STRONG BUY",
+   "score": 90,
+   "grade": "A",
+   "entry": 191.52,
+   "stop": 176.2,
+   "target": 229.82,
+   "thesis": "The least-extended high-scoring defensive in the market: RSI 51.2, only 3.2% above its 50-day at 185.63, 4.3% below its 52-week high, and it closed GREEN (+0.84%) while its sector fell 0.89%. It scores 90.1 on a six-contraction VCP tightening to 3.1%. TradingView rates it STRONG BUY at 16/9/1. An RSI of 51 on a 90-score name is the cheapest entry risk in this entire list.",
+   "strengths": [
+    "RSI 51.2 - the lowest of any 90+ score in our buy list, meaning almost no extension risk",
+    "Only 3.2% above its 50-day at 185.63 - the stop is genuinely tight",
+    "Closed +0.84% while Consumer Defensive averaged -0.89%",
+    "TradingView STRONG BUY 16/9/1",
+    "Six-contraction VCP tightening to 3.1%",
+    "Revenue +10.4% on a 20.9x forward multiple, with only 1.0% short interest"
+   ],
+   "risks": [
+    "EPS growth is NEGATIVE at -7.5% - revenue is growing but earnings are not",
+    "Tobacco and nicotine-pouch regulation is a permanent, unpriceable tail risk",
+    "Defensive positioning underperforms badly if energy/materials leadership broadens into a full risk-on rotation",
+    "4.3% below its high means this is a base entry, not a breakout"
+   ],
+   "watch": [
+    "The 200.17 high as the objective",
+    "The 50-day at 185.63 as invalidation - only 3.2% away",
+    "Whether RSI expands above 60 on the next push, which would confirm accumulation"
+   ]
+  },
+  {
+   "ticker": "MDLZ",
+   "signal": "STRONG BUY",
+   "score": 90,
+   "grade": "A",
+   "entry": 64.14,
+   "stop": 59.01,
+   "target": 76.97,
+   "thesis": "Mondelez scores 89.9, closed essentially flat (-0.03%) at 64.14 versus a sector averaging -0.89%, and sits just 1.3% below its 52-week high with an RSI of 61.0. EPS growth is +144.9% on a 19.1x forward multiple, and the stock is only 4.8% above its 50-day at 61.19. TradingView rates it STRONG BUY at 16/9/1. This is the un-dramatic version of the defensive trade - close to a high, un-extended, and cheap enough to matter.",
+   "strengths": [
+    "EPS growth +144.9% on a 19.1x forward P/E - the best earnings recovery in the staples group",
+    "Only 1.3% from its 52-week high with RSI at 61.0 and just 4.8% above the 50-day",
+    "TradingView STRONG BUY 16/9/1",
+    "Five-contraction VCP tightening to 5.3%",
+    "Held flat while the sector fell and WMT collapsed",
+    "Earnings 69 days out"
+   ],
+   "risks": [
+    "Revenue growth is only 4.1% - the EPS number is a cocoa-cost recovery, not volume growth",
+    "Cocoa and dairy input costs are the swing factor and are outside management control",
+    "A staples position underperforms in any re-risking rotation",
+    "2.9% short interest, modest but present"
+   ],
+   "watch": [
+    "Whether 64.99 is cleared on the next attempt",
+    "The 50-day at 61.19 as invalidation",
+    "Cocoa spot prices as the actual driver of the EPS recovery"
+   ]
+  },
+  {
+   "ticker": "RGA",
+   "signal": "STRONG BUY",
+   "score": 93,
+   "grade": "A+",
+   "entry": 242.64,
+   "stop": 223.23,
+   "target": 291.17,
+   "thesis": "The right way to own financials while banks are still falling. Financial Services averaged -0.93% for a second session - COF -3.7%, SYF -3.6%, LNC -3.5% - and RGA closed GREEN at +0.81%. It scores 92.8 with an RSI of 59.9, sits 2.7% below its 52-week high and only 6.0% above its 50-day, and trades at an 8.2x forward multiple with EPS growth of 159.6%. A reinsurer earns on mortality and morbidity spreads, not on net interest margin, which is exactly why it rose on a day falling yields punished the banks. TradingView rates it BUY at 13/10/3.",
+   "strengths": [
+    "Closed +0.81% while its sector fell 0.93% for the second consecutive session - the only financial we would buy here",
+    "Forward P/E of 8.2 - the cheapest name in our entire buy list",
+    "EPS growth +159.6% on revenue +18.5%",
+    "RSI 59.9 with price only 6.0% above the 50-day at 229.01 - un-extended",
+    "Business model is insulated from the net-interest-margin compression that is breaking the banks",
+    "Earnings 71 days out, only 1.4% short interest"
+   ],
+   "risks": [
+    "TradingView rates it BUY with 3 sell votes, not STRONG BUY - the confirmation is adequate, not strong",
+    "Only a two-contraction VCP - the shallowest base of anything we are buying",
+    "Reinsurance earnings are lumpy; a single mortality or catastrophe quarter can reset the multiple",
+    "An 8.2x multiple has been cheap for a long time, which means the market has a persistent reason for it",
+    "Rate-sensitive on the asset side even if the liability side is not"
+   ],
+   "watch": [
+    "Whether the 249.39 high is taken out",
+    "The 50-day at 229.01 as invalidation",
+    "Whether financials stabilise as a group - insurance can only outperform a falling sector for so long"
+   ]
+  },
+  {
+   "ticker": "JPM",
+   "signal": "WATCH",
+   "score": 92,
+   "grade": "A",
+   "entry": 351.99,
+   "stop": 323.84,
+   "target": 422.39,
+   "thesis": "Being honest about a call that has not worked. Yesterday's read was that falling yields had handed you a risk-defined entry in the highest-scoring banks. Two sessions later the banks are still falling - the sector averaged -0.93% again today and JPM closed -1.48% at 351.99. The setup on paper remains excellent: score 92.2, RSI 50.3, EPS +46.9%, revenue +30.4%, a 14.1x forward multiple, and only 2.7% above its 50-day. But TradingView rates it a dead NEUTRAL at 8 buy / 10 neutral / 8 sell - an even split, the weakest confirmation of any 92-score name in the scan. A pullback that keeps pulling back is not yet a base. Wait for a green day in the group.",
+   "strengths": [
+    "RSI 50.3 on a 92.2 score - genuinely un-extended, with no chasing required",
+    "EPS +46.9% and revenue +30.4% on a 14.1x forward multiple",
+    "Only 2.7% above its 50-day at 342.63 - the tightest structural stop of any mega-cap financial",
+    "Five-contraction VCP tightening to 3.5%",
+    "Earnings 54 days out, only 1.1% short interest"
+   ],
+   "risks": [
+    "TradingView NEUTRAL at 8/10/8 - a perfectly split verdict that explicitly contradicts our score",
+    "Two consecutive down sessions for the group; the falling-yield pressure on net interest margin has not abated",
+    "Yesterday's thesis on this exact setup has not paid, which is information, not noise",
+    "3.6% below its high and drifting away from it, not toward it"
+   ],
+   "watch": [
+    "A single green session for the bank group - that is the trigger to move this from WATCH to buy",
+    "The 50-day at 342.63 - if it loses that, the setup is broken rather than pending",
+    "Whether TradingView's neutral verdict tilts back toward buy as the oscillators reset",
+    "The long end of the curve, which is what is actually driving the group"
+   ]
+  },
+  {
+   "ticker": "EQIX",
+   "signal": "STRONG BUY",
+   "score": 93,
+   "grade": "A+",
+   "entry": 1082.61,
+   "stop": 996.0,
+   "target": 1299.13,
+   "thesis": "AI infrastructure exposure without owning a semiconductor. Equinix scores 92.7, closed +0.51% at 1082.61 (2.5% below its 52-week high) on a day technology fell 0.70% and QQQ closed below its 50-day for the first time this leg. It sits only 3.4% above its 50-day at 1047.42 with a five-contraction VCP tightening to 2.3%. EPS growth is +28.8% on revenue +16.7%. TradingView rates it STRONG BUY at 16/9/1. Data-center REITs monetise the same compute buildout through long-dated contracted leases rather than through chip cycles - which is why ARE rose 4.7% and Real Estate was one of only three green sectors.",
+   "strengths": [
+    "TradingView STRONG BUY 16/9/1",
+    "Only 3.4% above its 50-day at 1047.42 - a tight, defensible stop on a 92.7 score",
+    "EPS +28.8% on revenue +16.7% from contracted, long-duration leases",
+    "Closed green while Technology fell 0.70% and QQQ lost its 50-day",
+    "Five-contraction VCP tightening to 2.3%",
+    "Earnings 70 days out"
+   ],
+   "risks": [
+    "A 57.9x forward multiple is the second-richest valuation in our buy list - REIT accounting flatters this, but it is still a full price",
+    "Rate-sensitive: a REIT structure de-rates directly if the long end backs up",
+    "Real Estate converts only 18% of its names to STRONG BUY, the third-weakest sector in the scan",
+    "RSI 71.8 is the warmest of any name we are buying",
+    "Power availability, not demand, is the binding constraint on data-center expansion"
+   ],
+   "watch": [
+    "Whether 1110.63 is cleared on the next attempt",
+    "The 50-day at 1047.42 as invalidation - only 3.4% away",
+    "The 10-year yield, which drives the multiple more than leasing does",
+    "Whether DLR (+0.97% today) confirms the group"
+   ]
+  },
+  {
+   "ticker": "MU",
+   "signal": "STRONG BUY",
+   "score": 90,
+   "grade": "A",
+   "entry": 974.33,
+   "stop": 896.38,
+   "target": 1169.2,
+   "thesis": "The most extreme fundamental profile in the entire 474-name scan, at a single-digit multiple. Micron shows EPS growth of 1368.5% and revenue growth of 345.7% on a forward P/E of 6.3, and it closed +3.97% at 974.33 as memory bounced off oversold levels alongside MRVL +5.8% and STX +2.1%. It is 19.7% below its 52-week high but only 1.2% above its 50-day at 963.04 - meaning the 50-day is essentially your entry AND your stop, which is the tightest risk definition available anywhere in this scan. TradingView rates it STRONG BUY at 16/9/1.",
+   "strengths": [
+    "EPS +1368.5% and revenue +345.7% on a 6.3x forward P/E - nothing else in the scan combines that growth with that price",
+    "Sits 1.2% above its 50-day at 963.04, so the invalidation line is unambiguous and close",
+    "TradingView STRONG BUY 16/9/1 despite the recent damage - the independent gauge sees the turn too",
+    "+3.97% today on a day Technology averaged -0.70%",
+    "Seven-contraction VCP tightening to 7.4%",
+    "Earnings 35 days out - outside the immediate 15-day cluster"
+   ],
+   "risks": [
+    "Semicap did NOT confirm the bounce - AMAT closed flat and remains 31.4% below its high, KLAC 38.3% below with a WEAK signal. Until that group stops making lower lows, this is a bounce and not a bottom",
+    "19.7% below its own 52-week high; the downtrend from the high is still intact",
+    "RSI 70.7 after a 4% day - the bounce has already used up the easy oversold move",
+    "Memory pricing is the most cyclical variable in technology, and a 6.3x multiple is what the market pays for peak earnings, not trough earnings",
+    "QQQ closed below its 50-day for the first time this leg, which is a headwind for any tech long"
+   ],
+   "watch": [
+    "Whether AMAT, KLAC and LRCX stop making lower lows - the single most important confirmation for this trade",
+    "The 50-day at 963.04 as a hard invalidation - a close below it ends the setup",
+    "DRAM and NAND contract pricing",
+    "Whether the +3.97% follows through or fades, which distinguishes a bottom from a bounce"
+   ]
+  },
+  {
+   "ticker": "AAPL",
+   "signal": "STRONG BUY",
+   "score": 91,
+   "grade": "A+",
+   "entry": 311.3,
+   "stop": 286.4,
+   "target": 373.56,
+   "thesis": "The defensive way to stay long technology while QQQ sits below its 50-day. Apple scores 91.4 with an RSI of only 52.8 - the least-extended mega-cap technology name in the scan - and trades just 0.5% above its 50-day at 309.63, which makes the structural stop almost exact. It fell 1.75% today to 311.30 and is 8.4% below its 52-week high, so nothing here requires chasing. EPS growth is +28.7% on revenue +16.4%, earnings are 71 days out, and short interest is only 1.0%. TradingView rates it BUY at 10/10/6.",
+   "strengths": [
+    "RSI 52.8 and only 0.5% above the 50-day - effectively zero extension risk on a 91.4 score",
+    "EPS +28.7% and revenue +16.4% - real growth, not a base effect",
+    "Earnings 71 days out, well clear of the 15-day cluster holding back NVDA, CRM, MRVL, DELL, NTAP and SNOW",
+    "Five-contraction VCP tightening to 3.5%",
+    "Only 1.0% short interest - not a crowded trade",
+    "8.4% below its high, so there is room to the upside before any resistance"
+   ],
+   "risks": [
+    "TradingView BUY at only 10 buy / 10 neutral / 6 sell - the weakest confirmation of anything we are buying outright",
+    "The 50-day at 309.63 is 0.5% below the close, so the stop is precise but easily triggered on noise",
+    "A 32.6x forward multiple is the richest of the mega-cap group relative to its growth",
+    "Technology converts only 28% of its names to STRONG BUY and QQQ has lost its 50-day",
+    "Fell 1.75% today - it is participating in the tech weakness, not resisting it"
+   ],
+   "watch": [
+    "The 309.63 50-day as the line that decides this trade - it is right at it",
+    "Whether QQQ reclaims its 50-day at all, which gates every technology long",
+    "The 339.79 high as the objective",
+    "Whether TradingView's 6 sell votes grow"
+   ]
+  },
+  {
+   "ticker": "MSFT",
+   "signal": "STRONG BUY",
+   "score": 87,
+   "grade": "A",
+   "entry": 481.15,
+   "stop": 442.66,
+   "target": 577.38,
+   "thesis": "Microsoft scores 86.8 with an RSI of 58.8, closed -0.65% at 481.15 - materially outperforming a technology sector that fell 0.70% and a QQQ that lost its 50-day - and sits 10.7% below its 52-week high of 538.66. EPS growth is +31.7% on revenue +17.7% at a 20.4x forward multiple, which is the most reasonable price on mega-cap AI infrastructure exposure anywhere in this scan. TradingView rates it BUY at 12/10/4. Earnings are 70 days out.",
+   "strengths": [
+    "A 20.4x forward multiple on 31.7% EPS growth - the best growth-to-price ratio among the mega-caps",
+    "RSI 58.8 - un-extended, with 10.7% of upside just to reclaim its own high",
+    "Earnings 70 days out, clear of the dense cluster",
+    "Outperformed its sector on a down day for technology",
+    "Only 1.1% short interest",
+    "Azure exposure to the compute buildout without the memory-cycle risk in MU or the print risk in NVDA"
+   ],
+   "risks": [
+    "15.1% above its 50-day at 418.13 - the widest gap to structural support of any technology name we are buying, so the real stop is far away",
+    "TradingView BUY with 4 sell votes - decent but not emphatic",
+    "10.7% below its high means the stock has been consolidating for weeks; it is not a leader right now",
+    "Capex intensity on AI infrastructure is compressing free cash flow conversion",
+    "QQQ below its 50-day is a headwind for the whole complex"
+   ],
+   "watch": [
+    "Whether QQQ reclaims its 50-day - the gate for every technology position",
+    "The 50-day at 418.13, distant but the true invalidation level",
+    "The 538.66 high as the objective",
+    "Azure growth commentary as the fundamental driver"
+   ]
+  },
+  {
+   "ticker": "NVDA",
+   "signal": "WATCH",
+   "score": 91,
+   "grade": "A+",
+   "entry": 216.85,
+   "stop": 199.5,
+   "target": 260.22,
+   "thesis": "A 90.7 score, EPS growth of 214.5%, revenue growth of 85.2%, a 16.7x forward multiple and an RSI of 67.4 - and it reports earnings in SEVEN days. That single fact is why this is on the watch list rather than the buy list. NVDA's print is not a company event, it is the whole market's binary event: it will set the direction for every AI-infrastructure position in this list, and taking a new position into it is a coin flip rather than a setup. It closed -0.33% at 216.85, 7.9% below its 52-week high, and shows NO clear VCP - the base is unformed. TradingView rates it BUY at 12/10/4.",
+   "strengths": [
+    "EPS +214.5% and revenue +85.2% on a 16.7x forward multiple - the best growth-versus-price in mega-cap technology",
+    "Score 90.7 with RSI 67.4 - not overbought",
+    "Only 4.6% above its 50-day at 207.29, so the structural stop would be tight",
+    "TradingView BUY 12/10/4",
+    "Held nearly flat (-0.33%) while its sector fell 0.70%"
+   ],
+   "risks": [
+    "Earnings in 7 days - a binary event that no technical setup can risk-manage",
+    "No clear VCP pattern; unlike almost every other name in this list there is no defined base to break out of",
+    "7.9% below its high and QQQ has just lost its 50-day",
+    "The entire AI-infrastructure complex, including MU, MRVL, EQIX and MSFT in this list, keys off this print",
+    "TradingView shows 4 sell votes - the confirmation is ordinary, not strong"
+   ],
+   "watch": [
+    "The earnings print on 2026-08-27 - everything waits for it",
+    "The 50-day at 207.29 as the line to defend into the print",
+    "Existing holders: this is a HOLD through the print, not an add - position size is the decision, not direction",
+    "Whether MU and MRVL's bounce sustains into the print or fades"
+   ]
+  },
+  {
+   "ticker": "MRVL",
+   "signal": "WATCH",
+   "score": 91,
+   "grade": "A",
+   "entry": 251.01,
+   "stop": 230.93,
+   "target": 301.21,
+   "thesis": "The best single-day move in large-cap technology - up 5.79% to 251.01 on 1.13x volume - and still a watch, for two reasons. It reports earnings in 8 days, and its EPS growth is NEGATIVE at -80.4% against a 40.2x forward multiple. TradingView rates it STRONG BUY at 16/9/1, which genuinely contradicts our caution, and that disagreement is worth naming: the technicals are excellent, the fundamentals and the calendar are not. It remains 20.7% below its 52-week high of 316.35 with RSI 73.2.",
+   "strengths": [
+    "+5.79% on 1.13x volume, the strongest large-cap technology move of the session",
+    "TradingView STRONG BUY 16/9/1 - the independent gauge disagrees with our caution and says buy",
+    "Revenue growth +27.6%, and the custom-silicon share-shift story is real and structural",
+    "Seven-contraction VCP tightening to 7.8%",
+    "4.8% short interest adds fuel on continuation"
+   ],
+   "risks": [
+    "Earnings in 8 days, into a 40.2x multiple - the worst combination of expectation and event risk in the group",
+    "EPS growth is -80.4%; the multiple prices a recovery that has not yet appeared in the numbers",
+    "20.7% below its 52-week high, so the primary downtrend from the high is intact",
+    "RSI 73.2 after a 5.8% day - the bounce is already extended",
+    "This is where we differ from TradingView; if it is right we will have missed a leg"
+   ],
+   "watch": [
+    "The 2026-08-28 earnings print",
+    "The 50-day at 234.13 as the level that must hold",
+    "Whether the custom-silicon share gain shows up in guidance rather than just in headlines",
+    "Whether semicap (AMAT, KLAC, LRCX) confirms the wider semiconductor bounce"
+   ]
+  },
+  {
+   "ticker": "PANW",
+   "signal": "WATCH",
+   "score": 93,
+   "grade": "A",
+   "entry": 349.56,
+   "stop": 321.6,
+   "target": 419.47,
+   "thesis": "The scan's clearest internal disagreement, and it stays on the watch list because of it. Palo Alto scores 92.6 with revenue growth of 31.1%, an RSI of 57.0 and a four-contraction VCP tightening to 1.9% - and TradingView rates it SELL at 6 buy / 10 neutral / 10 sell. Ten sell votes against six buys is a direct contradiction of a 92.6 score, and the tape sides with TradingView: PANW fell 2.84% today while cybersecurity broke down around it (CRWD -5.6%, ZS -5.2%). Earnings land in 13 days. When our score and the independent gauge disagree this sharply and price is confirming the gauge, the correct action is to wait.",
+   "strengths": [
+    "Score 92.6 with revenue growth of 31.1%",
+    "VCP of 4 contractions tightening to 1.9% - a very tight coil",
+    "RSI 57.0, so there is no extension problem",
+    "Only 4.7% above its 50-day at 333.95"
+   ],
+   "risks": [
+    "TradingView SELL at 6/10/10 - the most negative independent read on any high score in the scan, and it directly contradicts our number",
+    "The whole cybersecurity group is breaking: CRWD -5.6%, ZS -5.2%, PANW -2.84%",
+    "Earnings in 13 days",
+    "An 84.9x forward multiple with no reported EPS growth figure",
+    "11.7% below its 52-week high and falling away from it"
+   ],
+   "watch": [
+    "Whether TradingView's rating recovers from SELL toward NEUTRAL - that flip would be the trigger",
+    "Whether CRWD and ZS stop falling; the group has to stabilise first",
+    "The 50-day at 333.95 - a loss of it would turn this from WATCH to avoid",
+    "The 2026-09-02 earnings print"
+   ]
+  },
+  {
+   "ticker": "AMZN",
+   "signal": "STRONG BUY",
+   "score": 87,
+   "grade": "A",
+   "entry": 260.11,
+   "stop": 239.3,
+   "target": 312.13,
+   "thesis": "An RSI of 40.6 on an 87.3-score mega-cap. That is the most oversold reading attached to a high score anywhere in the scan, and it exists because Consumer Cyclical was the second-worst sector today at -1.56% and AMZN went with it, closing -2.16% at 260.11. EPS growth is +242.3% on revenue +19.6% at a 25.1x forward multiple, the stock is only 4.3% above its 50-day at 249.32, earnings are 71 days out and short interest is 1.0%. You are buying growth at scale from the bottom of its own momentum range rather than the top.",
+   "strengths": [
+    "RSI 40.6 - the lowest of any name in this buy list, so extension risk is essentially nil",
+    "EPS growth +242.3% on revenue +19.6%",
+    "Only 4.3% above its 50-day at 249.32, giving a tight structural stop",
+    "Earnings 71 days out, clear of the entire 15-day cluster",
+    "8.4% below its high, so there is room to the upside before any resistance",
+    "Only 1.0% short interest, and AWS gives compute-cycle exposure without semiconductor inventory risk"
+   ],
+   "risks": [
+    "It fell 2.16% today and its sector fell 1.56% - you are buying into active weakness, which needs the 50-day to hold",
+    "TradingView BUY at 12/9/5 - 5 sell votes make this ordinary confirmation, not strong",
+    "The WMT print (-9.2% on 3.31x volume) is a genuine warning about consumer spending, and retail is half of this business",
+    "An RSI of 40.6 can keep falling; oversold is not a floor",
+    "A 25.1x multiple still needs the growth to hold"
+   ],
+   "watch": [
+    "The 50-day at 249.32 - the line that decides this trade",
+    "Whether Consumer Cyclical stabilises after a -1.56% session",
+    "AWS growth and margin commentary as the actual driver",
+    "Whether the WMT weakness turns out to be company-specific or sector-wide"
+   ]
+  },
+  {
+   "ticker": "DRI",
+   "signal": "STRONG BUY",
+   "score": 92,
+   "grade": "A",
+   "entry": 217.99,
+   "stop": 200.55,
+   "target": 261.59,
+   "thesis": "A 91.8-score consumer name that held together on a day the consumer broke. Darden closed -1.76% at 217.99, 4.3% below its 52-week high, with RSI 65.3 and price only 5.1% above its 50-day at 207.34. EPS growth is +36.0% on revenue +13.7% at a 17.6x forward multiple - real operating leverage at a reasonable price, which is unusual in this sector. TradingView rates it BUY at 12/10/4. Earnings are 35 days out, outside the immediate cluster.",
+   "strengths": [
+    "EPS +36.0% on revenue +13.7% at a 17.6x forward multiple - the best value-to-growth in consumer cyclical",
+    "Only 5.1% above its 50-day at 207.34, so the stop is tight and structural",
+    "RSI 65.3 with the stock 4.3% from its high - close to breakout, not overbought",
+    "Earnings 35 days out",
+    "7.3% short interest, the highest in our buy list, which adds fuel to any breakout"
+   ],
+   "risks": [
+    "Consumer Cyclical was the second-worst sector today at -1.56% and DRI fell with it",
+    "The WMT collapse is a direct read on discretionary consumer spend, and casual dining is the first thing households cut",
+    "TradingView BUY with 4 sell votes - ordinary confirmation",
+    "Only a three-contraction VCP tightening to 4.1% - a shallower base than most names here",
+    "7.3% short interest also means a crowded bear case worth respecting"
+   ],
+   "watch": [
+    "The 227.68 high as the objective",
+    "The 50-day at 207.34 as invalidation",
+    "Same-restaurant traffic data, which is the fundamental tell",
+    "Whether consumer weakness after WMT broadens into a genuine spending downturn"
+   ]
+  },
+  {
+   "ticker": "ABNB",
+   "signal": "WATCH",
+   "score": 92,
+   "grade": "A",
+   "entry": 185.0,
+   "stop": 170.2,
+   "target": 222.0,
+   "thesis": "Airbnb scores 92.1, closed 0.7% below its 52-week high with a five-contraction VCP tightening to 3.1%, and TradingView rates it STRONG BUY at 16/8/2. It is a watch and not a buy because of extension: RSI 76.7 and price 21.4% above its 50-day at 152.43. There is no stop on this chart that is both structural and survivable, and it closed -0.75% in a sector that fell 1.56%. The setup is real; the entry is not, at this price.",
+   "strengths": [
+    "Score 92.1 with TradingView STRONG BUY 16/8/2",
+    "Only 0.7% below its 52-week high of 186.39",
+    "EPS +33.4% on revenue +16.5%",
+    "Five-contraction VCP tightening to 3.1%",
+    "Earnings 78 days out"
+   ],
+   "risks": [
+    "RSI 76.7 and 21.4% above its 50-day - overbought on top of a large extension",
+    "A 30.1x forward multiple on 16.5% revenue growth",
+    "Consumer Cyclical fell 1.56% and travel names went with it (RCL -4.3%, CCL -4.9%)",
+    "Any structural stop is a 20% drawdown away"
+   ],
+   "watch": [
+    "A pullback into the 165-172 zone, which would make the risk defensible",
+    "Whether RSI cools below 65 while price holds above 175",
+    "The 50-day at 152.43 as the distant real support",
+    "Whether the travel complex (RCL, CCL, MAR, HLT) stabilises"
+   ]
+  }
+ ]
+}
