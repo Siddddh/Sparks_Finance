@@ -2382,23 +2382,26 @@ async function _aggregateCompany(orgId, companyId, companyName, industry) {
 }
 let _orgSnap = null;   // last consolidated org aggregate — powers the org-level AI assistant on the hub
 let _orgDashSeq = 0; const _orgDashCache = {};   // stale-while-revalidate: instant repaint from the last render
-async function renderOrgDashboard(orgId, host) {
-  orgId = orgId || ACTIVE_ORG;
-  const el = host || document.getElementById('orgDashBody'); if (!el) return;
-  const canView = isPlatformAdmin() || !!(_myOrgs[orgId] && _myOrgs[orgId].orgAdmin);
-  if (!canView || !orgId) { el.innerHTML = emptyState('data', 'Org Admins only', 'Consolidated financials are visible to Org Admins and Super Admins.'); return; }
-  const reqId = ++_orgDashSeq;   // guard: a slower refresh must not overwrite a newer render (e.g. after switching org)
-  // Instant paint from the last render for this org while we refresh in the background (no full-page block).
-  if (_orgDashCache[orgId]) el.innerHTML = _orgDashCache[orgId];
-  else el.innerHTML = '<div class="pf-filter-note">Consolidating companies…</div>';
-  let companies = [];
-  try { const d = await _adminCall('orgListCompanies', { orgId: orgId }); companies = (d.companies || []).filter(c => c.active !== false); }
-  catch (e) { if (!_orgDashCache[orgId]) el.innerHTML = emptyState('data', "Couldn't load companies", escHtml(String(e.message || e))); return; }
-  if (_orgDashSeq !== reqId) return;   // a newer render started — abandon this one
-  if (!companies.length) {
-    el.innerHTML = emptyState('briefcase', 'No active companies yet', 'Add a company to this organization (in the Companies tab) to see consolidated portfolio value, loans, and users across the whole organization here.');
-    return;
-  }
+// Cache persists to sessionStorage so the FIRST click after a reload is also instant (then refreshes in bg).
+function _orgDashCacheGet(orgId) {
+  if (_orgDashCache[orgId]) return _orgDashCache[orgId];
+  try { const h = sessionStorage.getItem('sf_orgdash:' + orgId); if (h) { _orgDashCache[orgId] = h; return h; } } catch (e) {}
+  return null;
+}
+function _orgDashCacheSet(orgId, html) { _orgDashCache[orgId] = html; try { sessionStorage.setItem('sf_orgdash:' + orgId, html); } catch (e) {} }
+// Pure compute of the org dashboard: aggregate every company and build the HTML. Returns { html } on success,
+// { empty:true } for no companies; throws only if the company list can't be loaded. De-duped so a background
+// prewarm and a Dashboard click never fetch/aggregate twice.
+const _orgDashInflight = {};
+function _orgDashCompute(orgId) {
+  if (_orgDashInflight[orgId]) return _orgDashInflight[orgId];
+  const p = _orgDashBuild(orgId).finally(() => { try { delete _orgDashInflight[orgId]; } catch (e) {} });
+  _orgDashInflight[orgId] = p; return p;
+}
+async function _orgDashBuild(orgId) {
+  const d = await _adminCall('orgListCompanies', { orgId: orgId });
+  const companies = (d.companies || []).filter(c => c.active !== false);
+  if (!companies.length) return { empty: true };
   let totMembers = 0, totPortfolio = 0, totInvested = 0, totOutstanding = 0, totLent = 0, totBorrowed = 0, totHoldings = 0, totLoans = 0, totAssets = 0, totCash = 0;
   let totRevenue = 0, totNetProfit = 0, totEBITDA = 0, totGrossProfit = 0, anyFin = false;
   let totRevenueAnn = 0, totNetProfitAnn = 0, totEBITDAAnn = 0, totGrossProfitAnn = 0;
@@ -2541,9 +2544,33 @@ async function renderOrgDashboard(orgId, host) {
     atRisk: scored.filter(h => h.score < 40).length, noFin: rows.filter(r => !r.hasFin).length, entOverdue: entOverdue, entMonthlyOblig: entMonthlyOblig,
     rows: rows.map(r => ({ name: r.name, assets: r.assets, netWorth: r.netWorth, revenue: r.revenue, netProfit: r.netProfit, hasFin: r.hasFin, score: r.health && r.health.score != null ? r.health.score : null, band: r.health && r.health.band ? r.health.band : null })) };
   const finalHtml = hero + mini + execFin + assetSection + reSection + tbl + loanSection + _aiCfoCard('org', orgCfo) + '<div class="rng-advice-note">Balance sheet as of ' + fmtDate(todayStr()) + '. Net worth (equity) = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Consolidated from each company’s Assets, Loans and latest Financial Statements — informational only, not financial advice.</div>';
-  _orgDashCache[orgId] = finalHtml;   // cache for the next instant paint
-  if (_orgDashSeq !== reqId) return;  // a newer render started — don't clobber it
-  el.innerHTML = finalHtml;
+  _orgDashCacheSet(orgId, finalHtml);   // cache (memory + sessionStorage) for the next instant paint
+  return { html: finalHtml };
+}
+// Paint the org dashboard: instant repaint from cache, then a de-duped background refresh (guarded so a slower
+// refresh can't overwrite a newer view, e.g. after switching org). Called by the hub Dashboard tab.
+async function renderOrgDashboard(orgId, host) {
+  orgId = orgId || ACTIVE_ORG;
+  const el = host || document.getElementById('orgDashBody'); if (!el) return;
+  const canView = isPlatformAdmin() || !!(_myOrgs[orgId] && _myOrgs[orgId].orgAdmin);
+  if (!canView || !orgId) { el.innerHTML = emptyState('data', 'Org Admins only', 'Consolidated financials are visible to Org Admins and Super Admins.'); return; }
+  const reqId = ++_orgDashSeq;
+  const cached = _orgDashCacheGet(orgId);
+  el.innerHTML = cached || '<div class="pf-filter-note">Consolidating companies…</div>';
+  let res = null;
+  try { res = await _orgDashCompute(orgId); }
+  catch (e) { if (!cached) el.innerHTML = emptyState('data', "Couldn't load companies", escHtml(String((e && e.message) || e))); return; }
+  if (_orgDashSeq !== reqId) return;   // a newer render started — don't clobber it
+  if (res && res.html) el.innerHTML = res.html;
+  else if (res && res.empty) el.innerHTML = emptyState('briefcase', 'No active companies yet', 'Add a company to this organization (in the Companies tab) to see consolidated portfolio value, loans and users across the whole organization here.');
+}
+// Warm the cache in the background the moment an org hub opens, so clicking Dashboard is instant.
+function _prewarmOrgDash(orgId) {
+  try {
+    if (!orgId || !(isPlatformAdmin() || (_myOrgs[orgId] && _myOrgs[orgId].orgAdmin))) return;
+    if (_orgDashCacheGet(orgId)) return;   // already have something to paint instantly
+    _orgDashCompute(orgId).catch(() => {});
+  } catch (e) {}
 }
 // Single-COMPANY executive summary (the company-level dashboard). Reuses the exact per-company math via
 // _aggregateCompany, so its numbers match this company's row in the consolidated org dashboard.
@@ -3903,7 +3930,7 @@ function _hubRenderOrgCards() {
   _hubRenderAllOrgs();   // super-admin platform overview table
 }
 // Level 2 — Companies within the opened org.
-async function hubOpenOrg(orgId) { _hubOrgId = orgId; _hubOrgTab = 'companies'; await renderCompanyLevel(); }
+async function hubOpenOrg(orgId) { _hubOrgId = orgId; _hubOrgTab = 'companies'; try { _prewarmOrgDash(orgId); } catch (e) {} await renderCompanyLevel(); }
 function hubBackToOrgs() { _hubOrgId = null; renderOrgLevel(); }
 // Switch the org-page side-nav tab (Dashboard / Members / Companies / Settings). Non-Companies tabs are
 // org-admin/super-admin only (server enforces it too); re-check here so a stray call can't reach them.
@@ -4238,6 +4265,7 @@ function switchToOrgHub(orgId) {
   try { sessionStorage.removeItem('sf_ws'); } catch (e) {}   // don't auto-reenter a company on reload
   ACTIVE_ORG = null; ACTIVE_COMPANY = null;
   _hubMode = 'team'; _hubOrgId = orgId; _hubOrgTab = 'companies';
+  try { _prewarmOrgDash(orgId); } catch (e) {}               // warm the dashboard cache so its tab opens instantly
   try { _navClear(); } catch (e) {}                          // fresh trail rooted at this org's hub
   try { renderOrgSwitcher(); } catch (e) {}                  // hides the switcher (no active company now)
   _hubShowHub(auth.currentUser);
