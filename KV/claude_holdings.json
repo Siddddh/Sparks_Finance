@@ -1,112 +1,428 @@
 {
-  "date": "2026-08-20",
-  "users": {
-    "9U3EMCIBlyYATLhh9YLnfYwKgpC2": {
-      "holdings": [
-        { "ticker": "AAPL", "action": "ADD", "why": "Up 2.2% to 316.83 while the semiconductor complex fell 4-8% - it is outside the AI-hardware unwind. RSI 37.6 with a STRONG BUY score of 89 is a washed-out reading inside an intact uptrend, and it sits only 2.5% above the 50-day at 309.21. You are up 58.4% from 200.00; this is the one large tech position worth increasing here. TradingView agrees at BUY." },
-        { "ticker": "ALAB", "action": "SELL", "why": "Score 35, WEAK, 40.2% below its 52-week high and 18.1% BELOW its 50-day, with TradingView rating it SELL. You are still up 280.3% from 76.00 - that is a large gain in a name that is now in a confirmed downtrend inside the exact group being liquidated (STX -7.9%, WDC -6.9%, LRCX -6.3%). Take the profit rather than defending a broken chart." },
-        { "ticker": "AMD", "action": "SELL", "why": "Fell 3.7% today, score 53 and WEAK, 8.5% below its 50-day with TradingView on SELL. You are up 76.0% from 265.00. AMD is squarely in the semicap and AI-silicon unwind that defined this session and there is no technical support beneath it. Realise the gain." },
-        { "ticker": "APLD", "action": "SELL", "why": "Down 38.8% from your 46.14 cost, score 57, 43.1% below its high and 15.4% below its 50-day, TradingView SELL, forward P/E negative at -112.9. This is an unprofitable AI-datacentre name in the group that just broke. The loss is real but the position has no structural support - cut it and redeploy." },
-        { "ticker": "APP", "action": "SELL", "why": "Your largest loss at -26.5% from 423.00, and the setup is the worst in the portfolio: score 33, WEAK, RSI 25.9, 57.6% below its 52-week high and 28.6% below its 50-day, TradingView SELL. An RSI of 25.9 in a market near highs is not oversold value, it is a name being distributed. Exit." },
-        { "ticker": "DRAM", "action": "SELL", "why": "Score 31, WEAK, 31.7% below its high and 8.1% below its 50-day. Memory is the single worst place to be capitalised right now - the group led today's decline. You are up 22.6% from 45.00; take it while the gain exists." },
-        { "ticker": "GOOGL", "action": "HOLD", "why": "Score 63, WATCH, essentially flat today at 344.72, 14.3% below its high and 2.2% under the 50-day. TradingView says SELL, which is a genuine warning. But you are up 60.3% from 215.00, revenue and earnings growth remain solid, and it is a compute buyer rather than a supplier. Hold, but do not add until it reclaims the 50-day." },
-        { "ticker": "GS", "action": "HOLD", "why": "Fell 1.8% with the financial sector as bonds rallied. Score 41, WEAK, TradingView SELL, RSI 49.0, 3.0% under its 50-day - technically the weakest large bank in the scan. You are up 52.5% from 670.00. Hold the gain but recognise that BAC at score 93 and JPM at 92 are far better vehicles for bank exposure; consider rotating rather than adding." },
-        { "ticker": "HOOD", "action": "HOLD", "why": "Score 67, WATCH, RSI 64.2, but 37.2% below its 52-week high and 3.9% under its 50-day. Up just 5.0% from 91.17. TradingView rates it BUY, which is the constructive read. Hold - it needs to reclaim the 50-day before it earns more capital." },
-        { "ticker": "INTC", "action": "SELL", "why": "Fell 4.0% today, score 33, WEAK, 34.2% below its high and 14.7% below its 50-day, TradingView SELL, forward P/E 45.5 on a business with no earnings momentum. You are up 106.2% from 45.00 - an excellent outcome in a structurally challenged name during a semiconductor unwind. Take it." },
-        { "ticker": "IREN", "action": "SELL", "why": "Score 71 but WATCH, 43.9% below its high, 2.6% under the 50-day, forward P/E negative at -42.7, and critically earnings land in 9 days. An unprofitable datacentre name reporting into a group that is being liquidated is a coin flip, and the position is only 1 share. Close it." },
-        { "ticker": "LRCX", "action": "SELL", "why": "Fell 6.3% today - one of the worst declines in the scan - score 70 downgraded from STRONG BUY to WATCH, 29.1% below its high, 9.1% under its 50-day, TradingView SELL. Semicap equipment is the epicentre of this unwind. You are up only 6.3% from 289.00; exit before that becomes a loss." },
-        { "ticker": "LUNR", "action": "HOLD", "why": "Score 65, WATCH, RSI 77.9 and 3.5% above its 50-day, but 59.5% below its 52-week high with a negative forward P/E of -138.9. Down 7.4% from 20.00. Speculative and unprofitable, but it is holding above its 50-day with firm momentum - hold the small position, do not add." },
-        { "ticker": "MSFT", "action": "ADD", "why": "Upgraded WATCH to STRONG BUY today with the score jumping 74 to 87, and it rose 0.6% while technology sold off - it buys AI compute rather than supplying it. Revenue +17.7%, EPS +31.7% at 20.5x forward, and 10.1% below its high leaves recovery room. You are up 40.4% from 345.00. TradingView agrees at BUY." },
-        { "ticker": "MU", "action": "TRIM", "why": "Score 82 STRONG BUY with an extraordinary 6.1x forward P/E, EPS +1368% and revenue +345.7% - and you are up 282.5% from 245.00. But it sits 22.8% below its high, 2.6% BELOW its 50-day, earnings are 36 days out, and memory was the worst group in the market today. Take part of a triple off the table while keeping exposure to the cheapest multiple in the scan." },
-        { "ticker": "NVDA", "action": "HOLD", "why": "Score 90, only 7.6% below its high and 5.0% above the 50-day, revenue +85.2% and EPS +214.5% at just 16.9x forward - and it fell only 1.0% while its peers fell 4-8%. But earnings are 8 days away, which will override every level here. Hold your 31.9% gain from 165.00; do not add ahead of a binary print in a broken sector." },
-        { "ticker": "ORCL", "action": "HOLD", "why": "Score 64, WATCH, 55.7% below its 52-week high and 2.6% under its 50-day, with TradingView on SELL and earnings 23 days out. You are up 43.8% from 100.00. The drawdown from the high is severe - hold the gain but treat any bounce to the 50-day as an exit opportunity rather than an add." },
-        { "ticker": "PLTR", "action": "TRIM", "why": "TradingView rates it STRONG BUY and revenue growth is 92.8%, but the position is 27.8% above its 50-day with an RSI of 79.5 and a 75.7x forward multiple - the most extended valuation-and-momentum combination in your book. Up 46.0% from 120.00. Trim into the strength; extension of this order is where risk is highest, not lowest." },
-        { "ticker": "QBTS", "action": "SELL", "why": "Score 48, WEAK, 56.9% below its 52-week high, 7.0% under its 50-day, negative forward P/E of -52.5, TradingView SELL. You are up 314.6% from 4.66 - one of the best returns in the portfolio, in a pre-revenue speculative name with no technical support. Realise it." },
-        { "ticker": "QLD", "action": "HOLD", "why": "A 2x leveraged Nasdaq-100 ETF sitting essentially on its 50-day (0.2% below) with the index down slightly today. Up 77.0% from 51.00. Leverage decays in choppy tape and QQQ closed lower while SPY rose - hold, but this is the first thing to reduce if the Nasdaq loses its 50-day." },
-        { "ticker": "RBRK", "action": "TRIM", "why": "Score 77 STRONG BUY and TradingView agrees at BUY, but RSI is 84.0, it sits 23.6% above its 50-day, the forward multiple is 153.5x, and earnings are 9 days away. Up 78.3% from 56.00 on a 246-share position. That combination - very overbought, very expensive, imminent print - argues for taking part of the gain now." },
-        { "ticker": "RGTI", "action": "SELL", "why": "Score 48, WEAK, 69.8% below its 52-week high - the deepest drawdown in your book - 3.0% under the 50-day, negative forward P/E of -82.5, TradingView SELL. You are up 183.3% from 6.00. A pre-revenue quantum name in a downtrend: take the gain." },
-        { "ticker": "RKLB", "action": "HOLD", "why": "Score 69, WATCH, RSI 67.8, but 49.5% below its high, 9.1% under its 50-day, TradingView SELL and a forward P/E of 1516.8. You are up 261.1% from 21.00. The launch thesis is real but the chart is below its 50-day and the valuation is extreme - hold the position, take no new capital into it, and consider trimming into any recovery of the 50-day." },
-        { "ticker": "SMCI", "action": "HOLD", "why": "TradingView rates it STRONG BUY and the forward P/E is only 6.9x, but the scan has it at 64 WATCH, 37.7% below its 52-week high and 20.3% above its 50-day with RSI 72.1 - overbought against a depressed average. Up 59.0% from 23.00. Hold; the TradingView and scan readings genuinely conflict here, which argues for no action rather than conviction either way." },
-        { "ticker": "SNDK", "action": "SELL", "why": "Score 42, WEAK, 32.8% below its high, 5.3% under its 50-day, and it is a memory and storage name on the day that group was liquidated (WDC -6.9%, STX -7.9%). You are up 248.6% from 450.00. The 5.9x forward multiple is tempting but the group is in free fall - take the gain." },
-        { "ticker": "SNOW", "action": "TRIM", "why": "Score 91 STRONG BUY with revenue +33.5% and TradingView at BUY - genuinely strong. But it sits 18.2% above its 50-day at a 120.2x forward multiple with earnings 15 days out. Up 35.5% from 240.00. Trim to reduce the event risk while keeping the position; the extension means a disappointing print has a long way to fall." },
-        { "ticker": "SSO", "action": "HOLD", "why": "A 2x leveraged S&P 500 ETF scoring 88 with RSI 71.9, 2.3% below its high and 4.4% above its 50-day - SPY closed higher today with zero distribution days and VIX at 15.1, so the underlying trend supports it. Up 61.0% from 44.00. Hold; the index structure is healthy even though leadership is rotating." },
-        { "ticker": "TSLA", "action": "HOLD", "why": "Rose 4.2% today, one of the better moves in your book, but score 59 WATCH with RSI 76.6, 28.3% below its 52-week high, 4.4% under its 50-day and a 161.4x forward multiple. Down 20.0% from 439.00. TradingView says BUY. Hold - the bounce is welcome but it is still beneath its 50-day and expensive; wait for the 50-day reclaim before adding." },
-        { "ticker": "TSM", "action": "HOLD", "why": "Score 58, WATCH, 13.7% below its high and 2.9% under the 50-day, TradingView NEUTRAL, earnings 57 days out. Up 135.6% from 175.00. The best-positioned company in semiconductors fundamentally, but the whole group is derating and it is below its 50-day. Hold the large gain; do not add into sector weakness." },
-        { "ticker": "VRT", "action": "SELL", "why": "Score 75 but WATCH, 30.6% below its 52-week high and 11.5% BELOW its 50-day, with TradingView on SELL. It is a datacentre infrastructure name in the group that broke today. Your 1 share is up 1530.8% from 16.00 - an extraordinary return in a position too small to matter. Close it and stop tracking it." }
-      ]
+ "date": "2026-08-21",
+ "users": {
+  "9U3EMCIBlyYATLhh9YLnfYwKgpC2": {
+   "holdings": [
+    {
+     "ticker": "AAPL",
+     "action": "ADD",
+     "why": "Score 91.4 STRONG BUY with RSI at only 52.8 - the least-extended mega-cap in technology - and it sits just 0.5% above its 50-day at 309.63, so the invalidation line is almost exact. It fell 1.75% to 311.30 with the sector, which is the entry rather than the problem. Earnings are 71 days out, well clear of the dense 15-day cluster. TradingView agrees at BUY (10/10/6), though only modestly. You are up 55.6% from an average cost of 200.00 (last 311.30)."
     },
-    "9XYERwojDqZYyeKV2ajvWQig8Bh2": {
-      "holdings": [
-        { "ticker": "AAPL", "action": "ADD", "why": "Your single position and the strongest setup in mega-cap technology right now. Up 2.2% to 316.83 while semiconductors fell 4-8% - Apple is outside the AI-hardware unwind. Score 89 STRONG BUY with RSI at just 37.6 means the selling has been absorbed, and it sits only 2.5% above the 50-day at 309.21, so the risk is unusually well defined. Revenue +16.4%, EPS +28.7%, earnings 72 days away, TradingView BUY. You are up 26.7% from 250.00. The main caution is the 33.2x multiple - the richest of the mega-caps - so add on any retest of 309 rather than chasing." }
-      ]
+    {
+     "ticker": "ALAB",
+     "action": "SELL",
+     "why": "Score 32.4 WEAK, TradingView SELL, 39.9% below its 52-week high and 17.4% BELOW its 50-day. EPS +186.2% and revenue +104.5% are spectacular and irrelevant while the stock is in a confirmed downtrend inside the AI-hardware group that is still being liquidated. You are sitting on a very large gain - take it rather than defend a broken chart at a 45.4x multiple. You are up 282.3% from an average cost of 76.00 (last 290.52)."
     },
-    "H0Wv2PLzKzR0JwanHqUssGUsmMl1": {
-      "holdings": [
-        { "ticker": "AMKR", "action": "SELL", "why": "Down 38.7% from 83.00 on 1060 shares - one of your largest losses. Score 71 but only WATCH, 45.6% below its 52-week high and 24.2% BELOW its 50-day, with TradingView on SELL. Semiconductor packaging sits inside the group that was liquidated today. A stock 24% under its 50-day is not consolidating, it is trending down. Cut it." },
-        { "ticker": "COCO", "action": "HOLD", "why": "Score 88 STRONG BUY with revenue +28.1% and EPS +115.8%, and TradingView agrees at BUY - the strongest fundamental profile in your book after LLY. But it sits 5.5% BELOW its 50-day and 19.6% below its high, so the chart has not confirmed yet. Down 14.2% from 78.71 on 3000 shares. Hold and add only on a reclaim of the 50-day near 71.50." },
-        { "ticker": "DELL", "action": "HOLD", "why": "Score 91 STRONG BUY with revenue +87.5% and EPS +282.5% at a 19.8x multiple, sitting just 2.9% above its 50-day - excellent structure. Two warnings though: TradingView rates it SELL, a direct contradiction of the scan, and earnings are 14 days out. You are up 4.9% from 417.23 on 1500 shares. Hold through the print rather than adding into a TradingView SELL." },
-        { "ticker": "DIOD", "action": "SELL", "why": "Score 65, WATCH, 23.2% below its 52-week high and 4.2% under its 50-day, TradingView SELL. Down 23.2% from 122.81 on 2000 shares. Analog semiconductors are in the group that broke today and there is no technical base here. Take the loss and redeploy into something above its 50-day." },
-        { "ticker": "DOCN", "action": "SELL", "why": "Score 46, WEAK, 35.7% below its high and 15.4% below its 50-day, forward P/E 63.0, TradingView SELL. Down 35.2% from 179.89 on 2600 shares - roughly your second-largest loss. This is a broken chart with an expensive multiple and no catalyst. Exit." },
-        { "ticker": "FLEX", "action": "SELL", "why": "Score 70, WATCH, 30.3% below its 52-week high and 14.8% BELOW its 50-day, TradingView SELL. Down 25.8% from 152.31 on 1500 shares. Electronics manufacturing services is levered directly to the hardware cycle that is unwinding. Cut it." },
-        { "ticker": "FTNT", "action": "SELL", "why": "Fell 3.3% today with the cybersecurity group (CRWD -5.3%, PANW -3.8%). Score 63, WATCH, RSI 48.7, 1.7% under its 50-day, forward P/E 40.7, TradingView SELL. You are up only 5.5% from 144.90 on 1000 shares. A small gain in a name below its 50-day in a group under pressure - take it." },
-        { "ticker": "GLW", "action": "SELL", "why": "Fell 4.6% today. Score 58, WATCH, 40.3% below its 52-week high and 12.8% BELOW its 50-day, forward P/E 35.3, TradingView SELL. Down 19.4% from 189.20 on 1000 shares. Optical components sit inside the AI-infrastructure complex that was sold hard. Exit." },
-        { "ticker": "GOOGL", "action": "HOLD", "why": "Score 63, WATCH, flat today at 344.72, 14.3% below its high and 2.2% under its 50-day, TradingView SELL. Down 5.2% from 363.53 on 1640 shares - a modest loss. Fundamentals are sound and it is a compute buyer rather than a supplier, but it is beneath its 50-day. Hold; add only above 352." },
-        { "ticker": "ICHR", "action": "SELL", "why": "Score 32, WEAK, RSI 34.6, 45.5% below its 52-week high and 27.0% BELOW its 50-day - the worst chart in your entire book. TradingView SELL. Down 28.5% from 85.66 on 3200 shares. Semicap components in a semicap collapse. Cut this first." },
-        { "ticker": "LLY", "action": "HOLD", "why": "The best position you own. Rose 4.5% to a new 52-week high of 1280.79, score 94 - the joint highest in the scan - with revenue +47.7% and EPS +26.2%, and TradingView rates it STRONG BUY with zero sell indicators. Up 10.2% from 1162.00 on 200 shares. Hold; it led a 5.4% healthcare sector day, so let it consolidate rather than adding at the high. Structural stop is the 50-day at 1173.67." },
-        { "ticker": "LQDA", "action": "SELL", "why": "Score 48, WEAK, RSI 35.3, 17.2% below its high and 4.6% under its 50-day, TradingView NEUTRAL. Essentially flat at -0.1% from 75.41 on 3000 shares. Notably it did NOT participate in today's 5.4% healthcare rally, which is a meaningful negative signal on a day when almost every healthcare name rose. Exit at breakeven." },
-        { "ticker": "LUV", "action": "SELL", "why": "TradingView rates this STRONG_SELL - the only such rating across all 116 names rated today. Score 67 WATCH, RSI 34.2, 23.8% below its high, 12.2% BELOW its 50-day. Down 3.1% from 42.75 on 4000 shares. Airlines also face rising jet fuel costs with crude near four-week highs. Both the scan and the independent gauge say leave. Exit." },
-        { "ticker": "MXL", "action": "SELL", "why": "Score 32, WEAK, 48.1% below its 52-week high and 19.1% BELOW its 50-day, TradingView SELL. Down 33.5% from 99.95 on 5000 shares - your largest percentage loss. A broken semiconductor chart in a semiconductor unwind. Cut it." },
-        { "ticker": "NTAP", "action": "TRIM", "why": "Score 91 STRONG BUY with TradingView at BUY - but it fell 5.0% today with the storage group, sits 13.3% above its 50-day, and earnings are 15 days out. Up 22.1% from 159.26 on 2000 shares. Storage was one of the worst groups today (WDC -6.9%, STX -7.9%). Take part of the gain ahead of the print rather than carrying full size into it." },
-        { "ticker": "PRTH", "action": "SELL", "why": "Score 24 - the lowest in your book - WEAK, RSI 32.2, 33.2% below its high, 12.8% below its 50-day, TradingView SELL. Down 23.7% from 7.38 on 30,000 shares. A 4.5x forward multiple is cheap for a reason. There is no case for holding this. Exit." },
-        { "ticker": "SWBI", "action": "SELL", "why": "Score 63, WATCH, RSI 29.6 - the most oversold reading in your book - 14.6% below its high, 5.0% under its 50-day, forward P/E 42.8, TradingView SELL, and earnings 16 days out. Down 12.0% from 16.04 on 15,000 shares. An RSI of 29.6 with a 42.8x multiple is weakness without value. Exit before the print." }
-      ]
+    {
+     "ticker": "AMD",
+     "action": "SELL",
+     "why": "Score 51.8 WEAK, TradingView SELL, 19.2% below its 52-week high and 7.9% BELOW its 50-day. It rose 0.65% today but semicap and AI hardware remain the market's funding source, and technology converts only 28% of names to STRONG BUY with QQQ now below its 50-day. Realise the gain; a 30.4x multiple in a downtrend is not worth holding through this. You are up 77.2% from an average cost of 265.00 (last 469.45)."
     },
-    "RWaiB5nNl5TjiWamTOEMb8tgVgQ2": {
-      "holdings": [
-        { "ticker": "AAPL", "action": "ADD", "why": "Your best-positioned holding. Up 2.2% to 316.83 while semiconductors fell 4-8%, score 89 STRONG BUY with RSI at just 37.6, and only 2.5% above its 50-day at 309.21 so the risk is tightly defined. Revenue +16.4%, EPS +28.7%, earnings 72 days out, TradingView BUY. Up 32.0% from 240.00. The 33.2x multiple is the one caution - add on a retest of 309 rather than chasing." },
-        { "ticker": "GS", "action": "HOLD", "why": "Fell 1.8% as bonds rallied and financials became the weakest sector at -1.2%. Score 41, WEAK, TradingView SELL, 3.0% under its 50-day - the weakest large bank in the scan technically. Up 27.7% from 800.00. Hold the gain, but if you want bank exposure, BAC at score 93 or JPM at 92 are materially better vehicles at similar valuations." },
-        { "ticker": "MNST", "action": "SELL", "why": "The worst technical reading in this entire scan: RSI 7.7, 52.5% below its 52-week high, 46.2% BELOW its 50-day, score 34 WEAK. Down 40.7% from 80.00. TradingView says BUY, but an RSI of 7.7 with the price 46% under its 50-day is not a buy signal - it is a name in free fall, and beverages were the one defensive corner that did not participate in today's +2.2% staples rally. If you want a staple, KO closed at a new 52-week high with an RSI of 61.3. Rotate." },
-        { "ticker": "SPCX", "action": "HOLD", "why": "Only 47 days of trading history, so treat every technical signal with caution - its 50-, 150- and 200-day averages all read an identical 141.89 because there is not enough data to separate them. Score 67 WATCH at 139.65, 33.9% below its listing high of 211.39 but 29% above the 108.27 low, RSI 63.0 and recovering. Revenue growth is 91.9% and TradingView now resolves a BUY. Down 13.2% from 160.95. Hold - the launch and broadband thesis is intact, but at an 84.2x forward multiple watch for lock-up expiry news, and treat 122-125 as the level that must hold." },
-        { "ticker": "TSLA", "action": "HOLD", "why": "Rose 4.2% today, your best move of the session. But score 59 WATCH with RSI 76.6, 28.3% below its 52-week high, 4.4% still BELOW its 50-day, and a 161.4x forward multiple. Up 40.4% from 250.00. TradingView says BUY. Hold - overbought momentum beneath a falling 50-day is not a base. Wait for a 50-day reclaim before adding." }
-      ]
+    {
+     "ticker": "APLD",
+     "action": "SELL",
+     "why": "Score 60.8 WATCH but TradingView rates it SELL, and the position is 42.3% below its 52-week high and 13.5% BELOW its 50-day at a loss. The forward multiple is negative - there are no earnings. Revenue growth of 406.6% has not translated into a chart anyone should own. Exit. You are down 37.9% from an average cost of 46.14 (last 28.65)."
     },
-    "Upr1qGqvOZVTbZIazl3fVapJAWt1": {
-      "holdings": [
-        { "ticker": "AAPL", "action": "ADD", "why": "Your single position, and it is the cleanest setup in large-cap technology today. Up 2.2% to 316.83 while the semiconductor complex fell 4-8% - Apple is not part of the AI-hardware unwind. Score 89 STRONG BUY with RSI at only 37.6 means the selling has been absorbed rather than accelerating, and at 2.5% above the 50-day at 309.21 the invalidation level is close and clear. Revenue +16.4%, EPS +28.7%, earnings 72 days away, TradingView BUY. Up 22.1% from 259.38. The 33.2x forward multiple is the honest caution, so scale in on a retest of 309 rather than at the close." }
-      ]
+    {
+     "ticker": "APP",
+     "action": "SELL",
+     "why": "Score 32.9 WEAK, TradingView SELL, RSI 26.8, and the stock is 57.9% below its 52-week high and 28.4% BELOW its 50-day. That combination - deeply oversold inside a severe downtrend - is the classic value trap, and this is a large position sitting at a loss. EPS +57.0% and a 14.7x multiple do not matter while the chart is this broken. Exit and redeploy into the energy and materials leadership that is actually working. You are down 27.0% from an average cost of 423.00 (last 308.77)."
     },
-    "WwfbUgQdviVtfrB3BBzR25joqbv2": {
-      "holdings": [
-        { "ticker": "AAPL", "action": "ADD", "why": "Rose 2.2% to 316.83 while semiconductors fell 4-8% - outside the AI-hardware unwind. Score 89 STRONG BUY, RSI just 37.6, only 2.5% above the 50-day at 309.21. Revenue +16.4%, EPS +28.7%, earnings 72 days out, TradingView BUY. Up 26.7% from 250.00. Your best-positioned technology holding by a wide margin." },
-        { "ticker": "AMAT", "action": "SELL", "why": "Fell 3.5% today and was downgraded WATCH to WEAK, score 45, 31.4% below its 52-week high and 11.5% BELOW its 50-day, TradingView SELL. You are up 254.4% from 140.00 - an exceptional return. Semicap equipment is the epicentre of this unwind (LRCX -6.3%, KLAC -3.9%). Take the profit." },
-        { "ticker": "AMZN", "action": "ADD", "why": "Rose 2.5% to 265.84 while technology sold off - it buys AI compute rather than supplying it. Score 91 STRONG BUY, revenue +19.6%, EPS +242.3% at 25.6x forward, 6.8% above its 50-day at 249.00, earnings 72 days out, TradingView BUY. Up only 6.3% from 250.00 on 3 shares - one of the better places to put new capital." },
-        { "ticker": "COIN", "action": "SELL", "why": "Score 53, WEAK, RSI 47.6, 58.6% below its 52-week high - the deepest drawdown in your book - with a 53.1x forward multiple. You are up 100.2% from 80.00. TradingView says BUY, but a name 58.6% below its high barely clinging to its 50-day is not a position, it is a hope. Realise the double." },
-        { "ticker": "DLR", "action": "HOLD", "why": "Score 88 STRONG BUY, RSI 48.8, only 5.0% below its high and 3.1% above its 50-day - a solid structure, and REITs were bid today on the bond rally. But TradingView rates it NEUTRAL, EPS growth is -58.7% and the forward multiple is 66.5x. Your recorded quantity is zero, so this is effectively a watchlist entry - EQIX at score 92 with revenue +16.7% and EPS +28.8% is the better datacentre REIT if you want to establish a position." },
-        { "ticker": "DTE", "action": "SELL", "why": "Score 31, WEAK, RSI 39.6, 4.8% below its 50-day, TradingView SELL. Utilities were the weakest sector in the scan, converting only 3 of 33 names to STRONG BUY, and DTE did not participate even in today's rate-driven bounce. Up 39.2% from 100.00. Take the gain." },
-        { "ticker": "EOG", "action": "HOLD", "why": "Your standout position and today's second-best setup in the entire scan. Closed at a new 52-week high of 149.49 with an RSI of only 55.0 - un-extended - while the energy sector averaged -0.1%. Revenue +58.7%, EPS +109.4% at just 10.3x forward, no earnings in the window, TradingView STRONG BUY. Up 1259% from 11.00. Hold; the 50-day at 137.93 is the structural line." },
-        { "ticker": "FICO", "action": "HOLD", "why": "Rose 7.74% today and upgraded WATCH to STRONG BUY with the score moving 63 to 77, TradingView BUY. But it remains 38.2% below its 52-week high and 1.2% BELOW its 50-day even after a 7.7% day, which tells you how deep the damage was. Up 52.8% from 760.00. Hold - a single strong day beneath the 50-day is a bounce, not yet a reversal. A reclaim of 1175 would change that." },
-        { "ticker": "GS", "action": "HOLD", "why": "Fell 1.8% as financials became the weakest sector on the bond rally. Score 41, WEAK, TradingView SELL, 3.0% under its 50-day. Up 629.9% from 140.00 on 20 shares - an outstanding long-term result. Hold, but for fresh bank exposure BAC at score 93 or JPM at 92 are far better positioned at comparable valuations." },
-        { "ticker": "HWM", "action": "HOLD", "why": "Score 93 - among the highest in the scan - and after falling 3.1% today it sits just 2.2% above its 50-day at 277.29 with RSI 56.6, revenue +24.1% and EPS +33.0%, earnings 78 days out. Your recorded quantity is zero, so this is a watchlist entry, and it is one of today's better entry candidates. Note the caveat: TradingView rates it only NEUTRAL and the forward multiple is 44.2x." },
-        { "ticker": "INTC", "action": "SELL", "why": "Fell 4.0% today, score 33, WEAK, 34.2% below its high and 14.7% BELOW its 50-day, forward P/E 45.5, TradingView SELL. Up 109.5% from 44.29. A structurally challenged business in a semiconductor unwind, trading well beneath its 50-day. Take the double." },
-        { "ticker": "IRM", "action": "SELL", "why": "Fell 3.6% today and was downgraded STRONG BUY to WATCH with the score collapsing 33 points to 58 - the largest single-day score decline in your book. RSI 45.7, 2.1% under its 50-day, forward P/E 44.7, TradingView SELL. Down 47.4% from 232.00. Notably it fell on a day REITs were bid, which is a clear relative-weakness signal. Exit." },
-        { "ticker": "KIM", "action": "SELL", "why": "Score 58, WATCH, RSI 24.8 - severely oversold - 3.5% below its 50-day, TradingView SELL. It rose only 0.45% on a day retail REITs were bid (SPG +1.2%, upgraded to STRONG BUY). Your recorded quantity is zero. If you want retail REIT exposure, SPG at score 86 with an RSI of 34.0 sitting on its 50-day is the better vehicle." },
-        { "ticker": "MNST", "action": "SELL", "why": "The worst technical reading in the entire 450-name scan: RSI 7.7, 52.5% below its 52-week high, 46.2% BELOW its 50-day, score 34 WEAK. Down 49.2% from 93.43. TradingView says BUY, but that rating cannot be reconciled with a price 46% under its 50-day - discount it. Beverages were the one defensive pocket that missed today's +2.2% staples rally. KO closed at a new 52-week high with RSI 61.3 if you want the exposure." },
-        { "ticker": "MSFT", "action": "HOLD", "why": "Upgraded WATCH to STRONG BUY today, score 74 to 87, and it rose 0.6% while technology sold off - a compute buyer, not a supplier. Revenue +17.7%, EPS +31.7% at 20.5x forward, 10.1% below its high, earnings 71 days out, TradingView BUY. Your recorded quantity is zero, so this is a watchlist entry worth acting on - though note it sits 16.3% above its 50-day, the widest extension among today's STRONG BUY names." },
-        { "ticker": "NVDA", "action": "HOLD", "why": "Score 90, revenue +85.2% and EPS +214.5% at just 16.9x forward, only 7.6% below its high, and it fell just 1.0% while peers fell 4-8%. But earnings are 8 days away and will override every technical level here. Down 22.3% from 280.00 on 10 shares. Hold through the print - do not average down into a binary event inside a sector that is derating." },
-        { "ticker": "NXPI", "action": "SELL", "why": "Score 34, WEAK, RSI 37.2, 31.8% below its 52-week high and 15.9% BELOW its 50-day, TradingView SELL. Down 20.8% from 285.20. Automotive and industrial semiconductors inside the group that broke today, trading well under its 50-day. Cut it." },
-        { "ticker": "SIRI", "action": "SELL", "why": "Score 49, WEAK, RSI 34.9, 2.0% under its 50-day, TradingView SELL. Communication Services was the single weakest sector in the scan - 0 of 10 names on STRONG BUY. Down 64.2% from 80.00, your largest percentage loss. An 8.6x multiple has not helped for a long time. Exit and redeploy." },
-        { "ticker": "SNDK", "action": "SELL", "why": "Score 42, WEAK, 32.8% below its high, 5.3% under its 50-day, in the memory and storage group that was liquidated today (WDC -6.9%, STX -7.9%). Up 28,686% from 5.45 on 35 shares - by far the largest gain in the book. There is no version of prudent portfolio management that holds a 287-bagger in a collapsing group. Take it." },
-        { "ticker": "SPCX", "action": "HOLD", "why": "Only 47 days of trading history, so the technical signals are unreliable - the 50-, 150- and 200-day averages all read an identical 141.89 for lack of data. Score 67 WATCH at 139.65, 33.9% below the 211.39 listing high but 29% above the 108.27 low, RSI 63.0, revenue +91.9%, TradingView now resolves a BUY. Down 31.6% from 204.12 on 1 share. Hold - the thesis is intact but the 84.2x multiple and lock-up supply risk argue against adding. 122-125 is the level that must hold." },
-        { "ticker": "SPG", "action": "HOLD", "why": "Upgraded WATCH to STRONG BUY today with the score jumping 57 to 86, sitting essentially on its 50-day (0.2% above) with an RSI of just 34.0 - deeply oversold at the exact line that defines the trend, on the day the bond rally bid REITs. TradingView BUY, revenue +19.5%. Your recorded quantity is zero; this is one of the better risk-defined watchlist entries in your book, with the 50-day at 222.77 as an unusually tight stop." },
-        { "ticker": "TSLA", "action": "HOLD", "why": "Rose 4.2% today but score 59 WATCH, RSI 76.6, 28.3% below its 52-week high, still 4.4% BELOW its 50-day, forward P/E 161.4. Down 12.2% from 400.00. TradingView BUY. Hold - overbought momentum under a falling 50-day is a bounce, not a base. Wait for the 50-day reclaim." },
-        { "ticker": "WDC", "action": "SELL", "why": "Fell 6.87% today - the second-worst decline in the entire scan. Score 35, WEAK, 38.1% below its 52-week high and 16.0% BELOW its 50-day, TradingView SELL. Down 7.6% from 500.01. Storage was the worst group in the market today. This is a small loss that can easily become a large one. Exit now." }
-      ]
+    {
+     "ticker": "DRAM",
+     "action": "TRIM",
+     "why": "A NEW LISTING with score 36.1 WEAK, no TradingView rating available (expected for a recent listing), and no fundamental data - forward P/E, EPS growth and revenue growth are all unavailable. It is 28.8% below its high and 4.1% below its 50-day. You are up 27.8%. With no fundamentals to underwrite and a WEAK signal, reduce and keep a residual rather than holding a full position on a name the scan cannot evaluate. You are up 27.8% from an average cost of 45.00 (last 57.51)."
     },
-    "XywlmmAEAhN9JBDkYQnagsBIkCf1": {
-      "holdings": [
-        { "ticker": "BTC-USD", "action": "HOLD", "why": "Bitcoin is outside the equity scan, so this platform has no price, score or signal for it - TradingView rates it BUY and that is the only independent read available here. What is worth noting from today's session is the macro backdrop: bonds rallied, yields fell and VIX eased to 15.1, which is historically a supportive combination for risk assets and for non-yielding stores of value in particular. Hold, and size it as the standalone speculative position it is rather than as part of an equity allocation." },
-        { "ticker": "GS", "action": "HOLD", "why": "Fell 1.8% today as bonds rallied and Financial Services became the weakest sector at -1.2% average - lower yields compress bank margins. Score 41, WEAK, TradingView SELL, RSI 49.0, 3.0% BELOW its 50-day, which makes it the weakest large bank in the scan technically. You are up 104.4% from 500.00, so hold that gain rather than forcing a decision. But be clear that this is now your only equity position and it is a below-50-day chart: if you want bank exposure, BAC scores 93 at 11.9x forward with revenue +16.8% and EPS +34.1%, and JPM scores 92 at 14.3x - both sit above their 50-day averages and both fell today, so they are available cheaper than yesterday." }
-      ]
+    {
+     "ticker": "GOOGL",
+     "action": "SELL",
+     "why": "Score 51.5 WEAK with TradingView rating it SELL, RSI 39.3, 15.3% below its 52-week high and 3.2% BELOW its 50-day. It fell another 1.17% today. Communication Services is the second-weakest sector in the scan at 17% STRONG BUY conversion and 0 of 10 core names converting. EPS growth of +294.0% at a 23.0x multiple is not translating into price. Exit or reduce materially and redeploy into AAPL or MSFT, which are both STRONG BUY with TradingView agreement. You are up 58.5% from an average cost of 215.00 (last 340.67)."
+    },
+    {
+     "ticker": "GS",
+     "action": "SELL",
+     "why": "Score 37.9 WEAK with TradingView rating it SELL, 13.0% below its 52-week high and 4.8% BELOW its 50-day, and it fell another 1.90% today. The group context is decisive: Financial Services averaged -0.93% for a SECOND consecutive session, with COF -3.7%, SYF -3.6% and LNC -3.5%, because falling long-end yields compress net interest margin. EPS +92.3% at a 13.5x multiple has not helped. Take the gain; if you want financial exposure, RGA closed GREEN both sessions at an 8.2x multiple because reinsurance earns on mortality spreads rather than on NIM. You are up 49.6% from an average cost of 670.00 (last 1,002.28)."
+    },
+    {
+     "ticker": "HOOD",
+     "action": "HOLD",
+     "why": "Score 59.0 WATCH, TradingView NEUTRAL, 37.6% below its 52-week high and 4.8% below its 50-day, with EPS +47.6% and revenue +32.3% on a 29.3x multiple. The business is growing; the chart is not. Hold, and treat a reclaim of the 50-day as the signal to do anything else. You are up 4.3% from an average cost of 91.17 (last 95.10)."
+    },
+    {
+     "ticker": "INTC",
+     "action": "SELL",
+     "why": "Score 31.2 WEAK, TradingView SELL, 34.6% below its 52-week high and 15.1% BELOW its 50-day, with no positive EPS growth figure and a 45.2x forward multiple. It fell another 0.72% today. On a large gain, in a name where our score and the independent gauge both say sell and price is 15% under its own trend line, take the profit. You are up 104.7% from an average cost of 45.00 (last 92.13)."
+    },
+    {
+     "ticker": "IREN",
+     "action": "HOLD",
+     "why": "Score 73.2 WATCH, TradingView NEUTRAL, 44.2% below its 52-week high and 2.6% below its 50-day, with earnings in 8 days. A negative forward multiple means there are no earnings to value it on. Hold the existing position - it is a small weight - but this is not a place to add ahead of a print. You are down 5.3% from an average cost of 45.00 (last 42.60)."
+    },
+    {
+     "ticker": "LRCX",
+     "action": "TRIM",
+     "why": "Score 73.0 WATCH, TradingView NEUTRAL, and the position is 28.3% below its 52-week high and 8.0% BELOW its 50-day. It bounced 1.09% with memory today, but semicap did not confirm - AMAT closed flat and 31.4% below its high, KLAC 38.3% below and rated WEAK. Use the bounce to reduce rather than to hope; the group is still making lower lows. You are up 7.4% from an average cost of 289.00 (last 310.53)."
+    },
+    {
+     "ticker": "LUNR",
+     "action": "HOLD",
+     "why": "Score 75.7 STRONG BUY on the scan's math but TradingView rates it only NEUTRAL, and the stock is 60.8% below its 52-week high with RSI 73.8 - a strong bounce off a deep base, just 1.3% above its 50-day. Revenue growth of 309.8% against a negative forward multiple means this is still pre-profit and speculative. Hold at a small weight. You are down 10.4% from an average cost of 20.00 (last 17.93)."
+    },
+    {
+     "ticker": "MSFT",
+     "action": "ADD",
+     "why": "Score 86.8 STRONG BUY, RSI 58.8, and it outperformed a technology sector that fell 0.70% on a day QQQ closed below its 50-day. A 20.4x forward multiple on 31.7% EPS growth is the most reasonable price on mega-cap AI infrastructure in this scan, and 10.7% below its own high means there is room. TradingView BUY. Note it is 15.1% above the 50-day at 418.13, so the real stop is far away - size accordingly. You are up 39.5% from an average cost of 345.00 (last 481.15)."
+    },
+    {
+     "ticker": "MU",
+     "action": "ADD",
+     "why": "Score 90.1 STRONG BUY, +3.97% to 974.33, with the most extreme fundamentals in the scan - EPS +1368.5%, revenue +345.7% - at a 6.3x forward multiple, and it sits just 1.2% above its 50-day at 963.04 so the stop is unambiguous. TradingView STRONG BUY. One caveat that matters: semicap did NOT confirm the bounce (AMAT flat and 31.4% below its high, KLAC 38.3% below and WEAK), so treat this as a bounce until that group stops making lower lows. You are up 297.7% from an average cost of 245.00 (last 974.33)."
+    },
+    {
+     "ticker": "NVDA",
+     "action": "HOLD",
+     "why": "Score 90.7 STRONG BUY with EPS +214.5% and revenue +85.2% at a 16.7x multiple - but earnings land in 7 days on 2026-08-27, and that print is the whole market's binary event, not just this company's. Hold the position through it; do not add into it. It closed -0.33% at 216.85, holding better than a sector that fell 0.70%, and sits 4.6% above the 50-day at 207.29. TradingView BUY. Note there is no clear VCP - the base is unformed. You are up 31.4% from an average cost of 165.00 (last 216.85)."
+    },
+    {
+     "ticker": "ORCL",
+     "action": "TRIM",
+     "why": "Score 62.1 WATCH, TradingView SELL, and the position is 56.2% below its 52-week high - the deepest drawdown of any large-cap technology name in this book - with earnings 22 days out. It fell another 1.22% today. Score, independent gauge and price all point the same way. Reduce. You are up 42.1% from an average cost of 100.00 (last 142.05)."
+    },
+    {
+     "ticker": "PLTR",
+     "action": "TRIM",
+     "why": "Score 77.6 STRONG BUY and TradingView STRONG BUY - both agree on the trend - but RSI is 78.2 and the stock sits 26.1% above its 50-day at 137.9 on a 75.2x forward multiple. That is the most extended technology position in this book. Take something off into strength; there is no stop on this chart that is both structural and survivable. You are up 45.0% from an average cost of 120.00 (last 173.96)."
+    },
+    {
+     "ticker": "QBTS",
+     "action": "SELL",
+     "why": "Score 47.4 WEAK, TradingView SELL, 58.0% below its 52-week high and 9.1% below its 50-day, with negative revenue growth (-0.6%) and a negative forward multiple - no earnings to value. The gain here has been extraordinary. Realise it: a pre-revenue quantum name in a confirmed downtrend with the independent gauge also saying sell has nothing supporting the price but narrative. You are up 303.4% from an average cost of 4.66 (last 18.80)."
+    },
+    {
+     "ticker": "QLD",
+     "action": "TRIM",
+     "why": "The 2x NASDAQ ETF scores only 69.9 WATCH and TradingView rates it NEUTRAL - and the reason is concrete: QQQ closed at 710.93, BELOW its 50-day for the first time this leg, while technology converts only 28% of its names to STRONG BUY. Double leverage on an index that has lost its trend line is the one position where reducing is clearly right. Trim into the 88-89 area. You are up 74.5% from an average cost of 51.00 (last 88.97)."
+    },
+    {
+     "ticker": "RBRK",
+     "action": "TRIM",
+     "why": "Score 76.0 STRONG BUY and TradingView BUY, but RSI 79.1 with the stock 19.9% above its 50-day AND earnings in 8 days on 2026-08-28. Overbought into a print at a 150.8x forward multiple is the definition of asymmetric downside. Trim ahead of the report and keep the remainder. You are up 74.1% from an average cost of 56.00 (last 97.49)."
+    },
+    {
+     "ticker": "RGTI",
+     "action": "SELL",
+     "why": "Score 47.9 WEAK, TradingView SELL, and 71.5% below its 52-week high - the deepest drawdown in this book - with a negative forward multiple and no earnings date. Take the gain. There is no fundamental floor under a pre-profit quantum name that is down 71% from its high while both our score and TradingView rate it negatively. You are up 167.8% from an average cost of 6.00 (last 16.07)."
+    },
+    {
+     "ticker": "RKLB",
+     "action": "TRIM",
+     "why": "Score 71.9 WATCH, TradingView SELL, and the position is 51.4% below its 52-week high and 11.8% BELOW its 50-day, with a 1459x forward multiple and no positive EPS. On a very large gain, a WEAK chart below its 50-day with an independent SELL rating is where you take profit rather than defend a story. You are up 247.4% from an average cost of 21.00 (last 72.95)."
+    },
+    {
+     "ticker": "SMCI",
+     "action": "HOLD",
+     "why": "A genuine split verdict worth naming: our score is 65.9 WATCH while TradingView rates it STRONG BUY. The stock is 37.8% below its 52-week high yet 20.4% ABOVE its 50-day, with RSI 70.9 - a sharp bounce inside a larger downtrend. EPS +409.4% and revenue +93.2% at a 6.9x multiple are real. Hold what you own; the extension above the 50-day is why this is not an add. You are up 58.7% from an average cost of 23.00 (last 36.50)."
+    },
+    {
+     "ticker": "SNDK",
+     "action": "TRIM",
+     "why": "Score 48.9 WEAK, 31.5% below its 52-week high and 3.3% below its 50-day, though TradingView still rates it BUY on a 6.0x multiple and 371.6% revenue growth. It bounced 1.51% with the memory complex. On a very large gain in a WEAK-signal name inside a group that has not confirmed a bottom, take profit into the bounce and keep a residual. You are up 255.7% from an average cost of 450.00 (last 1,600.62)."
+    },
+    {
+     "ticker": "SNOW",
+     "action": "HOLD",
+     "why": "Score 91.7 STRONG BUY and only 4.8% below its 52-week high, with revenue +33.5%. Two things argue against adding: earnings in 14 days, and an RSI of 70.8 with the stock 16.1% above its 50-day at 276.7 - warm and extended at the same time. A 118.7x forward multiple leaves no room for a guidance miss. TradingView BUY. Hold. You are up 33.9% from an average cost of 240.00 (last 321.28)."
+    },
+    {
+     "ticker": "SSO",
+     "action": "HOLD",
+     "why": "The 2x S&P ETF scores 87.9 STRONG BUY and TradingView rates it BUY - reasonable, since SPY closed above a rising 50-day at 750.72 with zero distribution days. But breadth fell from 57% to 51% and 65 names downgraded against only 26 upgrades. Leveraged beta on narrowing internals is where you take size down, not up. Hold at current weight and treat the SPY 50-day as the line. You are up 58.2% from an average cost of 44.00 (last 69.61)."
+    },
+    {
+     "ticker": "TSLA",
+     "action": "TRIM",
+     "why": "Score 70.0 WATCH, RSI 70.4, 29.5% below its 52-week high and 5.8% BELOW its 50-day, with TradingView rating it SELL and a 158.7x forward multiple against EPS growth of -3.0%. It fell 1.71% in a Consumer Cyclical sector down 1.56%. Overbought oscillator inside a downtrend below the 50-day is a reduce, not a hold. You are down 21.4% from an average cost of 439.00 (last 345.13)."
+    },
+    {
+     "ticker": "TSM",
+     "action": "HOLD",
+     "why": "Score 58.0 WATCH, TradingView NEUTRAL, 12.9% below its high and 1.9% below its 50-day - but EPS +77.4% on revenue +36.0% at a 19.1x multiple is a genuinely strong business at a fair price. It is the highest-quality way to hold semiconductor exposure while the group repairs. Hold; the add signal is a reclaim of the 50-day, not today. You are up 137.8% from an average cost of 175.00 (last 416.08)."
+    },
+    {
+     "ticker": "VRT",
+     "action": "HOLD",
+     "why": "Score 73.7 WATCH with TradingView rating it SELL, 29.6% below its 52-week high and 10.1% BELOW its 50-day - the chart is broken despite EPS +53.0% and revenue +24.1%. Your position is a single share, so the size decision is trivial; hold it. If you were adding data-center exposure today, EQIX is the better vehicle: 92.7 STRONG BUY, TradingView STRONG BUY, and 3.4% above its 50-day. You are up 1554.2% from an average cost of 16.00 (last 264.68)."
     }
+   ]
+  },
+  "9XYERwojDqZYyeKV2ajvWQig8Bh2": {
+   "holdings": [
+    {
+     "ticker": "AAPL",
+     "action": "ADD",
+     "why": "Score 91.4 STRONG BUY with RSI at only 52.8 - the least-extended mega-cap in technology - and it sits just 0.5% above its 50-day at 309.63, so the invalidation line is almost exact. It fell 1.75% to 311.30 with the sector, which is the entry rather than the problem. Earnings are 71 days out, well clear of the dense 15-day cluster. TradingView agrees at BUY (10/10/6), though only modestly. You are up 24.5% from an average cost of 250.00 (last 311.30)."
+    }
+   ]
+  },
+  "H0Wv2PLzKzR0JwanHqUssGUsmMl1": {
+   "holdings": [
+    {
+     "ticker": "AMKR",
+     "action": "SELL",
+     "why": "Score 67.3 WATCH but TradingView rates it STRONG_SELL - the most negative independent reading in this entire book - and the stock is 45.6% below its 52-week high and 23.8% BELOW its 50-day at a 38.7% loss. EPS +218.2% at an 18.0x multiple has not mattered. This is a large position in a broken semiconductor packaging name. Exit. You are down 38.7% from an average cost of 83.00 (last 50.86)."
+    },
+    {
+     "ticker": "COCO",
+     "action": "TRIM",
+     "why": "Score 73.7 WATCH but TradingView rates it SELL, and the position is 22.4% below its 52-week high and 8.6% BELOW its 50-day at a 17.2% loss on a large weight. EPS +115.8% and revenue +28.1% at a 27.9x multiple mean the business is genuinely growing - which is why this is a trim rather than a full exit. Reduce the size and keep a position for a 50-day reclaim. You are down 17.2% from an average cost of 78.71 (last 65.17)."
+    },
+    {
+     "ticker": "DELL",
+     "action": "HOLD",
+     "why": "Score 90.0 STRONG BUY with EPS +282.5% and revenue +87.5% at a 19.4x multiple, and it sits 2.0% above its 50-day. But earnings land in 13 days and TradingView rates it only NEUTRAL, so the independent gauge does not confirm the score. Hold what you own through the print rather than adding ahead of it. You are up 4.2% from an average cost of 417.23 (last 434.63)."
+    },
+    {
+     "ticker": "DIOD",
+     "action": "SELL",
+     "why": "Score 59.7 WATCH but TradingView rates it SELL, and the stock is 26.1% below its 52-week high and 7.6% BELOW its 50-day at a 26.1% loss. EPS growth is +1.0% - effectively flat - on a 15.5x multiple. There is no earnings momentum and no chart. Exit and redeploy. You are down 26.1% from an average cost of 122.81 (last 90.74)."
+    },
+    {
+     "ticker": "DOCN",
+     "action": "SELL",
+     "why": "Score 43.0 WEAK, TradingView SELL, 36.9% below its 52-week high and 16.4% BELOW its 50-day, with EPS growth NEGATIVE at -24.5% on a 61.8x forward multiple. That is the worst combination in this book: falling earnings, a rich multiple, and a broken chart. This is a large position at a 36.4% loss. Exit. You are down 36.4% from an average cost of 179.89 (last 114.40)."
+    },
+    {
+     "ticker": "FLEX",
+     "action": "SELL",
+     "why": "Score 53.0 WEAK, TradingView SELL, 31.9% below its 52-week high and 16.4% BELOW its 50-day at a 27.6% loss. EPS +52.0% at a 15.5x multiple is genuinely cheap, and it has not stopped the decline - electronics manufacturing services are being repriced with the whole hardware complex. Exit. You are down 27.6% from an average cost of 152.31 (last 110.32)."
+    },
+    {
+     "ticker": "FTNT",
+     "action": "SELL",
+     "why": "Score 62.8 WATCH, TradingView SELL, RSI 38.0, and 3.2% below its 50-day - and the group context is what decides it: cybersecurity broke down hard today with CRWD -5.6%, ZS -5.2% and PANW -2.84%. A 40.1x multiple inside a group in active liquidation is not a position to hold. Exit and revisit when CRWD and ZS stop falling. You are up 4.1% from an average cost of 144.90 (last 150.79)."
+    },
+    {
+     "ticker": "GLW",
+     "action": "SELL",
+     "why": "Score 57.8 WATCH but TradingView rates it SELL, and the position is 40.8% below its 52-week high and 13.2% BELOW its 50-day. It fell another 0.64% today. A 35.1x multiple on 16.6% revenue growth is not cheap enough to justify holding a chart this far below trend. Exit. You are down 19.9% from an average cost of 189.20 (last 151.48)."
+    },
+    {
+     "ticker": "GOOGL",
+     "action": "SELL",
+     "why": "Score 51.5 WEAK with TradingView rating it SELL, RSI 39.3, 15.3% below its 52-week high and 3.2% BELOW its 50-day. It fell another 1.17% today. Communication Services is the second-weakest sector in the scan at 17% STRONG BUY conversion and 0 of 10 core names converting. EPS growth of +294.0% at a 23.0x multiple is not translating into price. Exit or reduce materially and redeploy into AAPL or MSFT, which are both STRONG BUY with TradingView agreement. You are down 6.3% from an average cost of 363.53 (last 340.67)."
+    },
+    {
+     "ticker": "ICHR",
+     "action": "SELL",
+     "why": "Score 28.1 WEAK, TradingView SELL, 47.6% below its 52-week high and 29.6% BELOW its 50-day - the widest gap below trend of any position in this book. Semicap equipment suppliers are the last group to recover in a memory downcycle and they have not started. Exit. You are down 31.3% from an average cost of 85.66 (last 58.87)."
+    },
+    {
+     "ticker": "LLY",
+     "action": "ADD",
+     "why": "Score 92.8 STRONG BUY with revenue +47.7% and EPS +26.2% - genuine growth at scale - and today's 2.71% decline hands you entry 2.7% below the high. Only 6.0% above the 50-day at 1175.72, earnings 70 days out, 1.0% short interest. It fell because healthcare gave back 1.61% after Tuesday's 5.4% spike, not on anything company-specific. TradingView BUY (14/9/3). You are up 7.2% from an average cost of 1,162.00 (last 1,245.69)."
+    },
+    {
+     "ticker": "LQDA",
+     "action": "SELL",
+     "why": "Score 49.8 WEAK, TradingView SELL, RSI 33.9, and 10.2% BELOW its 50-day. Revenue growth of 1842.7% reflects a commercial launch off a near-zero base and has not supported the price. Healthcare gave back 1.61% today and the speculative end of the sector was hit hardest. Exit. You are down 5.8% from an average cost of 75.41 (last 71.05)."
+    },
+    {
+     "ticker": "LUV",
+     "action": "SELL",
+     "why": "Score 55.8 WATCH but TradingView rates it STRONG_SELL, and the stock is 26.6% below its 52-week high and 15.3% BELOW its 50-day with RSI 32.1. An 8.1x multiple on 20.5% EPS growth is cheap, and airlines are a leveraged bet on both consumer discretionary spending - which just broke, with WMT -9.2% - and jet fuel, which is rising on the same Iran supply story driving energy. Both sides of the trade are against you. Exit. You are down 6.7% from an average cost of 42.75 (last 39.90)."
+    },
+    {
+     "ticker": "MXL",
+     "action": "SELL",
+     "why": "Score 25.1 WEAK - one of the lowest in the 474-name scan - with TradingView SELL, 49.0% below its 52-week high and 20.4% BELOW its 50-day. This is a large position at a 34.7% loss with no positive EPS and a 25.3x multiple. Nothing in the scan supports holding it. Exit. You are down 34.7% from an average cost of 99.95 (last 65.28)."
+    },
+    {
+     "ticker": "NTAP",
+     "action": "HOLD",
+     "why": "Score 91.9 STRONG BUY, RSI 62.8, and 11.9% above its 50-day with EPS +23.4% on revenue +12.5%. TradingView agrees at BUY. The reason this is a hold and not an add is the calendar: earnings on 2026-09-03, 14 days out. It fell only 0.86% while storage peers stayed broken, so the position is working - just do not increase it into a print. You are up 21.1% from an average cost of 159.26 (last 192.81)."
+    },
+    {
+     "ticker": "PRTH",
+     "action": "SELL",
+     "why": "Score 18.5 WEAK - among the very lowest in the entire 474-name scan - with TradingView SELL, 33.7% below its 52-week high and 13.3% BELOW its 50-day, and EPS growth NEGATIVE at -12.9%. This is a large position at a 24.3% loss in a micro-cap with no positive momentum on any measure. Exit. You are down 24.3% from an average cost of 7.38 (last 5.59)."
+    },
+    {
+     "ticker": "SWBI",
+     "action": "SELL",
+     "why": "Score 66.0 WATCH but TradingView rates it SELL, RSI is 32.6, the stock is 6.3% below its 50-day, AND earnings land in 15 days. A 42.2x forward multiple on a small-cap firearms manufacturer heading into a print with negative momentum is asymmetric the wrong way. Exit ahead of the report. You are down 13.3% from an average cost of 16.04 (last 13.91)."
+    }
+   ]
+  },
+  "RWaiB5nNl5TjiWamTOEMb8tgVgQ2": {
+   "holdings": [
+    {
+     "ticker": "AAPL",
+     "action": "ADD",
+     "why": "Score 91.4 STRONG BUY with RSI at only 52.8 - the least-extended mega-cap in technology - and it sits just 0.5% above its 50-day at 309.63, so the invalidation line is almost exact. It fell 1.75% to 311.30 with the sector, which is the entry rather than the problem. Earnings are 71 days out, well clear of the dense 15-day cluster. TradingView agrees at BUY (10/10/6), though only modestly. You are up 29.7% from an average cost of 240.00 (last 311.30)."
+    },
+    {
+     "ticker": "GS",
+     "action": "SELL",
+     "why": "Score 37.9 WEAK with TradingView rating it SELL, 13.0% below its 52-week high and 4.8% BELOW its 50-day, and it fell another 1.90% today. The group context is decisive: Financial Services averaged -0.93% for a SECOND consecutive session, with COF -3.7%, SYF -3.6% and LNC -3.5%, because falling long-end yields compress net interest margin. EPS +92.3% at a 13.5x multiple has not helped. Take the gain; if you want financial exposure, RGA closed GREEN both sessions at an 8.2x multiple because reinsurance earns on mortality spreads rather than on NIM. You are up 25.3% from an average cost of 800.00 (last 1,002.28)."
+    },
+    {
+     "ticker": "MNST",
+     "action": "HOLD",
+     "why": "The sharpest disagreement in this book. Our score is 22.6 WEAK - near the bottom of the 474-name scan - with the stock 52.5% below its 52-week high and 45.6% BELOW its 50-day, yet TradingView rates it STRONG BUY. The tiebreaker is RSI 7.1, which is one of the most extreme oversold readings this scan has ever produced and reflects capitulation rather than orderly selling. EPS +18.0% and revenue +20.2% mean the business is intact. Hold at current size and let it base; do not add until it stops making lower lows, and do not sell into a reading like this. You are down 40.6% from an average cost of 80.00 (last 47.49)."
+    },
+    {
+     "ticker": "SPCX",
+     "action": "HOLD",
+     "why": "A NEW LISTING, so treat the quant signals as unusable - the 69.0 WATCH score and TradingView's SELL rating are both computed on only weeks of price history and neither is meaningful yet. What is real: revenue growth of 91.9% on an 80.8x forward multiple, and the stock 36.6% below its post-IPO high and 5.5% below its 50-day. This is a thesis position on space-launch economics, not a technical one. Hold at a small weight and judge it on execution milestones rather than on a chart that does not exist yet. You are down 16.7% from an average cost of 160.95 (last 134.00)."
+    },
+    {
+     "ticker": "TSLA",
+     "action": "TRIM",
+     "why": "Score 70.0 WATCH, RSI 70.4, 29.5% below its 52-week high and 5.8% BELOW its 50-day, with TradingView rating it SELL and a 158.7x forward multiple against EPS growth of -3.0%. It fell 1.71% in a Consumer Cyclical sector down 1.56%. Overbought oscillator inside a downtrend below the 50-day is a reduce, not a hold. You are up 38.1% from an average cost of 250.00 (last 345.13)."
+    }
+   ]
+  },
+  "Upr1qGqvOZVTbZIazl3fVapJAWt1": {
+   "holdings": [
+    {
+     "ticker": "AAPL",
+     "action": "ADD",
+     "why": "Score 91.4 STRONG BUY with RSI at only 52.8 - the least-extended mega-cap in technology - and it sits just 0.5% above its 50-day at 309.63, so the invalidation line is almost exact. It fell 1.75% to 311.30 with the sector, which is the entry rather than the problem. Earnings are 71 days out, well clear of the dense 15-day cluster. TradingView agrees at BUY (10/10/6), though only modestly. You are up 20.0% from an average cost of 259.38 (last 311.30)."
+    }
+   ]
+  },
+  "WwfbUgQdviVtfrB3BBzR25joqbv2": {
+   "holdings": [
+    {
+     "ticker": "AAPL",
+     "action": "ADD",
+     "why": "Score 91.4 STRONG BUY with RSI at only 52.8 - the least-extended mega-cap in technology - and it sits just 0.5% above its 50-day at 309.63, so the invalidation line is almost exact. It fell 1.75% to 311.30 with the sector, which is the entry rather than the problem. Earnings are 71 days out, well clear of the dense 15-day cluster. TradingView agrees at BUY (10/10/6), though only modestly. You are up 24.5% from an average cost of 250.00 (last 311.30)."
+    },
+    {
+     "ticker": "AMAT",
+     "action": "SELL",
+     "why": "Score 51.4 WEAK, TradingView SELL, 31.4% below its 52-week high and 11.5% BELOW its 50-day, with earnings 85 days out so there is no catalyst in the window. Semicap is the group that must bottom before the memory bounce becomes real, and it has not - AMAT closed flat while MU rose 3.97%. Take the gain here; this is the weakest link in the semiconductor chain right now. You are up 254.4% from an average cost of 140.00 (last 496.21)."
+    },
+    {
+     "ticker": "AMZN",
+     "action": "ADD",
+     "why": "RSI 40.6 on an 87.3 STRONG BUY score - the most oversold reading attached to any high score in the 474-name scan. It closed -2.16% at 260.11 because Consumer Cyclical fell 1.56% and WMT collapsed 9.2% on its print, not because anything changed at the company: EPS +242.3% on revenue +19.6%. Only 4.3% above the 50-day at 249.32 and earnings 71 days out. TradingView BUY. You are up 4.0% from an average cost of 250.00 (last 260.11)."
+    },
+    {
+     "ticker": "COIN",
+     "action": "HOLD",
+     "why": "Score 65.0 WATCH but TradingView rates it BUY, and the stock is 9.2% above its 50-day with RSI 69.7 despite being 55.5% below its 52-week high. Revenue growth is negative at -17.3% on a 57.1x multiple. On a large existing gain this is a hold: the bounce is real but the fundamentals do not yet support adding. You are up 115.4% from an average cost of 80.00 (last 172.35)."
+    },
+    {
+     "ticker": "DLR",
+     "action": "HOLD",
+     "why": "Score 89.5 STRONG BUY, closed +0.97% while Technology fell 0.70% - data-center REITs were one of the few places money went, with ARE +4.7% and Real Estate one of only three green sectors. RSI 58.9 and only 4.0% above its 50-day. TradingView BUY. A 67.2x multiple and -58.7% EPS growth are why this is a hold rather than an add. Position shows zero quantity - nothing to act on unless you re-establish it (last 194.22)."
+    },
+    {
+     "ticker": "DTE",
+     "action": "SELL",
+     "why": "Score 36.5 WEAK, TradingView SELL, RSI 35.7 and 5.4% BELOW its 50-day, with revenue growth NEGATIVE at -1.5%. Utilities are the weakest sector in the scan, converting only 3 of 33 names (9%) to STRONG BUY. You are sitting on a 38% gain in the market's worst group - take it. You are up 38.1% from an average cost of 100.00 (last 138.11)."
+    },
+    {
+     "ticker": "EOG",
+     "action": "ADD",
+     "why": "The single best-shaped setup in the entire scan: closed +1.83% at 152.21, which IS its 52-week high, with RSI at only 54.5. EPS +109.4% and revenue +58.7% on a 10.4x forward multiple, only 10.1% above the 50-day at 138.24, and no earnings date inside the window. Energy converts 75% of its names to STRONG BUY for a second session. TradingView STRONG BUY at 16/10/0 - zero sell votes. You are up 1283.7% from an average cost of 11.00 (last 152.21)."
+    },
+    {
+     "ticker": "FICO",
+     "action": "HOLD",
+     "why": "Score 75.3 STRONG BUY with RSI 53.0 and EPS +41.2% on revenue +25.7%, and TradingView agrees at BUY. But it is 38.8% below its 52-week high and 2.1% BELOW its 50-day - a stock in a downtrend that scores well on fundamentals. Hold; there is no reason to add until it reclaims the 50-day. You are up 51.3% from an average cost of 760.00 (last 1,149.61)."
+    },
+    {
+     "ticker": "GS",
+     "action": "SELL",
+     "why": "Score 37.9 WEAK with TradingView rating it SELL, 13.0% below its 52-week high and 4.8% BELOW its 50-day, and it fell another 1.90% today. The group context is decisive: Financial Services averaged -0.93% for a SECOND consecutive session, with COF -3.7%, SYF -3.6% and LNC -3.5%, because falling long-end yields compress net interest margin. EPS +92.3% at a 13.5x multiple has not helped. Take the gain; if you want financial exposure, RGA closed GREEN both sessions at an 8.2x multiple because reinsurance earns on mortality spreads rather than on NIM. You are up 615.9% from an average cost of 140.00 (last 1,002.28)."
+    },
+    {
+     "ticker": "HWM",
+     "action": "HOLD",
+     "why": "Score 76.3 STRONG BUY on fundamentals (EPS +33.0%, revenue +24.1%) but it fell 3.46% today, sits 1.4% BELOW its 50-day, and TradingView rates it SELL. Score and independent gauge disagree and price is siding with TradingView. Industrials averaged -1.07% with GE downgraded all the way to WEAK. Hold, do not add, and watch the 50-day. Position shows zero quantity - nothing to act on unless you re-establish it (last 273.67)."
+    },
+    {
+     "ticker": "INTC",
+     "action": "SELL",
+     "why": "Score 31.2 WEAK, TradingView SELL, 34.6% below its 52-week high and 15.1% BELOW its 50-day, with no positive EPS growth figure and a 45.2x forward multiple. It fell another 0.72% today. On a large gain, in a name where our score and the independent gauge both say sell and price is 15% under its own trend line, take the profit. You are up 108.0% from an average cost of 44.29 (last 92.13)."
+    },
+    {
+     "ticker": "IRM",
+     "action": "HOLD",
+     "why": "Score 67.7 WATCH and TradingView rates it SELL, but the chart is not broken - only 7.6% below its 52-week high and 1.3% below its 50-day, and it closed +0.72% while most sectors fell. Revenue +18.5% at a 45.0x multiple is rich. Hold the remaining position; do not add while the independent gauge says sell. You are down 47.0% from an average cost of 232.00 (last 122.96)."
+    },
+    {
+     "ticker": "KIM",
+     "action": "HOLD",
+     "why": "Score 58.3 WATCH, TradingView SELL, RSI 23.2 - deeply oversold - and 4.1% below its 50-day. Real Estate converts only 18% of its names to STRONG BUY. Revenue growth of 4.9% on a 27.0x multiple gives no reason to add, but an RSI of 23 is a capitulation reading rather than an exit point. Hold. Position shows zero quantity - nothing to act on unless you re-establish it (last 24.16)."
+    },
+    {
+     "ticker": "MNST",
+     "action": "HOLD",
+     "why": "The sharpest disagreement in this book. Our score is 22.6 WEAK - near the bottom of the 474-name scan - with the stock 52.5% below its 52-week high and 45.6% BELOW its 50-day, yet TradingView rates it STRONG BUY. The tiebreaker is RSI 7.1, which is one of the most extreme oversold readings this scan has ever produced and reflects capitulation rather than orderly selling. EPS +18.0% and revenue +20.2% mean the business is intact. Hold at current size and let it base; do not add until it stops making lower lows, and do not sell into a reading like this. You are down 49.2% from an average cost of 93.43 (last 47.49)."
+    },
+    {
+     "ticker": "MSFT",
+     "action": "ADD",
+     "why": "Score 86.8 STRONG BUY, RSI 58.8, and it outperformed a technology sector that fell 0.70% on a day QQQ closed below its 50-day. A 20.4x forward multiple on 31.7% EPS growth is the most reasonable price on mega-cap AI infrastructure in this scan, and 10.7% below its own high means there is room. TradingView BUY. Note it is 15.1% above the 50-day at 418.13, so the real stop is far away - size accordingly. Position shows zero quantity - nothing to act on unless you re-establish it (last 481.15)."
+    },
+    {
+     "ticker": "NVDA",
+     "action": "HOLD",
+     "why": "Score 90.7 STRONG BUY with EPS +214.5% and revenue +85.2% at a 16.7x multiple - but earnings land in 7 days on 2026-08-27, and that print is the whole market's binary event, not just this company's. Hold the position through it; do not add into it. It closed -0.33% at 216.85, holding better than a sector that fell 0.70%, and sits 4.6% above the 50-day at 207.29. TradingView BUY. Note there is no clear VCP - the base is unformed. You are down 22.6% from an average cost of 280.00 (last 216.85)."
+    },
+    {
+     "ticker": "NXPI",
+     "action": "SELL",
+     "why": "Score 32.1 WEAK and TradingView STRONG_SELL, 32.7% below its 52-week high and 16.6% BELOW its 50-day. Both our score and the independent gauge are emphatically negative, and analog semis have not participated in any bounce. A 12.3x multiple looks cheap and is the trap. Exit. You are down 21.8% from an average cost of 285.20 (last 222.97)."
+    },
+    {
+     "ticker": "SIRI",
+     "action": "SELL",
+     "why": "Score 48.7 WEAK, TradingView SELL, 12.1% below its 52-week high and 3.0% below its 50-day, with revenue growth of just 1.0%. Communication Services converts only 17% of its names to STRONG BUY. At a 64.5% loss this is dead capital in a no-growth business - exit and redeploy into the energy or materials leadership. You are down 64.5% from an average cost of 80.00 (last 28.39)."
+    },
+    {
+     "ticker": "SNDK",
+     "action": "TRIM",
+     "why": "Score 48.9 WEAK, 31.5% below its 52-week high and 3.3% below its 50-day, though TradingView still rates it BUY on a 6.0x multiple and 371.6% revenue growth. It bounced 1.51% with the memory complex. On a very large gain in a WEAK-signal name inside a group that has not confirmed a bottom, take profit into the bounce and keep a residual. You are up 29269.2% from an average cost of 5.45 (last 1,600.62)."
+    },
+    {
+     "ticker": "SPCX",
+     "action": "HOLD",
+     "why": "A NEW LISTING, so treat the quant signals as unusable - the 69.0 WATCH score and TradingView's SELL rating are both computed on only weeks of price history and neither is meaningful yet. What is real: revenue growth of 91.9% on an 80.8x forward multiple, and the stock 36.6% below its post-IPO high and 5.5% below its 50-day. This is a thesis position on space-launch economics, not a technical one. Hold at a small weight and judge it on execution milestones rather than on a chart that does not exist yet. You are down 34.4% from an average cost of 204.12 (last 134.00)."
+    },
+    {
+     "ticker": "SPG",
+     "action": "HOLD",
+     "why": "Downgraded from STRONG BUY to WATCH in this scan, with TradingView rating it SELL and RSI at 30.9 - oversold and losing its signal at the same time. It is 7.1% below its high and 1.4% below its 50-day, with EPS growth NEGATIVE at -12.5%. Hold; the downgrade is a reason not to add, and the oversold reading is a reason not to panic-sell into it. Position shows zero quantity - nothing to act on unless you re-establish it (last 219.91)."
+    },
+    {
+     "ticker": "TSLA",
+     "action": "TRIM",
+     "why": "Score 70.0 WATCH, RSI 70.4, 29.5% below its 52-week high and 5.8% BELOW its 50-day, with TradingView rating it SELL and a 158.7x forward multiple against EPS growth of -3.0%. It fell 1.71% in a Consumer Cyclical sector down 1.56%. Overbought oscillator inside a downtrend below the 50-day is a reduce, not a hold. You are down 13.7% from an average cost of 400.00 (last 345.13)."
+    },
+    {
+     "ticker": "WDC",
+     "action": "SELL",
+     "why": "Score 34.0 WEAK, TradingView SELL, 37.1% below its 52-week high and 14.6% BELOW its 50-day - the most broken chart in the storage complex. It bounced 1.51% today with memory, which is the opportunity to exit rather than a reason to stay. EPS +984.1% at a 14.8x multiple has not stopped the decline. You are down 6.2% from an average cost of 500.01 (last 469.05)."
+    }
+   ]
+  },
+  "XywlmmAEAhN9JBDkYQnagsBIkCf1": {
+   "holdings": [
+    {
+     "ticker": "BTC-USD",
+     "action": "HOLD",
+     "why": "No scan data - crypto is outside the equity universe this scan covers, so there are no metrics, no score and no TradingView equity rating to act on. Hold and size it as the speculative allocation it is. For context on risk appetite generally: SPY held its rising 50-day with zero distribution days, but breadth fell from 57% to 51% and 65 names downgraded against 26 upgrades, so market internals narrowed even as the index held."
+    },
+    {
+     "ticker": "GS",
+     "action": "SELL",
+     "why": "Score 37.9 WEAK with TradingView rating it SELL, 13.0% below its 52-week high and 4.8% BELOW its 50-day, and it fell another 1.90% today. The group context is decisive: Financial Services averaged -0.93% for a SECOND consecutive session, with COF -3.7%, SYF -3.6% and LNC -3.5%, because falling long-end yields compress net interest margin. EPS +92.3% at a 13.5x multiple has not helped. Take the gain; if you want financial exposure, RGA closed GREEN both sessions at an 8.2x multiple because reinsurance earns on mortality spreads rather than on NIM. You are up 100.5% from an average cost of 500.00 (last 1,002.28)."
+    }
+   ]
   }
+ }
 }
