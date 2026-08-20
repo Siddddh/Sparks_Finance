@@ -2476,6 +2476,7 @@ function _orgDashCompute(orgId) {
   _orgDashInflight[orgId] = p; return p;
 }
 async function _orgDashBuild(orgId) {
+  const _orgAlertsP = _loadOrgAlerts(orgId).catch(() => {});   // load deadline alerts concurrently → the strip + hub bell
   const d = await _adminCall('orgListCompanies', { orgId: orgId });
   const companies = (d.companies || []).filter(c => c.active !== false);
   if (!companies.length) return { empty: true };
@@ -2620,7 +2621,9 @@ async function _orgDashBuild(orgId) {
     avgHealth: avgHealth, avgBand: avgBand, anyFin: anyFin, totRevenueAnn: totRevenueAnn, totNetProfitAnn: totNetProfitAnn, totEBITDAAnn: totEBITDAAnn,
     atRisk: scored.filter(h => h.score < 40).length, noFin: rows.filter(r => !r.hasFin).length, entOverdue: entOverdue, entMonthlyOblig: entMonthlyOblig,
     rows: rows.map(r => ({ name: r.name, assets: r.assets, netWorth: r.netWorth, revenue: r.revenue, netProfit: r.netProfit, hasFin: r.hasFin, score: r.health && r.health.score != null ? r.health.score : null, band: r.health && r.health.band ? r.health.band : null })) };
-  const finalHtml = hero + mini + execFin + assetSection + reSection + tbl + loanSection + _aiCfoCard('org', orgCfo) + '<div class="rng-advice-note">Balance sheet as of ' + fmtDate(todayStr()) + '. Net worth (equity) = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Consolidated from each company’s Assets, Loans and latest Financial Statements — informational only, not financial advice.</div>';
+  try { await _orgAlertsP; } catch (e) {}   // ensure the alert cache is populated before rendering the strip
+  const alertStrip = '<div id="orgAlertStrip">' + _orgAlertStripInner(orgId) + '</div>';
+  const finalHtml = hero + alertStrip + mini + execFin + assetSection + reSection + tbl + loanSection + _aiCfoCard('org', orgCfo) + '<div class="rng-advice-note">Balance sheet as of ' + fmtDate(todayStr()) + '. Net worth (equity) = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Consolidated from each company’s Assets, Loans and latest Financial Statements — informational only, not financial advice.</div>';
   _orgDashCacheSet(orgId, finalHtml);   // cache (memory + sessionStorage) for the next instant paint
   return { html: finalHtml };
 }
@@ -4007,7 +4010,7 @@ function _hubRenderOrgCards() {
   _hubRenderAllOrgs();   // super-admin platform overview table
 }
 // Level 2 — Companies within the opened org.
-async function hubOpenOrg(orgId) { _hubOrgId = orgId; _hubOrgTab = 'companies'; try { _prewarmOrgDash(orgId); } catch (e) {} await renderCompanyLevel(); }
+async function hubOpenOrg(orgId) { _hubOrgId = orgId; _hubOrgTab = 'companies'; try { _prewarmOrgDash(orgId); } catch (e) {} _kickOrgAlerts(orgId); await renderCompanyLevel(); }
 function hubBackToOrgs() { _hubOrgId = null; renderOrgLevel(); }
 // Switch the org-page side-nav tab (Dashboard / Members / Companies / Settings). Non-Companies tabs are
 // org-admin/super-admin only (server enforces it too); re-check here so a stray call can't reach them.
@@ -4343,6 +4346,7 @@ function switchToOrgHub(orgId) {
   ACTIVE_ORG = null; ACTIVE_COMPANY = null;
   _hubMode = 'team'; _hubOrgId = orgId; _hubOrgTab = 'companies';
   try { _prewarmOrgDash(orgId); } catch (e) {}               // warm the dashboard cache so its tab opens instantly
+  _kickOrgAlerts(orgId);                                     // load org-wide deadline alerts → hub bell + daily popup
   try { _navClear(); } catch (e) {}                          // fresh trail rooted at this org's hub
   try { renderOrgSwitcher(); } catch (e) {}                  // hides the switcher (no active company now)
   _hubShowHub(auth.currentUser);
@@ -6920,7 +6924,17 @@ async function refreshDerivedNotifs() {
     }
     let reminders = []; try { reminders = _loanReminders(); } catch (e) {}
     let expiry = []; try { expiry = _expiryAlerts().filter(a => !a.acknowledged); } catch (e) {}
-    _derivedNotifs = [...alerts, ...movers, ...watch, ...explore, ..._newsNotifs, ...reminders, ...expiry];
+    // On the org hub (no active company) the bell aggregates deadlines across every company the user can
+    // access. Served from _orgAlertsCache (SWR): if stale/missing, kick a background load then re-refresh.
+    let orgExpiry = [];
+    try {
+      if (!ACTIVE_COMPANY && _hubOrgId) {
+        const oc = _orgAlertsCache[_hubOrgId];
+        if (oc) orgExpiry = (oc.alerts || []).filter(a => !a.acknowledged);
+        if (!oc || (Date.now() - oc.ts) >= _ORG_ALERTS_TTL) { _loadOrgAlerts(_hubOrgId).then(() => { try { refreshDerivedNotifs(); } catch (e) {} }); }
+      }
+    } catch (e) {}
+    _derivedNotifs = [...alerts, ...movers, ...watch, ...explore, ..._newsNotifs, ...reminders, ...expiry, ...orgExpiry];
   } finally { _refreshingNotifs = false; }
   updateNotifBadge();
   const p = document.getElementById('notifPanel'); if (p && !p.classList.contains('hidden')) renderNotifPanel();
@@ -6947,7 +6961,7 @@ function notifRowHtml(it) {
   return '<div class="notif-row' + (it.read ? '' : ' unread') + '" onclick="openNotifDetail(\'' + escHtml(it.key) + '\')">' + av +
     '<div class="notif-main"><div class="notif-t">' + escHtml(it.title) + pctTxt + (it.read ? '' : '<span class="notif-udot"></span>') + '</div>' +
     (it.body ? '<div class="notif-b">' + escHtml(it.body) + '</div>' : '') +
-    '<div class="notif-meta">' + _alertBadge(it) + (t ? '<span>' + t + '</span>' : '') + (it.cat === 'expiry' ? ' <button class="pf-btn pf-btn-outline" style="padding:2px 8px;font-size:11px" onclick="event.stopPropagation();acknowledgeAlertUi(\'' + escHtml(it.ackId || it.key) + '\')">Acknowledge</button>' : '') + '</div></div>' + ext + '</div>';
+    '<div class="notif-meta">' + _alertBadge(it) + (t ? '<span>' + t + '</span>' : '') + (it.cat === 'expiry' ? ' <button class="pf-btn pf-btn-outline" style="padding:2px 8px;font-size:11px" onclick="event.stopPropagation();acknowledgeAlertUi(\'' + escHtml(it.ackId || it.key) + '\',\'' + escHtml(it.orgId || '') + '\',\'' + escHtml(it.companyId || '') + '\')">Acknowledge</button>' : '') + '</div></div>' + ext + '</div>';
 }
 // Clicking a notification opens an ENRICHED detail view (what happened + live context + explicit
 // actions) instead of blindly redirecting. Navigation to Research/Loans/article is a deliberate button.
@@ -6985,10 +6999,10 @@ function _notifDetailHtml(it) {
       (it.alert.note ? '<br><span class="ht-sub">Your note: ' + escHtml(it.alert.note) + '</span>' : '') + '</div>';
   }
   const acts = [];
-  if (it.cat === 'expiry' && (it.ackId || it.key)) acts.push('<button class="modal-btn modal-btn-primary" onclick="acknowledgeAlertUi(\'' + escHtml(it.ackId || it.key) + '\');closeModal()">Acknowledge</button>');
+  if (it.cat === 'expiry' && (it.ackId || it.key)) acts.push('<button class="modal-btn modal-btn-primary" onclick="acknowledgeAlertUi(\'' + escHtml(it.ackId || it.key) + '\',\'' + escHtml(it.orgId || '') + '\',\'' + escHtml(it.companyId || '') + '\');closeModal()">Acknowledge</button>');
   if (it.url) acts.push('<a class="modal-btn modal-btn-primary" href="' + escHtml(it.url) + '" target="_blank" rel="noopener">Read full article ↗</a>');
   if (it.ticker) acts.push('<button class="modal-btn ' + (it.url ? 'modal-btn-cancel' : 'modal-btn-primary') + '" onclick="closeModal();goResearch(\'' + escHtml(it.ticker) + '\')">View ' + escHtml(it.ticker) + '</button>');
-  if (it.loanId) acts.push('<button class="modal-btn modal-btn-primary" onclick="closeModal();sw(\'loans\');openLoan(\'' + escHtml(it.loanId) + '\')">View loan</button>');
+  if (it.loanId) acts.push('<button class="modal-btn modal-btn-primary" onclick="' + (it.companyId ? '_openLoanAcrossCompany(\'' + escHtml(it.orgId) + '\',\'' + escHtml(it.companyId) + '\',\'' + escHtml(it.loanId) + '\')' : 'closeModal();sw(\'loans\');openLoan(\'' + escHtml(it.loanId) + '\')') + '">View loan</button>');
   acts.push('<button class="modal-btn modal-btn-cancel" onclick="closeModal()">Close</button>');
   return '<div class="modal-title" style="display:flex;align-items:center;gap:10px">' + logo + '<span style="flex:1;min-width:0">' + escHtml(it.title) + '</span></div>' +
     '<div style="display:flex;align-items:center;gap:8px;margin:-6px 0 12px">' + _alertBadge(it) + (when ? '<span class="ht-sub">' + when + '</span>' : '') + '</div>' +
@@ -7784,6 +7798,8 @@ function loadLoans() {
   if (loansUnsub) { try { loansUnsub(); } catch (e) {} }
   loansUnsub = loansCol().onSnapshot(snap => {
     loans = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    // Honor a cross-company "View loan" jump: open the requested loan once its company's list has loaded.
+    if (_pendingOpenLoan && _pendingOpenLoan.companyId === ACTIVE_COMPANY) { const _lid = _pendingOpenLoan.loanId; _pendingOpenLoan = null; try { sw('loans'); if (_lid) openLoan(_lid); } catch (e) {} }
     if (document.getElementById('tab-loans').classList.contains('active')) renderLoans();
     if (document.getElementById('tab-loansdash').classList.contains('active')) renderLoansDash();
     try { refreshDerivedNotifs(); } catch (e) {}
@@ -8177,28 +8193,106 @@ function _alertTier(dm) {                 // days until maturity → tier (null 
   return null;
 }
 function _expiryAlertId(refId, tier, dueDate) { return refId + '__' + tier + '__' + (dueDate || 'na'); }
+// Map ONE loan/note → an expiry-alert object (or null). ctx = {orgId, companyId, companyName}; a non-empty
+// companyName labels the alert for the org-wide feed. Shared by the company feed (_expiryAlerts) and the
+// org-wide feed (_orgExpiryAlerts) so the tier bands + wording stay identical everywhere.
+function _loanToAlert(l, ctx, ackSet) {
+  if (!loanIsActive(l) || !l.maturityDate) return null;
+  const dm = daysUntil(l.maturityDate), tier = _alertTier(dm);
+  if (!tier) return null;
+  const cx = ctx || {};
+  const id = _expiryAlertId(l.id, tier, l.maturityDate), title0 = loanTitle(l);
+  const ovd = Math.abs(dm);
+  const phrase = dm < 0 ? ('is overdue by ' + ovd + ' day' + (ovd === 1 ? '' : 's')) : (dm === 0 ? 'matures today' : 'matures in ' + dm + ' day' + (dm === 1 ? '' : 's'));
+  const pre = tier === 'overdue' ? 'OVERDUE — ' : (tier === 'critical' ? 'Critical — ' : (tier === 'plan' ? 'Plan ahead — ' : 'Reminder — '));
+  const advice = tier === 'reminder' ? ' Start planning how it will be settled or renewed.' : (tier === 'plan' ? ' Begin arranging the funds now — this typically needs ~30 days.' : (tier === 'critical' ? ' Settle, refinance or renew immediately.' : ' Past due — settle or renew now; this keeps alerting until acknowledged.'));
+  return { key: id, ackId: id, cat: 'expiry', tier: tier, type: 'expiry_alert', module: 'loans', loanId: l.id, dueDate: l.maturityDate, acknowledged: ackSet ? ackSet.has(id) : false, _dm: dm,
+    orgId: cx.orgId || null, companyId: cx.companyId || null, companyName: cx.companyName || '',
+    title: pre + (cx.companyName ? cx.companyName + ' · ' : '') + title0 + ' ' + phrase,
+    body: title0 + ' (' + loanTypeName(l.type) + ')' + (cx.companyName ? ' — ' + cx.companyName : '') + (dm < 0 ? ' matured on ' : ' matures on ') + fmtDate(l.maturityDate) + ' · ' + dollarFmt(loanOutstanding(l)) + ' outstanding.' + advice,
+    ts: _derivedTs('exp:' + id) };
+}
 function _expiryAlerts() {
   if (!loans || !loans.length) return [];
   const ackSet = new Set((alertAcks || []).map(a => a.id));
   const out = [];
-  loans.forEach(l => {
-    if (!loanIsActive(l) || !l.maturityDate) return;
-    const dm = daysUntil(l.maturityDate), tier = _alertTier(dm);
-    if (!tier) return;
-    const id = _expiryAlertId(l.id, tier, l.maturityDate), title0 = loanTitle(l);
-    const ovd = Math.abs(dm);
-    const phrase = dm < 0 ? ('is overdue by ' + ovd + ' day' + (ovd === 1 ? '' : 's')) : (dm === 0 ? 'matures today' : 'matures in ' + dm + ' day' + (dm === 1 ? '' : 's'));
-    const pre = tier === 'overdue' ? 'OVERDUE — ' : (tier === 'critical' ? 'Critical — ' : (tier === 'plan' ? 'Plan ahead — ' : 'Reminder — '));
-    const advice = tier === 'reminder' ? ' Start planning how it will be settled or renewed.' : (tier === 'plan' ? ' Begin arranging the funds now — this typically needs ~30 days.' : (tier === 'critical' ? ' Settle, refinance or renew immediately.' : ' Past due — settle or renew now; this keeps alerting until acknowledged.'));
-    out.push({ key: id, ackId: id, cat: 'expiry', tier: tier, type: 'expiry_alert', module: 'loans', loanId: l.id, dueDate: l.maturityDate, acknowledged: ackSet.has(id), _dm: dm,
-      title: pre + title0 + ' ' + phrase,
-      body: title0 + ' (' + loanTypeName(l.type) + ')' + (dm < 0 ? ' matured on ' : ' matures on ') + fmtDate(l.maturityDate) + ' · ' + dollarFmt(loanOutstanding(l)) + ' outstanding.' + advice,
-      ts: _derivedTs('exp:' + id) });
-  });
+  loans.forEach(l => { const a = _loanToAlert(l, null, ackSet); if (a) out.push(a); });
   return out;
 }
 function _expiryUnacked() { return _expiryAlerts().filter(a => !a.acknowledged).sort((x, y) => ((ALERT_TIERS[x.tier] || {}).order - (ALERT_TIERS[y.tier] || {}).order) || (x._dm - y._dm)); }
 function _alertBadge(it) { const t = it.cat === 'expiry' && it.tier && ALERT_TIERS[it.tier]; return t ? '<span class="badge ' + t.badge + '">' + t.label + '</span>' : notifBadge(it.cat); }
+// ── Org-wide expiry alerts (every company the user can access) — powers the hub bell + dashboard strip ──
+let _orgAlertsCache = {}, _orgAlertsInflight = {}, _pendingOpenLoan = null;
+const _ORG_ALERTS_TTL = 60000;
+async function _orgAccessibleCompanies(orgId) {
+  const isAdmin = (typeof isPlatformAdmin === 'function' && isPlatformAdmin()) || !!(_myOrgs[orgId] && _myOrgs[orgId].orgAdmin);
+  if (isAdmin) {
+    try { const d = await _adminCall('orgListCompanies', { orgId: orgId }); return (d.companies || []).filter(c => c.active !== false).map(c => ({ companyId: c.companyId, name: c.name || 'Company' })); } catch (e) {}
+  }
+  const cos = (_myOrgs[orgId] && _myOrgs[orgId].companies) || {};
+  return Object.keys(cos).map(cid => ({ companyId: cid, name: (cos[cid] && cos[cid].name) || 'Company' }));
+}
+async function _orgExpiryAlerts(orgId) {
+  if (!orgId) return [];
+  const cos = await _orgAccessibleCompanies(orgId);
+  const perCo = await Promise.all(cos.map(async c => {
+    const coRef = db.collection('organizations').doc(orgId).collection('companies').doc(c.companyId);
+    const [lns, acks] = await Promise.all([
+      coRef.collection('loans').get().catch(() => null),
+      coRef.collection('alertAcks').get().catch(() => null)
+    ]);
+    if (!lns) return [];   // read denied (no loans access) → skip this company silently
+    const ackSet = new Set(acks ? acks.docs.map(d => d.id) : []);
+    const ctx = { orgId: orgId, companyId: c.companyId, companyName: c.name };
+    const out = [];
+    lns.docs.forEach(d => { const a = _loanToAlert({ id: d.id, ...d.data() }, ctx, ackSet); if (a) out.push(a); });
+    return out;
+  }));
+  const all = perCo.flat();
+  all.sort((x, y) => ((ALERT_TIERS[x.tier] || {}).order - (ALERT_TIERS[y.tier] || {}).order) || (x._dm - y._dm));
+  return all;
+}
+// Stale-while-revalidate loader (memory cache + in-flight dedupe), mirrors the org-dashboard cache pattern.
+function _loadOrgAlerts(orgId, force) {
+  if (!orgId) return Promise.resolve([]);
+  const c = _orgAlertsCache[orgId];
+  if (!force && c && (Date.now() - c.ts) < _ORG_ALERTS_TTL) return Promise.resolve(c.alerts);
+  if (_orgAlertsInflight[orgId]) return _orgAlertsInflight[orgId];
+  const p = _orgExpiryAlerts(orgId).then(alerts => { _orgAlertsCache[orgId] = { alerts: alerts, ts: Date.now() }; return alerts; })
+    .catch(() => (c ? c.alerts : []))
+    .finally(() => { try { delete _orgAlertsInflight[orgId]; } catch (e) {} });
+  _orgAlertsInflight[orgId] = p;
+  return p;
+}
+function _orgAlertsUnacked(orgId) { const c = _orgAlertsCache[orgId]; return c ? (c.alerts || []).filter(a => !a.acknowledged) : []; }
+// Fire on hub entry: load org-wide alerts, then light up the bell + (once/day) the popup.
+function _kickOrgAlerts(orgId) { if (!orgId) return; try { _loadOrgAlerts(orgId, true).then(() => { try { refreshDerivedNotifs(); } catch (e) {} try { _renderOrgAlertStrip(orgId); } catch (e) {} try { _maybeShowExpiryPopup(); } catch (e) {} }); } catch (e) {} }
+function _markOrgAlertAcked(orgId, ackId) { const c = _orgAlertsCache[orgId]; if (c) (c.alerts || []).forEach(a => { if (a.ackId === ackId) a.acknowledged = true; }); }
+// The org dashboard "Deadlines — needs attention" strip (reads whatever _loadOrgAlerts cached).
+function _orgAlertStripInner(orgId) {
+  const list = _orgAlertsUnacked(orgId).slice().sort((x, y) => ((ALERT_TIERS[x.tier] || {}).order - (ALERT_TIERS[y.tier] || {}).order) || (x._dm - y._dm));
+  if (!list.length) return '';
+  const rows = list.slice(0, 12).map(a => {
+    const t = ALERT_TIERS[a.tier] || {};
+    return '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border-soft)">' +
+      '<span class="badge ' + t.badge + '" style="margin-top:2px;white-space:nowrap">' + t.label + '</span>' +
+      '<div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px">' + escHtml(a.companyName || '') + '</div><div class="ht-sub" style="margin-top:1px">' + escHtml(a.title) + '</div></div>' +
+      '<div style="display:flex;gap:6px;flex-wrap:wrap;white-space:nowrap">' +
+      '<button class="pf-btn" style="padding:3px 9px;font-size:12px" onclick="_openLoanAcrossCompany(\'' + escHtml(a.orgId) + '\',\'' + escHtml(a.companyId) + '\',\'' + escHtml(a.loanId) + '\')">View</button>' +
+      '<button class="pf-btn pf-btn-outline" style="padding:3px 9px;font-size:12px" onclick="acknowledgeAlertUi(\'' + escHtml(a.ackId) + '\',\'' + escHtml(a.orgId) + '\',\'' + escHtml(a.companyId) + '\')">Acknowledge</button>' +
+      '</div></div>';
+  }).join('');
+  const more = list.length > 12 ? '<div class="ht-sub" style="margin-top:6px">+' + (list.length - 12) + ' more deadline' + (list.length - 12 === 1 ? '' : 's') + '…</div>' : '';
+  return '<div class="dash-section" style="border-left:3px solid var(--red);padding-left:12px"><div class="dash-section-title">Deadlines — needs attention <span class="ht-sub" style="font-weight:400">(' + list.length + ')</span></div>' + rows + more + '</div>';
+}
+function _renderOrgAlertStrip(orgId) { const el = document.getElementById('orgAlertStrip'); if (el) el.innerHTML = _orgAlertStripInner(orgId); }
+// Jump to a loan that may live in ANOTHER company: re-scope to it, then open the loan once its list loads.
+function _openLoanAcrossCompany(orgId, companyId, loanId) {
+  if (ACTIVE_ORG === orgId && ACTIVE_COMPANY === companyId) { try { sw('loans'); if (loanId) openLoan(loanId); } catch (e) {} return; }
+  _pendingOpenLoan = { companyId: companyId, loanId: loanId };
+  try { closeModal(); } catch (e) {}
+  try { enterWorkspace(orgId, companyId); } catch (e) { _pendingOpenLoan = null; }
+}
 // ── Acknowledgement store (company-shared) ──
 function alertAcksCol() { return companyRef().collection('alertAcks'); }
 let alertAcks = [], alertAcksUnsub = null, _alertAcksLoaded = false;
@@ -8212,48 +8306,71 @@ function loadAlertAcks() {
     try { _maybeShowExpiryPopup(); } catch (e) {}
   }, () => {});
 }
-function acknowledgeAlert(ackId, meta) {
+function _alertAcksColFor(orgId, companyId) { return db.collection('organizations').doc(orgId).collection('companies').doc(companyId).collection('alertAcks'); }
+// Acknowledge an alert. When orgId/companyId are given (org-hub feed) the ack is written to THAT company's
+// alertAcks — Firestore rules enforce access (loans-read or org-admin); otherwise it targets the active company.
+function acknowledgeAlert(ackId, meta, orgId, companyId) {
   if (!UID || !ackId) return Promise.resolve();
-  if (!canRead('loans')) { try { pmToast("You don't have access to acknowledge this."); } catch (e) {} return Promise.resolve(); }
+  const cross = !!(orgId && companyId) && companyId !== ACTIVE_COMPANY;
+  if (!cross && !canRead('loans')) { try { pmToast("You don't have access to acknowledge this."); } catch (e) {} return Promise.resolve(); }
+  const col = cross ? _alertAcksColFor(orgId, companyId) : alertAcksCol();
   const email = (auth.currentUser && auth.currentUser.email) || '';
-  return alertAcksCol().doc(ackId).set(Object.assign({ acknowledgedBy: UID, acknowledgedByEmail: email, acknowledgedAt: new Date().toISOString(), resolved: false }, meta || {}), { merge: true });
+  return col.doc(ackId).set(Object.assign({ acknowledgedBy: UID, acknowledgedByEmail: email, acknowledgedAt: new Date().toISOString(), resolved: false }, meta || {}), { merge: true });
 }
-function _ackMetaFor(ackId) { const a = _expiryAlerts().find(x => x.ackId === ackId); return a ? { module: a.module, refId: a.loanId, tier: a.tier, dueDate: a.dueDate, title: (a.title || '').slice(0, 140) } : {}; }
-function acknowledgeAlertUi(ackId) {
-  acknowledgeAlert(ackId, _ackMetaFor(ackId)).then(() => {
+// Find an alert across the company feed or the org-wide cache (for meta + routing).
+function _findAlert(ackId, orgId) { if (orgId && _orgAlertsCache[orgId]) { const a = (_orgAlertsCache[orgId].alerts || []).find(x => x.ackId === ackId); if (a) return a; } return _expiryAlerts().find(x => x.ackId === ackId) || null; }
+function _ackMetaFrom(a) { return a ? { module: a.module, refId: a.loanId, tier: a.tier, dueDate: a.dueDate, title: (a.title || '').slice(0, 140) } : {}; }
+function acknowledgeAlertUi(ackId, orgId, companyId) {
+  const a = _findAlert(ackId, orgId);
+  const oId = orgId || (a && a.orgId) || null, cId = companyId || (a && a.companyId) || null;
+  acknowledgeAlert(ackId, _ackMetaFrom(a), oId, cId).then(() => {
     try { _addNotifSeen([ackId]); } catch (e) {}
     try { pmToast('Alert acknowledged'); } catch (e) {}
+    try { if (oId) _markOrgAlertAcked(oId, ackId); } catch (e) {}
     try { refreshDerivedNotifs(); } catch (e) {}
     try { if (document.getElementById('expiryAlertsBody')) renderExpiryPopupBody(); } catch (e) {}
+    try { if (oId) _renderOrgAlertStrip(oId); } catch (e) {}
     try { if (document.getElementById('tab-premarket') && document.getElementById('tab-premarket').classList.contains('active')) renderNotifications(); } catch (e) {}
   }).catch(() => { try { pmToast('Could not acknowledge — try again.'); } catch (e) {} });
 }
+// Unacknowledged deadlines for the CURRENT context — the active company, or (on the hub) the whole org.
+function _currentExpiryUnacked() { return (!ACTIVE_COMPANY && _hubOrgId) ? _orgAlertsUnacked(_hubOrgId) : _expiryUnacked(); }
 function acknowledgeAllExpiry() {
-  const list = _expiryUnacked(); if (!list.length) return;
-  Promise.all(list.map(a => acknowledgeAlert(a.ackId, { module: a.module, refId: a.loanId, tier: a.tier, dueDate: a.dueDate, title: (a.title || '').slice(0, 140) })))
-    .then(() => { try { refreshDerivedNotifs(); } catch (e) {} try { renderExpiryPopupBody(); } catch (e) {} try { pmToast('All alerts acknowledged'); } catch (e) {} });
+  const list = _currentExpiryUnacked(); if (!list.length) return;
+  Promise.all(list.map(a => acknowledgeAlert(a.ackId, _ackMetaFrom(a), a.orgId, a.companyId)))
+    .then(() => {
+      try { list.forEach(a => { if (a.orgId) _markOrgAlertAcked(a.orgId, a.ackId); }); } catch (e) {}
+      try { refreshDerivedNotifs(); } catch (e) {}
+      try { renderExpiryPopupBody(); } catch (e) {}
+      try { if (!ACTIVE_COMPANY && _hubOrgId) _renderOrgAlertStrip(_hubOrgId); } catch (e) {}
+      try { pmToast('All alerts acknowledged'); } catch (e) {}
+    });
 }
-// ── Daily popup: surface unacknowledged deadlines once per day per company (recurs until acknowledged) ──
-function _expiryPopupKey() { return 'expiryPopSeen:' + (ACTIVE_COMPANY || '') + ':' + new Date().toISOString().slice(0, 10); }
+// ── Daily popup: surface unacknowledged deadlines once per day (per company, or org-wide on the hub) ──
+function _expiryPopupKey() { const scope = (!ACTIVE_COMPANY && _hubOrgId) ? ('org:' + _hubOrgId) : (ACTIVE_COMPANY || ''); return 'expiryPopSeen:' + scope + ':' + new Date().toISOString().slice(0, 10); }
 function _maybeShowExpiryPopup() {
-  if (!ACTIVE_ORG || !ACTIVE_COMPANY || !_alertAcksLoaded) return;
-  if (!canRead('loans')) return;
+  const hub = !ACTIVE_COMPANY && _hubOrgId;
+  if (hub) { if (!_orgAlertsCache[_hubOrgId]) return; }                 // org alerts not loaded yet — retry on a later load
+  else { if (!ACTIVE_ORG || !ACTIVE_COMPANY || !_alertAcksLoaded || !canRead('loans')) return; }
   try { if (localStorage.getItem(_expiryPopupKey())) return; } catch (e) {}
-  if (!_expiryUnacked().length) return;
+  if (!_currentExpiryUnacked().length) return;
   try { if (!document.getElementById('modalOverlay').classList.contains('hidden')) return; } catch (e) {}   // a modal is open — defer (do NOT burn today's flag), retry on a later snapshot
   try { localStorage.setItem(_expiryPopupKey(), '1'); } catch (e) {}   // mark seen only once we actually open it
   openModal('expiryAlerts');
 }
 function renderExpiryPopupBody() {
   const el = document.getElementById('expiryAlertsBody'); if (!el) return;
-  const list = _expiryUnacked();
+  const list = _currentExpiryUnacked();
   if (!list.length) { el.innerHTML = '<div class="pf-filter-note">All deadlines acknowledged — you’re all caught up. 🎉</div>'; return; }
   el.innerHTML = list.map(a => {
     const t = ALERT_TIERS[a.tier] || {};
+    const viewBtn = a.companyId
+      ? '<button class="pf-btn" style="padding:4px 10px;font-size:12px" onclick="_openLoanAcrossCompany(\'' + escHtml(a.orgId) + '\',\'' + escHtml(a.companyId) + '\',\'' + escHtml(a.loanId) + '\')">View loan</button>'
+      : '<button class="pf-btn" style="padding:4px 10px;font-size:12px" onclick="closeModal();sw(\'loans\');openLoan(\'' + escHtml(a.loanId) + '\')">View loan</button>';
     return '<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border-soft)">' +
       '<span class="badge ' + t.badge + '" style="margin-top:2px;white-space:nowrap">' + t.label + '</span>' +
       '<div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px">' + escHtml(a.title) + '</div><div class="ht-sub" style="margin-top:2px">' + escHtml(a.body) + '</div>' +
-      '<div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap"><button class="pf-btn pf-btn-outline" style="padding:4px 10px;font-size:12px" onclick="acknowledgeAlertUi(\'' + escHtml(a.ackId) + '\')">Acknowledge</button><button class="pf-btn" style="padding:4px 10px;font-size:12px" onclick="closeModal();sw(\'loans\');openLoan(\'' + escHtml(a.loanId) + '\')">View loan</button></div></div></div>';
+      '<div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap"><button class="pf-btn pf-btn-outline" style="padding:4px 10px;font-size:12px" onclick="acknowledgeAlertUi(\'' + escHtml(a.ackId) + '\',\'' + escHtml(a.orgId || '') + '\',\'' + escHtml(a.companyId || '') + '\')">Acknowledge</button>' + viewBtn + '</div></div></div>';
   }).join('');
 }
 
