@@ -2326,55 +2326,53 @@ async function _aggregateCompany(orgId, companyId, companyName, industry) {
   let coVal = 0, coInv = 0, coHold = 0, coOut = 0, coLoans = 0, coBorrow = 0, coLent = 0, coMonthly = 0,
       coActive = 0, coClosed = 0, coDue30 = 0, coDue60 = 0, coDue90 = 0, coOverdue = 0, coIntPay = 0, coIntRecv = 0;
   let hiRate = null; const maturities = [];
-  try {
-    const pfs = await coRef.collection('portfolios').get();
-    for (const pd of pfs.docs) {
-      const lots = await coRef.collection('holdings').doc(pd.id).collection('lots').get();
-      lots.docs.forEach(ld => { const h = ld.data() || {}; const qty = parseFloat(h.qty) || 0, bp = parseFloat(h.buy_price) || 0; coInv += qty * bp; const le = liveEntry(h.ticker), sd = scanStockFor(h.ticker); const px = (le && le.price) || (sd && parseFloat(sd.price)) || bp; coVal += qty * px; coHold++; });
+  // Read all of this company's collections IN PARALLEL (was 4+ sequential round-trips per company — the main
+  // cause of the slow org dashboard). Each read is independent; holdings lots are then also read in parallel.
+  const [pfsSnap, lnsSnap, asnap, fsnap] = await Promise.all([
+    coRef.collection('portfolios').get().catch(() => null),
+    coRef.collection('loans').get().catch(() => null),
+    coRef.collection('assets').get().catch(() => null),
+    coRef.collection('financials').get().catch(() => null)
+  ]);
+  // Trading: value each portfolio's lots (all lot reads fire in parallel, not one portfolio at a time).
+  if (pfsSnap && pfsSnap.docs.length) {
+    try {
+      const lotsSnaps = await Promise.all(pfsSnap.docs.map(pd => coRef.collection('holdings').doc(pd.id).collection('lots').get().catch(() => null)));
+      lotsSnaps.forEach(lots => { if (!lots) return; lots.docs.forEach(ld => { const h = ld.data() || {}; const qty = parseFloat(h.qty) || 0, bp = parseFloat(h.buy_price) || 0; coInv += qty * bp; const le = liveEntry(h.ticker), sd = scanStockFor(h.ticker); const px = (le && le.price) || (sd && parseFloat(sd.price)) || bp; coVal += qty * px; coHold++; }); });
+    } catch (e) {}
+  }
+  if (lnsSnap) lnsSnap.docs.forEach(ld => {
+    const l = ld.data() || {}; coLoans++;
+    const p = loanNum(l.principal), oi = loanOutstandingInterest(l) || 0, act = loanIsActive(l);
+    coOut += loanOutstanding(l);
+    if (l.type === 'lent') { coLent += p; if (act) coIntRecv += oi; }
+    else { coBorrow += p; if (act) { coIntPay += oi; coMonthly += loanMonthlyObligation(l); } }
+    if (l.status === 'closed' || l.status === 'paid_off') coClosed++; else coActive++;
+    if (act) {
+      const rate = loanNum(l.rate);
+      if (rate > 0 && (!hiRate || rate > hiRate.rate)) hiRate = { rate, name: loanTitle(l), company: companyName, id: ld.id };
+      const np = loanNextPayment(l), dp = daysUntil(np), dm = daysUntil(l.maturityDate);
+      if (dp != null && dp < 0) coOverdue++;
+      if (dp != null && dp >= 0) { if (dp <= 30) coDue30++; if (dp <= 60) coDue60++; if (dp <= 90) coDue90++; }
+      if (dm != null && dm >= 0 && dm <= 60) maturities.push({ name: loanTitle(l), company: companyName, id: ld.id, d: dm });
     }
-  } catch (e) {}
-  try {
-    const lns = await coRef.collection('loans').get();
-    lns.docs.forEach(ld => {
-      const l = ld.data() || {}; coLoans++;
-      const p = loanNum(l.principal), oi = loanOutstandingInterest(l) || 0, act = loanIsActive(l);
-      coOut += loanOutstanding(l);
-      if (l.type === 'lent') { coLent += p; if (act) coIntRecv += oi; }
-      else { coBorrow += p; if (act) { coIntPay += oi; coMonthly += loanMonthlyObligation(l); } }
-      if (l.status === 'closed' || l.status === 'paid_off') coClosed++; else coActive++;
-      if (act) {
-        const rate = loanNum(l.rate);
-        if (rate > 0 && (!hiRate || rate > hiRate.rate)) hiRate = { rate, name: loanTitle(l), company: companyName, id: ld.id };
-        const np = loanNextPayment(l), dp = daysUntil(np), dm = daysUntil(l.maturityDate);
-        if (dp != null && dp < 0) coOverdue++;
-        if (dp != null && dp >= 0) { if (dp <= 30) coDue30++; if (dp <= 60) coDue60++; if (dp <= 90) coDue90++; }
-        if (dm != null && dm >= 0 && dm <= 60) maturities.push({ name: loanTitle(l), company: companyName, id: ld.id, d: dm });
-      }
-    });
-  } catch (e) {}
-  // Assets: total value, cash (bank accounts), real estate + a by-category map and a real-estate item list
-  // (both feed the consolidated org dashboard). Net worth = assets − loan outstanding (liabilities).
+  });
+  // Assets: total value, cash (bank accounts), real estate + a by-category map and a real-estate item list.
   let coAssets = 0, coCash = 0, coRealEstate = 0, coAssetCount = 0;
   const coAssetsByCat = {}, coREItems = [];
-  try {
-    const asnap = await coRef.collection('assets').get();
-    asnap.docs.forEach(ad => { const a = ad.data() || {}; const v = ccyNum(a.currentValue) || 0; coAssets += v; coAssetCount++; const cat = a.category || 'other'; coAssetsByCat[cat] = (coAssetsByCat[cat] || 0) + v; if (cat === 'bank') coCash += v; if (cat === 'land' || cat === 'commercial' || cat === 'residential' || cat === 'luxury') { coRealEstate += v; coREItems.push({ name: a.name || 'Property', company: companyName, category: cat, marketValue: v, purchasePrice: (a.purchasePrice != null && a.purchasePrice !== '') ? ccyNum(a.purchasePrice) : null }); } });
-  } catch (e) {}
+  if (asnap) asnap.docs.forEach(ad => { const a = ad.data() || {}; const v = ccyNum(a.currentValue) || 0; coAssets += v; coAssetCount++; const cat = a.category || 'other'; coAssetsByCat[cat] = (coAssetsByCat[cat] || 0) + v; if (cat === 'bank') coCash += v; if (cat === 'land' || cat === 'commercial' || cat === 'residential' || cat === 'luxury') { coRealEstate += v; coREItems.push({ name: a.name || 'Property', company: companyName, category: cat, marketValue: v, purchasePrice: (a.purchasePrice != null && a.purchasePrice !== '') ? ccyNum(a.purchasePrice) : null }); } });
   const coLiabilities = coOut;                 // outstanding loan principal
   const coNetWorth = coAssets - coLiabilities;
   // Financial Statements: latest period's income summary (revenue / expenses / net profit / EBITDA + margin).
   let coRevenue = 0, coExpenses = 0, coGrossProfit = 0, coNetProfit = 0, coEBITDA = 0, coNetMargin = null, coHasFin = false, coPeriodLabel = '', coPeriodType = '', coFactor = 1;
-  try {
-    const fsnap = await coRef.collection('financials').get();
-    if (!fsnap.empty) {
-      const fdocs = fsnap.docs.map(d => ({ id: d.id, ...d.data() }));
-      fdocs.sort((a, b) => _finSortKey(b) - _finSortKey(a));
-      const latest = fdocs[0], cc = finCompute(latest);
-      coRevenue = cc.revenue; coGrossProfit = cc.grossProfit; coNetProfit = cc.netProfit; coEBITDA = cc.ebitda;
-      coExpenses = cc.cogs + cc.opex + cc.otherExp + cc.tax; coNetMargin = cc.netMargin;
-      coHasFin = true; coPeriodLabel = finPeriodLabel(latest); coPeriodType = latest.periodType || 'year'; coFactor = finFactor(latest);
-    }
-  } catch (e) {}
+  if (fsnap && !fsnap.empty) {
+    const fdocs = fsnap.docs.map(d => ({ id: d.id, ...d.data() }));
+    fdocs.sort((a, b) => _finSortKey(b) - _finSortKey(a));
+    const latest = fdocs[0], cc = finCompute(latest);
+    coRevenue = cc.revenue; coGrossProfit = cc.grossProfit; coNetProfit = cc.netProfit; coEBITDA = cc.ebitda;
+    coExpenses = cc.cogs + cc.opex + cc.otherExp + cc.tax; coNetMargin = cc.netMargin;
+    coHasFin = true; coPeriodLabel = finPeriodLabel(latest); coPeriodType = latest.periodType || 'year'; coFactor = finFactor(latest);
+  }
   // Annualized run-rate variants → a comparable cross-company rollup (quarter×4, month×12, year×1).
   const coRevenueAnn = coRevenue * coFactor, coNetProfitAnn = coNetProfit * coFactor, coEBITDAAnn = coEBITDA * coFactor, coGrossProfitAnn = coGrossProfit * coFactor;
   const coEquity = coNetWorth;
@@ -2383,15 +2381,20 @@ async function _aggregateCompany(orgId, companyId, companyName, industry) {
   return { coVal, coInv, coHold, coOut, coLoans, coBorrow, coLent, coMonthly, coActive, coClosed, coDue30, coDue60, coDue90, coOverdue, coIntPay, coIntRecv, hiRate, maturities, coAssets, coCash, coRealEstate, coAssetCount, coAssetsByCat, coREItems, coLiabilities, coNetWorth, coRevenue, coExpenses, coGrossProfit, coNetProfit, coEBITDA, coNetMargin, coHasFin, coPeriodLabel, coPeriodType, coFactor, coRevenueAnn, coNetProfitAnn, coEBITDAAnn, coGrossProfitAnn, coEquity, coDscr, coHealth };
 }
 let _orgSnap = null;   // last consolidated org aggregate — powers the org-level AI assistant on the hub
+let _orgDashSeq = 0; const _orgDashCache = {};   // stale-while-revalidate: instant repaint from the last render
 async function renderOrgDashboard(orgId, host) {
   orgId = orgId || ACTIVE_ORG;
   const el = host || document.getElementById('orgDashBody'); if (!el) return;
   const canView = isPlatformAdmin() || !!(_myOrgs[orgId] && _myOrgs[orgId].orgAdmin);
   if (!canView || !orgId) { el.innerHTML = emptyState('data', 'Org Admins only', 'Consolidated financials are visible to Org Admins and Super Admins.'); return; }
-  el.innerHTML = '<div class="pf-filter-note">Consolidating companies…</div>';
+  const reqId = ++_orgDashSeq;   // guard: a slower refresh must not overwrite a newer render (e.g. after switching org)
+  // Instant paint from the last render for this org while we refresh in the background (no full-page block).
+  if (_orgDashCache[orgId]) el.innerHTML = _orgDashCache[orgId];
+  else el.innerHTML = '<div class="pf-filter-note">Consolidating companies…</div>';
   let companies = [];
   try { const d = await _adminCall('orgListCompanies', { orgId: orgId }); companies = (d.companies || []).filter(c => c.active !== false); }
-  catch (e) { el.innerHTML = emptyState('data', "Couldn't load companies", escHtml(String(e.message || e))); return; }
+  catch (e) { if (!_orgDashCache[orgId]) el.innerHTML = emptyState('data', "Couldn't load companies", escHtml(String(e.message || e))); return; }
+  if (_orgDashSeq !== reqId) return;   // a newer render started — abandon this one
   if (!companies.length) {
     el.innerHTML = emptyState('briefcase', 'No active companies yet', 'Add a company to this organization (in the Companies tab) to see consolidated portfolio value, loans, and users across the whole organization here.');
     return;
@@ -2404,9 +2407,12 @@ async function renderOrgDashboard(orgId, host) {
   // Enterprise loan rollup — mirrors the company Loans dashboard, consolidated across every company.
   let entIntPayable = 0, entIntRecv = 0, entMonthlyOblig = 0, entActive = 0, entClosed = 0, entDue30 = 0, entDue60 = 0, entDue90 = 0, entOverdue = 0;
   let entHiRate = null; const entMaturities = [], loanRows = [];
-  for (const c of companies) {
+  // Aggregate every company IN PARALLEL (was awaited one at a time — with each company doing several reads,
+  // that made load time grow with company-count × reads-per-company; now it's ~one company's worth of latency).
+  const aggregates = await Promise.all(companies.map(c => _aggregateCompany(orgId, c.companyId, c.name, industry).catch(() => null)));
+  companies.forEach((c, i) => {
     totMembers += c.memberCount || 0;
-    const a = await _aggregateCompany(orgId, c.companyId, c.name, industry);
+    const a = aggregates[i]; if (!a) return;
     totPortfolio += a.coVal; totInvested += a.coInv; totHoldings += a.coHold; totOutstanding += a.coOut; totLoans += a.coLoans;
     totLent += a.coLent; totBorrowed += a.coBorrow; totAssets += a.coAssets; totCash += a.coCash;
     totRevenue += a.coRevenue; totNetProfit += a.coNetProfit; totEBITDA += a.coEBITDA; totGrossProfit += a.coGrossProfit; if (a.coHasFin) { anyFin = true; finTypes[a.coPeriodType] = (finTypes[a.coPeriodType] || 0) + 1; }
@@ -2420,7 +2426,7 @@ async function renderOrgDashboard(orgId, host) {
     a.maturities.forEach(m => entMaturities.push(m));
     rows.push({ name: c.name, members: c.memberCount || 0, revenue: a.coRevenue, netProfit: a.coNetProfit, assets: a.coAssets, debt: a.coLiabilities, netWorth: a.coNetWorth, hasFin: a.coHasFin, health: a.coHealth, periodLabel: a.coPeriodLabel, periodType: a.coPeriodType });
     loanRows.push({ name: c.name, borrowed: a.coBorrow, lent: a.coLent, outstanding: a.coOut, monthly: a.coMonthly, active: a.coActive, due: a.coDue30 });
-  }
+  });
   const totNetWorth = totAssets - totOutstanding;
   const hero = '<div class="dash-hero" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">' +
     _odCard('Total net worth', dollarFmt(totNetWorth), '(equity) · assets − loan debt') + _odCard('Total assets', dollarFmt(totAssets), totPortfolio > 0 ? 'excl. securities' : '') +
@@ -2534,7 +2540,10 @@ async function renderOrgDashboard(orgId, host) {
     avgHealth: avgHealth, avgBand: avgBand, anyFin: anyFin, totRevenueAnn: totRevenueAnn, totNetProfitAnn: totNetProfitAnn, totEBITDAAnn: totEBITDAAnn,
     atRisk: scored.filter(h => h.score < 40).length, noFin: rows.filter(r => !r.hasFin).length, entOverdue: entOverdue, entMonthlyOblig: entMonthlyOblig,
     rows: rows.map(r => ({ name: r.name, assets: r.assets, netWorth: r.netWorth, revenue: r.revenue, netProfit: r.netProfit, hasFin: r.hasFin, score: r.health && r.health.score != null ? r.health.score : null, band: r.health && r.health.band ? r.health.band : null })) };
-  el.innerHTML = hero + mini + execFin + assetSection + reSection + tbl + loanSection + _aiCfoCard('org', orgCfo) + '<div class="rng-advice-note">Balance sheet as of ' + fmtDate(todayStr()) + '. Net worth (equity) = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Consolidated from each company’s Assets, Loans and latest Financial Statements — informational only, not financial advice.</div>';
+  const finalHtml = hero + mini + execFin + assetSection + reSection + tbl + loanSection + _aiCfoCard('org', orgCfo) + '<div class="rng-advice-note">Balance sheet as of ' + fmtDate(todayStr()) + '. Net worth (equity) = assets − loan debt; it excludes payables, accrued tax and other non-loan liabilities. Consolidated from each company’s Assets, Loans and latest Financial Statements — informational only, not financial advice.</div>';
+  _orgDashCache[orgId] = finalHtml;   // cache for the next instant paint
+  if (_orgDashSeq !== reqId) return;  // a newer render started — don't clobber it
+  el.innerHTML = finalHtml;
 }
 // Single-COMPANY executive summary (the company-level dashboard). Reuses the exact per-company math via
 // _aggregateCompany, so its numbers match this company's row in the consolidated org dashboard.
