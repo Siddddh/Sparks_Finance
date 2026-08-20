@@ -87,6 +87,13 @@ service cloud.firestore {
           allow create, update: if coCanWrite(o, c, 'financials');
           allow delete: if coCanDelete(o, c, 'financials');
         }
+        // Expiry-alert acknowledgements (loan/note deadlines). Any member who can see loans may acknowledge
+        // (company-shared "seen/handled" state); clearing an acknowledgement needs loans-write.
+        match /alertAcks/{document=**} {
+          allow read: if coCanRead(o, c, 'loans');
+          allow create, update: if coCanRead(o, c, 'loans');
+          allow delete: if coCanWrite(o, c, 'loans');
+        }
       }
     }
 
